@@ -105,6 +105,21 @@ Bij een `vl-cascader-item`, kan je de slots invullen voor `content` en/of `label
 
 Zie de story onder [vl-cascader-item](/docs/components-block-cascader-cascader-item--documentatie) voor een voorbeeld.
 
+Plaats je een `vl-link` in het `label`-slot, geef die dan de class `vl-cascader-link`. Die class zorgt ervoor dat de
+link de volle breedte van het item inneemt en dat het pijltje rechts uitgelijnd staat, net zoals bij de
+`label`-attribuut-variant. Links in het `content`-slot krijgen die class niet en behouden hun natuurlijke breedte.
+
+```html
+<vl-cascader-item label="West-Vlaanderen">
+    <vl-link slot="label" bold button-as-link icon="arrow-right-fat" icon-placement="after" class="vl-cascader-link">
+        Provincie: West-Vlaanderen
+    </vl-link>
+</vl-cascader-item>
+```
+
+Dezelfde conventie geldt voor de links die je in een eigen [dynamische template](#dynamische-templates) of via
+[property-binding](#cascader-met-property-binding) rendert.
+
 ### Cascader met dynamisch ophalen van kind-elementen
 
 Het is ook mogelijk de data-structuur dynamisch op te bouwen door een `Promise<CascaderItem[]>` of functie te definiëren

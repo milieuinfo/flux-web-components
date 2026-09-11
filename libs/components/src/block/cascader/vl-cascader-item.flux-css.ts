@@ -15,7 +15,7 @@ export const vlCascaderItemFluxStyles: CSSResult = css`
         width: 100%;
     }
 
-    vl-link::part(button) {
+    .vl-cascader-link::part(button) {
         width: 100%;
         display: flex;
         justify-content: space-between;

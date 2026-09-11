@@ -51,7 +51,9 @@ export const cascaderItemArgTypes: ArgTypes<CascaderItemArgs> = {
     },
     labelSlot: {
         name: CASCADER_SLOTS.LABEL,
-        description: 'Een klik op deze inhoud zal de kind elementen weergeven.',
+        description:
+            'Een klik op deze inhoud zal de kind elementen weergeven. Geef een eigen vl-link' +
+            ' in dit slot de class vl-cascader-link om het pijltje rechts uit te lijnen.',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,

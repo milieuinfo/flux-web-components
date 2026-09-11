@@ -35,6 +35,26 @@ const mountWithSlots = (
     `);
 };
 
+const mountWithLabelSlotLink = (labelSlotText: string, contentSlotText: string) => {
+    cy.mount(html`
+        <vl-cascader>
+            <vl-cascader-item label="West-Vlaanderen">
+                <vl-link
+                    slot="label"
+                    bold
+                    button-as-link
+                    icon="arrow-right-fat"
+                    icon-placement="after"
+                    class="vl-cascader-link"
+                    >${labelSlotText}</vl-link
+                >
+                <vl-link slot="content" button-as-link>${contentSlotText}</vl-link>
+                <vl-cascader-item label="2e niveau"></vl-cascader-item>
+            </vl-cascader-item>
+        </vl-cascader>
+    `);
+};
+
 const mountWithPropertyBinding = (
     items: CascaderItem[],
     templates: Map<string, TemplateFn>,
@@ -299,6 +319,48 @@ describe('cypress-component - block components - vl-cascader - slots', () => {
     });
 });
 
+describe('cypress-component - block components - vl-cascader - link in label slot', () => {
+    const label = 'West-Vlaanderen';
+    const labelSlotText = 'Provincie: West-Vlaanderen';
+    const contentSlotText = 'Meer info over West-Vlaanderen';
+
+    const getButtonPartOfLink = (selector: string) =>
+        getCascaderNodeByLabel(label).find(selector).shadow().find('button');
+
+    const getNodeWidth = ($element: JQuery<HTMLElement>) => $element[0].getBoundingClientRect().width;
+
+    beforeEach(() => {
+        mountWithLabelSlotLink(labelSlotText, contentSlotText);
+    });
+
+    testMountAndAccessibility();
+
+    it('should stretch a slotted vl-cascader-link over the full width', () => {
+        getCascaderNodeByLabel(label).then(($item) => {
+            const itemWidth = getNodeWidth($item);
+
+            getButtonPartOfLink('vl-link.vl-cascader-link')
+                .should('have.css', 'display', 'flex')
+                .and('have.css', 'justify-content', 'space-between')
+                .then(($button) => {
+                    expect(getNodeWidth($button)).to.be.closeTo(itemWidth, 1);
+                });
+        });
+    });
+
+    it('should not stretch a link in the content slot', () => {
+        getCascaderNodeByLabel(label).then(($item) => {
+            const itemWidth = getNodeWidth($item);
+
+            getButtonPartOfLink('vl-link[slot="content"]')
+                .should('not.have.css', 'justify-content', 'space-between')
+                .then(($button) => {
+                    expect(getNodeWidth($button)).to.be.lessThan(itemWidth);
+                });
+        });
+    });
+});
+
 describe('cypress-component - block components - vl-cascader - property binding', () => {
     const vlaamseProvincies = nodeData[0].children;
 
@@ -335,6 +397,17 @@ describe('cypress-component - block components - vl-cascader - property binding'
         getCascaderItemByLabel(limburg.label)
             .should('contain.text', 'Bekijk deelgemeentes')
             .and('contain.text', limburg.children?.length);
+    });
+
+    it('should stretch a templated vl-cascader-link over the full width', () => {
+        const antwerpen = vlaamseProvincies![0];
+
+        getCascaderItemByLabel(antwerpen.label)
+            .find('vl-link.vl-cascader-link')
+            .shadow()
+            .find('button')
+            .should('have.css', 'display', 'flex')
+            .and('have.css', 'justify-content', 'space-between');
     });
 
     it('should dynamically load children', () => {
