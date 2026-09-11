@@ -57,6 +57,10 @@ export class VlCascaderComponent extends BaseLitElement {
         return [resetStyle, breadcrumbStyle, vlCascaderFluxStyles, vlTitleStyles, vlLayoutStyles];
     }
 
+    private get navigationLevelElement(): HTMLElement | null | undefined {
+        return this.shadowRoot?.querySelector<HTMLElement>('.content section');
+    }
+
     get items(): CascaderItem[] {
         return this.nodeData;
     }
@@ -87,6 +91,7 @@ export class VlCascaderComponent extends BaseLitElement {
             this.nodeData = children;
             this.slidingIn = true;
             this.requestUpdate();
+            await this.focusNavigationLevel();
         } else if (narrowDown && this.itemListFn) {
             this.loading = true;
             this.pushItemStack(label, this.nodeData);
@@ -95,6 +100,7 @@ export class VlCascaderComponent extends BaseLitElement {
             this.loading = false;
             this.slidingIn = true;
             this.requestUpdate();
+            await this.focusNavigationLevel();
         }
     };
 
@@ -116,7 +122,11 @@ export class VlCascaderComponent extends BaseLitElement {
             <div>
                 ${this.renderBreadcrumb()} ${this.renderHeader()}
                 <div class="content">
-                    <section class=${classMap(navSectionClasses)} @animationend=${this.handleAnimationEnd}>
+                    <section
+                        tabindex="-1"
+                        class=${classMap(navSectionClasses)}
+                        @animationend=${this.handleAnimationEnd}
+                    >
                         ${!this.loading
                             ? this.nodeData?.map(this.renderItem)
                             : html` <vl-loader text=${this.loadingMessage}></vl-loader> `}
@@ -167,6 +177,16 @@ export class VlCascaderComponent extends BaseLitElement {
             this.popItemStack();
         }
         this.requestUpdate();
+        this.focusNavigationLevel();
+    }
+
+    /**
+     * Bij een niveauwissel verdwijnt het gefocuste item uit de DOM; zonder deze verplaatsing valt de focus
+     * terug op body en verliest een toetsenbordgebruiker zijn plaats in de cascader.
+     */
+    private async focusNavigationLevel(): Promise<void> {
+        await this.updateComplete;
+        this.navigationLevelElement?.focus();
     }
 
     private handleBreadcrumbClick = (index: number, label?: string) => {

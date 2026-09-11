@@ -22,6 +22,17 @@ rechts uitgelijnde modal lijkt op een side-sheet, maar legt wél een overlay ove
 volledige keuzekader.
 
 
+## Eén side-sheet per pagina
+
+Render nooit meer dan één `side-sheet` tegelijk, ook geen bijkomende verborgen exemplaren. Een open `side-sheet` houdt
+op een mobiel scherm de focus bij zijn eigen inhoud. Staan er twee open, dan proberen ze allebei de focus naar zich toe
+te trekken en wordt het onvoorspelbaar waar de gebruiker terechtkomt. De component vangt de ergste gevolgen op, zodat
+een bestaande toepassing niet vastloopt, maar de focusvolgorde klopt dan niet meer.
+
+Heb je meerdere panelen nodig, wissel dan de inhoud van dezelfde `side-sheet`, of sluit het ene paneel voor je het
+andere opent.
+
+
 ## Voorbeeld
 
 ```js
@@ -73,6 +84,13 @@ stelt de `width` in voor het component.
     --vl-side-sheet-width-mobile: 100%; /* voor mobile */
 }
 ```
+
+**Let op:** de toggle knop staat bij een open `side-sheet` naast de `side-sheet`. De standaardbreedte op mobile
+(`calc(100vw - 56px)`) laat daar net plaats voor. Stel je `--vl-side-sheet-width-mobile` in op `100%`, dan valt de
+toggle knop buiten het scherm en kan de gebruiker de `side-sheet` er niet meer mee sluiten. Voorzie in dat geval zelf
+een sluitknop in de `side-sheet` die `close()` aanroept, zoals in het
+[voorbeeld van buitenaf openen & sluiten](#voorbeeld-van-buitenaf-openen--sluiten). Geef die knop een toegankelijke
+naam, bijvoorbeeld `label="Sluit de side-sheet"` bij een knop met enkel een icoon.
 
 ### Openen en sluiten zonder knop
 

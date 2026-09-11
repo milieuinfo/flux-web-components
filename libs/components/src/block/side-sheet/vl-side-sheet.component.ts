@@ -17,6 +17,10 @@ export class VlSideSheet extends BaseHTMLElement {
     protected _onClose: (() => void) | undefined;
     protected _handleEsc: ((event: KeyboardEvent) => void) | undefined;
     private swipeDetect: typeof swipeDetect;
+    // _openChangedCallback draait ook bij de initiele attribuutverwerking, dus zonder deze vlag zou een gesloten
+    // side-sheet bij page load de focus naar de toggle button trekken.
+    private wasOpen = false;
+    private elementFocusedBeforeOpen: HTMLElement | null = null;
 
     static {
         registerWebComponents([VlButtonComponent]);
@@ -26,6 +30,7 @@ export class VlSideSheet extends BaseHTMLElement {
     constructor(style = '') {
         const html = `
             <div id="vl-side-sheet-container">
+                <span id="vl-side-sheet-focus-guard-start" class="vl-side-sheet__focus-guard" tabindex="0"></span>
                 <vl-button aria-expanded="false"
                            aria-controls="vl-side-sheet"
                            icon="nav-left"
@@ -43,6 +48,7 @@ export class VlSideSheet extends BaseHTMLElement {
                         </div>
                     </section>
                 </div>
+                <span id="vl-side-sheet-focus-guard-end" class="vl-side-sheet__focus-guard" tabindex="0"></span>
             </div>
         `;
         const styleSheets = [
@@ -141,24 +147,116 @@ export class VlSideSheet extends BaseHTMLElement {
         return this._shadow?.querySelector<VlTooltipComponent>('vl-tooltip[for="toggle-button"]');
     }
 
+    get _focusGuardStart() {
+        return this._shadow?.querySelector<HTMLElement>('#vl-side-sheet-focus-guard-start');
+    }
+
+    get _focusGuardEnd() {
+        return this._shadow?.querySelector<HTMLElement>('#vl-side-sheet-focus-guard-end');
+    }
+
     _focusToggleButton() {
         this._toggleButton?.shadowRoot?.querySelector('button')?.focus();
     }
 
+    // Een toggle button is onbruikbaar als hij verborgen is, of als hij bij een open side-sheet volledig naast het scherm
+    // valt (bv. bij --vl-side-sheet-width-mobile: 100%). Enkel horizontaal: een fixed toggle button scrollt niet in beeld.
+    _isToggleButtonUsable(): boolean {
+        if (this.hideToggleButton !== null) {
+            return false;
+        }
+        if (!this.isOpen || !this.isConnected) {
+            return true;
+        }
+        const { left, right } = this._toggleButton!.getBoundingClientRect();
+        return right > 0 && left < window.innerWidth;
+    }
+
+    // Een shadow host met negatieve tabindex haalt zijn volledige shadow tree uit de tabvolgorde, waardoor een
+    // onbruikbare toggle button geen onzichtbare tab-stop wordt.
+    _updateToggleButtonTabindex = () => {
+        if (this._isToggleButtonUsable()) {
+            this._toggleButton?.removeAttribute('tabindex');
+        } else {
+            this._toggleButton?.setAttribute('tabindex', '-1');
+        }
+    };
+
+    // De focus guards zijn enkel focusbaar op een mobiel scherm bij een open side-sheet (zie flux-css).
+    // Tab na het laatste element van de inhoud landt op de eind-guard en gaat door naar de toggle button, of bij een
+    // onbruikbare toggle button terug naar het eerste element van de inhoud.
+    _handleFocusGuardEnd = () => {
+        if (this._isToggleButtonUsable()) {
+            this._focusToggleButton();
+        } else {
+            this._focusFirstFocusable(this._getTabbableCandidates(this._sheetElement!), this._focusGuardEnd!);
+        }
+    };
+
+    // Shift+Tab vanaf de toggle button (of bij een onbruikbare toggle button vanaf het eerste element) landt op de
+    // start-guard en gaat door naar het laatste element van de inhoud.
+    _handleFocusGuardStart = () => {
+        this._focusFirstFocusable(this._getTabbableCandidates(this._sheetElement!).reverse(), this._focusGuardStart!);
+    };
+
+    // focus() faalt stil op elementen die niet focusbaar zijn (verborgen, disabled, ...), dus we proberen de
+    // kandidaten in volgorde tot er één de focus effectief overneemt van de guard.
+    _focusFirstFocusable(candidates: HTMLElement[], guard: HTMLElement) {
+        const focused = candidates.some((candidate) => {
+            candidate.focus();
+            return !guard.matches(':focus');
+        });
+        if (focused) {
+            return;
+        }
+        if (this._isToggleButtonUsable()) {
+            this._focusToggleButton();
+        } else {
+            this._sheetElement?.focus();
+        }
+    }
+
+    // document.activeElement stopt aan de eerste shadow host; focus() op zo'n host doet niets.
+    _getDeepActiveElement(): HTMLElement | null {
+        let active = document.activeElement;
+        while (active?.shadowRoot?.activeElement) {
+            active = active.shadowRoot.activeElement;
+        }
+        return active instanceof HTMLElement ? active : null;
+    }
+
+    // Doorloopt de flattened tree: slots via hun toegewezen elementen, shadow hosts via hun shadow root.
+    _getTabbableCandidates(root: Element): HTMLElement[] {
+        const children =
+            root instanceof HTMLSlotElement
+                ? root.assignedElements({ flatten: true })
+                : Array.from((root.shadowRoot ?? root).children);
+        return children.flatMap((child) => [
+            ...(child instanceof HTMLElement && child.tabIndex >= 0 ? [child] : []),
+            ...this._getTabbableCandidates(child),
+        ]);
+    }
+
+    // Gebonden op focusin en niet op focusout: enkel focusin kent het element dat de focus krijgt, waardoor
+    // composedPath() effectief uitsluitsel geeft over "binnen of buiten de side-sheet".
     _focusTrap = (event: FocusEvent) => {
         if (window.innerWidth > vlMediaScreenSmall) {
             return;
         }
 
-        const next = event.relatedTarget;
         const path = event.composedPath();
-        const stillInside = path.includes(this._container);
-
-        if (!next || !stillInside) {
-            requestAnimationFrame(() => {
-                this._toggleButton?.shadowRoot?.querySelector('button')?.focus();
-            });
+        if (path.includes(this._container)) {
+            return;
         }
+
+        // Meerdere side-sheets tegelijk is een anti-pattern (zie de documentatie), maar de traps mogen de focus niet
+        // van elkaar blijven wegtrekken: een andere open side-sheet mag ze houden. vl-map-side-sheet erft van deze
+        // klasse en valt dus onder dezelfde controle.
+        if (path.some((target) => target instanceof VlSideSheet && target !== this && target.isOpen)) {
+            return;
+        }
+
+        this._sheetElement?.focus();
     };
 
     connectedCallback() {
@@ -180,7 +278,10 @@ export class VlSideSheet extends BaseHTMLElement {
         };
         this.addEventListener('keydown', this._handleEsc);
 
-        this._sheetElement?.addEventListener('focusout', this._focusToggleButton);
+        this._focusGuardStart?.addEventListener('focus', this._handleFocusGuardStart);
+        this._focusGuardEnd?.addEventListener('focus', this._handleFocusGuardEnd);
+        // Een side-sheet die al open is vóór hij in de DOM hangt, kon zijn toggle button nog niet opmeten.
+        this._updateToggleButtonTabindex();
     }
 
     disconnectedCallback() {
@@ -189,8 +290,10 @@ export class VlSideSheet extends BaseHTMLElement {
             this.removeEventListener('keydown', this._handleEsc);
         }
 
-        this._sheetElement?.removeEventListener('focusout', this._focusToggleButton);
-        this._container.removeEventListener('focusout', this._focusTrap);
+        this._focusGuardStart?.removeEventListener('focus', this._handleFocusGuardStart);
+        this._focusGuardEnd?.removeEventListener('focus', this._handleFocusGuardEnd);
+        document.removeEventListener('focusin', this._focusTrap);
+        window.removeEventListener('resize', this._updateToggleButtonTabindex);
     }
 
     /**
@@ -216,6 +319,10 @@ export class VlSideSheet extends BaseHTMLElement {
     }
 
     _handleOnOpen() {
+        if (!this.wasOpen) {
+            this.elementFocusedBeforeOpen = this._getDeepActiveElement();
+        }
+        this.wasOpen = true;
         this._toggleButton?.setAttribute('aria-expanded', 'true');
         let openIcon: string;
         if (!this.customIcon) {
@@ -224,7 +331,9 @@ export class VlSideSheet extends BaseHTMLElement {
             openIcon = this.customIcon;
         }
         this._sheetElement?.focus();
-        this._container.addEventListener('focusout', this._focusTrap);
+        document.addEventListener('focusin', this._focusTrap);
+        this._updateToggleButtonTabindex();
+        window.addEventListener('resize', this._updateToggleButtonTabindex);
         this._toggleButton?.setAttribute('icon', openIcon);
     }
 
@@ -235,10 +344,11 @@ export class VlSideSheet extends BaseHTMLElement {
      */
     close() {
         this.removeAttribute('open');
-        this._handleOnClose();
     }
 
     _handleOnClose() {
+        const wasOpen = this.wasOpen;
+        this.wasOpen = false;
         this._toggleButton?.setAttribute('aria-expanded', 'false');
         let closeIcon: string;
         if (!this.customIcon) {
@@ -247,8 +357,16 @@ export class VlSideSheet extends BaseHTMLElement {
             closeIcon = this.customIcon;
         }
         this._toggleButton?.setAttribute('icon', closeIcon);
-        this._container.removeEventListener('focusout', this._focusTrap);
-        this._toggleButton?.shadowRoot?.querySelector('button')?.focus();
+        document.removeEventListener('focusin', this._focusTrap);
+        window.removeEventListener('resize', this._updateToggleButtonTabindex);
+        this._updateToggleButtonTabindex();
+        if (wasOpen && this.hideToggleButton === null) {
+            this._focusToggleButton();
+        } else if (wasOpen) {
+            // Een verborgen toggle button krijgt geen focus; die gaat terug naar waar ze vóór het openen stond.
+            this.elementFocusedBeforeOpen?.focus();
+        }
+        this.elementFocusedBeforeOpen = null;
         if (this._onClose) {
             this._onClose();
         }
@@ -328,6 +446,7 @@ export class VlSideSheet extends BaseHTMLElement {
         } else {
             this._toggleButton?.classList.remove('vl-visually-hidden');
         }
+        this._updateToggleButtonTabindex();
     }
 
     _customIconChangedCallback(oldValue: string, newValue: string) {

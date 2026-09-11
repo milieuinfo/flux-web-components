@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { VlSideSheet } from './vl-side-sheet.component';
 
 registerWebComponents([VlSideSheet]);
@@ -203,6 +203,337 @@ describe('cypress-component - block components - vl-side-sheet', () => {
             .and('have.class', 'vl-icon--nav-left');
     });
 });
+
+describe('cypress-component - block components - vl-side-sheet - focus management', () => {
+    it('should keep focus inside the side-sheet when tabbing on a desktop viewport', () => {
+        cy.viewport(DESKTOP_VIEWPORT.width, DESKTOP_VIEWPORT.height);
+        mountWithFocusableContent({ open: true });
+
+        cy.get('#first-action').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        cy.get('#second-action').should('have.focus');
+    });
+
+    it('should keep focus inside the side-sheet when tabbing on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountWithFocusableContent({ open: true });
+
+        cy.get('#first-action').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        cy.get('#second-action').should('have.focus');
+    });
+
+    it('should move focus to the toggle button when tabbing past the last element on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountWithFocusableContent({ open: true });
+
+        cy.get('#second-action').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        shouldFocusToggleButton(true);
+    });
+
+    it('should move focus outside the side-sheet when tabbing past the last element on a desktop viewport', () => {
+        cy.viewport(DESKTOP_VIEWPORT.width, DESKTOP_VIEWPORT.height);
+        mountWithFocusableContent({ open: true });
+
+        cy.get('#second-action').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        cy.get('#outside-action').should('have.focus');
+    });
+
+    it('should move focus to the first element when tabbing from the toggle button on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountWithFocusableContent({ open: true });
+
+        focusToggleButton();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        cy.get('#first-action').should('have.focus');
+    });
+
+    it('should move focus to the first element when tabbing from the toggle button on a desktop viewport', () => {
+        cy.viewport(DESKTOP_VIEWPORT.width, DESKTOP_VIEWPORT.height);
+        mountWithFocusableContent({ open: true });
+
+        focusToggleButton();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        cy.get('#first-action').should('have.focus');
+    });
+
+    it('should move focus to the last element when shift-tabbing from the toggle button on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountWithFocusableContent({ open: true });
+
+        focusToggleButton();
+        pressShiftTab();
+
+        cy.get('#second-action').should('have.focus');
+    });
+
+    it('should move focus to a last element inside a shadow root when shift-tabbing from the toggle button on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        cy.mount(html`
+            <vl-side-sheet open>
+                <button id="first-action" type="button">eerste actie</button>
+                <vl-button id="last-action">laatste actie</vl-button>
+                <button type="button" hidden>verborgen actie</button>
+            </vl-side-sheet>
+        `);
+        cy.get('#last-action').shadow().find('button').should('exist');
+
+        focusToggleButton();
+        pressShiftTab();
+
+        cy.get('#last-action').shadow().find('button').should('have.focus');
+    });
+
+    it('should keep focus on the toggle button when tabbing on a mobile viewport without focusable content', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        cy.mount(html`
+            <vl-side-sheet open><p>geen focusbare inhoud</p></vl-side-sheet>
+            <button id="outside-action" type="button">actie buiten de side-sheet</button>
+        `);
+        cy.get('vl-side-sheet').shadow().find('vl-button').shadow().find('button').should('exist');
+
+        focusToggleButton();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        shouldFocusToggleButton(true);
+
+        pressShiftTab();
+        shouldFocusToggleButton(true);
+    });
+
+    it('should move focus to the first element when tabbing past the last element with a hidden toggle button on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountWithFocusableContent({ open: true, hideToggleButton: true });
+
+        cy.get('#second-action').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        cy.get('#first-action').should('have.focus');
+        shouldFocusToggleButton(false);
+    });
+
+    it('should move focus to the last element when shift-tabbing from the first element with a hidden toggle button on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountWithFocusableContent({ open: true, hideToggleButton: true });
+
+        cy.get('#first-action').focus();
+        pressShiftTab();
+
+        cy.get('#second-action').should('have.focus');
+        shouldFocusToggleButton(false);
+    });
+
+    it('should not move focus to a hidden toggle button when shift-tabbing from the first element on a desktop viewport', () => {
+        cy.viewport(DESKTOP_VIEWPORT.width, DESKTOP_VIEWPORT.height);
+        mountWithFocusableContent({ open: true, hideToggleButton: true });
+
+        cy.get('#first-action').focus();
+        pressShiftTab();
+
+        cy.get('#first-action').should('not.have.focus');
+        shouldFocusToggleButton(false);
+    });
+
+    it('should move focus to the first element when tabbing past the last element with a full width side-sheet on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountWithFocusableContent({ open: true, fullWidth: true });
+
+        cy.get('#second-action').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        cy.get('#first-action').should('have.focus');
+        shouldFocusToggleButton(false);
+    });
+
+    it('should move focus to the last element when shift-tabbing from the first element with a full width side-sheet on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountWithFocusableContent({ open: true, fullWidth: true });
+
+        cy.get('#first-action').focus();
+        pressShiftTab();
+
+        cy.get('#second-action').should('have.focus');
+        shouldFocusToggleButton(false);
+    });
+
+    it('should not move focus to an off-screen toggle button when shift-tabbing with a full width side-sheet on a desktop viewport', () => {
+        cy.viewport(DESKTOP_VIEWPORT.width, DESKTOP_VIEWPORT.height);
+        mountWithFocusableContent({ open: true, fullWidth: true });
+
+        cy.get('#first-action').focus();
+        pressShiftTab();
+
+        cy.get('#first-action').should('not.have.focus');
+        shouldFocusToggleButton(false);
+    });
+
+    it('should return focus to the toggle button when closing a full width side-sheet on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountWithFocusableContent({ open: true, fullWidth: true });
+
+        cy.get('#first-action').focus();
+        cy.get('vl-side-sheet').then(($sideSheet) => ($sideSheet[0] as VlSideSheet).close());
+
+        shouldFocusToggleButton(true);
+        cy.get('vl-side-sheet').shadow().find('vl-button').should('not.have.attr', 'tabindex');
+    });
+
+    // Meerdere side-sheets tegelijk is een anti-pattern (zie de documentatie), maar mag niet eindigen in twee focus
+    // traps die de focus van elkaar blijven wegtrekken.
+    it('should leave focus in another open side-sheet on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountTwoSideSheets();
+
+        cy.get('#second-sheet-action').focus();
+
+        cy.get('#second-sheet-action').should('have.focus');
+    });
+
+    it('should move focus into one of the side-sheets when focus moves outside two open side-sheets on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountTwoSideSheets();
+
+        cy.get('#outside-action').focus();
+
+        cy.document().should((doc) => {
+            expect(doc.activeElement?.tagName.toLowerCase()).to.equal('vl-side-sheet');
+        });
+    });
+
+    it('should return focus to the side-sheet when focus moves outside on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountWithFocusableContent({ open: true });
+
+        cy.get('#outside-action').focus();
+
+        cy.get('vl-side-sheet').shadow().find('div#vl-side-sheet').should('have.focus');
+    });
+
+    it('should not trap focus outside the side-sheet on a desktop viewport', () => {
+        cy.viewport(DESKTOP_VIEWPORT.width, DESKTOP_VIEWPORT.height);
+        mountWithFocusableContent({ open: true });
+
+        cy.get('#outside-action').focus();
+
+        cy.get('#outside-action').should('have.focus');
+    });
+
+    it('should not trap focus when the side-sheet is closed on a mobile viewport', () => {
+        cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height);
+        mountWithFocusableContent({});
+
+        cy.get('#outside-action').focus();
+
+        cy.get('#outside-action').should('have.focus');
+    });
+
+    it('should return focus to the toggle button when closing the side-sheet', () => {
+        mountWithFocusableContent({ open: true });
+
+        cy.get('#first-action').focus();
+        cy.get('vl-side-sheet').then(($sideSheet) => ($sideSheet[0] as VlSideSheet).close());
+
+        shouldFocusToggleButton(true);
+    });
+
+    it('should return focus to the element that had focus before opening when closing with a hidden toggle button', () => {
+        mountWithFocusableContent({ hideToggleButton: true });
+
+        cy.get('#outside-action').focus();
+        cy.get('vl-side-sheet').then(($sideSheet) => ($sideSheet[0] as VlSideSheet).open());
+        cy.get('vl-side-sheet').shadow().find('div#vl-side-sheet').should('have.focus');
+        cy.get('vl-side-sheet').then(($sideSheet) => ($sideSheet[0] as VlSideSheet).close());
+
+        cy.get('#outside-action').should('have.focus');
+        shouldFocusToggleButton(false);
+    });
+
+    it('should not move focus to the toggle button when the left attribute changes on a closed side-sheet', () => {
+        mountWithFocusableContent({});
+
+        cy.get('#outside-action').focus();
+        cy.get('vl-side-sheet').invoke('attr', 'left', '');
+
+        shouldFocusToggleButton(false);
+        cy.get('#outside-action').should('have.focus');
+    });
+});
+
+const DESKTOP_VIEWPORT = { width: 1280, height: 800 };
+const MOBILE_VIEWPORT = { width: 375, height: 667 };
+
+// De toggle button zit twee shadow roots diep; de have.focus-assertion van Cypress kijkt niet zo ver.
+const shouldFocusToggleButton = (focused: boolean) => {
+    cy.get('vl-side-sheet').should(($sideSheet) => {
+        const shadowRoot = $sideSheet[0].shadowRoot;
+        const toggleButton = shadowRoot?.querySelector('#toggle-button');
+        expect(shadowRoot?.activeElement === toggleButton).to.equal(focused);
+    });
+};
+
+const mountTwoSideSheets = () => {
+    cy.mount(html`
+        <vl-side-sheet open>
+            <button id="first-sheet-action" type="button">actie in de eerste side-sheet</button>
+        </vl-side-sheet>
+        <vl-side-sheet open left>
+            <button id="second-sheet-action" type="button">actie in de tweede side-sheet</button>
+        </vl-side-sheet>
+        <button id="outside-action" type="button">actie buiten de side-sheets</button>
+    `);
+    cy.get('vl-side-sheet').last().shadow().find('vl-button').shadow().find('button').should('exist');
+};
+
+const focusToggleButton = () => {
+    cy.get('vl-side-sheet').shadow().find('vl-button').shadow().find('button').focus();
+};
+
+// cy.press ondersteunt geen modifier keys; via het Chrome DevTools Protocol verloopt Shift+Tab als echte browser-input.
+const pressShiftTab = () => {
+    const SHIFT_MODIFIER = 8;
+    (['keyDown', 'keyUp'] as const).forEach((type) => {
+        cy.then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Input.dispatchKeyEvent',
+                params: { type, key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9, modifiers: SHIFT_MODIFIER },
+            }),
+        );
+    });
+};
+
+const mountWithFocusableContent = ({
+    open,
+    left,
+    hideToggleButton,
+    fullWidth,
+}: {
+    open?: boolean;
+    left?: boolean;
+    hideToggleButton?: boolean;
+    fullWidth?: boolean;
+}) => {
+    cy.mount(html`
+        <vl-side-sheet
+            ?open=${open}
+            ?left=${left}
+            ?hide-toggle-button=${hideToggleButton}
+            style=${fullWidth ? '--vl-side-sheet-width: 100%; --vl-side-sheet-width-mobile: 100%' : nothing}
+        >
+            <button id="first-action" type="button">eerste actie</button>
+            <button id="second-action" type="button">tweede actie</button>
+        </vl-side-sheet>
+        <button id="outside-action" type="button">actie buiten de side-sheet</button>
+    `);
+    // vl-button rendert zijn button pas na de eerste Lit-update; zonder deze wachtstap test een focus-assertie niets.
+    cy.get('vl-side-sheet').shadow().find('vl-button').shadow().find('button').should('exist');
+};
 
 const shouldClickToggleButton = () => {
     cy.get('vl-side-sheet').shadow().find('vl-button').shadow().find('button').click({ force: true });
