@@ -10,6 +10,8 @@
 
 # dependencies
 node_modules
+# een per ongeluk gedraaide 'npm install' mag geen lockfile in git zetten (zie resources/utils-build/only-allow-pnpm.mjs)
+package-lock.json
 
 # IDEs and editors
 /.idea
