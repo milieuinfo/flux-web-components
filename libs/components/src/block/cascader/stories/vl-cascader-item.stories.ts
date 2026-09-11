@@ -1,5 +1,5 @@
 import { story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components-vite';
+import { Meta, StoryFn } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { CascaderItemArgs, cascaderItemArgs, cascaderItemArgTypes } from './vl-cascader-item.stories-arg';
@@ -13,7 +13,7 @@ export default {
     argTypes: cascaderItemArgTypes,
 } as Meta<CascaderItemArgs>;
 
-export const CascaderItemSlots = story(cascaderItemArgs, ({ annotation, contentSlot, label, labelSlot }) => {
+const cascaderItemSlotsTemplate: StoryFn<CascaderItemArgs> = ({ annotation, contentSlot, label, labelSlot }) => {
     return html`
         <vl-cascader>
             <p slot="home">Vlaanderen</p>
@@ -28,11 +28,20 @@ export const CascaderItemSlots = story(cascaderItemArgs, ({ annotation, contentS
             </vl-cascader-item>
         </vl-cascader>
     `;
-});
+};
+
+export const CascaderItemSlots = story(cascaderItemArgs, cascaderItemSlotsTemplate);
 CascaderItemSlots.storyName = 'vl-cascader-item - slots';
 CascaderItemSlots.args = {
     contentSlot:
         '<p slot="content"> Het is de meest westelijk gelegen provincie van Vlaanderen en België en is de enige Belgische provincie die aan de Noordzee ligt. De provincie heeft een oppervlakte van 3.197 km² en telt ruim 1,2 miljoen inwoners. De hoofdstad van West-Vlaanderen is Brugge. </p>',
     label: 'West-Vlaanderen',
     labelSlot: `<vl-title type="h5" underline="" alt="" no-space-bottom="" slot="label">Provincie: West-Vlaanderen</vl-title>`,
+};
+
+export const CascaderItemLabelSlotLink = story(cascaderItemArgs, cascaderItemSlotsTemplate);
+CascaderItemLabelSlotLink.storyName = 'vl-cascader-item - label slot met link';
+CascaderItemLabelSlotLink.args = {
+    label: 'West-Vlaanderen',
+    labelSlot: `<vl-link slot="label" bold button-as-link icon="arrow-right-fat" icon-placement="after" class="vl-cascader-link">Provincie: West-Vlaanderen</vl-link>`,
 };

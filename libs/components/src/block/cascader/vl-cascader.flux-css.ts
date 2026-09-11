@@ -111,6 +111,14 @@ export const vlCascaderFluxStyles: CSSResult = css`
         width: 100%;
     }
 
+    /* Bewust dezelfde regel als in vl-cascader-item.flux-css.ts: items leven in de shadow root van
+       vl-cascader, dus ge-slotte en programmatorisch gerenderde links worden hier gestyled. */
+    .vl-cascader-link::part(button) {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
     .vl-cascader-item,
     vl-cascader-item {
         padding: 1rem 0;
