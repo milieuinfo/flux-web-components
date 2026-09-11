@@ -40,9 +40,11 @@
             }
         ],
         [
-            "@semantic-release/npm",
+            "@semantic-release/exec",
             {
-                "npmPublish": false
+                # zet de nieuwe versie in package.json met pnpm. @semantic-release/npm deed dat met 'npm version', maar
+                # npm weigert elk commando in deze map door 'devEngines' in package.json (EBADDEVENGINES)
+                "prepareCmd": "pnpm pkg set version=${nextRelease.version}"
             }
         ]
     ]

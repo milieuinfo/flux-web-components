@@ -20,10 +20,10 @@ API Key Name: fwc_q1uWiggnR0-uwRsd323e4UypcGt5l2C--uGPPDRiwtbSfUf_Mw6uc0qoWwvfV-
 source ./resources/reportportal/rp-env.sh
 node ./resources/reportportal/rp-launch-start.mjs
 source ./resources/reportportal/rp-load-launch-id.sh
-npm run libs:jest
-npm run libs:web-types:validate
-npm run apps:storybook-e2e:run
-npm run libs:component-tests:run
+pnpm run libs:jest
+pnpm run libs:web-types:validate
+pnpm run apps:storybook-e2e:run
+pnpm run libs:component-tests:run
 node ./resources/reportportal/rp-launch-finish.mjs
 
 

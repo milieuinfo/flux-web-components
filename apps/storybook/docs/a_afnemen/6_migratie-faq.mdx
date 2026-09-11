@@ -36,6 +36,8 @@ import { Meta } from '@storybook/addon-docs/blocks';
   ```
 
 De expliciete registratie wordt aangeraden om tree-shaking te optimaliseren en alleen de benodigde componenten te laden.
+Declareer dan ook `@domg-wc/common` als dependency in je `package.json`: je importeert er rechtstreeks uit, en onder
+pnpm of een andere strikte package manager volstaat de transitieve aanwezigheid via `@domg-wc/components` niet.
 
 [Meer informatie over hoe imports wijzigen vind je hier](/docs/afnemen-migratie-v2-aanpak--documentatie#33-imports)
 

@@ -119,7 +119,7 @@ Referentie: `libs/components/src/atom/button/stories/`.
 
 **Bij nieuw component:** voeg entry toe in `apps/storybook/.storybook/flux-meta-data/json/components-{type}.meta-data.json`.
 
-**Vóór commit visueel verifiëren in Storybook** (`npm run apps:storybook:dev`, http://localhost:8080):
+**Vóór commit visueel verifiëren in Storybook** (`pnpm run apps:storybook:dev`, http://localhost:8080):
 - Component rendert, alle varianten werken, controls reageren, geen console errors
 - Veelvoorkomende fouten: ontbrekende imports, slots zonder `unsafeHTML`, properties zonder `.` prefix, template zonder `story()` helper
 

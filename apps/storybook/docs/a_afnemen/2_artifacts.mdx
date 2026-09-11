@@ -53,7 +53,9 @@ __styles__ bevat basis css: zowel de css die globaal op het document gezet wordt
 
 ## @domg-wc/common
 
-__common__ is een technische bibliotheek met basis code en utilities
+__common__ is een technische bibliotheek met basis code en utilities, waaronder `registerWebComponents`. Neem ze op als
+dependency zodra je er rechtstreeks uit importeert; enkel transitief via __components__ volstaat niet onder een strikte
+package manager zoals pnpm.
 
 
 ## @domg-wc/components

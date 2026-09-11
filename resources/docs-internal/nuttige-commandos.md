@@ -97,15 +97,15 @@ sudo lsof -ti:4600
 
 <sub>de dist folder statisch serven</sub>
 ```
-npx http-server ./dist -p9090 --cors
+pnpm exec http-server ./dist -p9090 --cors
 ```
 
 
 ## SCSS verwerking
 
 uit te voeren vanuit de folder waar de scss staan, de node_modules folder moet relatief kloppen !!!
-npx sass vl-elements.scss > vl-elements.css --load-path ../../../../node_modules
-npx sass ./libs/elements/src/vl-elements.scss > ./dist/libs/elements/src/lib/vl-elements.css --load-path ./node_modules
+pnpm exec sass vl-elements.scss > vl-elements.css --load-path ../../../../node_modules
+pnpm exec sass ./libs/elements/src/vl-elements.scss > ./dist/libs/elements/src/lib/vl-elements.css --load-path ./node_modules
 
 
 ## Nuttige links
@@ -125,41 +125,41 @@ De component testen (`.cy.ts` bestanden onder `libs/`) worden uitgevoerd via de 
 ### Alle component testen uitvoeren (headless)
 
 ```bash
-cd ./resources/cypress-component && npx cypress run --component
+cd ./resources/cypress-component && pnpm exec cypress run --component
 ```
 
-of via het npm script vanuit de root:
+of via het script in `package.json` vanuit de root:
 
 ```bash
-npm run libs:component-tests:run
+pnpm run libs:component-tests:run
 ```
 
 ### Cypress UI openen (interactief / watch mode)
 
 ```bash
-cd ./resources/cypress-component && npx cypress open --component
+cd ./resources/cypress-component && pnpm exec cypress open --component
 ```
 
-of via het npm script vanuit de root:
+of via het script in `package.json` vanuit de root:
 
 ```bash
-npm run libs:component-tests:watch
+pnpm run libs:component-tests:watch
 ```
 
 ### Één specifiek testbestand uitvoeren
 
 ```bash
-cd ./resources/cypress-component && npx cypress run --component --spec "../../libs/pad/naar/bestand.cy.ts"
+cd ./resources/cypress-component && pnpm exec cypress run --component --spec "../../libs/pad/naar/bestand.cy.ts"
 ```
 
 Voorbeelden:
 
 ```bash
 # rich-data component testen
-cd ./resources/cypress-component && npx cypress run --component --spec "../../libs/components/src/rich-data/vl-rich-data.component.cy.ts"
+cd ./resources/cypress-component && pnpm exec cypress run --component --spec "../../libs/components/src/rich-data/vl-rich-data.component.cy.ts"
 
 # map search testen
-cd ./resources/cypress-component && npx cypress run --component --spec "../../libs/map/src/components/search/vl-map-search.cy.ts"
+cd ./resources/cypress-component && pnpm exec cypress run --component --spec "../../libs/map/src/components/search/vl-map-search.cy.ts"
 ```
 
 ### Configuratie
