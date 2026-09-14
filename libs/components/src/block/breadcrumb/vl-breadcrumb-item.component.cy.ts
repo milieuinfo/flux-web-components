@@ -44,6 +44,61 @@ describe('cypress-component - block components - vl-breadcrumb-item', () => {
     });
 });
 
+describe('cypress-component - block components - vl-breadcrumb-item - focus', () => {
+    it('should show a focus outline when focused with the keyboard', () => {
+        mountWithPrecedingButton();
+
+        cy.get('#preceding-action').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        cy.get('vl-breadcrumb-item')
+            .shadow()
+            .find('button')
+            .should('have.focus')
+            .shouldHaveComputedStyle({ style: 'outline-style', value: 'solid' });
+    });
+
+    it('should not show a focus outline when clicked with the mouse', () => {
+        mountWithPrecedingButton();
+
+        cy.get('vl-breadcrumb-item').shadow().find('button').then(realClick);
+
+        cy.get('vl-breadcrumb-item')
+            .shadow()
+            .find('button')
+            .should('have.focus')
+            .shouldHaveComputedStyle({ style: 'outline-style', value: 'none' });
+    });
+});
+
+const mountWithPrecedingButton = () => {
+    cy.mount(html`
+        <button id="preceding-action" type="button">voorgaande actie</button>
+        <vl-breadcrumb-item type="button">Breadcrumb item</vl-breadcrumb-item>
+    `);
+    cy.get('vl-breadcrumb-item').shadow().find('button').should('exist');
+};
+
+// cy.click() simuleert enkel events, waardoor de browser geen muisinteractie registreert en :focus-visible anders
+// beoordeelt; via het Chrome DevTools Protocol verloopt de klik als echte browser-input.
+const realClick = ($element: JQuery<HTMLElement>) => {
+    const element = $element[0];
+    const autWindow = element.ownerDocument.defaultView!;
+    const frameRect = autWindow.frameElement!.getBoundingClientRect();
+    const scale = frameRect.width / autWindow.innerWidth;
+    const elementRect = element.getBoundingClientRect();
+    const x = frameRect.left + (elementRect.left + elementRect.width / 2) * scale;
+    const y = frameRect.top + (elementRect.top + elementRect.height / 2) * scale;
+    (['mousePressed', 'mouseReleased'] as const).forEach((type) => {
+        cy.then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Input.dispatchMouseEvent',
+                params: { type, x, y, button: 'left', clickCount: 1 },
+            }),
+        );
+    });
+};
+
 const mount = (type?: string, href?: string) => {
     cy.mount(html`
         <vl-breadcrumb-item href="${ifDefined(href)}" type="${ifDefined(type)}">Breadcrumb item</vl-breadcrumb-item>
