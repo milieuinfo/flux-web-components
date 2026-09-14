@@ -42,6 +42,14 @@ describe('cypress-component - block components - vl-breadcrumb-item', () => {
             .find('span.vl-breadcrumb__list__item__cta')
             .should('exist');
     });
+
+    it('should render a text breadcrumb item in the subtle text color', () => {
+        mount('text');
+        cy.get('vl-breadcrumb-item')
+            .shadow()
+            .find('span.vl-breadcrumb__list__item__cta')
+            .should('have.css', 'color', 'rgba(0, 20, 46, 0.6)');
+    });
 });
 
 describe('cypress-component - block components - vl-breadcrumb-item - focus', () => {

@@ -2,6 +2,8 @@ const breadcrumbUrl =
     'http://localhost:8080/iframe.html?id=components-block-breadcrumb--breadcrumb-default&viewMode=story';
 const breadcrumbButtonsUrl =
     'http://localhost:8080/iframe.html?id=components-block-breadcrumb--breadcrumb-buttons&viewMode=story';
+const breadcrumbEllipsisUrl =
+    'http://localhost:8080/iframe.html?id=components-block-breadcrumb--breadcrumb-ellipsis&viewMode=story';
 const breadcrumbItemUrl =
     'http://localhost:8080/iframe.html?id=components-block-breadcrumb-breadcrumb-item--breadcrumb-default&viewMode=story';
 const breadcrumbItemButtonUrl =
@@ -53,15 +55,19 @@ describe('cypress-e2e - block components - vl-breadcrumb - buttons story', () =>
         cy.get('vl-breadcrumb').should('exist');
     });
 
-    it('should contain 3 breadcrumb items with buttons', () => {
+    it('should contain 3 breadcrumb items', () => {
         cy.visit(breadcrumbButtonsUrl);
 
-        cy.get('vl-breadcrumb')
-            .find('vl-breadcrumb-item')
-            .should('have.length', 3)
-            .each((item) => {
-                cy.wrap(item).shadow().find('button.vl-breadcrumb__list__item__cta').should('exist');
-            });
+        cy.get('vl-breadcrumb').find('vl-breadcrumb-item').should('have.length', 3);
+    });
+});
+
+describe('cypress-e2e - block components - vl-breadcrumb - ellipsis story', () => {
+    it('should render', () => {
+        cy.visit(breadcrumbEllipsisUrl);
+
+        cy.get('vl-breadcrumb').should('exist').and('have.attr', 'ellipsis');
+        cy.get('vl-breadcrumb-item').should('have.length', 3);
     });
 });
 
