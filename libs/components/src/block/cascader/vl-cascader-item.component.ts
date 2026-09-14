@@ -11,7 +11,7 @@ import { VlCascaderComponent } from './vl-cascader.component';
 @customElement('vl-cascader-item')
 export class VlCascaderItemComponent extends BaseLitElement {
     item: CascaderItem = { label: CASCADER_MESSAGES.LABEL_MISSING };
-    label = CASCADER_MESSAGES.LABEL_MISSING;
+    label: string = CASCADER_MESSAGES.LABEL_MISSING;
     templateType: string | undefined;
     cascaderRef: VlCascaderComponent | undefined;
     annotation: string | undefined;
