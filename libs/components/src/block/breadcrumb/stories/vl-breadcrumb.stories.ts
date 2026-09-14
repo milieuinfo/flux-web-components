@@ -75,8 +75,8 @@ BreadcrumbButtons.decorators = [(story) => html` <div style="height: 100px;">${s
 
 export const BreadcrumbEllipsis = story(
     breadcrumbArgs,
-    () => html`
-        <vl-breadcrumb ellipsis>
+    ({ ellipsis }) => html`
+        <vl-breadcrumb ?ellipsis=${ellipsis}>
             <vl-breadcrumb-item href="#">Vlaanderen Intern</vl-breadcrumb-item>
             <vl-breadcrumb-item href="#">Regelgeving</vl-breadcrumb-item>
             <vl-breadcrumb-item>
@@ -87,7 +87,6 @@ export const BreadcrumbEllipsis = story(
     `
 );
 BreadcrumbEllipsis.storyName = 'vl-breadcrumb - ellipsis';
-// Een smal paneel met rand maakt zichtbaar dat het laatste breadcrumb item op de beschikbare breedte wordt afgekapt
-BreadcrumbEllipsis.decorators = [
-    (story) => html` <div style="width: 400px; border: 1px solid #cbd2da; padding: 1rem;">${story()}</div> `,
-];
+BreadcrumbEllipsis.args = { ellipsis: true };
+// Een smalle breedte maakt zichtbaar dat het laatste breadcrumb item op de beschikbare breedte wordt afgekapt
+BreadcrumbEllipsis.decorators = [(story) => html` <div style="width: 400px;">${story()}</div> `];
