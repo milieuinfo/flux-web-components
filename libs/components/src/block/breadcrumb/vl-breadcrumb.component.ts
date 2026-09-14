@@ -7,6 +7,18 @@ import { vlBreadcrumbFluxStyles } from './vl-breadcrumb.flux-css';
 
 @customElement('vl-breadcrumb')
 export class VlBreadcrumbComponent extends BaseLitElement {
+    private ellipsis = false;
+
+    static get properties() {
+        return {
+            ellipsis: {
+                type: Boolean,
+                attribute: 'ellipsis',
+                reflect: true,
+            },
+        };
+    }
+
     static get styles() {
         return [resetStyle, breadcrumbStyle, vlBreadcrumbFluxStyles];
     }
