@@ -1,12 +1,12 @@
 import { BaseLitElement, findNodesForSlot, registerWebComponents } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { breadcrumbStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { VlIconComponent } from '../../atom/icon';
 import { VlLinkComponent } from '../../atom/link';
 import { vlTitleStyles } from '../../atom/title/vl-title.css';
+import { VlBreadcrumbComponent, VlBreadcrumbItemComponent } from '../breadcrumb';
 import { VlCascaderItemComponent } from './vl-cascader-item.component';
 import { cascaderDefaults } from './vl-cascader.defaults';
 import { CASCADER_SLOTS, CascaderItem, ItemListFn, NarrowDownFn, TemplateFn } from './vl-cascader.model';
@@ -37,7 +37,13 @@ export class VlCascaderComponent extends BaseLitElement {
     private slidingOut = false;
 
     static {
-        registerWebComponents([VlCascaderItemComponent, VlIconComponent, VlLinkComponent]);
+        registerWebComponents([
+            VlCascaderItemComponent,
+            VlIconComponent,
+            VlLinkComponent,
+            VlBreadcrumbComponent,
+            VlBreadcrumbItemComponent,
+        ]);
     }
 
     static get properties(): PropertyDeclarations {
@@ -54,7 +60,7 @@ export class VlCascaderComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, breadcrumbStyle, vlCascaderFluxStyles, vlTitleStyles, vlLayoutStyles];
+        return [resetStyle, vlCascaderFluxStyles, vlTitleStyles, vlLayoutStyles];
     }
 
     get items(): CascaderItem[] {
@@ -203,47 +209,26 @@ export class VlCascaderComponent extends BaseLitElement {
     }
 
     private renderBreadcrumbHome = () => {
-        const hasBreadcrumbPlaceholderSlot = Boolean(findNodesForSlot(this, CASCADER_SLOTS.HOME)?.length);
+        const hasHomeSlot = Boolean(findNodesForSlot(this, CASCADER_SLOTS.HOME)?.length);
         return html`
-            <li class="vl-breadcrumb__list__item">
-                <span class="vl-breadcrumb__list__item__separator" aria-hidden="true"></span>
-                ${
-                    !hasBreadcrumbPlaceholderSlot
-                        ? html`
-                              <vl-icon
-                                  icon="places-home"
-                                  class="vl-breadcrumb__list__item__cta"
-                                  @click=${() => this.handleBreadcrumbClick(0)}
-                              ></vl-icon>
-                          `
-                        : html`
-                              <span
-                                  @click=${() => this.handleBreadcrumbClick(0)}
-                                  class="vl-breadcrumb__list__item__cta vl-breadcrumb-home-slot"
-                              >
-                                  <slot name="home"></slot>
-                              </span>
-                          `
-                }
-                </span>
-            </li>
+            <vl-breadcrumb-item type="button" class="vl-breadcrumb-home" @click=${() => this.handleBreadcrumbClick(0)}>
+                ${!hasHomeSlot
+                    ? html`<vl-icon icon="places-home" label="Terug naar het begin"></vl-icon>`
+                    : html`<slot name="home"></slot>`}
+            </vl-breadcrumb-item>
         `;
     };
 
     private renderBreadcrumbItem = ({ label, index }: { label: string; index: number }): TemplateResult => {
-        const historyLength = this.breadCrumbHistory?.length;
-        const isActiveLevel = historyLength === index;
-        const breadCrumbItemClasses = {
-            'vl-breadcrumb__list__item--deactivated': isActiveLevel,
-        };
-        return html`
-            <li class="vl-breadcrumb__list__item ${classMap(breadCrumbItemClasses)}">
-                <span class="vl-breadcrumb__list__item__separator" aria-hidden="true"></span>
-                <span class="vl-breadcrumb__list__item__cta" @click=${() => this.handleBreadcrumbClick(index, label)}
-                    >${label}</span
-                >
-            </li>
-        `;
+        const isActiveLevel = this.breadCrumbHistory?.length === index;
+        // Het huidige niveau is geen navigatie-actie en krijgt dus geen button (en geen tab-stop)
+        return isActiveLevel
+            ? html`<vl-breadcrumb-item type="text">${label}</vl-breadcrumb-item>`
+            : html`
+                  <vl-breadcrumb-item type="button" @click=${() => this.handleBreadcrumbClick(index, label)}>
+                      ${label}
+                  </vl-breadcrumb-item>
+              `;
     };
 
     private renderBreadcrumb(): TemplateResult {
@@ -254,11 +239,9 @@ export class VlCascaderComponent extends BaseLitElement {
         return html`
             ${historyLength && !this.hideBreadcrumb
                 ? html`
-                      <nav aria-label="U bent hier: " class="vl-breadcrumb">
-                          <ol class="vl-breadcrumb__list">
-                              ${this.renderBreadcrumbHome()} ${this.breadCrumbHistory?.map(this.renderBreadcrumbItem)}
-                          </ol>
-                      </nav>
+                      <vl-breadcrumb ellipsis>
+                          ${this.renderBreadcrumbHome()} ${this.breadCrumbHistory?.map(this.renderBreadcrumbItem)}
+                      </vl-breadcrumb>
                   `
                 : hasBreadcrumbPlaceholderSlot || !this.hideBreadcrumb
                 ? html`

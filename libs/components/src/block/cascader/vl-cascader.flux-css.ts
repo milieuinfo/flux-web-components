@@ -75,31 +75,19 @@ export const vlCascaderFluxStyles: CSSResult = css`
         align-items: center;
     }
 
-    .vl-breadcrumb {
+    vl-breadcrumb {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         padding: 0.5rem 1.5rem;
         min-height: 3.1rem;
         border-bottom: 1px solid rgb(203, 210, 218);
     }
 
-    .vl-breadcrumb__list__item__cta {
+    /* Zonder flex krijgt het icoon de regelhoogte van de tekst en zakt het onder de tekst van de andere breadcrumb items */
+    .vl-breadcrumb-home vl-icon {
         display: flex;
-        align-items: center;
-        position: relative;
-        top: -1px;
     }
-
-    .vl-breadcrumb__list__item__separator {
-        justify-content: center;
-    }
-
-    .vl-breadcrumb__list__item__cta:hover {
-        text-decoration: none;
-    }
-
-    .vl-breadcrumb__list__item .vl-vi {
-        text-decoration: none;
-    }
-
     vl-loader {
         padding-top: 2rem;
     }
