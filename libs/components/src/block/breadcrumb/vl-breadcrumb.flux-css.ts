@@ -8,7 +8,7 @@ export const vlBreadcrumbFluxStyles: CSSResult = css`
         top: -1px;
     }
 
-    .vl-breadcrumb__list__item__cta:focus {
+    .vl-breadcrumb__list__item__cta:focus-visible {
         ${vlFocusOutlineMixin()};
     }
 
