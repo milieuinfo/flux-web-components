@@ -7,41 +7,43 @@ echo 'RUNNING SCRIPT: build-apps-and-libs.sh'
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "${SCRIPT_DIR}/../../.."
 source "${SCRIPT_DIR}/lib/quiet-step.sh"
+source "${SCRIPT_DIR}/lib/corepack-registry.sh"
 
-quiet_step "npm ci" npm ci --maxsockets 5
+corepack enable
+quiet_step "pnpm install" pnpm install --frozen-lockfile --network-concurrency 5
 
 echo 'BUILDING - BEGIN'
 
-quiet_step "generate web-types" npm run libs:web-types:generate
+quiet_step "generate web-types" pnpm run libs:web-types:generate
 
 echo "validate the generated web-types"
-npm run libs:web-types:validate
+pnpm run libs:web-types:validate
 
-# de 'npm run' hieronder streamt de output naar de console (zie lib/quiet-step.sh): ze duren lang, bij een crash of OOM wil je zien hoe ver hij geraakt was
+# de 'pnpm run' hieronder streamt de output naar de console (zie lib/quiet-step.sh): ze duren lang, bij een crash of OOM wil je zien hoe ver hij geraakt was
 echo "build libraries"
-npm run libs:build
+pnpm run libs:build
 
-quiet_step "add library dependencies" npm run libs:add-dependencies
+quiet_step "add library dependencies" pnpm run libs:add-dependencies
 
 echo "build storybook"
-npm run apps:storybook:build
+pnpm run apps:storybook:build
 
 echo "build integrator"
-npm run apps:integrator:build
+pnpm run apps:integrator:build
 
 echo "build playground-lit"
-npm run apps:playground-lit:build
+pnpm run apps:playground-lit:build
 
 echo "build playground-native"
-npm run apps:playground-native:build
+pnpm run apps:playground-native:build
 
 echo "build playground-react"
-npm run apps:playground-react:build
+pnpm run apps:playground-react:build
 
 echo "build fat-lib"
-npm run fat-lib:build
+pnpm run fat-lib:build
 
 echo "build fat-lib-min"
-npm run fat-lib:build-min
+pnpm run fat-lib:build-min
 
 echo 'BUILDING - END'

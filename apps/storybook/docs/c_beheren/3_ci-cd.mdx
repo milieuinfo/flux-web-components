@@ -31,7 +31,8 @@ Het is een declaratieve multibranch pipeline die op Kubernetes draait: elke stag
 krijgt een eigen pod met een eigen workspace. De volledige pijplijn wordt overgeslagen als de commit een `[skip ci]`
 bevat. Volgende stages zijn gedefinieerd:
 
-1. __Trivy scan__ - security scan van `package-lock.json`
+1. __Trivy scan__ - security scan van de drie `pnpm-lock.yaml`-bestanden (root, `apps/consumer` en
+   `apps/consumer-e2e`), zodat geen dependency-lijst buiten de scan valt
 2. __build-en-tests__ - met de volgende stages die parallel lopen, elk in een eigen pod:
     * __build-apps-and-libs__ (de build) - stasht de gebouwde libs en fat-lib voor de release stage
     * __unit-component-integrator-tests__ (verschillende testen)

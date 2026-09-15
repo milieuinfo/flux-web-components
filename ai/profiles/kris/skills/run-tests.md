@@ -29,19 +29,19 @@ Als er geen component opgegeven is, draai alle tests.
 **Specifieke component:**
 
 ```bash
-npm run libs:component-tests:run -- --spec "../../libs/components/src/{type}/{name}/vl-{name}.component.cy.ts"
+pnpm run libs:component-tests:run --spec "../../libs/components/src/{type}/{name}/vl-{name}.component.cy.ts"
 ```
 
 **Alle componenten:**
 
 ```bash
-npm run libs:component-tests:run
+pnpm run libs:component-tests:run
 ```
 
 **Watch mode (interactief):**
 
 ```bash
-npm run libs:component-tests:watch
+pnpm run libs:component-tests:watch
 ```
 
 ### 3. Rapporteer resultaten

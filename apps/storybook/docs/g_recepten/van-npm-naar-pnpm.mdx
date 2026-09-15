@@ -1,0 +1,451 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { FluxAlert } from '../../.storybook/flux-alert/flux-alert.component';
+
+<Meta title="Recepten/Van npm naar pnpm"/>
+
+# Van npm naar pnpm
+
+Dit recept is voor afnemers die hun eigen toepassing van npm naar [pnpm](https://pnpm.io/) willen migreren. Het
+bundelt wat we zelf geleerd hebben bij de migratie van de flux-web-components repo: de keuzes, de commando's en de
+valkuilen. Hoe pnpm binnen die repo zelf gebruikt wordt, is een ander onderwerp en staat bij
+[Bijdragen - Opzet & Structuur](/docs/bijdragen-opzet-structuur--documentatie).
+
+De `@domg-wc/*` packages zelf zijn package-manager-agnostisch: ze afnemen werkt evengoed met npm. De migratie is een
+keuze voor je eigen project, en we bevelen ze aan.
+
+## Inhoudstafel
+
+- [Waarom pnpm](#waarom-pnpm)
+- [Wat verandert er](#wat-verandert-er)
+- [Stappenplan](#stappenplan)
+    - [1. pnpm beschikbaar maken](#1-pnpm-beschikbaar-maken)
+    - [2. Registry en authenticatie: .npmrc blijft](#2-registry-en-authenticatie-npmrc-blijft)
+    - [3. pnpm-workspace.yaml aanmaken](#3-pnpm-workspaceyaml-aanmaken)
+    - [4. Lockfile omzetten en installeren](#4-lockfile-omzetten-en-installeren)
+    - [5. Scripts in package.json aanpassen](#5-scripts-in-packagejson-aanpassen)
+    - [6. Phantom dependencies oplossen](#6-phantom-dependencies-oplossen)
+    - [7. CI, Docker en release](#7-ci-docker-en-release)
+    - [8. Vangnet tegen een npm install uit gewoonte](#8-vangnet-tegen-een-npm-install-uit-gewoonte)
+- [Cheatsheet](#cheatsheet)
+- [Referenties](#referenties)
+
+
+## Waarom pnpm
+
+De reden is **supply-chain security**, niet snelheid (al krijg je die er gratis bij).
+
+- npm voert bij `npm install` de lifecycle-scripts (`preinstall`/`install`/`postinstall`) van élke dependency uit, ook
+  de transitieve. Een gecompromitteerde package voert zo code uit op je machine en in je CI, nog voor je één regel
+  van je eigen code gedraaid hebt.
+- pnpm draait die scripts niet, tenzij je een package expliciet toelaat (`allowBuilds`). Met `strictDepBuilds` faalt
+  de install zodra er een script opduikt dat je nog niet beoordeeld hebt.
+- pnpm 11 wacht standaard 24 uur (`minimumReleaseAge`) voor het een pas gepubliceerde versie installeert. De meeste
+  gekaapte versies worden binnen die tijd van de registry gehaald, dus je installeert ze nooit.
+- De `node_modules` van pnpm is strikt: je kan enkel importeren wat je zelf in `package.json` declareert. Verborgen
+  (phantom) dependencies, die bij npm toevallig werken, komen aan het licht.
+
+Meer achtergrond bij [Afnemen - Aan De Slag](/docs/afnemen-aan-de-slag--documentatie).
+
+
+## Wat verandert er
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Onderwerp</th>
+            <th scope="col">npm</th>
+            <th scope="col">pnpm</th>
+            <th scope="col">Uitleg</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Lockfile</td>
+            <td><code>package-lock.json</code></td>
+            <td><code>pnpm-lock.yaml</code></td>
+            <td>[stap 4](#4-lockfile-omzetten-en-installeren)</td>
+        </tr>
+        <tr>
+            <td>Layout van <code>node_modules</code></td>
+            <td>plat: alles gehoist naar de root</td>
+            <td>enkel je directe dependencies in de root, de rest als symlinks naar <code>node_modules/.pnpm</code></td>
+            <td>[stap 6](#6-phantom-dependencies-oplossen)</td>
+        </tr>
+        <tr>
+            <td>Lifecycle-scripts van dependencies</td>
+            <td>draaien automatisch</td>
+            <td>enkel wat in <code>allowBuilds</code> op <code>true</code> staat</td>
+            <td>[stap 4](#4-lockfile-omzetten-en-installeren)</td>
+        </tr>
+        <tr>
+            <td>Configuratie</td>
+            <td>alles in <code>.npmrc</code></td>
+            <td><code>pnpm-workspace.yaml</code>; enkel registry en auth blijven in <code>.npmrc</code></td>
+            <td>[stap 3](#3-pnpm-workspaceyaml-aanmaken)</td>
+        </tr>
+        <tr>
+            <td>Overrides</td>
+            <td><code>overrides</code> in <code>package.json</code></td>
+            <td><code>overrides</code> in <code>pnpm-workspace.yaml</code>, andere syntax voor geneste overrides</td>
+            <td>[stap 3](#3-pnpm-workspaceyaml-aanmaken)</td>
+        </tr>
+        <tr>
+            <td>Versie van de package manager</td>
+            <td>wat er op de machine staat</td>
+            <td>gepind in <code>package.json</code> (<code>packageManager</code>), corepack haalt ze op</td>
+            <td>[stap 1](#1-pnpm-beschikbaar-maken)</td>
+        </tr>
+        <tr>
+            <td>Argumenten aan een script</td>
+            <td><code>npm run x -- --flag</code></td>
+            <td><code>pnpm run x --flag</code></td>
+            <td>[stap 5](#5-scripts-in-packagejson-aanpassen)</td>
+        </tr>
+        <tr>
+            <td>Binary uitvoeren</td>
+            <td><code>npx</code></td>
+            <td><code>pnpm exec</code> (lokaal geïnstalleerd) of <code>pnpm dlx</code> (eenmalig ophalen)</td>
+            <td>[stap 5](#5-scripts-in-packagejson-aanpassen)</td>
+        </tr>
+    </tbody>
+</table>
+
+
+## Stappenplan
+
+### 1. pnpm beschikbaar maken
+
+Installeer pnpm niet globaal. Pin de versie in `package.json` (het `packageManager` veld), zodat iedereen en de CI
+met exact dezelfde versie werken. Die gepinde versie haal je op met corepack (zit in Node) of, als je dat al
+gebruikt, met Volta. De twee sluiten elkaar uit: kies er één per machine.
+
+**Met corepack.** [corepack](https://github.com/nodejs/corepack) haalt de gepinde package manager bij het eerste
+gebruik zelf op.
+
+```
+corepack enable
+corepack use pnpm@11.15.1
+```
+
+`corepack use` schrijft het `packageManager` veld, inclusief een integriteitshash, en draait meteen een
+`pnpm install`:
+
+**`package.json`**
+
+```
+"packageManager": "pnpm@11.15.1+sha512.81350b07e53c9538a02f1f2303b4290fa2d7be04e56e2a970c4cc4b417dc761de196..."
+```
+
+Pin een concrete versie, geen range. Een upgrade van pnpm is dan een bewuste commit: opnieuw `corepack use` met de
+nieuwe versie. Corepack zit in Node tot en met versie 24; vanaf Node 25 installeer je het eenmalig apart met
+`npm install -g corepack`.
+
+**Met Volta.** Veel collega's beheren Node met [Volta](https://volta.sh/), en Volta kan ook pnpm beheren. Volta en
+corepack werken echter niet samen: Volta plaatst eigen shims (ook voor `pnpm`), negeert het `packageManager` veld en
+zet `corepack` zelfs niet op je `PATH`. Gebruik je Volta, laat het dan zelf pnpm beheren in plaats van corepack:
+
+```
+export VOLTA_FEATURE_PNPM=1
+volta install pnpm@11.15.1
+volta pin pnpm@11.15.1
+```
+
+`volta pin` schrijft de versie in `package.json` onder `volta`. Hou ze gelijk aan `packageManager`, zodat collega's
+en de CI zonder Volta via corepack net dezelfde pnpm krijgen. Meer bij [Volta - pnpm support](https://docs.volta.sh/advanced/pnpm).
+
+### 2. Registry en authenticatie: .npmrc blijft
+
+pnpm leest enkel de registry- en auth-instellingen uit `.npmrc`. De
+[Artifactory configuratie](/docs/recepten-artifactory-configuratie--documentatie) in je `~/.npmrc` blijft dus
+ongewijzigd werken:
+
+**`~/.npmrc`**
+
+```
+registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/
+//repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/:_authToken=xXxyYyzZz
+```
+
+Alle andere instellingen in een `.npmrc` (`save-exact`, `engine-strict`, `legacy-peer-deps`, ...) negeert pnpm.
+Wat je nog nodig hebt, verhuist in camelCase naar `pnpm-workspace.yaml` (bvb. `saveExact: true`); de rest gooi je
+weg.
+
+### 3. pnpm-workspace.yaml aanmaken
+
+De configuratie van pnpm staat in [`pnpm-workspace.yaml`](https://pnpm.io/11.x/pnpm-workspace_yaml) in de root van je
+project, ook als je geen workspace (monorepo) hebt. Dit is het bestand waarmee onze consumer-app de gepubliceerde
+packages afneemt:
+
+**`pnpm-workspace.yaml`**
+
+```yaml
+strictDepBuilds: true
+
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - '@domg-wc/*'
+
+allowBuilds:
+  cypress: true
+```
+
+- `strictDepBuilds` - de install faalt zodra een dependency een build-script heeft dat nog niet in `allowBuilds`
+  staat. In pnpm 11 staat dit standaard aan; we zetten het expliciet zodat het ook zo blijft als de default ooit
+  verandert.
+- `minimumReleaseAge` - installeer geen versies jonger dan 1440 minuten (24 uur), ook niet transitief. In pnpm 11 is
+  dit de default; expliciet zetten documenteert de keuze.
+- `minimumReleaseAgeExclude` - uitzonderingen op die wachttijd, zie de opmerking hieronder.
+- `allowBuilds` - per package of het zijn build-scripts mag draaien. Enkel `true` mag draaien, alles wat er niet
+  in staat is niet beoordeeld en blokkeert de install (zie [stap 4](#4-lockfile-omzetten-en-installeren)).
+
+<FluxAlert type="warning">
+{`
+    Door <code>minimumReleaseAge</code> kan je een versie van <code>@domg-wc/*</code> pas 24 uur na de release
+    installeren. Wil je een verse release meteen kunnen afnemen (bvb. een fix die je zelf aangevraagd hebt), zet dan
+    <code>@domg-wc/*</code> in <code>minimumReleaseAgeExclude</code> zoals hierboven. Hetzelfde geldt voor de packages
+    van je eigen organisatie die je zelf publiceert.
+`}
+</FluxAlert>
+
+Heb je `overrides` in je `package.json`? Die verhuizen naar `pnpm-workspace.yaml`. Een geneste override (enkel de
+dependency van één bepaalde parent overschrijven) schrijf je bij pnpm met een `>`-selector in plaats van een genest
+object. Zo werd dat bij ons:
+
+**`package.json`**
+
+```
+"overrides": {
+    "color-parse": {
+        "color-name": "2.0.0"
+    },
+    "validator": "13.15.35"
+}
+```
+
+wordt
+
+**`pnpm-workspace.yaml`**
+
+```yaml
+overrides:
+  color-parse>color-name: 2.0.0
+  validator: 13.15.35
+```
+
+### 4. Lockfile omzetten en installeren
+
+`pnpm import` maakt een `pnpm-lock.yaml` op basis van je bestaande `package-lock.json`, met dezelfde versies. Zo
+verandert de migratie zelf niets aan welke versies er geïnstalleerd worden, wat het debuggen achteraf eenvoudig
+houdt. Nadien ruim je de npm-artefacten op en installeer je opnieuw:
+
+```
+pnpm import
+rm -rf node_modules package-lock.json
+pnpm install
+```
+
+Bij die eerste install stopt pnpm met een melding als deze:
+
+```
+[ERR_PNPM_IGNORED_BUILDS] Ignored build scripts: cypress@15.4.0, esbuild@0.25.0
+
+Run "pnpm approve-builds" to pick which dependencies should be allowed to run scripts.
+```
+
+en zet het de packages met een placeholder in je `pnpm-workspace.yaml`:
+
+**`pnpm-workspace.yaml`**
+
+```yaml
+allowBuilds:
+  cypress: set this to true or false
+  esbuild: set this to true or false
+```
+
+Beoordeel ze één voor één: wat doet het script, en werkt de package zonder? Vul `true` of `false` in en draai
+`pnpm install` opnieuw (`pnpm approve-builds` doet hetzelfde interactief). Een `false` blijft staan als documentatie
+dat de package beoordeeld is.
+
+<FluxAlert type="info">
+{`
+    Zet <code>cypress: true</code>. Het postinstall-script downloadt de Cypress binary; blokkeer je het, dan start
+    Cypress niet en zie je "The cypress npm package is installed, but the Cypress binary is missing".
+`}
+</FluxAlert>
+
+De andere die wij tegenkwamen, konden op `false`:
+
+- `esbuild: false` - het script vervangt de JavaScript-wrapper door de native binary, een optimalisatie; esbuild werkt
+  zonder.
+- `core-js: false`, `msw: false`, `@parcel/watcher: false`, `vue-demi: false`, `@ffmpeg-installer/*: false` -
+  funding-berichten, platform-switches of prebuilds met een fallback. Alle werken zonder.
+
+Commit `pnpm-lock.yaml` en `pnpm-workspace.yaml` samen met de wijzigingen aan `package.json`.
+
+### 5. Scripts in package.json aanpassen
+
+Ga je `scripts` na, ook de commando's die genest in een script zitten (bvb. in `start-server-and-test`). Dit is
+belangrijk: blijft er ergens een `npm install` of `npx` staan, dan draait dat script alsnog npm, met een gehoiste
+`node_modules` en net de supply-chain-risico's die je wou vermijden. Een volledig overzicht van de
+commando-equivalenten staat in de [Cheatsheet](#cheatsheet).
+
+- `npm run x` wordt `pnpm run x`.
+- `npm run x -- --flag` wordt `pnpm run x --flag`. pnpm geeft alles na de scriptnaam letterlijk door, dus ook een
+  `--`; die komt dan als eerste argument in je script terecht.
+- `npx bin` voor een lokaal geïnstalleerde binary wordt `pnpm exec bin`. `npx` voor een package dat je niet
+  geïnstalleerd hebt wordt `pnpm dlx`.
+- Draai je een binary vanuit een submap die zelf de werkmap moet zijn (bvb. een Cypress-configuratie in een
+  `cypress/`-map zonder eigen `package.json`)? Roep de binary dan rechtstreeks aan via `node_modules/.bin`:
+  `cd ./cypress && ../node_modules/.bin/cypress run`. Zo draait ze gegarandeerd met de submap als werkmap.
+- `npm pkg set` wordt `pnpm pkg set`. Voor een scoped package moet je de bracket-notatie gebruiken, pnpm aanvaardt
+  de `@` niet in een dot-pad: `pnpm pkg set "dependencies['@domg-wc/components']=2.19.0"`.
+
+### 6. Phantom dependencies oplossen
+
+Na de migratie kan een build of test falen met `Cannot find module 'x'` (Node, TypeScript) of `Module not found`
+(webpack), voor een package dat onder npm gewoon werkte. Dat is een phantom dependency: je code gebruikt `x`, maar
+`x` staat niet in je `package.json` en kwam enkel binnen omdat een andere dependency het nodig had en npm het naar
+de root hoiste. Onder pnpm staat `x` enkel nog in de [virtual store](https://pnpm.io/11.x/symlinked-node-modules-structure), onbereikbaar voor je eigen code.
+
+De juiste oplossing is de dependency declareren: `pnpm add x` (of `pnpm add -D x`). Met `pnpm why x` zie je via
+welke dependency het package tot nu toe binnenkwam.
+
+Let op: niet elke `Cannot find module` is een phantom dependency om toe te voegen. Soms wijst hij op een package
+die er niet meer hoort (verwijderd of overbodig); dan verwijder je de import in plaats van de dependency te
+declareren.
+
+Zit de phantom dependency in een tool die je niet kan aanpassen, dan biedt pnpm noodremmen die de strikte
+`node_modules` versoepelen (`publicHoistPattern`, `shamefullyHoist`, `nodeLinker: hoisted`), in oplopende volgorde
+van botheid; zie de [node_modules-instellingen](https://pnpm.io/11.x/settings/node-modules). Elke stap levert strengheid
+in. Bij de migratie van onze eigen repo en de consumer-app hadden we er geen enkele nodig.
+
+### 7. CI, Docker en release
+
+- **Installeren**: `npm ci` wordt `pnpm install --frozen-lockfile`. pnpm detecteert een CI-omgeving en zet
+  `--frozen-lockfile` dan zelf aan, maar expliciet is duidelijker. Een `--maxsockets 5` (om Artifactory niet te
+  overbelasten) wordt `--network-concurrency 5`.
+- **Corepack in de pipeline**: zet `corepack enable` vóór het eerste pnpm-commando in elke job die een verse
+  container krijgt (op Node 25 en hoger installeer je corepack eerst, zie [stap 1](#1-pnpm-beschikbaar-maken)).
+- **Geen toegang tot npmjs**: corepack haalt pnpm standaard van npmjs. Bereikt je build-omgeving enkel Artifactory,
+  wijs corepack dan naar dezelfde registry als npm en pin de hash in `packageManager` (corepack controleert anders
+  de npmjs-signatuur, die een proxy-registry niet meelevert; met een hash controleert het de integriteit
+  daarmee):
+
+  ```
+  export COREPACK_NPM_REGISTRY="$(npm config get registry)"
+  corepack enable
+  pnpm install --frozen-lockfile
+  ```
+
+- **Mutaties vóór de install**: pas je in de pipeline `package.json` aan vóór je installeert (bvb. `pnpm pkg set`
+  van een versie), dan is de lockfile niet meer up-to-date en weigert `--frozen-lockfile`. Gebruik daar bewust
+  `pnpm install --no-frozen-lockfile`, enkel voor die stap.
+- **Vulnerability scan**: Trivy scant `pnpm-lock.yaml` zoals `package-lock.json`. Pas het pad in je scan-stap aan;
+  heb je meerdere lockfiles, scan ze dan allemaal.
+
+### 8. Vangnet tegen een npm install uit gewoonte
+
+Een `npm install` uit gewoonte, door een collega of een tool, geeft opnieuw een gehoiste `node_modules` en een
+`package-lock.json`. Alles werkt dan schijnbaar, maar de strikte pnpm-setup is lokaal stil ondermijnd. Twee
+vangnetten:
+
+- Zet `package-lock.json` in `.gitignore`, zodat zo'n lockfile nooit mee gecommit raakt.
+- Voeg een `preinstall`-script toe dat een andere package manager weigert. De pnpm-docs stellen
+  `"preinstall": "npx only-allow pnpm"` voor. Let wel: `npx` haalt dat package bij élke install ongepind van de
+  registry, ook in de CI, en buiten `minimumReleaseAge` om. Wij kozen daarom voor een eigen script zonder
+  dependency, dat dezelfde check doet:
+
+  **`preinstall.mjs`**
+
+  ```js
+  const userAgent = process.env.npm_config_user_agent ?? '';
+  if (!userAgent.startsWith('pnpm/')) {
+      console.error('Dit project gebruikt pnpm: corepack enable && pnpm install');
+      process.exit(1);
+  }
+  ```
+
+  **`package.json`**
+
+  ```
+  "scripts": {
+      "preinstall": "node ./preinstall.mjs"
+  }
+  ```
+
+Kanttekening: npm 7 en hoger schrijft `node_modules` en `package-lock.json` al weg vóór het de `preinstall` van je
+project draait. De guard maakt de vergissing dus zichtbaar, maar voorkomt ze niet. Opruimen doe je met
+`rm -rf node_modules package-lock.json` gevolgd door `pnpm install`.
+
+
+## Cheatsheet
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Taak</th>
+            <th scope="col">npm</th>
+            <th scope="col">pnpm</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Install (dev)</td>
+            <td><code>npm install</code></td>
+            <td><code>pnpm install</code></td>
+        </tr>
+        <tr>
+            <td>Clean install (CI, reproduceerbaar)</td>
+            <td><code>npm ci</code></td>
+            <td><code>pnpm install --frozen-lockfile</code></td>
+        </tr>
+        <tr>
+            <td>Dependency toevoegen</td>
+            <td><code>npm install x</code> / <code>npm install -D x</code></td>
+            <td><code>pnpm add x</code> / <code>pnpm add -D x</code></td>
+        </tr>
+        <tr>
+            <td>Dependency verwijderen</td>
+            <td><code>npm uninstall x</code></td>
+            <td><code>pnpm remove x</code></td>
+        </tr>
+        <tr>
+            <td>Dependencies updaten</td>
+            <td><code>npm update</code></td>
+            <td><code>pnpm update</code></td>
+        </tr>
+        <tr>
+            <td>Script met argument</td>
+            <td><code>npm run x -- --flag</code></td>
+            <td><code>pnpm run x --flag</code></td>
+        </tr>
+        <tr>
+            <td>Package eenmalig ophalen en uitvoeren</td>
+            <td><code>npx pkg</code></td>
+            <td><code>pnpm dlx pkg</code></td>
+        </tr>
+        <tr>
+            <td>Geïnstalleerde versies tonen</td>
+            <td><code>npm list x</code></td>
+            <td><code>pnpm list x</code> (de <code>--json</code> vorm verschilt)</td>
+        </tr>
+        <tr>
+            <td>package.json bewerken</td>
+            <td><code>npm pkg set k=v</code></td>
+            <td><code>pnpm pkg set k=v</code> (scoped: bracket-notatie)</td>
+        </tr>
+    </tbody>
+</table>
+
+
+## Referenties
+
+- [pnpm - Build-instellingen](https://pnpm.io/11.x/settings/build): `allowBuilds`, `strictDepBuilds`
+- [pnpm - Dependency-resolutie](https://pnpm.io/11.x/settings/dependency-resolution): `minimumReleaseAge`,
+  `minimumReleaseAgeExclude`, `overrides`
+- [pnpm - node_modules-instellingen](https://pnpm.io/11.x/settings/node-modules): `nodeLinker`, `shamefullyHoist`,
+  `publicHoistPattern`
+- [pnpm - `pnpm import`](https://pnpm.io/11.x/cli/import)
+- [pnpm - Only allow pnpm](https://pnpm.io/11.x/only-allow-pnpm)
+- [corepack](https://github.com/nodejs/corepack)
+- [Volta - pnpm support](https://docs.volta.sh/advanced/pnpm)

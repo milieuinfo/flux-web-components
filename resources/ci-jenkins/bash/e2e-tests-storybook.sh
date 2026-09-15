@@ -7,6 +7,7 @@ echo 'RUNNING SCRIPT: e2e-tests-storybook.sh'
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "${SCRIPT_DIR}/../../.."
 source "${SCRIPT_DIR}/lib/quiet-step.sh"
+source "${SCRIPT_DIR}/lib/corepack-registry.sh"
 
 # De storybook e2e-tests draaien verdeeld over 2 shards die in Jenkins parallel in een eigen pod staan; samen dekken
 # ze exact dezelfde specs als voorheen. Dezelfde regel als de unit-shards in unit-component-integrator-tests.sh:
@@ -54,7 +55,8 @@ fi
 # script intact.
 trap 'node "${SCRIPT_DIR}/../test/normalize-junit-classnames.mjs" || true' EXIT
 
-quiet_step "npm ci" npm ci --maxsockets 5
+corepack enable
+quiet_step "pnpm install" pnpm install --frozen-lockfile --network-concurrency 5
 
 echo "create build folder with dummy text file - when everything goes well there is no build folder which fails the build"
 # -p: deze stage draait in een eigen workspace, maar -p houdt het script ook bruikbaar bij een lokale herhaalde run waar build/ al bestaat
@@ -68,9 +70,12 @@ SPECS="${SPECS#,}"
 
 # CI=true laat de cypress-config ook JUnit XML schrijven naar test-results, waar de junit-step
 # van deze stage ze oppikt (zie apps/storybook-e2e/cypress.config.ts).
-# Niet via 'npm run apps:storybook:serve-and-e2e', omdat die de volledige specPattern draait zonder --spec.
+# Niet via 'pnpm run apps:storybook:serve-and-e2e', omdat die de volledige specPattern draait zonder --spec.
 echo "serve storybook and run the e2e tests - shard ${SHARD}: ${SPECS}"
-env CI=true npx start-server-and-test \
-    'npm run apps:storybook:ci' \
+# Directe binary i.p.v. 'pnpm exec': werkt robuust ongeacht de cwd. Onder pnpm 10 resette 'pnpm exec' de cwd naar
+# de repo-root in een map zonder package.json (zoals storybook-e2e), waardoor cypress zijn config niet vond;
+# onder de gepinde pnpm 11 gebeurt dat niet meer, maar de directe binary blijft de veilige keuze.
+env CI=true pnpm exec start-server-and-test \
+    'pnpm run apps:storybook:ci' \
     http://localhost:8080 \
-    "cd ./${E2E_ROOT} && npx cypress run --e2e --spec '${SPECS}'"
+    "cd ./${E2E_ROOT} && ../../node_modules/.bin/cypress run --e2e --spec '${SPECS}'"
