@@ -55,6 +55,25 @@ describe('cypress-component - map - vl-map-side-sheet', () => {
             .and('have.class', 'vl-icon--nav-left');
     });
 
+    // vl-map-side-sheet erft de focus trap van vl-side-sheet; meerdere side-sheets tegelijk is een anti-pattern, maar
+    // ze mogen de focus niet van elkaar wegtrekken.
+    it('should leave focus in another open map side-sheet on a mobile viewport', () => {
+        cy.viewport(375, 667);
+        cy.mount(html`
+            <vl-map-side-sheet open="">
+                <button id="first-action" type="button">actie in de eerste side-sheet</button>
+            </vl-map-side-sheet>
+            <vl-map-side-sheet open="" right="">
+                <button id="second-action" type="button">actie in de tweede side-sheet</button>
+            </vl-map-side-sheet>
+        `);
+        cy.get('vl-map-side-sheet').last().shadow().find('vl-button').shadow().find('button').should('exist');
+
+        cy.get('#second-action').focus();
+
+        cy.get('#second-action').should('have.focus');
+    });
+
     it('should have arrow in correct position when starting in open position from the right', () => {
         cy.mount(html` <vl-map-side-sheet open="" right=""></vl-map-side-sheet> `);
 

@@ -7,8 +7,9 @@ import { nodeData } from './stories/vl-cascader.stories-util.data';
 import { getItemList } from './stories/vl-cascader.stories-util.item-list-function';
 import { ItemListFn } from './vl-cascader.model';
 import { VlAccordionComponent } from '../accordion';
+import { VlSideSheet } from '../side-sheet';
 
-registerWebComponents([VlCascaderComponent, VlCascaderItemComponent, VlAccordionComponent, VlInfoTile]);
+registerWebComponents([VlCascaderComponent, VlCascaderItemComponent, VlAccordionComponent, VlInfoTile, VlSideSheet]);
 
 const mountWithSlots = (
     placeholderText: string,
@@ -47,6 +48,8 @@ const getCascaderNodeByLabel = (label: string) =>
     cy.get('vl-cascader').shadow().find(`vl-cascader-item[label="${label}"]`);
 
 const getCascaderItemByLabel = (label: string) => cy.get('vl-cascader').shadow().contains('.vl-cascader-item', label);
+
+const getNavigationLevel = () => cy.get('vl-cascader').shadow().find('.content section');
 
 const getBreadcrumbItemByText = (text: string) =>
     cy.get('vl-cascader').shadow().contains('span[class="vl-breadcrumb__list__item__cta"]', text);
@@ -128,6 +131,43 @@ describe('cypress-component - block components - vl-cascader', () => {
         cy.get('vl-cascader').shadow().find('nav').should('not.exist');
     });
 
+    it('should move focus to the new level when navigating forward', () => {
+        getCascaderNodeByLabel('West-Vlaanderen').click();
+        cy.get('vl-cascader').should('have.attr', 'level', '1');
+
+        getNavigationLevel().should('have.focus');
+    });
+
+    it('should move focus to the new level when navigating backwards via the breadcrumb', () => {
+        navigate3levelsForward();
+
+        getBreadcrumbItemByText('West-Vlaanderen').click();
+        cy.get('vl-cascader').should('have.attr', 'level', '1');
+
+        getNavigationLevel().should('have.focus');
+    });
+
+    it('should show a focus outline on the new level when navigating forward with the keyboard', () => {
+        getCascaderNodeByLabel('West-Vlaanderen').shadow().find('vl-link').shadow().find('button').focus();
+        realPressEnter();
+        cy.get('vl-cascader').should('have.attr', 'level', '1');
+
+        getNavigationLevel()
+            .should('have.focus')
+            .and(shouldMatchFocusVisible(true))
+            .shouldHaveComputedStyle({ style: 'outline-style', value: 'solid' });
+    });
+
+    it('should not show a focus outline on the new level when navigating forward with the mouse', () => {
+        getCascaderNodeByLabel('West-Vlaanderen').shadow().find('vl-link').shadow().find('button').then(realClick);
+        cy.get('vl-cascader').should('have.attr', 'level', '1');
+
+        getNavigationLevel()
+            .should('have.focus')
+            .and(shouldMatchFocusVisible(false))
+            .shouldHaveComputedStyle({ style: 'outline-style', value: 'none' });
+    });
+
     it('should display the subtitle', () => {
         cy.get('vl-cascader')
             .shadow()
@@ -183,6 +223,24 @@ describe('cypress-component - block components - vl-cascader - in vl-side-sheet'
         cy.get('vl-cascader').shadow().find('nav');
         cy.get('vl-cascader').invoke('attr', 'hide-breadcrumb', 'true');
         cy.get('vl-cascader').shadow().find('nav').should('not.exist');
+    });
+
+    it('should keep focus inside the side-sheet when navigating forward', () => {
+        getCascaderNodeByLabel('West-Vlaanderen').click();
+        cy.get('vl-cascader').should('have.attr', 'level', '1');
+
+        getNavigationLevel().should('have.focus');
+        shouldNotFocusSideSheetToggleButton();
+    });
+
+    it('should keep focus inside the side-sheet when navigating forward on a mobile viewport', () => {
+        cy.viewport(375, 667);
+
+        getCascaderNodeByLabel('West-Vlaanderen').click();
+        cy.get('vl-cascader').should('have.attr', 'level', '1');
+
+        getNavigationLevel().should('have.focus');
+        shouldNotFocusSideSheetToggleButton();
     });
 });
 
@@ -374,6 +432,51 @@ const defaultCascaderTemplate = html`
 
 const mountDefault = () => {
     cy.mount(defaultCascaderTemplate);
+};
+
+// jQuery kent :focus-visible niet, dus de match-assertion van Cypress kan hier niet gebruikt worden.
+const shouldMatchFocusVisible = (focusVisible: boolean) => ($element: JQuery<HTMLElement>) =>
+    expect($element[0].matches(':focus-visible')).to.equal(focusVisible);
+
+// cy.press(ENTER) verstuurt geen tekeninvoer, waardoor een button niet geactiveerd wordt; via het Chrome DevTools
+// Protocol verloopt de toetsaanslag als echte browser-input.
+const realPressEnter = () => {
+    (['keyDown', 'keyUp'] as const).forEach((type) => {
+        cy.then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Input.dispatchKeyEvent',
+                params: { type, key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r' },
+            }),
+        );
+    });
+};
+
+// cy.click() simuleert enkel events, waardoor de browser geen muisinteractie registreert en :focus-visible anders
+// beoordeelt; via het Chrome DevTools Protocol verloopt de klik als echte browser-input.
+const realClick = ($element: JQuery<HTMLElement>) => {
+    const element = $element[0];
+    const autWindow = element.ownerDocument.defaultView!;
+    const frameRect = autWindow.frameElement!.getBoundingClientRect();
+    const scale = frameRect.width / autWindow.innerWidth;
+    const elementRect = element.getBoundingClientRect();
+    const x = frameRect.left + (elementRect.left + elementRect.width / 2) * scale;
+    const y = frameRect.top + (elementRect.top + elementRect.height / 2) * scale;
+    (['mousePressed', 'mouseReleased'] as const).forEach((type) => {
+        cy.then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Input.dispatchMouseEvent',
+                params: { type, x, y, button: 'left', clickCount: 1 },
+            }),
+        );
+    });
+};
+
+// De toggle button zit twee shadow roots diep; de have.focus-assertion van Cypress kijkt niet zo ver.
+const shouldNotFocusSideSheetToggleButton = () => {
+    cy.get('vl-side-sheet').should(($sideSheet) => {
+        const shadowRoot = $sideSheet[0].shadowRoot;
+        expect(shadowRoot?.activeElement).not.to.equal(shadowRoot?.querySelector('#toggle-button'));
+    });
 };
 
 const mountSideSheet = () => {
