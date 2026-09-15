@@ -76,6 +76,11 @@ pipeline {
                 description: 'Sla alle test stages over (component tests + storybook e2e). Werkt enkel bij een ' +
                         'build die je zelf start via "Build with Parameters"; bij een automatische build (push, ' +
                         'timer, branch indexing) draaien de tests hoe dan ook.')
+        password(
+                name: 'FIGMA_ACCESS_TOKEN',
+                defaultValue: '',
+                description: 'Tijdelijk: Figma token voor de stage "code connect: validate". Leeg laten om de ' +
+                        'Jenkins credential figma-code-connect-token te gebruiken.')
     }
     stages {
         stage('Pijplijn') {
@@ -218,6 +223,37 @@ pipeline {
                                     junit allowEmptyResults: true, testResults: 'test-results/*.xml'
                                     archiveArtifacts artifacts: screenshotsGlob(),
                                             allowEmptyArchive: true, fingerprint: false
+                                }
+                            }
+                        }
+                        // Dry run van Code Connect: faalt wanneer een template stuk is of naar een Figma node
+                        // wijst die niet meer bestaat. Publiceren gebeurt niet hier maar vanuit een andere repo.
+                        stage('code connect: validate') {
+                            // beforeAgent: anders wordt de pod toch opgestart voor een stage die niets doet.
+                            when {
+                                beforeAgent true
+                                expression { runTests() }
+                            }
+                            agent {
+                                kubernetes {
+                                    inheritFrom 'jenkins-jenkins-agent'
+                                    yaml podBuilder.from([buildPod()])
+                                }
+                            }
+                            steps {
+                                container('cypress') {
+                                    script {
+                                        // Een ingevulde build parameter gaat voor op de credential.
+                                        if (env.FIGMA_ACCESS_TOKEN) {
+                                            sh './resources/ci-jenkins/bash/code-connect-validate.sh'
+                                        } else {
+                                            withCredentials([string(
+                                                    credentialsId: 'figma-code-connect-token',
+                                                    variable: 'FIGMA_ACCESS_TOKEN')]) {
+                                                sh './resources/ci-jenkins/bash/code-connect-validate.sh'
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

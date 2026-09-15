@@ -4,7 +4,9 @@
         "./src/**/*.spec.ts",
         "./src/**/*.cy.ts",
         "./src/**/*.mock.ts",
-        "./src/**/stories"
+        "./src/**/stories",
+        "./src/**/*.figma.ts",
+        "./src/**/*.figma.batch.ts"
     ],
     "compilerOptions": {}
 }
