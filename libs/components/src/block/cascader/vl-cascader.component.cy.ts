@@ -48,8 +48,42 @@ const getCascaderNodeByLabel = (label: string) =>
 
 const getCascaderItemByLabel = (label: string) => cy.get('vl-cascader').shadow().contains('.vl-cascader-item', label);
 
-const getBreadcrumbItemByText = (text: string) =>
-    cy.get('vl-cascader').shadow().contains('span[class="vl-breadcrumb__list__item__cta"]', text);
+const getBreadcrumbItemByText = (text: string) => cy.get('vl-cascader').shadow().contains('vl-breadcrumb-item', text);
+
+const getHomeBreadcrumbItem = () => cy.get('vl-cascader').shadow().find('vl-breadcrumb-item.vl-breadcrumb-home');
+
+const getBreadcrumbCta = ($item: JQuery<HTMLElement>) =>
+    $item[0].shadowRoot!.querySelector<HTMLElement>('.vl-breadcrumb__list__item__cta')!;
+
+const shouldTruncateBreadcrumbItemWithinBreadcrumb = (text: string) => {
+    cy.get('vl-cascader')
+        .shadow()
+        .find('vl-breadcrumb')
+        .then(($breadcrumb) => {
+            const breadcrumbRight = $breadcrumb[0].getBoundingClientRect().right;
+
+            getBreadcrumbItemByText(text).should(($item) => {
+                const cta = getBreadcrumbCta($item);
+
+                expect($item[0].getBoundingClientRect().right).to.be.at.most(breadcrumbRight);
+                expect(cta.getBoundingClientRect().right).to.be.at.most(breadcrumbRight);
+                expect(cta.scrollWidth).to.be.greaterThan(cta.clientWidth);
+            });
+        });
+};
+
+// cy.press(ENTER) verstuurt geen tekeninvoer, waardoor een button niet geactiveerd wordt; via het Chrome DevTools
+// Protocol verloopt de toetsaanslag als echte browser-input.
+const realPressEnter = () => {
+    (['keyDown', 'keyUp'] as const).forEach((type) => {
+        cy.then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Input.dispatchKeyEvent',
+                params: { type, key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r' },
+            }),
+        );
+    });
+};
 
 const navigate3levelsForward = () => {
     navigateChosenLevelsForward(['West-Vlaanderen', 'Gemeente: Damme', 'Deelgemeente - Moerkerke']);
@@ -122,6 +156,41 @@ describe('cypress-component - block components - vl-cascader', () => {
         cy.get('@vl-click-breadcrumb').should('have.been.calledTwice');
     });
 
+    it('should be accessible with a breadcrumb', () => {
+        navigate3levelsForward();
+        cy.injectAxe();
+
+        cy.checkA11y('vl-cascader');
+    });
+
+    it('should navigate backwards with the keyboard via the breadcrumb', () => {
+        cy.createStubForEvent('vl-cascader', 'vl-click-breadcrumb');
+        navigate3levelsForward();
+
+        getHomeBreadcrumbItem().shadow().find('button').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        getBreadcrumbItemByText('West-Vlaanderen').shadow().find('button').should('have.focus');
+        realPressEnter();
+
+        cy.get('vl-cascader').should('have.attr', 'level', '1');
+        cy.get('@vl-click-breadcrumb').should('have.been.calledOnce');
+    });
+
+    it('should give the home breadcrumb item an accessible name', () => {
+        navigate3levelsForward();
+
+        getHomeBreadcrumbItem().shadow().find('button').should('exist');
+        getHomeBreadcrumbItem().find('vl-icon').should('have.attr', 'label', 'Terug naar het begin');
+    });
+
+    it('should render the current level in the breadcrumb as non-interactive text', () => {
+        navigate3levelsForward();
+
+        getBreadcrumbItemByText('Deelgemeente - Moerkerke').should('have.attr', 'type', 'text');
+        getBreadcrumbItemByText('Deelgemeente - Moerkerke').shadow().find('button').should('not.exist');
+        getBreadcrumbItemByText('Gemeente: Damme').shadow().find('button').should('exist');
+    });
+
     it('should hide bread crumb', () => {
         cy.get('vl-cascader').shadow().find('nav');
         cy.get('vl-cascader').invoke('attr', 'hide-breadcrumb', 'true');
@@ -183,6 +252,49 @@ describe('cypress-component - block components - vl-cascader - in vl-side-sheet'
         cy.get('vl-cascader').shadow().find('nav');
         cy.get('vl-cascader').invoke('attr', 'hide-breadcrumb', 'true');
         cy.get('vl-cascader').shadow().find('nav').should('not.exist');
+    });
+});
+
+describe('cypress-component - block components - vl-cascader - in vl-side-sheet - long breadcrumb label', () => {
+    beforeEach(() => {
+        mountSideSheetWithLongLabel();
+    });
+
+    it('should truncate a long breadcrumb label instead of overflowing the breadcrumb', () => {
+        navigateChosenLevelsForward(['West-Vlaanderen', longLabel]);
+
+        cy.get('vl-cascader').shadow().find('vl-breadcrumb').should('have.attr', 'ellipsis');
+        shouldTruncateBreadcrumbItemWithinBreadcrumb(longLabel);
+    });
+
+    it('should truncate a long breadcrumb label that is no longer the current level', () => {
+        navigateChosenLevelsForward(['West-Vlaanderen', longLabel, 'Dorp - Moerkerke']);
+
+        getBreadcrumbItemByText(longLabel).shadow().find('button').should('exist');
+        shouldTruncateBreadcrumbItemWithinBreadcrumb(longLabel);
+    });
+
+    it('should keep the preceding breadcrumb items readable', () => {
+        navigateChosenLevelsForward(['West-Vlaanderen', longLabel]);
+
+        getBreadcrumbItemByText('West-Vlaanderen').should(($item) => {
+            const cta = getBreadcrumbCta($item);
+            expect(cta.scrollWidth).to.equal(cta.clientWidth);
+        });
+    });
+
+    it('should wrap a long breadcrumb label to its own line', () => {
+        navigateChosenLevelsForward(['West-Vlaanderen', longLabel]);
+
+        cy.get('vl-cascader')
+            .shadow()
+            .find('vl-breadcrumb-item')
+            .then(($items) => {
+                const firstTop = $items.first()[0].getBoundingClientRect().top;
+                const lastTop = $items.last()[0].getBoundingClientRect().top;
+
+                expect(lastTop).to.be.greaterThan(firstTop);
+            });
     });
 });
 
@@ -268,30 +380,27 @@ describe('cypress-component - block components - vl-cascader - slots', () => {
     });
 
     it('should set home slot', () => {
-        cy.get('vl-cascader').shadow().find('span.vl-breadcrumb-home-slot').should('not.exist');
+        getHomeBreadcrumbItem().should('not.exist');
 
         cy.get('vl-cascader').should('have.attr', 'level', 0);
         getCascaderNodeByLabel(label).find('vl-title[type="h5"]').contains(labelSlotText).click();
         cy.get('vl-cascader').should('have.attr', 'level', 1);
 
-        cy.get('vl-cascader')
-            .shadow()
-            .find(`span.vl-breadcrumb-home-slot`)
-            .find('slot')
+        getHomeBreadcrumbItem().find('vl-icon').should('not.exist');
+        getHomeBreadcrumbItem()
+            .find<HTMLSlotElement>('slot[name="home"]')
             .then(($slot) => {
                 const slottedContent = $slot[0].assignedNodes()[0].textContent;
                 expect(slottedContent).to.contain(homeSlotText);
             });
 
         cy.get('vl-cascader').invoke('attr', 'level', '0');
-        cy.get('vl-cascader').shadow().find('span.vl-breadcrumb-home-slot').should('not.exist');
+        getHomeBreadcrumbItem().should('not.exist');
 
         getCascaderNodeByLabel(label).find('vl-title[type="h5"]').contains(labelSlotText).click();
 
-        cy.get('vl-cascader')
-            .shadow()
-            .find(`span.vl-breadcrumb-home-slot`)
-            .find('slot')
+        getHomeBreadcrumbItem()
+            .find<HTMLSlotElement>('slot[name="home"]')
             .then(($slot) => {
                 const slottedContent = $slot[0].assignedNodes()[0].textContent;
                 expect(slottedContent).to.contain(homeSlotText);
@@ -378,6 +487,25 @@ const mountDefault = () => {
 
 const mountSideSheet = () => {
     cy.mount(html` <vl-side-sheet open=""> ${defaultCascaderTemplate} </vl-side-sheet> `);
+};
+
+const longLabel =
+    'Besluit van de Vlaamse Regering tot vaststelling van een gewestelijke stedenbouwkundige verordening voor publiciteitsinrichtingen';
+
+const mountSideSheetWithLongLabel = () => {
+    cy.mount(html`
+        <vl-side-sheet open="">
+            <vl-cascader>
+                <vl-cascader-item label="West-Vlaanderen">
+                    <vl-cascader-item label=${longLabel}>
+                        <vl-cascader-item label="Dorp - Moerkerke">
+                            <vl-cascader-item label="Straat - Kerkstraat"></vl-cascader-item>
+                        </vl-cascader-item>
+                    </vl-cascader-item>
+                </vl-cascader-item>
+            </vl-cascader>
+        </vl-side-sheet>
+    `);
 };
 
 const tekstWestVlaanderen =
