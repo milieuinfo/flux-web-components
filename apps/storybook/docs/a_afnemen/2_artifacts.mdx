@@ -7,6 +7,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 ## Inhoudstafel
 
 - [Overzicht](#overzicht)
+- [Afname](#afname)
 - [@domg-wc/common](#domg-wccommon)
 - [@domg-wc/components/block](#domg-wccomponentsblock)
 - [@domg-wc/components/form](#domg-wccomponentsform)
@@ -21,6 +22,28 @@ Alle web-componenten van Departement Omgeving zijn beschikbaar via npm artifacts
 __common__ bevat technische code, __styles__ alle styling en layouts die op het document gezet worden,
 __components__ en __map__ bevatten de web-componenten. De web-componenten nodig voor legacy toepassingen zijn ook
 beschikbaar via de CDN, zie ['fat-lib: domg-wc-compliance'](#fat-lib-domg-wc-compliance).
+
+
+## Afname
+
+Om de artifacts af te nemen kan je __als medewerker__ van Departement Omgeving je `~/.npmrc` bestand lokaal als volgt
+ configureren:
+
+```
+registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/
+//repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/:_authToken=***
+```
+
+Als je __geen medewerker__ bent, en dus geen account hebt voor die registry, kan je de artifacts toch als volgt afnemen:
+
+```
+; Standaard: de publieke registry.
+registry=https://registry.npmjs.org/
+
+; Alleen deze scopes gaan naar de publiek beschikbare artifacts in de Artifactory van Departement Omgeving.
+@domg:registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/
+@domg-wc:registry=https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/
+```
 
 
 ## @domg-wc/styles
