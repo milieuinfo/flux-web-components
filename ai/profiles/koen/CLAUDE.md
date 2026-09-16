@@ -173,6 +173,7 @@ Naast de lokale Dev Mode server is er de **cloud Figma MCP-server** (`claude.ai 
 - De **Storybook-documentatie** bevat tal van best practices (zowel design als accessibility) — neem die in acht wanneer je designs in Figma voorstelt.
 - **Meld onvolkomenheden** in zowel code als Figma-componenten en stel fixes/verbeteringen voor waar nodig.
 - De **codebase is de single source of truth**. Wijkt Figma daarvan af, meld het dan.
+- Leer je iets over een component dat nuttig is in zijn **Figma-description** (een best practice, valkuil of workaround voor design of design-naar-code), schrijf het dan weg in de repo flux-mcp, in `figma/descriptions/<soort>/<naam>.figma.md`, op een **nieuwe lokale branch** zonder upstream. Commit pas na akkoord, push nooit. Pas de description nooit rechtstreeks in Figma aan.
 
 **Maak het werk van de frontend developer makkelijk**
 - Maak designs die het latere werk zo eenvoudig mogelijk maken. **Bedenk geen eigen layouts** (geen eigen frames, backgrounds, borders, spacing, …) — gebruik wat de library biedt.
