@@ -9,7 +9,8 @@
         ],
         "types": [
             "cypress",
-            "cypress-axe"
+            "cypress-axe",
+            "@figma/code-connect/figma-types"
         ],
         "paths": {
             "@resources/utils-storybook": [
