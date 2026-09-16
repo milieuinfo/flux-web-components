@@ -1,0 +1,9 @@
+{
+    "codeConnect": {
+        "include": ["libs/**/*.figma.ts", "libs/**/*.figma.batch.json"],
+        "exclude": ["node_modules/**", "**/dist/**", "**/build/**"],
+        "label": "Web Components",
+        "language": "html",
+        "defaultBranch": "develop-v2"
+    }
+}

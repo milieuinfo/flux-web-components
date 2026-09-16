@@ -1,0 +1,44 @@
+// url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=182-61297
+// source=libs/components/src/block/properties/vl-properties.component.ts
+// component=VlPropertiesComponent
+import figma from 'figma';
+import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
+
+const instance = figma.selectedInstance;
+
+// De Figma-as `variant` bepaalt in code de wrapper-div rond de properties: geen wrapper (default),
+// `<div class="column">` per kolom (column) of `<div class="stacked">` (collapsed; `stacked` vervangt
+// de deprecated class `collapsed`). De deprecated Figma-waarden mappen op hun vervanger.
+const layout = instance.getEnum('variant', {
+    default: 'default',
+    column: 'column',
+    collapsed: 'stacked',
+    'deprecated (use default)': 'default',
+    'deprecated (use column)': 'column',
+    'deprecated (use collapsed)': 'stacked',
+});
+
+// De Figma-boolean `padding-bottom` toont de witruimte onderaan; in code is dat het omgekeerde attribuut
+// `no-padding-bottom`. Ze staat standaard uit, en een oudere library had die witruimte nog niet.
+const paddingBottom = booleanProperty(instance, 'padding-bottom', false);
+
+// `Slot` bevat de (eerste kolom) properties, `Slot2` de tweede kolom. `Slot2` bestaat als property op de hele set, maar
+// de slot zelf zit enkel in de column-varianten; elders geeft `getSlot('Slot2')` een lege slot-verwijzing die als
+// "Missing snippet" gerenderd wordt. Daarom wordt `Slot2` enkel in de column-variant gelezen.
+// `label-width`, `value-bold` en de `props`-property zitten niet in Figma.
+const slot = instance.getSlot('Slot');
+
+let body;
+if (layout === 'column') {
+    body = figma.code`<div class="column">${slot}</div><div class="column">${instance.getSlot('Slot2')}</div>`;
+} else if (layout === 'stacked') {
+    body = figma.code`<div class="stacked">${slot}</div>`;
+} else {
+    body = figma.code`${slot}`;
+}
+
+export default {
+    example: figma.code`<vl-properties${paddingBottom ? '' : ' no-padding-bottom'}>${body}</vl-properties>`,
+    id: 'vl-properties',
+    metadata: { nestable: true },
+};

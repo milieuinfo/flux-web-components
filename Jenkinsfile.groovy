@@ -62,6 +62,12 @@ boolean runTests() {
     !(params.SKIP_TESTS && manualRun())
 }
 
+// De code connect stage draait altijd, behalve wanneer iemand de build manueel in Jenkins start en SKIP_CODE_CONNECT
+// aanvinkt. Die stage praat met de Figma API en faalt dus ook wanneer Figma onbereikbaar is.
+boolean runCodeConnect() {
+    !(params.SKIP_CODE_CONNECT && manualRun())
+}
+
 pipeline {
     agent {
         kubernetes {
@@ -76,6 +82,17 @@ pipeline {
                 description: 'Sla alle test stages over (component tests + storybook e2e). Werkt enkel bij een ' +
                         'build die je zelf start via "Build with Parameters"; bij een automatische build (push, ' +
                         'timer, branch indexing) draaien de tests hoe dan ook.')
+        booleanParam(
+                name: 'SKIP_CODE_CONNECT',
+                defaultValue: false,
+                description: 'Sla de stage "code connect: validate" over, bijvoorbeeld wanneer Figma onbereikbaar is. ' +
+                        'Werkt enkel bij een build die je zelf start via "Build with Parameters"; bij een ' +
+                        'automatische build (push, timer, branch indexing) draait ze hoe dan ook.')
+        password(
+                name: 'FIGMA_TOKEN',
+                defaultValue: '',
+                description: 'Tijdelijk: Figma token voor de stage "code connect: validate". Leeg laten om de ' +
+                        'Jenkins credential flux-web-componenten/figma_cli te gebruiken.')
     }
     stages {
         stage('Pijplijn') {
@@ -95,7 +112,7 @@ pipeline {
                 }
                 // De onderstaande stages draaien parallel en delen geen state. Elke branch declareert
                 // een eigen agent, dus elke branch krijgt een eigen pod met een eigen workspace.
-                stage('Build + Tests') {
+                stage('Build + Tests + Code Connect Validate') {
                     parallel {
                         stage('build: apps, libs') {
                             agent {
@@ -249,6 +266,37 @@ pipeline {
                                     junit allowEmptyResults: true, testResults: 'test-results/*.xml'
                                     archiveArtifacts artifacts: screenshotsGlob(),
                                             allowEmptyArchive: true, fingerprint: false
+                                }
+                            }
+                        }
+                        // Dry run van Code Connect: faalt wanneer een template stuk is of naar een Figma node
+                        // wijst die niet meer bestaat. Publiceren gebeurt niet hier maar vanuit een andere repo.
+                        stage('code connect: validate') {
+                            // beforeAgent: anders wordt de pod toch opgestart voor een stage die niets doet.
+                            when {
+                                beforeAgent true
+                                expression { runCodeConnect() }
+                            }
+                            agent {
+                                kubernetes {
+                                    inheritFrom 'jenkins-jenkins-agent'
+                                    yaml podBuilder.from([buildPod()])
+                                }
+                            }
+                            steps {
+                                container('cypress') {
+                                    script {
+                                        // Een ingevulde build parameter gaat voor op de credential.
+                                        if (env.FIGMA_TOKEN) {
+                                            sh './resources/ci-jenkins/bash/code-connect-validate.sh'
+                                        } else {
+                                            withCredentials([string(
+                                                    credentialsId: 'flux-web-componenten/figma_cli',
+                                                    variable: 'FIGMA_TOKEN')]) {
+                                                sh './resources/ci-jenkins/bash/code-connect-validate.sh'
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

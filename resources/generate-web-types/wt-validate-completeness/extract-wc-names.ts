@@ -98,7 +98,8 @@ export const extractMapWCNames = () =>
             '.sub-story.ts',
             '.flux-css.ts',
             '.css.ts',
-        ]
+            '.figma.ts',
+        ],
     );
 
 // console.log('ComponentWCNames', extractComponentWCNames());

@@ -1,0 +1,126 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Richtlijnen/Figma/Figma Code Connect"/>
+
+# Figma Code Connect
+
+## Inhoudstafel
+
+- [Wat is het](#wat-is-het)
+- [Wat je nodig hebt](#wat-je-nodig-hebt)
+- [Een snippet opvragen](#een-snippet-opvragen)
+- [Wat het snippet bevat](#wat-het-snippet-bevat)
+- [Wat het snippet niet bevat](#wat-het-snippet-niet-bevat)
+- [Dingen die kunnen opvallen](#dingen-die-kunnen-opvallen)
+- [Dekking en versies](#dekking-en-versies)
+- [Een fout melden](#een-fout-melden)
+
+
+## Wat is het
+
+Code Connect koppelt de componenten uit de Figma-bibliotheek __FLUX Web Componenten__ aan de web-componenten uit
+deze bibliotheek. In Dev Mode toont Figma daardoor geen gegenereerde CSS, maar de HTML van het echte component,
+met de varianten van de geselecteerde instance al ingevuld:
+
+```html
+<vl-button secondary large icon="add" icon-placement="after">Bewaren</vl-button>
+```
+
+Een ontwerper kiest in Figma een variant; jij ziet meteen welk attribuut daarbij hoort.
+
+
+## Wat je nodig hebt
+
+Toegang tot de Figma-bibliotheek en tot Dev Mode. Aan jouw kant hoef je niets te installeren of te configureren:
+de koppeling is gepubliceerd bij Figma en geldt voor iedereen die het bestand kan openen.
+
+
+## Een snippet opvragen
+
+Zet Dev Mode aan en selecteer een __instance__ van een component in een design. Het codepaneel toont het snippet.
+
+Selecteer je het component op een componentenpagina van de bibliotheek zelf, dan meldt Figma
+_Code Connect — Not started_. Dat betekent niet dat de koppeling ontbreekt: ze verschijnt op het gebruik van een
+component, niet op de definitie ervan.
+
+
+## Wat het snippet bevat
+
+- de attributen die horen bij de gekozen varianten
+- de tekst uit de tekstlagen van de instance
+- de naam van een gekozen icoon
+- geneste componenten via hun eigen snippet, bijvoorbeeld een `vl-properties` binnen een `vl-contact-card`
+
+
+## Wat het snippet niet bevat
+
+Alles wat in Figma niet bestaat. Event handlers, data binding, id's en attributen die in code wel bestaan maar geen
+Figma-tegenhanger hebben, staan er niet in. Omgekeerd geldt hetzelfde: een Figma-variant zonder code-equivalent
+wordt niet uitgeschreven.
+
+Het snippet is dus een correct startpunt, geen volledige implementatie.
+
+
+## Dingen die kunnen opvallen
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Wat je ziet</th>
+            <th scope="col">Wat het betekent</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>{`label="..."`}</code></td>
+            <td>Een placeholder. Een knop met alleen een icoon krijgt zijn toegankelijke naam uit de property <code>label</code> in Figma. Staat die nog op de default, dan vul je de naam zelf in: in code is hij verplicht.</td>
+        </tr>
+        <tr>
+            <td><code>{`href="#"`}</code>, <code>{`src=""`}</code></td>
+            <td>Ook een placeholder: Figma kent de bestemming of de afbeelding niet.</td>
+        </tr>
+        <tr>
+            <td><code>{`for=""`}</code> bij <code>{`vl-tooltip`}</code></td>
+            <td>Het id van het trigger-element is verplicht in code, maar bestaat niet in Figma.</td>
+        </tr>
+        <tr>
+            <td><code>{`&amp;`}</code>, <code>{`&lt;`}</code>, <code>{`&quot;`}</code> in tekst</td>
+            <td>Tekst uit Figma wordt geëscapet zodat het snippet geldige HTML blijft. De browser toont gewoon <code>{`&`}</code>, <code>{`<`}</code> en <code>{`"`}</code>.</td>
+        </tr>
+        <tr>
+            <td>Een attribuut met enkele quotes</td>
+            <td>Bevat de tekst zelf een dubbele quote, dan herschrijft Dev Mode het attribuut naar <code>{`'…'`}</code>. Even geldig.</td>
+        </tr>
+        <tr>
+            <td><code>{`icon=""`}</code></td>
+            <td>Het gekozen icoon komt uit een bibliotheek zonder mapping. Vul de icoonnaam zelf in.</td>
+        </tr>
+    </tbody>
+</table>
+
+
+## Dekking en versies
+
+Alle gepubliceerde FLUX-componenten met een code-equivalent zijn gekoppeld, samen met de iconen uit
+__[VL] Icons (team D)__.
+
+Van de snippets bestaat altijd maar één versie: die van de laatst gepubliceerde release. Wijzigt een component,
+dan volgt de koppeling bij de eerstvolgende release. Dat geldt overal tegelijk:
+
+- ook in een __oudere versie__ van het Figma-bestand, via de versiegeschiedenis
+- ook in een design file die de __updates van de bibliotheek nog niet overnam__
+
+Figma bewaart per component één koppeling en zoekt die live op; ze reist niet mee met de versie van het bestand.
+
+Werkt je toepassing met een oudere versie van `@domg-wc`, dan kan een snippet attributen bevatten die in jouw
+versie nog niet bestaan. Controleer ze dan tegen de Storybook van jouw versie:
+`https://flux.omgeving.vlaanderen.be/release-v2/<versie>/storybook`.
+
+Omgekeerd kan een design file geen oudere versie van de Figma-bibliotheek gebruiken. Je kan op een oudere versie
+van een component blijven door een update niet over te nemen, maar niet teruggaan naar een vorige versie.
+
+
+## Een fout melden
+
+Klopt een snippet niet met het component, of ontbreekt er een attribuut? Meld het aan het Flux-team. De koppeling
+staat als `vl-<component>.figma.ts` naast het component in de repository, dus zo'n correctie is doorgaans klein.
