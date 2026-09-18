@@ -1,8 +1,10 @@
 import { css, CSSResult } from 'lit';
+import { vlFocusOutlineMixin } from '../mixin/vl-outlines.css';
 import { vlMediaScreenSmall } from '../var/vl-media-screen.css';
 
 export const vlAccessibilityStyles: CSSResult = css`
-    .vl-visually-hidden {
+    .vl-visually-hidden,
+    .vl-skip-link {
         position: absolute;
         height: 1px;
         width: 1px;
@@ -13,5 +15,18 @@ export const vlAccessibilityStyles: CSSResult = css`
         border: 0;
         left: 0;
         top: 0;
+    }
+
+    .vl-skip-link:focus {
+        position: absolute;
+        height: unset;
+        width: unset;
+        overflow: unset;
+        clip: unset;
+        margin: unset;
+        cursor: pointer;
+        background: white;
+        z-index: var(--vl-z-layer--skip-link);
+        ${vlFocusOutlineMixin()};
     }
 `;

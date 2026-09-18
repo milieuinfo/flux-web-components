@@ -18,6 +18,7 @@
             "@domg-wc/integration/*": ["libs/integration/src/*"],
             "@domg-wc/map": ["libs/map/src/index.ts"],
             "@domg-wc/sections": ["libs/sections/src/index.ts"],
+            "@domg-wc/sections/next/*": ["libs/sections/src/next/*"],
             "@domg-wc/test-support": ["libs/support/test-support/src/index.ts"]
         },
         "target": "es2021",

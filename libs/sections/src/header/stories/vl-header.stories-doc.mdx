@@ -5,6 +5,24 @@ import * as VlHeaderStories from './vl-header.stories';
 
 <VluxMetaData id="sections-header" />
 
+<vl-alert data-vl-icon="warning" data-vl-type="warning" data-vl-title="Global Header Digitaal Vlaanderen - v4 ondersteuning stopt">
+    De **vl-header / vl-header-next** en **vl-footer / vl-footer-next** web-componenten die hier aangeboden worden
+    zijn **wrappers rond de global header en footer** die Digitaal Vlaanderen voorziet.
+
+    Technisch biedt DV twee versies aan, een
+    [v4](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/2339897467/Global+header+v4) en een
+    [v5](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/7483719739/Global+header+v5):
+    - de v4 versie zit achter vl-header en vl-footer (deze component)
+    - de v5 versie zit achter vl-header-next en vl-footer-next (naar te migreren)
+
+    **Belangrijk:** de ondersteuning voor v4 eindigt (vanuit DV) op 31/12/2027, dus **vanaf begin 2028** moeten alle
+    toepassingen gebruik maken van hun **v5** versie (de -next varianten)!
+</vl-alert>
+
+<br/>
+
+## Doel
+
 Injecteert de global header widget van Digitaal Vlaanderen.
 Default wordt de header geïnjecteerd in de body, bij het gebruik van het vl-body element wordt de header geïnjecteerd in
 de vl-body.

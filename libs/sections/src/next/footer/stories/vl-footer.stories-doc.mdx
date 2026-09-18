@@ -1,0 +1,107 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlFooterStories from './vl-footer.stories';
+
+# Digitaal Vlaanderen Footer Next
+
+<VluxMetaData id="sections-next-footer"/>
+
+<vl-alert data-vl-icon="warning" data-vl-type="success" data-vl-title="Global Header Digitaal Vlaanderen - v5 versie">
+    Deze **vl-footer-next** is een wrapper rond de
+    [v5 global footer](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/7483719739/Global+header+v5)
+    van Digitaal Vlaanderen.<br/>
+    Vanaf 01/01/2028 is dit de enige variant die nog ondersteunt wordt door DV!
+</vl-alert>
+
+<br/>
+
+
+## Doel
+
+Injecteert de footer widget (v5) van Digitaal Vlaanderen.
+Default wordt de footer geïnjecteerd in het native `<body>` element.
+
+Voor het consistent gebruik van de footer doorheen alle applicaties van Departement Omgeving, raden we aan om volgende
+template aan te houden:
+
+
+>   **[app-name] is een officiële website van de Vlaamse overheid**
+>    uitgegeven door Departement Omgeving
+
+
+"Departement Omgeving" is hierbij een externe link naar https://omgeving.vlaanderen.be/.
+
+Deze gegevens worden beheerd door Digitaal Vlaanderen en kunnen ingesteld worden bij het verkrijgen van de unieke
+identifier. Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit
+[stappenplan](https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-header-en-footer) van Digitaal Vlaanderen.
+
+
+## Voorbeeld
+
+```js
+import { VlFooter } from '@domg-wc/sections/next/footer';
+```
+
+```html
+<vl-footer-next></vl-footer-next>
+```
+
+<Canvas of={VlFooterStories.FooterDefault}/>
+
+
+## Configuratie
+
+<ArgTypes of={VlFooterStories.FooterDefault}/>
+
+
+## Ready event
+
+De component vuurt het `ready` event af zodra de global footer widget in de DOM gemount is.
+
+Het event wordt afgevuurd **op het `<vl-footer-next>` element zelf**. Het bubbelt niet en gaat niet door shadow
+boundaries, dus registreer de listener op het element:
+
+```js
+document.querySelector('vl-footer-next').addEventListener('ready', () => {
+    // de widget staat in de DOM
+});
+```
+
+In een lit-template:
+
+```js
+html`<vl-footer-next identifier="..." @ready=${onReady}></vl-footer-next>`;
+```
+
+
+## Sticky footer bar
+
+In collapsible modus toont de widget een `position: fixed` bar onderaan de pagina. Zonder
+gereserveerde ruimte bedekt die bar de onderste content. De component reserveert daarom
+standaard `48px`: dat is de hoogte van de bar op een smal scherm, op een breed scherm is
+de bar `35px`.
+
+Afnemers kunnen die hoogte overschrijven of de reservering volledig uitzetten via de
+CSS-variabele `--vl-footer--bar-reserved-height`, gezet op `:root`, `body` of een ander
+element boven de footer container:
+
+```css
+/* Eigen hoogte reserveren */
+:root {
+    --vl-footer--bar-reserved-height: 60px;
+}
+
+/* Reservering uitzetten (bv. wanneer de pagina de ruimte zelf al voorziet) */
+:root {
+    --vl-footer--bar-reserved-height: 0px;
+}
+```
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Footer](https://www.vlaanderen.be/digitaal-vlaanderen/onze-oplossingen/mijn-burgerprofiel/koppelen-met-mijn-burgerprofiel-als-dienstenleverancier/technische-toolkit-voor-aansluitingen-door-dienstenleveranciers)
+
+[Global Footer - interfaces](https://test.widgets.burgerprofiel.dev-vlaanderen.be/docs/global-footer/modules.html)
+
