@@ -12,6 +12,8 @@ import '@domg-wc/form/next/radio-group';
 import '@domg-wc/form/next/select';
 import '@domg-wc/form/next/textarea';
 import '@domg-wc/sections';
+import '@domg-wc/sections/next/footer';
+import '@domg-wc/sections/next/header';
 import '@domg-wc/map';
 
 console.info('registratie domg-web-componenten voltooid');

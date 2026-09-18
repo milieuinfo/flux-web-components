@@ -33,3 +33,4 @@ export {
 } from './util/utils';
 export { onChildListChange } from './util/mutation-utils';
 export { buildSpan, buildDiv, buildLabel, buildData } from './util/html-element.builder';
+export { createSkipToContentLink, SKIP_TO_CONTENT_MISSING_ID_WARNING } from './util/skip-link';

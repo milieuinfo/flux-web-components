@@ -1,0 +1,188 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlHeaderStories from './vl-header.stories';
+
+
+# Digitaal Vlaanderen Header Next
+
+<VluxMetaData id="sections-next-header" />
+
+<vl-alert data-vl-icon="warning" data-vl-type="success" data-vl-title="Global Header Digitaal Vlaanderen - v5 versie">
+    Deze **vl-header-next** is een wrapper rond de
+    [v5 global header](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/7483719739/Global+header+v5)
+    van Digitaal Vlaanderen.<br/>
+    Vanaf 01/01/2028 is dit de enige variant die nog ondersteunt wordt door DV!
+</vl-alert>
+
+<br/>
+
+
+## Doel
+
+Injecteert de global header widget (v5) van Digitaal Vlaanderen.
+Default wordt de header geïnjecteerd in het native `<body>` element.
+
+Voor het consistent gebruik van de header doorheen alle applicaties van Departement Omgeving, raden we aan om volgende
+template aan te houden:
+
+
+>   **[Logo Vlaanderen]** | **[App-name]** | witruimte | **Aanmelden** | **Hulp nodig?**
+
+- **"Logo Vlaanderen"** is hierbij een link naar https://vlaanderen.be.
+- **"App-name"** blijft op alle pagina's de naam van de applicatie en krijgt als link de startpagina van de applicatie.
+- Onder **"Aanmelden"** kan je app-links definiëren (zie [Applicatieve links](#applicatieve-links)).
+- Onder **"Hulp nodig?"** komt de tekst: **"Neem contact op met Departement Omgeving"**, gevolgd door verschillende
+contact opties (telefoonnummer, adres, e-mailadres).
+
+Deze gegevens worden beheerd door Digitaal Vlaanderen en kunnen ingesteld worden bij het verkrijgen van de unieke
+identifier. Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit
+[stappenplan](https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-header-en-footer) van Digitaal Vlaanderen.
+
+
+## Voorbeeld
+
+```js
+import { VlHeader } from '@domg-wc/sections/next/header';
+```
+
+```html
+<vl-header-next></vl-header-next>
+```
+
+<Canvas of={VlHeaderStories.HeaderDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlHeaderStories.HeaderDefault} />
+
+## Ready event
+
+De component vuurt het `ready` event af zodra de global header widget in de DOM gemount is. Vanaf dat moment is de
+widget-inhoud beschikbaar en levert `height` de effectieve hoogte van de header op.
+
+Het event wordt afgevuurd **op het `<vl-header-next>` element zelf**. Het bubbelt niet en gaat niet door shadow
+boundaries, dus registreer de listener op het element:
+
+```js
+document.querySelector('vl-header-next').addEventListener('ready', () => {
+    // de widget staat in de DOM
+});
+```
+
+In een lit-template:
+
+```js
+html`<vl-header-next identifier="..." @ready=${onReady}></vl-header-next>`;
+```
+
+
+## Sessies
+
+### Configuratie
+
+Bij het aanpassen van volgende attributen wordt achterliggend de `window.globalHeaderClient.accessMenu.setProfile()` methode van DV opnieuw aangeroepen:
+
+-   `login-url`
+-   `logout-url`
+-   `switch-capacity-url`
+
+Zie [global header interfaces | setProfile](https://test.widgets.burgerprofiel.dev-vlaanderen.be/docs/global-header/interfaces/AccessMenuMethods.html#setprofile) voor de technische informatie.
+
+Zie [Digitaal Vlaanderen - De endpoints overschrijven](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/6336119448/Aanmelden+met+eenvoudig+of+gekoppeld+toegangsbeheer#De-endpoints-overschrijven) voor meer informatie (v4 documentatie).
+
+### PAPI profile token
+
+Sinds global header v5 kan een PAPI profile token meegegeven worden aan de header. Hiermee toont de header automatisch de gegevens van de gebruiker (naam, hoedanigheden, ...). Zie [Profile API Integration Guide](https://docs.digitaal.vlaanderen.be/global-header/documents/Profile_API_Integration_Guide.html) van Digitaal Vlaanderen voor de achtergrond.
+
+`vl-header-next` ondersteunt twee manieren om het token mee te geven:
+
+1. **`profile-token-url` attribuut** (declaratief) — de component fetcht het token op deze endpoint van jouw backend wanneer de sessie geconfigureerd wordt. Standaard staat dit op `/sso/papi_token`, de endpoint van de Cumuli security lib. Verwachte response is het token als plain text (`text/plain`).
+
+    ```html
+    <vl-header-next
+        identifier="..."
+        profile-token-url="/api/papi-token"
+    ></vl-header-next>
+    ```
+
+2. **`idpProfileToken` JavaScript-property** (imperatief) — set het token direct vanuit je SPA. Heeft voorrang op `profile-token-url`. Handig wanneer je het token al in je client-side state hebt.
+
+    ```js
+    document.querySelector('vl-header-next').idpProfileToken = papiToken;
+    ```
+
+Het token wordt enkel aan `setProfile()` doorgegeven wanneer de gebruiker is aangemeld (`active: true`), conform de [vereiste van Digitaal Vlaanderen](https://docs.digitaal.vlaanderen.be/global-header/documents/Profile_API_Integration_Guide.html#3-frontend-passing-the-profile-token) dat `idpProfileToken` en `active: true` in dezelfde call moeten zitten.
+
+> **Waarom geen `idp-profile-token` HTML-attribuut?**
+> Het token is een bearer credential met korte levensduur. Een HTML-attribuut zou het token zichtbaar maken in View Source, server-side rendered HTML, MutationObservers van 3rd-party scripts en screenshots van de elementen-tab. Daarom wordt het token enkel via een URL-fetch of JS-property aanvaard — beide houden het token uit de DOM.
+
+### IdpData
+
+Wanneer er geen PAPI token beschikbaar is, kan IdpData manueel meegegeven worden (bijvoorbeeld bij mock users via een lokale Keycloak). Twee manieren, met dezelfde precedentie als bij het token:
+
+1. **`idp-data-url` attribuut** — de component fetcht een JSON-response op deze endpoint.
+
+    ```html
+    <vl-header-next
+        identifier="..."
+        idp-data-url="/api/idp-data"
+    ></vl-header-next>
+    ```
+
+2. **`idpData` JavaScript-property** — set het IDPData-object direct.
+
+    ```js
+    document.querySelector('vl-header-next').idpData = {
+        user: { firstName: 'John', name: 'Doe' },
+        loginHint: 'user-login-hint',
+        identities: [/* ... */],
+    };
+    ```
+
+Zie [IDPData interface](https://test.widgets.burgerprofiel.dev-vlaanderen.be/docs/global-header/interfaces/IDPData.html) voor het volledige type.
+
+## Applicatieve Links
+
+Je kan applicatieve links toevoegen aan de header door gebruik te maken van de `applicationLinks` property.<br/>
+Deze property verwacht een array met objecten van het volgende type:
+
+```js
+type ApplicationMenuLink = {
+    label: string;
+    href: string;
+    icon?: string;
+    target?: string;
+};
+```
+
+De `ApplicationMenuLink` TypeScript Type kan je zo importeren: `import { ApplicationMenuLink } from '@govflanders/vl-widget-global-header-types';`
+
+Zie [global header interfaces | ApplicationMenuLink](https://test.widgets.burgerprofiel.dev-vlaanderen.be/docs/global-header/interfaces/ApplicationMenuLink.html) voor de technische informatie.
+
+Zie [Digitaal Vlaanderen - Header applicatieve links](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/6508874105/Aanmeldmenu#Applicatieve-links) voor meer informatie (v4 documentatie).
+
+### Logout request
+
+Sinds global header v5 is het niet meer nodig om automatische logout requests te rejecten. Onderstaande informatie gaat over de v4 implementatie (voorlopig behouden in de documentatie als referentie).
+
+> Bij het gebruik maken van sessies kan het logout request afgehandeld worden.<br/>
+> Dit kan handig zijn als je wilt dat de gebruiker niet automatisch wordt uitgelogd bv. bij inactiviteit of als de sessie verlopen is.
+>
+> Door gebruik te maken van het `reject-logout` attribuut worden alle logout requests afgewezen, behalve een logout request door de gebruiker.
+>
+> Met de `logoutCallback` property kan je een callback functie meegeven die wordt aangeroepen bij een logout request.<br/>
+> De logout reason wordt meegegeven aan de callback, door een boolean promise terug te geven kan je de logout accepteren of afwijzen.<br/>
+> De mogelijke reasons zijn: `inactivity` en `expired`.<br/>
+> Een logout request door de gebruiker wordt nooit afgewezen.
+>
+>
+> Zie [De aanvragen voor applicatie logout afhandelen via JavaScript](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/6336119448/Aanmelden+met+eenvoudig+of+gekoppeld+toegangsbeheer#De-aanvragen-voor-applicatie-logout-afhandelen-via-JavaScript) voor meer informatie (v4 documentatie).
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Header](https://www.vlaanderen.be/digitaal-vlaanderen/onze-oplossingen/mijn-burgerprofiel/koppelen-met-mijn-burgerprofiel-als-dienstenleverancier/technische-toolkit-voor-aansluitingen-door-dienstenleveranciers)
+
+[Global Header - interfaces](https://test.widgets.burgerprofiel.dev-vlaanderen.be/docs/global-header/modules.html)

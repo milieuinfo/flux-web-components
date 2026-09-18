@@ -1,0 +1,103 @@
+import { awaitScript, BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+import { GlobalFooterClient } from '@govflanders/vl-widget-global-footer-types';
+
+declare global {
+    interface Window {
+        globalFooterClient: GlobalFooterClient;
+    }
+}
+
+@webComponent('vl-footer-next')
+export class VlFooter extends BaseLitElement {
+    private development = false;
+    private identifier = '';
+
+    static get properties() {
+        return {
+            development: {
+                type: Boolean,
+                attribute: 'development',
+                reflect: true,
+            },
+            identifier: {
+                type: String,
+                attribute: 'identifier',
+                reflect: true,
+            },
+        };
+    }
+
+    constructor() {
+        super();
+        this.allowCustomCSS = false;
+    }
+
+    get footerContainer() {
+        return document.querySelector('#footer__container');
+    }
+
+    private injectFooterContainer() {
+        const vlBody = document.querySelector('body');
+
+        if (this.footerContainer) return;
+
+        (vlBody || document.body).insertAdjacentHTML(
+            'beforeend',
+            '<footer id="footer__container" style="min-height: var(--vl-footer--bar-reserved-height, 48px)"><div id="footer"></div></footer>'
+        );
+    }
+
+    // class field met pijlfunctie, geen methode !
+    // -> window.addEventListener krijgt hier enkel een functiereferentie mee
+    // -> als gewone methode is 'this' bij het afvuren het window, en dan komt het ready-event op window
+    //    terecht in plaats van op de component - afnemers die op het element luisteren zien het dan nooit
+    private onReady = () => {
+        this.dispatchEvent(new CustomEvent('ready'));
+    };
+
+    private async loadWidget() {
+        try {
+            window.addEventListener('widget.global_footer.mounted', this.onReady);
+
+            await awaitScript(
+                'vl-footer-widget',
+                `https://widgets.${this.development ? 'tni-' : ''}vlaanderen.be/api/v2/widget/${this.identifier}/entry`
+            );
+
+            if (!window.globalFooterClient) {
+                console.error('De global footer client werd niet geladen.');
+                return;
+            }
+
+            const footerElement = this.footerContainer?.querySelector<HTMLDivElement>('#footer') || undefined;
+
+            await window.globalFooterClient.mount(footerElement);
+        } catch (error) {
+            console.error('De global footer werd niet geladen.', error);
+        }
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+
+        this.injectFooterContainer();
+        this.loadWidget();
+    }
+
+    createRenderRoot() {
+        return this;
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+
+        window.removeEventListener('widget.global_footer.mounted', this.onReady);
+        this.footerContainer?.remove();
+    }
+}
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'vl-footer-next': VlFooter;
+    }
+}
