@@ -129,6 +129,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "banner",
+                            "description": "Banner variant van de waarschuwing: zonder afgeronde hoeken, met de titel en de boodschap na elkaar op dezelfde regel.<br>Bedoeld voor meldingen over de volledige breedte van de pagina. Gebruikt altijd de `small` opmaak, ook zonder `size=\"small\"`. Combineer niet met de `naked` variant.",
+                            "default": "false"
+                        },
+                        {
                             "name": "multiline",
                             "description": "Behoudt nieuwe regels in de boodschap van de waarschuwing.",
                             "default": "false"
@@ -1097,7 +1102,7 @@
                         },
                         {
                             "name": "label",
-                            "description": "Een klik op deze inhoud zal de kind elementen weergeven.",
+                            "description": "Een klik op deze inhoud zal de kind elementen weergeven. Geef een eigen vl-link in dit slot de class vl-cascader-link om het pijltje rechts uit te lijnen.",
                             "default": ""
                         }
                     ]
