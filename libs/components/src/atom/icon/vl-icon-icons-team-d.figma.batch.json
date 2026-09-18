@@ -1,0 +1,2249 @@
+{
+    "templateFile": "vl-icon-library.figma.batch.ts",
+    "components": [
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1264",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "add"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-382",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "airplane"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1266",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "alarm"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1272",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "alarm-silent"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1279",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "alert-circle"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1286",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "alert-circle-filled"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1295",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "alert-triangle"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1302",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "alert-triangle-filled"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-981",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "align-center"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-988",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "align-justify"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-995",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "align-left"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1002",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "align-right"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=2407-3791",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "apple"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-234",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "area"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1009",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "arrange-1-to-9"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1016",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "arrange-9-to-1"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1023",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "arrange-a-to-z"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1030",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "arrange-z-to-a"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1837",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "arrow-down"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1843",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "arrow-freemove"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1839",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "arrow-left"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1841",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "arrow-right"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1851",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "arrow-up"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1307",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "asterisk"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1309",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "audio-description"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2263",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "back"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-386",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "ban"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1758-2877",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "banking-bill-euro"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-601",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "bike"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-176",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "bike-closed-criterium"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-194",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "bike-open-criterium"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1317",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "bin"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-393",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "binoculars"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-401",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "boat-ship"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1037",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "bold"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-408",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "bookmark"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-414",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "bookmark-alt-1"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-419",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "bookmark-alt-2"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-447",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "briefcase"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-454",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "building"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1311-2365",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "building-2"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=2314-3780",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "building-big"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1798",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "bullet"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2074",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "burgerprofiel"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-462",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "bus"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-472",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "business-graph-bar"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-478",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "business-graph-pie"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-648",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cake"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-486",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "calculator"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-501",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "calendar"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-510",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "calendar-add"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-514",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "calendar-check"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-519",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "calendar-subtract"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-523",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "camera"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-529",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "car"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1740-3222",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "car-wheel"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-267",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "chat"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1326",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "chat-bubble-square"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1411-2809",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "chat-bubble-square-alert"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-276",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "chat-help"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1346",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "check-circle"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1340",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "check-filled"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1344",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "check-naked"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=2441-3768",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "check-shield"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1338",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "check-thin"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2081",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "child"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-536",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "clock"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1853",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "close"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=801-2860",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "close-filled"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1144-3616",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "close-naked"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1352",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cloud"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1356",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cloud-download"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1362",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cloud-upload"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-541",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "code-branch"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-548",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "coffee-cup"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1368",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cog"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=2314-3766",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "coin-stack"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-553",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "compass"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-559",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "computer-screen"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2064",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "confluence"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-210",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "construction-crane"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-155",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "construction-shack"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-353",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "contactbook"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2086",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "contacts"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-564",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "content-book"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-569",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "content-book-favorite-star"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-574",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "content-box"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1376",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "content-filter"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1329-2305",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "content-layers-hide"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1329-2295",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "content-layers-show"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1380",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "content-note"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1042",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "content-view-column"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1226-2314",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "content-view-module"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-429",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "contract"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1385",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "control-cross-over"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1054",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "copy-paste"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1532",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "copyright"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-580",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "credit-card"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1066",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "crop"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1391",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cursor-arrow-big"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1387",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cursor-arrow-small"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1407",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cursor-finger-down"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1403",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cursor-finger-left"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1395",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cursor-finger-right"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1411",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cursor-finger-up"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-588",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cursor-hand"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1415",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "cursor-hold"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-57",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "demonstration"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-247",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "direction-sign"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1423",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "download-harddisk"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1861",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "drawer"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1866",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "drawer-down"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1740-3225",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "eco-throw-trash"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-359",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "eloket"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-263",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "email"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-592",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "email-read"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-258",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "envelope"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1872",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "expand"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1876",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "expand-horizontal"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-597",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "expand-horizontal-alt"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1878",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "expand-vertical"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1880",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "external"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2000",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "facebook"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2276",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "fastback"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2282",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "fastforward"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-336",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "fax"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1431",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1441",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-audio"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1072",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-copy"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1435",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-download"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-955",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-new"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1455",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-office-doc"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1467",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-office-pdf"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1479",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-office-ppt"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1491",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-office-xls"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-615",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-swap"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-622",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-tasks-check"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1498",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-video"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-629",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-zipped-new"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1078",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "file-zipped-vice"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-637",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "files-coding"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-643",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "film"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1008-2883",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "fingerprint"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2051",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "flickr"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1087",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "focus"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1419",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "folder"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1096",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "font"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1740-3227",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "food-apple"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1740-3232",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "food-grain"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2093",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "gender-female"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2097",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "gender-female-male"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2103",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "gender-male"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2127",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "gender-transgender"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-659",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "globe"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=2407-3777",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "google-play"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2002",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "googleplus"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-375",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "graduation-hat"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-961",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "hammer"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1740-3229",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "hammer-anvil"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1399",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "hand-hint"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-664",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "harddisk"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-671",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "headphone"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-676",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "health-first-aid-kit"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-682",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "health-heart-pulse"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-687",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "health-hospital"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-704",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "hotel-bath-shower"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-714",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "hotel-bed"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-720",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "hotel-fire-alarm"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-724",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "hotel-shower"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2107",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "id-card"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1098",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "images"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1106",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "images-copy"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1510",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "inbox"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1113",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "indent-left"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1122",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "indent-right"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1516",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "info"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1525",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "info-circle"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1520",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "info-filled"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1538",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "info-naked"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2006",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "instagram"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1131",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "italic"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2060",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "jira"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1542",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "key"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1546",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "keyboard"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1562",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "laptop"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-733",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "lightbulb"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1133",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "link"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1139",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "link-broken"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2015",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "linkedin"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1826",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "list-add"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1906",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "list-bullets"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1259",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "loader"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-228",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "location"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-218",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "location-direction-arrow"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-241",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "location-gps"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-222",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "location-map"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1569",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "lock"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1576",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "lock-unlock"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1582",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "login"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1586",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "logout"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=433-18",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "magic-wand"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-83",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "market"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1992",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "menu"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2056",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "messenger"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1590",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "microphone"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1597",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "microphone-off"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1740-3226",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "milk-carton"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1806",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "minus-circle"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-322",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "mobile-phone"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1758-2876",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "money-note"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1919",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "move-down"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1151",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "move-left-right"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1861-3329",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "move-up"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-143",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "moving-elevator"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-738",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "music-note"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-743",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nature-leaf"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-747",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nature-tree"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1923",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-down"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1925",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-down-double"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1929",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-down-light"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1957",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-left"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1959",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-left-double"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1963",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-left-light"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1965",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-right"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1967",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-right-double"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1971",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-right-light"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1947",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-show-more-horizontal"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1952",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-show-more-vertical"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1973",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-up"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1975",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-up-double"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1979",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "nav-up-light"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-971",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "newsletter"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-751",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "newspaper"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2288",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "next"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=502-22",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "organization-network"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-42",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "other-annoyances"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-49",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "other-annoyances-alt"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1155",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "paint-brush"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=2440-3768",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "paint-palette"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1607",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "paperclip"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1546-2878",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "paperplane"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1160",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "paragraph"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2294",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "pause"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1164",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "pencil"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-438",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "pencil-ruler"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1170",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "pencil-write"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-71",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "pennants"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-284",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "phone"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-294",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "phone-incoming"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-288",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "phone-off"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-300",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "phone-outgoing"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-306",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "phone-record"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-764",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "phone-signal-low"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-315",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "phone-speaker"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-252",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "pin-paper"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2020",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "pinterest"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-771",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "places-factory"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-781",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "places-home"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2300",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "play"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-94",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "playstreet"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-785",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "plug"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1800",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "plus-circle"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1144-3643",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "plus-circle-filled"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1144-3642",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "plus-naked"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1609",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "power-button"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=2301-4946",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "printer"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1613",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "printer-view"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1621",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "programming-bug"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=203-695",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "programming-jigsaw"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-424",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "publication"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1629",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "question-mark"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1636",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "question-mark-filled"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1641",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "question-mark-naked"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-134",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "recreation"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1645",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "reply"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1647",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "reply-all"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-791",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "rewards-certified-badge"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-798",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "rewards-gift"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-809",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "road"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-169",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "road-block"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-814",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "romance-marriage-license"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1334-2322",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "ruler"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1401-2325",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "safe"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1651",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "save"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-109",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "scaffold"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1175",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "scissors"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1662",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "search"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-824",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "server"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1180",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "settings"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1666",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "share"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-831",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "share-megaphone"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1672",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "share-rss-feed"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-837",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "shipping-truck"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1679",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "shopping-basket"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1683",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "shopping-basket-add"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1687",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "shopping-basket-subtract"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1981",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "shrink"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-844",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "sign-disable"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-849",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "sign-recycle"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1985",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "sitemap"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2068",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "skype"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1693",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "smiley-poker-face"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1701",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "smiley-smile"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2049",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "snapchat"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1735-3862",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "snippet"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1192",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "sort"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1709",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "speaker-volume-decrease"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1715",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "speaker-volume-high"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1722",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "speaker-volume-increase"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1728",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "speaker-volume-low"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1732",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "speaker-volume-medium"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1738",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "speaker-volume-off"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-102",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "sports-competition"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2022",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "spotify"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2304",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "stop"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1744",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "subtract"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=801-2035",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "subtract-filled"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1144-3617",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "subtract-naked"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-854",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "subway"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-863",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "suitcase"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2116",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "switches"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-870",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "symbol-wifi"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1746",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "synchronize"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-878",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "synchronize-timeout"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1740-3224",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "t-shirt"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=203-587",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "tablet"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1750",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "tag"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1196",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "tag-add"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1203",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "tag-check"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1210",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "tag-close"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1756",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "tag-double"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1217",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "tag-edit"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1227",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "tag-subtract"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1234",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "tag-view"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-882",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "taxi"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-890",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "television"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-125",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "terrace"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1241",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "text-cursor"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1243",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "text-eraser"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1763",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "text-redo"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1765",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "text-undo"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-898",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "timeline"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1249",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "tint"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-902",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "train"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-914",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "trophy"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1253",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "underline"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-921",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "university"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1767",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "upload-harddisk"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1311-2339",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "user"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1008-2882",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "user-box"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2133",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "user-female"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2141",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "user-group"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2153",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "user-male"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1311-2377",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "user-reception"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2160",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "user-setting"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=2314-3786",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "vaccum-cleaner"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2269",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "video-subtitle"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1782",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "view-add"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1504",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "view-hide"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=3302-3827",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "vlaanderen"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-931",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "vote-flag"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-935",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "vote-heart"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-939",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "vote-star"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-943",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "vote-star-filled"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-945",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "vote-thumbs-down"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-950",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "vote-thumbs-up"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2034",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "whatsapp"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=1740-3230",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "whiskey-bottle-glass"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-328",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "window-forward"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1794",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "wrench"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2028",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "x"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-2030",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "youtube"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1812",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "zoom-in"
+        },
+        {
+            "url": "https://www.figma.com/design/AalL9dm9XTZRvE8aaOpLDy/-VL--Icons--team-D-?node-id=103-1818",
+            "source": "libs/components/src/atom/icon/vl-icon-list.ts",
+            "component": "vlIconList",
+            "icon": "zoom-out"
+        }
+    ]
+}
