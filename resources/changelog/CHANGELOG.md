@@ -1,3 +1,14 @@
+## [1.51.0](https://github.com/milieuinfo/flux-web-components/compare/v1.50.0...v1.51.0) (2026-09-18)
+
+### Features
+
+* FLUX-772 - vl-header-next / vl-footer-next - header en footer voor de global header v5 ([d4fa9bb](https://github.com/milieuinfo/flux-web-components/commit/d4fa9bb7f0efcf9881bbfde30f2bd982360bb603))
+
+### Bug Fixes
+
+* FLUX-789 - ChunkLoadError in de Cypress component testen ([f9ec5b4](https://github.com/milieuinfo/flux-web-components/commit/f9ec5b48ef0ce165e38cbad187adf45e3f1206e6)), closes [cypress-io/cypress#28644](https://github.com/cypress-io/cypress/issues/28644)
+* storybook bold tekst, web-types validatie en gepinde overrides ([1bacf8f](https://github.com/milieuinfo/flux-web-components/commit/1bacf8f609ac89b12d8e47edcbb307724cc89054))
+
 ## [1.50.0](https://github.com/milieuinfo/flux-web-components/compare/v1.49.9...v1.50.0) (2026-08-18)
 
 ### Features

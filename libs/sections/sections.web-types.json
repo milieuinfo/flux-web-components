@@ -198,7 +198,7 @@
                 },
                 {
                     "name": "vl-footer",
-                    "description": "Injecteert de footer widget van Digitaal Vlaanderen.\nDefault wordt de footer geïnjecteerd in de body, bij het gebruik van het `vl-body`-element wordt de footer geïnjecteerd\nin de `vl-body`.",
+                    "description": "<vl-alert data-vl-icon=\"warning\" data-vl-type=\"warning\" data-vl-title=\"Global Header Digitaal Vlaanderen - v4 ondersteuning stopt\">\n    De **vl-header / vl-header-next** en **vl-footer / vl-footer-next** web-componenten die hier aangeboden worden\n    zijn **wrappers rond de global header en footer** die Digitaal Vlaanderen voorziet.\n\n    Technisch biedt DV twee versies aan, een\n    [v4](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/2339897467/Global+header+v4) en een\n    [v5](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/7483719739/Global+header+v5):\n    - de v4 versie zit achter vl-header en vl-footer (deze component)\n    - de v5 versie zit achter vl-header-next en vl-footer-next (naar te migreren)\n\n    **Belangrijk:** de ondersteuning voor v4 eindigt (vanuit DV) op 31/12/2027, dus **vanaf begin 2028** moeten alle\n    toepassingen gebruik maken van hun **v5** versie (de -next varianten)!\n</vl-alert>\n\n<br/>",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-footer--documentatie",
                     "attributes": [
                         {
@@ -224,7 +224,7 @@
                 },
                 {
                     "name": "vl-header",
-                    "description": "Injecteert de global header widget van Digitaal Vlaanderen.\nDefault wordt de header geïnjecteerd in de body, bij het gebruik van het vl-body element wordt de header geïnjecteerd in\nde vl-body.",
+                    "description": "<vl-alert data-vl-icon=\"warning\" data-vl-type=\"warning\" data-vl-title=\"Global Header Digitaal Vlaanderen - v4 ondersteuning stopt\">\n    De **vl-header / vl-header-next** en **vl-footer / vl-footer-next** web-componenten die hier aangeboden worden\n    zijn **wrappers rond de global header en footer** die Digitaal Vlaanderen voorziet.\n\n    Technisch biedt DV twee versies aan, een\n    [v4](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/2339897467/Global+header+v4) en een\n    [v5](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/7483719739/Global+header+v5):\n    - de v4 versie zit achter vl-header en vl-footer (deze component)\n    - de v5 versie zit achter vl-header-next en vl-footer-next (naar te migreren)\n\n    **Belangrijk:** de ondersteuning voor v4 eindigt (vanuit DV) op 31/12/2027, dus **vanaf begin 2028** moeten alle\n    toepassingen gebruik maken van hun **v5** versie (de -next varianten)!\n</vl-alert>\n\n<br/>",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-header--documentatie",
                     "attributes": [
                         {
@@ -293,6 +293,123 @@
                                 "default": "[]"
                             }
                         ],
+                        "events": [
+                            {
+                                "name": "ready",
+                                "description": "Afgevuurd nadat de widget toegevoegd is aan de DOM.",
+                                "type": "-"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-header-next",
+                    "description": "<vl-alert data-vl-icon=\"warning\" data-vl-type=\"success\" data-vl-title=\"Global Header Digitaal Vlaanderen - v5 versie\">\n    Deze **vl-header-next** is een wrapper rond de\n    [v5 global header](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/7483719739/Global+header+v5)\n    van Digitaal Vlaanderen.<br/>\n    Vanaf 01/01/2028 is dit de enige variant die nog ondersteunt wordt door DV!\n</vl-alert>\n\n<br/>",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-next-header--documentatie",
+                    "attributes": [
+                        {
+                            "name": "authenticated-user-url",
+                            "description": "De url die wordt opgeroepen om te zien of een gebruiker is ingelogd.",
+                            "default": "/sso/ingelogde_gebruiker"
+                        },
+                        {
+                            "name": "development",
+                            "description": "Geeft aan dat de ontwikkel-servers van Digitaal Vlaanderen gebruikt moeten worden.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "identifier",
+                            "description": "De identifier die gebruikt wordt om bij Digitaal Vlaanderen de header op te halen. Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via het stappenplan van Digitaal Vlaanderen. <a href=\"https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-header-en-footer\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Ga naar het stappenplan van Digitaal Vlaanderen (opent in een nieuw venster)\">Ga naar het stappenplan van Digitaal Vlaanderen.</a>",
+                            "default": ""
+                        },
+                        {
+                            "name": "login-url",
+                            "description": "De url die gebruikt wordt bij het aanmelden.<br>Bij het aanpassen van dit attribuut wordt achterliggend de `window.globalHeaderClient.accessMenu.setProfile()` methode van Digitaal Vlaanderen opnieuw aangeroepen.",
+                            "default": "/sso/aanmelden"
+                        },
+                        {
+                            "name": "logout-url",
+                            "description": "De url die wordt opgeroepen wanneer men zich wil afmelden.<br>Bij het aanpassen van dit attribuut wordt achterliggend de `window.globalHeaderClient.accessMenu.setProfile()` methode van Digitaal Vlaanderen opnieuw aangeroepen.",
+                            "default": "/sso/afgemeld"
+                        },
+                        {
+                            "name": "simple",
+                            "description": "Indien true wordt het configureren van de sessie overgeslagen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "skeleton",
+                            "description": "Geeft aan of de header een skeleton moet tonen voordat het rendert.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "switch-capacity-url",
+                            "description": "De url die wordt opgeroepen wanneer men van organisatie wil wisselen.<br>Bij het aanpassen van dit attribuut wordt achterliggend de `window.globalHeaderClient.accessMenu.setProfile()` methode van Digitaal Vlaanderen opnieuw aangeroepen.",
+                            "default": "/sso/wissel_organisatie"
+                        },
+                        {
+                            "name": "skip-to-content-id",
+                            "description": "De id van het content-element waarnaar de skip-link de focus verplaatst (WCAG 2.4.1). Zonder waarde wordt er geen skip-link gerenderd. Gebruik de id van de eerste heading van de pagina-inhoud.",
+                            "default": ""
+                        },
+                        {
+                            "name": "profile-token-url",
+                            "description": "De url die opgeroepen wordt om het PAPI profile token op te halen. Het token wordt achterliggend doorgegeven aan `window.globalHeaderClient.accessMenu.setProfile()` als `idpProfileToken`. Standaard `/sso/papi_token` (endpoint van de Cumuli security lib); zet leeg om geen token op te halen. Het token wordt nooit in de DOM opgenomen (om die reden is er geen `idp-profile-token` attribuut).<br/>Zie de documentatie pagina voor de verwachte response.",
+                            "default": "/sso/papi_token"
+                        },
+                        {
+                            "name": "idp-data-url",
+                            "description": "De url die opgeroepen wordt om manueel IdpData op te halen (handig voor mock users via lokale Keycloak). De response wordt doorgegeven aan `window.globalHeaderClient.accessMenu.setProfile()` als `idpData`.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "applicationLinks",
+                                "description": "De links die getoond worden in de header.<br/>Zie de documentatie pagina voor meer informatie.",
+                                "type": "ApplicationLink[]",
+                                "default": "[]"
+                            },
+                            {
+                                "name": "idpProfileToken",
+                                "description": "Het PAPI profile token, te zetten via JavaScript (geen attribuut omdat het token niet in de DOM mag belanden). Heeft voorrang op `profile-token-url`. Wordt enkel meegestuurd wanneer de gebruiker is aangemeld.",
+                                "type": "string",
+                                "default": "undefined"
+                            },
+                            {
+                                "name": "idpData",
+                                "description": "Manuele override voor de IdpData. Heeft voorrang op `idp-data-url`. Handig voor mock users via lokale Keycloak.<br/>Zie de documentatie pagina voor het type.",
+                                "type": "IDPData",
+                                "default": "undefined"
+                            }
+                        ],
+                        "events": [
+                            {
+                                "name": "ready",
+                                "description": "Afgevuurd nadat de widget toegevoegd is aan de DOM.",
+                                "type": "-"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-footer-next",
+                    "description": "<vl-alert data-vl-icon=\"warning\" data-vl-type=\"success\" data-vl-title=\"Global Header Digitaal Vlaanderen - v5 versie\">\n    Deze **vl-footer-next** is een wrapper rond de\n    [v5 global footer](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/7483719739/Global+header+v5)\n    van Digitaal Vlaanderen.<br/>\n    Vanaf 01/01/2028 is dit de enige variant die nog ondersteunt wordt door DV!\n</vl-alert>\n\n<br/>",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-next-footer--documentatie",
+                    "attributes": [
+                        {
+                            "name": "development",
+                            "description": "Geeft aan dat de ontwikkel-servers van Digitaal Vlaanderen gebruikt moeten worden.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "identifier",
+                            "description": "De identifier die gebruikt wordt om bij Digitaal Vlaanderen de footer op te halen. Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via het stappenplan van Digitaal Vlaanderen. <a href=\"https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-header-en-footer\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Ga naar het stappenplan van Digitaal Vlaanderen (opent in een nieuw venster)\">Ga naar het stappenplan van Digitaal Vlaanderen.</a>",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
                         "events": [
                             {
                                 "name": "ready",
