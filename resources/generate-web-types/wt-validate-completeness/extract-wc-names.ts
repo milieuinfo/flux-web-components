@@ -27,7 +27,7 @@ const validFileSuffix = (file: string, ignoreSuffixes: string[]): boolean => {
 
 const extractFileWCNames = (
     file: string,
-    filePath: string,
+    relativeFilePath: string,
     matchSuffixes: string[],
     matchPatterns: string[],
     ignoreSuffixes: string[]
@@ -38,7 +38,9 @@ const extractFileWCNames = (
             if (file.endsWith(matchSuffix)) {
                 let wcName = file.substring(0, file.length - matchSuffix.length);
                 // web-components die zich in een 'next' folder bevinden worden geregistreerd met een '-next' suffix
-                wcName = filePath.includes('next') ? wcName + '-next' : wcName;
+                // enkel het pad binnen de te doorzoeken folder telt, anders krijgt alles een '-next' suffix zodra
+                // het absolute pad 'next' bevat (bvb. een Jenkins workspace van een branch met 'next' in de naam)
+                wcName = relativeFilePath.split(path.sep).includes('next') ? wcName + '-next' : wcName;
                 wcNames = [...wcNames, wcName];
             }
         });
@@ -50,17 +52,30 @@ const extractWCNames = (
     directoryToSearch: string,
     matchSuffixes: string[],
     matchPatterns: string[],
-    ignoreSuffixes: string[]
+    ignoreSuffixes: string[],
+    rootDirectory: string = directoryToSearch
 ): string[] => {
     let wcNames: string[] = [];
     fs.readdirSync(directoryToSearch).forEach((file) => {
         const filePath = directoryToSearch + '/' + file;
         const stat = fs.statSync(filePath);
         if (stat.isDirectory()) {
-            wcNames = [...wcNames, ...extractWCNames(filePath, matchSuffixes, matchPatterns, ignoreSuffixes)];
+            wcNames = [
+                ...wcNames,
+                ...extractWCNames(filePath, matchSuffixes, matchPatterns, ignoreSuffixes, rootDirectory),
+            ];
         }
         if (stat.isFile()) {
-            wcNames = [...wcNames, ...extractFileWCNames(file, filePath, matchSuffixes, matchPatterns, ignoreSuffixes)];
+            wcNames = [
+                ...wcNames,
+                ...extractFileWCNames(
+                    file,
+                    path.relative(rootDirectory, filePath),
+                    matchSuffixes,
+                    matchPatterns,
+                    ignoreSuffixes
+                ),
+            ];
         }
     });
     return wcNames;

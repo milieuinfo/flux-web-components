@@ -167,13 +167,13 @@
             "color-name": "2.0.0"
         },
         "cacache": {
-            "tar": "^7.5.22"
+            "tar": "7.5.22"
         },
-        "handlebars": "^4.7.9",
-        "xmldom": "npm:@xmldom/xmldom@^0.9.10",
+        "handlebars": "4.7.9",
+        "xmldom": "npm:@xmldom/xmldom@0.9.11",
         "ttf2woff2": {
-            "node-gyp": "^11.2.0",
-            "tar": "^7.5.22"
+            "node-gyp": "11.5.0",
+            "tar": "7.5.22"
         }
     },
     "volta": {
