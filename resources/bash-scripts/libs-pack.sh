@@ -16,14 +16,21 @@ else
     exit 1;
 fi
 
-# de OSX versie is als volgt: sed -i '' "s,${TO_REPLACE},${RELEASE_VERSION}," **/package.json
-# maar die '' geeft een probleem in een 'normale' linux omgeving
+# bewust find en geen './**/...' glob: zonder 'shopt -s globstar' (die optie bestaat niet in de bash 3.2 van macOS)
+# gedraagt '**' zich als '*', waardoor de web-types van components (components/atom/atom.web-types.json) overgeslagen werden
+# de OSX versie van sed -i vraagt een extra '' argument, maar die '' geeft een probleem in een 'normale' linux omgeving
 if [[ "$(uname)" == "Darwin" ]]; then
-    sed -i '' "s,${TO_REPLACE},${RELEASE_VERSION}," ./**/package.json
-    sed -i '' "s,${TO_REPLACE},${RELEASE_VERSION}," ./**/*.web-types.json
+    find . -not -path '*/node_modules/*' \( -name package.json -o -name '*.web-types.json' \) \
+        -exec sed -i '' "s,${TO_REPLACE},${RELEASE_VERSION},g" {} +
 else
-    sed -i "s,${TO_REPLACE},${RELEASE_VERSION}," ./**/package.json
-    sed -i "s,${TO_REPLACE},${RELEASE_VERSION}," ./**/*.web-types.json
+    find . -not -path '*/node_modules/*' \( -name package.json -o -name '*.web-types.json' \) \
+        -exec sed -i "s,${TO_REPLACE},${RELEASE_VERSION},g" {} +
+fi
+
+# controleer dat de placeholder nergens meer staat, zodat een misser hier faalt en niet pas bij de afnemer opvalt
+if grep -rl --include=package.json --include='*.web-types.json' --exclude-dir=node_modules "${TO_REPLACE}" .; then
+    echo "[FOUT] - ${TO_REPLACE} niet vervangen in bovenstaande bestanden" >&2
+    exit 1
 fi
 echo "RELEASE_VERSION gezet in de package.json en *.web-types.json bestanden"
 
