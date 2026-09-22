@@ -36,7 +36,7 @@ export const buildWTConfigComponentsAtom: WTConfigArray = [
         'vl-text',
         textArgTypes,
         '../../libs/components/src/atom/text/stories/vl-text.stories-doc.mdx',
-        '/docs/components-atom-text-text--documentatie'
+        '/docs/components-atom-text--documentatie'
     ),
     buildWTConfig(
         'vl-title',
