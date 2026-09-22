@@ -2,12 +2,14 @@ import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
+import { VlLinkComponent } from '../../../atom/link/vl-link.component';
+import { VlTitleComponent } from '../../../atom/title/vl-title.component';
 import { VlSideNavigationLayoutComponent } from '../../next/side-navigation';
 import '../vl-steps.component';
 import { stepsArgs, stepsArgTypes } from './vl-steps.stories-arg';
 import stepsDoc from './vl-steps.stories-doc.mdx';
 
-registerWebComponents([VlSideNavigationLayoutComponent]);
+registerWebComponents([VlSideNavigationLayoutComponent, VlLinkComponent, VlTitleComponent]);
 
 export default {
     id: 'components-block-steps-steps',
@@ -165,6 +167,38 @@ export const StepsTimeline = story(
 );
 StepsTimeline.storyName = 'vl-steps - timeline';
 StepsTimeline.args = {
+    timeline: true,
+};
+
+export const StepsTimelineInteractive = story(
+    stepsArgs,
+    ({ line, timeline, simpleTimeline, lastStepNoLine }) => html`
+        <vl-steps
+            ?line=${line}
+            ?timeline=${timeline}
+            ?simple-timeline=${simpleTimeline}
+            ?last-step-no-line=${lastStepNoLine}
+        >
+            <vl-step timeline-aria-label="Exploitatietoestanden">
+                <vl-icon slot="icon" icon="calendar"></vl-icon>
+                <span slot="title">Exploitatietoestanden</span>
+                <vl-title slot="content" type="h4" appearance="h6">Toestanden:</vl-title>
+                <vl-duration-step slot="duration" selected>21 augustus 2027 - heden (actuele toestand)</vl-duration-step>
+                <vl-duration-step slot="duration" interactive>
+                    <vl-link href="#">15 april 2027 - 20 augustus 2027</vl-link>
+                </vl-duration-step>
+                <vl-duration-step slot="duration" interactive>
+                    <vl-link href="#">1 januari 2027 - 14 april 2027</vl-link>
+                </vl-duration-step>
+                <vl-duration-step slot="duration" interactive>
+                    <vl-link href="#">2026 (gereconstrueerd)</vl-link>
+                </vl-duration-step>
+            </vl-step>
+        </vl-steps>
+    `,
+);
+StepsTimelineInteractive.storyName = 'vl-steps - timeline interactief';
+StepsTimelineInteractive.args = {
     timeline: true,
 };
 
