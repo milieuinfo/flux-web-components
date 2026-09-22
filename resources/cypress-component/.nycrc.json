@@ -1,0 +1,5 @@
+{
+    "report-dir": "../../build/coverage/cypress-component",
+    "temp-dir": "../../build/coverage/cypress-component/.nyc_output",
+    "reporter": ["json-summary"]
+}

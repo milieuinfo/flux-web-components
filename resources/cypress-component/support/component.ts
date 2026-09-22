@@ -1,4 +1,6 @@
 import '../../cypress-commands/commands';
+// enkel actief met CODE_COVERAGE=true (zie cypress.config.ts), anders zet env.coverage de hooks uit
+import '@cypress/code-coverage/support';
 import { getContainerEl } from '@cypress/mount-utils';
 import { LitElement, render, TemplateResult } from 'lit';
 import { addMatchImageSnapshotCommand } from '@simonsmith/cypress-image-snapshot/command';
