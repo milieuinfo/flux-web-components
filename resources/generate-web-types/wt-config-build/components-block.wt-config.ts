@@ -183,13 +183,13 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         'vl-side-navigation-next',
         null,
         '../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation.stories-doc.mdx',
-        '/docs/components-block-next-side-navigation-next--documentatie'
+        '/docs/components-block-next-side-navigation--documentatie'
     ),
     buildWTConfig(
         'vl-side-navigation-section-next',
         null,
         null,
-        '/docs/components-block-next-side-navigation-next--documentatie'
+        '/docs/components-block-next-side-navigation--documentatie'
     ),
     buildWTConfig(
         'vl-side-navigation-layout-next',
@@ -229,7 +229,7 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     buildWTConfig('vl-step', stepArgTypes, null, '/docs/components-block-steps-step--documentatie'),
     buildWTConfig('vl-duration-step', null, null, '/docs/components-block-steps-steps--documentatie'),
     buildWTConfig('vl-pager', pagerArgTypes, null, '/docs/components-block-pager--documentatie'),
-    buildWTConfig('vl-pill', pillArgTypes, null, '/docs/components-block-pill-pill--documentatie'),
+    buildWTConfig('vl-pill', pillArgTypes, null, '/docs/components-block-pill--documentatie'),
     buildWTConfig(
         'vl-popover',
         popoverArgTypes,
@@ -254,13 +254,13 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         'vl-proza-message',
         prozaMessageArgTypes,
         '../../libs/components/src/block/proza-message/stories/vl-proza-message.stories-doc.mdx',
-        '/docs/components-block-proza-message--documentatie'
+        '/docs/components-block-proza-message-proza-message--documentatie'
     ),
     buildWTConfig(
         'vl-proza-message-preloader',
         prozaMessagePreloaderArgTypes,
         '../../libs/components/src/block/proza-message/stories/vl-proza-message-preloader.stories-doc.mdx',
-        '/docs/components-block-proza-message-preloader--documentatie'
+        '/docs/components-block-proza-message-proza-message-preloader--documentatie'
     ),
     buildWTConfig('vl-rich-data', richDataArgTypes, null, '/docs/components-block-rich-data--documentatie'),
     buildWTConfig(
@@ -303,7 +303,7 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         'vl-tabs',
         tabsArgTypes,
         '../../libs/components/src/block/tabs/stories/vl-tabs.stories-doc.mdx',
-        '/docs/components-block-tabs--documentatie'
+        '/docs/components-block-tabs-tabs--documentatie'
     ),
     buildWTConfig(
         'vl-tabs-next',
@@ -314,9 +314,9 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     buildWTConfig('vl-tab-next', null, null, '/docs/components-block-next-tabs--documentatie'),
     buildWTConfig('vl-tab-link-next', null, null, '/docs/components-block-next-tabs--documentatie'),
     buildWTConfig('vl-tab-panel-next', null, null, '/docs/components-block-next-tabs--documentatie'),
-    buildWTConfig('vl-tabs-pane', tabsPaneArgTypes, null, '/docs/components-block-tabs--documentatie'),
-    buildWTConfig('vl-tab', null, null, '/docs/components-block-tabs--documentatie'),
-    buildWTConfig('vl-tab-section', null, null, '/docs/components-block-tabs--documentatie'),
+    buildWTConfig('vl-tabs-pane', tabsPaneArgTypes, null, '/docs/components-block-tabs-tabs-pane--documentatie'),
+    buildWTConfig('vl-tab', null, null, '/docs/components-block-tabs-tabs--documentatie'),
+    buildWTConfig('vl-tab-section', null, null, '/docs/components-block-tabs-tabs--documentatie'),
     buildWTConfig('vl-template', templateArgTypes, null, '/docs/components-block-template--documentatie'),
     buildWTConfig(
         'vl-toaster',
