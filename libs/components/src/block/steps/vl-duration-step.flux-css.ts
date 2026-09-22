@@ -55,4 +55,8 @@ export const vlDurationStepFluxStyles: CSSResult = css`
             --vl-duration-step--line-top: 0.3rem;
         }
     }
+
+    :host([interactive]:not([selected])) .vl-duration-step::after {
+        background-color: var(--vl-color--action);
+    }
 `;
