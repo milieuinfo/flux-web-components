@@ -2,6 +2,7 @@
 // source=libs/components/src/block/rich-data/vl-rich-data.component.ts
 // component=VlRichData
 import figma from 'figma';
+import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 
 const instance = figma.selectedInstance;
 
@@ -12,8 +13,9 @@ const instance = figma.selectedInstance;
 // De geneste vl-search-filter, de resultaten en de "geen resultaten"-tekst zijn eveneens slots
 // (`filter`, `content`, `no-content`); de sorteer-slot (`sorter`) komt niet voor in het ontwerp.
 // `filter-max-width` heeft geen Figma-equivalent.
-const open = instance.getBoolean('open');
-const pagination = instance.getBoolean('pagination');
+// De terugval voor `open` is de default van de library: aan.
+const open = booleanProperty(instance, 'open', true);
+const pagination = booleanProperty(instance, 'pagination', false);
 
 const pager = pagination
     ? `

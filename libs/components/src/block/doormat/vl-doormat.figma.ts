@@ -2,6 +2,7 @@
 // source=libs/components/src/block/doormat/vl-doormat.component.ts
 // component=VlDoormatComponent
 import figma from 'figma';
+import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
 const instance = figma.selectedInstance;
@@ -19,7 +20,7 @@ const type: { alt?: boolean; image?: boolean; graphic?: boolean } =
         image: { image: true },
         graphic: { image: true, graphic: true },
     }) ?? {};
-const external = instance.getBoolean('external');
+const external = booleanProperty(instance, 'external', false);
 
 // Titel en tekst zitten in de tekstlagen "title" en "text"; de tekstlaag ontbreekt bij "title only".
 const titleText = instance.findText('title');

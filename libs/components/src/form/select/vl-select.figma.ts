@@ -2,6 +2,7 @@
 // source=libs/components/src/form/select/vl-select.component.ts
 // component=VlSelectComponent
 import figma from 'figma';
+import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
 const instance = figma.selectedInstance;
@@ -18,8 +19,9 @@ const state: { disabled?: boolean; error?: boolean; success?: boolean } =
         Success: { success: true },
     }) ?? {};
 
-// De Figma-boolean `delete` toont de wisknop; in code is dat het omgekeerde attribuut `not-deletable`.
-const deletable = instance.getBoolean('delete');
+// De Figma-boolean `delete` toont de wisknop; in code is dat het omgekeerde attribuut `not-deletable`. De
+// terugval is de default van de library: uit.
+const deletable = booleanProperty(instance, 'delete', false);
 
 // De getoonde tekst zit in de tekstlaag "Label" en hangt niet aan een component-property.
 // De opties zelf (slot of `options`-property) zitten niet in Figma.

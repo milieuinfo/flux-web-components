@@ -8,17 +8,21 @@ const instance = figma.selectedInstance;
 
 // De as `variant` codeert de richting; in code is dat het boolean attribuut `horizontal`.
 // De "deprecated (...)"-waarden mappen op hun niet-deprecated equivalent.
-const horizontal = instance.getEnum('variant', {
-    vertical: false,
-    horizontal: true,
-    'deprecated (use vertical)': false,
-    'deprecated (use horizontal)': true,
-});
+// Een bestand met een oudere versie van de library kan een as missen; `getEnum` geeft dan een foutobject terug in
+// plaats van `undefined`. De vergelijking met `true` houdt de waarde dan op false.
+const horizontal =
+    instance.getEnum('variant', {
+        vertical: false,
+        horizontal: true,
+        'deprecated (use vertical)': false,
+        'deprecated (use horizontal)': true,
+    }) === true;
 
-const border = instance.getEnum('border', {
-    yes: true,
-    no: false,
-});
+const border =
+    instance.getEnum('border', {
+        yes: true,
+        no: false,
+    }) === true;
 
 // De legend zit in de tekstlaag "↳ Form Label" van de geneste vl-form-label; in code is dat de `legend`-slot.
 const formLabel = instance.findText('↳ Form Label', { traverseInstances: true });

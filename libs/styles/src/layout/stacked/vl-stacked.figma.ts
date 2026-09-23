@@ -8,11 +8,14 @@ const instance = figma.selectedInstance;
 // `.vl-stacked` is geen web component maar een CSS-klasse uit libs/styles.
 // De maat-klassen gebruiken één streepje (`vl-stacked-small`), geen BEM-modifier met twee
 // streepjes; de Figma-variantnamen bevatten de klassenaam letterlijk (met een punt ervoor).
-const size = instance.getEnum('variant', {
+// Een bestand met een oudere versie van de library kan de as missen; `getEnum` geeft dan een foutobject terug in
+// plaats van `undefined`.
+const sizeValue = instance.getEnum('variant', {
     '.vl-stacked-small': 'vl-stacked-small',
     '.vl-stacked-medium': 'vl-stacked-medium',
     '.vl-stacked-large': 'vl-stacked-large',
 });
+const size = typeof sizeValue === 'string' ? sizeValue : '';
 
 const slot = instance.getSlot('slot');
 

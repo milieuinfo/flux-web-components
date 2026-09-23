@@ -2,6 +2,7 @@
 // source=libs/components/src/block/popover/vl-popover-action.component.ts
 // component=VlPopoverActionComponent
 import figma from 'figma';
+import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
 const instance = figma.selectedInstance;
@@ -26,8 +27,10 @@ function iconNameOf(handle: LayerHandle): string {
     return typeof fromTemplate === 'string' ? fromTemplate : '';
 }
 
-const selected = instance.getBoolean('selected');
-const label = escapeHtml(instance.getString('label'));
+// Een bestand met een oudere versie van de library kan properties missen. De getters geven dan een foutobject terug
+// in plaats van `undefined`; daarom de vergelijking met `true` en de controle op `instance.properties`.
+const selected = booleanProperty(instance, 'selected', false);
+const label = 'label' in instance.properties ? escapeHtml(instance.getString('label')) : '';
 const icon = iconNameOf(instance.getInstanceSwap('icon'));
 
 // Niet gemapt (geen Figma-equivalent): action, href, target en rel.

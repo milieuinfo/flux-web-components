@@ -2,6 +2,7 @@
 // source=libs/components/src/block/side-sheet/vl-side-sheet.component.ts
 // component=VlSideSheet
 import figma from 'figma';
+import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 
 const instance = figma.selectedInstance;
 
@@ -19,7 +20,8 @@ const variant: { open?: boolean; left?: boolean } =
         'left-closed': { left: true },
         'left-mobile': { left: true, open: true },
     }) ?? {};
-const showToggleButton = instance.getBoolean('show toggle button');
+// De terugval is de default van de library: aan.
+const showToggleButton = booleanProperty(instance, 'show toggle button', true);
 
 // De inhoud is default-slot-content; in het ontwerp is dat een vl-text-instance (enkel in de open varianten).
 const text = instance.findInstance('🧩 vl-text');
