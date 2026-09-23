@@ -8,10 +8,13 @@ const instance = figma.selectedInstance;
 
 // `paginated` is het code-default (paginanummers zichtbaar); `simple` toont enkel vorige/volgende
 // en komt overeen met het `pagination-disabled`-attribuut.
-const paginationDisabled = instance.getEnum('Type', {
-    simple: true,
-    paginated: false,
-});
+// Een bestand met een oudere versie van de library kan de as missen; `getEnum` geeft dan een foutobject terug in
+// plaats van `undefined`. De vergelijking met `true` houdt de waarde dan op false.
+const paginationDisabled =
+    instance.getEnum('Type', {
+        simple: true,
+        paginated: false,
+    }) === true;
 
 // Het totaal aantal items zit in de tekstlaag "637" (laagnaam = voorbeeldwaarde) zonder component-property.
 // De tekstlagen "11 - 29" en "van" zijn afgeleide weergave; `items-per-page` en `current-page` zijn er niet

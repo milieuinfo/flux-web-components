@@ -13,10 +13,10 @@ const instance = figma.selectedInstance;
 // De baselayer (vl-map-baselayer-grb-gray) zit niet in Figma maar is nodig om een kaart te tonen.
 // De attributen van vl-map zelf (`full-height`, `no-border`, `lambert2008`, `allow-fullscreen`,
 // `disable-*`, `allow-invalid-geometry`) bestaan enkel in code.
-const layerSwitcher = instance.getBoolean('layer-switcher');
-const tools = instance.getBoolean('tools');
-const search = instance.getBoolean('search');
-const legend = instance.getBoolean('legend');
+const layerSwitcher = instance.getBoolean('layer-switcher') === true;
+const tools = instance.getBoolean('tools') === true;
+const search = instance.getBoolean('search') === true;
+const legend = instance.getBoolean('legend') === true;
 
 export default {
     example: figma.code`<vl-map>

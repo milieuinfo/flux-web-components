@@ -15,9 +15,10 @@ const variant: { single?: boolean; light?: boolean } =
         'single - light': { single: true, light: true },
     }) ?? {};
 
-// De laadtekst zit in de tekstlaag "Pagina is aan het laden" (ontbreekt bij de single-varianten).
+// De laadtekst is de enige tekstlaag (verborgen bij de single-varianten). Ze wordt niet op naam gezocht: de laagnaam
+// volgt in de library de voorbeeldtekst en verandert mee als die aangepast wordt.
 // "Pagina is aan het laden" is de code-default van het `text`-attribuut en wordt niet uitgeschreven.
-const loaderText = instance.findText('Pagina is aan het laden');
+const loaderText = instance.findLayers((node) => node.type === 'TEXT')[0];
 const text = loaderText && loaderText.type === 'TEXT' ? escapeHtml(loaderText.textContent) : '';
 const textAttribute = text && text !== 'Pagina is aan het laden' ? ` text="${text}"` : '';
 

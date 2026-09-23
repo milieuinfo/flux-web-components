@@ -36,10 +36,13 @@ const size: { small?: boolean; large?: boolean } =
         large: { large: true },
     }) ?? {};
 
-const light = instance.getEnum('light', {
-    false: false,
-    true: true,
-});
+// Een bestand met een oudere versie van de library kent de as `light` nog niet. `getEnum` geeft dan een
+// foutobject terug in plaats van `undefined`; de vergelijking met `true` houdt `light` dan op false.
+const light =
+    instance.getEnum('light', {
+        false: false,
+        true: true,
+    }) === true;
 
 // Niet gemapt (geen Figma-equivalent): right-margin, left-margin, label en het deprecated clickable.
 export default {

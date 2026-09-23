@@ -19,7 +19,7 @@ const state: { disabled?: boolean; error?: boolean; success?: boolean } =
     }) ?? {};
 
 // De Figma-boolean `delete` toont de wisknop; in code is dat het omgekeerde attribuut `not-deletable`.
-const deletable = instance.getBoolean('delete');
+const deletable = instance.getBoolean('delete') === true;
 
 // De getoonde tekst zit in de tekstlaag "Label" en hangt niet aan een component-property.
 // De opties zelf (slot of `options`-property) zitten niet in Figma.

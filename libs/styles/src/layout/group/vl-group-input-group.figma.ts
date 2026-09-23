@@ -3,18 +3,22 @@
 // component=vlGroupStyles
 // unmapped: variant
 import figma from 'figma';
+import { vlGroupModifier } from '../group/vl-group-modifier.figma-util';
 
 // `.vl-group--input-group` is geen web component maar een CSS-klasse uit libs/styles.
-// Dit Figma-component is een wrapper rond een `.vl-group (base)`-instance met variant
-// "--input-group"; het heeft geen eigen Slot-property.
+// Dit Figma-component is een wrapper rond een `.vl-group (base)`-instance, zonder eigen Slot-property.
+// De variant van de base bepaalt de modifier; de inhoud zit in de Slot van de base.
 //
 // Bewust niet gemapt: de variant-as met de waarden "button right", "button left", "icon right"
 // en "icon left". Die beschrijven welke inhoud naast het invoerveld staat en aan welke kant —
 // dat is geen CSS-modifier: vl-group.css.ts kent enkel `vl-group--input-group`. De volgorde
 // van knop/icoon t.o.v. het invoerveld bepaal je in code met de volgorde van de child-elementen.
+const base = figma.selectedInstance.findInstance('🧩 .vl-group (base)');
+const modifier = base && base.type === 'INSTANCE' ? vlGroupModifier(base) : '';
+const slot = base && base.type === 'INSTANCE' ? base.getSlot('Slot') : undefined;
 
 export default {
-    example: figma.code`<div class="vl-group vl-group--input-group"></div>`,
+    example: figma.code`<div class="vl-group${modifier}">${slot}</div>`,
     id: 'vl-group--input-group',
     metadata: { nestable: true },
 };

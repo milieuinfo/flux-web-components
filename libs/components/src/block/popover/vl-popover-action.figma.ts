@@ -26,8 +26,10 @@ function iconNameOf(handle: LayerHandle): string {
     return typeof fromTemplate === 'string' ? fromTemplate : '';
 }
 
-const selected = instance.getBoolean('selected');
-const label = escapeHtml(instance.getString('label'));
+// Een bestand met een oudere versie van de library kan properties missen. De getters geven dan een foutobject terug
+// in plaats van `undefined`; daarom de vergelijking met `true` en de controle op `instance.properties`.
+const selected = instance.getBoolean('selected') === true;
+const label = 'label' in instance.properties ? escapeHtml(instance.getString('label')) : '';
 const icon = iconNameOf(instance.getInstanceSwap('icon'));
 
 // Niet gemapt (geen Figma-equivalent): action, href, target en rel.

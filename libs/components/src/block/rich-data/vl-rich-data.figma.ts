@@ -12,8 +12,8 @@ const instance = figma.selectedInstance;
 // De geneste vl-search-filter, de resultaten en de "geen resultaten"-tekst zijn eveneens slots
 // (`filter`, `content`, `no-content`); de sorteer-slot (`sorter`) komt niet voor in het ontwerp.
 // `filter-max-width` heeft geen Figma-equivalent.
-const open = instance.getBoolean('open');
-const pagination = instance.getBoolean('pagination');
+const open = instance.getBoolean('open') === true;
+const pagination = instance.getBoolean('pagination') === true;
 
 const pager = pagination
     ? `

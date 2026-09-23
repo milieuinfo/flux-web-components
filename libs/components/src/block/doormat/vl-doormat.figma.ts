@@ -19,7 +19,7 @@ const type: { alt?: boolean; image?: boolean; graphic?: boolean } =
         image: { image: true },
         graphic: { image: true, graphic: true },
     }) ?? {};
-const external = instance.getBoolean('external');
+const external = instance.getBoolean('external') === true;
 
 // Titel en tekst zitten in de tekstlagen "title" en "text"; de tekstlaag ontbreekt bij "title only".
 const titleText = instance.findText('title');

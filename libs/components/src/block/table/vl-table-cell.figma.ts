@@ -13,7 +13,9 @@ const instance = figma.selectedInstance;
 // - `grid` en `zebra`: tabelbrede stijlen (attributen `grid` / `zebra` op <vl-table>), geen cel-klasse.
 // - `success` / `warning` / `error` / `disabled`: wél cel-klassen (`vl-table--success`, ...), zie
 //   vl-table.css.ts (`tbody td.vl-table--...`) en de story "vl-table - row styling".
-const variant: { tag?: string; stateClass?: string } =
+// Een bestand met een oudere versie van de library kan de as missen; `getEnum` geeft dan een foutobject terug, zonder
+// `tag`. De cel valt dan terug op <td>.
+const variantValue: { tag?: string; stateClass?: string } =
     instance.getEnum('variant', {
         default: { tag: 'td', stateClass: '' },
         grid: { tag: 'td', stateClass: '' },
@@ -30,6 +32,7 @@ const variant: { tag?: string; stateClass?: string } =
         error: { tag: 'td', stateClass: ' class="vl-table--error"' },
         disabled: { tag: 'td', stateClass: ' class="vl-table--disabled"' },
     }) ?? {};
+const variant = { tag: variantValue.tag ?? 'td', stateClass: variantValue.stateClass ?? '' };
 
 // De `table cell`-slot bevat de inhoud van de cel.
 const tableCell = instance.getSlot('table cell');

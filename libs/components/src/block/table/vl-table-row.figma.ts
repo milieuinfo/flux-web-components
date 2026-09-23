@@ -12,7 +12,9 @@ const instance = figma.selectedInstance;
 // - `grid` / `zebra`: tabelbrede stijlen (attributen `grid` / `zebra` op <vl-table>), geen rij-klasse.
 // - `success` / `warning` / `error` / `disabled`: wél rij-klassen (`vl-table--success`, `vl-table--warning`,
 //   `vl-table--error`, `vl-table--disabled`), zie de story "vl-table - row styling" en vl-table.css.ts.
-const variant = instance.getEnum('variant', {
+// Een bestand met een oudere versie van de library kan de as missen; `getEnum` geeft dan een foutobject terug in
+// plaats van `undefined`.
+const variantValue = instance.getEnum('variant', {
     default: '',
     zebra: '',
     heading: '',
@@ -23,6 +25,7 @@ const variant = instance.getEnum('variant', {
     error: ' class="vl-table--error"',
     disabled: ' class="vl-table--disabled"',
 });
+const variant = typeof variantValue === 'string' ? variantValue : '';
 
 // De `table row`-slot bevat de cellen van de rij (<td> / <th>).
 const tableRow = instance.getSlot('table row');
