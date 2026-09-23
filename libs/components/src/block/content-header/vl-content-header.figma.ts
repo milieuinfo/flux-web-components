@@ -12,8 +12,9 @@ const instance = figma.selectedInstance;
 //   Figma de titel, maar de code vereist altijd de drie slot-elementen (image, context-link, title-link).
 // De TEXT-properties `context` en `title` komen in code als tekst van de <a>-elementen in de slots `context-link` en
 // `title-link`. De href's en de afbeelding (`image`-slot) zijn niet uit Figma af te leiden en staan als placeholder.
-const context = escapeHtml(instance.getString('context'));
-const title = escapeHtml(instance.getString('title'));
+// Een bestand met een oudere versie van de library kan properties missen; `getString` geeft dan een foutobject terug.
+const context = 'context' in instance.properties ? escapeHtml(instance.getString('context')) : '';
+const title = 'title' in instance.properties ? escapeHtml(instance.getString('title')) : '';
 
 export default {
     example: figma.code`<vl-content-header>

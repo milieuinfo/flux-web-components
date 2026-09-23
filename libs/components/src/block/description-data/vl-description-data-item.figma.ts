@@ -6,12 +6,12 @@ import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
 const instance = figma.selectedInstance;
 
-// Het Figma-component heeft geen properties: label en waarde zitten in de tekstlagen "label" en "value".
+// Het Figma-component heeft geen properties: label en waarde zijn de eerste en de tweede tekstlaag. Ze worden niet op
+// naam gezocht: de laagnamen volgen in de library de voorbeeldtekst en veranderen mee als die aangepast wordt.
 // De kolombreedtes per item (items-size, items-medium-size, items-small-size, items-extra-small-size)
 // hebben geen Figma-equivalent en worden niet uitgeschreven.
-const labelText = instance.findText('label');
+const [labelText, valueText] = instance.findLayers((node) => node.type === 'TEXT');
 const label = labelText && labelText.type === 'TEXT' ? escapeHtml(labelText.textContent) : '';
-const valueText = instance.findText('value');
 const value = valueText && valueText.type === 'TEXT' ? escapeHtml(valueText.textContent) : '';
 
 export default {

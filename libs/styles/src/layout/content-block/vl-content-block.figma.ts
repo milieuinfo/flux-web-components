@@ -9,12 +9,15 @@ const instance = figma.selectedInstance;
 // De CSS kent maar één modifier: `vl-content-block--full-width`.
 // De twee "deprecated"-varianten zijn legacy-kopieën van "default" en "--full-width" en
 // leveren dezelfde output.
-const modifier = instance.getEnum('variant', {
+// Een bestand met een oudere versie van de library kan de as missen; `getEnum` geeft dan een foutobject terug in
+// plaats van `undefined`.
+const modifierValue = instance.getEnum('variant', {
     'deprecated (use default)': '',
     'deprecated (use --full-width)': ' vl-content-block--full-width',
     default: '',
     '--full-width': ' vl-content-block--full-width',
 });
+const modifier = typeof modifierValue === 'string' ? modifierValue : '';
 
 const slot = instance.getSlot('slot');
 

@@ -3,6 +3,7 @@
 // component=VlAccordionComponent
 // unmapped: variant
 import figma from 'figma';
+import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
 const instance = figma.selectedInstance;
@@ -18,11 +19,13 @@ const instance = figma.selectedInstance;
 const titleLayer = instance.findText('↳ Titel', { traverseInstances: true });
 const toggleText = titleLayer && titleLayer.type === 'TEXT' ? escapeHtml(titleLayer.textContent) : '';
 
-const altBackground = instance.getBoolean('alt-background');
+// Een bestand met een oudere versie van de library kan properties missen. De getters geven dan een foutobject terug
+// in plaats van `undefined`; daarom de vergelijkingen met `true` en de controle op `instance.properties`.
+const altBackground = booleanProperty(instance, 'alt-background', false);
 
 // De `icon`-as bepaalt of er een vl-icon voor de titel staat. De icoonnaam komt uit de metadata van het geneste
 // vl-icon-template (`props.icon`); zonder die metadata wordt geen `icon`-attribuut gezet.
-const hasIcon = instance.getEnum('icon', { nee: false, ja: true });
+const hasIcon = instance.getEnum('icon', { nee: false, ja: true }) === true;
 let icon;
 if (hasIcon) {
     const iconInstance = instance.findInstance('🧩 vl-icon');
@@ -34,8 +37,9 @@ if (hasIcon) {
 // De booleans `subtitle slot` en `menu slot` zitten op de geneste "Accordion toggle"-instance (enkel bij icon=nee).
 const toggle = instance.findInstance('Accordion toggle');
 const hasToggle = toggle && toggle.type === 'INSTANCE';
-const subtitleSlot = hasToggle && toggle.getBoolean('subtitle slot') ? '<span slot="subtitle"></span>' : '';
-const menuSlot = hasToggle && toggle.getBoolean('menu slot') ? '<span slot="menu"></span>' : '';
+const subtitleSlot =
+    hasToggle && booleanProperty(toggle, 'subtitle slot', false) ? '<span slot="subtitle"></span>' : '';
+const menuSlot = hasToggle && booleanProperty(toggle, 'menu slot', false) ? '<span slot="menu"></span>' : '';
 
 const slot = instance.getSlot('Slot');
 

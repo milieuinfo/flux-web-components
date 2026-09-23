@@ -26,17 +26,21 @@ instance.getEnum('variant', {
 });
 
 // Niveau 1 is een item op het hoogste niveau (met een `nav-item-wrapper`), niveau 2 een item in een geneste <ul>.
-const isChild = instance.getEnum('level', {
-    '1': false,
-    '2': true,
-});
+// Een bestand met een oudere versie van de library kan de as missen; `getEnum` geeft dan een foutobject terug in
+// plaats van `undefined`. De vergelijking met `true` houdt de waarde dan op false.
+const isChild =
+    instance.getEnum('level', {
+        '1': false,
+        '2': true,
+    }) === true;
 
 // `sub level` geeft aan of het item onderliggende items heeft (en dus een toggle-knop + geneste <ul> krijgt).
-const hasChildren = instance.getEnum('sub level', {
-    gesloten: true,
-    open: true,
-    geen: false,
-});
+const hasChildren =
+    instance.getEnum('sub level', {
+        gesloten: true,
+        open: true,
+        geen: false,
+    }) === true;
 
 // Het label zit in de tekstlaag "↳ Label name" en hangt niet aan een component-property.
 const labelLayer = instance.findText('↳ Label name');

@@ -2,6 +2,7 @@
 // source=libs/components/src/block/cascader/vl-cascader.component.ts
 // component=VlCascaderComponent
 import figma from 'figma';
+import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 
 const instance = figma.selectedInstance;
 
@@ -10,9 +11,10 @@ const instance = figma.selectedInstance;
 //   en `breadcrumb-placeholder` hebben geen Figma-tegenhanger.
 // - `header` toont in Figma een header zonder eigen tekstlaag of property; in code hoort daar `header-text` of het
 //   `header`-slot bij. Enkel een slot-hint wordt gezet.
-// `breadcrumb` (aan/uit) is in code het omgekeerde attribuut `hide-breadcrumb`.
-const showBreadcrumb = instance.getBoolean('breadcrumb');
-const showHeader = instance.getBoolean('header');
+// `breadcrumb` (aan/uit) is in code het omgekeerde attribuut `hide-breadcrumb`. De terugval is de default van de
+// library: uit.
+const showBreadcrumb = booleanProperty(instance, 'breadcrumb', false);
+const showHeader = booleanProperty(instance, 'header', false);
 
 // De items zijn geneste vl-cascader-item-instances zonder slot-property. Label en annotatie komen uit de metadata van
 // het vl-cascader-item-template.

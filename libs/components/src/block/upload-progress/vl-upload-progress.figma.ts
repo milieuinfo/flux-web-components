@@ -25,9 +25,15 @@ const state: {
 
 // Bestandsnaam en -grootte zitten in de geneste vl-text instances (variant default → filename,
 // variant annotation → filesize, in Figma tussen haakjes). Enkel uitgeschreven als ze afwijken van de default.
-const filenameText = instance.findText('vl-text - default', { traverseInstances: true });
+// De tekstlagen worden niet op naam gezocht: hun naam volgt in de library de voorbeeldtekst.
+const texts = instance.findLayers((node) => node.type === 'INSTANCE' && node.name === '🧩 vl-text');
+const textOfVariant = (variant: string) => {
+    const text = texts.find((node) => node.type === 'INSTANCE' && node.getPropertyValue('variant') === variant);
+    return text && text.type === 'INSTANCE' ? text.findLayers((node) => node.type === 'TEXT')[0] : undefined;
+};
+const filenameText = textOfVariant('default');
 const filename = filenameText && filenameText.type === 'TEXT' ? escapeHtml(filenameText.textContent) : '';
-const filesizeText = instance.findText('vl-text - annotation', { traverseInstances: true });
+const filesizeText = textOfVariant('annotation');
 const filesize =
     filesizeText && filesizeText.type === 'TEXT'
         ? escapeHtml(filesizeText.textContent).replace(/^\((.*)\)$/, '$1')

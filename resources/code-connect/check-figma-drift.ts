@@ -5,17 +5,20 @@
  *  1. Figma heeft een variant option die het template niet mapt (bv. een nieuwe `banner` bij vl-alert).
  *  2. Het template mapt een option die in Figma niet meer bestaat (hernoemd of verwijderd).
  *  3. Figma heeft een VARIANT property die het template helemaal niet leest.
+ *  4. Het template leest een boolean die in Figma niet (meer) bestaat. Een hernoemde of verwijderde
+ *     boolean valt anders stil terug op zijn terugvalwaarde, ook in de nieuwste versie van de library.
  *
- * Booleans en instance swaps worden niet gecontroleerd: die hebben geen opsomming van waarden, en of
- * ze zinvol gemapt zijn hangt af van het code component. Alleen VARIANT properties zijn objectief te
- * vergelijken.
+ * Van booleans wordt enkel de naam gecontroleerd, en enkel wanneer het template ze op de geselecteerde
+ * instance leest; een boolean op een geneste instance hoort bij een andere node. Het omgekeerde, een
+ * boolean in Figma die het template niet leest, wordt niet gemeld: booleans en instance swaps hebben geen
+ * opsomming van waarden, en of ze zinvol gemapt zijn hangt af van het code component.
  *
  * Een template kan een property expliciet overslaan met een header comment:
  *
  *     // unmapped: size, Content
  *
  * Drift tegenover de componenten:
- *  4. Het snippet schrijft een attribuut uit dat het component niet kent. Dat gebeurt wanneer een
+ *  5. Het snippet schrijft een attribuut uit dat het component niet kent. Dat gebeurt wanneer een
  *     attribuut hernoemd of verwijderd wordt zonder dat het template volgt.
  *
  * Het omgekeerde, een nieuw attribuut dat geen enkel template gebruikt, wordt niet gemeld: de meeste
@@ -34,7 +37,8 @@
  * Exit code 1 bij drift, zodat het als CI step bruikbaar is.
  */
 import { execSync } from 'child_process';
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
+import { dirname, resolve } from 'path';
 import ts from 'typescript';
 
 type Template = {
@@ -42,6 +46,7 @@ type Template = {
     fileKey: string;
     nodeId: string;
     mappings: Map<string, Set<string>>;
+    booleans: Set<string>;
     unmapped: Set<string>;
 };
 
@@ -66,12 +71,36 @@ const GLOBAL_ATTRIBUTES = new Set([
     'custom-css',
 ]);
 
-/** Leest per `getEnum('property', { ... })` welke options het template mapt. */
-function readEnumMappings(file: string, source: string): Map<string, Set<string>> {
+/** Het bestand achter een relatieve import, of null als het er niet is. */
+function resolveRelativeImport(file: string, specifier: string): string | null {
+    if (!specifier.startsWith('.')) return null;
+    const base = resolve(dirname(file), specifier);
+    return [`${base}.ts`, `${base}/index.ts`].find((candidate) => existsSync(candidate)) ?? null;
+}
+
+/**
+ * Leest per `getEnum('property', { ... })` welke options het template mapt, ook wanneer die aanroep in een
+ * relatief geïmporteerde helper staat. Templates die dezelfde mapping delen, zetten ze in zo'n helper
+ * (bv. vl-group-modifier.figma-util.ts); zonder dit zou de as hier als "niet gelezen" gemeld worden.
+ */
+function readEnumMappings(file: string, source: string, visited = new Set<string>()): Map<string, Set<string>> {
     const mappings = new Map<string, Set<string>>();
+    if (visited.has(file)) return mappings;
+    visited.add(file);
     const sourceFile = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true);
 
     const visit = (node: ts.Node): void => {
+        if (ts.isImportDeclaration(node) && ts.isStringLiteral(node.moduleSpecifier)) {
+            const imported = resolveRelativeImport(file, node.moduleSpecifier.text);
+            if (imported) {
+                for (const [property, options] of readEnumMappings(imported, readFileSync(imported, 'utf8'), visited)) {
+                    const known = mappings.get(property) ?? new Set<string>();
+                    for (const option of options) known.add(option);
+                    mappings.set(property, known);
+                }
+            }
+        }
+
         const isGetEnum =
             ts.isCallExpression(node) &&
             ts.isPropertyAccessExpression(node.expression) &&
@@ -93,7 +122,9 @@ function readEnumMappings(file: string, source: string): Map<string, Set<string>
                         options.add(name.text);
                     }
                 }
-                mappings.set(nameArgument.text, options);
+                const known = mappings.get(nameArgument.text) ?? new Set<string>();
+                for (const option of options) known.add(option);
+                mappings.set(nameArgument.text, known);
             }
         }
 
@@ -102,6 +133,42 @@ function readEnumMappings(file: string, source: string): Map<string, Set<string>
 
     visit(sourceFile);
     return mappings;
+}
+
+/**
+ * Leest welke booleans het template op de geselecteerde instance leest: `instance.getBoolean('naam')` of
+ * `booleanProperty(instance, 'naam', terugval)`. Andere ontvangers (een geneste instance) tellen niet mee.
+ */
+function readBooleanNames(file: string, source: string): Set<string> {
+    const names = new Set<string>();
+    const sourceFile = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true);
+    const isSelectedInstance = (node: ts.Node | undefined) =>
+        Boolean(node) && ts.isIdentifier(node as ts.Node) && (node as ts.Identifier).text === 'instance';
+
+    const visit = (node: ts.Node): void => {
+        if (ts.isCallExpression(node)) {
+            const callee = node.expression;
+            let nameArgument: ts.Expression | undefined;
+            if (
+                ts.isPropertyAccessExpression(callee) &&
+                callee.name.text === 'getBoolean' &&
+                isSelectedInstance(callee.expression)
+            ) {
+                nameArgument = node.arguments[0];
+            } else if (
+                ts.isIdentifier(callee) &&
+                callee.text === 'booleanProperty' &&
+                isSelectedInstance(node.arguments[0])
+            ) {
+                nameArgument = node.arguments[1];
+            }
+            if (nameArgument && ts.isStringLiteral(nameArgument)) names.add(nameArgument.text);
+        }
+        ts.forEachChild(node, visit);
+    };
+
+    visit(sourceFile);
+    return names;
 }
 
 /** Bouwt per tag de attributen die web-types kent. */
@@ -289,6 +356,7 @@ function readTemplates(): Template[] {
         if (!fileKey || !node) return [];
 
         const mappings = readEnumMappings(file, source);
+        const booleans = readBooleanNames(file, source);
 
         // Properties die het template bewust niet mapt, gedeclareerd met `// unmapped: a, b`.
         // Expliciet, zodat een nieuwe property in Figma altijd opvalt en een bewuste keuze vraagt.
@@ -299,7 +367,7 @@ function readTemplates(): Template[] {
             }
         }
 
-        return [{ file, fileKey, nodeId: `${node[1]}:${node[2]}`, mappings, unmapped }];
+        return [{ file, fileKey, nodeId: `${node[1]}:${node[2]}`, mappings, booleans, unmapped }];
     });
 }
 
@@ -386,6 +454,20 @@ async function main() {
         checked++;
 
         const definitions = Object.entries<any>(node.componentPropertyDefinitions || {});
+
+        // De sleutel van een boolean is "naam#id"; een variant heeft enkel de naam.
+        const propertyNames = new Set(definitions.map(([property]) => property.split('#')[0]));
+        for (const name of template.booleans) {
+            if (propertyNames.has(name)) continue;
+            findings.push({
+                file: template.file,
+                nodeId: template.nodeId,
+                kind: 'boolean bestaat niet meer',
+                property: name,
+                values: [],
+            });
+        }
+
         for (const [property, definition] of definitions) {
             if (definition.type !== 'VARIANT') continue;
             if (template.unmapped.has(property)) continue;

@@ -46,8 +46,9 @@ const type: { level?: string; alt?: boolean; noSpaceBottom?: boolean; underline?
         'h6 - underline': { level: 'h6', underline: true },
     }) ?? {};
 
-// De titeltekst zit in de tekstlaag "Heading" en hangt niet aan een component-property.
-const heading = instance.findText('Heading');
+// De titeltekst is de enige tekstlaag en hangt niet aan een component-property. Ze wordt niet op naam gezocht: de
+// laagnaam volgt in de library de voorbeeldtekst en verandert mee als die aangepast wordt.
+const heading = instance.findLayers((node) => node.type === 'TEXT')[0];
 const label = heading && heading.type === 'TEXT' ? escapeHtml(heading.textContent) : '';
 
 export default {
