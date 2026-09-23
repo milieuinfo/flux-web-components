@@ -32,7 +32,7 @@ describe('cypress-component - integrations - vl-form-cross-validation-conditiona
             .click('bottomLeft');
         cy.get('vl-form-cross-validation-conditional')
             .shadow()
-            .find('vl-form-message[for="verduidelijking"][state="customError"]')
+            .find('vl-form-message[for="verduidelijking"][state="valueMissing"]')
             .should('not.have.attr', 'show', '');
     });
 
@@ -55,6 +55,49 @@ describe('cypress-component - integrations - vl-form-cross-validation-conditiona
             .should('have.attr', 'label', 'Verduidelijking *');
     });
 
+    it('should set required on verduidelijking only when reden is "andere"', () => {
+        cy.mount(html` <vl-form-cross-validation-conditional></vl-form-cross-validation-conditional>`);
+
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-input-field#verduidelijking')
+            .should('not.have.attr', 'required');
+
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-select#reden')
+            .shadow()
+            .find('select')
+            .select('andere');
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-input-field#verduidelijking')
+            .should('have.attr', 'required');
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-input-field#verduidelijking')
+            .shadow()
+            .find('input')
+            .should('have.attr', 'required');
+
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-select#reden')
+            .shadow()
+            .find('select')
+            .select('verlenging');
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-input-field#verduidelijking')
+            .should('not.have.attr', 'required');
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-input-field#verduidelijking')
+            .shadow()
+            .find('input')
+            .should('not.have.attr', 'required');
+    });
+
     it('should require verduidelijking when reden is "andere"', () => {
         cy.mount(html` <vl-form-cross-validation-conditional></vl-form-cross-validation-conditional>`);
 
@@ -72,7 +115,7 @@ describe('cypress-component - integrations - vl-form-cross-validation-conditiona
             .click('bottomLeft');
         cy.get('vl-form-cross-validation-conditional')
             .shadow()
-            .find('vl-form-message[for="verduidelijking"][state="customError"]')
+            .find('vl-form-message[for="verduidelijking"][state="valueMissing"]')
             .should('have.attr', 'show', '');
     });
 
@@ -87,7 +130,7 @@ describe('cypress-component - integrations - vl-form-cross-validation-conditiona
             .select('andere');
         cy.get('vl-form-cross-validation-conditional')
             .shadow()
-            .find('vl-input-field-with-conditional-validator')
+            .find('vl-input-field#verduidelijking')
             .shadow()
             .find('input')
             .type('Verbouwing van het terras');
@@ -99,7 +142,7 @@ describe('cypress-component - integrations - vl-form-cross-validation-conditiona
             .click('bottomLeft');
         cy.get('vl-form-cross-validation-conditional')
             .shadow()
-            .find('vl-form-message[for="verduidelijking"][state="customError"]')
+            .find('vl-form-message[for="verduidelijking"][state="valueMissing"]')
             .should('not.have.attr', 'show', '');
     });
 
@@ -120,7 +163,7 @@ describe('cypress-component - integrations - vl-form-cross-validation-conditiona
             .click('bottomLeft');
         cy.get('vl-form-cross-validation-conditional')
             .shadow()
-            .find('vl-form-message[for="verduidelijking"][state="customError"]')
+            .find('vl-form-message[for="verduidelijking"][state="valueMissing"]')
             .should('have.attr', 'show', '');
 
         cy.get('vl-form-cross-validation-conditional')
@@ -131,7 +174,7 @@ describe('cypress-component - integrations - vl-form-cross-validation-conditiona
             .select('verlenging');
         cy.get('vl-form-cross-validation-conditional')
             .shadow()
-            .find('vl-form-message[for="verduidelijking"][state="customError"]')
+            .find('vl-form-message[for="verduidelijking"][state="valueMissing"]')
             .should('not.have.attr', 'show', '');
     });
 });

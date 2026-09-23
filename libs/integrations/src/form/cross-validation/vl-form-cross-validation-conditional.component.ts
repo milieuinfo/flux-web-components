@@ -7,31 +7,8 @@ import {
     VlInputFieldComponent,
     VlSelectComponent,
     type SelectOption,
-    CrossValidationMixin,
-    type ValidatorWithDeps,
 } from '@domg-wc/components/form';
 import { css, CSSResult, html, LitElement, PropertyDeclarations } from 'lit';
-
-@webComponent('vl-input-field-with-conditional-validator')
-export class VlInputFieldWithConditionalValidatorComponent extends CrossValidationMixin(VlInputFieldComponent) {
-    static override formControlValidators: ValidatorWithDeps[] = [
-        ...VlInputFieldComponent.formControlValidators,
-        {
-            key: 'customError',
-            message: 'Gelieve de reden te verduidelijken.',
-            dependencySelectors: ['#reden'],
-            isValid(instance: HTMLElement, value: string): boolean {
-                const form = (instance as HTMLElement & { form: HTMLFormElement | null }).form;
-                if (!form) return true;
-
-                const reden = form.querySelector<HTMLElement & { value: string }>('#reden')?.value;
-                if (reden !== 'andere') return true;
-
-                return !!value;
-            },
-        },
-    ];
-}
 
 @webComponent('vl-form-cross-validation-conditional')
 export class VlFormCrossValidationConditionalComponent extends LitElement {
@@ -39,7 +16,7 @@ export class VlFormCrossValidationConditionalComponent extends LitElement {
 
     static {
         registerWebComponents([
-            VlInputFieldWithConditionalValidatorComponent,
+            VlInputFieldComponent,
             VlFormLabelComponent,
             VlFormMessageComponent,
             VlSelectComponent,
@@ -107,12 +84,13 @@ export class VlFormCrossValidationConditionalComponent extends LitElement {
                         ></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8">
-                        <vl-input-field-with-conditional-validator
+                        <vl-input-field
                             id="verduidelijking"
                             name="verduidelijking"
                             block
-                        ></vl-input-field-with-conditional-validator>
-                        <vl-form-message for="verduidelijking" state="customError"
+                            ?required=${this.verduidelijkingVerplicht}
+                        ></vl-input-field>
+                        <vl-form-message for="verduidelijking" state="valueMissing"
                             >Gelieve de reden te verduidelijken.</vl-form-message
                         >
                     </div>
@@ -142,7 +120,6 @@ export class VlFormCrossValidationConditionalComponent extends LitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        'vl-input-field-with-conditional-validator': VlInputFieldWithConditionalValidatorComponent;
         'vl-form-cross-validation-conditional': VlFormCrossValidationConditionalComponent;
     }
 }

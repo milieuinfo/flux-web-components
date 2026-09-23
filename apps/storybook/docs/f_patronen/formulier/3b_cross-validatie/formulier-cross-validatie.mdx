@@ -14,12 +14,14 @@ import formCrossValidationConditionalSource from '../../../../../../libs/integra
 > **ander veld** aan bod.
 
 Soms hangt de geldigheid van een veld af van de waarde van een ander veld in hetzelfde formulier: een code die enkel
-bij een bepaalde procedure geldt, een bevestigingsveld dat moet overeenkomen, een veld dat enkel verplicht is bij een
-bepaalde keuze.
+bij een bepaalde procedure geldt, een bevestigingsveld dat moet overeenkomen.
 
 Vormen de velden samen één waarde, zoals een coördinaat of een getal met eenheid? Dan is
 [Formulier - Samengesteld veld](/docs/patronen-formulier-samengesteld-veld--documentatie) het patroon dat je
 zoekt: daar heeft de groep één geldigheid en één melding.
+
+Wordt een veld enkel verplicht door de keuze in een ander veld? Dan heb je deze mixin niet nodig: bind het native
+`required` attribuut aan die keuze. Het voorbeeld onderaan toont hoe.
 
 `CrossValidationMixin` is een mixin **uit de bibliotheek** (`@domg-wc/components/form`): hij luistert naar wijzigingen
 op de velden waarvan je validator afhangt, en hervalideert je veld zodra een daarvan verandert.
@@ -130,9 +132,23 @@ Een bevestigingsveld dat gelijk moet zijn aan het eerste veld, via `dependencySe
 
 ### Conditioneel verplicht veld
 
-**Verduidelijking** is enkel verplicht wanneer de reden **Andere** is. Het veld heeft zelf geen `required` attribuut: de
-validator beslist op basis van het reden-veld en hervalideert via `dependencySelectors: ['#reden']`. Bij **Andere**
-markeert het label het veld als verplicht.
+**Verduidelijking** is enkel verplicht wanneer de reden **Andere** is. Dit voorbeeld staat hier als tegenvoorbeeld: het
+heeft `CrossValidationMixin` niet nodig. Het veld bindt het native `required` attribuut aan de keuze in het reden-veld.
+
+```ts
+<vl-input-field
+    id="verduidelijking"
+    name="verduidelijking"
+    block
+    ?required=${this.verduidelijkingVerplicht}
+></vl-input-field>
+<vl-form-message for="verduidelijking" state="valueMissing">Gelieve de reden te verduidelijken.</vl-form-message>
+```
+
+Wijzigt `reden`, dan rendert de parent opnieuw en wijzigt het attribuut. De form control hervalideert daarop vanzelf,
+want `required` hoort bij de ingebouwde `valueMissing` validatie, en daar hangt ook de melding aan. Bij **Andere**
+markeert het label het veld als verplicht en kondigt de screenreader het als verplicht aan, omdat het native attribuut
+er dan staat.
 
 <Canvas of={formCrossValidationStories.FormulierCrossValidatieConditional} sourceState='none' />
 
