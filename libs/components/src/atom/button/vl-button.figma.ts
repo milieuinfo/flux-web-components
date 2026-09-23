@@ -67,16 +67,16 @@ const iconPlacement = instance.getEnum('icon-placement', {
 let icon = '';
 let placement = '';
 if (iconPlacement === 'none') {
-    if (instance.getBoolean('icon-placement=before')) {
+    if (instance.getBoolean('icon-placement=before') === true) {
         icon = iconNameOf(instance.getInstanceSwap('↪︎ icon left'));
         placement = 'before';
-    } else if (instance.getBoolean('icon-placement=after')) {
+    } else if (instance.getBoolean('icon-placement=after') === true) {
         icon = iconNameOf(instance.getInstanceSwap('↪︎ icon right'));
         placement = 'after';
     }
 } else {
     icon = iconNameOf(instance.getInstanceSwap('icon'));
-    placement = iconPlacement || '';
+    placement = typeof iconPlacement === 'string' ? iconPlacement : '';
 }
 
 // Zodra de Figma-variant een icoon toont, hoort het icon-attribuut in het snippet te staan —
@@ -92,7 +92,8 @@ const label = buttonText && buttonText.type === 'TEXT' ? escapeHtml(buttonText.t
 // Een icoon-knop heeft geen zichtbare tekst; de toegankelijke naam komt uit de TEXT-property `label`, die in de
 // icon-only varianten aan een verborgen tekstlaag hangt. Blijft die op de default staan, dan toont het snippet een
 // placeholder: een leeg `label` zou een knop zonder toegankelijke naam opleveren.
-const labelProperty = escapeHtml(instance.getString('label'));
+// Een bestand met een oudere versie van de library kent de property `label` nog niet.
+const labelProperty = iconOnly && 'label' in instance.properties ? escapeHtml(instance.getString('label')) : '';
 const iconOnlyLabel = labelProperty && labelProperty !== 'Label' ? labelProperty : '...';
 
 // Niet gemapt (geen Figma-equivalent): type, block, toggle, on, controlled, cta-link, download,

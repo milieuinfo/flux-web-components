@@ -27,20 +27,39 @@ const property: { grid?: boolean; matrix?: boolean; zebra?: boolean } =
 // checkbox/knop) en `Source reference?` (bronvermelding onder de tabel) zijn in code gewone
 // HTML-inhoud van de tabel of vallen erbuiten; ze worden niet als attribuut gemapt.
 // `hover`, `flux-zebra` en `collapsed-m/s/xs` bestaan enkel in code.
-const hasTitle = instance.getBoolean('title?');
+const hasTitle = instance.getBoolean('title?') === true;
 const titleLayer = instance.findText('↳ Title/Caption table');
 const title = titleLayer && titleLayer.type === 'TEXT' ? escapeHtml(titleLayer.textContent) : '';
 const caption = hasTitle ? `<caption>${title}</caption>` : '';
 
-// De `table`-slot bevat de tabelrijen (enkel gevuld bij de slots-varianten).
-const table = instance.getSlot('table');
+// De `table`-slot bevat de tabelrijen (enkel gevuld bij de slots-varianten). Rijen met een `heading`-variant horen in
+// <thead>, de andere in <tbody>. Bevat de slot geen table-rows, dan gaat hij ongewijzigd in <tbody>.
+const table = 'table' in instance.properties ? instance.getSlot('table') : undefined;
+const rows = table ? table.connectedInstances.filter((row) => row.codeConnectId() === 'vl-table-row') : [];
+const isHeading = (row: (typeof rows)[number]) => String(row.getPropertyValue('variant')).startsWith('heading');
+const rowsCode = (selected: typeof rows) =>
+    selected.reduce(
+        (code, row) => figma.code`${code}
+            ${row.executeTemplate().example}`,
+        figma.code``,
+    );
+const headRows = rows.filter(isHeading);
+const bodyRows = rows.filter((row) => !isHeading(row));
+const head = headRows.length
+    ? figma.code`
+        <thead>${rowsCode(headRows)}
+        </thead>`
+    : '';
+const body = rows.length
+    ? rowsCode(bodyRows)
+    : figma.code`
+            ${table ?? ''}`;
 
 export default {
     example: figma.code`<vl-table${property.grid ? ' grid' : ''}${property.matrix ? ' matrix' : ''}${property.zebra ? ' zebra' : ''}>
     <table>
-        ${caption}
-        <tbody>
-            ${table}
+        ${caption}${head}
+        <tbody>${body}
         </tbody>
     </table>
 </vl-table>`,

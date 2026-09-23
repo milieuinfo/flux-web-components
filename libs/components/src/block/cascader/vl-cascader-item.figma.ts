@@ -11,7 +11,7 @@ const instance = figma.selectedInstance;
 // heeft (`item.children.length` of `narrowDown`, zie `defaultItemActionTemplate` in
 // vl-cascader.utils.ts). Declaratief zijn kinderen geneste vl-cascader-item-elementen, dus
 // `arrow=ja` wordt hier een genest item. Het label daarvan zit niet in Figma en blijft leeg.
-const arrow = instance.getBoolean('arrow');
+const arrow = instance.getBoolean('arrow') === true;
 
 // Bewust niet gemapt:
 // - `last` (nee/ja): puur visueel (onderrand van het laatste item), geen code-equivalent.
@@ -21,11 +21,13 @@ const arrow = instance.getBoolean('arrow');
 const labelLayer = instance.findText('↳ link', { traverseInstances: true });
 const label = labelLayer && labelLayer.type === 'TEXT' ? escapeHtml(labelLayer.textContent) : '';
 
-// De annotatie zit in een geneste vl-text (tekstlaag "vl-text - annotation"), zichtbaar via de boolean `annotation`.
-const hasAnnotation = instance.getBoolean('annotation');
+// De annotatie is de tekstlaag van de geneste vl-text "annotation-text", zichtbaar via de boolean `annotation`. Die
+// tekstlaag wordt niet op naam gezocht: haar naam volgt in de library de voorbeeldtekst.
+const hasAnnotation = instance.getBoolean('annotation') === true;
 let annotation = '';
-if (hasAnnotation) {
-    const annotationLayer = instance.findText('vl-text - annotation', { traverseInstances: true });
+const annotationInstance = hasAnnotation ? instance.findInstance('annotation-text') : undefined;
+if (annotationInstance && annotationInstance.type === 'INSTANCE') {
+    const annotationLayer = annotationInstance.findLayers((node) => node.type === 'TEXT')[0];
     annotation = annotationLayer && annotationLayer.type === 'TEXT' ? escapeHtml(annotationLayer.textContent) : '';
 }
 

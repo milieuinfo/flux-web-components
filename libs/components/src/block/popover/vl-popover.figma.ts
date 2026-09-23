@@ -5,8 +5,10 @@ import figma from 'figma';
 
 const instance = figma.selectedInstance;
 
+// Een bestand met een oudere versie van de library kan properties missen. De getters geven dan een foutobject terug
+// in plaats van `undefined`; daarom de typeof-controle en de vergelijking met `true`.
 // `bottom-center` komt overeen met het code-default `bottom` en wordt niet uitgeschreven.
-const placement = instance.getEnum('Placement', {
+const placementValue = instance.getEnum('Placement', {
     'bottom-start': 'bottom-start',
     'bottom-center': '',
     'bottom-end': 'bottom-end',
@@ -14,9 +16,10 @@ const placement = instance.getEnum('Placement', {
     'top-start': 'top-start',
     'top-end': 'top-end',
 });
+const placement = typeof placementValue === 'string' ? placementValue : '';
 
 // De Figma-boolean `arrow` toont de pijl; in code is dat het omgekeerde attribuut `hide-arrow`.
-const arrow = instance.getBoolean('arrow');
+const arrow = instance.getBoolean('arrow') === true;
 
 // Het verplichte `for`-attribuut (id van het trigger-element) zit niet in Figma en moet door de developer ingevuld worden.
 // `open`, `trigger`, `distance`, `strategy` en `max-height` zitten niet in Figma.

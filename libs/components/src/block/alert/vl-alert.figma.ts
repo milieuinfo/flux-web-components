@@ -14,18 +14,22 @@ const instance = figma.selectedInstance;
 //   standaard aan.
 // - Een banner is in code altijd klein; `size` wordt daar dus niet uitgeschreven.
 
-const type = instance.getEnum('type', {
+// Een bestand met een oudere versie van de library kan properties missen. De getters geven dan een foutobject terug
+// in plaats van `undefined`; daarom de typeof-controles en de vergelijkingen met `true`.
+const typeValue = instance.getEnum('type', {
     info: 'info',
     error: 'error',
     warning: 'warning',
     success: 'success',
 });
+const type = typeof typeValue === 'string' ? typeValue : '';
 const style = instance.getEnum('style', { default: 'default', naked: 'naked', banner: 'banner' });
 const naked = style === 'naked';
 const banner = style === 'banner';
-const size = banner ? '' : instance.getEnum('size', { default: '', small: 'small' });
-const closable = !naked && instance.getBoolean('closable');
-const hasActionsSlot = style === 'default' && instance.getBoolean('actions slot');
+const sizeValue = banner ? '' : instance.getEnum('size', { default: '', small: 'small' });
+const size = typeof sizeValue === 'string' ? sizeValue : '';
+const closable = !naked && instance.getBoolean('closable') === true;
+const hasActionsSlot = style === 'default' && instance.getBoolean('actions slot') === true;
 
 // Titel en boodschap hangen niet aan een property maar zitten in tekstlagen. De boodschap heet "↳ text" in de
 // default-stijl en "↳ text line 1" in de naked-stijl. De banner heeft één laag "↳ titel + text" met het

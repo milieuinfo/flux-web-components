@@ -17,8 +17,9 @@ const variant: { alt?: boolean } =
         alt: { alt: true },
     }) ?? {};
 
-// De intro-tekst zit in de tekstlaag "DOORZOEK ITEMS" en hangt niet aan een component-property.
-const titleLayer = instance.findText('DOORZOEK ITEMS');
+// De intro-tekst is de enige eigen tekstlaag (de andere zitten in geneste instances) en hangt niet aan een
+// component-property. Ze wordt niet op naam gezocht: de laagnaam volgt in de library de voorbeeldtekst.
+const titleLayer = instance.findLayers((node) => node.type === 'TEXT')[0];
 const filterTitle = titleLayer && titleLayer.type === 'TEXT' ? escapeHtml(titleLayer.textContent) : '';
 
 // Het formulier (secties, velden en de knoppen in .vl-group) is default-slot-content.

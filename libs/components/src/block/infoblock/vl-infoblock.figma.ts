@@ -11,7 +11,7 @@ const instance = figma.selectedInstance;
 // Het icoon komt uit de geneste instance "infoblock__header__icon", waarvan de as `Type` in Figma enkel
 // "contact" kent; dat is het `type`-attribuut van het code-component (contact, publications, faq, news,
 // timeline, question). Het vrije `icon`-attribuut heeft geen Figma-equivalent.
-const showContent = instance.getBoolean('↳ Show content');
+const showContent = instance.getBoolean('↳ Show content') === true;
 
 // De titel zit in de tekstlaag "↳ Titel", de content in "↳ subtitel".
 const titleText = instance.findText('↳ Titel');

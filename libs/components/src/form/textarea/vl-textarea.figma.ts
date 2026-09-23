@@ -19,10 +19,11 @@ const state: { error?: boolean; success?: boolean; disabled?: boolean } =
 
 // In code wordt de teller enkel getoond in combinatie met `max-length`; die waarde zit niet in Figma.
 // De tekstlaag "counter" is afgeleid (ingevuld/max) en wordt daarom niet gemapt.
-const characterCount = instance.getBoolean('character-count');
+const characterCount = instance.getBoolean('character-count') === true;
 
-// De placeholder zit in de tekstlaag "Typ iets…" en hangt niet aan een component-property.
-const placeholderLayer = instance.findText('Typ iets…');
+// De placeholder is de eerste tekstlaag (vóór "counter") en hangt niet aan een component-property. Ze wordt niet op
+// naam gezocht: de laagnaam volgt in de library de voorbeeldtekst en verandert mee als die aangepast wordt.
+const placeholderLayer = instance.findLayers((node) => node.type === 'TEXT')[0];
 const placeholder =
     placeholderLayer && placeholderLayer.type === 'TEXT' ? escapeHtml(placeholderLayer.textContent) : '';
 
