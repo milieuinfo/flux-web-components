@@ -149,7 +149,7 @@ Ontdekt via de `.claude/skills`-symlink naar `skills/`. Elke skill is een map me
 
 - `/new-component vl-naam type` - nieuw component, inclusief de bestanden die je anders vergeet (metadata, web-types, E2E, exports)
 - `/jira-ticket` - FLUX-ticket met componentprefix en link naar het `[meta]`-ticket
-- `/wcag-audit vl-naam` - WCAG 2.2 AA-audit van één component, met voorstel voor de `wcag`-metadata
+- `/wcag-audit vl-naam` - WCAG 2.2 AA-audit van één component: code-review, meetrun tegen Storybook en voorstel voor de `wcag`-metadata
 - `/flux-check` - conventiecheck van de branch-diff tegen dit bestand (aanvulling op `/code-review`)
 
 Skill-inhoud wordt **lazy** geladen: enkel de `description` staat permanent in context. Wat altijd moet gelden, hoort dus in dit bestand; een skill enkel voor kennis die een specifieke taak nodig heeft en die Claude niet zelf afleidt.
