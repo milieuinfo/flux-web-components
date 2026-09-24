@@ -26,7 +26,7 @@ Een skill hoort hier enkel als hij kennis bevat die een specifieke taak nodig he
 |-------|---------|------------------|
 | `new-component` | `/new-component vl-naam type` | Somt de bestanden op die je zonder skill vergeet: E2E test, metadata, web-types met tellingen, exports |
 | `jira-ticket` | `/jira-ticket omschrijving` | Teamconventies voor titels, `[meta]`-tickets en links; maakt aan na bevestiging (Jira-MCP) |
-| `wcag-audit` | `/wcag-audit vl-naam` | Betekenis van het `wcag`-metadataveld, valkuilen specifiek voor shadow DOM, manuele punten niet claimen |
+| `wcag-audit` | `/wcag-audit vl-naam` | Betekenis van het `wcag`-metadataveld, meetscript tegen Storybook (axe, toetsenbord, focus, reflow, tekstafstand, forced colors) met Flux-specifieke interpretatie, valkuilen van shadow DOM en Lit, manuele punten niet claimen |
 | `flux-check` | `/flux-check` | Toetst de branch-diff in een aparte subagent aan `CLAUDE.md` plus enkele extra regels; aanvulling op `/code-review` |
 
 Houd de `description` kort (maximaal ~160 tekens). Bij langere beschrijvingen vielen er skills uit de listing, en dan roept het model ze niet meer zelf aan.

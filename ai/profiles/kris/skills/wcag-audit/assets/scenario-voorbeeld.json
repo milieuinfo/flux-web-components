@@ -1,0 +1,26 @@
+[
+  {
+    "story": "components-form-datepicker--datepicker-default",
+    "name": "kalender-openen-en-sluiten",
+    "steps": [
+      { "focus": "vl-datepicker >> button#toggle-calendar" },
+      { "capture": "dicht" },
+      { "press": "Enter" },
+      { "capture": "open" },
+      { "press": "Escape" },
+      { "capture": "gesloten-focus-terug" }
+    ]
+  },
+  {
+    "story": "components-block-modal--modal-medium",
+    "name": "openen-tabpad-escape",
+    "steps": [
+      { "focus": "vl-button#button-open-modal-vt >> button" },
+      { "press": "Enter" },
+      { "capture": "open" },
+      { "tab": 5 },
+      { "press": "Escape" },
+      { "capture": "gesloten-focus-terug" }
+    ]
+  }
+]
