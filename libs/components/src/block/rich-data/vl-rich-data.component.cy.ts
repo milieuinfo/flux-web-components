@@ -197,6 +197,56 @@ describe('cypress-component - block components - vl-rich-data - with vl-search-f
     });
 });
 
+describe('cypress-component - block components - vl-rich-data - filter-position top', () => {
+    beforeEach(() => {
+        cy.mount(html`
+            <vl-rich-data filter-position="top">
+                <vl-search-filter slot="filter">
+                    <form>
+                        <vl-form-label for="filterOpId" label="Project id" light></vl-form-label>
+                        <vl-input-field id="filterOpId" type="text" name="id" block></vl-input-field>
+                    </form>
+                </vl-search-filter>
+                <vl-pager slot="pager" total-items="25" items-per-page="5" current-page="1"></vl-pager>
+                <div slot="content">Resultaat 1</div>
+            </vl-rich-data>
+        `);
+    });
+
+    it('should show the filter above the content over the full width', () => {
+        cy.viewport(1600, 1200);
+        cy.get('vl-rich-data')
+            .shadow()
+            .find('#search')
+            .then((search) => {
+                cy.get('vl-rich-data')
+                    .shadow()
+                    .find('#content')
+                    .then((content) => {
+                        const searchRect = search[0].getBoundingClientRect();
+                        const contentRect = content[0].getBoundingClientRect();
+                        expect(searchRect.bottom).to.be.at.most(contentRect.top);
+                        expect(searchRect.width).to.equal(contentRect.width);
+                    });
+            });
+    });
+
+    it('should show the search results between the filter and the content', () => {
+        cy.viewport(1600, 1200);
+        cy.get('vl-rich-data')
+            .shadow()
+            .find('#search-results')
+            .should('be.visible')
+            .and('contain.text', '25 resultaten');
+    });
+
+    it('should be accessible', () => {
+        cy.viewport(1600, 1200);
+        cy.injectAxe();
+        cy.checkA11y('vl-rich-data');
+    });
+});
+
 describe('cypress-component - block components - vl-rich-data - mobile filter behavior', () => {
     const mountWithFilter = (filterClosable = false) => {
         cy.mount(html`

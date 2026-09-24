@@ -46,6 +46,7 @@ export class VlRichDataTable extends VlRichData {
             'flux-zebra',
             'label',
             'caption',
+            'show-empty-table',
         ]);
     }
 
@@ -175,6 +176,10 @@ export class VlRichDataTable extends VlRichData {
         return Boolean(this._data && this._data.data && this._data.data.length > 0);
     }
 
+    get _showEmptyTable(): boolean {
+        return this.hasAttribute('show-empty-table');
+    }
+
     get __captionElement(): HTMLTableCaptionElement | null | undefined {
         return this.__table?.querySelector<HTMLTableCaptionElement>('caption');
     }
@@ -267,6 +272,15 @@ export class VlRichDataTable extends VlRichData {
         }
     }
 
+    __processContent(): void {
+        if (this._showEmptyTable) {
+            this.__contentSlot!.hidden = false;
+            this.__noContentSlot!.hidden = true;
+        } else {
+            super.__processContent();
+        }
+    }
+
     _renderBody(): void {
         const { __tableBody, data } = this;
         if (data && data.data && __tableBody) {
@@ -278,7 +292,28 @@ export class VlRichDataTable extends VlRichData {
                 });
                 __tableBody.appendChild(rowTemplate!);
             });
+            if (this._showEmptyTable && !this._hasResults) {
+                __tableBody.appendChild(this.__noContentRow());
+            }
         }
+    }
+
+    __noContentRow(): HTMLTableRowElement {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = Math.max(this.__richDataFields.length, 1);
+        this.__noContentSlot?.assignedNodes({ flatten: true }).forEach((node) => {
+            const clone = node.cloneNode(true);
+            if (clone instanceof Element) clone.removeAttribute('slot');
+            cell.appendChild(clone);
+        });
+        row.appendChild(cell);
+        return row;
+    }
+
+    _showEmptyTableChangedCallback(): void {
+        this.__processContent();
+        this._renderBody();
     }
 
     _dataChangedCallback(oldValue: string, newValue: string): void {

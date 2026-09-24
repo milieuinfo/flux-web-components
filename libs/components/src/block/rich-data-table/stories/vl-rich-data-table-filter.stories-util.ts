@@ -2,9 +2,9 @@ import richDataFilterData from './vl-rich-data-table-filter.stories-mock';
 
 const data = richDataFilterData;
 
-export const filterRichTableImplementation = () => {
+export const filterRichTableImplementation = (id = 'rich-data-table-filter') => {
     customElements.whenDefined('vl-rich-data-table').then(() => {
-        const element: (Element & { data: any }) | null = document.querySelector('#rich-data-table-filter');
+        const element: (Element & { data: any }) | null = document.querySelector(`#${id}`);
         if (element) {
             element.data = data;
             element.addEventListener('change', (e: any) => {

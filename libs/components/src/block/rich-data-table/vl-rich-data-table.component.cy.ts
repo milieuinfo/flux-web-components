@@ -287,6 +287,56 @@ describe('cypress-component - block components - vl-rich-data-table - default', 
     });
 });
 
+describe('cypress-component - block components - vl-rich-data-table - show-empty-table', () => {
+    const data = [{ id: 0, name: 'Project #1', owner: 'Jan Jansens' }];
+
+    beforeEach(() => {
+        cy.mount(html`
+            <vl-rich-data-table data="${JSON.stringify({ data: [] })}" caption="Projecten" show-empty-table>
+                <vl-rich-data-field name="id" label="ID" selector="id"></vl-rich-data-field>
+                <vl-rich-data-field name="name" label="Naam" selector="name"></vl-rich-data-field>
+                <vl-rich-data-field name="owner" label="Eigenaar" selector="owner"></vl-rich-data-field>
+                <span slot="no-content">Geen projecten gevonden</span>
+            </vl-rich-data-table>
+        `);
+    });
+
+    it('should show the column headers when there are no results', () => {
+        cy.get('vl-rich-data-table').shadow().find('slot[name="content"]').should('not.have.attr', 'hidden');
+        cy.get('vl-rich-data-table').shadow().find('thead th').should('have.length', 3).first().should('be.visible');
+    });
+
+    it('should show the no-content text in a table row spanning all columns', () => {
+        cy.get('vl-rich-data-table').shadow().find('tbody tr').should('have.length', 1);
+        cy.get('vl-rich-data-table')
+            .shadow()
+            .find('tbody td')
+            .should('have.attr', 'colspan', '3')
+            .and('have.text', 'Geen projecten gevonden')
+            .and('be.visible');
+        cy.get('vl-rich-data-table').shadow().find('slot[name="no-content"]').should('have.attr', 'hidden');
+    });
+
+    it('should replace the no-content row with data rows when data is set', () => {
+        cy.get('vl-rich-data-table').invoke('attr', 'data', JSON.stringify({ data }));
+        shouldMatchTableData(data);
+        cy.get('vl-rich-data-table').shadow().find('tbody tr').should('have.length', 1);
+        cy.get('vl-rich-data-table').shadow().find('tbody td').should('have.length', 3);
+    });
+
+    it('should hide the table when show-empty-table is removed', () => {
+        cy.get('vl-rich-data-table').invoke('removeAttr', 'show-empty-table');
+        cy.get('vl-rich-data-table').shadow().find('slot[name="content"]').should('have.attr', 'hidden');
+        cy.get('vl-rich-data-table').shadow().find('slot[name="no-content"]').should('not.have.attr', 'hidden');
+        cy.get('vl-rich-data-table').shadow().find('tbody tr').should('have.length', 0);
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+        cy.checkA11y('vl-rich-data-table');
+    });
+});
+
 // ============================================================
 // Sorting tests
 // ============================================================
