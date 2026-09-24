@@ -1,3 +1,4 @@
+import { vlVisuallyHiddenMixin } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 export const vlAutocompleteFluxStyles: CSSResult = css`
@@ -13,15 +14,29 @@ export const vlAutocompleteFluxStyles: CSSResult = css`
         }
     }
 
+    .flux-autocomplete__status {
+        ${vlVisuallyHiddenMixin()};
+    }
+
     label.small {
         font-size: 14px;
     }
 
-    li.flux-autocomplete-group {
-        font-weight: bold;
-    }
-
     .js-vl-autocomplete {
+        .vl-autocomplete__cta__sub {
+            color: var(--vl-color--text-subtle);
+        }
+
+        li.flux-autocomplete-group {
+            font-weight: bold;
+            cursor: default;
+
+            &:hover,
+            &:focus {
+                background: none;
+            }
+        }
+
          div.vl-autocomplete__list-wrapper,
          div.autocomplete__list-wrapper {
             max-height: 100vh;

@@ -4,6 +4,7 @@ import { autocompleteStyle, inputFieldStyle } from '@domg/govflanders-style/comp
 import { vlStackedStyles } from '@domg-wc/styles';
 import { html, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import 'reflect-metadata';
 import { DEFAULT_CAPTION_FORMAT, DEFAULT_MAX_MATCHES, DEFAULT_MIN_CHARS } from './vl-autocomplete.defaults';
 import { AutocompleteItemTemplateFn, CAPTION_FORMAT } from './vl-autocomplete.model';
@@ -278,27 +279,32 @@ export class VlAutocomplete extends BaseLitElement {
     }
 
     _markPreviousElement() {
-        if (!this._highlightedEl || !this._highlightedEl.previousElementSibling) {
-            return;
-        }
-
-        this._highlightedEl.classList.remove('vl-autocomplete__cta--focus');
-        this._highlightedEl = this._highlightedEl.previousElementSibling;
-        this._highlightedEl.classList.add('vl-autocomplete__cta--focus');
-        this.contentElement?.setAttribute('aria-activedescendant', this._highlightedEl.id);
-        this._highlightedEl.scrollIntoView();
+        this._markElement(this._findSelectableSibling(this._highlightedEl, 'previousElementSibling'));
     }
 
     _markNextElement() {
-        if (!this._highlightedEl || !this._highlightedEl.nextElementSibling) {
+        this._markElement(this._findSelectableSibling(this._highlightedEl, 'nextElementSibling'));
+    }
+
+    _findSelectableSibling(element: any, direction: 'previousElementSibling' | 'nextElementSibling') {
+        let sibling = element ? element[direction] : null;
+        while (sibling && sibling.classList.contains('flux-autocomplete-group')) {
+            sibling = sibling[direction];
+        }
+        return sibling;
+    }
+
+    _markElement(element: any) {
+        if (!element) {
             return;
         }
 
-        this._highlightedEl.classList.remove('vl-autocomplete__cta--focus');
-        this._highlightedEl = this._highlightedEl.nextElementSibling;
+        this._highlightedEl?.classList.remove('vl-autocomplete__cta--focus');
+        this._highlightedEl = element;
         this._highlightedEl.classList.add('vl-autocomplete__cta--focus');
         this.contentElement?.setAttribute('aria-activedescendant', this._highlightedEl.id);
         this._highlightedEl.scrollIntoView();
+        this.requestUpdate();
     }
 
     _onFocus() {
@@ -393,14 +399,11 @@ export class VlAutocomplete extends BaseLitElement {
                 liElements.push(html` <li
                     id="${id}"
                     class="vl-autocomplete__cta flux-autocomplete-group"
-                    role="option"
-                    aria-selected="false"
-                    aria-disabled="true"
-                    aria-label="Groep: ${groupName}"
+                    role="presentation"
                 >
                     ${groupName}
                 </li>`);
-                items.forEach((item: any) => liElements.push(this.generateItem(item, groupIndex)));
+                items.forEach((item: any) => liElements.push(this.generateItem(item, groupIndex, groupName)));
                 groupIndex += 1;
             });
 
@@ -410,13 +413,14 @@ export class VlAutocomplete extends BaseLitElement {
         return html`${this._matches.map((item: any) => this.generateItem(item, groupIndex))}`;
     }
 
-    generateItem(item: any, groupIndex: number) {
+    generateItem(item: any, groupIndex: number, groupName?: string) {
         const id = `flux-autocomplete-item-${item.value || item.title.toLowerCase().replace(/\s/g, '-')}-${groupIndex}`;
         return html` <li
             id="${id}"
             @click=${() => this.autocomplete(item, id)}
             class="vl-autocomplete__cta flux-autocomplete-item"
             role="option"
+            aria-label="${ifDefined(groupName ? `${groupName}: ${item.title}` : undefined)}"
             aria-selected="${id === this._highlightedEl?.id ? 'true' : 'false'}"
         >
             ${this.itemTemplate && item.value != null ? this.itemTemplate(item) : this.formatCaption(item)}
@@ -443,6 +447,18 @@ export class VlAutocomplete extends BaseLitElement {
                 bubbles: true,
             })
         );
+    }
+
+    _hasSuggestions() {
+        return this._matches.length > 0;
+    }
+
+    _statusMessage() {
+        if (!this.opened) return '';
+        if (this.firstValidItemIndex == null) return this.noMatchesText;
+
+        const count = this._matches.length;
+        return `${count} ${count === 1 ? 'resultaat' : 'resultaten'} beschikbaar`;
     }
 
     _hasSearchTerm() {
@@ -507,6 +523,7 @@ export class VlAutocomplete extends BaseLitElement {
     }
 
     render() {
+        const hasSuggestions = this._hasSuggestions();
         const rendered = this._wrapInLabel(
             html`
                 <div class="js-vl-autocomplete">
@@ -522,15 +539,18 @@ export class VlAutocomplete extends BaseLitElement {
                             autocapitalize="off"
                             spellcheck="false"
                             aria-label="${this.label || this.placeholder || 'Start met typen om suggesties te krijgen'}"
-                            aria-autocomplete="list"
-                            aria-owns="suggestions"
-                            aria-controls="suggestions"
-                            aria-haspopup="true"
-                            aria-expanded="${this.opened}"
+                            role="${ifDefined(hasSuggestions ? 'combobox' : undefined)}"
+                            aria-autocomplete="${ifDefined(hasSuggestions ? 'list' : undefined)}"
+                            aria-controls="${ifDefined(hasSuggestions ? 'suggestions' : undefined)}"
+                            aria-haspopup="${ifDefined(hasSuggestions ? 'listbox' : undefined)}"
+                            aria-expanded="${ifDefined(hasSuggestions ? String(this.opened) : undefined)}"
                             .value=${this.initialValue}
                             @input=${this._notify}
                         />
                     </slot>
+                    <div class="flux-autocomplete__status" role="status" aria-live="polite" aria-atomic="true">
+                        ${this._statusMessage()}
+                    </div>
                     <div
                         class="vl-autocomplete__loader ${this._hasSearchTerm()
                             ? 'ui-autocomplete__loader-with-clear'
@@ -552,7 +572,6 @@ export class VlAutocomplete extends BaseLitElement {
                                 class="vl-autocomplete__list"
                                 role="listbox"
                                 aria-labelledby="${this.defaultInputId}"
-                                aria-live="polite"
                             >
                                 ${this.generateItems()}
                             </ul>

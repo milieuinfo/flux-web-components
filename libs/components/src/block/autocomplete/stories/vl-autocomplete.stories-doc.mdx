@@ -111,11 +111,41 @@ Je kan hiervoor ofwel:
 -   de `.matches` property van de component gelijkstellen aan een lege array (`[]`), op dezelfde manier als waarop de
     resultaten van een API call worden ingeladen - zodoende wordt de loading indicator niet langer getoond
 
+Zolang er geen suggesties zijn, presenteert het veld zich aan hulptechnologie als een gewone tekstinput. De
+`combobox` rol en de bijhorende attributen verschijnen pas wanneer er effectief een lijst komt.
+
 <Canvas of={VlAutocompleteStories.AutocompleteWithoutSuggestions} />
 
 ### Voorbeeld in een side-sheet
 
 <Canvas of={VlAutocompleteStories.AutocompleteInSideSheet} />
+
+
+## Toegankelijkheid
+
+### Zet altijd een label
+
+Gebruik het `label` attribuut, ook wanneer het ontwerp enkel een placeholder toont. De component rendert dan een
+echte `<label>` die aan het invoerveld gekoppeld is. Laat je het weg, dan valt ze terug op een `aria-label` met de
+placeholder: een screenreader kent het veld dan wel een naam toe, maar die tekst verdwijnt zodra de gebruiker typt
+en een placeholder is geen label
+([1.3.1](https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html),
+[3.3.2](https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html)).
+
+Zet de component dus niet als los invoerveld op een pagina: label en veld horen samen.
+
+### Het aantal resultaten wordt aangekondigd
+
+Zodra er suggesties verschijnen, meldt de component via een live region hoeveel resultaten er zijn, of de tekst uit
+`no-matches-text` wanneer er niets gevonden is
+([4.1.3](https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html)). Bouw daar zelf geen tweede
+aankondiging bovenop.
+
+### Een groep is geen suggestie
+
+Met `group-by` staat de naam van de groep als kop tussen de suggesties. Die kop is geen keuze: klikken doet niets en
+de pijltjes slaan ze over. De naam zit wel in de naam van elke suggestie eronder, zodat een screenreader
+"Adres: Gentbos, Merelbeke" leest in plaats van enkel de titel.
 
 
 ## Referenties
