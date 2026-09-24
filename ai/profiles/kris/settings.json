@@ -14,6 +14,8 @@
       "Bash(git describe*)",
       "Bash(git tag --list*)",
       "Bash(git ls-files*)",
+      "Bash(git fetch*)",
+      "Bash(git worktree list*)",
       "Bash(git add*)",
       "Bash(git commit*)",
       "Bash(git checkout -b*)",
@@ -21,11 +23,27 @@
       "Bash(git cherry-pick*)",
       "Bash(git rebase*)",
       "Bash(git merge*)",
-      "Bash(git restore*)",
       "Bash(git reset*)",
+      "Bash(gh pr view*)",
+      "Bash(gh pr list*)",
+      "Bash(gh pr diff*)",
+      "Bash(gh pr checks*)",
+      "Bash(gh pr status*)",
       "Bash(pnpm run *)",
       "Bash(ls *)",
-      "Bash(cat *)"
+      "Bash(cat *)",
+      "mcp__jira__jira_get_issue",
+      "mcp__jira__jira_search",
+      "mcp__jira__jira_get_link_types",
+      "mcp__jira__jira_get_transitions"
+    ],
+    "ask": [
+      "Bash(git reset --hard*)",
+      "Bash(git branch -D*)",
+      "Bash(git stash drop*)",
+      "Bash(git stash clear*)",
+      "Bash(pnpm run libs:publish*)",
+      "Bash(pnpm run libs:pack:release*)"
     ]
   }
 }
