@@ -17,6 +17,7 @@ import { VlFormCrossValidationComponent } from '@domg-wc/integrations/form';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import './composite-input-showcase.component';
+import './steps-timeline-showcase.component';
 
 @customElement('app-component')
 export class AppComponent extends LitElement {
@@ -88,6 +89,7 @@ export class AppComponent extends LitElement {
                     identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"
                 ></vl-header>
                 <main slot="main">
+                    <steps-timeline-showcase></steps-timeline-showcase>
                     <composite-input-showcase></composite-input-showcase>
                     <section class="vl-section">
                         <div class="vl-content-block vl-content-block--full-width">
