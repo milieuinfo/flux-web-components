@@ -16,10 +16,11 @@ instance.getEnum('variant', {
     default: {},
 });
 
-// De titel zit in de tekstlaag "op deze pagina" en hangt niet aan een component-property.
+// De titel is de eerste tekstlaag en hangt niet aan een component-property. Ze wordt niet op naam gezocht: de
+// laagnaam volgt in de library de voorbeeldtekst en verandert mee als die aangepast wordt.
 // Het attribuut wordt enkel uitgeschreven als de tekst afwijkt van de code-default "Op deze pagina"
 // (hoofdletterongevoelig, omdat de Figma-laag in kleine letters staat en via CSS in kapitalen getoond wordt).
-const titleLayer = instance.findText('op deze pagina');
+const titleLayer = instance.findLayers((node) => node.type === 'TEXT')[0];
 const title = titleLayer && titleLayer.type === 'TEXT' ? escapeHtml(titleLayer.textContent) : '';
 const navigationTitle = title && title.toLowerCase() !== 'op deze pagina' ? title : '';
 

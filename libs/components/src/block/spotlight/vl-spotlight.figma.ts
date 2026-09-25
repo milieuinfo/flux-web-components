@@ -11,11 +11,14 @@ const instance = figma.selectedInstance;
 // design-informatie en worden als placeholder getoond.
 // `alt`, `no-border`, `external` en `link-label` hebben geen Figma-equivalent (de geneste spotlight-container
 // heeft enkel `alt background=No`).
-const size = instance.getEnum('size', {
+// Een bestand met een oudere versie van de library kan de as missen; `getEnum` geeft dan een foutobject terug in
+// plaats van `undefined`.
+const sizeValue = instance.getEnum('size', {
     S: 's',
     L: 'l',
     XS: 'xs',
 });
+const size = typeof sizeValue === 'string' ? sizeValue : '';
 const header: { image?: boolean } =
     instance.getEnum('header', {
         Image: { image: true },

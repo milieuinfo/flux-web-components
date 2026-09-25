@@ -5,7 +5,8 @@
         "./src/**/*.cy.ts",
         "./src/**/stories",
         "./src/**/*.figma.ts",
-        "./src/**/*.figma.batch.ts"
+        "./src/**/*.figma.batch.ts",
+        "./src/**/*.figma-util.ts"
     ],
     "compilerOptions": {}
 }

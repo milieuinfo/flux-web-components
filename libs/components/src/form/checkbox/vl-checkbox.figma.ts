@@ -7,10 +7,13 @@ import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 const instance = figma.selectedInstance;
 
 // De Figma-set heeft één as `variant` (default | switch) die het `switch`-attribuut stuurt.
-const isSwitch = instance.getEnum('variant', {
-    default: false,
-    switch: true,
-});
+// Een bestand met een oudere versie van de library kan de as missen; `getEnum` geeft dan een foutobject terug in
+// plaats van `undefined`. De vergelijking met `true` houdt de waarde dan op false.
+const isSwitch =
+    instance.getEnum('variant', {
+        default: false,
+        switch: true,
+    }) === true;
 
 // De labeltekst zit in de tekstlaag "↳ text" van de geneste instance "checkbox" / "checkbox switch".
 const text = instance.findText('↳ text', { traverseInstances: true });

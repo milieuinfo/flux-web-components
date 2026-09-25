@@ -12,9 +12,10 @@ const instance = figma.selectedInstance;
 // De Figma-boolean `icon` toont enkel dát er een icoon staat; het icoon zelf is een geneste instance
 // zonder swap-property. De naam komt daarom uit de Code Connect van het icoon zelf, via
 // `metadata.props.icon` (zie `libs/components/src/atom/icon/vl-icon-library.figma.batch.ts`).
-// Er zijn twee icoon-lagen die allebei "Icon" heten: één onder "icon" en één onder "icon as badge".
-// Welke telt, hangt af van de boolean `icon-as-badge`. Blijft de naam leeg, dan heeft het gekozen
-// icoon geen Code Connect-mapping.
+// Er zijn twee icoon-lagen, in de kaders "icon" en "icon as badge"; enkel de zichtbare komt in de Code Connect-boom,
+// en kaders zelf staan er niet in. Het icoon is de eigen instance met een icoonnaam in zijn metadata. Het wordt niet
+// op laagnaam gezocht: een gewisseld icoon draagt in de instance de naam van het nieuwe component (bv.
+// "Icon/Maps/area") in plaats van "Icon". Blijft de naam leeg, dan heeft het gekozen icoon geen Code Connect-mapping.
 type LayerHandle = ReturnType<typeof instance.findLayers>[number] | undefined;
 
 function iconNameOf(handle: LayerHandle): string {
@@ -30,37 +31,43 @@ const variant: { center?: boolean } =
         default: { center: false },
         centered: { center: true },
     }) ?? {};
+// Een bestand met een oudere versie van de library kan properties missen. De getters geven dan een foutobject terug
+// in plaats van `undefined`; daarom de typeof-controles en de vergelijkingen met `true`.
 // "small" is de gedocumenteerde default van het code-component en wordt niet uitgeschreven.
-const size = instance.getEnum('size', {
+const sizeValue = instance.getEnum('size', {
     small: '',
     medium: 'medium',
     large: 'large',
 });
-const type = instance.getEnum('type', {
+const size = typeof sizeValue === 'string' ? sizeValue : '';
+const typeValue = instance.getEnum('type', {
     default: '',
     alt: 'alt',
     error: 'error',
     success: 'success',
     warning: 'warning',
 });
-const toggleable = instance.getEnum('toggleable', {
-    false: false,
-    true: true,
-});
-const icon = instance.getBoolean('icon');
-const iconAsBadge = instance.getBoolean('icon-as-badge');
+const type = typeof typeValue === 'string' ? typeValue : '';
+const toggleable =
+    instance.getEnum('toggleable', {
+        false: false,
+        true: true,
+    }) === true;
+const icon = instance.getBoolean('icon') === true;
+const iconAsBadge = instance.getBoolean('icon-as-badge') === true;
 // `icon-as-badge` toont in Figma óók een icoon, terwijl de boolean `icon` dan op false kan staan.
 // In code voegt `icon-as-badge` alleen de badge-styling toe aan het icoon uit het `icon`-attribuut
 // (zie `__processIcon`), dus zonder `icon` rendert er niets. Het attribuut hoort er dus bij zodra
 // een van beide booleans aan staat.
 const showsIcon = icon || iconAsBadge;
-// Eerst de laag onder het juiste kader; matcht die niet, dan de eerste "Icon"-laag die we vinden.
 const iconName = showsIcon
-    ? iconNameOf(instance.findInstance('Icon', { path: [iconAsBadge ? 'icon as badge' : 'icon'] })) ||
-      iconNameOf(instance.findInstance('Icon'))
+    ? (instance
+          .findLayers((node) => node.type === 'INSTANCE')
+          .map(iconNameOf)
+          .find((name) => name) ?? '')
     : '';
-const footer = instance.getBoolean('footer');
-const menuSlot = instance.getBoolean('menu slot');
+const footer = instance.getBoolean('footer') === true;
+const menuSlot = instance.getBoolean('menu slot') === true;
 
 // Titel, subtitel en content zitten in de tekstlagen "↳ Title", "↳ Subtitle" en "↳ Content".
 // De Figma-boolean `content slot` toont een extra slot-placeholder; in code is dat dezelfde `content`-slot.

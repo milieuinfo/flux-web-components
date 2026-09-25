@@ -18,20 +18,21 @@ const layout = instance.getEnum('variant', {
 });
 
 // De Figma-boolean `padding-bottom` toont de witruimte onderaan; in code is dat het omgekeerde attribuut `no-padding-bottom`.
-const paddingBottom = instance.getBoolean('padding-bottom');
+const paddingBottom = instance.getBoolean('padding-bottom') === true;
 
-// `Slot` bevat de (eerste kolom) properties, `Slot2` de tweede kolom (enkel in de column-variant).
+// `Slot` bevat de (eerste kolom) properties, `Slot2` de tweede kolom. `Slot2` bestaat als property op de hele set, maar
+// de slot zelf zit enkel in de column-varianten; elders geeft `getSlot('Slot2')` een lege slot-verwijzing die als
+// "Missing snippet" gerenderd wordt. Daarom wordt `Slot2` enkel in de column-variant gelezen.
 // `label-width`, `value-bold` en de `props`-property zitten niet in Figma.
 const slot = instance.getSlot('Slot');
-const slot2 = instance.getSlot('Slot2');
 
 let body;
 if (layout === 'column') {
-    body = figma.code`<div class="column">${slot}</div>${slot2 ? figma.code`<div class="column">${slot2}</div>` : ''}`;
+    body = figma.code`<div class="column">${slot}</div><div class="column">${instance.getSlot('Slot2')}</div>`;
 } else if (layout === 'stacked') {
     body = figma.code`<div class="stacked">${slot}</div>`;
 } else {
-    body = figma.code`${slot}${slot2 ? slot2 : ''}`;
+    body = figma.code`${slot}`;
 }
 
 export default {

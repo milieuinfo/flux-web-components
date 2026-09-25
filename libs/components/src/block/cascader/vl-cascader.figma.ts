@@ -11,8 +11,8 @@ const instance = figma.selectedInstance;
 // - `header` toont in Figma een header zonder eigen tekstlaag of property; in code hoort daar `header-text` of het
 //   `header`-slot bij. Enkel een slot-hint wordt gezet.
 // `breadcrumb` (aan/uit) is in code het omgekeerde attribuut `hide-breadcrumb`.
-const showBreadcrumb = instance.getBoolean('breadcrumb');
-const showHeader = instance.getBoolean('header');
+const showBreadcrumb = instance.getBoolean('breadcrumb') === true;
+const showHeader = instance.getBoolean('header') === true;
 
 // De items zijn geneste vl-cascader-item-instances zonder slot-property. Label en annotatie komen uit de metadata van
 // het vl-cascader-item-template.
