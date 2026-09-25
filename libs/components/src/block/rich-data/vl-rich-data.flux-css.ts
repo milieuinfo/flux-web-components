@@ -75,4 +75,10 @@ export const vlRichDataFluxStyles: CSSResult = css`
             grid-area: pager-area;
         }
     }
+
+    :host([filter-position='top']) .vl-rich-data {
+        display: flex;
+        flex-direction: column;
+        gap: var(--vl-grid-col-gap);
+    }
 `;

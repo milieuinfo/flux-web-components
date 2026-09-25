@@ -132,91 +132,114 @@ RichDataTableSorting.args = {
     caption: 'Sorteerbare tabel',
 };
 
-const TemplateFilter = story(
-    richDataTableArgs,
-    ({
-        collapsedM,
-        collapsedS,
-        collapsedXS,
-        filterClosable,
-        filterClosed,
-        filterMaxWidth,
-        zebra,
-        fluxZebra,
-        label,
-        caption,
-    }) => {
-        filterRichTableImplementation();
-        return html`
-            <vl-rich-data-table
-                id="rich-data-table-filter"
-                ?collapsed-m=${collapsedM}
-                ?collapsed-s=${collapsedS}
-                ?collapsed-xs=${collapsedXS}
-                ?filter-closable=${filterClosable}
-                ?filter-closed=${filterClosed}
-                filter-max-width=${filterMaxWidth}
-                ?zebra=${zebra}
-                ?flux-zebra=${fluxZebra}
-                label=${label}
-                caption=${caption}
-            >
-                <vl-rich-data-field label="ID" selector="id"></vl-rich-data-field>
-                <vl-rich-data-field label="Naam Project" selector="name"></vl-rich-data-field>
-                <vl-rich-data-field label="Naam Manager" selector="manager.lastName"></vl-rich-data-field>
-                <vl-rich-data-field label="Eerste medewerker" selector="medewerkers.0.lastName"></vl-rich-data-field>
-                <vl-search-filter slot="filter" alt>
-                    <form>
-                        <section>
-                            <vl-title type="h2" no-space-bottom>Doorzoek projecten</vl-title>
-                            <div>
-                                <vl-form-label for="filterOpId" label="Project id" light></vl-form-label>
-                                <vl-input-field id="filterOpId" type="text" name="id" block></vl-input-field>
-                            </div>
-                            <div>
-                                <vl-form-label for="filterOpNaamProject" label="Project naam" light></vl-form-label>
-                                <vl-input-field type="text" id="filterOpNaamProject" name="name" block></vl-input-field>
-                            </div>
-                            <div>
-                                <vl-form-label
-                                    for="filterOpNaamManager"
-                                    label="Manager familienaam"
-                                    light
-                                ></vl-form-label>
-                                <vl-input-field
-                                    type="text"
-                                    id="filterOpNaamManager"
-                                    name="manager.lastName"
-                                    block
-                                    autocomplete="family-name"
-                                ></vl-input-field>
-                            </div>
-                        </section>
-                        <footer>
-                            <div class="vl-group vl-group--wrap">
-                                <vl-button type="submit">Zoeken</vl-button>
-                                <vl-button type="reset" secondary>Reset</vl-button>
-                            </div>
-                        </footer>
-                    </form>
-                </vl-search-filter>
-                <vl-pager
-                    id="rich-data-table-filter"
-                    slot="pager"
-                    total-items="6"
-                    items-per-page="10"
-                    current-page="1"
-                    align-center=""
-                ></vl-pager>
-            </vl-rich-data-table>
-        `;
-    }
-);
-export const RichDataTableFilter = TemplateFilter.bind({});
+const templateFilter = (id: string) =>
+    story(
+        richDataTableArgs,
+        ({
+            collapsedM,
+            collapsedS,
+            collapsedXS,
+            filterClosable,
+            filterClosed,
+            filterMaxWidth,
+            filterPosition,
+            showEmptyTable,
+            zebra,
+            fluxZebra,
+            label,
+            caption,
+        }) => {
+            filterRichTableImplementation(id);
+            return html`
+                <vl-rich-data-table
+                    id=${id}
+                    ?collapsed-m=${collapsedM}
+                    ?collapsed-s=${collapsedS}
+                    ?collapsed-xs=${collapsedXS}
+                    ?filter-closable=${filterClosable}
+                    ?filter-closed=${filterClosed}
+                    filter-max-width=${filterMaxWidth}
+                    filter-position=${filterPosition}
+                    ?show-empty-table=${showEmptyTable}
+                    ?zebra=${zebra}
+                    ?flux-zebra=${fluxZebra}
+                    label=${label}
+                    caption=${caption}
+                >
+                    <vl-rich-data-field label="ID" selector="id"></vl-rich-data-field>
+                    <vl-rich-data-field label="Naam Project" selector="name"></vl-rich-data-field>
+                    <vl-rich-data-field label="Naam Manager" selector="manager.lastName"></vl-rich-data-field>
+                    <vl-rich-data-field
+                        label="Eerste medewerker"
+                        selector="medewerkers.0.lastName"
+                    ></vl-rich-data-field>
+                    <vl-search-filter slot="filter" alt>
+                        <form>
+                            <section>
+                                <vl-title type="h2" no-space-bottom>Doorzoek projecten</vl-title>
+                                <div>
+                                    <vl-form-label for="${id}-id" label="Project id" light></vl-form-label>
+                                    <vl-input-field id="${id}-id" type="text" name="id" block></vl-input-field>
+                                </div>
+                                <div>
+                                    <vl-form-label for="${id}-name" label="Project naam" light></vl-form-label>
+                                    <vl-input-field type="text" id="${id}-name" name="name" block></vl-input-field>
+                                </div>
+                                <div>
+                                    <vl-form-label
+                                        for="${id}-manager"
+                                        label="Manager familienaam"
+                                        light
+                                    ></vl-form-label>
+                                    <vl-input-field
+                                        type="text"
+                                        id="${id}-manager"
+                                        name="manager.lastName"
+                                        block
+                                        autocomplete="family-name"
+                                    ></vl-input-field>
+                                </div>
+                            </section>
+                            <footer>
+                                <div class="vl-group vl-group--wrap">
+                                    <vl-button type="submit">Zoeken</vl-button>
+                                    <vl-button type="reset" secondary>Reset</vl-button>
+                                </div>
+                            </footer>
+                        </form>
+                    </vl-search-filter>
+                    <vl-pager
+                        id="${id}-pager"
+                        slot="pager"
+                        total-items="6"
+                        items-per-page="10"
+                        current-page="1"
+                        align-center=""
+                    ></vl-pager>
+                </vl-rich-data-table>
+            `;
+        }
+    );
+export const RichDataTableFilter = templateFilter('rich-data-table-filter');
 RichDataTableFilter.storyName = 'vl-rich-data-table - filter';
 RichDataTableFilter.args = {
     filterClosable: true,
     caption: 'Tabel met filter',
+};
+
+export const RichDataTableFilterPositionTop = templateFilter('rich-data-table-filter-top');
+RichDataTableFilterPositionTop.storyName = 'vl-rich-data-table - filter-position top';
+RichDataTableFilterPositionTop.args = {
+    filterPosition: 'top',
+    caption: 'Tabel met filter boven de tabel',
+};
+
+export const RichDataTableShowEmptyTable = templateFilter('rich-data-table-show-empty');
+RichDataTableShowEmptyTable.storyName = 'vl-rich-data-table - show-empty-table';
+RichDataTableShowEmptyTable.args = {
+    filterClosable: true,
+    showEmptyTable: true,
+    caption: 'Tabel die zichtbaar blijft zonder resultaten',
 };
 
 const TemplateFilterPaging = story(
@@ -228,6 +251,8 @@ const TemplateFilterPaging = story(
         filterClosable,
         filterClosed,
         filterMaxWidth,
+        filterPosition,
+        showEmptyTable,
         zebra,
         fluxZebra,
         label,
@@ -243,6 +268,8 @@ const TemplateFilterPaging = story(
                 ?filter-closable=${filterClosable}
                 ?filter-closed=${filterClosed}
                 filter-max-width=${filterMaxWidth}
+                filter-position=${filterPosition}
+                ?show-empty-table=${showEmptyTable}
                 ?zebra=${zebra}
                 ?flux-zebra=${fluxZebra}
                 label=${label}
@@ -257,25 +284,30 @@ const TemplateFilterPaging = story(
                         <section>
                             <vl-title type="h2" no-space-bottom>Doorzoek projecten</vl-title>
                             <div>
-                                <vl-form-label for="filterOpId" label="Project id" light></vl-form-label>
-                                <vl-input-field id="filterOpId" type="text" name="id" block></vl-input-field>
+                                <vl-form-label for="pagination-filter-id" label="Project id" light></vl-form-label>
+                                <vl-input-field id="pagination-filter-id" type="text" name="id" block></vl-input-field>
                             </div>
                         </section>
                         <section>
                             <vl-title type="h2" alt no-space-bottom="">Project details</vl-title>
                             <div>
-                                <vl-form-label for="filterOpNaamProject" label="Project naam" light></vl-form-label>
-                                <vl-input-field type="text" id="filterOpNaamProject" name="name" block></vl-input-field>
+                                <vl-form-label for="pagination-filter-name" label="Project naam" light></vl-form-label>
+                                <vl-input-field
+                                    type="text"
+                                    id="pagination-filter-name"
+                                    name="name"
+                                    block
+                                ></vl-input-field>
                             </div>
                             <div>
                                 <vl-form-label
-                                    for="filterOpNaamManager"
+                                    for="pagination-filter-manager"
                                     label="Manager familienaam"
                                     light
                                 ></vl-form-label>
                                 <vl-input-field
                                     type="text"
-                                    id="filterOpNaamManager"
+                                    id="pagination-filter-manager"
                                     name="manager.lastName"
                                     block
                                 ></vl-input-field>

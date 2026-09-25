@@ -2084,6 +2084,11 @@
                             "name": "filter-max-width",
                             "description": "Maximum breedte (CSS value, bv. \"300px\") die de filter kan innemen in een full-width layout, op grote resolutie.",
                             "default": ""
+                        },
+                        {
+                            "name": "filter-position",
+                            "description": "Positie van de filter ten opzichte van de inhoud. Met `top` staat de filter over de volle breedte boven de inhoud, met het aantal resultaten eronder. Handig bij tabellen met veel kolommen. `filter-max-width` heeft dan geen effect.",
+                            "default": "side"
                         }
                     ]
                 },
@@ -2113,6 +2118,11 @@
                             "default": ""
                         },
                         {
+                            "name": "filter-position",
+                            "description": "Positie van de filter ten opzichte van de inhoud. Met `top` staat de filter over de volle breedte boven de inhoud, met het aantal resultaten eronder. Handig bij tabellen met veel kolommen. `filter-max-width` heeft dan geen effect.",
+                            "default": "side"
+                        },
+                        {
                             "name": "collapsed-m",
                             "description": "Vanaf medium schermgrootte, cellen per rij onder elkaar ipv naast elkaar",
                             "default": "false"
@@ -2140,6 +2150,11 @@
                         {
                             "name": "multi-sort",
                             "description": "Maakt het mogelijk om op meerdere kolommen te sorteren.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "show-empty-table",
+                            "description": "Toont de tabel met kolomkoppen ook als er geen resultaten zijn. De tekst uit de `no-content` slot komt dan in een rij in de tabel.",
                             "default": "false"
                         },
                         {

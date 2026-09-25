@@ -36,8 +36,8 @@ export const RichDataDefault = ({ filterClosable, filterClosed }: typeof richDat
 };
 RichDataDefault.storyName = 'vl-rich-data - default';
 
-const pagerTemplate = ({filterClosable, filterClosed, filterMaxWidth}: typeof richDataArgs) => html`
-        <vl-rich-data id="rich-data" ?filter-closable=${filterClosable} ?filter-closed=${filterClosed} filter-max-width=${filterMaxWidth}>
+const pagerTemplate = ({filterClosable, filterClosed, filterMaxWidth, filterPosition}: typeof richDataArgs) => html`
+        <vl-rich-data id="rich-data" ?filter-closable=${filterClosable} ?filter-closed=${filterClosed} filter-max-width=${filterMaxWidth} filter-position=${filterPosition}>
             <span slot="no-content">Geen resultaten</span>
             <div slot="content"></div>
             <vl-select

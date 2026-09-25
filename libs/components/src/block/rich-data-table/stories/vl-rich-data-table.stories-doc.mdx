@@ -106,6 +106,22 @@ Template voorbeeld vind je hieronder. Klik op `Show code` om de html te zien.
 
 <Canvas of={VlRichDataTableStories.RichDataTableFilter} layout="padded" />
 
+### Filter boven de tabel
+
+Bij een tabel met veel kolommen neemt een filter naast de tabel te veel breedte in. Met `filter-position="top"` staat
+de filter over de volle breedte boven de tabel, met het aantal resultaten eronder. Op een klein scherm blijft de filter
+een modal.
+
+<Canvas of={VlRichDataTableStories.RichDataTableFilterPositionTop} layout="padded" />
+
+### Tabel zonder resultaten
+
+Standaard verdwijnt de tabel als er geen resultaten zijn en staat de tekst uit de `no-content` slot in de plaats. Met
+`show-empty-table` blijven de kolomkoppen zichtbaar en staat die tekst in een rij in de tabel. Zoek in het voorbeeld
+hieronder op een onbestaand project id om het te zien.
+
+<Canvas of={VlRichDataTableStories.RichDataTableShowEmptyTable} layout="padded" />
+
 
 ## Paginatie
 
