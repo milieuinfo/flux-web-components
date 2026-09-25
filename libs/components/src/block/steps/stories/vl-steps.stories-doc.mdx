@@ -68,6 +68,31 @@ element te staan. Plaats hem daarvoor in de `<vl-step>` met het slot "duration".
 ```
 <Canvas of={VlStepsStories.StepsTimeline} />
 
+##### Interactieve tijdlijn
+
+Standaard heeft elke `<vl-duration-step>` een zwarte stip. Zijn de stappen navigeerbaar (bijvoorbeeld
+links naar een eerdere toestand), markeer ze dan met het `interactive`-attribuut: hun stip krijgt de
+actie-kleur, net zoals een link. De huidige stap markeer je met `selected`: die houdt een zwarte stip en
+krijgt `aria-current="true"`. Zet in die stap platte tekst, geen link: je bent er al, dus een link naar de
+huidige toestand is misleidend voor toetsenbord- en screenreadergebruikers (WCAG). `selected` wint wel van
+`interactive`, dus mocht een stap toch beide hebben, dan blijft ze zwart.
+
+`interactive` kleurt enkel de stip; de klikbaarheid komt van de link of knop die je in de stap zet, niet
+van het attribuut. Gebruik het dus enkel op stappen die echt een link of knop bevatten, anders suggereert
+de blauwe stip klikbaarheid die er niet is. Een screenreader leidt de interactiviteit af uit die link, niet
+uit de kleur.
+
+<Canvas of={VlStepsStories.StepsTimelineInteractive} />
+
+De stip zit in de shadow DOM en is via `::part(duration-step)` ontsloten (de stip zelf is het `::after`).
+Zo pas je als afnemer de stip aan:
+
+```css
+vl-duration-step[interactive]::part(duration-step)::after {
+    background-color: var(--vl-color--action-hover);
+}
+```
+
 
 ### Simpele tijdlijn
 
@@ -87,6 +112,11 @@ of de volledige datum bevatten.
 
 Om de logische volgorde van de pagina headings te respecteren kan je een `heading-level` meegeven. Hiermee kan je ipv
 de standaard `<h3>`-heading, `<h1>` tot `<h6>` laten renderen.
+
+### aria-current
+
+Een `<vl-duration-step>` met het `selected`-attribuut krijgt `aria-current="true"`, zodat een screenreader de
+geselecteerde toestand herkent.
 
 ## Referenties
 
