@@ -11,7 +11,12 @@ import { FormControl } from '../form-control';
 import { vlSelectRichComponentStyles } from './vl-select-rich.component.css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
 import { SelectRichItemTemplateFn, SelectRichOption } from './vl-select-rich.model';
-import { getSearchMatcher, SelectRichSearchMatcher } from './vl-select-rich.search-matchers';
+import {
+    defaultSearchFields,
+    labelDescriptionSearchFields,
+    getSearchMatcher,
+    SelectRichSearchMatcher,
+} from './vl-select-rich.search-matchers';
 
 @webComponent('vl-select-rich')
 export class VlSelectRichComponent extends FormControl {
@@ -37,6 +42,7 @@ export class VlSelectRichComponent extends FormControl {
     private noResultsText = selectRichDefaults.noResultsText;
     private noChoicesText = selectRichDefaults.noChoicesText;
     private searchStrategy = selectRichDefaults.searchStrategy;
+    private searchLabelDescription = selectRichDefaults.searchLabelDescription;
     // Search matcher
     private searchMatcher: SelectRichSearchMatcher | null = null;
     private searchMatcherSetManually = false;
@@ -82,6 +88,7 @@ export class VlSelectRichComponent extends FormControl {
             noChoicesText: { type: String, attribute: 'no-choices-text' },
             searchPlaceholder: { type: String, attribute: 'search-placeholder' },
             searchStrategy: { type: String, attribute: 'search-strategy' },
+            searchLabelDescription: { type: Boolean, attribute: 'search-label-description' },
             value: {
                 type: FormData,
                 state: true,
@@ -445,6 +452,7 @@ export class VlSelectRichComponent extends FormControl {
             searchResultLimit: this.resultLimit,
             noChoicesText: this.noChoicesText,
             searchPlaceholderValue: this.searchPlaceholder,
+            searchFields: this.searchLabelDescription ? labelDescriptionSearchFields : defaultSearchFields,
             shadowRoot: this.shadowRoot,
             classNames: {
                 ...Choices.defaults.allOptions.classNames,

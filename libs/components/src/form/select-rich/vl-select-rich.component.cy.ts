@@ -310,6 +310,84 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
         cy.checkA11y('vl-select-rich');
     });
 
+    describe('search-label-description', () => {
+        const naceOptions: SelectRichOption[] = [
+            { label: '01110', labelDescription: 'Teelt van granen', value: '01110' },
+            { label: '10711', labelDescription: 'Industriële vervaardiging van brood', value: '10711' },
+            { label: '62010', labelDescription: 'Ontwerpen en programmeren van computerprogramma', value: '62010' },
+        ];
+
+        const choiceItems = () =>
+            cy
+                .get('vl-select-rich')
+                .shadow()
+                .find('.vl-select__list')
+                .find('.vl-select__item--choice:not(.has-no-results)');
+
+        const typeSearch = (value: string) => {
+            cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+            cy.get('vl-select-rich').shadow().find('input').type(value);
+        };
+
+        it('should not search in labelDescription by default', () => {
+            cy.mount(html`<vl-select-rich label="nace" search .options=${naceOptions}></vl-select-rich>`);
+
+            typeSearch('brood');
+            choiceItems().should('have.length', 0);
+        });
+
+        ['default', 'exact-and', 'exact-or'].forEach((strategy) => {
+            it(`should search in labelDescription with search-strategy ${strategy}`, () => {
+                cy.mount(html`
+                    <vl-select-rich
+                        label="nace"
+                        search
+                        search-label-description
+                        search-strategy=${strategy}
+                        .options=${naceOptions}
+                    ></vl-select-rich>
+                `);
+
+                typeSearch('brood');
+                choiceItems().should('have.length', 1).and('contain', '10711');
+            });
+        });
+
+        it('should still search in label with search-label-description', () => {
+            cy.mount(html`
+                <vl-select-rich
+                    label="nace"
+                    search
+                    search-label-description
+                    search-strategy="exact-and"
+                    .options=${naceOptions}
+                ></vl-select-rich>
+            `);
+
+            typeSearch('62010');
+            choiceItems().should('have.length', 1).and('contain', 'computerprogramma');
+        });
+
+        it('should search in labelDescription with an itemTemplate', () => {
+            const itemTemplate: SelectRichItemTemplateFn = (option) =>
+                html`<span class="nace-item">${option.label} - ${option.labelDescription}</span>`;
+
+            cy.mount(html`
+                <vl-select-rich
+                    label="nace"
+                    search
+                    search-label-description
+                    search-strategy="exact-and"
+                    .options=${naceOptions}
+                    .itemTemplate=${itemTemplate}
+                ></vl-select-rich>
+            `);
+
+            typeSearch('granen');
+            choiceItems().should('have.length', 1).find('.nace-item').should('contain', '01110 - Teelt van granen');
+        });
+    });
+
     it('should search with a custom search matcher on a field unknown to Choices.js', () => {
         const vestigingOptions: SelectRichOption[] = [
             { label: '0123.456.789', value: '0123456789', vestiging: 'Vestiging Hasselt' },

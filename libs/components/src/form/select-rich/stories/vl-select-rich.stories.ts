@@ -49,6 +49,7 @@ const SelectRichTemplate = story(
         noChoicesText,
         searchPlaceholder,
         searchStrategy,
+        searchLabelDescription,
         onVlChange,
         onVlInput,
         onVlSelectSearch,
@@ -75,6 +76,7 @@ const SelectRichTemplate = story(
             no-choices-text=${noChoicesText}
             search-placeholder=${searchPlaceholder}
             search-strategy=${searchStrategy}
+            ?search-label-description=${searchLabelDescription}
             @vl-change=${onVlChange}
             @vl-input=${onVlInput}
             @vl-select-search=${onVlSelectSearch}
@@ -154,6 +156,37 @@ SelectRichSearchStrategyExactOr.args = {
         { label: 'De Standaard van Berchem', value: 'De Standaard van Berchem' },
         { label: 'De Standaard van Gent', value: 'De Standaard van Gent' },
         { label: 'Brussel Antwerpen Gent', value: 'Brussel Antwerpen Gent' },
+    ],
+};
+
+export const SelectRichSearchLabelDescription = SelectRichTemplate.bind({});
+SelectRichSearchLabelDescription.storyName = 'vl-select-rich - search label description';
+SelectRichSearchLabelDescription.args = {
+    id: 'nace-bel',
+    name: 'nace-bel',
+    placeholder: 'Kies een NACE-BEL code',
+    search: true,
+    searchLabelDescription: true,
+    resultLimit: 20,
+    options: [
+        {
+            label: '01110',
+            labelDescription:
+                'Teelt van granen (met uitzondering van rijst), peulgewassen en oliehoudende zaden',
+            value: '01110',
+        },
+        {
+            label: '10711',
+            labelDescription: 'Industriële vervaardiging van brood en van vers banketbakkerswerk',
+            value: '10711',
+        },
+        {
+            label: '47241',
+            labelDescription: 'Detailhandel in brood en banketbakkerswerk in gespecialiseerde winkels',
+            value: '47241',
+        },
+        { label: '62010', labelDescription: "Ontwerpen en programmeren van computerprogramma's", value: '62010' },
+        { label: '86210', labelDescription: 'Huisartsenpraktijken', value: '86210' },
     ],
 };
 

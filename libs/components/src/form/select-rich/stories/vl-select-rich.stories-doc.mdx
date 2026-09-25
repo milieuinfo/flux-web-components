@@ -399,6 +399,30 @@ en "Brussel Antwerpen Gent".
 
 Deze strategie is geschikt wanneer je breed wil kunnen zoeken op meerdere termen tegelijk.
 
+### Zoeken in de beschrijving
+
+Standaard zoekt de component enkel in het `label` en de `value` van een optie. Met het `search-label-description`
+attribuut zoekt elke strategie ook in de `labelDescription`. Zo vind je een code zoals een NACE-BEL code ook
+terug via haar omschrijving.
+
+Dit werkt ook met een `itemTemplate`, want die bepaalt enkel hoe een optie eruitziet, niet waarop gezocht
+wordt. Velden die enkel in je template staan (zoals `vestiging` in het voorbeeld hierboven) worden niet
+doorzocht, daarvoor heb je een eigen search matcher nodig.
+
+<Canvas of={VlSelectRichStories.SelectRichSearchLabelDescription} />
+
+<details>
+    <summary>options</summary>
+    <Source code={`
+    [
+        { label: '01110', labelDescription: 'Teelt van granen (met uitzondering van rijst), peulgewassen en oliehoudende zaden', value: '01110' },
+        { label: '10711', labelDescription: 'Industriële vervaardiging van brood en van vers banketbakkerswerk', value: '10711' },
+        { label: '47241', labelDescription: 'Detailhandel in brood en banketbakkerswerk in gespecialiseerde winkels', value: '47241' },
+        { label: '62010', labelDescription: 'Ontwerpen en programmeren van computerprogramma\\'s', value: '62010' },
+        { label: '86210', labelDescription: 'Huisartsenpraktijken', value: '86210' }
+]`} language="ts" dark={true} />
+</details>
+
 ### Eigen search matcher
 
 Volstaan de strategieën niet, dan registreer je met `setSearchMatcher(matcher)` een eigen search matcher. Die
@@ -419,8 +443,8 @@ selectRich.setSearchMatcher(
 );
 ```
 
-De meegeleverde `exactAndMatcher` en `exactOrMatcher` kan je ook rechtstreeks registreren.
-
+De meegeleverde `exactAndMatcher` en `exactOrMatcher` kan je ook rechtstreeks registreren, die volgen het
+`search-label-description` attribuut.
 
 ## Validatie
 

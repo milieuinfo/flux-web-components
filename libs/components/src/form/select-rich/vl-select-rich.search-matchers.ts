@@ -14,6 +14,10 @@ export type SelectRichSearchMatcher = (
 
 export type SelectRichSearchPredicate = (option: SelectRichOption, searchValue: string) => boolean;
 
+export const defaultSearchFields = ['label', 'value'];
+
+export const labelDescriptionSearchFields = [...defaultSearchFields, 'labelDescription'];
+
 const createFilterMatcher = (getPredicate: (choices: Choices) => SelectRichSearchPredicate): SelectRichSearchMatcher => {
     return (choices: Choices, searchValue: string, getOption?: (value: string) => SelectRichOption | undefined) => {
         const newValue = searchValue.trim().replace(/\s{2,}/g, ' ');
@@ -87,14 +91,18 @@ export const createSearchMatcher = (predicate: SelectRichSearchPredicate): Selec
 const createExactMatcher = (
     matchLogic: (searchWords: string[], searchText: string) => boolean
 ): SelectRichSearchMatcher =>
-    createFilterMatcher(() => (option, searchValue) => {
-        const searchText = `${String(option.label ?? '')} ${String(option.value ?? '')}`.toLowerCase();
-        return matchLogic(searchValue.split(/\s+/), searchText);
+    createFilterMatcher((choices) => {
+        const searchFields = choices.config?.searchFields ?? defaultSearchFields;
+        return (option, searchValue) => {
+            const fields: Record<string, unknown> = option;
+            const searchText = searchFields.map((field) => String(fields[field] ?? '').toLowerCase()).join(' ');
+            return matchLogic(searchValue.split(/\s+/), searchText);
+        };
     });
 
 /**
  * Exacte AND-search matcher: alle zoekwoorden moeten exact voorkomen (substring match).
- * Bij meerdere woorden moeten ALLE woorden voorkomen in het label of value (AND-logica).
+ * Bij meerdere woorden moeten ALLE woorden voorkomen in de doorzochte velden (AND-logica).
  * Geen fuzzy matching - alleen exacte substring matches.
  */
 export const exactAndMatcher: SelectRichSearchMatcher = createExactMatcher(
@@ -103,7 +111,7 @@ export const exactAndMatcher: SelectRichSearchMatcher = createExactMatcher(
 
 /**
  * Exacte OR-search matcher: minstens één zoekwoord moet exact voorkomen (substring match).
- * Bij meerdere woorden moet MINSTENS ÉÉN woord voorkomen in het label of value (OR-logica).
+ * Bij meerdere woorden moet MINSTENS ÉÉN woord voorkomen in de doorzochte velden (OR-logica).
  * Geen fuzzy matching - alleen exacte substring matches.
  */
 export const exactOrMatcher: SelectRichSearchMatcher = createExactMatcher(

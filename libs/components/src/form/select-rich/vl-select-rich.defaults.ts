@@ -15,4 +15,5 @@ export const selectRichDefaults = {
     noChoicesText: 'Geen resterende opties gevonden' as string,
     searchPlaceholder: 'Zoek item' as string,
     searchStrategy: SelectSearchStrategy.DEFAULT as SelectSearchStrategy,
+    searchLabelDescription: false as boolean,
 } as const;
