@@ -16,10 +16,13 @@ De validatie loopt als jest-testen, ook in de build:
 
     pnpm run libs:web-types:validate
 
-Dat zijn twee specs (zie `resources/bash-scripts/libs-web-types-validate.sh`):
+Dat zijn drie specs (zie `resources/bash-scripts/libs-web-types-validate.sh`):
 
 - `wt-validate-completeness/web-types-completeness.spec.ts` - elke web-component heeft een web-type en omgekeerd
 - `wt-validate-schema/web-types-schema.spec.ts` - de gegenereerde web-types voldoen aan `web-types.schema.json`
+- `wt-validate-argtypes/web-types-argtypes.spec.ts` - elke `*ArgTypes` export uit een `*.stories-arg.ts` is in
+  `wt-config-build` aan een web-type gekoppeld; bewuste uitzonderingen (basis-argTypes) staan in de ignore-lijst van de
+  spec
 
 Om de schema-fouten in detail te zien (de spec toont enkel pass/fail), vanuit `resources/generate-web-types`:
 
