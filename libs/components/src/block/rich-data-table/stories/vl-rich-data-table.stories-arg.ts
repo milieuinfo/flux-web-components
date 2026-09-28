@@ -10,6 +10,7 @@ export const richDataTableArgs = {
     zebra: false,
     fluxZebra: false,
     multiSort: false,
+    showEmptyTable: false,
     label: '',
     caption: '',
 };
@@ -72,6 +73,16 @@ export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: String(richDataTableArgs.multiSort) },
+        },
+    },
+    showEmptyTable: {
+        name: 'show-empty-table',
+        description:
+            'Toont de tabel met kolomkoppen ook als er geen resultaten zijn. De tekst uit de `no-content` slot komt dan in een rij in de tabel.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: String(richDataTableArgs.showEmptyTable) },
         },
     },
     label: {

@@ -6,6 +6,7 @@ export const richDataArgs = {
     filterClosable: false,
     filterClosed: false,
     filterMaxWidth: '',
+    filterPosition: 'side',
 };
 
 export const richDataArgTypes: ArgTypes<typeof richDataArgs> = {
@@ -37,5 +38,17 @@ export const richDataArgTypes: ArgTypes<typeof richDataArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: richDataArgs.filterMaxWidth },
         }
-    }
+    },
+    filterPosition: {
+        name: 'filter-position',
+        description:
+            'Positie van de filter ten opzichte van de inhoud. Met `top` staat de filter over de volle breedte boven de inhoud, met het aantal resultaten eronder. Handig bij tabellen met veel kolommen. `filter-max-width` heeft dan geen effect.',
+        control: { type: 'select' },
+        options: ['side', 'top'],
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: richDataArgs.filterPosition },
+        },
+    },
 };
