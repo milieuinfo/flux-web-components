@@ -12,9 +12,7 @@ import 'reflect-metadata';
 import { VlIconComponent } from '../../atom/icon';
 import { vlLinkIconStyles } from '../../atom/link-style/vl-link-icon-style.css';
 import { vlAccordionFluxStyles } from './vl-accordion.flux-css';
-import './vl-accordion.lib.js';
-
-declare const vl: any;
+import { dressAccordion, openAccordion, toggleAccordion } from './vl-accordion.util';
 
 registerWebComponents([legacyCore, legacyBreakpoint, VlIconComponent]);
 
@@ -201,12 +199,12 @@ export class VlAccordionComponent extends BaseHTMLElement {
 
     dress() {
         if (!this._isDressed) {
-            vl.accordion.dress(this._buttonElement);
+            dressAccordion(this._buttonElement);
         }
     }
 
     open() {
-        vl.accordion.open(this._accordionElement);
+        openAccordion(this._accordionElement);
     }
 
     close() {
@@ -216,7 +214,7 @@ export class VlAccordionComponent extends BaseHTMLElement {
     }
 
     toggle() {
-        vl.accordion.toggle(this._accordionElement);
+        toggleAccordion(this._accordionElement);
     }
 
     _toggleTextChangedCallback(oldValue: string, newValue: string) {

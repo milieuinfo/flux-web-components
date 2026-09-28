@@ -1,14 +1,12 @@
-import { BaseHTMLElement, isSlotEmpty, registerWebComponents, VL, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, isSlotEmpty, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, iconStyle, infoTileStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import 'reflect-metadata';
 import { VlAccordionComponent } from '../accordion';
-import '../accordion/vl-accordion.lib.js';
+import { dressAccordion } from '../accordion/vl-accordion.util';
 import { vlInfoTileFluxStyles } from './vl-info-tile.flux-css';
 import { INFO_TILE_SIZE, INFO_TILE_TYPE } from './vl-info-tile.model';
-
-declare const vl: VL;
 
 @webComponent('vl-info-tile')
 export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
@@ -315,7 +313,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
             this.__removePreventContentClickPropagation();
         } else {
             this.__prepareAccordionElements();
-            vl.accordion.dress(this._buttonElement);
+            dressAccordion(this._buttonElement!);
             this.__preventContentClickPropagation();
             this.__processAutoOpen();
         }

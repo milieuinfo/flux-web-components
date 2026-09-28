@@ -2,16 +2,6 @@
 // Voor JavaScript componenten, gebruikt Digitaal Vlaanderen een `vl`-object dat ze creëren op Window
 // typisch worden de sub-objecten van `vl` gebruikt binnen die JavaScript componenten
 
-interface Accordion {
-    dress(element: any): void;
-
-    dressAll(): void;
-
-    open(): void;
-
-    toggle(): void;
-}
-
 interface Breakpoint {
     value: string;
 } // 'small'
@@ -200,7 +190,6 @@ interface Widget {
 }
 
 export interface VL {
-    accordion: Accordion;
     breakpoint: Breakpoint;
     codePreview: CodePreview;
     datepicker: Datepicker;

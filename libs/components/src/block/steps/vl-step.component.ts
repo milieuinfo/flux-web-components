@@ -1,4 +1,4 @@
-import { BaseLitElement, registerWebComponents, VL } from '@domg-wc/common';
+import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { VlIconComponent } from '@domg-wc/components/atom';
 import { vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
@@ -6,9 +6,8 @@ import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { VlAccordionComponent } from '../accordion/vl-accordion.component';
+import { dressAccordion } from '../accordion/vl-accordion.util';
 import { vlStepFluxStyles } from './vl-step.flux-css';
-
-declare const vl: VL;
 
 @customElement('vl-step')
 export class VlStepComponent extends BaseLitElement {
@@ -145,7 +144,7 @@ export class VlStepComponent extends BaseLitElement {
             const isAccordionDressed = accordionToggle?.hasAttribute('accordion-dressed');
 
             if (!isAccordionDressed) {
-                vl.accordion.dress(accordionToggle);
+                dressAccordion(accordionToggle!);
                 this.shadowRoot?.querySelector('slot[name="title"]')?.addEventListener('click', (event: Event) => {
                     event.stopPropagation();
                     (this.shadowRoot?.querySelector('button.js-vl-accordion__toggle') as HTMLButtonElement)?.click();
