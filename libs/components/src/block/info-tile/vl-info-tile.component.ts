@@ -1,488 +1,266 @@
-import { BaseHTMLElement, isSlotEmpty, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseLitElement, findNodesForSlot, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, iconStyle, infoTileStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
-import 'reflect-metadata';
+import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { VlAccordionComponent } from '../accordion';
-import { dressAccordion } from '../accordion/vl-accordion.util';
+import { AccordionController } from '../accordion/vl-accordion.controller';
 import { vlInfoTileFluxStyles } from './vl-info-tile.flux-css';
 import { INFO_TILE_SIZE, INFO_TILE_TYPE } from './vl-info-tile.model';
 
+const HEADING_LEVELS = ['1', '2', '3', '4', '5', '6'];
+
+const SIZE_CLASSES: Record<string, string> = {
+    [INFO_TILE_SIZE.SMALL]: 'vl-info-tile--s',
+    [INFO_TILE_SIZE.MEDIUM]: 'vl-info-tile--m',
+    [INFO_TILE_SIZE.LARGE]: 'vl-info-tile--l',
+};
+
+const TYPE_CLASSES: Record<string, string> = {
+    [INFO_TILE_TYPE.ERROR]: 'vl-info-tile--error',
+    [INFO_TILE_TYPE.WARNING]: 'vl-info-tile--warning',
+    [INFO_TILE_TYPE.SUCCESS]: 'vl-info-tile--success',
+    [INFO_TILE_TYPE.ALT]: 'vl-info-tile--alt',
+};
+
+const stopPropagation = (event: Event) => event.stopPropagation();
+
 @webComponent('vl-info-tile')
-export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
+export class VlInfoTile extends BaseLitElement {
+    autoOpen = false;
+    toggleable = false;
+    clickable = false;
+    clickableLabel: string | null = null;
+    center = false;
+    fullHeight = false;
+    size: string | null = null;
+    icon: string | null = null;
+    iconAsBadge = false;
+    type: string | null = null;
+    headingLevel: string | null = null;
+    spacerNone = false;
+
+    private accordion = new AccordionController(this);
+
     static {
         registerWebComponents([VlAccordionComponent]);
     }
 
-    static get _observedAttributes() {
+    static get styles(): (CSSResult | CSSResult[])[] {
         return [
-            'auto-open',
-            'toggleable',
-            'clickable-label',
-            'clickable',
-            'center',
-            'full-height',
-            'size',
-            'icon',
-            'icon-as-badge',
-            'type',
-            'heading-level',
-            'highlight',
-            'highlight-left',
+            resetStyle,
+            baseStyle,
+            vlLegacyStyles,
+            infoTileStyle,
+            vlInfoTileFluxStyles,
+            linkStyle,
+            toggleStyle,
+            accordionStyle,
+            iconStyle,
         ];
     }
 
-    constructor() {
-        const html = `
-            <div class="vl-info-tile">
-                <div class="vl-info-tile__header">
-                    <div class="vl-info-tile__badge__wrapper">
-                        <slot name="badge"></slot>
-                        <div id="icon" class="vl-info-tile__icon">
-                            <i class="vl-vi vl-vi-u-l" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    <div id="wrapper" class="vl-info-tile__header__wrapper">
-                        <div class="vl-info-tile__title-wrapper">
-                        <h3 id="title" class="vl-info-tile__header__title">
-                            <slot name="title"></slot><slot name="title-label"></slot>
-                        </h3>
-                        <p id="subtitle" class="vl-info-tile__header__subtitle">
-                            <slot name="subtitle"></slot>
-                        </p>
-                        </div>
-                        <div class="vl-info-tile__menu">
-                            <slot name="menu"></slot>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="vl-info-tile__content">
-                    <slot name="content"></slot>
-                </div>
-
-                <footer class="vl-info-tile__footer">
-                    <slot name="footer"></slot>
-                </footer>
-            </div>
-        `;
-        const styleSheets = [
-            resetStyle.styleSheet!,
-            baseStyle.styleSheet!,
-            ...vlLegacyStyles.map((style) => style.styleSheet!),
-            infoTileStyle.styleSheet!,
-            vlInfoTileFluxStyles.styleSheet!,
-            linkStyle.styleSheet!,
-            toggleStyle.styleSheet!,
-            accordionStyle.styleSheet!,
-            iconStyle.styleSheet!,
-        ];
-        super(html, styleSheets);
+    static get properties(): PropertyDeclarations {
+        return {
+            autoOpen: { type: Boolean, attribute: 'auto-open' },
+            toggleable: { type: Boolean },
+            clickable: { type: Boolean },
+            clickableLabel: { type: String, attribute: 'clickable-label' },
+            center: { type: Boolean },
+            fullHeight: { type: Boolean, attribute: 'full-height' },
+            size: { type: String },
+            icon: { type: String },
+            iconAsBadge: { type: Boolean, attribute: 'icon-as-badge' },
+            type: { type: String },
+            headingLevel: { type: String, attribute: 'heading-level' },
+            spacerNone: { type: Boolean, attribute: 'spacer-none' },
+        };
     }
 
-    get _headingLevelAttribute(): string | null {
-        return this.getAttribute('heading-level');
-    }
-
-    connectedCallback() {
-        super.connectedCallback();
-
-        this.__setSizeClass();
-        this.__setTypeClass();
-        this.__processSlots();
-        this.__processIcon();
-        this.__processBadgeWrapper();
-        this.__processAutoOpen();
-        this.__processClickableLabel();
-    }
-
-    _addHeadingElement(): HTMLHeadElement {
-        if (!this._headingLevelAttribute) {
-            return document.createElement('h3');
-        }
-
-        if (!['1', '2', '3', '4', '5', '6'].includes(this._headingLevelAttribute)) {
-            console.warn(
-                `De waarde "${this._headingLevelAttribute}" van het attribuut "heading-level" is ongeldig. Gebruik een waarde tussen 1 en 6.`
-            );
-            return document.createElement(`h3`);
-        }
-
-        return document.createElement(`h${this._headingLevelAttribute}`);
-    }
-
-    _updateHeaderLevel() {
-        const titleWrapper = this._titleWrapperElement;
-        if (!titleWrapper) return;
-
-        if (this._headingLevelAttribute) {
-            const existingHeadingElement = titleWrapper.querySelector('h1, h2, h3, h4, h5, h6');
-            const headingElement = this._addHeadingElement();
-            headingElement.id = 'title';
-            headingElement.className = 'vl-info-tile__header__title';
-
-            if (existingHeadingElement) {
-                while (existingHeadingElement.firstChild) {
-                    headingElement.appendChild(existingHeadingElement.firstChild);
-                }
-                existingHeadingElement.replaceWith(headingElement);
-            } else {
-                if (this._titleSlot) headingElement.appendChild(this._titleSlot);
-                if (this._titleLabelSlot) headingElement.appendChild(this._titleLabelSlot);
-                titleWrapper.prepend(headingElement);
-            }
-        }
-    }
-
-    get isToggleable() {
-        return !(this.getAttribute('toggleable') ?? false);
-    }
-
-    get isOpen() {
-        if (this.isToggleable) {
-            return this._element.classList.contains('js-vl-accordion--open');
-        }
-        return true;
-    }
-
-    get _headerElement(): HTMLDivElement | null {
-        return this._element.querySelector('.vl-info-tile__header');
-    }
-
-    get _headerWrapperElement(): HTMLDivElement | null {
-        return this._element.querySelector('#wrapper');
-    }
-
-    get _titleWrapperElement(): HTMLDivElement | null {
-        return this._element.querySelector<HTMLDivElement>('.vl-info-tile__title-wrapper');
-    }
-
-    get _titleElement(): HTMLHeadingElement | undefined | null {
-        return this._headerWrapperElement?.querySelector('#title');
-    }
-
-    get _subtitleElement(): HTMLParagraphElement | undefined | null {
-        return this._headerWrapperElement?.querySelector('#subtitle');
-    }
-
-    get _titleSlot(): Element | undefined | null {
-        return this.querySelector("[slot='title']");
-    }
-
-    get _titleSlotElement(): HTMLSlotElement | undefined | null {
-        return this._headerWrapperElement?.querySelector<HTMLSlotElement>('slot[name="title"]');
-    }
-
-    get _subtitleSlot(): Element | undefined | null {
-        return this.querySelector("[slot='subtitle']");
-    }
-
-    get _subtitleSlotElement(): HTMLSlotElement | undefined | null {
-        return this._headerWrapperElement?.querySelector<HTMLSlotElement>('slot[name="subtitle"]');
-    }
-
-    get _titleLabelSlot(): Element | undefined | null {
-        return this.querySelector("[slot='title-label']");
-    }
-
-    get _titleLabelSlotElement(): HTMLSlotElement | undefined | null {
-        return this._titleElement?.querySelector<HTMLSlotElement>('slot[name="title-label"]');
-    }
-
-    get _buttonElement() {
-        return this._element?.querySelector<HTMLButtonElement>('button.vl-toggle');
-    }
-
-    get _buttonClickableElement() {
-        return this._element?.querySelector<HTMLButtonElement>('button.info-tile-clickable');
-    }
-
-    get _toggleElement() {
-        return this._shadow?.querySelector<HTMLElement>('.js-vl-accordion__toggle');
-    }
-
-    get _contentElement() {
-        return this._shadow?.querySelector('slot[name="content"]');
-    }
-
-    get _footerElement(): HTMLElement | null {
-        return this._element.querySelector<HTMLElement>('footer');
-    }
-
-    get _footerSlotElement(): HTMLSlotElement | null {
-        return this._element.querySelector<HTMLSlotElement>('slot[name="footer"]');
-    }
-
-    get _badgeSlotElement(): HTMLSlotElement | null {
-        return this._element.querySelector<HTMLSlotElement>('slot[name="badge"]');
-    }
-
-    get _badgeWrapperElement(): HTMLDivElement | null {
-        return this._element.querySelector<HTMLDivElement>('.vl-info-tile__badge__wrapper');
-    }
-
-    get _menuSlotElement(): HTMLSlotElement | null {
-        return this._element.querySelector<HTMLSlotElement>('slot[name="menu"]');
-    }
-
-    get _iconElement(): HTMLDivElement | null {
-        return this._element.querySelector<HTMLDivElement>('#icon');
+    get isOpen(): boolean {
+        return this.toggleable ? this.accordion.isOpen : true;
     }
 
     toggle() {
-        this._toggleElement?.click();
+        if (this.toggleable) {
+            this.accordion.toggle();
+        }
     }
 
     open() {
-        if (!this.isOpen) {
-            this.toggle();
+        if (this.toggleable) {
+            this.accordion.open();
         }
     }
 
     close() {
-        if (this.isOpen) {
-            this.toggle();
+        if (this.toggleable) {
+            this.accordion.close();
         }
-    }
-
-    _centerChangedCallback(oldValue: string, newValue: string) {
-        if (newValue === null) {
-            this._element.classList.remove('vl-info-tile--center');
-        } else {
-            this._element.classList.add('vl-info-tile--center');
-        }
-    }
-
-    _fullHeightChangedCallback(oldValue: string, newValue: string) {
-        if (newValue === null) {
-            this._element.classList.remove('vl-info-tile--full-height');
-        } else {
-            this._element.classList.add('vl-info-tile--full-height');
-        }
-    }
-
-    _sizeChangedCallback() {
-        this.__setSizeClass();
-    }
-
-    __setSizeClass() {
-        this._element.classList.remove('vl-info-tile--s');
-        this._element.classList.remove('vl-info-tile--m');
-        this._element.classList.remove('vl-info-tile--l');
-        switch (this.getAttribute('size')) {
-            case INFO_TILE_SIZE.SMALL:
-                this._element.classList.add('vl-info-tile--s');
-                break;
-            case INFO_TILE_SIZE.MEDIUM:
-                this._element.classList.add('vl-info-tile--m');
-                break;
-            case INFO_TILE_SIZE.LARGE:
-                this._element.classList.add('vl-info-tile--l');
-                break;
-        }
-    }
-
-    _typeChangedCallback() {
-        this.__setTypeClass();
-    }
-
-    __setTypeClass() {
-        this._element.classList.remove('vl-info-tile--warning');
-        this._element.classList.remove('vl-info-tile--error');
-        this._element.classList.remove('vl-info-tile--success');
-        this._element.classList.remove('vl-info-tile--alt');
-        switch (this.getAttribute('type')) {
-            case INFO_TILE_TYPE.ERROR:
-                this._element.classList.add('vl-info-tile--error');
-                break;
-            case INFO_TILE_TYPE.WARNING:
-                this._element.classList.add('vl-info-tile--warning');
-                break;
-            case INFO_TILE_TYPE.SUCCESS:
-                this._element.classList.add('vl-info-tile--success');
-                break;
-            case INFO_TILE_TYPE.ALT:
-                this._element.classList.add('vl-info-tile--alt');
-                break;
-        }
-    }
-
-    _toggleableChangedCallback(oldValue: string, newValue: string) {
-        if (newValue === null) {
-            this.__removeAccordionElements();
-            this.__removePreventContentClickPropagation();
-        } else {
-            this.__prepareAccordionElements();
-            dressAccordion(this._buttonElement!);
-            this.__preventContentClickPropagation();
-            this.__processAutoOpen();
-        }
-    }
-
-    _iconChangedCallback(oldValue: string) {
-        this.__processIcon(oldValue);
-        this.__processBadgeWrapper();
-    }
-
-    _iconAsBadgeChangedCallback() {
-        this.__processIcon();
-        this.__processBadgeWrapper();
     }
 
     handleInfoTileClicked(): void {
         this.dispatchEvent(new CustomEvent('vl-click-info-tile', { bubbles: true, composed: true }));
     }
 
-    _clickableChangedCallback(oldValue: string, newValue: string) {
-        const clickable = newValue !== null;
-        const infoTileContainer = this.shadowRoot?.querySelector('.vl-info-tile');
-        if (clickable) {
-            const clickableButton = document.createElement('button');
-            clickableButton.classList.add('info-tile-clickable');
-            clickableButton.addEventListener('click', this.handleInfoTileClicked);
-            infoTileContainer?.prepend(clickableButton);
-        } else {
-            const clickableButton = infoTileContainer?.querySelector('.info-tile-clickable');
-            clickableButton?.removeEventListener('click', this.handleInfoTileClicked);
-            clickableButton?.remove();
+    connectedCallback(): void {
+        super.connectedCallback();
+
+        if (!this.hasUpdated && this.toggleable) {
+            this.accordion.setOpen(this.autoOpen, false);
         }
     }
 
-    private __processClickableLabel(): void {
-        const clickableButton = this._buttonClickableElement;
-        const clickable = this.hasAttribute('clickable');
-        const clickableLabel = this.getAttribute('clickable-label');
+    protected willUpdate(changedProperties: PropertyValues): void {
+        super.willUpdate(changedProperties);
 
-        if (clickable) {
-            if (clickableLabel) {
-                clickableButton?.setAttribute('aria-label', clickableLabel);
-            } else {
+        if (this.hasUpdated && (changedProperties.has('toggleable') || changedProperties.has('autoOpen'))) {
+            this.accordion.setOpen(this.toggleable && this.autoOpen, false);
+        }
+
+        if (changedProperties.has('headingLevel') && this.headingLevel && !this.isValidHeadingLevel()) {
+            console.warn(
+                `De waarde "${this.headingLevel}" van het attribuut "heading-level" is ongeldig. Gebruik een waarde tussen 1 en 6.`,
+            );
+        }
+
+        if ((changedProperties.has('clickable') || changedProperties.has('clickableLabel')) && this.clickable) {
+            if (!this.clickableLabel) {
                 console.warn('VlInfoTile - clickable-label is vereist.');
             }
         }
     }
 
-    __prepareAccordionElements() {
-        this._element.classList.add('js-vl-accordion');
-        const button = this._template(`
-          <button class="vl-toggle vl-link vl-link--bold js-vl-accordion__toggle">
-            <i class="vl-link__icon vl-link__icon--before vl-toggle__icon vl-vi vl-vi-arrow-right-fat" aria-hidden="true"></i>
-          </button>
-        `).firstElementChild;
-        if (this._titleElement) button?.appendChild(this._titleElement);
-        if (button) this._titleWrapperElement?.prepend(button);
+    protected render(): TemplateResult {
+        const classes = {
+            'vl-info-tile': true,
+            [SIZE_CLASSES[this.size ?? '']]: !!SIZE_CLASSES[this.size ?? ''],
+            [TYPE_CLASSES[this.type ?? '']]: !!TYPE_CLASSES[this.type ?? ''],
+            'vl-info-tile--center': this.center,
+            'vl-info-tile--full-height': this.fullHeight,
+            'js-vl-accordion': this.toggleable,
+            'js-vl-accordion--open': this.toggleable && this.accordion.isOpen,
+            'vl-u-spacer--none': this.spacerNone,
+        };
+
+        return html`
+            <div class=${classMap(classes)}>
+                ${this.clickable
+                    ? html`<button
+                          class="info-tile-clickable"
+                          aria-label=${ifDefined(this.clickableLabel || undefined)}
+                          @click=${this.handleInfoTileClicked}
+                      ></button>`
+                    : nothing}
+                ${this.renderHeader()}
+                <div class="vl-info-tile__content">
+                    <slot name="content" @click=${this.toggleable ? stopPropagation : nothing}></slot>
+                </div>
+                ${this.hasSlot('footer')
+                    ? html`<footer class="vl-info-tile__footer">
+                          <slot name="footer"></slot>
+                      </footer>`
+                    : nothing}
+            </div>
+        `;
     }
 
-    __removeAccordionElements() {
-        this._element.classList.remove('js-vl-accordion');
-        if (this._titleElement && this._buttonElement)
-            this._titleWrapperElement?.replaceChild(this._titleElement, this._buttonElement);
+    private renderHeader(): TemplateResult | typeof nothing {
+        const hasHeader = ['badge', 'title', 'subtitle', 'title-label', 'menu'].some((slot) => this.hasSlot(slot));
+        if (!hasHeader) {
+            return nothing;
+        }
+
+        return html`
+            <div class="vl-info-tile__header">
+                <div class="vl-info-tile__badge__wrapper" ?hidden=${!this.icon && !this.hasSlot('badge')}>
+                    <slot name="badge"></slot>
+                    ${this.renderIcon()}
+                </div>
+                <div id="wrapper" class="vl-info-tile__header__wrapper">
+                    <div class="vl-info-tile__title-wrapper">
+                        ${this.toggleable ? this.renderToggle() : this.renderTitle()}
+                        ${this.hasSlot('subtitle')
+                            ? html`<p
+                                  id="subtitle"
+                                  class="vl-info-tile__header__subtitle"
+                                  @click=${this.toggleable ? stopPropagation : nothing}
+                              >
+                                  <slot name="subtitle"></slot>
+                              </p>`
+                            : nothing}
+                    </div>
+                    <div class="vl-info-tile__menu">
+                        <slot name="menu"></slot>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
-    __preventContentClickPropagation() {
-        this._subtitleElement?.addEventListener('click', (e: Event) => e.stopPropagation());
-        this._contentElement?.addEventListener('click', (e: Event) => e.stopPropagation());
+    private renderIcon(): TemplateResult {
+        const iconClass = this.icon ? `vl-vi-${this.icon.replace(/[^a-z0-9_-]/gi, '')}` : '';
+        const classes = {
+            'vl-info-tile__icon': !!this.icon,
+            'vl-info-tile__icon--badge': !!this.icon && this.iconAsBadge,
+        };
+
+        return html`
+            <div id="icon" class=${classMap(classes)}>
+                <i class="vl-vi vl-vi-u-l ${iconClass}" aria-hidden="true"></i>
+            </div>
+        `;
     }
 
-    __removePreventContentClickPropagation() {
-        this._subtitleElement?.removeEventListener('click', (e: Event) => e.stopPropagation());
-        this._contentElement?.removeEventListener('click', (e: Event) => e.stopPropagation());
+    private renderToggle(): TemplateResult {
+        return html`
+            <button
+                class="vl-toggle vl-link vl-link--bold js-vl-accordion__toggle"
+                aria-expanded=${String(this.accordion.isOpen)}
+                @click=${() => this.toggle()}
+            >
+                <i
+                    class="vl-link__icon vl-link__icon--before vl-toggle__icon vl-vi vl-vi-arrow-right-fat"
+                    aria-hidden="true"
+                ></i>
+                ${this.renderTitle()}
+            </button>
+        `;
     }
 
-    _hasTitleSlot() {
-        return this._titleSlotElement && !isSlotEmpty(this._titleSlotElement);
-    }
+    private renderTitle(): TemplateResult | typeof nothing {
+        if (!this.hasSlot('title')) {
+            return nothing;
+        }
 
-    _hasSubtitleSlot() {
-        return this._subtitleSlotElement && !isSlotEmpty(this._subtitleSlotElement);
-    }
+        const content = html`<slot name="title"></slot>${this.hasSlot('title-label')
+                ? html`<slot name="title-label"></slot>`
+                : nothing}`;
 
-    _hasTitleLabelSlot() {
-        return this._titleLabelSlotElement && !isSlotEmpty(this._titleLabelSlotElement);
-    }
-
-    _hasFooterSlot() {
-        return this._footerSlotElement && !isSlotEmpty(this._footerSlotElement);
-    }
-
-    _hasBadgeSlot() {
-        return this._badgeSlotElement && !isSlotEmpty(this._badgeSlotElement);
-    }
-
-    _hasMenuSlot() {
-        return this._menuSlotElement && !isSlotEmpty(this._menuSlotElement);
-    }
-
-    __processAutoOpen() {
-        if (this.isToggleable) {
-            if (this.getAttribute('auto-open') === null) {
-                this.close();
-            } else {
-                this.open();
-            }
+        switch (this.isValidHeadingLevel() ? this.headingLevel : '3') {
+            case '1':
+                return html`<h1 id="title" class="vl-info-tile__header__title">${content}</h1>`;
+            case '2':
+                return html`<h2 id="title" class="vl-info-tile__header__title">${content}</h2>`;
+            case '4':
+                return html`<h4 id="title" class="vl-info-tile__header__title">${content}</h4>`;
+            case '5':
+                return html`<h5 id="title" class="vl-info-tile__header__title">${content}</h5>`;
+            case '6':
+                return html`<h6 id="title" class="vl-info-tile__header__title">${content}</h6>`;
+            default:
+                return html`<h3 id="title" class="vl-info-tile__header__title">${content}</h3>`;
         }
     }
 
-    __processSlots() {
-        this._updateHeaderLevel();
-        this._titleElement?.addEventListener('click', (event: Event) => {
-            event.stopPropagation();
-            this._buttonElement?.click();
-        });
-
-        if (!this._hasTitleLabelSlot()) {
-            this._titleLabelSlotElement?.remove();
-        }
-        if (!this._hasSubtitleSlot()) {
-            this._subtitleElement?.remove();
-        }
-        if (!this._hasTitleSlot()) {
-            this._titleElement?.remove();
-        }
-        if (
-            !this._hasBadgeSlot() &&
-            !this._hasTitleSlot() &&
-            !this._hasSubtitleSlot() &&
-            !this._hasTitleLabelSlot() &&
-            !this._hasMenuSlot()
-        ) {
-            this._headerElement?.remove();
-        }
-        if (!this._hasFooterSlot()) {
-            this._footerElement?.remove();
-        }
+    private hasSlot(name: string): boolean {
+        return findNodesForSlot(this, name).length > 0;
     }
 
-    _headingLevelChangedCallback(oldValue: string, newValue: string) {
-        this._updateHeaderLevel();
-    }
-
-    __processBadgeWrapper() {
-        if (!this.hasAttribute('icon') && !this._hasBadgeSlot()) {
-            this._badgeWrapperElement?.setAttribute('hidden', '');
-        } else {
-            this._badgeWrapperElement?.removeAttribute('hidden');
-        }
-    }
-
-    __processIcon(prevIcon?: string) {
-        const icon = this.getAttribute('icon') || '';
-        if (icon && this._iconElement) {
-            this._iconElement.removeAttribute('class');
-            if (prevIcon) {
-                this._iconElement.querySelector('.vl-vi')?.classList.remove(`vl-vi-${prevIcon}`);
-            }
-            this._iconElement.querySelector('.vl-vi')?.classList.add(`vl-vi-${icon.replace(/[^a-z0-9_-]/gi, '')}`);
-            this._iconElement.classList.add('vl-info-tile__icon');
-            if (this.hasAttribute('icon-as-badge')) {
-                this._iconElement.classList.add('vl-info-tile__icon--badge');
-            } else {
-                this._iconElement.classList.remove('vl-info-tile__icon--badge');
-            }
-        }
-        if (!icon && this._iconElement) {
-            this._iconElement.removeAttribute('class');
-        }
+    private isValidHeadingLevel(): boolean {
+        return !!this.headingLevel && HEADING_LEVELS.includes(this.headingLevel);
     }
 }
 
