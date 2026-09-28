@@ -3,6 +3,8 @@ import { cookieConsentArgTypes } from '../../../libs/components/src/compliance/c
 import { cookieStatementArgTypes } from '../../../libs/components/src/compliance/cookie-statement/stories/vl-cookie-statement.stories-arg';
 import { footerArgTypes } from '../../../libs/components/src/compliance/footer/stories/vl-footer.stories-arg';
 import { headerArgTypes } from '../../../libs/components/src/compliance/header/stories/vl-header.stories-arg';
+import { footerArgTypes as footerNextArgTypes } from '../../../libs/components/src/compliance/next/footer/stories/vl-footer.stories-arg';
+import { headerArgTypes as headerNextArgTypes } from '../../../libs/components/src/compliance/next/header/stories/vl-header.stories-arg';
 import { privacyArgTypes } from '../../../libs/components/src/compliance/privacy/stories/vl-privacy.stories-arg';
 import { WTConfigArray } from '../web-types.model';
 import { buildWTConfig } from './utils.wt-config';
@@ -49,6 +51,18 @@ export const buildWTConfigComponentsCompliance: WTConfigArray = [
         headerArgTypes,
         '../../libs/components/src/compliance/header/stories/vl-header.stories-doc.mdx',
         '/docs/components-compliance-header--documentatie'
+    ),
+    buildWTConfig(
+        'vl-footer-next',
+        footerNextArgTypes,
+        '../../libs/components/src/compliance/next/footer/stories/vl-footer.stories-doc.mdx',
+        '/docs/components-compliance-next-footer--documentatie'
+    ),
+    buildWTConfig(
+        'vl-header-next',
+        headerNextArgTypes,
+        '../../libs/components/src/compliance/next/header/stories/vl-header.stories-doc.mdx',
+        '/docs/components-compliance-next-header--documentatie'
     ),
     buildWTConfig(
         'vl-privacy',
