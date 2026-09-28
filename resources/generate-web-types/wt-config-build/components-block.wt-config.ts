@@ -2,6 +2,7 @@ import { accordionArgTypes } from '../../../libs/components/src/block/accordion/
 import { alertArgTypes } from '../../../libs/components/src/block/alert/stories/vl-alert.stories-arg';
 import { autocompleteArgTypes } from '../../../libs/components/src/block/autocomplete/stories/vl-autocomplete.stories-arg';
 import { breadcrumbItemArgTypes } from '../../../libs/components/src/block/breadcrumb/stories/vl-breadcrumb-item.stories-arg';
+import { breadcrumbArgTypes } from '../../../libs/components/src/block/breadcrumb/stories/vl-breadcrumb.stories-arg';
 import { cascaderItemArgTypes } from '../../../libs/components/src/block/cascader/stories/vl-cascader-item.stories-arg';
 import { cascaderArgTypes } from '../../../libs/components/src/block/cascader/stories/vl-cascader.stories-arg';
 import { contentHeaderArgTypes } from '../../../libs/components/src/block/content-header/stories/vl-content-header.stories-arg';
@@ -18,9 +19,11 @@ import { inputSliderArgTypes } from '../../../libs/components/src/block/input-sl
 import { loaderArgTypes } from '../../../libs/components/src/block/loader/stories/vl-loader.stories-arg';
 import { modalArgTypes } from '../../../libs/components/src/block/modal/stories/vl-modal.stories-arg';
 import { sideNavigationLayoutArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation-layout.stories-arg';
-import { sideNavigationArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation.stories-arg';
+import { sideNavigationArgTypes as sideNavigationNextArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation.stories-arg';
+import { tabsArgTypes as tabsNextArgTypes } from '../../../libs/components/src/block/next/tabs/stories/vl-tabs.stories-arg';
 import { pagerArgTypes } from '../../../libs/components/src/block/pager/stories/vl-pager.stories-arg';
 import { pillArgTypes } from '../../../libs/components/src/block/pill/stories/vl-pill.stories-arg';
+import { popoverActionArgTypes } from '../../../libs/components/src/block/popover/stories/vl-popover-action.stories-arg';
 import { popoverArgTypes } from '../../../libs/components/src/block/popover/stories/vl-popover.stories-arg';
 import { progressBarArgTypes } from '../../../libs/components/src/block/progress-bar/stories/vl-progress-bar.stories-arg';
 import { progressIndicatorArgTypes } from '../../../libs/components/src/block/progress-indicator/stories/vl-progress-indicator.stories-arg';
@@ -33,6 +36,7 @@ import { searchFilterArgTypes } from '../../../libs/components/src/block/search-
 import { searchResultArgTypes } from '../../../libs/components/src/block/search-result/stories/vl-search-result.stories-arg';
 import { shareButtonArgTypes } from '../../../libs/components/src/block/share-buttons/stories/vl-share-button.stories-arg';
 import { shareButtonsArgTypes } from '../../../libs/components/src/block/share-buttons/stories/vl-share-buttons.stories-arg';
+import { sideNavigationArgTypes } from '../../../libs/components/src/block/side-navigation/stories/vl-side-navigation.stories-arg';
 import { sideSheetArgTypes } from '../../../libs/components/src/block/side-sheet/stories/vl-side-sheet.stories-arg';
 import { spotlightArgTypes } from '../../../libs/components/src/block/spotlight/stories/vl-spotlight.stories-arg';
 import { stepArgTypes } from '../../../libs/components/src/block/steps/stories/vl-step.stories-arg';
@@ -72,7 +76,7 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     ),
     buildWTConfig(
         'vl-breadcrumb',
-        null,
+        breadcrumbArgTypes,
         '../../libs/components/src/block/breadcrumb/stories/vl-breadcrumb.stories-doc.mdx',
         '/docs/components-block-breadcrumb--documentatie'
     ),
@@ -181,7 +185,7 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     buildWTConfig('vl-search-result-properties', null, null, '/docs/components-block-search-result--documentatie'),
     buildWTConfig(
         'vl-side-navigation-next',
-        null,
+        sideNavigationNextArgTypes,
         '../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation.stories-doc.mdx',
         '/docs/components-block-next-side-navigation--documentatie'
     ),
@@ -236,7 +240,7 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         '../../libs/components/src/block/popover/stories/vl-popover.stories-doc.mdx',
         '/docs/components-block-popover--documentatie'
     ),
-    buildWTConfig('vl-popover-action', null, null, '/docs/components-block-popover--documentatie'),
+    buildWTConfig('vl-popover-action', popoverActionArgTypes, null, '/docs/components-block-popover--documentatie'),
     buildWTConfig('vl-popover-action-list', null, null, '/docs/components-block-popover--documentatie'),
     buildWTConfig(
         'vl-progress-bar',
@@ -307,7 +311,7 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     ),
     buildWTConfig(
         'vl-tabs-next',
-        tabsArgTypes,
+        tabsNextArgTypes,
         '../../libs/components/src/block/next/tabs/stories/vl-tabs.stories-doc.mdx',
         '/docs/components-block-next-tabs--documentatie'
     ),
