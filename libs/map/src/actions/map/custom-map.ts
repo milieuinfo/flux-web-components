@@ -39,16 +39,20 @@ export class VlCustomMap extends VlMapWithActions {
             disableRotation?: boolean;
             disableMouseWheelZoom?: boolean;
             disableKeyboard?: boolean;
+            hideScale?: boolean;
         } = <any>{}
     ) {
         options.layers = [options.customLayers.baseLayerGroup, options.customLayers.overlayGroup];
 
-        options.controls = [
-            new Rotate(),
-            new ScaleLine({
-                minWidth: 128,
-            }),
-        ].concat(options.controls || []);
+        const defaultControls: any[] = [new Rotate()];
+        if (!options.hideScale) {
+            defaultControls.push(
+                new ScaleLine({
+                    minWidth: 128,
+                })
+            );
+        }
+        options.controls = defaultControls.concat(options.controls || []);
 
         options.view = new View({
             // default

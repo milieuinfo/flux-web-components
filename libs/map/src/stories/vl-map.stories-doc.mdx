@@ -76,6 +76,23 @@ const map = document.querySelector<VlMap>('#my-map');
 const hasInvalidGeometries = map.hasInvalidGeometries();
 ```
 
+## Schaal
+
+De map toont standaard een schaal (`ScaleLine`) linksonder. Met `scale-position` kies je een andere hoek:
+`bottom-left` (standaard), `bottom-right`, `top-left` of `top-right`. Dit attribuut is reactief (in tegenstelling tot
+`hide-scale`), dus de hoek kan live wijzigen. `top-right` deelt de hoek met de rotatieknop, die enkel zichtbaar is
+wanneer de kaart geroteerd is.
+
+```html
+<vl-map scale-position="bottom-right"></vl-map>
+```
+
+Met `hide-scale` verberg je de schaal volledig:
+
+```html
+<vl-map hide-scale></vl-map>
+```
+
 ## Configuratie
 
 <ArgTypes of={VlMapStories.MapDefault} />

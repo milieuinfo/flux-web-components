@@ -102,6 +102,10 @@ export class VlMap extends BaseHTMLElement {
         return this.getAttribute('disable-keyboard') != undefined;
     }
 
+    get hideScale() {
+        return this.getAttribute('hide-scale') != undefined;
+    }
+
     get actions() {
         return this.map && this.map.actions;
     }
@@ -221,6 +225,7 @@ export class VlMap extends BaseHTMLElement {
             disableRotation: this.disableRotation,
             disableMouseWheelZoom: this.disableMouseWheelZoom,
             disableKeyboard: this.disableKeyboard,
+            hideScale: this.hideScale,
             customLayers: {
                 baseLayerGroup: this.__createLayerGroup('Basis lagen', []),
                 overviewMapLayers: [],

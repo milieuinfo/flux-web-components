@@ -25,6 +25,24 @@ const olOlStyles: CSSResult = css`
         padding: 2px;
         position: absolute;
     }
+    :host([scale-position='bottom-right']) .ol-scale-line {
+        top: auto;
+        bottom: 8px;
+        left: auto;
+        right: 8px;
+    }
+    :host([scale-position='top-left']) .ol-scale-line {
+        top: 8px;
+        bottom: auto;
+        left: 8px;
+        right: auto;
+    }
+    :host([scale-position='top-right']) .ol-scale-line {
+        top: 8px;
+        bottom: auto;
+        left: auto;
+        right: 8px;
+    }
     .ol-scale-line-inner {
         border: 1px solid #eee;
         border-top: none;
