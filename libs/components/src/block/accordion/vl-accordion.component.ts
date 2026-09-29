@@ -3,6 +3,7 @@ import { resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { VlIconComponent } from '../../atom/icon';
 import { vlLinkIconStyles } from '../../atom/link-style/vl-link-icon-style.css';
@@ -132,7 +133,11 @@ export class VlAccordionComponent extends BaseLitElement {
                     <div class="vl-accordion__subtitle">
                         <slot name="subtitle"></slot>
                     </div>
-                    <div class="vl-accordion__content js-vl-accordion__content" aria-hidden=${String(!isOpen)}>
+                    <div
+                        class="vl-accordion__content js-vl-accordion__content"
+                        hidden=${ifDefined(this.getContentHiddenValue(isOpen))}
+                        @beforematch=${() => this.accordion.open()}
+                    >
                         <div class="vl-accordion__panel" style=${styleMap({ padding })}>
                             <slot id="accordion-slot"></slot>
                         </div>
@@ -187,6 +192,13 @@ export class VlAccordionComponent extends BaseLitElement {
             default:
                 return html`<h6>${content}</h6>`;
         }
+    }
+
+    private getContentHiddenValue(isOpen: boolean): string | undefined {
+        if (isOpen) {
+            return undefined;
+        }
+        return this.disabled ? '' : 'until-found';
     }
 
     private isValidHeadingLevel(): boolean {

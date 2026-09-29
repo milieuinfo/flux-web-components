@@ -35,10 +35,7 @@ describe('cypress-component - block components - vl-accordion dom', () => {
     });
 
     it('should not show content on first render', () => {
-        cy.get('vl-accordion')
-            .shadow()
-            .find('.vl-accordion > .vl-accordion__content')
-            .should('have.css', 'display', 'none');
+        shouldBeRendered('vl-accordion span', false);
     });
 
     it('should show the content when the expand button is clicked', () => {
@@ -459,6 +456,49 @@ describe('cypress-component - block components - vl-accordion dom - title slot t
     });
 });
 
+describe('cypress-component - block components - vl-accordion dom - vindbaar via zoeken in de pagina', () => {
+    const accordionHtml = html`
+        <vl-accordion toggle-text="Onderwijsdoelstelling">
+            <p id="doel">Onderwijs helpt jonge mensen.</p>
+        </vl-accordion>
+    `;
+
+    it('should hide closed content with hidden="until-found"', () => {
+        cy.mount(accordionHtml);
+        shouldHaveContentHidden('until-found');
+        shouldBeRendered('#doel', false);
+    });
+
+    it('should open when the browser reveals the content', () => {
+        cy.mount(accordionHtml);
+        cy.createStubForEvent('vl-accordion', 'vl-on-toggle');
+        dispatchBeforeMatch();
+        shouldBeOpen();
+        shouldHaveContentHidden(null);
+        shouldBeRendered('#doel', true);
+        cy.get('@vl-on-toggle').should('have.been.calledOnce');
+    });
+
+    it('should restore hidden="until-found" when closed again', () => {
+        cy.mount(accordionHtml);
+        toggleAccordion();
+        shouldHaveContentHidden(null);
+        toggleAccordion();
+        shouldHaveContentHidden('until-found');
+    });
+
+    it('should not be revealable when disabled', () => {
+        cy.mount(html`
+            <vl-accordion toggle-text="Onderwijsdoelstelling" disabled>
+                <p id="doel">Onderwijs helpt jonge mensen.</p>
+            </vl-accordion>
+        `);
+        shouldHaveContentHidden('');
+        dispatchBeforeMatch();
+        shouldBeClosed();
+    });
+});
+
 describe('cypress-component - block components - vl-accordion dom - border en achtergrond opties', () => {
     it('should apply alt-background class when alt-background attribute is set', () => {
         cy.mount(html`
@@ -502,6 +542,24 @@ describe('cypress-component - block components - vl-accordion dom - border en ac
 
 const toggleAccordion = () => {
     cy.get('vl-accordion').shadow().find('button.vl-toggle').click({ force: true });
+};
+
+const shouldHaveContentHidden = (value: string | null) => {
+    cy.get('vl-accordion')
+        .shadow()
+        .find('.vl-accordion__content')
+        .should(($content) => expect($content[0].getAttribute('hidden')).to.equal(value));
+};
+
+const shouldBeRendered = (selector: string, rendered: boolean) => {
+    cy.get(selector).should(($element) => expect($element[0].checkVisibility()).to.equal(rendered));
+};
+
+const dispatchBeforeMatch = () => {
+    cy.get('vl-accordion')
+        .shadow()
+        .find('.vl-accordion__content')
+        .then(($content) => $content[0].dispatchEvent(new Event('beforematch')));
 };
 
 const shouldBeClosed = () => {
