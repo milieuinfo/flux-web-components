@@ -400,3 +400,53 @@ describe('cypress-component - block components - vl-step - default', () => {
         cy.get('vl-step').shadow().find('li').should('have.class', 'js-vl-accordion--open');
     });
 });
+describe('cypress-component - block components - vl-step - vindbaar via zoeken in de pagina', () => {
+    const toggleableStepHtml = html`
+        <vl-steps>
+            <vl-step toggleable>
+                <span slot="icon">1</span>
+                <span slot="title">Toggleable stap</span>
+                <span slot="content" id="doel">Deze inhoud is ingeklapt.</span>
+            </vl-step>
+        </vl-steps>
+    `;
+
+    const shouldHaveContentHidden = (value: string | null) => {
+        cy.get('vl-step')
+            .shadow()
+            .find('.vl-step__content-wrapper')
+            .should(($wrapper) => expect($wrapper[0].getAttribute('hidden')).to.equal(value));
+    };
+
+    it('should hide closed content with hidden="until-found"', () => {
+        cy.mount(toggleableStepHtml);
+        shouldHaveContentHidden('until-found');
+        cy.get('#doel').should(($content) => expect($content[0].checkVisibility()).to.be.false);
+    });
+
+    it('should open when the browser reveals the content', () => {
+        cy.mount(toggleableStepHtml);
+        cy.createStubForEvent('vl-step', 'vl-on-toggle');
+        cy.get('vl-step')
+            .shadow()
+            .find('.vl-step__content-wrapper')
+            .then(($wrapper) => $wrapper[0].dispatchEvent(new Event('beforematch')));
+        cy.get('vl-step').shadow().find('li').should('have.class', 'js-vl-accordion--open');
+        shouldHaveContentHidden(null);
+        cy.get('#doel').should(($content) => expect($content[0].checkVisibility()).to.be.true);
+        cy.get('@vl-on-toggle').should('have.been.calledOnce');
+    });
+
+    it('should not hide the content of a step that is not toggleable', () => {
+        cy.mount(html`
+            <vl-steps>
+                <vl-step>
+                    <span slot="icon">1</span>
+                    <span slot="title">Stap</span>
+                    <span slot="content">Altijd zichtbaar.</span>
+                </vl-step>
+            </vl-steps>
+        `);
+        shouldHaveContentHidden(null);
+    });
+});

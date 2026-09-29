@@ -122,7 +122,11 @@ export class VlStepComponent extends BaseLitElement {
                     </div>
                     <div class="vl-step__wrapper">
                         ${stepHeaderTemplate}
-                        <div class="vl-step__content-wrapper">
+                        <div
+                            class="vl-step__content-wrapper"
+                            hidden=${ifDefined(this.toggleable && !this.accordion.isOpen ? 'until-found' : undefined)}
+                            @beforematch=${() => this.accordion.open()}
+                        >
                             <div class="vl-step__content">${contentTemplate}</div>
                             <ul class="vl-step__duration-list">
                                 <slot name="duration"></slot>
