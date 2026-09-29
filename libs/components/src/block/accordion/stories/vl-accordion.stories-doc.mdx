@@ -67,6 +67,14 @@ Je kan een heading (h1-h6) laten renderen in de accordion toggle door gebruik te
 
 <Canvas of={VlAccordionStories.AccordionAltBackground} />
 
+## Toegankelijkheid
+
+De inhoud van een gesloten accordion blijft vindbaar via de zoekfunctie van de browser (Ctrl+F of Cmd+F). Vindt de
+browser een resultaat in die inhoud, dan klapt de accordion open en wordt het `vl-on-toggle` event afgevuurd. Hetzelfde
+gebeurt bij een link naar een `id` in de inhoud.
+
+Een accordion met het `disabled` attribuut blijft gesloten, en zijn inhoud is niet vindbaar.
+
 ## Referenties
 
 ### Digitaal Vlaanderen
