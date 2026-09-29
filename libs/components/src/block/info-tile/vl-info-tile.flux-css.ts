@@ -37,14 +37,9 @@ export const vlInfoTileFluxStyles: CSSResult = css`
         margin-left: 2rem;
     }
     :host([toggleable]) .vl-info-tile.js-vl-accordion:not(.js-vl-accordion--open) .vl-info-tile__content {
-        visibility: hidden;
-        overflow: hidden;
-        max-height: 0;
         margin: 0;
     }
     :host([toggleable]) .vl-info-tile.js-vl-accordion.js-vl-accordion--open .vl-info-tile__content {
-        visibility: visible;
-        max-height: 100%;
         margin-left: 2rem;
     }
 

@@ -155,7 +155,11 @@ export class VlInfoTile extends BaseLitElement {
                       ></button>`
                     : nothing}
                 ${this.renderHeader()}
-                <div class="vl-info-tile__content">
+                <div
+                    class="vl-info-tile__content"
+                    hidden=${ifDefined(this.toggleable && !this.accordion.isOpen ? 'until-found' : undefined)}
+                    @beforematch=${() => this.open()}
+                >
                     <slot name="content" @click=${this.toggleable ? stopPropagation : nothing}></slot>
                 </div>
                 ${this.hasSlot('footer')

@@ -752,3 +752,38 @@ describe('cypress-component - block components - vl-info-tile - title click even
         cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
     });
 });
+
+describe('cypress-component - block components - vl-info-tile - vindbaar via zoeken in de pagina', () => {
+    const shouldHaveContentHidden = (value: string | null) => {
+        cy.get('vl-info-tile')
+            .shadow()
+            .find('.vl-info-tile__content')
+            .should(($content) => expect($content[0].getAttribute('hidden')).to.equal(value));
+    };
+
+    it('should hide closed content with hidden="until-found"', () => {
+        mountDefault({ toggleable: true, titleSlot, contentSlot });
+        shouldHaveContentHidden('until-found');
+        cy.get('vl-info-tile')
+            .find('[slot="content"]')
+            .should(($content) => expect($content[0].checkVisibility()).to.be.false);
+    });
+
+    it('should open when the browser reveals the content', () => {
+        mountDefault({ toggleable: true, titleSlot, contentSlot });
+        cy.get('vl-info-tile')
+            .shadow()
+            .find('.vl-info-tile__content')
+            .then(($content) => $content[0].dispatchEvent(new Event('beforematch')));
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+        shouldHaveContentHidden(null);
+        cy.runTestFor<VlInfoTile>('vl-info-tile', (component) => {
+            expect(component.isOpen).to.be.true;
+        });
+    });
+
+    it('should not hide the content of an info-tile that is not toggleable', () => {
+        mountDefault({ titleSlot, contentSlot });
+        shouldHaveContentHidden(null);
+    });
+});

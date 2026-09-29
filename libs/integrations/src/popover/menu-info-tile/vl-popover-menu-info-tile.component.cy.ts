@@ -32,18 +32,18 @@ describe('cypress-component - integrations - vl-popover-menu-info-tile', () => {
             .find('vl-info-tile')
             .shadow()
             .find('.vl-info-tile__content')
-            .shouldHaveComputedStyle({ style: 'visibility', value: 'hidden' });
+            .shouldHaveComputedStyle({ style: 'content-visibility', value: 'hidden' });
         cy.get('vl-popover-menu-info-tile').find('vl-info-tile').shadow().find('button.vl-toggle').click();
         cy.get('vl-popover-menu-info-tile')
             .find('vl-info-tile')
             .shadow()
             .find('.vl-info-tile__content')
-            .shouldHaveComputedStyle({ style: 'visibility', value: 'visible' });
+            .shouldHaveComputedStyle({ style: 'content-visibility', value: 'visible' });
         cy.get('vl-popover-menu-info-tile').find('vl-info-tile').shadow().find('button.vl-toggle').click();
         cy.get('vl-popover-menu-info-tile')
             .find('vl-info-tile')
             .shadow()
             .find('.vl-info-tile__content')
-            .shouldHaveComputedStyle({ style: 'visibility', value: 'hidden' });
+            .shouldHaveComputedStyle({ style: 'content-visibility', value: 'hidden' });
     });
 });
