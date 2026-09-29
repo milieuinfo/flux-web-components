@@ -477,6 +477,27 @@ describe('cypress-component - block components - vl-accordion dom - border en ac
         `);
         cy.get('vl-accordion').should('not.have.class', 'vl-accordion--alt-background');
     });
+
+    it('should keep a manually set host class when the attribute is absent', () => {
+        cy.mount(html`
+            <vl-accordion class="vl-accordion--bold" toggle-text="Handmatige klasse">
+                <span>Content.</span>
+            </vl-accordion>
+        `);
+        cy.get('vl-accordion').shadow().find('button.vl-toggle').click({ force: true });
+        cy.get('vl-accordion').should('have.class', 'vl-accordion--bold');
+    });
+
+    it('should remove the host class when the attribute is removed', () => {
+        cy.mount(html`
+            <vl-accordion toggle-text="Attribuut verwijderd" bold>
+                <span>Content.</span>
+            </vl-accordion>
+        `);
+        cy.get('vl-accordion').should('have.class', 'vl-accordion--bold');
+        cy.get('vl-accordion').invoke('removeAttr', 'bold');
+        cy.get('vl-accordion').should('not.have.class', 'vl-accordion--bold');
+    });
 });
 
 const toggleAccordion = () => {

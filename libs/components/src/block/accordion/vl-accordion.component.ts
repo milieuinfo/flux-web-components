@@ -11,6 +11,12 @@ import { vlAccordionFluxStyles } from './vl-accordion.flux-css';
 
 const HEADING_LEVELS = ['1', '2', '3', '4', '5', '6'];
 
+const HOST_CLASSES: [property: 'altBackground' | 'bold' | 'disabled', className: string][] = [
+    ['altBackground', 'vl-accordion--alt-background'],
+    ['bold', 'vl-accordion--bold'],
+    ['disabled', 'vl-accordion--disabled'],
+];
+
 @webComponent('vl-accordion')
 export class VlAccordionComponent extends BaseLitElement {
     toggleText: string | null = null;
@@ -96,9 +102,11 @@ export class VlAccordionComponent extends BaseLitElement {
             );
         }
 
-        this.classList.toggle('vl-accordion--alt-background', this.altBackground);
-        this.classList.toggle('vl-accordion--bold', this.bold);
-        this.classList.toggle('vl-accordion--disabled', this.disabled);
+        HOST_CLASSES.forEach(([property, className]) => {
+            if (changedProperties.has(property) && (this.hasUpdated || this[property])) {
+                this.classList.toggle(className, this[property]);
+            }
+        });
     }
 
     protected render(): TemplateResult {
