@@ -1,197 +1,166 @@
-import {
-    awaitUntil,
-    BaseHTMLElement,
-    legacyBreakpoint,
-    legacyCore,
-    registerWebComponents,
-    webComponent,
-} from '@domg-wc/common';
+import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlGridStyles, vlGroupStyles, vlStackedStyles } from '@domg-wc/styles';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { modalStyle } from '@domg/govflanders-style/component';
+import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { VlLinkComponent } from '../../atom/link';
 import { vlModalFluxStyles } from './vl-modal.flux-css';
-import './vl-modal.lib.js';
 
-declare const vl: any;
-
-registerWebComponents([legacyCore, legacyBreakpoint]);
+const DIALOG_MODIFIERS = ['medium', 'large', 'full-screen', 'left', 'right'];
+const CLOSE_ATTRIBUTES = ['modal-close', 'data-modal-close'];
 
 @webComponent('vl-modal')
-export class VlModalComponent extends BaseHTMLElement {
+export class VlModalComponent extends BaseLitElement {
+    modalId = '';
+    title = '';
+    label = '';
+    closable = false;
+    notCancellable = false;
+    opened = false;
+    notAutoClosable = false;
+    allowOverflow = false;
+    size = '';
+    position = '';
+    focusOnModal = false;
+
+    private _triggerController?: AbortController;
+    private _pendingTrigger: HTMLElement | null = null;
+    private _lastTrigger: HTMLElement | null = null;
+    private _dialogListeners: [string, EventListenerOrEventListenerObject][] = [];
+
     static {
         registerWebComponents([VlLinkComponent]);
     }
 
-    private _openObserver?: MutationObserver;
-    private _lastDispatchedOpen = false;
+    static get styles(): CSSResult[] {
+        return [
+            resetStyle,
+            modalStyle,
+            vlModalFluxStyles,
+            accessibilityStyle,
+            vlGroupStyles,
+            vlGridStyles,
+            vlStackedStyles,
+            vlIconStyles,
+        ];
+    }
 
-    constructor() {
-        const html = `
+    static get properties(): PropertyDeclarations {
+        return {
+            modalId: { type: String, attribute: 'id' },
+            title: { type: String, attribute: 'title' },
+            label: { type: String, attribute: 'label' },
+            closable: { type: Boolean, attribute: 'closable' },
+            notCancellable: { type: Boolean, attribute: 'not-cancellable' },
+            opened: { type: Boolean, attribute: 'open', reflect: true },
+            notAutoClosable: { type: Boolean, attribute: 'not-auto-closable' },
+            allowOverflow: { type: Boolean, attribute: 'allow-overflow' },
+            size: { type: String, attribute: 'size' },
+            position: { type: String, attribute: 'position' },
+            focusOnModal: { type: Boolean, attribute: 'focus-on-modal' },
+        };
+    }
+
+    get _dialogElement(): HTMLDialogElement | null {
+        return this.shadowRoot?.querySelector('dialog') ?? null;
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+        this._bindOpenTriggers();
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this._triggerController?.abort();
+    }
+
+    protected render(): TemplateResult {
+        const dialogClasses = {
+            'vl-modal-dialog': true,
+            [`vl-modal-dialog--${this.size}`]: DIALOG_MODIFIERS.includes(this.size),
+            [`vl-modal-dialog--${this.position}`]: DIALOG_MODIFIERS.includes(this.position),
+        };
+
+        return html`
             <div class="vl-modal">
-                <dialog class="vl-modal-dialog" id="modal-dialog" data-modal tabindex="-1"
-                        aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title">
+                <dialog
+                    class=${classMap(dialogClasses)}
+                    id=${this.modalId || 'modal-dialog'}
+                    tabindex="-1"
+                    aria-modal="true"
+                    aria-hidden=${this.opened ? 'false' : 'true'}
+                    aria-labelledby=${ifDefined(this.title ? 'modal-toggle-title' : undefined)}
+                    aria-label=${ifDefined(!this.title && this.label ? this.label : undefined)}
+                    @click=${this._onDialogClick}
+                    @keydown=${this._onDialogKeydown}
+                    @close=${this._onDialogClose}
+                >
                     <div class="vl-modal-dialog__wrapper" id="modal-dialog-wrapper">
+                        ${this.title
+                            ? html`<h2 class="vl-modal-dialog__title" id="modal-toggle-title">${this.title}</h2>`
+                            : nothing}
                         <div class="vl-grid vl-stacked-small">
                             <div class="vl-column vl-column--12 vl-column--m-12 vl-modal-dialog__content">
                                 <slot name="content">Modal content</slot>
                             </div>
                             <div class="vl-column vl-column--12 vl-column--m-12">
                                 <div id="modal-action-group" class="vl-group">
-                                    <slot name="button" data-modal-close></slot>
-                                    <vl-link id="modal-toggle-cancellable"
-                                             button-as-link icon="cross" icon-placement="before"
-                                             modal-close>Annuleer</vl-link>
+                                    <slot
+                                        name="button"
+                                        ?data-modal-close=${!this.notAutoClosable}
+                                        aria-expanded=${ifDefined(this.notAutoClosable ? undefined : 'true')}
+                                    ></slot>
+                                    ${this.notCancellable
+                                        ? nothing
+                                        : html`<vl-link
+                                              id="modal-toggle-cancellable"
+                                              button-as-link
+                                              icon="cross"
+                                              icon-placement="before"
+                                              modal-close
+                                              >Annuleer</vl-link
+                                          >`}
                                 </div>
                             </div>
                         </div>
                     </div>
+                    ${this.closable
+                        ? html`<button
+                              id="close"
+                              type="button"
+                              class="vl-modal-dialog__close"
+                              aria-expanded="true"
+                              data-modal-close
+                          >
+                              <span class="vl-modal-dialog__close__icon vl-icon vl-icon--cross" aria-hidden="true"></span>
+                              <span class="vl-u-visually-hidden">Venster sluiten</span>
+                          </button>`
+                        : nothing}
                 </dialog>
             </div>
         `;
-        const styleSheets = [
-            resetStyle.styleSheet!,
-            modalStyle.styleSheet!,
-            vlModalFluxStyles.styleSheet!,
-            accessibilityStyle.styleSheet!,
-            vlGroupStyles.styleSheet!,
-            vlGridStyles.styleSheet!,
-            vlStackedStyles.styleSheet!,
-            vlIconStyles.styleSheet!,
-        ];
-        super(html, styleSheets);
     }
 
-    static get _observedAttributes() {
-        return [
-            'id',
-            'title',
-            'label',
-            'closable',
-            'not-cancellable',
-            'open',
-            'not-auto-closable',
-            'allow-overflow',
-            'size',
-            'position',
-            'focus-on-modal',
-        ];
+    protected firstUpdated() {
+        const dialog = this._dialogElement!;
+        this._dialogListeners.forEach(([event, callback]) => dialog.addEventListener(event, callback));
     }
 
-    static get _closableAttribute() {
-        return 'data-modal-closable';
-    }
-
-    static get _closeAttribute() {
-        return 'data-modal-close';
-    }
-
-    get _dialogElement(): HTMLDialogElement {
-        return this._element?.querySelector('dialog');
-    }
-
-    get _dialogWrapperElement(): HTMLDialogElement {
-        return this._element?.querySelector('#modal-dialog-wrapper');
-    }
-
-    get _titleElement() {
-        return this._element.querySelector('#modal-toggle-title');
-    }
-
-    get _actionGroupElement() {
-        return this._element.querySelector('#modal-action-group');
-    }
-
-    get _cancelElement() {
-        return this._element.querySelector('#modal-toggle-cancellable');
-    }
-
-    get _slotButtonElement() {
-        return this._element.querySelector('slot[name="button"]');
-    }
-
-    get _closeButtonElement() {
-        return this._element.querySelector('#close');
-    }
-
-    get _dressed() {
-        return !!this.getAttribute('modal-dressed');
-    }
-
-    setAriaLabel() {
-        const title = this.getAttribute('title');
-        const label = this.getAttribute('label');
-        if (title) {
-            this._dialogElement.setAttribute('aria-labelledby', 'modal-toggle-title');
-            this._dialogElement.removeAttribute('aria-label');
-        } else if (label) {
-            this._dialogElement.setAttribute('aria-label', label);
-            this._dialogElement.removeAttribute('aria-labelledby');
-        } else {
-            console.warn('vl-modal: title of label attribuut is verplicht.');
+    protected updated(changedProperties: PropertyValues<this>) {
+        if (changedProperties.has('opened')) {
+            this._syncDialog();
         }
-    }
-
-    connectedCallback() {
-        super.connectedCallback();
-
-        this.dress();
-        this._observeDialogOpenState();
-        this._shadow?.host.addEventListener('keyup', this._onEscape);
-
-        if (this.hasAttribute('size')) {
-            this._addDialogClassModifier(this.getAttribute('size') || '');
+        if (changedProperties.has('modalId')) {
+            this._bindOpenTriggers();
         }
-        if (this.hasAttribute('position')) {
-            this._addDialogClassModifier(this.getAttribute('position') || '');
-        }
-
-        this.setAriaLabel();
-    }
-
-    disconnectedCallback() {
-        this._openObserver?.disconnect();
-        this._shadow?.host?.removeEventListener('keyup', this._onEscape);
-    }
-
-    /**
-     * Houdt het host `open`-attribuut in sync met de werkelijke dialog-staat en vuurt de vl-open / vl-close events af,
-     * ongeacht via welk pad (attribuut, methode, knop, Escape, backdrop) de modal opent of sluit. De native `<dialog>`
-     * kent geen open-event, daarom observeren we het `open`-attribuut van de dialog zelf.
-     */
-    private _observeDialogOpenState() {
-        this._openObserver?.disconnect();
-        const dialog = this._dialogElement;
-        if (!dialog) {
-            return;
-        }
-        this._lastDispatchedOpen = !!this.isOpen();
-        this._openObserver = new MutationObserver(() => this._onDialogOpenStateChanged());
-        this._openObserver.observe(dialog, { attributes: true, attributeFilter: ['open'] });
-    }
-
-    private _onDialogOpenStateChanged() {
-        const isOpen = !!this.isOpen();
-        if (isOpen === this._lastDispatchedOpen) {
-            return;
-        }
-        this._lastDispatchedOpen = isOpen;
-        if (isOpen && !this.hasAttribute('open')) {
-            this.setAttribute('open', '');
-        } else if (!isOpen && this.hasAttribute('open')) {
-            this.removeAttribute('open');
-        }
-        this.dispatchEvent(new CustomEvent(isOpen ? 'vl-open' : 'vl-close', { bubbles: true, composed: true }));
-    }
-
-    /**
-     * Initialiseer de modal config.
-     */
-    dress() {
-        if (!this._dressed) {
-            vl.modal.dress(this._dialogElement);
-            this._dialogElement.dataset.focusOnModal = this.hasAttribute('focus-on-modal') ? 'true' : 'false';
+        if (changedProperties.has('title') || changedProperties.has('label')) {
+            if (!this.title && !this.label) {
+                console.warn('vl-modal: title of label attribuut is verplicht.');
+            }
         }
     }
 
@@ -199,14 +168,7 @@ export class VlModalComponent extends BaseHTMLElement {
      * Handmatig openen van modal.
      */
     open() {
-        if (!this.isOpen()) {
-            // enkel bij effectief openen zetten: anders zouden we de trigger-referentie die de lib bij een knop-klik
-            // bewaart overschrijven, waardoor focus bij sluiten niet terugkeert naar de openende knop
-            vl.modal.lastClickedToggle = this._dialogElement;
-            awaitUntil(() => this._dialogElement.isConnected).then(() => {
-                vl.modal.toggle(this._dialogElement);
-            });
-        }
+        this._requestOpen(null);
     }
 
     /**
@@ -214,7 +176,8 @@ export class VlModalComponent extends BaseHTMLElement {
      */
     close() {
         if (this.isOpen()) {
-            vl.modal.toggle(this._dialogElement);
+            this.opened = false;
+            this._syncDialog();
         }
     }
 
@@ -223,7 +186,8 @@ export class VlModalComponent extends BaseHTMLElement {
      * @param {String} event
      * @param {Function} callback
      */
-    on(event: string, callback: any) {
+    on(event: string, callback: EventListenerOrEventListenerObject) {
+        this._dialogListeners.push([event, callback]);
         this._dialogElement?.addEventListener(event, callback);
     }
 
@@ -233,7 +197,8 @@ export class VlModalComponent extends BaseHTMLElement {
      * @param {String} event
      * @param {Function} callback
      */
-    off(event: string, callback: any) {
+    off(event: string, callback: EventListenerOrEventListenerObject) {
+        this._dialogListeners = this._dialogListeners.filter(([e, cb]) => e !== event || cb !== callback);
         this._dialogElement?.removeEventListener(event, callback);
     }
 
@@ -242,117 +207,115 @@ export class VlModalComponent extends BaseHTMLElement {
      * @return {boolean}
      */
     isOpen() {
-        return this._dialogElement?.hasAttribute('open');
+        return !!this._dialogElement?.open;
     }
 
-    _getCloseButtonTemplate() {
-        return this._template(`
-      <button id="close" type="button" class="vl-modal-dialog__close" aria-expanded="true" data-modal-close>
-        <span class="vl-modal-dialog__close__icon vl-icon vl-icon--cross" aria-hidden="true"></span>
-        <span class="vl-u-visually-hidden">Venster sluiten</span>
-      </button>
-    `);
+    private _requestOpen(trigger: HTMLElement | null) {
+        if (this.isOpen()) {
+            return;
+        }
+        this._pendingTrigger = trigger;
+        this.opened = true;
+        if (this.hasUpdated) {
+            this._syncDialog();
+        }
     }
 
-    _getTitleTemplate(titel: string) {
-        return this._template(`
-      <h2 class="vl-modal-dialog__title" id="modal-toggle-title">${titel}</h2>`);
+    private _syncDialog() {
+        const dialog = this._dialogElement;
+        if (!dialog || !dialog.isConnected) {
+            return;
+        }
+        if (this.opened && !dialog.open) {
+            this._lastTrigger = this._pendingTrigger;
+            this._pendingTrigger = null;
+            dialog.showModal();
+            if (this.focusOnModal) {
+                dialog.focus();
+            }
+            document.body.classList.add('vl-u-no-overflow');
+            this.dispatchEvent(new CustomEvent('vl-open', { bubbles: true, composed: true }));
+        } else if (!this.opened && dialog.open) {
+            dialog.close();
+        }
     }
 
-    _getCancelTemplate() {
-        return this._template(`
-      <vl-link id="modal-toggle-cancellable" aria-expanded="true" button-as-link icon="cross" icon-placement="before"
-      modal-close
-      >Annuleer</vl-link>
-`);
+    private _bindOpenTriggers() {
+        this._triggerController?.abort();
+        this._triggerController = new AbortController();
+        if (!this.modalId) {
+            return;
+        }
+        const { signal } = this._triggerController;
+        const selector = `[modal-open="${this.modalId}"],[data-modal-open="${this.modalId}"]`;
+        this._findOpenTriggers(selector).forEach((trigger) => {
+            trigger.addEventListener(
+                'click',
+                (event) => {
+                    this._requestOpen(trigger);
+                    event.preventDefault();
+                },
+                { signal }
+            );
+        });
     }
 
-    _idChangedCallback(oldValue: string, newValue: string) {
-        this._dialogElement.id = newValue;
-    }
-
-    _titleChangedCallback(oldValue: string, newValue: string) {
-        if (newValue) {
-            if (this._titleElement) {
-                this._titleElement.innerText = newValue;
+    private _findOpenTriggers(selector: string): HTMLElement[] {
+        const triggers = Array.from(document.querySelectorAll<HTMLElement>(selector));
+        let node: Node | null = this.parentNode;
+        while (node) {
+            if (node instanceof ShadowRoot) {
+                triggers.push(...Array.from(node.querySelectorAll<HTMLElement>(selector)));
+                node = node.host.parentNode;
+            } else if (node instanceof Element) {
+                node = node.parentNode;
             } else {
-                this._dialogWrapperElement.prepend(this._getTitleTemplate(newValue));
+                break;
             }
-        } else if (this._titleElement) {
-            this._titleElement.remove();
         }
-        this.setAriaLabel();
+        return triggers;
     }
 
-    _labelChangedCallback(oldValue: string, newValue: string) {
-        this.setAriaLabel();
-    }
-
-    _notCancellableChangedCallback(oldValue: string, newValue: string) {
-        if (newValue == undefined && !this._cancelElement) {
-            this._actionGroupElement.append(this._getCancelTemplate());
-        } else if (newValue != undefined && this._cancelElement) {
-            this._cancelElement.remove();
-        }
-    }
-
-    _openChangedCallback(oldValue: string, newValue: string) {
-        if (newValue == undefined) {
+    private _onDialogClick = (event: MouseEvent) => {
+        const dialog = this._dialogElement!;
+        const path = event.composedPath();
+        const insideDialog = path.slice(0, path.indexOf(dialog));
+        const clickedCloseTrigger = insideDialog.some(
+            (node) =>
+                node instanceof Element &&
+                node.getRootNode() === this.shadowRoot &&
+                CLOSE_ATTRIBUTES.some((attribute) => node.hasAttribute(attribute))
+        );
+        if (clickedCloseTrigger) {
             this.close();
-        } else {
-            this.open();
+            return;
         }
-    }
-
-    _closableChangedCallback(oldValue: string, newValue: string) {
-        if (newValue !== null) {
-            this._dialogElement.setAttribute(VlModalComponent._closableAttribute, newValue);
-            if (!this._closeButtonElement) {
-                this._dialogElement.appendChild(this._getCloseButtonTemplate());
-            }
-        } else {
-            this._dialogElement.removeAttribute(VlModalComponent._closableAttribute);
-            this._closeButtonElement?.remove();
-        }
-    }
-
-    _notAutoClosableChangedCallback(oldValue: string, newValue: string) {
-        if (newValue == undefined && !this._slotButtonElement.hasAttribute(VlModalComponent._closeAttribute)) {
-            this._slotButtonElement.setAttribute(VlModalComponent._closeAttribute, '');
-            this._slotButtonElement.setAttribute('aria-expanded', 'true');
-        } else if (newValue != undefined && this._slotButtonElement.hasAttribute(VlModalComponent._closeAttribute)) {
-            this._slotButtonElement.removeAttribute(VlModalComponent._closeAttribute);
-            this._slotButtonElement.removeAttribute('aria-expanded');
-        }
-    }
-
-    _addDialogClassModifier(modifier: string) {
-        if (['medium', 'large', 'full-screen', 'left', 'right'].includes(modifier)) {
-            this._dialogElement.classList.add(`vl-modal-dialog--${modifier}`);
-        }
-    }
-
-    _sizeChangedCallback(oldValue: string, newValue: string) {
-        this._dialogElement.classList.remove('vl-modal-dialog--medium', 'vl-modal-dialog--large');
-        this._addDialogClassModifier(newValue);
-    }
-
-    _positionChangedCallback(oldValue: string, newValue: string) {
-        this._dialogElement.classList.remove('vl-modal-dialog--left', 'vl-modal-dialog--right');
-        this._addDialogClassModifier(newValue);
-    }
-
-    private _onEscape = (e: KeyboardEvent | Event) => {
-        if ((e as KeyboardEvent).code.toLowerCase() === 'escape') {
-            e.preventDefault();
-            e.stopPropagation();
-            const canEscape =
-                this._dialogElement.hasAttribute(VlModalComponent._closableAttribute) &&
-                this._dialogElement.getAttribute(VlModalComponent._closableAttribute) !== 'false';
-            if (canEscape) {
+        if (this.closable && event.target === dialog) {
+            const bounds = dialog.getBoundingClientRect();
+            const isInDialog =
+                event.clientY > bounds.top &&
+                event.clientY < bounds.bottom &&
+                event.clientX > bounds.left &&
+                event.clientX < bounds.right;
+            if (!isInDialog) {
                 this.close();
             }
         }
+    };
+
+    private _onDialogKeydown = (event: KeyboardEvent) => {
+        if (event.key === 'Escape' && !this.closable) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    };
+
+    private _onDialogClose = () => {
+        this._lastTrigger?.focus();
+        this._lastTrigger = null;
+        document.body.classList.remove('vl-u-no-overflow');
+        this.opened = false;
+        this.dispatchEvent(new CustomEvent('vl-close', { bubbles: true, composed: true }));
     };
 }
 

@@ -431,3 +431,55 @@ describe('cypress-component - block components - vl-modal - notAutoClosable (fal
         cy.checkA11y('vl-modal');
     });
 });
+
+describe('cypress-component - block components - vl-modal - closing behaviour', () => {
+    it('should close a closable modal when clicking on the backdrop', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({ closable: true })}`);
+
+        openModal();
+        isDialogVisible();
+        getDialog().trigger('click', { clientX: 1, clientY: 1, force: true });
+        isDialogHidden();
+    });
+
+    it('should not close a non-closable modal when clicking on the backdrop', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({})}`);
+
+        openModal();
+        isDialogVisible();
+        getDialog().trigger('click', { clientX: 1, clientY: 1, force: true });
+        isDialogVisible();
+    });
+
+    // Een native button als trigger: bij een vl-button trigger is het focusherstel in Cypress niet meetbaar,
+    // in de browser zet de native dialog de focus wel terug op de vl-button.
+    it('should return focus to the trigger after closing', () => {
+        cy.mount(html`<button modal-open="modal-vt" data-cy="native-trigger">Open</button> ${renderModal({})}`);
+
+        cy.getDataCy('native-trigger').click();
+        isDialogVisible();
+        closeWithCancelButton();
+        isDialogHidden();
+        cy.focused().should('have.attr', 'data-cy', 'native-trigger');
+    });
+
+    it('should call listeners registered with on() before the modal was rendered', () => {
+        const onClose = cy.stub().as('onClose');
+        cy.mount(html`<div data-cy="container"></div>`);
+        cy.getDataCy('container').then(($container) => {
+            const modal = document.createElement('vl-modal');
+            modal.setAttribute('title', 'Modal');
+            modal.setAttribute('data-cy', 'modal');
+            modal.on('close', onClose);
+            $container[0].appendChild(modal);
+            modal.open();
+        });
+
+        isDialogVisible();
+        closeWithCancelButton();
+        isDialogHidden();
+        cy.get('@onClose').should('have.been.calledOnce');
+    });
+});
