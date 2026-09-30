@@ -51,11 +51,18 @@ staat nog open.
 
 ## PoC-bevindingen (zie `.claude/plans/prefix-aware-poc.md` voor detail)
 
-- **Coexistentie werkt**: 14 VDS-componenten geregistreerd als `vds-*` naast flux
-  `vl-*`, geen registry-collision. Zelfs een verkeerde `defineAll('vl')` is een
+- **Coexistentie werkt**: alle VDS-componenten (32 sinds 0.15.0) geregistreerd als
+  `vds-*` naast flux `vl-*`, geen registry-collision. Zelfs een verkeerde `defineAll('vl')` is een
   onschadelijke no-op (twee guards, flux wordt niet overschreven).
 - **Adapter werkt**: `vl-button` met de oude flux-API rendert een VDS-button
   onderliggend (first-wins registratie), inclusief variant/size/icon/href-mapping.
+- **Erven waar het kan, delegeren waar het moet**: sinds 0.15.0 heeft VDS componenten
+  die bij flux onder een andere naam bestaan (pill, accordion, alert, separator, tabs,
+  table). De adapter houdt de flux-API, zodat afnemers niets wijzigen. Erven lukt niet
+  bij `flux-pill` (één flux-component tegenover vier VDS-tags) en `flux-tabs` (VDS zoekt
+  zijn tabs op de exacte tagnaam); die renderen de VDS-component intern. De flux-methode
+  `accordion.open()` botst met de VDS-property `open` en is de enige echte API-breuk.
+  Detail in `FLUX-704-API-GAPS.md`, sectie "Nieuw in VDS 0.15.0".
 - **Form werkt**: de VDS form-velden zijn formAssociated, dus een native `<form>` plus
   `FormData` leest hun waarden via `name`, ook onder de custom prefix.
 - **Look-pariteit via tokens + `::part`**:

@@ -1,8 +1,11 @@
 # FLUX-704 — API/functionaliteit-gap-analyse (VDS vs flux)
 
 Per-component vergelijking van de **publieke API en het gedrag** tussen de VDS
-web-componenten (`@govflanders/vl-ui-design-system-web-components` **0.6.0**,
-gepinde vendored tarball) en onze eigen flux-componenten (`libs/components/src`).
+web-componenten (`@govflanders/vl-ui-design-system-web-components`, gepinde vendored
+tarball) en onze eigen flux-componenten (`libs/components/src`). De eerste 11
+componenten zijn geanalyseerd op **0.6.0**; sinds de bump naar **0.15.0** zijn de
+size- en variant-waarden bijgewerkt (`s`/`m`/`l`, `quaternary`) en staan de nieuwe
+componenten onderaan in [Nieuw in VDS 0.15.0](#nieuw-in-vds-0150).
 
 Dit document gaat NIET over styling of design-tokens: die pariteit is al
 uitgewerkt en gedocumenteerd in
@@ -735,3 +738,132 @@ De rode draad over de 11 componenten:
   teller vs generieke slot), maar niet identiek.
 - **flux `block` vs VDS `grow=fill`**: als verwant concept behandeld (full-width), niet
   als exacte 1-op-1.
+
+---
+
+## Nieuw in VDS 0.15.0
+
+VDS 0.15.0 voegt 16 componenten toe. Zes ervan hebben een flux-tegenhanger onder een
+andere naam. De `flux-*`-adapter neemt telkens de flux-API over, zodat afnemers niets
+hoeven te wijzigen.
+
+| VDS | flux | adapter | tag-botsing met flux `vl-` |
+|---|---|---|---|
+| `vl-informative-tag`, `vl-removable-tag`, `vl-selectable-tag`, `vl-clickable-tag` | `vl-pill` | `flux-pill` (delegeert) | nee |
+| `vl-collapsible` | `vl-accordion` | `flux-accordion` (erft) | nee |
+| `vl-divider` | `.vl-separator` (CSS) | `flux-separator` (erft) | nee |
+| `vl-section-message` | `vl-alert` | `flux-alert` (erft) | nee |
+| `vl-tabs`, `vl-tab`, `vl-tabpanel` | `vl-tabs`, `vl-tabs-pane` | `flux-tabs` (delegeert) | **ja** (`vl-tabs`, `vl-tab`) |
+| `vl-table` | `vl-table` | `flux-table` (erft) | **ja** |
+| `vl-banner-message` | geen (dichtst: `vl-alert`, `vl-toaster`) | `flux-banner-message` (erft) | nee |
+| `vl-inline-message` | geen eigen component (dichtst: `vl-alert size="small"`) | `flux-inline-message` (erft) | nee |
+| `vl-avatar` | geen | `flux-avatar` (erft) | nee |
+| `vl-grid`, `vl-grid-item` | `.vl-grid` / `.vl-column` (CSS) | `flux-grid` (erft) | nee |
+
+Twee adapters delegeren in plaats van te erven: ze renderen intern de VDS-component en
+vertalen de flux-API ernaar.
+
+- **`flux-pill`**: flux heeft één pill met modes (`closable`, `checkable`, `clickable`),
+  VDS vier aparte tags. Eén element kan niet van vier classes erven.
+- **`flux-tabs`**: `vl-tabs` zoekt zijn tabs op de exacte tagnaam
+  (`:scope > ${VlTab.elementName}`). Een component die van `VlTab` erft onder een andere
+  tag wordt nooit gevonden, dus erven kan niet (upstream-verzoek 7).
+
+### vl-*-tag (flux-pill)
+
+| functionaliteit | in VDS? | in flux? | status | actie |
+|---|---|---|---|---|
+| één component met modes | nee (4 componenten) | ja | overlap (andere shape) | API gelijk houden (adapter delegeert) |
+| status | `status` default/success/warning/error/info/highlight | `type` success/warning/error | overlap (andere naam) | API gelijk houden |
+| `disabled` | nee | ja | enkel-flux | upstream-request (VDS) |
+| variant primary/secondary, `truncate`, `size` | ja | nee | enkel-VDS | flux-API uitbreiden |
+| label van de verwijderknop | `close-label` | nee (vaste tekst) | enkel-VDS | flux-API uitbreiden |
+| geselecteerd | `selected` | `checked` | overlap (andere naam) | API gelijk houden |
+| events | `vl-remove`, `vl-change` (`detail.value`), `vl-click` | `close`, `check` (`detail.checked`), `click` | overlap (andere naam) | API gelijk houden (adapter vertaalt) |
+| `requestRemove()`, `select()`, `deselect()` | ja | nee | enkel-VDS | flux-API uitbreiden |
+| slots `before` / `after` | ja | nee | enkel-VDS | flux-API uitbreiden |
+
+### vl-collapsible (flux-accordion)
+
+| functionaliteit | in VDS? | in flux? | status | actie |
+|---|---|---|---|---|
+| open bij start | `open` (ook live state) | `default-open` | overlap (andere shape) | API gelijk houden |
+| heading-niveau | `level` h1 tot h6 of span | `heading-level` 1 tot 6 | overlap (andere shape) | API gelijk houden |
+| `appearance`, `grow` | ja | nee | enkel-VDS | flux-API uitbreiden |
+| `toggle-text`, `open-toggle-text`, `close-toggle-text` | nee (slot `trigger`) | ja | enkel-flux | toevoegen in derivative |
+| `disabled`, `bold`, `alt-background`, `content-padding` | nee | ja | enkel-flux | upstream-request (VDS) |
+| openen | `show()` | `open()` | overlap (andere naam) | **botst**: zie hieronder |
+| sluiten | `hide()` | `close()` | overlap (andere naam) | toevoegen in derivative |
+| event | `vl-toggle` (`detail.expanded`), `vl-open`, `vl-close` | `vl-on-toggle` (`detail.open`) | overlap (andere naam) | toevoegen in derivative |
+| slots | `trigger`, `content`, `actions` | `title`, default, `menu`, `subtitle` | overlap (andere naam) | toevoegen in derivative (upstream-verzoek 10) |
+
+De flux-methode `open()` kan de adapter niet behouden: VDS heeft een reactieve property
+`open`, en in een component die van `VlCollapsible` erft kunnen een methode en een
+property met dezelfde naam niet samen bestaan. Afnemers die `accordion.open()` aanroepen,
+moeten naar `show()` of `accordion.open = true`. Dit is de enige echte API-breuk in deze
+reeks.
+
+### vl-divider (flux-separator)
+
+| functionaliteit | in VDS? | in flux? | status | actie |
+|---|---|---|---|---|
+| vorm | web component | CSS-klasse op `<hr>` | overlap (andere shape) | toevoegen in derivative |
+| stijl | `appearance` default/dashed/dotted/wave/tilt | `.vl-separator`, `-wave`, `-slash` | overlap (andere naam) | API gelijk houden (`wave` en `slash` als attribuut) |
+| `size`, `color`, `orientation` | ja | nee | enkel-VDS | flux-API uitbreiden |
+| `purpose` (informative/decorative, a11y-rol) | ja | nee (native `hr`) | enkel-VDS | flux-API uitbreiden |
+
+De flux-slash is een dichte arcering, VDS `tilt` tekent losse streepjes. Dat verschil
+is visueel en niet via tokens te overbruggen.
+
+### vl-section-message (flux-alert)
+
+| functionaliteit | in VDS? | in flux? | status | actie |
+|---|---|---|---|---|
+| status | `status` info/success/warning/**danger** | `type` info/success/warning/**error** | overlap (andere naam) | API gelijk houden (upstream-verzoek 11) |
+| `title` / `message` als attribuut | nee (slots) | ja | enkel-flux | toevoegen in derivative |
+| icoon | automatisch per status | enkel met `icon` | overlap (ander gedrag) | toevoegen in derivative |
+| `size="small"`, `naked`, `multiline` | nee | ja | enkel-flux | upstream-request (VDS) |
+| `alert-role` (alert, alertdialog, geen) + `focus()` | nee | ja | enkel-flux | upstream-request (VDS) |
+| `variant`, `grow` | ja | nee | enkel-VDS | flux-API uitbreiden |
+| inhoud | slot `body` | default slot | overlap (andere naam) | toevoegen in derivative (upstream-verzoek 10) |
+| slots `illustration`, `footer` | ja | nee (wel `actions`) | enkel-VDS | flux-API uitbreiden |
+| sluiten | `vl-close`, blijft staan | `vl-alert-closed`, verwijdert zichzelf | overlap (ander gedrag) | API gelijk houden |
+
+### vl-tabs (flux-tabs)
+
+| functionaliteit | in VDS? | in flux? | status | actie |
+|---|---|---|---|---|
+| structuur | `vl-tab` + `vl-tabpanel` (`tab-id`) | `vl-tabs-pane` (`id` + `title`) | overlap (andere shape) | API gelijk houden (adapter delegeert) |
+| actieve tab | `active-tab` | `active-tab` | overlap | API gelijk houden |
+| stijl | `variant`, `density`, `grow`, `align`, `panel-align` | `alt` | overlap (andere shape) | flux-API uitbreiden |
+| verticaal (`orientation`, `collapsed-vertical`) | ja | nee | enkel-VDS | flux-API uitbreiden |
+| disabled tab, slots `before` / `after` | ja | nee | enkel-VDS | flux-API uitbreiden |
+| hash-links (`disable-links`) | nee | ja | enkel-flux | upstream-request (VDS) |
+| mobiele weergave | overflow-menu | `responsive-label`, `display-style` collapsed | overlap (ander gedrag) | flux-API uitbreiden |
+| event | `vl-change` (`detail.tab`) | `change` (`detail.activeTab`) | overlap (andere naam) | API gelijk houden (adapter vertaalt) |
+
+### vl-table (flux-table)
+
+| functionaliteit | in VDS? | in flux? | status | actie |
+|---|---|---|---|---|
+| styling van de native `<table>` | document-sheet op `vl-table table` | klasse `vl-table` op de `<table>` | overlap (andere shape) | toevoegen in derivative (upstream-verzoek 8) |
+| `zebra` | even rijen | oneven rijen (+ `flux-zebra`) | overlap (ander gedrag) | API gelijk houden |
+| `grid` | ja | ja | overlap | API gelijk houden |
+| `hover`, `matrix` | nee (hover altijd aan) | ja | enkel-flux | upstream-request (VDS) |
+| lijstweergave op mobiel | `layout` auto/list/table, één breakpoint | `collapsed-m` / `-s` / `-xs` | overlap (andere shape) | API gelijk houden (adapter zet het breakpoint) |
+| `loading`, `horizontal-scroll`, sticky | ja | nee | enkel-VDS | flux-API uitbreiden |
+| events `vl-table-sort`, `vl-table-scroll` | ja | nee | enkel-VDS | flux-API uitbreiden |
+| slots `empty` / `loading` | ja | nee | enkel-VDS | flux-API uitbreiden |
+| `expandDetails()` / `collapseDetails()` / `toggleDetails()` | nee | ja | enkel-flux | upstream-request (VDS) |
+
+De breakpoints die `flux-table` voor `collapsed-m`/`-s`/`-xs` zet (1023, 767 en 500px)
+zijn de standaard flux-breakpoints. Ze zijn niet uit de flux-CSS van `vl-table` zelf
+nagemeten.
+
+### Zonder flux-tegenhanger
+
+`vl-banner-message`, `vl-inline-message`, `vl-avatar` en `vl-grid` zijn nieuw voor flux.
+Hun adapter houdt de VDS-API en zet enkel de flux-basistokens (statuspalet, radius,
+focuskleur). Ze zijn kandidaat voor een nieuwe flux-component, met de VDS-API als
+vertrekpunt.
+

@@ -10,7 +10,8 @@ themeable), maar **een `::part` op het betrokken element is een aanvaardbaar
 alternatief** waarmee de consument het zelf kan bijsturen.
 
 Versie waarop dit is vastgesteld: `@govflanders/vl-ui-design-system-web-components`
-**0.6.0** (build van `origin/develop`).
+**0.6.0** (build van `origin/develop`) voor de punten 1 tot 6, **0.15.0** (release-tag op
+`master`) voor de punten 7 tot 11. Punt 6 is opnieuw nagekeken op 0.15.0.
 
 Context: de knop (`vl-button`) is WEL volledig matchbaar via bestaande tokens
 (radius, border-width, padding) en staat dus niet in deze lijst.
@@ -149,6 +150,10 @@ Kan weg zodra VDS de breedte/offset tokeniseert en de mixin de flux-kleur laat t
   `flux-radio` om te stylen en de group kan niet in de radio-shadow reiken. Blijft VDS-default (2px/0px).
   Vergt upstream (tokeniseren of `VlRadio` exposen).
 
+**Stand op 0.15.0:** VDS gebruikt nu zelf een outline van 3px breed op input, textarea en select
+(gemeten in de parity-tests). De offset (ongeveer 3.2px tegenover 2px bij flux) en de kleur wijken
+nog af, dus het verzoek om ze te tokeniseren blijft staan.
+
 ---
 
 ## 4. Reeds bekend bij VDS (geen actie gevraagd, ter volledigheid)
@@ -282,6 +287,85 @@ Twee samenhangende problemen als de VDS-componenten onder een custom prefix (`vd
 **Verzoek:** maak de check-kleur-selector prefix-aware (of expose de check als `::part`), en tokeniseer de
 box-grootte (of laat ze meeschalen via `--global-font-size-scaled-base`), zodat een consument onder een
 custom prefix zowel het zichtbare vinkje als de correcte grootte krijgt.
+
+**Stand op 0.15.0:** probleem 1 is opgelost, de selector is nu `.vl-checkbox__check` (class in plaats van
+tag). Probleem 2 staat nog open: de box-grootte is nog altijd `1.125rem`.
+
+---
+
+## 7. Tabs: kinderen gezocht op de exacte tagnaam
+
+**Component:** `vl-tabs` (met `vl-tab` en `vl-tabpanel`)
+**Bron:** `vl-tabs.component` (`:scope > ${VlTab.elementName}`, `closest(VlTab.elementName)`)
+
+`vl-tabs` vindt zijn tabs en panelen op de exacte tagnaam waaronder `VlTab` en `VlTabpanel`
+geregistreerd zijn. Een component die van `VlTab` erft maar onder een eigen tag geregistreerd
+staat (zoals `flux-tab`), wordt daardoor nooit gevonden. Overerving is voor tabs dus onmogelijk;
+flux moet delegeren (een eigen element dat intern `vds-tabs` rendert).
+
+**Verzoek:** zoek de kinderen op type in plaats van op tagnaam, bv. met `instanceof VlTab`. VDS
+doet dat al zo in `vl-input-group` (`element instanceof VlFormLayoutElement`). `vl-radio-group`
+heeft hetzelfde patroon als tabs (`querySelectorAll(VlRadio.elementName)`).
+
+---
+
+## 8. Table: document-styles hardcoded op `vl-table`
+
+**Component:** `vl-table`
+**Bron:** `vl-table-slotted.styles` (`lightStyles`, `injectLightStyles()`)
+
+De styling van de echte `<table>` die de afnemer in `vl-table` zet, staat in een document-sheet
+met de selector `vl-table table { ... }`. Die tagnaam is hardcoded. Twee gevolgen:
+
+1. Onder een custom prefix (`vds-table`) of in een component die van `VlTable` erft
+   (`flux-table`) krijgt de tabel geen styling.
+2. De sheet wordt in het hele document geïnjecteerd. Op een pagina waar flux zijn eigen
+   `vl-table` heeft, stylet die VDS-sheet dus ook de flux-tabel mee.
+
+De playground omzeilt het door `lightStyles` te kopiëren met `flux-table` als selector, en de
+geïnjecteerde VDS-sheet daarna weer uit `document.adoptedStyleSheets` te halen.
+
+**Verzoek:** bouw `lightStyles` op met de runtime `elementName` van de component (die kent
+`VlTable` al), zodat de selector de werkelijke tagnaam volgt.
+
+---
+
+## 9. Tags: achtergrond en rand delen één token, geen publieke vormtokens
+
+**Componenten:** `vl-informative-tag`, `vl-removable-tag`, `vl-selectable-tag`, `vl-clickable-tag`
+**Bron:** `core/vl-tag/vl-tag.styles`
+
+De statuskleuren lopen via private variabelen (`--_tag-bg`, `--_tag-border`) die op het element
+zelf gezet worden. Bij de informative-tag gebruikt de rand dezelfde token als de achtergrond,
+dus een witte tag met een grijze rand (de flux-look) is via tokens onmogelijk. Hoogte, padding
+en radius hebben geen eigen tokens. `flux-pill` stylet daarom alles via `::part(base)`.
+
+**Verzoek:** aparte, publieke tokens voor achtergrond, rand, tekstkleur, radius en hoogte van
+een tag, per status.
+
+---
+
+## 10. Collapsible en section-message: enkel named slots
+
+**Componenten:** `vl-collapsible` (slots `trigger`, `content`, `actions`), `vl-section-message`
+(slots `title`, `body`, `footer`)
+
+De inhoud moet in een named slot. Inhoud zonder `slot`-attribuut wordt niet getoond. flux
+gebruikt voor dezelfde componenten (`vl-accordion`, `vl-alert`) de default slot, dus de adapters
+moeten de light DOM van de afnemer herschikken (slot-attributen zetten) om zonder wijziging voor
+afnemers te werken.
+
+**Verzoek:** laat de default slot vallen op `content` respectievelijk `body`.
+
+---
+
+## 11. Status-naam niet consistent: `error` tegenover `danger`
+
+De tags gebruiken `status="error"`, de messages (`vl-section-message`, `vl-banner-message`,
+`vl-inline-message`) en `vl-avatar` gebruiken `status="danger"`. Dezelfde betekenis heeft dus
+twee namen binnen VDS zelf. flux gebruikt overal `error`.
+
+**Verzoek:** één naam voor alle componenten, of beide waarden aanvaarden.
 
 ---
 

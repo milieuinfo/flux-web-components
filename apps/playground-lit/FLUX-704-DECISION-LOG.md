@@ -61,7 +61,7 @@ prefix is vrij; enige eis is niet botsen met flux' `vl-`. Mechanische rename (ge
 caveats), onze eigen `vds-form-demo`/bestandsnamen bevatten geen "vlds" dus veilig.
 
 ## 6. Tarball committed in `vendor/`
-**Beslissing:** de 0.6.0-tarball ligt in `apps/playground-lit/vendor/` en `package.json` wijst naar
+**Beslissing:** de tarball (eerst 0.6.0, sinds #31 0.15.0) ligt in `apps/playground-lit/vendor/` en `package.json` wijst naar
 `file:apps/playground-lit/vendor/...tgz`.
 **Waarom:** de dep was eerst een absoluut pad naar een producer-worktree op deze machine → niet
 herbruikbaar in CI/andere checkouts. Een gecommitte tarball is machine-onafhankelijk. (VDS 0.6.0
@@ -506,6 +506,38 @@ shadow van de datepicker zit (geen extra shadow-grens voor de kleur-cascade; wel
 
 **Iframes hoger op vraag**: datepicker 430→520px, select 200→300px (extra lucht rond de popover/dropdown).
 
+## 31. VDS-bump naar 0.15.0 (release-tag)
+**Beslissing:** de tarball in `vendor/` is nu een build van de 0.15.0-release (tag op `master`), niet
+langer de 0.6.0-build van `develop`.
+**Waarom:** 0.15.0 is een echte release met afgewerkte changelog en correct versienummer. `develop`
+stond op dat moment nog op versie 0.6.0, wat een tarball met dezelfde naam zou geven. De bump bracht
+de breaking changes van 0.11 (`size` wordt `s`/`m`/`l`) en 0.12 (`ghost` wordt `quaternary`); de
+adapters mappen de flux-API daarom op de nieuwe waarden.
+
+## 32. Nieuwe componenten: flux-API houden, delegeren waar erven niet kan
+**Beslissing:** voor elke nieuwe VDS-component met een flux-tegenhanger neemt de `flux-*`-adapter de
+flux-API over. `flux-pill` en `flux-tabs` renderen de VDS-component intern in plaats van ervan te erven.
+**Waarom:** het doel van FLUX-704 is dat afnemers niets wijzigen. De gebruiker koos voor een
+delegerende `flux-pill` (één flux-component met modes tegenover vier VDS-tags). Bij tabs is erven
+technisch onmogelijk, omdat VDS zijn tabs op de exacte tagnaam zoekt (upstream-verzoek 7). Componenten
+zonder flux-tegenhanger krijgen ook een adapter, met de VDS-API en de flux-basistokens, als kandidaat
+voor een nieuwe flux-component.
+
+## 33. Font-alias centraal op VlIcon in plaats van per adapter
+**Beslissing:** vóór `defineAll('vds')` krijgt `VlIcon.styles` de font-alias-regel mee, zodat elke
+`vds-icon` op de pagina de alias gebruikt, ook de iconen die VDS-componenten intern nesten.
+**Waarom:** de nieuwe componenten (collapsible, tags, messages, tabs) nesten allemaal iconen. Per
+adapter de alias injecteren zoals bij datepicker en checkbox schaalt niet. De bestaande per-adapter
+aanroepen blijven werken en zijn nu overbodig maar onschadelijk.
+
+## 34. flux-table: VDS-document-styles gekopieerd, het lek naar flux vl-table verwijderd
+**Beslissing:** `flux-table` injecteert een kopie van de VDS-`lightStyles` met `flux-table` als
+selector, en haalt de door VDS geïnjecteerde `vl-table table`-sheet weer uit het document.
+**Waarom:** VDS hardcodeert `vl-table` in die sheet (upstream-verzoek 8). Zonder kopie blijft de tabel
+in `flux-table` ongestyled; zonder opruimen stylet de VDS-sheet de echte flux `vl-table` mee. Bij het
+meten bleek de flux-tabel in de playground zelfs alleen gestyled door dat lek: de demo miste
+`class="vl-table"`, die flux van de afnemer verwacht.
+
 ## Terugkerende valkuilen / lessen
 - **Preview-tool onbetrouwbaar:** de webpack-devServer bindt de default-poort (8080/volgende vrije),
   niet de 8084 uit launch.json → de preview-browser is vaak onbereikbaar (chrome-error). We
@@ -516,5 +548,8 @@ shadow van de datepicker zit (geen extra shadow-grens voor de kleur-cascade; wel
 - **rem vs px in tests:** Cypress draait op 16px-root, de echte pagina op 10px-root. rem-gebaseerde
   waarden verschillen dus tussen test en pagina; asserties op px-waarden of op "wijkt af van X" i.p.v.
   hardcoded rem-afgeleiden.
+- **Dev-server en node_modules:** wie de VDS-package in `node_modules` tijdelijk vervangt (bv. voor een
+  baseline-test), moet de dev-server daarna herstarten. De watcher pikt het terugzetten niet altijd op
+  en blijft de oude versie serveren.
 - **Selector-specificiteit bij overrides:** VDS nest z'n selectors (`.vl-link .vl-link__slot`), dus een
   bare `.vl-link__slot`-override verliest de cascade. Match de nesting.
