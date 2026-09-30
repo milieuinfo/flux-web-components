@@ -1,0 +1,244 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Richtlijnen/Toegankelijkheid - Praktijk/Testen"/>
+
+# Testen
+
+Toegankelijkheid test je in twee lagen: geautomatiseerde checks vangen af wat een machine kan zien, manuele
+checks vangen de rest. Die tweede laag is niet optioneel.
+
+> **Een groene score bewijst geen conformiteit.** Tools als Lighthouse en axe controleren enkel machinaal
+  verifieerbare regels - een deel van de WCAG-succescriteria. Alles wat context vraagt (is dit tekstalternatief
+  zinvol? klopt de voorleesvolgorde? is deze foutmelding bruikbaar?) moet je zelf nakijken.
+
+## Inhoudstafel
+
+- [Automatisch testen](#automatisch-testen)
+- [Keyboard-only](#keyboard-only)
+- [VoiceOver](#voiceover)
+- [Browser-extensies](#browser-extensies)
+- [Kleurenblindheid emuleren](#kleurenblindheid-emuleren)
+
+## Automatisch testen
+
+### Lighthouse
+
+Chrome DevTools, tab **Lighthouse**, categorie **Accessibility** aanvinken en **Analyze page load**. Achterliggend
+draait axe-core. Dit is de snelste manier om een volledige pagina in de context van je eigen applicatie te
+controleren - dus ook de samenstelling van componenten, wat een component-test niet doet.
+
+Lighthouse herlaadt de pagina, dus toestanden die pas na interactie ontstaan (een open modal, validatiefouten,
+een uitgeklapte accordion) vang je er niet mee. Gebruik daarvoor de axe DevTools-extensie of een Cypress-test.
+
+### Storybook Accessibility-paneel
+
+Elke story heeft onderaan een **Accessibility**-paneel, geleverd door `@storybook/addon-a11y`. Het draait axe-core
+op de gerenderde story en groepeert de resultaten in Violations, Passes en Incomplete.
+
+Gebruik dit tijdens het ontwikkelen van een component: je ziet per variant meteen het effect van een wijziging,
+zonder de component eerst in een applicatie te moeten inbouwen.
+
+### Cypress met axe
+
+In je Cypress-testen verifieer je toegankelijkheid met [cypress-axe](https://github.com/component-driven/cypress-axe),
+dat achterliggend [axe-core](https://github.com/dequelabs/axe-core) gebruikt. Installeer `cypress-axe` en `axe-core`
+als devDependency en importeer `cypress-axe` in je Cypress support-bestand.
+
+Na het laden van de pagina injecteer je axe met `injectAxe()` en verifieer je met `checkA11y()`:
+
+```ts
+it('should be accessible', () => {
+    cy.visit('/aanvraag');
+    cy.injectAxe();
+
+    cy.checkA11y();
+});
+```
+
+Zonder argument scant `checkA11y()` de hele pagina; met een selector, bv. `cy.checkA11y('vl-side-sheet')`, beperk je
+de controle tot één onderdeel. Roep `checkA11y()` opnieuw aan na een interactie om ook die toestand te controleren.
+
+## Keyboard-only
+
+Leg de muis weg en doorloop de volledige flow met enkel het toetsenbord.
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Toets</th>
+            <th scope="col">Actie</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>tab</code> / <code>shift</code>+<code>tab</code></td>
+            <td>Naar het volgende / vorige focusbare element</td>
+        </tr>
+        <tr>
+            <td><code>enter</code></td>
+            <td>Links en knoppen activeren, een formulier verzenden</td>
+        </tr>
+        <tr>
+            <td><code>space</code></td>
+            <td>Knoppen activeren, checkboxen aan- en uitzetten, een select openen</td>
+        </tr>
+        <tr>
+            <td>pijltjestoetsen</td>
+            <td>Navigeren binnen een samengestelde widget: radio-groep, tabs, select-opties, datepicker</td>
+        </tr>
+        <tr>
+            <td><code>esc</code></td>
+            <td>Een overlay sluiten: modal, side-sheet, popover</td>
+        </tr>
+    </tbody>
+</table>
+
+Waar je op let:
+
+- Is elk interactief element bereikbaar, en volgt de tab-volgorde de visuele volgorde?
+- Is de focus **altijd zichtbaar**, ook boven een sticky header of binnen een scrollbaar paneel?
+- Raak je nergens vast? Uit elk onderdeel moet je ook weer weg kunnen - zie
+  [2.1 Toetsenbordtoegankelijk](/docs/richtlijnen-toegankelijkheid-aanpak-2-bedienbaar-2-1-toetsenbordtoegankelijk--documentatie).
+- Verspringt de focus bij het openen van een overlay mee naar die overlay, en komt hij bij het sluiten terug op
+  het element dat ze opende?
+- Kan je met het toetsenbord bij alles wat enkel op hover verschijnt?
+
+> Op Safari kan je met de standaardinstellingen geen focus leggen op niet-tekstuele inputs zoals knoppen,
+  checkboxen en radio's. Zie
+  [Gekende Beperkingen](/docs/richtlijnen-toegankelijkheid-praktijk-gekende-beperkingen-wip--documentatie#focus-op-niet-tekstuele-inputs)
+  voor de workaround, zodat je dit niet als een fout in je applicatie interpreteert.
+
+## VoiceOver
+
+VoiceOver is de screenreader die standaard op macOS aanwezig is - je hebt niets te installeren. De **VO-toets** is
+de combinatie `ctrl`+`option`; die hou je ingedrukt samen met de toets uit de tabel hieronder.
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Actie</th>
+            <th scope="col">Toetsen</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>VoiceOver starten en stoppen</td>
+            <td><code>cmd</code>+<code>F5</code></td>
+        </tr>
+        <tr>
+            <td>Naar het volgende / vorige element</td>
+            <td><code>VO</code>+<code>→</code> / <code>VO</code>+<code>←</code></td>
+        </tr>
+        <tr>
+            <td>Een groep binnengaan</td>
+            <td><code>VO</code>+<code>shift</code>+<code>↓</code></td>
+        </tr>
+        <tr>
+            <td>Een groep verlaten</td>
+            <td><code>VO</code>+<code>shift</code>+<code>↑</code></td>
+        </tr>
+        <tr>
+            <td>Het element onder de VoiceOver-cursor activeren</td>
+            <td><code>VO</code>+<code>space</code></td>
+        </tr>
+        <tr>
+            <td>Voorlezen vanaf de huidige positie</td>
+            <td><code>VO</code>+<code>A</code></td>
+        </tr>
+        <tr>
+            <td>Het voorlezen pauzeren en hervatten</td>
+            <td><code>ctrl</code></td>
+        </tr>
+        <tr>
+            <td>De Rotor openen en sluiten</td>
+            <td><code>VO</code>+<code>U</code></td>
+        </tr>
+        <tr>
+            <td>In de Rotor van lijst wisselen</td>
+            <td><code>←</code> / <code>→</code></td>
+        </tr>
+        <tr>
+            <td>In de Rotor een item kiezen</td>
+            <td><code>↑</code> / <code>↓</code>, daarna <code>enter</code></td>
+        </tr>
+    </tbody>
+</table>
+
+### De Rotor
+
+De Rotor (`VO`+`U`) toont de pagina als een reeks lijsten: onder meer **Kopteksten**, **Links**,
+**Formulierregelaars**, **Kaders** en **Oriëntatiepunten**. Het is de snelste manier om te controleren of de
+structuur van je pagina klopt, want die lijsten zijn precies waarmee een screenreader-gebruiker navigeert:
+
+- **Kopteksten** - lees je hier een logische inhoudsopgave van de pagina? Zo niet, dan kloppen je heading-niveaus
+  niet of staan er koppen puur voor de opmaak.
+- **Links** - zeggen de linkteksten ook iets los van hun context? "Lees meer" komt hier terecht als een rij
+  identieke, betekenisloze items.
+- **Formulierregelaars** - draagt elke control een herkenbaar label?
+- **Oriëntatiepunten** - heeft de pagina een banner, navigatie, main en footer, zodat de gebruiker in één sprong
+  naar de inhoud kan?
+
+> De shortcuts hierboven zijn opgesteld op macOS 26. VoiceOver-shortcuts wijzigen zelden, maar de benamingen en
+  de samenstelling van de Rotor-lijsten verschillen licht per macOS-versie.
+
+## Browser-extensies
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Tool</th>
+            <th scope="col">Waarvoor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="https://www.deque.com/axe/devtools/">axe DevTools</a> (Deque)</td>
+            <td>
+                axe-core als DevTools-paneel. Scant de pagina in haar huidige toestand, dus ook na interactie -
+                het aanvullende alternatief voor Lighthouse bij modals, panelen en validatiefouten.
+            </td>
+        </tr>
+        <tr>
+            <td><a href="https://wave.webaim.org/extension/">WAVE</a> (WebAIM)</td>
+            <td>
+                Legt de bevindingen als iconen bovenop de pagina zelf, wat snel toont <em>waar</em> een probleem
+                zit.
+            </td>
+        </tr>
+        <tr>
+            <td><a href="https://www.tpgi.com/color-contrast-checker/">Colour Contrast Analyser</a> (TPGi)</td>
+            <td>
+                Desktop-app met een pipet: meet contrast op eender welke pixel, ook op afbeeldingen, kaarten en
+                canvas - waar een DOM-gebaseerde tool niets kan meten.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://chromewebstore.google.com/detail/headingsmap/flbjommegcjonpdmenkdiocclhjacmbi">
+                    HeadingsMap
+                </a>
+            </td>
+            <td>Toont de koppenstructuur als boom, zodat overgeslagen niveaus meteen opvallen.</td>
+        </tr>
+    </tbody>
+</table>
+
+> **Let op met Shadow DOM.** Flux-componenten renderen hun inhoud in een shadow root. axe-core doorloopt die -
+  Lighthouse, het Storybook-paneel, axe DevTools en de Cypress-commando's zien de component dus volledig. Tools
+  die de pagina-HTML rechtstreeks parsen, zoals de outline- en koppen-extensies, zien die inhoud vaak niet. Een
+  lege koppenboom betekent daarom niet noodzakelijk dat er koppen ontbreken; verifieer dat met de
+  VoiceOver-Rotor of met de element-inspector van DevTools.
+
+## Kleurenblindheid emuleren
+
+In Chrome DevTools: het menu **⋮** rechtsboven in DevTools, dan **More tools > Rendering**, en daar **Emulate
+vision deficiencies**. Je kiest tussen protanopie, deuteranopie, tritanopie, achromatopsie, wazig zicht en
+verminderd contrast.
+
+Waar je op let: draag je ergens informatie **enkel** met kleur over? Denk aan statuskleuren, een grafieklegende,
+gekleurde labels of een rode rand rond een ongeldig veld. In de emulatie moet elk van die signalen nog steeds
+leesbaar zijn dankzij een tweede kenmerk: tekst, een icoon, een patroon of een vorm.
+
+Meer hierover staat bij
+[1.4 Onderscheidbaar](/docs/richtlijnen-toegankelijkheid-aanpak-1-waarneembaar-1-4-onderscheidbaar--documentatie)
+en bij [Kleurgebruik in grafieken](/docs/styles-kleurenpalet--documentatie#kleurgebruik-in-grafieken).
