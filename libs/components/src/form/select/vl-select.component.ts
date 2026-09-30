@@ -1,5 +1,5 @@
 import { webComponent } from '@domg-wc/common';
-import { vlResetStyles } from '@domg-wc/styles';
+import { vlAccessibilityStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
@@ -28,7 +28,7 @@ export class VlSelectComponent extends FormControl {
     private parsedOptions: SelectOption[] = [];
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlIconStyles, vlSelectComponentStyles];
+        return [vlResetStyles, vlAccessibilityStyles, vlIconStyles, vlSelectComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -110,6 +110,7 @@ export class VlSelectComponent extends FormControl {
                     name=${this.name || nothing}
                     class=${classMap(selectClasses)}
                     aria-label=${this.label || nothing}
+                    aria-describedby=${this.describedByIds}
                     aria-invalid=${this.isInvalid || nothing}
                     ?required=${this.required}
                     ?disabled=${this.disabled}
@@ -129,6 +130,7 @@ export class VlSelectComponent extends FormControl {
             <div class="slot-container">
                 <slot @slotchange=${this.onSlotChange}></slot>
             </div>
+            ${this.renderDescription()}
         `;
     }
 

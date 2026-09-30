@@ -1,5 +1,5 @@
 import { webComponent } from '@domg-wc/common';
-import { vlResetStyles } from '@domg-wc/styles';
+import { vlAccessibilityStyles, vlResetStyles } from '@domg-wc/styles';
 import { maxLengthValidator, minLengthValidator } from '@open-wc/form-control';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
@@ -33,7 +33,7 @@ export class VlTextareaComponent extends FormControl {
     static formControlValidators = [...FormControl.formControlValidators, minLengthValidator, maxLengthValidator];
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlTextareaComponentStyles];
+        return [vlResetStyles, vlAccessibilityStyles, vlTextareaComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -90,6 +90,7 @@ export class VlTextareaComponent extends FormControl {
                 name=${this.name || nothing}
                 class=${classMap(classes)}
                 aria-label=${this.label || nothing}
+                aria-describedby=${this.describedByIds}
                 aria-invalid=${this.isInvalid || nothing}
                 ?required=${this.required}
                 ?disabled=${this.disabled}
@@ -105,6 +106,7 @@ export class VlTextareaComponent extends FormControl {
                 @input=${this.onInput}
             ></textarea>
             ${this.characterCount && this.maxLength != null ? this.renderCharacterCount(this.maxLength) : nothing}
+            ${this.renderDescription()}
         `;
     }
 

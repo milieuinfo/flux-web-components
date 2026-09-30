@@ -1,5 +1,5 @@
 import { webComponent } from '@domg-wc/common';
-import { vlResetStyles } from '@domg-wc/styles';
+import { vlAccessibilityStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
@@ -24,7 +24,7 @@ export class VlCheckboxComponent extends FormControl {
     private dispatchInput = false;
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlIconStyles, vlCheckboxComponentStyles];
+        return [vlResetStyles, vlAccessibilityStyles, vlIconStyles, vlCheckboxComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -81,7 +81,9 @@ export class VlCheckboxComponent extends FormControl {
     }
 
     render(): TemplateResult {
-        return html` ${!this.isSwitch ? this.renderCheckboxDefault() : this.renderCheckboxSwitch()} `;
+        return html`
+            ${!this.isSwitch ? this.renderCheckboxDefault() : this.renderCheckboxSwitch()} ${this.renderDescription()}
+        `;
     }
 
     resetFormControl() {
@@ -108,6 +110,7 @@ export class VlCheckboxComponent extends FormControl {
                     class="vl-checkbox__toggle"
                     type="checkbox"
                     aria-label=${this.label || nothing}
+                    aria-describedby=${this.describedByIds}
                     aria-invalid=${this.isInvalid || nothing}
                     ?required=${this.required}
                     ?disabled=${this.disabled}
@@ -152,6 +155,7 @@ export class VlCheckboxComponent extends FormControl {
                     type="checkbox"
                     class="vl-checkbox--switch"
                     role="switch"
+                    aria-describedby=${this.describedByIds}
                     ?required=${this.required}
                     ?disabled=${this.disabled}
                     ?error=${this.error}

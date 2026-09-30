@@ -1,6 +1,7 @@
 import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
 import * as VlTextAreaStories from './vl-textarea.stories';
 import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
+import FormControlDescribedby from '../../form-control/stories/form-control.describedby-doc.mdx'
 
 # Textarea
 
@@ -46,6 +47,18 @@ toegankelijk aangekondigd voor screenreader-gebruikers.
 ## Publieke methodes
 
 <FormControlPublicMethods />
+
+
+## Beschrijving
+
+<FormControlDescribedby />
+
+```html
+<vl-textarea label="Opmerkingen" describedby="opmerkingen-info"></vl-textarea>
+<vl-form-message variant="annotation" id="opmerkingen-info">
+    Vermeld hier geen persoonsgegevens.
+</vl-form-message>
+```
 
 
 ## Validatie

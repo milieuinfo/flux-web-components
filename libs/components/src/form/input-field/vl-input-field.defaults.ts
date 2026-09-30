@@ -17,5 +17,4 @@ export const inputFieldDefaults = {
     pattern: '' as string,
     inputGroup: false as boolean,
     regex: null as RegExp | null,
-    describedby: '' as string,
 } as const;

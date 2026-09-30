@@ -1,6 +1,6 @@
 import { findNodesForSlot, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlIconComponent, vlLinkStyles } from '@domg-wc/components/atom';
-import { vlLayoutStyles, vlResetStyles } from '@domg-wc/styles';
+import { vlAccessibilityStyles, vlLayoutStyles, vlResetStyles } from '@domg-wc/styles';
 import { Validator } from '@open-wc/form-control';
 import { FormValue } from '@open-wc/form-control/src/types';
 import DropzoneImport from 'dropzone';
@@ -77,6 +77,7 @@ export class VlUploadComponent extends FormControl {
     static get styles(): CSSResult[] {
         return [
             vlResetStyles,
+            vlAccessibilityStyles,
             ...vlLayoutStyles,
             vlTextStyles,
             vlLinkStyles('.vl-upload__button'),
@@ -207,6 +208,10 @@ export class VlUploadComponent extends FormControl {
             );
         }
 
+        // De input en de uploadknop komen uit Dropzone, niet uit de Lit-template, dus aria-describedby
+        // kan er niet declaratief op gebonden worden.
+        this.updateDescribedBy();
+
         if (changedProperties.has('autoProcess')) {
             if (this.dropzoneInstance) this.dropzoneInstance.options.autoProcessQueue = this.autoProcess;
             this.shadowRoot?.querySelectorAll('vl-upload-progress').forEach((uploadProgressElement) => {
@@ -277,6 +282,7 @@ export class VlUploadComponent extends FormControl {
                     <vl-icon icon="trash" right-margin aria-hidden="true"></vl-icon>Verwijder alle bestanden
                 </button>
             </div>
+            ${this.renderDescription()}
         `;
     }
 
@@ -409,6 +415,18 @@ export class VlUploadComponent extends FormControl {
         } else {
             this.validationTarget?.removeAttribute('aria-invalid');
         }
+    }
+
+    private updateDescribedBy() {
+        const ids = this.describedByIds;
+
+        [this.getInput(), this.getUploadButton()].forEach((element) => {
+            if (typeof ids === 'string') {
+                element?.setAttribute('aria-describedby', ids);
+            } else {
+                element?.removeAttribute('aria-describedby');
+            }
+        });
     }
 
     private updateInputForAttribute(attribute: string) {

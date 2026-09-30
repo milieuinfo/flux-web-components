@@ -1,10 +1,13 @@
 import { formControlDefaults } from './form-control.defaults';
 import { FormControlMixin, programmaticValidator, requiredValidator } from '@open-wc/form-control';
-import { LitElement, PropertyDeclarations } from 'lit';
+import { html, LitElement, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { submit } from '@open-wc/form-helpers';
 import { FORM_MESSAGE_CUSTOM_TAG } from '../form-message/vl-form-message.component';
-import { BaseLitElement } from '@domg-wc/common';
+import { BaseLitElement, findDeepestElementThroughShadowRoot } from '@domg-wc/common';
 import 'reflect-metadata';
+
+const DESCRIPTION_ID = 'description';
+const VALIDATION_MESSAGE_ID = 'validation-message';
 
 export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     // Attributes
@@ -17,9 +20,13 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     protected success = formControlDefaults.success;
     /** Validate on blur (after focus) with live recovery, instead of only on submit. */
     protected blurValidation = formControlDefaults.blurValidation;
+    /** Id of a light DOM element whose text is mirrored into the shadow root and linked via aria-describedby. */
+    protected describedby = formControlDefaults.describedby;
 
     // State
     protected isInvalid = false;
+    private description = '';
+    private validationDescription = '';
 
     // Sticky once true (reset via resetFormControl). Enables live re-validation on input after the first error.
     private erroredOnce = false;
@@ -35,6 +42,8 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     private formMessageRefreshScheduled = false;
 
     private blurValidationTimeout?: ReturnType<typeof setTimeout>;
+
+    private describerObserver?: MutationObserver;
 
     // Variables
     protected submitFormOnEnter = true;
@@ -54,7 +63,10 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
             error: { type: Boolean },
             success: { type: Boolean },
             blurValidation: { type: Boolean, attribute: 'blur-validation' },
+            describedby: { type: String },
             isInvalid: { type: Boolean, state: true },
+            description: { type: String, state: true },
+            validationDescription: { type: String, state: true },
         };
     }
 
@@ -69,6 +81,8 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     }
 
     disconnectedCallback() {
+        this.describerObserver?.disconnect();
+
         super.disconnectedCallback();
 
         this.removeEventListener('keydown', this.onKeydown);
@@ -101,6 +115,10 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     updated(changedProperties: Map<string, unknown>) {
         super.updated(changedProperties);
 
+        if (changedProperties.has('describedby')) {
+            this.syncDescriber();
+        }
+
         if (this.retainsValidationState) {
             // update error after programmatic value change (no vl-input fired).
             if (this.isInvalid && !changedProperties.has('isInvalid')) {
@@ -116,6 +134,35 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     }
 
     abstract get validationTarget(): HTMLElement | undefined | null;
+
+    /** Bind on the element that should carry the accessible description, usually the validation target. */
+    protected get describedByIds(): string | typeof nothing {
+        if (!this.description) {
+            return nothing;
+        }
+
+        return this.validationDescription ? `${DESCRIPTION_ID} ${VALIDATION_MESSAGE_ID}` : DESCRIPTION_ID;
+    }
+
+    /**
+     * Render in the same root as the element that describedByIds is bound on, so the IDREF resolves.
+     * De kopieën zijn hidden: aria-describedby gebruikt hun tekst toch, en de originele elementen in de
+     * light DOM blijven zo de enige die een screenreader los van het veld kan lezen.
+     */
+    protected renderDescription(): TemplateResult | typeof nothing {
+        if (!this.description) {
+            return nothing;
+        }
+
+        const validationMessage = this.validationDescription
+            ? html`<span id=${VALIDATION_MESSAGE_ID} hidden>${this.validationDescription}</span>`
+            : nothing;
+
+        return html`
+            <span id=${DESCRIPTION_ID} hidden>${this.description}</span>
+            ${validationMessage}
+        `;
+    }
 
     /**
      * True when `blur-validation` is set on this control, or when the associated
@@ -245,7 +292,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
     private showFormMessage() {
         // Error en success sluiten elkaar uit: verberg eerst alles, toon dan de error.
-        this.hideFormMessages();
+        this.clearFormMessages();
 
         let errorState = '';
 
@@ -277,6 +324,8 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
             this.validationTarget?.removeAttribute('aria-description');
         }
 
+        this.syncValidationDescription();
+
         errorMessage?.setAttribute('validation-message', this.validationMessage);
         errorMessage?.setAttribute('show', '');
     }
@@ -303,13 +352,14 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     private showSuccessMessage() {
         // Altijd eerst verbergen: ook als er geen success-boodschap gedefinieerd is moet een
         // eerder getoonde foutmelding verdwijnen zodra de control geldig wordt.
-        this.hideFormMessages();
+        this.clearFormMessages();
 
         const successMessage = this.form?.querySelector(
             `${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"][state="valid"]`
         );
 
         if (!successMessage) {
+            this.syncValidationDescription();
             return;
         }
 
@@ -319,10 +369,20 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
             this.validationTarget?.setAttribute('aria-description', this.formMessageText);
         }
 
+        this.syncValidationDescription();
+
         successMessage.setAttribute('show', '');
     }
 
     private hideFormMessages() {
+        this.clearFormMessages();
+        this.syncValidationDescription();
+    }
+
+    // Synct validationDescription bewust niet: wie hierna een nieuwe boodschap toont, mag de reactive
+    // state niet eerst leegmaken en dan opnieuw vullen, want dat plant bij elke hervalidatie in updated()
+    // een nieuwe update in en veroorzaakt zo een oneindige update-lus.
+    private clearFormMessages() {
         // Annotation-messages zijn louter informatief en blijven altijd zichtbaar; nooit verbergen.
         const formMessages = this.form?.querySelectorAll(
             `${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"]:not([variant="annotation"])`
@@ -334,5 +394,45 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         formMessages?.forEach((formMessage) => {
             formMessage.removeAttribute('show');
         });
+    }
+
+    private syncDescriber() {
+        this.describerObserver?.disconnect();
+
+        const describer = this.findDescriber();
+
+        this.setDescription(describer?.textContent?.trim() ?? '');
+
+        if (!describer) {
+            return;
+        }
+
+        this.describerObserver = new MutationObserver(() => {
+            this.setDescription(describer.textContent?.trim() ?? '');
+        });
+        this.describerObserver.observe(describer, { characterData: true, childList: true, subtree: true });
+    }
+
+    private findDescriber(): HTMLElement | null {
+        if (!this.describedby) {
+            return null;
+        }
+
+        const selector = `#${CSS.escape(this.describedby)}`;
+        const root = this.getRootNode() as Document | ShadowRoot;
+
+        return (root.querySelector(selector) ??
+            findDeepestElementThroughShadowRoot(this.parentElement, selector)) as HTMLElement | null;
+    }
+
+    private setDescription(text: string) {
+        this.description = text;
+        this.syncValidationDescription();
+    }
+
+    // aria-describedby wint van aria-description in de accessible description computation, dus zodra er
+    // een beschrijving actief is moet de validatieboodschap mee in de aria-describedby keten.
+    private syncValidationDescription() {
+        this.validationDescription = this.description && this.formMessageText ? this.formMessageText : '';
     }
 }

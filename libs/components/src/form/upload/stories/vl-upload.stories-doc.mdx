@@ -1,6 +1,7 @@
 import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
 import * as VlUploadStories from './vl-upload.stories';
 import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
+import FormControlDescribedby from '../../form-control/stories/form-control.describedby-doc.mdx'
 
 # Upload
 
@@ -71,6 +72,18 @@ Event listener toevoegen aan de Dropzone instantie van het upload component.
 ### off(event: string, callback: (...args: unknown[]) => void)
 
 Event listener verwijderen van de Dropzone instantie van het upload component.
+
+
+## Beschrijving
+
+<FormControlDescribedby />
+
+```html
+<vl-upload label="Bijlage" describedby="bijlage-info"></vl-upload>
+<vl-form-message variant="annotation" id="bijlage-info">
+    Enkel pdf-bestanden, maximaal 5 MB.
+</vl-form-message>
+```
 
 
 ## Validatie
