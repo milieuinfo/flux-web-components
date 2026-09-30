@@ -33,7 +33,7 @@ export class VlAlertClosedEvent extends Event {
     static eventType = 'vl-alert-closed';
 
     constructor() {
-        super(VlAlertClosedEvent.eventType, { bubbles: true });
+        super(VlAlertClosedEvent.eventType, { bubbles: true, composed: true });
     }
 }
 

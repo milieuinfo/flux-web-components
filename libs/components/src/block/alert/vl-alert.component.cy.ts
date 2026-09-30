@@ -126,6 +126,37 @@ describe('cypress-component - block components - vl-alert', () => {
     });
 });
 
+describe('cypress-component - block components - vl-alert - vl-alert-closed event', () => {
+    it('should send a VlAlertClosedEvent that bubbles to a parent element', () => {
+        cy.mount(html`
+            <div id="parent">
+                <vl-alert closable title="Lorem ipsum"><p>Ipsum dolor sit amet.</p></vl-alert>
+            </div>
+        `);
+
+        cy.createStubForEvent('#parent', VlAlertClosedEvent.eventType);
+        cy.get('vl-alert').shadow().find('#close').click();
+
+        cy.get('vl-alert').should('not.exist');
+        cy.get('@' + VlAlertClosedEvent.eventType).should('have.been.calledOnce');
+    });
+
+    it('should send a VlAlertClosedEvent that reaches the host of a surrounding shadow root', () => {
+        cy.mount(html`<div id="host"></div>`);
+
+        cy.get('#host').then(($host) => {
+            $host[0].attachShadow({ mode: 'open' }).innerHTML =
+                '<vl-alert closable title="Lorem ipsum"><p>Ipsum dolor sit amet.</p></vl-alert>';
+        });
+
+        cy.createStubForEvent('#host', VlAlertClosedEvent.eventType);
+        cy.get('#host').shadow().find('vl-alert').shadow().find('#close').click();
+
+        cy.get('#host').shadow().find('vl-alert').should('not.exist');
+        cy.get('@' + VlAlertClosedEvent.eventType).should('have.been.calledOnce');
+    });
+});
+
 describe('cypress-component - block components - vl-alert - naked', () => {
     beforeEach(() => {
         cy.mount(html`
