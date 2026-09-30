@@ -49,7 +49,7 @@ describe('FLUX-704 - flux-link erft VlLink (inheritance)', () => {
         `);
         cy.get('flux-link[error]').shadow().find('a').invoke('attr', 'class').should('contain', 'vl-link--danger');
         cy.get('flux-link[external]').shadow().find('a').invoke('attr', 'target').should('eq', '_blank');
-        cy.get('flux-link[large]').shadow().find('a').invoke('attr', 'class').should('contain', 'vl-link--large');
+        cy.get('flux-link[large]').shadow().find('a').invoke('attr', 'class').should('contain', 'vl-link--l');
     });
 
     it('underline-kleur = flux-blauw via token, != VDS-default', () => {

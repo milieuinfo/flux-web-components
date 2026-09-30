@@ -75,8 +75,8 @@ describe('FLUX-704 - flux-button geometrie = flux-target, != rauw VDS', () => {
             cy.get(sel).shadow().find('[part="button"]').invoke('attr', 'class');
         innerClass('flux-button[secondary]').should('contain', 'vl-button--secondary');
         innerClass('flux-button[tertiary]').should('contain', 'vl-button--tertiary');
-        innerClass('flux-button[ghost]').should('contain', 'vl-button--ghost');
-        innerClass('flux-button[large]').should('contain', 'vl-button--large');
+        innerClass('flux-button[ghost]').should('contain', 'vl-button--quaternary');
+        innerClass('flux-button[large]').should('contain', 'vl-button--l');
         cy.get('flux-button[block]').invoke('attr', 'class').should('contain', 'vl-button--fill');
     });
 

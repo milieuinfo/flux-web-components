@@ -33,19 +33,20 @@ describe('FLUX-704 - focus-outline doorgetrokken naar flux-select/textarea', () 
             .shadow()
             .find('textarea.vl-textarea')
             .then(($t) => {
-                expect(getComputedStyle($t[0]).outlineWidth, 'VDS focus-breedte wijkt af').to.not.eq('3px');
+                expect(getComputedStyle($t[0]).outlineOffset, 'VDS focus-offset wijkt af').to.not.eq('2px');
             });
     });
 
-    it('flux-select focus: box-shadow-ring op vaste px (2px offset, ring tot 5px)', () => {
+    it('flux-select focus: outline width 3px + offset 2px, geen box-shadow', () => {
         cy.get('flux-select').shadow().find('select.vl-select').focus();
         cy.get('flux-select')
             .shadow()
             .find('select.vl-select')
             .then(($s) => {
-                const shadow = getComputedStyle($s[0]).boxShadow;
-                expect(shadow, 'binnenste witte ring op 2px').to.contain('2px');
-                expect(shadow, 'buitenste gekleurde ring op 5px').to.contain('5px');
+                const cs = getComputedStyle($s[0]);
+                expect(cs.outlineWidth, 'flux-select focus-breedte = 3px').to.eq('3px');
+                expect(cs.outlineOffset, 'flux-select focus-offset = 2px').to.eq('2px');
+                expect(cs.boxShadow, 'geen box-shadow-ring').to.eq('none');
             });
     });
 });

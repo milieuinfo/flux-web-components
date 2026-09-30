@@ -215,17 +215,17 @@ export class PgIconShowcase extends LitElement {
                                     ></iframe>
                                 </div>
                                 <div style="${iconCell}">
-                                    <flux-icon icon="${name}" size="large" ?scaled=${this.iconScaled}></flux-icon>
+                                    <flux-icon icon="${name}" large ?scaled=${this.iconScaled}></flux-icon>
                                 </div>
-                                <div style="${iconCell}"><vl-icon icon="${name}" size="large"></vl-icon></div>
+                                <div style="${iconCell}"><vl-icon icon="${name}" large></vl-icon></div>
                             `
                         )}
                     </div>
                     <p style="margin-top: 14px; font-size: 13px; color: #555; display: flex; align-items: center; gap: 6px;">
                         Groottes (<code>flux-icon</code>):
-                        <flux-icon icon="calendar" size="small"></flux-icon> small ·
-                        <flux-icon icon="calendar" size="medium"></flux-icon> medium ·
-                        <flux-icon icon="calendar" size="large"></flux-icon> large
+                        <flux-icon icon="calendar" small></flux-icon> small ·
+                        <flux-icon icon="calendar"></flux-icon> standaard ·
+                        <flux-icon icon="calendar" large></flux-icon> large
                     </p>
                     ${this.gapsOff
                         ? nothing

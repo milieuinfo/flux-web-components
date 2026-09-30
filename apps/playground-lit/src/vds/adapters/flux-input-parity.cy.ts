@@ -96,7 +96,7 @@ describe('FLUX-704 - flux-input erft VlInput (inheritance)', () => {
             .shadow()
             .find('.vl-input__wrapper')
             .then(($w) => {
-                expect(getComputedStyle($w[0]).outlineWidth, 'VDS focus-breedte wijkt af (0.25rem, niet flux 3px)').to.not.eq('3px');
+                expect(getComputedStyle($w[0]).outlineOffset, 'VDS focus-offset wijkt af (niet flux 2px)').to.not.eq('2px');
             });
     });
 });

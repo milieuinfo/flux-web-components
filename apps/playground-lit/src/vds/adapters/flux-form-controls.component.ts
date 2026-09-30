@@ -40,13 +40,13 @@ export class FluxSelect extends VlSelect {
                 outline-offset: 2px;
                 box-shadow: none;
             }
-            :host(:not([bare])) .vl-formfield__container--small .vl-select {
+            :host(:not([bare])) .vl-formfield__container--s .vl-select {
                 font-size: calc(var(--global-font-size-scaled-base, 1rem) * 0.875);
             }
-            :host(:not([bare])) .vl-formfield__container--medium .vl-select {
+            :host(:not([bare])) .vl-formfield__container--m .vl-select {
                 font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1);
             }
-            :host(:not([bare])) .vl-formfield__container--large .vl-select {
+            :host(:not([bare])) .vl-formfield__container--l .vl-select {
                 font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1.125);
             }
             :host(:not([bare])) .vl-select option {

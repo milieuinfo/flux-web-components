@@ -52,8 +52,8 @@ export class FluxButton extends VlButton {
         const vds = this as unknown as { variant: string; size: string; grow: string };
         if (this.secondary) vds.variant = 'secondary';
         else if (this.tertiary) vds.variant = 'tertiary';
-        else if (this.ghost) vds.variant = 'ghost';
-        if (this.large) vds.size = 'large';
+        else if (this.ghost) vds.variant = 'quaternary';
+        if (this.large) vds.size = 'l';
         if (this.block) vds.grow = 'fill';
         super.willUpdate(changed);
     }

@@ -36,7 +36,7 @@ const iconName = (params.get('name') ?? '').replace(/[^a-z0-9-]/gi, '');
 const root = document.getElementById('demo-root');
 if (root) {
     if (demo === 'icon' && iconName) {
-        root.innerHTML = `<vl-icon icon="${iconName}" size="large"></vl-icon>`;
+        root.innerHTML = `<vl-icon icon="${iconName}" size="l"></vl-icon>`;
     } else {
         root.innerHTML = DEMOS[demo] ?? `<p>Onbekende demo: ${demo}</p>`;
     }

@@ -17,7 +17,7 @@ export const API_GAP_ROWS: ApiGapRow[] = [
         vds: 'vl-button',
         flux: 'flux-button',
         base: 'VlElementWithAria / BaseLitElement',
-        toFlux: { lvl: 'mid', note: 'danger, success, size=small, loading-slots/parts, icon-slots, click(), delegatesFocus; variant/size/grow als enum' },
+        toFlux: { lvl: 'mid', note: 'danger, success, size=s, loading-slots/parts, icon-slots, click(), delegatesFocus; variant/size/grow als enum' },
         toVds: { lvl: 'mid', note: 'wide/narrow, toggle (on/controlled + vl-toggle), download, external, input-group' },
     },
     {

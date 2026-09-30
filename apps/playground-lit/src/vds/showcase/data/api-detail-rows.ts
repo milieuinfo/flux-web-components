@@ -18,8 +18,8 @@ export type ApiDetailRow = {
 export const API_DETAIL_ROWS: ApiDetailRow[] = [
     { comp: 'vl-button', cat: 'prop', feat: 'link-rendering als <a>', vds: 'href', flux: 'cta-link', status: 'shape' },
     { comp: 'vl-button', cat: 'prop', feat: 'icoon voor/na label', vds: 'icon-before / icon-after', flux: 'icon + icon-placement', status: 'shape' },
-    { comp: 'vl-button', cat: 'prop', feat: 'variant', vds: 'variant enum (primary/secondary/tertiary/ghost)', flux: 'booleans secondary/tertiary/ghost', status: 'shape' },
-    { comp: 'vl-button', cat: 'prop', feat: 'size', vds: 'size enum (small/medium/large)', flux: 'large (geen small/medium)', status: 'shape' },
+    { comp: 'vl-button', cat: 'prop', feat: 'variant', vds: 'variant enum (primary/secondary/tertiary/quaternary)', flux: 'booleans secondary/tertiary/ghost', status: 'shape' },
+    { comp: 'vl-button', cat: 'prop', feat: 'size', vds: 'size enum (s/m/l)', flux: 'large (geen small/medium)', status: 'shape' },
     { comp: 'vl-button', cat: 'prop', feat: 'danger-styling', vds: 'danger', flux: 'nee (enkel error)', status: 'vds' },
     { comp: 'vl-button', cat: 'prop', feat: 'success-styling', vds: 'success', flux: 'nee', status: 'vds' },
     { comp: 'vl-button', cat: 'prop', feat: 'icon-only knop', vds: 'icon-button', flux: 'leeg slot + label', status: 'shape' },
@@ -166,7 +166,7 @@ export const API_DETAIL_ROWS: ApiDetailRow[] = [
     { comp: 'vl-fieldset', cat: 'gedrag', feat: 'legende-klik focust eerste control', vds: 'nee', flux: 'ja', status: 'flux' },
 
     { comp: 'vl-icon', cat: 'prop', feat: 'icon-validatie', vds: 'reflect + dev-warn tegen enum', flux: 'getypeerd, geen runtime-check', status: 'shape' },
-    { comp: 'vl-icon', cat: 'prop', feat: 'size', vds: 'enum (small/medium/large)', flux: 'booleans small / large', status: 'shape' },
+    { comp: 'vl-icon', cat: 'prop', feat: 'size', vds: 'enum (s/m/l)', flux: 'booleans small / large', status: 'shape' },
     { comp: 'vl-icon', cat: 'prop', feat: 'tag (wrapper i/span/div/p)', vds: 'ja', flux: 'nee (altijd span)', status: 'vds' },
     { comp: 'vl-icon', cat: 'prop', feat: 'rotated-half / rotated-full', vds: 'ja', flux: 'nee', status: 'vds' },
     { comp: 'vl-icon', cat: 'prop', feat: 'toegankelijk label', vds: 'native aria-label (delegatie)', flux: 'label-prop naar aria-label', status: 'shape' },
