@@ -7,10 +7,16 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 ## Form
 
-- Geef elke form control een label met:
-    - een [`<vl-form-label>` component](/docs/components-form-form-label--documentatie) gelinkt aan de form control
-      met `for` attribuut
-    - of met het `label` attribuut van de form control.
+- Geef elke form control een zichtbaar label met een
+  [`<vl-form-label>` component](/docs/components-form-form-label--documentatie) gelinkt aan de form control met het
+  `for` attribuut. Dat is een vereiste van
+  [3.3.2 Labels of instructies](/docs/richtlijnen-toegankelijkheid-aanpak-3-begrijpelijk-3-3-assistentie-bij-invoer--documentatie).
+    - Het `label` attribuut van de form control vult enkel het `aria-label` van het onderliggende veld in en toont
+      niets op het scherm. Gebruik het alleen als er al een zichtbaar label of een zichtbare instructie bij het veld
+      staat, bijvoorbeeld een kolomtitel boven een veld in een tabel of de knop "Zoeken" naast een zoekveld.
+    - Laat het `label` attribuut dan de zichtbare tekst bevatten, zodat spraakbesturing het veld vindt met de woorden
+      die de gebruiker ziet
+      ([2.5.3 Label in naam](/docs/richtlijnen-toegankelijkheid-aanpak-2-bedienbaar-2-5-input-modaliteiten--documentatie)).
 - Geef duidelijke, specifieke instructies hoe een validatie fout kan opgelost worden in de foutboodschap.
     - **NIET**: "E-mail adres is niet juist."
     - **WEL**: "Vul een geldig e-mailadres in. Bijvoorbeeld: omgeving@vlaanderen.be"
@@ -18,3 +24,98 @@ import { Meta } from '@storybook/addon-docs/blocks';
   is. Gebruik het niet als label.
 - Stel het `autocomplete` attribuut correct in. Gebruik waarde `off` als er geen relevante autocomplete suggesties
   zijn. Meer info op [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete).
+
+### Autocomplete bij persoonlijke gegevens
+
+Vraagt een veld een gegeven over de gebruiker zelf, dan moet het het bijhorende autocomplete-token dragen. Dat is
+niet enkel comfort: het laat de browser en hulptechnologie toe het veld automatisch in te vullen of van een
+herkenbaar icoon te voorzien, en het is een vereiste van
+[1.3.5 Identificeer het doel van de input](/docs/richtlijnen-toegankelijkheid-aanpak-1-waarneembaar-1-3-aanpasbaar--documentatie).
+
+De meest voorkomende tokens:
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Token</th>
+            <th scope="col">Veld</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>name</code></td>
+            <td>Volledige naam in één veld</td>
+        </tr>
+        <tr>
+            <td><code>given-name</code></td>
+            <td>Voornaam</td>
+        </tr>
+        <tr>
+            <td><code>family-name</code></td>
+            <td>Familienaam</td>
+        </tr>
+        <tr>
+            <td><code>email</code></td>
+            <td>E-mailadres</td>
+        </tr>
+        <tr>
+            <td><code>tel</code></td>
+            <td>Telefoonnummer in één veld</td>
+        </tr>
+        <tr>
+            <td><code>street-address</code></td>
+            <td>
+                Straat, huisnummer en bus, zonder postcode of gemeente. Hoort in een meerregelig veld zoals{' '}
+                <code>vl-textarea</code>. In een éénregelig <code>vl-input-field</code> gebruik je{' '}
+                <code>address-line1</code> (en eventueel <code>address-line2</code>)
+            </td>
+        </tr>
+        <tr>
+            <td><code>postal-code</code></td>
+            <td>Postcode</td>
+        </tr>
+        <tr>
+            <td><code>address-level2</code></td>
+            <td>Gemeente of stad</td>
+        </tr>
+        <tr>
+            <td><code>country-name</code></td>
+            <td>Land</td>
+        </tr>
+        <tr>
+            <td><code>bday</code></td>
+            <td>
+                Geboortedatum in één veld; gesplitst gebruik je <code>bday-day</code>, <code>bday-month</code> en
+                <code>bday-year</code>
+            </td>
+        </tr>
+        <tr>
+            <td><code>organization</code></td>
+            <td>Naam van de organisatie</td>
+        </tr>
+    </tbody>
+</table>
+
+In Flux zet je het token rechtstreeks als attribuut op de form control. Deze componenten geven het door aan het
+onderliggende veld:
+
+- [`vl-input-field`](/docs/components-form-input-field--documentatie)
+- [`vl-textarea`](/docs/components-form-textarea--documentatie)
+- [`vl-select`](/docs/components-form-select--documentatie)
+- [`vl-datepicker`](/docs/components-form-datepicker--documentatie)
+
+```html
+<form>
+    <vl-form-label for="voornaam" label="Voornaam" block></vl-form-label>
+    <vl-input-field id="voornaam" name="voornaam" autocomplete="given-name"></vl-input-field>
+
+    <vl-form-label for="email" label="E-mailadres" block></vl-form-label>
+    <vl-input-field id="email" name="email" type="email" autocomplete="email"></vl-input-field>
+
+    <vl-form-label for="geboortedatum" label="Geboortedatum" block></vl-form-label>
+    <vl-datepicker id="geboortedatum" name="geboortedatum" autocomplete="bday"></vl-datepicker>
+</form>
+```
+
+De volledige lijst tokens staat in de
+[HTML-specificatie](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill).

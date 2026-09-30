@@ -105,6 +105,17 @@ bvb.:
     });
 ```
 
+In een component-test is er geen `visit()`. Daar injecteer je axe na het mounten met `cy.injectAxe()`:
+
+```ts
+    it('should be accessible', () => {
+        cy.mount(html`<vl-button>Klik op mij</vl-button>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-button');
+    });
+```
+
 
 ## Styling Aftesten
 
