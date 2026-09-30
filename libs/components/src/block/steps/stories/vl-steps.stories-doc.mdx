@@ -118,6 +118,14 @@ de standaard `<h3>`-heading, `<h1>` tot `<h6>` laten renderen.
 Een `<vl-duration-step>` met het `selected`-attribuut krijgt `aria-current="true"`, zodat een screenreader de
 geselecteerde toestand herkent.
 
+### toggleable
+
+De inhoud van een gesloten `toggleable` step blijft vindbaar via de zoekfunctie van de browser (Ctrl+F of Cmd+F).
+Vindt de browser een resultaat in die inhoud, dan klapt de step open en wordt het `vl-on-toggle` event afgevuurd.
+Hetzelfde gebeurt bij een link naar een `id` in de inhoud.
+
+Inhoud die je via `contentRenderer` pas rendert wanneer de step open is, bestaat nog niet en is dus niet vindbaar.
+
 ## Referenties
 
 ### Digitaal Vlaanderen
