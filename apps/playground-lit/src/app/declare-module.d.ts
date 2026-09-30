@@ -59,6 +59,46 @@ declare module '@govflanders/vl-ui-design-system-web-components' {
     export class VlIcon extends HTMLElement {
         static styles: unknown;
         static elementName: string;
+        protected willUpdate(changed: Map<PropertyKey, unknown>): void;
+    }
+    class VlLitElement extends HTMLElement {
+        static styles: unknown;
+        static elementName: string;
+        connectedCallback(): void;
+        disconnectedCallback(): void;
+        protected willUpdate(changed: Map<PropertyKey, unknown>): void;
+    }
+    export class VlInformativeTag extends VlLitElement {}
+    export class VlRemovableTag extends VlLitElement {}
+    export class VlSelectableTag extends VlLitElement {}
+    export class VlClickableTag extends VlLitElement {}
+    export class VlCollapsible extends VlLitElement {
+        open: boolean;
+        level: string;
+        show(): void;
+        hide(): void;
+        toggle(): void;
+    }
+    export class VlDivider extends VlLitElement {
+        appearance: string;
+    }
+    export class VlSectionMessage extends VlLitElement {
+        status: string;
+        closable: boolean;
+    }
+    export class VlBannerMessage extends VlLitElement {}
+    export class VlInlineMessage extends VlLitElement {}
+    export class VlAvatar extends VlLitElement {}
+    export class VlGrid extends VlLitElement {}
+    export class VlGridItem extends VlLitElement {}
+    export class VlTabs extends VlLitElement {}
+    export class VlTab extends VlLitElement {}
+    export class VlTabpanel extends VlLitElement {}
+    export class VlTable extends VlLitElement {
+        layout: string;
     }
 }
 declare module '@govflanders/vl-ui-design-system-web-components/css';
+declare module '@govflanders/vl-ui-design-system-web-components/components/vl-table' {
+    export const lightStyles: string;
+}

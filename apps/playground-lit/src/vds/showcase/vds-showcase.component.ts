@@ -27,6 +27,7 @@ import './sections/vds-overrides-list.component';
 import './sections/vds-api-gaps.component';
 import './sections/vds-api-gap-details.component';
 import './sections/vds-variants.component';
+import './sections/vds-new-components.component';
 import './sections/vds-layout-primitives.component';
 import './sections/vds-forms.component';
 import './sections/vds-icon-showcase.component';
@@ -111,6 +112,7 @@ export class PgVdsShowcase extends LitElement {
                           <pg-api-gap-details></pg-api-gap-details>`}
 
                 <pg-variants .gapsOff=${this.gapsOff}></pg-variants>
+                <pg-new-components .gapsOff=${this.gapsOff}></pg-new-components>
                 <pg-layout-primitives .gapsOff=${this.gapsOff}></pg-layout-primitives>
                 <pg-forms .gapsOff=${this.gapsOff}></pg-forms>
                 <pg-icon-showcase .gapsOff=${this.gapsOff}></pg-icon-showcase>
@@ -121,7 +123,8 @@ export class PgVdsShowcase extends LitElement {
     protected updated(): void {
         const off = this.overridesOff;
         const sel =
-            'flux-button, flux-input, flux-link, flux-datepicker, flux-select, flux-checkbox, flux-textarea, flux-fieldset, flux-radio-group';
+            'flux-button, flux-input, flux-link, flux-datepicker, flux-select, flux-checkbox, flux-textarea, flux-fieldset, flux-radio-group, ' +
+            'flux-pill, flux-accordion, flux-separator, flux-alert, flux-tabs, flux-table, flux-banner-message, flux-inline-message, flux-avatar, flux-grid, flux-grid-item';
         this.querySelectorAll(sel).forEach((el) => el.toggleAttribute('bare', off));
         const form = this.querySelector('flux-form-demo');
         form?.shadowRoot?.querySelectorAll(sel).forEach((el) => el.toggleAttribute('bare', off));

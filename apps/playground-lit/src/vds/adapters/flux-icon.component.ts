@@ -35,10 +35,7 @@ export class FluxIcon extends VlIcon {
         const vds = this as unknown as { size: string };
         if (this.small) vds.size = 's';
         else if (this.large) vds.size = 'l';
-        (VlIcon.prototype as unknown as { willUpdate(c: Map<PropertyKey, unknown>): void }).willUpdate.call(
-            this,
-            changed
-        );
+        super.willUpdate(changed);
     }
 }
 

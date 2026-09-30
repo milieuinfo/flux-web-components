@@ -5,7 +5,7 @@
 // (e.g. `vds-button`, `vds-icon`). The prefix MUST be a single
 // lowercase identifier with no hyphens; defineAll() throws otherwise
 // (upstream B5 guard).
-import { defineAll } from '@govflanders/vl-ui-design-system-web-components';
+import { defineAll, VlIcon } from '@govflanders/vl-ui-design-system-web-components';
 import '@govflanders/vl-ui-design-system-web-components/css';
 // The `/css` export is base + utils only; the design TOKENS (the
 // `--base-color-*` / `--global-*` custom properties the components read)
@@ -14,5 +14,7 @@ import '@govflanders/vl-ui-design-system-web-components/css';
 // `:root`, so they inherit through the shadow boundary.
 import '@govflanders/vl-ui-design-system-web-components/themes/light.css';
 import './vds-scale-compensation.css';
+import { aliasVdsIconClass } from './vds-iconfont-alias';
 
+aliasVdsIconClass(VlIcon);
 defineAll('vds');

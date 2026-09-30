@@ -1,3 +1,4 @@
+import { unsafeCSS } from 'lit';
 import fontUrl from '@govflanders/vl-ui-design-system-web-components/assets/fonts/iconfont/vlaanderen-icon.woff2';
 
 const VDS_ICON_ALIAS = 'vds-vlaanderen-icon';
@@ -9,12 +10,18 @@ if (!document.querySelector('style[data-flux704="vds-iconfont-alias"]')) {
     document.head.appendChild(style);
 }
 
+const ALIAS_RULE = `:host [class*='vl-vi-']::before{font-family:'${VDS_ICON_ALIAS}' !important;}`;
+
+export const aliasVdsIconClass = (cls: { styles: unknown }): void => {
+    cls.styles = [cls.styles, unsafeCSS(ALIAS_RULE)];
+};
+
 let aliasSheet: CSSStyleSheet | undefined;
 
 const getAliasSheet = (): CSSStyleSheet => {
     if (!aliasSheet) {
         aliasSheet = new CSSStyleSheet();
-        aliasSheet.replaceSync(`:host [class*='vl-vi-']::before{font-family:'${VDS_ICON_ALIAS}' !important;}`);
+        aliasSheet.replaceSync(ALIAS_RULE);
     }
     return aliasSheet;
 };

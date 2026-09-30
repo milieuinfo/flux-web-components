@@ -16,6 +16,11 @@ const config = {
             publicPath: '/',
         },
         hot: true,
+        client: {
+            overlay: {
+                runtimeErrors: (error) => !/ResizeObserver loop/.test(error?.message ?? ''),
+            },
+        },
     },
     module: {
         rules: [
