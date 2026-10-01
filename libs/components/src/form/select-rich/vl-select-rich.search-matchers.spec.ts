@@ -1,5 +1,10 @@
 import Choices from 'choices.js';
-import { exactOrMatcher, exactAndMatcher } from './vl-select-rich.search-matchers';
+import {
+    createSearchMatcher,
+    labelDescriptionSearchFields,
+    exactOrMatcher,
+    exactAndMatcher,
+} from './vl-select-rich.search-matchers';
 
 describe('jest - components - vl-select-rich - search-matchers', () => {
     let mockChoices: Partial<Choices>;
@@ -250,6 +255,56 @@ describe('jest - components - vl-select-rich - search-matchers', () => {
             const result = exactAndMatcher(mockChoices as Choices, 'morgen brussel');
 
             expect(result).toBe(0);
+        });
+    });
+
+    describe('createSearchMatcher', () => {
+        it('should filter with the given predicate on a lowercased, trimmed search value', () => {
+            const predicate = jest.fn((option, searchValue) => option.label.toLowerCase().endsWith(searchValue));
+
+            const result = createSearchMatcher(predicate)(mockChoices as Choices, '  GENT ');
+
+            expect(predicate).toHaveBeenCalledWith(expect.objectContaining({ label: 'Brussel Antwerpen Gent' }), 'gent');
+            expect(result).toBe(2);
+        });
+
+        it('should pass the original option including fields unknown to Choices.js', () => {
+            const getOption = (value: string) =>
+                value === 'Brussel Antwerpen Gent' ? ({ label: value, value, regio: 'hoofdsteden' } as any) : undefined;
+
+            const result = createSearchMatcher((option: any, searchValue) => option.regio === searchValue)(
+                mockChoices as Choices,
+                'hoofdsteden',
+                getOption
+            );
+
+            expect((mockChoices as any)._store.dispatch).toHaveBeenCalledWith({
+                type: 'FILTER_CHOICES',
+                results: [expect.objectContaining({ item: expect.objectContaining({ label: 'Brussel Antwerpen Gent' }) })],
+            });
+            expect(result).toBe(1);
+        });
+    });
+
+    describe('searchFields', () => {
+        beforeEach(() => {
+            (mockChoices as any)._store.choices[5].labelDescription = 'Provinciehoofdsteden';
+        });
+
+        it('should not search in labelDescription with the default search fields', () => {
+            expect(exactOrMatcher(mockChoices as Choices, 'provinciehoofdsteden')).toBe(0);
+        });
+
+        it('should search in labelDescription when it is part of the search fields', () => {
+            (mockChoices as any).config.searchFields = labelDescriptionSearchFields;
+
+            const result = exactAndMatcher(mockChoices as Choices, 'brussel provinciehoofdsteden');
+
+            expect((mockChoices as any)._store.dispatch).toHaveBeenCalledWith({
+                type: 'FILTER_CHOICES',
+                results: [expect.objectContaining({ item: expect.objectContaining({ label: 'Brussel Antwerpen Gent' }) })],
+            });
+            expect(result).toBe(1);
         });
     });
 

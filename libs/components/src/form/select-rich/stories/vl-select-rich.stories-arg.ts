@@ -173,6 +173,16 @@ export const selectRichArgTypes: ArgTypes<SelectRichArgs> = {
             defaultValue: { summary: selectRichArgs.searchStrategy },
         },
     },
+    searchLabelDescription: {
+        name: 'search-label-description',
+        description:
+            'Zoekt naast het label en de value ook in de `labelDescription` van de opties.<br>Dit attribuut is niet reactief.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(selectRichArgs.searchLabelDescription) },
+        },
+    },
     initialOptions: {
         name: 'initial-options',
         description:
