@@ -14,7 +14,7 @@ source "${SCRIPT_DIR}/lib/install-pnpm.sh"
 #
 #   shard 1  libs/components - de grootste categorie      block
 #   shard 2  libs/components - de rest                    atom, compliance, form
-#   shard 3  alles buiten libs/components                 common, integrations, map, styles
+#   shard 3  alles buiten libs/components                 common, integrations, map, structures, styles
 #
 # Shard 3 draagt daarnaast al het niet-component werk (jest, de firefox-variant, de integrator e2e) en krijgt daarom
 # het kleinste deel van de component-specs - anders wordt hij de bottleneck en verlies je de winst van het splitsen.
@@ -22,7 +22,7 @@ SHARD="${1:?geef het shard-nummer mee: 1, 2 of 3}"
 
 SHARD_1_DIRS=(libs/components/src/block)
 SHARD_2_DIRS=(libs/components/src/atom libs/components/src/compliance libs/components/src/form)
-SHARD_3_DIRS=(libs/common libs/integrations libs/map libs/styles)
+SHARD_3_DIRS=(libs/common libs/integrations libs/map libs/structures libs/styles)
 
 case "${SHARD}" in
     1) SHARD_DIRS=("${SHARD_1_DIRS[@]}") ;;

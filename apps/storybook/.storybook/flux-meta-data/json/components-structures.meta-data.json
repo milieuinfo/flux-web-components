@@ -1,0 +1,18 @@
+{
+    "structures-page": {
+        "name": "page",
+        "docs": "structures-page--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": [
+                "Jest",
+                "Component"
+            ],
+            "documentation": "basis",
+            "wcag": "FLUX-721",
+            "jiraMeta": "FLUX-293"
+        }
+    }
+}

@@ -19,7 +19,7 @@ const findStoriesArgFiles = (directory: string): string[] =>
 
 // alle argTypes die geëxporteerd worden uit een stories-arg bestand
 export const extractStoriesArgTypes = (): string[] =>
-    ['components/src', 'map/src']
+    ['components/src', 'map/src', 'structures/src']
         .flatMap((folder) => findStoriesArgFiles(path.join(libsFolder, folder)))
         .flatMap((file) =>
             [

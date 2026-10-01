@@ -102,4 +102,7 @@ export const extractMapWCNames = () =>
         ],
     );
 
+export const extractStructuresWCNames = () =>
+    extractWCNames(path.resolve('../../../libs/structures/src'), ['.component.ts'], null, null);
+
 // console.log('ComponentWCNames', extractComponentWCNames());

@@ -1,0 +1,33 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlPageStories from './vl-page.stories';
+
+# Page
+
+<FluxComponentMetaData id="structures-page" />
+
+
+## Doel
+
+`vl-page` bouwt de basis-layout van een pagina op: een header, de main content en een footer.
+
+
+## Voorbeeld
+
+```js
+import { VlPage } from '@domg-wc/structures';
+```
+
+```html
+<vl-page>
+    <vl-header-next slot="header"></vl-header-next>
+    <div slot="main"></div>
+    <vl-footer-next slot="footer"></vl-footer-next>
+</vl-page>
+```
+
+<Canvas of={VlPageStories.PageDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlPageStories.PageDefault} />
