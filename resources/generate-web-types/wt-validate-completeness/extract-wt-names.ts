@@ -3,6 +3,7 @@ import componentsBlockWebTypes from '../../../libs/components/src/block/block.we
 import componentsComplianceWebTypes from '../../../libs/components/src/compliance/compliance.web-types.json';
 import componentsFormWebTypes from '../../../libs/components/src/form/form.web-types.json';
 import mapWebTypes from '../../../libs/map/map.web-types.json';
+import structuresWebTypes from '../../../libs/structures/structures.web-types.json';
 
 const extractWTNames = (webTypes: { contributions: any }): string[] =>
     webTypes.contributions.html.elements.map((element: any) => element.name);
@@ -16,3 +17,5 @@ export const extractComponentsComplianceWTNames = () => extractWTNames(component
 export const extractComponentsFormWTNames = () => extractWTNames(componentsFormWebTypes);
 
 export const extractMapWTNames = () => extractWTNames(mapWebTypes);
+
+export const extractStructuresWTNames = () => extractWTNames(structuresWebTypes);

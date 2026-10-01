@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig.json",
+    "exclude": [
+        "./src/**/*.spec.ts",
+        "./src/**/*.cy.ts",
+        "./src/**/stories",
+        "./src/**/*.figma.ts",
+        "./src/**/*.figma.batch.ts"
+    ],
+    "compilerOptions": {}
+}

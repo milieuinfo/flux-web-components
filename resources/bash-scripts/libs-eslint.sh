@@ -12,6 +12,7 @@ cd ../..
 #npx eslint ./libs/components/src
 #npx eslint ./libs/integrations/src
 #npx eslint ./libs/map/src
+#npx eslint ./libs/structures/src
 
 # back to the initial folder
 cd ./resources/bash-scripts

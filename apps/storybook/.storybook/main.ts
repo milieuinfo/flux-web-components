@@ -13,6 +13,7 @@ const config: StorybookConfig = {
     stories: [
         '../docs/**/*.mdx',
         '../docs/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+        '../../../libs/structures/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/atom/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/block/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/compliance/**/*.stories.@(js|jsx|ts|tsx)',
@@ -164,6 +165,7 @@ const config: StorybookConfig = {
                 '../../../libs/integrations/src/page-layout/index.ts',
             ),
             '@domg-wc/map': path.resolve(__dirname, '../../../libs/map/src/index.ts'),
+            '@domg-wc/structures': path.resolve(__dirname, '../../../libs/structures/src/index.ts'),
             '@domg-wc/styles': path.resolve(__dirname, '../../../libs/styles/src/index.ts'),
         };
 
