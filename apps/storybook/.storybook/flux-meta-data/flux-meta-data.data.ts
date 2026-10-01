@@ -3,6 +3,7 @@ import componentsAtomMetaDataJson from './json/components-atom.meta-data.json';
 import componentsBlockMetaDataJson from './json/components-block.meta-data.json';
 import componentsComplianceMetaDataJson from './json/components-compliance.meta-data.json';
 import componentsFormMetaDataJson from './json/components-form.meta-data.json';
+import componentsStructuresMetaDataJson from './json/components-structures.meta-data.json';
 import dvComponentsWithoutFluxJson from './json/dv-components-without-flux.meta-data.json';
 import mapActionsMetaDataJson from './json/map-actions.meta-data.json';
 import mapComponentsMetaDataJson from './json/map-components.meta-data.json';
@@ -13,6 +14,7 @@ export const fluxAllMetaData = () => ({
     ...componentsBlockMetaDataJson,
     ...componentsComplianceMetaDataJson,
     ...componentsFormMetaDataJson,
+    ...componentsStructuresMetaDataJson,
     ...mapActionsMetaDataJson,
     ...mapComponentsMetaDataJson,
     ...stylesMetaDataJson,
@@ -25,6 +27,8 @@ export const componentsBlockMetaData = () => componentsBlockMetaDataJson;
 export const componentsComplianceMetaData = () => componentsComplianceMetaDataJson;
 
 export const componentsFormMetaData = () => componentsFormMetaDataJson;
+
+export const componentsStructuresMetaData = () => componentsStructuresMetaDataJson;
 
 export const mapActionsMetaData = () => mapActionsMetaDataJson;
 

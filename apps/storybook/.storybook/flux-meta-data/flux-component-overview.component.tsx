@@ -15,6 +15,7 @@ import {
     componentsBlockMetaData,
     componentsComplianceMetaData,
     componentsFormMetaData,
+    componentsStructuresMetaData,
     dvComponentsWithoutFlux,
     mapActionsMetaData,
     mapComponentsMetaData,
@@ -29,6 +30,7 @@ const sections = [
     { title: 'Form - components', metaData: componentsFormMetaData() },
     { title: 'Map - actions', metaData: mapActionsMetaData() },
     { title: 'Map - components', metaData: mapComponentsMetaData() },
+    { title: 'Structures', metaData: componentsStructuresMetaData() },
 ];
 
 const componentsOf = (metaData: object) =>

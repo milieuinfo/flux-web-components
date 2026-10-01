@@ -92,5 +92,22 @@ fi
 set -e
 cd ../..
 
+cd ./libs/structures
+echo "run jest tests structures"
+set +e
+jest 2> buffer-stderr.txt 1> buffer-stdout.txt
+if [[ $? -eq 0 ]]
+  then
+    echo "run jest tests structures - success"
+  else
+    echo "run jest tests structures - error - buffer-stderr.txt" >&2
+    cat buffer-stderr.txt >&2
+    cat buffer-stdout.txt >&2
+    set -e
+    exit 1
+fi
+set -e
+cd ../..
+
 # back to the initial folder
 cd ./resources/bash-scripts

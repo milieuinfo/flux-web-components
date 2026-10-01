@@ -23,6 +23,12 @@ import {
     componentsFormWTWithoutWC,
 } from './compare-wc-wt-components-form';
 import { mapWCNameCount, mapWCWithoutWT, mapWTNameCount, mapWTWithoutWC } from './compare-wc-wt-map';
+import {
+    structuresWCNameCount,
+    structuresWCWithoutWT,
+    structuresWTNameCount,
+    structuresWTWithoutWC,
+} from './compare-wc-wt-structures';
 
 describe('jest - generate-web-types - web-types-completeness', () => {
     // beforeAll(() => {
@@ -57,5 +63,11 @@ describe('jest - generate-web-types - web-types-completeness', () => {
         expect(mapWTNameCount).toEqual(41);
         expect(mapWCWithoutWT).toStrictEqual([]);
         expect(mapWTWithoutWC).toStrictEqual([]);
+    });
+    it('structures - valideer de volledigheid van de web-types', () => {
+        expect(structuresWCNameCount).toEqual(0);
+        expect(structuresWTNameCount).toEqual(0);
+        expect(structuresWCWithoutWT).toStrictEqual([]);
+        expect(structuresWTWithoutWC).toStrictEqual([]);
     });
 });

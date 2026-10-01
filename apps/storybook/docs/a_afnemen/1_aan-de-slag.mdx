@@ -55,7 +55,8 @@ tot de artifactory van Departement Omgeving! Om node versie problemen te vermijd
     "dependencies": {
         "@domg-wc/common": "2.0.0",
         "@domg-wc/components": "2.0.0",
-        "@domg-wc/map": "2.0.0"
+        "@domg-wc/map": "2.0.0",
+        "@domg-wc/structures": "2.0.0"
     },
     "volta": {
         "node": "20.11.0"
@@ -63,10 +64,11 @@ tot de artifactory van Departement Omgeving! Om node versie problemen te vermijd
 }
 ```
 
-> De minimaal op te nemen package is: __'@domg-wc/components'__, de package __'@domg-wc/map'__ bevat de kaart
-  functionaliteit en is optioneel. Gebruik je `registerWebComponents` (zie hieronder), neem dan ook
-  __'@domg-wc/common'__ op: je importeert er rechtstreeks uit, en onder pnpm of een andere strikte package manager is
-  een package dat enkel transitief binnenkomt niet importeerbaar.
+> De minimaal op te nemen package is: __'@domg-wc/components'__, de packages __'@domg-wc/map'__ (kaart
+  functionaliteit) en __'@domg-wc/structures'__ (paginastructuren en layouts) zijn optioneel. Gebruik je
+  `registerWebComponents` (zie hieronder), neem dan ook __'@domg-wc/common'__ op: je importeert er rechtstreeks uit,
+  en onder pnpm of een andere strikte package manager is een package dat enkel transitief binnenkomt niet
+  importeerbaar.
 
 
 ## Webpack build

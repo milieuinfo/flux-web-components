@@ -63,6 +63,12 @@ for (const name of names) {
 
     if (!installed[name]) {
         console.error(`add-dependencies faalde: geen versie voor '${name}' in '${dependenciesFile}'`);
+        // de eigen artifacts zijn niet geïnstalleerd in de root (enkel tsconfig-paths), 'pnpm list' kent ze dus niet
+        if (name.startsWith('@domg-wc/')) {
+            console.error(
+                `'${name}' is een eigen artifact: zet het met versie 'DOMG-WC-VERSION' bij de dependencies in de package.template.json van de library`,
+            );
+        }
         process.exit(1);
     }
 

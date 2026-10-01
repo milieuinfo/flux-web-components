@@ -188,7 +188,7 @@ pipeline {
                                 }
                             }
                         }
-                        stage('component tests: common, integrations, map, styles + jest + integrator-e2e') {
+                        stage('component tests: common, integrations, map, structures, styles + jest + integrator-e2e') {
                             // beforeAgent: anders wordt de pod toch opgestart voor een stage die niets doet.
                             when {
                                 beforeAgent true

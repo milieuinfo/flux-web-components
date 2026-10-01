@@ -29,3 +29,7 @@ echo "[done] - publish - @domg-wc/components-${RELEASE_VERSION}"
 cd ../map
 pnpm publish domg-wc-map-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/map-${RELEASE_VERSION}"
+
+cd ../structures
+pnpm publish domg-wc-structures-${RELEASE_VERSION}.tgz --no-git-checks
+echo "[done] - publish - @domg-wc/structures-${RELEASE_VERSION}"
