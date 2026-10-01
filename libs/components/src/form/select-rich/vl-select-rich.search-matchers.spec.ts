@@ -1,5 +1,5 @@
 import Choices from 'choices.js';
-import { exactOrMatcher, exactAndMatcher } from './vl-select-rich.search-matchers';
+import { createSearchMatcher, exactOrMatcher, exactAndMatcher } from './vl-select-rich.search-matchers';
 
 describe('jest - components - vl-select-rich - search-matchers', () => {
     let mockChoices: Partial<Choices>;
@@ -250,6 +250,34 @@ describe('jest - components - vl-select-rich - search-matchers', () => {
             const result = exactAndMatcher(mockChoices as Choices, 'morgen brussel');
 
             expect(result).toBe(0);
+        });
+    });
+
+    describe('createSearchMatcher', () => {
+        it('should filter with the given predicate on a lowercased, trimmed search value', () => {
+            const predicate = jest.fn((option, searchValue) => option.label.toLowerCase().endsWith(searchValue));
+
+            const result = createSearchMatcher(predicate)(mockChoices as Choices, '  GENT ');
+
+            expect(predicate).toHaveBeenCalledWith(expect.objectContaining({ label: 'Brussel Antwerpen Gent' }), 'gent');
+            expect(result).toBe(2);
+        });
+
+        it('should pass the original option including fields unknown to Choices.js', () => {
+            const getOption = (value: string) =>
+                value === 'Brussel Antwerpen Gent' ? ({ label: value, value, regio: 'hoofdsteden' } as any) : undefined;
+
+            const result = createSearchMatcher((option: any, searchValue) => option.regio === searchValue)(
+                mockChoices as Choices,
+                'hoofdsteden',
+                getOption
+            );
+
+            expect((mockChoices as any)._store.dispatch).toHaveBeenCalledWith({
+                type: 'FILTER_CHOICES',
+                results: [expect.objectContaining({ item: expect.objectContaining({ label: 'Brussel Antwerpen Gent' }) })],
+            });
+            expect(result).toBe(1);
         });
     });
 

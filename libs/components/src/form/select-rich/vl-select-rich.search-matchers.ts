@@ -1,90 +1,96 @@
 import Choices from 'choices.js';
-import { SelectSearchStrategy } from './vl-select-rich.model';
+import type { FilterChoicesAction } from 'choices.js/src/scripts/actions/choices';
+import type { ChoiceFull } from 'choices.js/src/scripts/interfaces/choice-full';
+import { SelectRichOption, SelectSearchStrategy } from './vl-select-rich.model';
 
 /**
  * Type definitie voor een search matcher functie.
  */
-export type SelectRichSearchMatcher = (choices: Choices, searchValue: string) => number | null;
+export type SelectRichSearchMatcher = (
+    choices: Choices,
+    searchValue: string,
+    getOption?: (value: string) => SelectRichOption | undefined
+) => number | null;
 
-/**
- * Helper functie voor exacte search matching met configureerbare match logica.
- * @param matchLogic - Functie die bepaalt of een choice matcht op basis van zoekwoorden
- * @returns Een search matcher functie
- */
-const createExactMatcher = (
-    matchLogic: (searchWords: string[], searchText: string) => boolean
-): SelectRichSearchMatcher => {
-    return (choices: Choices, searchValue: string) => {
+export type SelectRichSearchPredicate = (option: SelectRichOption, searchValue: string) => boolean;
+
+const createFilterMatcher = (getPredicate: (choices: Choices) => SelectRichSearchPredicate): SelectRichSearchMatcher => {
+    return (choices: Choices, searchValue: string, getOption?: (value: string) => SelectRichOption | undefined) => {
         const newValue = searchValue.trim().replace(/\s{2,}/g, ' ');
 
         // Als de zoekterm leeg is of gelijk aan de huidige waarde, stop
-        if (!newValue.length || newValue === (choices as any)._currentValue) {
+        if (!newValue.length || newValue === choices._currentValue) {
             return null;
         }
 
-        const searcher = (choices as any)._searcher;
-        const store = (choices as any)._store;
-
         // Gebruik ALTIJD alle choices (niet alleen searchableChoices die al gefilterd kunnen zijn)
         // Dit zorgt ervoor dat we altijd op de volledige lijst zoeken, niet incrementeel
-        const allChoices = store.choices.filter((choice: any) => !choice.placeholder);
+        const allChoices = choices._store.choices.filter((choice: ChoiceFull) => !choice.placeholder);
 
         // Herindexeer de searcher met alle choices bij elke zoekopdracht
-        if (searcher.isEmptyIndex()) {
-            searcher.index(allChoices);
+        if (choices._searcher.isEmptyIndex()) {
+            choices._searcher.index(allChoices);
         }
 
-        // Split de zoekterm in woorden
-        const searchWords = newValue.toLowerCase().split(/\s+/).filter((word: string) => word.length > 0);
+        const normalizedValue = newValue.toLowerCase();
+        const matches = getPredicate(choices);
 
         const results = allChoices
-            .filter((choice: any) => {
+            .filter((choice: ChoiceFull) => {
                 // Check alleen disabled, niet active - want we bepalen zelf wat actief is
                 // (choice.active kan nog false zijn van een vorige zoekopdracht)
                 if (choice.disabled) {
                     return false;
                 }
 
-                // Zoek in label en value
-                const label = choice.label?.toLowerCase() || '';
-                const choiceValue = choice.value?.toLowerCase() || '';
-                const searchText = `${label} ${choiceValue}`;
-
-                // Pas de opgegeven match logica toe
-                return matchLogic(searchWords, searchText);
+                const original = getOption?.(String(choice.value));
+                return matches(original ? { ...original, ...choice } : choice, normalizedValue);
             })
-            .map((choice: any, index: number) => ({
+            .map((choice: ChoiceFull, index: number) => ({
                 item: choice,
                 score: 0,
                 rank: index + 1,
             }));
 
         // Update de huidige waarde en state
-        (choices as any)._currentValue = newValue;
-        (choices as any)._highlightPosition = 0;
-        (choices as any)._isSearching = true;
+        choices._currentValue = newValue;
+        choices._highlightPosition = 0;
+        choices._isSearching = true;
 
         // Toon "geen resultaten" bericht als er geen matches zijn
-        const notice = (choices as any)._notice;
-        const noticeType = notice && notice.type;
-
-        if (noticeType !== 'addChoice') {
+        if (choices._notice?.type !== 'add-choice') {
             if (!results.length) {
-                (choices as any)._displayNotice((choices as any).config.noResultsText, 'no-results');
+                const { noResultsText } = choices.config;
+                choices._displayNotice(
+                    typeof noResultsText === 'function' ? noResultsText() : noResultsText,
+                    'no-results'
+                );
             } else {
-                (choices as any)._clearNotice();
+                choices._clearNotice();
             }
         }
 
         // Dispatch de gefilterde resultaten naar de store
-        (choices as any)._store.dispatch({
+        const filterAction: FilterChoicesAction = {
             type: 'FILTER_CHOICES',
-            results: results,
-        });
+            results,
+        };
+        choices._store.dispatch(filterAction);
 
         return results.length;
     };
 };
+
+export const createSearchMatcher = (predicate: SelectRichSearchPredicate): SelectRichSearchMatcher =>
+    createFilterMatcher(() => predicate);
+
+const createExactMatcher = (
+    matchLogic: (searchWords: string[], searchText: string) => boolean
+): SelectRichSearchMatcher =>
+    createFilterMatcher(() => (option, searchValue) => {
+        const searchText = `${String(option.label ?? '')} ${String(option.value ?? '')}`.toLowerCase();
+        return matchLogic(searchValue.split(/\s+/), searchText);
+    });
 
 /**
  * Exacte AND-search matcher: alle zoekwoorden moeten exact voorkomen (substring match).

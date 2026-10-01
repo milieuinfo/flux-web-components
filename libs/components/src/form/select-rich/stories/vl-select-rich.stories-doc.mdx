@@ -399,6 +399,28 @@ en "Brussel Antwerpen Gent".
 
 Deze strategie is geschikt wanneer je breed wil kunnen zoeken op meerdere termen tegelijk.
 
+### Eigen search matcher
+
+Volstaan de strategieën niet, dan registreer je met `setSearchMatcher(matcher)` een eigen search matcher. Die
+vervangt de zoekstrategie tot je `setSearchMatcher(null)` oproept.
+
+Maak de matcher met `createSearchMatcher`. Je geeft enkel een functie mee die per optie beslist of ze matcht,
+het filteren en de melding bij geen resultaten doet de component. De zoekterm komt binnen in kleine letters en
+zonder spaties aan het begin of einde. De optie is dezelfde als in de `itemTemplate`, dus ook eigen velden
+zoals `vestiging` zijn beschikbaar.
+
+```ts
+import { createSearchMatcher } from '@domg-wc/components/form';
+
+selectRich.setSearchMatcher(
+    createSearchMatcher((option, searchValue) =>
+        [option.label, option.labelDescription, option.vestiging].join(' ').toLowerCase().includes(searchValue)
+    )
+);
+```
+
+De meegeleverde `exactAndMatcher` en `exactOrMatcher` kan je ook rechtstreeks registreren.
+
 
 ## Validatie
 

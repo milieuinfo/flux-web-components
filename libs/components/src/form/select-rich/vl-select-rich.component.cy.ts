@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { parseFormData } from '../utils';
-import { SelectRichItemTemplateFn, SelectRichOption } from './index';
+import { createSearchMatcher, SelectRichItemTemplateFn, SelectRichOption } from './index';
 import { VlSelectRichComponent } from './vl-select-rich.component';
 import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
@@ -308,6 +308,52 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
         cy.wait(100);
         cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-search-open');
         cy.checkA11y('vl-select-rich');
+    });
+
+    it('should search with a custom search matcher on a field unknown to Choices.js', () => {
+        const vestigingOptions: SelectRichOption[] = [
+            { label: '0123.456.789', value: '0123456789', vestiging: 'Vestiging Hasselt' },
+            { label: '0987.654.321', value: '0987654321', vestiging: 'Vestiging Turnhout' },
+        ];
+
+        cy.mount(html`<vl-select-rich label="vestiging" search .options=${vestigingOptions}></vl-select-rich>`);
+        cy.get('vl-select-rich').then(async ($el) => {
+            const selectRich = $el[0] as VlSelectRichComponent;
+            await selectRich.updateComplete;
+            selectRich.setSearchMatcher(
+                createSearchMatcher((option: any, searchValue) => option.vestiging.toLowerCase().includes(searchValue))
+            );
+        });
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('input').type('turnhout');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list .vl-select__item--choice:not(.has-no-results)')
+            .should('have.length', 1)
+            .and('contain', '0987.654.321');
+    });
+
+    it('should keep a search matcher set before the first render', () => {
+        cy.mount(html`<div id="select-rich-host"></div>`);
+        cy.get('#select-rich-host').then(($host) => {
+            const selectRich = document.createElement('vl-select-rich') as VlSelectRichComponent;
+            selectRich.setAttribute('label', 'geboorteplaats');
+            selectRich.setAttribute('search', '');
+            selectRich.options = options;
+            selectRich.setSearchMatcher(createSearchMatcher((option, searchValue) => option.value === searchValue));
+            $host[0].append(selectRich);
+        });
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('input').type('lier');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list .vl-select__item--choice:not(.has-no-results)')
+            .should('have.length', 1)
+            .and('contain', 'Lier');
+        cy.get('vl-select-rich').shadow().find('input').clear().type('lie');
+        cy.get('vl-select-rich').shadow().find('.vl-select__list .has-no-results').should('exist');
     });
 
     it('should disable option', () => {
