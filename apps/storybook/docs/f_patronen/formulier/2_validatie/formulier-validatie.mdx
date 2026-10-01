@@ -76,6 +76,11 @@ van de form control `true` zijn. Een veld met een ontbrekende waarde zal een fou
 de `vl-form-message` component waarvan de `for` eigenschap overeenkomt met de `id` van de form control. De form control
 moet ook het `required` attribuut hebben.
 
+Is een veld enkel in bepaalde gevallen verplicht, bind dan dat attribuut aan die voorwaarde met
+`?required=${deVoorwaarde}`: de form control hervalideert vanzelf zodra het attribuut wijzigt, en een aparte validator is
+daarvoor niet nodig. Zie [Formulier - Cross-Validatie](/docs/patronen-formulier-cross-validatie--documentatie) voor een
+werkend voorbeeld.
+
 In onderstaand voorbeeld: druk op `enter` zonder iets in te vullen om de foutmelding te zien.
 
 <Canvas of={formValidationStories.FormulierValidatieVerplicht} sourceState={"shown"}/>
