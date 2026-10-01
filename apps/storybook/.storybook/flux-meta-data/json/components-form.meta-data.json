@@ -9,7 +9,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "reviewed",
-            "jiraMeta": "FLUX-555"
+            "jiraMeta": "FLUX-555",
+            "dv": { "idea": "DS-107", "name": "Checkbox", "status": "Gepubliceerd" }
         }
     },
     "components-form-datepicker": {
@@ -22,7 +23,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-179",
-            "jiraMeta": "FLUX-132"
+            "jiraMeta": "FLUX-132",
+            "dv": { "idea": "DS-109", "name": "Date/time picker", "status": "Gepubliceerd" }
         }
     },
     "components-form-fieldset": {
@@ -35,7 +37,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-758",
-            "jiraMeta": "FLUX-495"
+            "jiraMeta": "FLUX-495",
+            "dv": { "idea": "DS-150", "name": "Fieldset", "status": "Gepubliceerd" }
         }
     },
     "components-form-form-label": {
@@ -74,7 +77,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "TODO",
-            "jiraMeta": "FLUX-197"
+            "jiraMeta": "FLUX-197",
+            "dv": { "idea": "DS-105", "name": "Input field", "status": "Gepubliceerd" }
         }
     },
     "components-form-input-field-masked": {
@@ -100,7 +104,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "reviewed",
-            "jiraMeta": "geen"
+            "jiraMeta": "geen",
+            "dv": { "idea": "DS-113", "name": "Input group (addon)", "status": "Gepubliceerd" }
         }
     },
     "components-form-radio-group": {
@@ -113,7 +118,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-759",
-            "jiraMeta": "FLUX-186"
+            "jiraMeta": "FLUX-186",
+            "dv": { "idea": "DS-108", "name": "Radio", "status": "Gepubliceerd" }
         }
     },
     "components-form-select": {
@@ -126,7 +132,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-761",
-            "jiraMeta": "FLUX-562"
+            "jiraMeta": "FLUX-562",
+            "dv": { "idea": "DS-111", "name": "Select", "status": "Gepubliceerd" }
         }
     },
     "components-form-select-rich": {
@@ -139,7 +146,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-188",
-            "jiraMeta": "FLUX-86"
+            "jiraMeta": "FLUX-86",
+            "dv": { "idea": "DS-146", "name": "Dynamic Select", "status": "Discovery" }
         }
     },
     "components-form-textarea": {
@@ -152,7 +160,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-762",
-            "jiraMeta": "FLUX-579"
+            "jiraMeta": "FLUX-579",
+            "dv": { "idea": "DS-106", "name": "Textarea", "status": "Gepubliceerd" }
         }
     },
     "components-form-textarea-rich": {
@@ -178,7 +187,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-196",
-            "jiraMeta": "FLUX-193"
+            "jiraMeta": "FLUX-193",
+            "dv": { "idea": "DS-112", "name": "Upload", "status": "Ontwerpen" }
         }
     }
 }

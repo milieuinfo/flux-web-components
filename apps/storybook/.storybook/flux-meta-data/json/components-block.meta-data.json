@@ -9,7 +9,8 @@
             "tests": ["Component", "Storybook", "DOM"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-205",
-            "jiraMeta": "FLUX-21"
+            "jiraMeta": "FLUX-21",
+            "dv": { "idea": "DS-134", "name": "Collapsible (FKA accordion)", "status": "Productie" }
         }
     },
     "components-block-alert": {
@@ -22,7 +23,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "reviewed",
-            "jiraMeta": "FLUX-206"
+            "jiraMeta": "FLUX-206",
+            "dv": { "idea": "DS-142", "name": "Message / alert", "status": "Gepubliceerd" }
         }
     },
     "components-block-autocomplete": {
@@ -35,7 +37,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-208",
-            "jiraMeta": "FLUX-200"
+            "jiraMeta": "FLUX-200",
+            "dv": { "idea": "DS-146", "name": "Dynamic Select", "status": "Discovery" }
         }
     },
     "components-block-breadcrumb": {
@@ -48,7 +51,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
             "wcag": "FLUX-732",
-            "jiraMeta": "FLUX-210"
+            "jiraMeta": "FLUX-210",
+            "dv": { "idea": "DS-176", "name": "Breadcrumb", "status": "Backlog" }
         }
     },
     "components-block-breadcrumb-item": {
@@ -126,7 +130,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
             "wcag": "TODO",
-            "jiraMeta": "FLUX-220"
+            "jiraMeta": "FLUX-220",
+            "dv": { "idea": "DS-149", "name": "Description list", "status": "Spec" }
         }
     },
     "components-block-description-data-description-data-item": {
@@ -165,7 +170,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-221",
-            "jiraMeta": "FLUX-222"
+            "jiraMeta": "FLUX-222",
+            "dv": { "idea": "DS-130", "name": "Card", "status": "Spec" }
         }
     },
     "components-block-functional-header": {
@@ -178,7 +184,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-728",
-            "jiraMeta": "FLUX-225"
+            "jiraMeta": "FLUX-225",
+            "dv": { "idea": "DS-177", "name": "Functional header", "status": "Backlog" }
         }
     },
     "components-block-http-error-message": {
@@ -204,7 +211,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-731",
-            "jiraMeta": "FLUX-97"
+            "jiraMeta": "FLUX-97",
+            "dv": { "idea": "DS-130", "name": "Card", "status": "Spec" }
         }
     },
     "components-block-infoblock": {
@@ -243,7 +251,8 @@
             "tests": ["Storybook"],
             "documentation": "basis",
             "wcag": "FLUX-241",
-            "jiraMeta": "FLUX-242"
+            "jiraMeta": "FLUX-242",
+            "dv": { "idea": "DS-110", "name": "Range", "status": "Spec" }
         }
     },
     "components-block-loader": {
@@ -269,7 +278,8 @@
             "tests": ["Component"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-735",
-            "jiraMeta": "FLUX-17"
+            "jiraMeta": "FLUX-17",
+            "dv": { "idea": "DS-144", "name": "Modal/Dialog", "status": "Ontwerpen" }
         }
     },
     "components-block-pager": {
@@ -282,7 +292,8 @@
             "tests": ["Storybook"],
             "documentation": "template",
             "wcag": "FLUX-740",
-            "jiraMeta": "FLUX-255"
+            "jiraMeta": "FLUX-255",
+            "dv": { "idea": "DS-132", "name": "Pagination", "status": "Spec" }
         }
     },
     "components-block-pill": {
@@ -295,7 +306,11 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-741",
-            "jiraMeta": "FLUX-259"
+            "jiraMeta": "FLUX-259",
+            "dv": [
+                { "idea": "DS-156", "name": "Tag - Informatieve tag", "status": "Gepubliceerd" },
+                { "idea": "DS-123", "name": "Tag - Interactieve tag", "status": "Gepubliceerd" }
+            ]
         }
     },
     "components-block-popover": {
@@ -308,7 +323,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-744",
-            "jiraMeta": "FLUX-333"
+            "jiraMeta": "FLUX-333",
+            "dv": { "idea": "DS-159", "name": "Popover", "status": "Spec" }
         }
     },
     "components-block-progress-bar": {
@@ -321,7 +337,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "reviewed",
-            "jiraMeta": "FLUX-24"
+            "jiraMeta": "FLUX-24",
+            "dv": { "idea": "DS-140", "name": "Progress Tracker", "status": "Backlog" }
         }
     },
     "components-block-progress-indicator": {
@@ -547,7 +564,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "template",
             "wcag": "FLUX-283",
-            "jiraMeta": "FLUX-284"
+            "jiraMeta": "FLUX-284",
+            "dv": { "idea": "DS-130", "name": "Card", "status": "Spec" }
         }
     },
     "components-block-steps-step": {
@@ -573,7 +591,8 @@
             "tests": ["Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-752",
-            "jiraMeta": "FLUX-286"
+            "jiraMeta": "FLUX-286",
+            "dv": { "idea": "DS-141", "name": "Steps", "status": "Backlog" }
         }
     },
     "components-block-table": {
@@ -586,7 +605,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-287",
-            "jiraMeta": "FLUX-101"
+            "jiraMeta": "FLUX-101",
+            "dv": { "idea": "DS-74", "name": "Table", "status": "Gepubliceerd" }
         }
     },
     "components-block-tabs-tabs": {
@@ -625,7 +645,11 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-739",
-            "jiraMeta": "FLUX-16"
+            "jiraMeta": "FLUX-16",
+            "dv": [
+                { "idea": "DS-138", "name": "Tabs", "status": "Ontwerpen" },
+                { "idea": "DS-137", "name": "Tab navigation", "status": "Ontwerpen" }
+            ]
         },
         "evolution": {
             "vStatus": "v3-next",
@@ -657,7 +681,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-294",
-            "jiraMeta": "FLUX-19"
+            "jiraMeta": "FLUX-19",
+            "dv": { "idea": "DS-153", "name": "Toaster", "status": "Backlog" }
         }
     },
     "components-block-tooltip": {
@@ -670,7 +695,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "reviewed",
-            "jiraMeta": "FLUX-20"
+            "jiraMeta": "FLUX-20",
+            "dv": { "idea": "DS-173", "name": "Tooltip", "status": "Backlog" }
         }
     },
     "components-block-typography": {
@@ -683,7 +709,8 @@
             "tests": ["Storybook"],
             "documentation": "uitgebreid",
             "wcag": "reviewed",
-            "jiraMeta": "FLUX-297"
+            "jiraMeta": "FLUX-297",
+            "dv": { "idea": "DS-114", "name": "Typography/WYSIWYG", "status": "Discovery" }
         }
     },
     "components-block-upload-progress": {
@@ -709,7 +736,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
             "wcag": "FLUX-298",
-            "jiraMeta": "FLUX-299"
+            "jiraMeta": "FLUX-299",
+            "dv": { "idea": "DS-151", "name": "Video player", "status": "Backlog" }
         }
     },
     "components-block-wizard-wizard": {
@@ -722,7 +750,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
             "wcag": "FLUX-300",
-            "jiraMeta": "FLUX-301"
+            "jiraMeta": "FLUX-301",
+            "dv": { "idea": "DS-140", "name": "Progress Tracker", "status": "Backlog" }
         }
     },
     "components-block-wizard-wizard-pane": {
