@@ -2,6 +2,8 @@ import {
     BaseCondition,
     CSSCondition,
     DocumentationCondition,
+    DVCondition,
+    DVStatus,
     GenerationCondition,
     TestCondition,
     WCAGCondition,
@@ -82,7 +84,7 @@ export const buildTestsCondition = (tests: TestCondition[], withLabel: boolean) 
 // storybookDoc: 'auto' | 'minimaal' | 'basis' | 'uitmuntend';
 export const buildDocumentationCondition = (documentation: DocumentationCondition, withLabel: boolean) => {
     if (documentation === DocumentationCondition.nvt) {
-        return buildImgTag('Documentatie', documentation, colorGrey, withLabel, 'storybook');
+        return buildMinWidthImgTag('Documentatie', documentation, colorGrey, withLabel, 'storybook');
     } else if (documentation) {
         const orangeSet = new Set<DocumentationCondition>(['minimaal', 'template']);
         const greenSet = new Set<DocumentationCondition>(['basis', 'uitgebreid']);
@@ -91,24 +93,24 @@ export const buildDocumentationCondition = (documentation: DocumentationConditio
             : orangeSet.has(documentation)
             ? colorOrange
             : colorRed;
-        return buildImgTag('Documentatie', documentation, storyBookDocColor, withLabel, 'storybook');
+        return buildMinWidthImgTag('Documentatie', documentation, storyBookDocColor, withLabel, 'storybook');
     } else {
-        return buildImgTag('Documentatie', 'TBD', colorRed, withLabel);
+        return buildMinWidthImgTag('Documentatie', 'TBD', colorRed, withLabel);
     }
 };
 
 // wcag: 'n.v.t.' | 'reviewed' | 'TODO' | 'FLUX-726'; ontbrekend of onbekend toont 'TBD'
 export const buildWCAGCondition = (wcag: WCAGCondition, withLabel: boolean) => {
     if (wcag === 'n.v.t.') {
-        return buildImgTag('WCAG', 'n.v.t.', colorGrey, withLabel);
+        return buildMinWidthImgTag('WCAG', 'n.v.t.', colorGrey, withLabel);
     } else if (wcag === 'reviewed') {
-        return buildImgTag('WCAG', 'reviewed', colorGreen, withLabel);
+        return buildMinWidthImgTag('WCAG', 'reviewed', colorGreen, withLabel);
     } else if (wcag === 'TODO') {
-        return buildImgTag('WCAG', 'TODO', colorBlue, withLabel);
+        return buildMinWidthImgTag('WCAG', 'TODO', colorBlue, withLabel);
     } else if (wcag?.startsWith('FLUX-')) {
-        return buildImgTag('WCAG', wcag, colorOrange, withLabel);
+        return buildMinWidthImgTag('WCAG', wcag, colorOrange, withLabel);
     } else {
-        return buildImgTag('WCAG', 'TBD', colorRed, withLabel);
+        return buildMinWidthImgTag('WCAG', 'TBD', colorRed, withLabel);
     }
 };
 
@@ -119,16 +121,50 @@ export const buildJiraMetaCondition = (jiraMeta: string, withLabel: boolean) => 
             const href = 'https://jira.omgeving.vlaanderen.be/jira/browse/' + jiraMeta;
             return (
                 <a href={href} target="_blank" className="flux-condition--no-focus">
-                    {buildImgTag('Meta', jiraMeta, colorPurple, withLabel, 'jira')}
+                    {buildMinWidthImgTag('Meta', jiraMeta, colorPurple, withLabel, 'jira')}
                 </a>
             );
         } else {
-            return <>{buildImgTag('Meta', jiraMeta, colorGrey, withLabel, 'jira')}</>;
+            return buildMinWidthImgTag('Meta', jiraMeta, colorGrey, withLabel, 'jira');
         }
     } else {
-        return buildImgTag('Meta', 'TBD', colorRed, withLabel);
+        return buildMinWidthImgTag('Meta', 'TBD', colorRed, withLabel);
     }
 };
+
+// dv: { idea: 'DS-135', name: 'Button', status: 'Gepubliceerd' }, getoond in kleine letters en 'Gepubliceerd' als '✓ klaar'; zonder 1-op-1 koppeling met een DV component blijft de cel leeg
+export const buildDVCondition = (dv: DVCondition, withLabel: boolean) => {
+    if (dv?.idea) {
+        const greenSet = new Set<DVStatus>(['Gepubliceerd']);
+        const blueSet = new Set<DVStatus>(['Klaar voor delivery', 'Productie']);
+        const orangeSet = new Set<DVStatus>(['Discovery', 'Ontwerpen', 'Spec']);
+        const dvColor = greenSet.has(dv.status)
+            ? colorGreen
+            : blueSet.has(dv.status)
+            ? colorBlue
+            : orangeSet.has(dv.status)
+            ? colorOrange
+            : colorGrey;
+        const dvValue = dv.status === 'Gepubliceerd' ? '✓ klaar' : dv.status?.toLowerCase() || 'TBD';
+        const href = 'https://vlaamseoverheid.atlassian.net/browse/' + dv.idea;
+        // de naam bij DV als tooltip, want die verschilt soms van de Flux naam
+        const title = dv.name + ' (' + dv.idea + ')';
+        return (
+            <a href={href} target="_blank" title={title} className="flux-condition--no-focus">
+                {buildMinWidthImgTag('DV', dvValue, dvColor, withLabel, 'jira')}
+            </a>
+        );
+    } else {
+        return null;
+    }
+};
+
+// shields.io maakt een badge zo breed als zijn tekst: deze wrapper in dezelfde kleur geeft hem in het overzicht een minimumbreedte (zie styles.css)
+const buildMinWidthImgTag = (label: string, value: string, color: string, withLabel: boolean, logo?: string) => (
+    <span className="flux-condition__badge" style={{ backgroundColor: '#' + color }}>
+        {buildImgTag(label, value, color, withLabel, logo)}
+    </span>
+);
 
 const buildImgTag = (label: string, value: string, color: string, withLabel: boolean, logo?: string) => {
     const alt = label + ': ' + value;

@@ -99,7 +99,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "n.v.t.",
-            "jiraMeta": "FLUX-524"
+            "jiraMeta": "FLUX-524",
+            "dv": { "idea": "DS-116", "name": "Grid", "status": "Gepubliceerd" }
         }
     },
     "styles-layout-group": {
@@ -112,7 +113,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "n.v.t.",
-            "jiraMeta": "FLUX-559"
+            "jiraMeta": "FLUX-559",
+            "dv": { "idea": "DS-118", "name": "Inline layout", "status": "Gepubliceerd" }
         }
     },
     "styles-layout-margin": {
@@ -138,7 +140,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
             "wcag": "n.v.t.",
-            "jiraMeta": "geen"
+            "jiraMeta": "geen",
+            "dv": { "idea": "DS-160", "name": "Box", "status": "Gepubliceerd" }
         }
     },
     "styles-layout-section": {
@@ -164,7 +167,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
             "wcag": "n.v.t.",
-            "jiraMeta": "geen"
+            "jiraMeta": "geen",
+            "dv": { "idea": "DS-127", "name": "Divider", "status": "Gepubliceerd" }
         }
     },
     "styles-layout-spacer": {
@@ -190,7 +194,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
             "wcag": "n.v.t.",
-            "jiraMeta": "FLUX-564"
+            "jiraMeta": "FLUX-564",
+            "dv": { "idea": "DS-117", "name": "Stack", "status": "Gepubliceerd" }
         }
     }
 }

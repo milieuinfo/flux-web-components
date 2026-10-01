@@ -25,7 +25,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "reviewed",
-            "jiraMeta": "FLUX-250"
+            "jiraMeta": "FLUX-250",
+            "dv": { "idea": "DS-135", "name": "Button", "status": "Gepubliceerd" }
         }
     },
     "components-atom-heading-style": {
@@ -70,7 +71,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "reviewed",
-            "jiraMeta": "FLUX-560"
+            "jiraMeta": "FLUX-560",
+            "dv": { "idea": "DS-128", "name": "Icon", "status": "Gepubliceerd" }
         }
     },
     "components-atom-link-style": {
@@ -99,7 +101,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "FLUX-726",
-            "jiraMeta": "FLUX-561"
+            "jiraMeta": "FLUX-561",
+            "dv": { "idea": "DS-136", "name": "Link", "status": "Gepubliceerd" }
         }
     },
     "components-atom-paragraph-style": {
@@ -154,7 +157,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "reviewed",
-            "jiraMeta": "FLUX-280"
+            "jiraMeta": "FLUX-280",
+            "dv": { "idea": "DS-121", "name": "Headings - titles", "status": "Discovery" }
         }
     }
 }

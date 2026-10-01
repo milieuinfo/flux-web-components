@@ -497,7 +497,8 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcag": "TODO",
-            "jiraMeta": "FLUX-146"
+            "jiraMeta": "FLUX-146",
+            "dv": { "idea": "DS-133", "name": "Kaart", "status": "Productie" }
         }
     },
     "map-components-overview-map": {
