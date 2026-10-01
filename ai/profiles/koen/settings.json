@@ -39,7 +39,6 @@
           "mcp__claude_ai_Figma__read_skill_uri",
           "mcp__claude_ai_Figma__search_design_system",
           "mcp__claude_ai_Figma__whoami",
-          "mcp__claude-peers__set_summary",
           "mcp__figma__get_design_context",
           "mcp__figma__get_figjam",
           "mcp__figma__get_metadata",

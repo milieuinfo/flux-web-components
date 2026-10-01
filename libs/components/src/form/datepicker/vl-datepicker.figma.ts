@@ -7,11 +7,14 @@ const instance = figma.selectedInstance;
 
 // De as `variant` (date | date-time | time) komt overeen met het `type`-attribuut in code.
 // `date` is de default in code en wordt niet uitgeschreven. Het code-type `range` heeft geen Figma-variant.
-const type = instance.getEnum('variant', {
+// Een bestand met een oudere versie van de library kan de as missen; `getEnum` geeft dan een foutobject terug in
+// plaats van `undefined`.
+const typeValue = instance.getEnum('variant', {
     date: '',
     'date-time': 'date-time',
     time: 'time',
 });
+const type = typeof typeValue === 'string' ? typeValue : '';
 
 // Bewust niet gemapt:
 // - `position` (INSTANCE_SWAP): een interne "auto datepicker"-instance met de open/gesloten dropdown.

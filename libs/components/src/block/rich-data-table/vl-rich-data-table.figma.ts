@@ -14,7 +14,8 @@ const richData = instance.findInstance('🧩 vl-rich-data');
 let open = true;
 let pagination = false;
 if (richData && richData.type === 'INSTANCE') {
-    open = String(richData.getPropertyValue('open')) === 'true';
+    // Ontbreekt `open` op de geneste instance, dan geldt de default van de library: aan.
+    open = String(richData.getPropertyValue('open')) !== 'false';
     pagination = String(richData.getPropertyValue('pagination')) === 'true';
 }
 

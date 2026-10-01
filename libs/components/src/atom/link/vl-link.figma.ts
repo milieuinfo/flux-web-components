@@ -33,15 +33,19 @@ const size: { small?: boolean; large?: boolean } =
         L: { large: true },
     }) ?? {};
 
-const bold = instance.getEnum('font style', {
-    normal: false,
-    bold: true,
-});
+const bold =
+    instance.getEnum('font style', {
+        normal: false,
+        bold: true,
+    }) === true;
 
-const error = instance.getEnum('error', {
-    false: false,
-    true: true,
-});
+// Een bestand met een oudere versie van de library kent de as `error` nog niet. `getEnum` geeft dan een
+// foutobject terug in plaats van `undefined`; de vergelijking met `true` houdt `error` dan op false.
+const error =
+    instance.getEnum('error', {
+        false: false,
+        true: true,
+    }) === true;
 
 const iconVariant = instance.getEnum('icon', {
     no: 'no',

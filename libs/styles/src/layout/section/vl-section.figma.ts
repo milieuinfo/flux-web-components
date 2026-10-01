@@ -9,7 +9,9 @@ const instance = figma.selectedInstance;
 // De Figma-as `variant` mapt één op één op de modifier-klassen uit vl-section.css.ts.
 // De waarde "deprecated (use default)" is een legacy-variant zonder eigen CSS-modifier en
 // levert dus dezelfde output als "default".
-const modifier = instance.getEnum('variant', {
+// Een bestand met een oudere versie van de library kan de as missen; `getEnum` geeft dan een foutobject terug in
+// plaats van `undefined`.
+const modifierValue = instance.getEnum('variant', {
     'deprecated (use default)': '',
     default: '',
     '--alt': ' vl-section--alt',
@@ -18,6 +20,7 @@ const modifier = instance.getEnum('variant', {
     '--bordered': ' vl-section--bordered',
     '--overlap': ' vl-section--overlap',
 });
+const modifier = typeof modifierValue === 'string' ? modifierValue : '';
 
 const slot = instance.getSlot('slot');
 

@@ -1,8 +1,21 @@
+---
+name: figma-library
+description: >-
+    Werken in de FLUX Figma-library: componenten, varianten, slots of overrides aanpassen, een design bouwen
+    met de library, een Code Connect-template schrijven, of een gap melden. Bevat de werkafspraken, de
+    bouwregels per component, en de valkuilen van de Plugin-API en de MCP-tools; het gap-register staat in
+    gaps.md ernaast.
+user-invocable: true
+---
+
 # Figma — FLUX Web Componenten
 
-Werkkennis en open gaps voor AI-agents die via de Figma MCP in de FLUX Figma-library werken.
-Regels en recepten, geen historiek (die staat in git). Vul aan wanneer je iets vindt: een opgeloste gap
-verdwijnt, een nieuwe gap is één tabelrij, een nieuwe les één bullet.
+Werkkennis voor wie via de Figma MCP in de FLUX Figma-library werkt. Regels en recepten, geen historiek (die
+staat in git). Vul aan wanneer je iets vindt: een nieuwe les is één bullet hier, een nieuwe gap één rij in
+[gaps.md](gaps.md).
+
+**Lees [gaps.md](gaps.md)** voor je een gap meldt of oplost: de kans is groot dat hij er al staat, met de
+reden waarom hij open is en een werkende omweg.
 
 ## Toegang
 
@@ -39,15 +52,81 @@ verdwijnt, een nieuwe gap is één tabelrij, een nieuwe les één bullet.
 - **`vl-cascader`:** de breadcrumb (boolean `breadcrumb`) is een geneste `vl-breadcrumb`, zoals in code
   sinds FLUX-800 (`<vl-breadcrumb ellipsis>`). Standaard kapt die lange teksten af. Code breekt eerst af
   naar een nieuwe regel: zet daarvoor de `Slot` op wrap (zie de Patronen-voorbeelden Niveau 3 en 5).
-- **Nooit een component namaken** met losse frames. Zoek breed (`search_design_system` met synoniemen,
-  NL én EN) en grep de repo, ook `libs/integrations`. Pas daarna een placeholder met laagnaam
-  `PLACEHOLDER … — geen FLUX-component`.
+- **Sorteerbare tabelkop** (`↳ titelrow.item`, as `Type`): `sortable` is gesorteerd oplopend, `sortable - desc`
+  aflopend, `sortable - unsorted` niet gesorteerd. In code komt sorteren enkel van `vl-rich-data-table`: de kop
+  is daar altijd onderstreept, en zonder sortering is er geen icoon en geen gereserveerde ruimte. De
+  sorteerklassen in `vl-table.css.ts` worden nergens gebruikt.
+- **Nooit een component namaken** met losse frames + borders + eigen tekst. Elk UI-patroon dat op een
+  component lijkt, ís er bijna altijd een. `search_design_system` geeft enkel de top-matches: varieer met
+  synoniemen én korte losse termen, NL én EN (zoek ook op `tile` apart, niet enkel `data tile`). Grep ook de
+  repo, want componenten leven niet enkel in `libs/components` (`vl-map` zit in `libs/integrations/src/map/`).
+  Pas na een brede zoektocht zonder match een placeholder met laagnaam `PLACEHOLDER … — geen FLUX-component`,
+  en meld het. Typische echte placeholders: grafieken.
+- **Code ≠ library.** Sommige componenten bestaan in code maar niet in Figma, en omgekeerd. Alleen wat in
+  Figma gepubliceerd is, kan je in een design gebruiken; controleer met `get_libraries` en
+  `search_design_system`, en meld wat ontbreekt (`vl-map` is in Figma nog niet volwaardig).
 - **Laagnamen:** laat de naam van een geplaatste instance gelijk aan de componentnaam.
 - **Storybook-patronen** (`apps/storybook/docs/f_patronen/`) krijgen een sectie `Patronen` op de
   componentpagina: echte instances, Storybook-teksten, een label per voorbeeld. Bestaat de sectie al
   (`vl-info-tile`, `vl-cascader`, `vl-functional-header`), vul ze aan.
 - **Styling die de library als variant aanbiedt, nooit met de hand nabouwen** — bv. zebra via
   `table-row variant=zebra`, niet via fills op cellen; handwerk verdwijnt bij een library-sync.
+
+## Designs maken (code → design)
+
+- **Pagina's:** `vl-template` is de standaardkeuze; `vl-dashboard` enkel voor grote applicaties die eerder
+  een dashboard of desktop-app zijn. Stel gerichte vragen om die keuze te valideren vóór je begint. Bij
+  `vl-template` met grote tabellen of een kaart: full-width functional header en full-width content-blokken.
+- **Opbouw van de main content:** `vl-section`, en daarbinnen `vl-content-block`. Vul de meegeleverde
+  `.vl-section`-slots in; verzin er niets naast.
+- **Zijnavigatie** (TOC van de pagina) komt rond de content, binnen de `vl-content-block`, met
+  `vl-side-navigation` op een `vl-grid`. In code is dat `vl-side-navigation-layout-next`
+  (`content-block heading-root-selector="#..."`), dat de TOC uit de heading-ids genereert. Voorbeeld:
+  `libs/integrations/src/page-layout/page-layout-example.component.ts` en Figma-node `563-51452`.
+- **Bedenk geen eigen layouts** — geen eigen frames, backgrounds, borders of spacing. Een component weet
+  niet in welke parent hij zit: de **parent bepaalt de spacing**, met `.vl-stacked` voor verticaal en
+  `.vl-group` voor horizontaal. Gebruik `vl-title` met `no-space-bottom` in een `.vl-stacked`.
+- **Bestaat er een variant met native Figma slots**, neem die.
+- **Kleur nooit als enig onderscheid.** Voor kaarten, grafieken en gekleurde labels gelden de
+  projectrichtlijnen: `apps/storybook/docs/h_opmaak/2_kleurenpalet.mdx` (o.a. kleurenblindheid) en
+  `apps/storybook/docs/e_richtlijnen/a_toegankelijkheid-aanpak/1_waarneembaar/1.4-onderscheidbaar.mdx`.
+- **Storybook is de bron van best practices** voor design en toegankelijkheid; neem die mee in wat je
+  voorstelt, en meld onvolkomenheden in code én in de Figma-componenten.
+
+**UI-patroon → component** (startpunt; verifieer de naam live met `search_design_system`):
+
+| Wat je zoekt | Component |
+|---|---|
+| Pagina-layout (standaard / dashboard) | `vl-template` / `vl-dashboard` |
+| App-/titelbalk bovenaan | `vl-functional-header` |
+| Footer | `vl-footer` |
+| Knop · link | `vl-button` · `vl-link` |
+| Tekst-/zoekinput | `vl-input-field` |
+| Filterpaneel (meerdere filters) | `vl-search-filter` |
+| Dropdown / (multi)select / segmented keuze | `vl-select-rich` |
+| Tabbladen-navigatie | `vl-tabs` (+ `vl-tab`) |
+| Statistiek-/KPI-kaart ("card", "tile") | `vl-info-tile` |
+| Uitleg-/infoblok (titel + tekst + link) | `vl-infoblock` |
+| Korte inline-uitleg | `vl-infotext` |
+| Uitgelicht contentblok (met illustratie) | `vl-spotlight` |
+| Proza / rich text | `vl-proza-message` |
+| Label/waarde-lijst (metadata) | `vl-properties` (boven `vl-description-data`) |
+| Kaart / GIS-laag | `vl-map` (+ `vl-map-*`, in `libs/integrations`) |
+| Overlay-detailpaneel | `vl-side-sheet` |
+| Datatabel (filters/paginatie) | `vl-rich-data` / `vl-rich-data-table` |
+| Contactgegevens | `vl-contact-card` |
+| Heading / body-tekst | `vl-title` / `vl-text` |
+| Popover / tooltip | `vl-popover` / `vl-tooltip` |
+| Kolommenraster / groepering | `.vl-grid` / `.vl-group` · `.vl-stacked` |
+
+## Een design in code omzetten
+
+- **Figma is de bron voor het ontwerp, niet voor de structuur.** Match altijd eerst een bestaand
+  sibling-component; neem de gegenereerde code nooit letterlijk over.
+- **Map Figma-variabelen op bestaande design tokens** (CSS custom properties). Gebruik nooit de raw hex- of
+  px-waarden uit Figma als er een token voor bestaat.
+- **Vertaal de styling naar `*.css.ts`:** geneste, BEM-geordende selectors met tokens, niet inline of
+  hardcoded.
 
 ## Instances, slots en overrides
 
@@ -109,6 +188,8 @@ verdwijnt, een nieuwe gap is één tabelrij, een nieuwe les één bullet.
 
 ## MCP en tooling
 
+- **Vóór elke `use_figma`-call** eerst de `figma-use` skill laden en `skillNames: "resource:figma-use"`
+  meegeven; voor design-generatie `figma-generate-design`, `figma-generate-library` of `figma-code-connect`.
 - **Pagina's ontdekken:** `get_metadata` zonder nodeId geeft één pagina; gebruik
   `use_figma` → `figma.root.children`.
 - **`search_design_system`** geeft geen node-id, indexeert geen variables, styles of iconen, en voert
@@ -133,43 +214,3 @@ verdwijnt, een nieuwe gap is één tabelrij, een nieuwe les één bullet.
 - `figma connect preview` resolvet niet over bestandsgrenzen; controleer geneste iconen in Dev Mode.
 - Dev Mode toont "Not started" op een component set en "Connected" op een instance: demonstreer vanuit
   een design.
-
-## Open gaps
-
-Stand 2026-09-18.
-
-| Component | Gap | Waarom open / omweg |
-|---|---|---|
-| **Vraagt een native slot — editorwerk** | | |
-| `vl-table` | state-varianten van `table-row` (success/warning/error/disabled) hebben geen slot | variantwissel reset alle cellen; markering in een cel (`vl-pill`) |
-| `vl-table` | maximaal drie rij-acties (`Table.Cell icon row`) | leading/trailing zijn `Table.Cell`-schakelaars, geen slots |
-| `vl-side-sheet` | geen slot | geneste `vl-text` swappen naar `.vl-stacked` |
-| `vl-modal` | body is een placeholder; deprecated variant staat ernaast | placeholder swappen naar `.vl-stacked` |
-| `vl-step` | geen slot voor acties | — |
-| `vl-property` | `data slot` is een placeholder | swappen, bv. naar `vl-link` |
-| `vl-cascader` | vijf vaste items | meer items: melden aan de gebruiker |
-| `vl-breadcrumb` | verborgen restlaag `places-home` (absoluut, achteraan in de slot); code kent geen home-optie | niet gebruiken; `vl-cascader` zet zijn eigen home-icoon vooraan |
-| `.vl-group` | horizontale `--stretch-children` ontbreekt | — |
-| `vl-fieldset` | horizontale varianten: slot staat niet in auto-layout, vult de breedte niet | root naar auto-layout omzetten |
-| **Vraagt een beslissing** | | |
-| `vl-alert` | `naked` stapelt titel en boodschap, code zet ze inline | samenvoegen breekt tekst-overrides |
-| `vl-info-tile` | geen open/dicht-toestand | vraagt een nieuwe variant-as |
-| `vl-functional-header` | geen `full-width` bij `size=S` | op mobiel functioneel gelijk |
-| `vl-select-rich` | label en placeholder gaan verloren bij een variantwissel | tekst zit in geneste componenten, een property bovenaan kan er niet aan |
-| `vl-step`, `vl-pill`, `vl-form-message` | variant-assen mengen code-concepten | herstructureren = reconciliatie |
-| 🚧-componenten, `vl-dashboard` | work-in-progress zit in productie-designs | promoveren of expliciet WIP |
-| `vl-header`, `vl-functional-header`, `vl-dashboard` | instances verwijzen naar vijf van het canvas verwijderde main components (`↳ SelectBase`, twee `login/logged out/2/…`, `dashboard-content`, `content-sample`) | enkel via script te onderhouden; opnieuw koppelen aan levende componenten |
-| **Extern of geblokkeerd** | | |
-| `vl-alert` | titel in `size=small` is een 16px-override, geen stijl | Foundations mist de 16px-stijl |
-| tokens | `color/text/subtle` is vlak, code gebruikt de transparante grijs | remote collectie; lokaal token `--vl-color--text-subtle` als tussenoplossing |
-| typografie | Flanders Art Sans heeft geen Light | `vl-content-header` vraagt 300 |
-| **Code of Code Connect** | | |
-| `vl-functional-header` | `search?` naast de terug-link of tabs; een knop naast de breadcrumb (patroon "met button") | Code Connect mapt enkel `search?` + `breadcrumb` |
-| `vl-info-tile` | `highlight` is een effect style | Code Connect kan styles niet lezen |
-| `vl-alert` | banner: titel en boodschap in één tekstlaag, scheidingsteken hard in de tekst | bewuste afweging; Code Connect splitst op de eerste ` - ` |
-| `vl-pager` | verbergt zich niet bij één pagina | code |
-| `vl-table` | zebrakleuren hardgecodeerd | code, kandidaat voor tokens |
-| — | herhaalbaar formulierveld bestaat niet | nieuw component, Figma én code |
-| `vl-map` | niet volwaardig in Figma | nieuw werk |
-| **Bewust zo gelaten** | | |
-| `vl-content-header` | nota over `vl-site-header` op de pagina | blijft: dat component moet nog gemaakt worden |
