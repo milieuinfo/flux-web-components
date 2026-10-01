@@ -55,6 +55,9 @@
             "@domg-wc/map": [
                 "libs/map/src/index.ts"
             ],
+            "@domg-wc/structures": [
+                "libs/structures/src/index.ts"
+            ],
             "@domg-wc/styles": [
                 "libs/styles/src/index.ts"
             ]

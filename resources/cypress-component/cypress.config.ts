@@ -50,6 +50,7 @@ const cypressConfig: any = {
                         '@domg-wc/components/compliance': path.resolve('../../libs/components/src/compliance/'),
                         '@domg-wc/components/form': path.resolve('../../libs/components/src/form/'),
                         '@domg-wc/map': path.resolve('../../libs/map/src/'),
+                        '@domg-wc/structures': path.resolve('../../libs/structures/src/'),
                         '@domg-wc/styles': path.resolve('../../libs/styles/src/'),
                     },
                 },

@@ -1,0 +1,12 @@
+{
+    "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
+    "name": "flux-web-components",
+    "version": "DOMG-WC-VERSION",
+    "js-types-syntax": "typescript",
+    "description-markup": "markdown",
+    "contributions": {
+        "html": {
+            "elements": []
+        }
+    }
+}

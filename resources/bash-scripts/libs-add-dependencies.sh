@@ -12,15 +12,31 @@ rm -rf ./build/dep-to-add
 # creëer een folder voor de json bestanden met de dependencies
 mkdir -p ./build/dep-to-add
 
-for LIB in common styles components map; do
-    # depcheck lijst de packages op die de gebouwde library importeert maar die nog niet in zijn package.json staan:
-    # regel 1 is de titel 'Missing dependencies', regel 2 zijn de namen. Door self-imports (styles, components) staat
-    # ook de eigen packagenaam in die lijst; add-dependencies.mjs slaat die met een waarschuwing over.
-    MISSING=$(pnpm exec depcheck ./build/dist/libs/${LIB} --oneline | tail -n +2)
+for LIB in common styles components map structures; do
+    # depcheck schrijft per library een json bestand weg dat blijft staan, net als het dta bestand hieronder. Daarin is
+    # 'missing' de lijst van packages die de gebouwde library importeert maar die nog niet in zijn package.json staan, en
+    # 'using' de lijst van alle packages die ze importeert. Door self-imports (styles, components) staat ook de eigen
+    # packagenaam in 'missing'; add-dependencies.mjs slaat die met een waarschuwing over.
+    # Bewust geen '--oneline': die output zet 'Unused dependencies' vóór 'Missing dependencies', zodat een library met
+    # een (nog) ongebruikte dependency in zijn package.template.json (zoals structures) de verkeerde namen doorgaf.
+    # depcheck eindigt met exit -1 zodra het iets vindt, dus ook bij een geslaagde run. Een echte fout komt op stderr
+    # en laat een leeg json bestand achter, waarop 'node' hieronder faalt. '--reporter=silent' houdt de pnpm-meldingen
+    # ('Already up to date') uit het json bestand.
+    DEPCHECK=./build/dep-to-add/${LIB}-depcheck.json
+    pnpm --reporter=silent exec depcheck ./build/dist/libs/${LIB} --json > ${DEPCHECK} || true
+    MISSING=$(node -p "Object.keys(require('${DEPCHECK}').missing).join(' ')")
 
     # zonder deze controle draait 'pnpm list' hieronder zonder packages, en dat geeft alle dependencies van de root
     # package.json terug - die zouden dan stuk voor stuk in het artifact geïnjecteerd worden
     if [[ -z ${MISSING} ]]; then
+        # uitzondering enkel voor structures, zolang die nog geen enkele structuur bevat: de library importeert dan
+        # geen enkel package ('using' is leeg) en er valt niets toe te voegen. Ze vervalt vanzelf zodra de eerste
+        # structuur iets importeert; vanaf dan geldt de controle ook voor structures.
+        if [[ ${LIB} == structures && $(node -p "Object.keys(require('${DEPCHECK}').using).length") == 0 ]]; then
+            echo "[warn] - add-dependencies - '${LIB}' importeert nog geen enkel package (lege library), niets toegevoegd"
+            continue
+        fi
+
         echo "[FOUT] - depcheck vond geen ontbrekende dependencies voor '${LIB}' - is deze stap al gedraaid sinds de laatste 'pnpm run libs:build'?" >&2
         exit 1
     fi

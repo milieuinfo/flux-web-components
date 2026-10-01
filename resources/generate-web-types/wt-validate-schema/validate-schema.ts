@@ -3,6 +3,7 @@ import componentsBasicWebTypes from '../../../libs/components/src/block/block.we
 import componentsComplianceWebTypes from '../../../libs/components/src/compliance/compliance.web-types.json';
 import componentsFormWebTypes from '../../../libs/components/src/form/form.web-types.json';
 import mapWebTypes from '../../../libs/map/map.web-types.json';
+import structuresWebTypes from '../../../libs/structures/structures.web-types.json';
 import webTypesSchema from './web-types.schema.json';
 
 const zSchema = require('z-schema');
@@ -25,3 +26,6 @@ console.log('components-form - schema errors', schemaValidator.getLastErrors());
 
 console.log('map - schema valid:', schemaValidator.validate(mapWebTypes, webTypesSchema));
 console.log('map - schema errors', schemaValidator.getLastErrors());
+
+console.log('structures - schema valid:', schemaValidator.validate(structuresWebTypes, webTypesSchema));
+console.log('structures - schema errors', schemaValidator.getLastErrors());

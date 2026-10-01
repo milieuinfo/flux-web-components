@@ -159,7 +159,8 @@
         "./libs/components/src/block/block.web-types.json",
         "./libs/components/src/compliance/compliance.web-types.json",
         "./libs/components/src/form/form.web-types.json",
-        "./libs/map/map.web-types.json"
+        "./libs/map/map.web-types.json",
+        "./libs/structures/structures.web-types.json"
     ],
     "volta": {
         "node": "22.20.0",
