@@ -20,9 +20,12 @@ is [Node.js](https://nodejs.org/en). Als package manager gebruik je best [pnpm](
 
 De reden is supply-chain security: pnpm draait sinds versie 10 de lifecycle-scripts
 (`preinstall`/`install`/`postinstall`) van dependencies standaard niet automatisch. Enkel packages die je expliciet
-toelaat, mogen build-scripts draaien. Npm (en Yarn) draaien die scripts wel bij het installeren en vergroten zo het
-risico op supply-chain-aanvallen. Onze packages afnemen werkt met elke package manager; als afnemer gebruik je best
-ook wel pnpm.
+toelaat, mogen build-scripts draaien. Npm tot en met versie 11 (en Yarn) draaien die scripts wel bij het installeren
+en vergroten zo het risico op supply-chain-aanvallen. npm 12 blokkeert ze ook standaard, maar pnpm heeft nog de
+veiligere defaults en de strengere isolatie; de afweging staat bij
+[pnpm of een veilige npm 12](/docs/recepten-van-npm-naar-pnpm--documentatie#pnpm-of-een-veilige-npm-12).
+Onze packages afnemen werkt met elke package manager; als afnemer gebruik je best ook pnpm, of minstens een veilige
+npm 12.
 
 
 ## Dependencies - package.json
