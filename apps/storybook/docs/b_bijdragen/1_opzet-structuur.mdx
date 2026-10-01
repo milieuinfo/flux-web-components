@@ -50,8 +50,8 @@ export PATH="/Users/(your user)/.volta/bin:$PATH"
 
 De repo gebruikt **pnpm** in plaats van npm. De reden is **supply-chain security**, niet snelheid.
 
-Bij het installeren voert npm de lifecycle-scripts (`preinstall`/`install`/`postinstall`) van elke dependency
-automatisch uit, ook de transitieve. Dat is het [aanvalsoppervlak](https://en.wikipedia.org/wiki/Attack_surface)
+Bij het installeren voert npm tot en met versie 11 de lifecycle-scripts (`preinstall`/`install`/`postinstall`) van
+elke dependency automatisch uit, ook de transitieve. Dat is het [aanvalsoppervlak](https://en.wikipedia.org/wiki/Attack_surface)
 voor supply-chain-aanvallen: een gecompromitteerde package voert kwaadaardige code uit tijdens het installeren. Pnpm draait die scripts standaard niet. Enkel packages die in
 `allowBuilds` op `true` staan (in de root `pnpm-workspace.yaml`) mogen build-scripts uitvoeren; de andere staan op
 `false` en zijn geblokkeerd. In deze repo staan `cypress` (downloadt de Cypress binary) en `playwright-webkit`
@@ -63,6 +63,11 @@ kan draaien.
 Daarnaast is pnpm strenger over afhankelijkheden: een package dat je gebruikt maar niet expliciet in `package.json`
 hebt opgenomen (een phantom dependency), werkt onder pnpm niet meer. Bij npm werkt dat vaak toevallig wel doordat npm
 het naar de root van `node_modules` hoist, waardoor zulke phantom dependencies onopgemerkt blijven.
+
+npm 12 heeft een deel daarvan ingehaald en blokkeert de lifecycle-scripts van dependencies nu ook standaard. Voor
+deze repo blijft pnpm de betere keuze: veiligere defaults, een install die faalt (in plaats van enkel te waarschuwen)
+bij een script dat niet beoordeeld is, en strikte isolatie in een monorepo. De volledige afweging staat bij
+[pnpm of een veilige npm 12](/docs/recepten-van-npm-naar-pnpm--documentatie#pnpm-of-een-veilige-npm-12).
 
 Je hoeft pnpm niet apart te installeren: Node bevat een hulpmiddel (corepack) dat automatisch de juiste versie van
 pnpm gebruikt. Welke versie dat is, staat vast in de `package.json` van het project, zodat iedereen met dezelfde
