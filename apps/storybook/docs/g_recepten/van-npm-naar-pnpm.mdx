@@ -11,11 +11,16 @@ valkuilen. Hoe pnpm binnen die repo zelf gebruikt wordt, is een ander onderwerp 
 [Bijdragen - Opzet & Structuur](/docs/bijdragen-opzet-structuur--documentatie).
 
 De `@domg-wc/*` packages zelf zijn package-manager-agnostisch: ze afnemen werkt evengoed met npm. De migratie is een
-keuze voor je eigen project, en we bevelen ze aan.
+keuze voor je eigen project. Sinds npm 12 is die afweging verschoven: lees eerst
+[pnpm of een veilige npm 12](#pnpm-of-een-veilige-npm-12) voor je begint.
 
 ## Inhoudstafel
 
 - [Waarom pnpm](#waarom-pnpm)
+- [pnpm of een veilige npm 12](#pnpm-of-een-veilige-npm-12)
+    - [Wat npm 12 ingehaald heeft](#wat-npm-12-ingehaald-heeft)
+    - [Waar pnpm nog voorsprong heeft](#waar-pnpm-nog-voorsprong-heeft)
+    - [Onze aanbeveling](#onze-aanbeveling)
 - [Wat verandert er](#wat-verandert-er)
 - [Stappenplan](#stappenplan)
     - [1. pnpm beschikbaar maken](#1-pnpm-beschikbaar-maken)
@@ -34,9 +39,10 @@ keuze voor je eigen project, en we bevelen ze aan.
 
 De reden is **supply-chain security**, niet snelheid (al krijg je die er gratis bij).
 
-- npm voert bij `npm install` de lifecycle-scripts (`preinstall`/`install`/`postinstall`) van élke dependency uit, ook
-  de transitieve. Een gecompromitteerde package voert zo code uit op je machine en in je CI, nog voor je één regel
-  van je eigen code gedraaid hebt.
+- npm tot en met versie 11 voert bij `npm install` de lifecycle-scripts (`preinstall`/`install`/`postinstall`) van
+  élke dependency uit, ook de transitieve. Een gecompromitteerde package voert zo code uit op je machine en in je CI,
+  nog voor je één regel van je eigen code gedraaid hebt. npm 12 heeft dat dichtgezet, zie
+  [pnpm of een veilige npm 12](#pnpm-of-een-veilige-npm-12).
 - pnpm draait die scripts niet, tenzij je een package expliciet toelaat (`allowBuilds`). Met `strictDepBuilds` faalt
   de install zodra er een script opduikt dat je nog niet beoordeeld hebt.
 - pnpm 11 wacht standaard 24 uur (`minimumReleaseAge`) voor het een pas gepubliceerde versie installeert. De meeste
@@ -45,6 +51,83 @@ De reden is **supply-chain security**, niet snelheid (al krijg je die er gratis 
   (phantom) dependencies, die bij npm toevallig werken, komen aan het licht.
 
 Meer achtergrond bij [Afnemen - Aan De Slag](/docs/afnemen-aan-de-slag--documentatie).
+
+
+## pnpm of een veilige npm 12
+
+Op security heeft npm 12 (juli 2026) het grootste deel van zijn achterstand ingehaald. De structurele voordelen van
+pnpm blijven wel bestaan. De migratie blijft aanbevolen, maar niet meer voor elk project: het argument is verschoven
+van security naar veilige defaults en strikte isolatie. Deze afweging geeft de stand van zaken van oktober 2026
+(npm 12, pnpm 11).
+
+### Wat npm 12 ingehaald heeft
+
+- Lifecycle-scripts van dependencies (`preinstall`, `install`, `postinstall`) en impliciete `node-gyp`-builds draaien
+  niet meer, tenzij je ze expliciet toelaat in het veld `allowScripts` van je `package.json`.
+- Git-dependencies, direct of transitief, worden standaard niet meer opgelost. Remote URL- en tarball-dependencies
+  evenmin.
+- `min-release-age` (in dagen, sinds npm 11.10.0) installeert geen versies die jonger zijn dan die wachttijd. Met
+  `min-release-age-exclude` (package-namen of globs) zonder je packages uit, bvb. die van je eigen organisatie.
+
+De maatregelen op de registry zelf, zoals het uitfaseren van tokens die 2FA omzeilen, gelden voor iedereen die
+publiceert. Die pleiten niet voor of tegen een bepaalde package manager.
+
+### Waar pnpm nog voorsprong heeft
+
+- **Veilige defaults.** In npm staat `min-release-age` standaard uit. In pnpm 11 staan `minimumReleaseAge` (1 dag),
+  `blockExoticSubdeps` en `strictDepBuilds` standaard aan: wie niets configureert, is toch beschermd.
+- **Faalgedrag.** npm 12 geeft bij een geblokkeerd script standaard enkel een waarschuwing. Pas met
+  `strict-allow-scripts=true` faalt de install. Zonder die instelling wordt een build groen terwijl er binaries
+  ontbreken, en dat merk je pas bij de eerste run die ze nodig heeft.
+- **`trustPolicy: no-downgrade`** (sinds pnpm 10.21.0) laat de install falen als een nieuwe versie met minder
+  vertrouwensbewijs gepubliceerd werd dan de vorige, bvb. zonder trusted publishing of provenance. Voor npm vonden we
+  geen equivalent.
+- **Strikte isolatie.** pnpm sluit phantom dependencies uit (zie [stap 6](#6-phantom-dependencies-oplossen)) en is
+  sterker in monorepo's. Dat is eerder een voordeel voor correctheid dan voor security, maar het telt mee.
+
+### Onze aanbeveling
+
+1. **Basis voor elk project, ongeacht de package manager.** Blijf je op npm, gebruik dan npm 12 of hoger, met
+   veilige instellingen in `.npmrc` en een gecommitte `allowScripts`-lijst. Zo haal je het grootste deel van de winst
+   zonder migratie.
+
+   **`.npmrc`**
+
+   ```
+   min-release-age=3
+   min-release-age-exclude[]=@domg-wc/*
+   strict-allow-scripts=true
+   ```
+
+   **`package.json`**
+
+   ```
+   "allowScripts": {
+       "cypress": true
+   }
+   ```
+
+   Voeg in `min-release-age-exclude` ook de scope toe van de packages die je eigen organisatie publiceert. Keur een
+   script goed met `npm approve-scripts <package> --no-allow-scripts-pin`. Zonder die vlag schrijft npm een entry met
+   versie (`"cypress@15.4.0": true`), die na de volgende upgrade niet meer matcht.
+
+2. **pnpm voor monorepo's** en voor projecten waar strikte isolatie telt, zoals de flux-web-components repo zelf.
+   Heb je één applicatie per repo, dan is de migratiekost (pipelines, lockfiles, gewoontes) met security als enige
+   reden moeilijker te verantwoorden. Kies je voor pnpm, volg dan de rest van dit recept.
+
+<FluxAlert type="warning">
+{`
+    <ul style="margin: 0;">
+        <li>Beide package managers vragen een allowlist voor je eigen stack. Het postinstall-script van Cypress wordt
+        onder npm 12 net zo goed geblokkeerd als onder pnpm (zie stap 4). Ook esbuild, sharp en puppeteer hebben
+        lifecycle-scripts.</li>
+        <li>Installeer je via een proxy-registry zoals Artifactory of Nexus? In pnpm staat
+        <code>minimumReleaseAgeIgnoreMissingTime</code> standaard op <code>true</code>: metadata zonder
+        <code>time</code>-veld omzeilt dan de leeftijdscontrole. Ga na of je registry dat veld meelevert, anders
+        beschermt <code>minimumReleaseAge</code> je niet.</li>
+    </ul>
+`}
+</FluxAlert>
 
 
 ## Wat verandert er
@@ -73,7 +156,7 @@ Meer achtergrond bij [Afnemen - Aan De Slag](/docs/afnemen-aan-de-slag--document
         </tr>
         <tr>
             <td>Lifecycle-scripts van dependencies</td>
-            <td>draaien automatisch</td>
+            <td>draaien automatisch tot en met npm 11; vanaf npm 12 enkel wat in <code>allowScripts</code> staat</td>
             <td>enkel wat in <code>allowBuilds</code> op <code>true</code> staat</td>
             <td>[stap 4](#4-lockfile-omzetten-en-installeren)</td>
         </tr>
@@ -481,6 +564,11 @@ ouder dan 10.9 (die `devEngines` niet kent), een `--force`, of een andere packag
 - [pnpm - node_modules-instellingen](https://pnpm.io/11.x/settings/node-modules): `nodeLinker`, `shamefullyHoist`,
   `publicHoistPattern`
 - [pnpm - `pnpm import`](https://pnpm.io/11.x/cli/import)
+- [pnpm 11.0 release notes](https://pnpm.io/blog/releases/11.0): nieuwe defaults
+- [npm - Config](https://docs.npmjs.com/cli/v11/using-npm/config/): `min-release-age`
+- [npm v12 en install-scripts](https://apostrophecms.com/docs/guide/npm-v12-install-scripts.html): `allowScripts`,
+  `approve-scripts`, `strict-allow-scripts`
+- [Minimum release age in npm, pnpm en yarn](https://gist.github.com/mcollina/b294a6c39ee700d24073c0e5a4e93104)
 - [pnpm - Only allow pnpm](https://pnpm.io/11.x/only-allow-pnpm)
 - [corepack](https://github.com/nodejs/corepack)
 - [Volta - pnpm support](https://docs.volta.sh/advanced/pnpm)
