@@ -101,11 +101,7 @@ summary {
 
 .flux-component-overview__table {
     th {
-        border-top-color: transparent !important;
-        border-left-color: transparent !important;
-        border-right-color: transparent !important;
-        border-bottom-color: grey !important;
-        border-bottom-width: 1.5px !important;
+        border-color: transparent !important;
     }
 
     tr {
@@ -119,4 +115,118 @@ summary {
             transform: scale(1.15);
         }
     }
+
+    /* een component beslaat 2 lijnen: de naam overspant ze, de lijn eronder scheidt het van het volgende */
+    .flux-component-overview__name,
+    .flux-component-overview__row--second > * {
+        border-bottom-color: hsla(203, 50%, 30%, 0.15) !important;
+    }
+
+    .flux-component-overview__header .flux-component-overview__name,
+    .flux-component-overview__header--second > * {
+        border-bottom-color: grey !important;
+        border-bottom-width: 1.5px !important;
+    }
+
+    /* de titel van een sectie staat in de tabel zelf, met dezelfde witruimte als toen elke sectie een eigen tabel had */
+    .flux-component-overview__section td {
+        padding: 0 !important;
+        text-align: left;
+
+        h2 {
+            margin: 72px 0 15px !important;
+        }
+    }
+
+    tbody:first-of-type .flux-component-overview__section h2 {
+        margin-top: 21px !important;
+    }
+
+    /* de 2 lijnen van een component dicht bij elkaar, met wat meer ruimte erboven en eronder */
+    .flux-component-overview__row--first > td:not(.flux-component-overview__name) {
+        padding-top: 11px !important;
+        padding-bottom: 0 !important;
+    }
+
+    .flux-component-overview__row--second > td {
+        padding-top: 0 !important;
+        padding-bottom: 11px !important;
+    }
+
+    /* Documentatie/DV Status en META/WCAG staan telkens onder elkaar: minstens zo breed als 'ontwerpen', een langere waarde mag breder */
+    .flux-condition__badge {
+        display: inline-flex;
+        justify-content: center;
+        min-width: 69px;
+        height: 20px;
+        border-radius: 3px;
+        /* zelfde verloop als de 'flat' stijl van shields.io, zodat badge en wrapper naadloos in elkaar overlopen */
+        background-image: linear-gradient(rgba(187, 187, 187, 0.1), rgba(0, 0, 0, 0.1));
+        transform: scale(1.15);
+
+        img {
+            transform: none;
+        }
+    }
+}
+
+/* blok onderaan met de koppeling naar de DV componenten: zelfde witruimte boven de titel als bij een sectie */
+.flux-component-overview__dv-title {
+    margin: 72px 0 15px !important;
+}
+
+.flux-component-overview__dv-table {
+    th {
+        text-align: left;
+        border-bottom-color: grey !important;
+        border-bottom-width: 1.5px !important;
+    }
+
+    /* de status staat gecentreerd onder zijn kolomtitel, zoals in het overzicht */
+    th:last-child {
+        text-align: center;
+    }
+
+    /* de statuskolom zo smal als zijn inhoud, zodat de status in beide DV blokken op dezelfde plaats staat */
+    th:last-child,
+    td:last-child {
+        width: 1%;
+        white-space: nowrap;
+    }
+
+    td {
+        vertical-align: middle;
+        border-bottom-color: hsla(203, 50%, 30%, 0.15) !important;
+    }
+}
+
+/* de filters onder elkaar, als blok rechts uitgelijnd zodat de checkboxes netjes onder elkaar staan */
+.flux-component-overview__filters {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: fit-content;
+    /* !important: de docs-stijl van Storybook zet de marge van elke div op 0 */
+    margin: 8px 0 8px auto !important;
+}
+
+.flux-component-overview__filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    cursor: pointer;
+
+    input {
+        width: 16px;
+        height: 16px;
+        margin: 0;
+        cursor: pointer;
+    }
+}
+
+/* buiten het overzicht (bv. de badges bovenaan een componentpagina) heeft de wrapper geen effect */
+.flux-condition__badge {
+    display: contents;
 }

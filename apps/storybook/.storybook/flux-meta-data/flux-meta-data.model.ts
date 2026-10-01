@@ -13,6 +13,7 @@ export interface ComponentCondition {
     documentation: DocumentationCondition;
     wcag: WCAGCondition;
     jiraMeta: string; // link naar de Jira Meta pagina
+    dv?: DVCondition | DVCondition[]; // enkel als Digitaal Vlaanderen een nieuwe variant van het component maakt, een lijst als die over meerdere ideeën gespreid is
 }
 
 export interface FluxMetaDataComponent {
@@ -78,3 +79,26 @@ export const WCAGCondition = {
 export type WCAGCondition =
     | (typeof WCAGCondition)[keyof typeof WCAGCondition]
     | `FLUX-${string}`;
+
+// status van het idee in Jira Product Discovery van Digitaal Vlaanderen (project DS, 'Doneness matrix of new components')
+export const DVStatus = {
+    backlog: 'Backlog',
+    discovery: 'Discovery',
+    ontwerpen: 'Ontwerpen',
+    spec: 'Spec',
+    klaarVoorDelivery: 'Klaar voor delivery',
+    productie: 'Productie',
+    gepubliceerd: 'Gepubliceerd',
+    wontDo: "Won't do",
+} as const;
+
+export type DVStatus = (typeof DVStatus)[keyof typeof DVStatus];
+
+export interface DVCondition {
+    idea: string; // sleutel van het idee, bv. 'DS-135'
+    name: string; // naam van het component bij DV, bv. 'Card'
+    status: DVStatus;
+}
+
+// een component kan over meerdere ideeën gespreid zijn, bv. vl-pill over de informatieve en de interactieve tag
+export const dvIdeas = (dv?: DVCondition | DVCondition[]): DVCondition[] => (Array.isArray(dv) ? dv : dv ? [dv] : []);
