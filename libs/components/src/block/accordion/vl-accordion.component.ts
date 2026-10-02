@@ -97,6 +97,10 @@ export class VlAccordionComponent extends BaseLitElement {
     protected willUpdate(changedProperties: PropertyValues): void {
         super.willUpdate(changedProperties);
 
+        if (!this.hasUpdated && this.defaultOpen) {
+            this.accordion.setOpen(true, false);
+        }
+
         if (changedProperties.has('headingLevel') && this.headingLevel && !this.isValidHeadingLevel()) {
             console.warn(
                 `De waarde "${this.headingLevel}" van het attribuut "heading-level" is ongeldig. Gebruik een waarde tussen 1 en 6.`,

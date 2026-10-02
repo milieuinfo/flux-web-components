@@ -787,3 +787,32 @@ describe('cypress-component - block components - vl-info-tile - vindbaar via zoe
         shouldHaveContentHidden(null);
     });
 });
+
+describe('cypress-component - block components - vl-info-tile - properties na het toevoegen', () => {
+    const appendInfoTile = (configure: (infoTile: VlInfoTile) => void) => {
+        cy.mount(html`<div id="host"></div>`);
+        cy.get('#host').then(($host) => {
+            const infoTile = document.createElement('vl-info-tile') as VlInfoTile;
+            infoTile.innerHTML = `${titleSlot}${contentSlot}`;
+            $host[0].appendChild(infoTile);
+            configure(infoTile);
+            return infoTile.updateComplete;
+        });
+    };
+
+    it('should be open when toggleable and auto-open are set as properties before the first render', () => {
+        appendInfoTile((infoTile) => {
+            infoTile.toggleable = true;
+            infoTile.autoOpen = true;
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+    });
+
+    it('should stay open when opened programmatically before the first render', () => {
+        appendInfoTile((infoTile) => {
+            infoTile.toggleable = true;
+            infoTile.open();
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+    });
+});

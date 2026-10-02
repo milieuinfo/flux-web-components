@@ -116,6 +116,10 @@ export class VlInfoTile extends BaseLitElement {
     protected willUpdate(changedProperties: PropertyValues): void {
         super.willUpdate(changedProperties);
 
+        if (!this.hasUpdated && this.toggleable && this.autoOpen) {
+            this.accordion.setOpen(true, false);
+        }
+
         if (this.hasUpdated && (changedProperties.has('toggleable') || changedProperties.has('autoOpen'))) {
             this.accordion.setOpen(this.toggleable && this.autoOpen, false);
         }

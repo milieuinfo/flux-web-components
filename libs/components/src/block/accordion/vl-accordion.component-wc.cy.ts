@@ -138,6 +138,20 @@ describe('cypress-component - block components - vl-accordion wc - title slot te
     });
 });
 
+describe('cypress-component - block components - vl-accordion wc - properties na het toevoegen', () => {
+    it('should be open when default-open is set as property before the first render', () => {
+        cy.mount(html`<div id="host"></div>`);
+        cy.get('#host').then(($host) => {
+            const accordion = document.createElement('vl-accordion') as VlAccordionComponent;
+            accordion.setAttribute('toggle-text', 'Onderwijsdoelstelling');
+            $host[0].appendChild(accordion);
+            accordion.defaultOpen = true;
+            return accordion.updateComplete;
+        });
+        shouldBeOpen();
+    });
+});
+
 const shouldBeToggleable = async () => {
     cy.runTestFor<VlAccordionComponent>('vl-accordion', (component) => {
         expect(component._isOpen).to.be.false;
