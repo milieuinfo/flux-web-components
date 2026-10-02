@@ -494,8 +494,10 @@ describe('cypress-component - block components - vl-accordion dom - vindbaar via
             </vl-accordion>
         `);
         shouldHaveContentHidden('');
+        shouldBeRendered('#doel', false);
         dispatchBeforeMatch();
         shouldBeClosed();
+        shouldBeRendered('#doel', false);
     });
 });
 
