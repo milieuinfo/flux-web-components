@@ -62,8 +62,10 @@ export const MapDefault = story(
         disableRotation,
         disableMousewheelZoom,
         disableKeyboard,
+        hideScale,
         noBorder,
         fullHeight,
+        scalePosition,
     }) => html`
         <vl-map
             ?allow-fullscreen=${allowFullscreen}
@@ -71,8 +73,10 @@ export const MapDefault = story(
             ?disable-rotation=${disableRotation}
             ?disable-mouse-wheel-zoom=${disableMousewheelZoom}
             ?disable-keyboard=${disableKeyboard}
+            ?hide-scale=${hideScale}
             ?no-border=${noBorder}
             ?full-height=${fullHeight}
+            scale-position=${scalePosition}
             zoomInTooltip="Zoom in"
             zoomOutTooltip="Zoom uit"
         >
@@ -175,8 +179,10 @@ export const MapPlayground = story(
         disableRotation,
         disableMousewheelZoom,
         disableKeyboard,
+        hideScale,
         noBorder,
         fullHeight,
+        scalePosition,
         activeActionChange,
         layerVisibleChange,
     }) => html`
@@ -189,8 +195,10 @@ export const MapPlayground = story(
             ?disable-rotation=${disableRotation}
             ?disable-mouse-wheel-zoom=${disableMousewheelZoom}
             ?disable-keyboard=${disableKeyboard}
+            ?hide-scale=${hideScale}
             ?no-border=${noBorder}
             ?full-height=${fullHeight}
+            scale-position=${scalePosition}
             @vl-active-action-changed=${(event) => {
                 activeActionChange({ previous: event.detail.previous });
                 activeActionChange({ current: event.detail.current });
@@ -365,8 +373,10 @@ export const MapPlaygroundLB72 = story(
         disableRotation,
         disableMousewheelZoom,
         disableKeyboard,
+        hideScale,
         noBorder,
         fullHeight,
+        scalePosition,
         activeActionChange,
         layerVisibleChange,
     }) => html`
@@ -378,8 +388,10 @@ export const MapPlaygroundLB72 = story(
             ?disable-rotation=${disableRotation}
             ?disable-mouse-wheel-zoom=${disableMousewheelZoom}
             ?disable-keyboard=${disableKeyboard}
+            ?hide-scale=${hideScale}
             ?no-border=${noBorder}
             ?full-height=${fullHeight}
+            scale-position=${scalePosition}
             @vl-active-action-changed=${(event) => {
                 activeActionChange({ previous: event.detail.previous });
                 activeActionChange({ current: event.detail.current });

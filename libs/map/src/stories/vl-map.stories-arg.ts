@@ -1,7 +1,14 @@
-import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
+import {
+    CATEGORIES,
+    CONTROLS,
+    defaultArgs,
+    defaultArgTypes,
+    getSelectControlOptions,
+    TYPES,
+} from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 import { action } from 'storybook/actions';
-import { EVENT } from '../vl-map.model';
+import { EVENT, SCALE_POSITION } from '../vl-map.model';
 
 export const mapArgs = {
     ...defaultArgs,
@@ -11,9 +18,11 @@ export const mapArgs = {
     disableKeyboard: false,
     disableMousewheelZoom: false,
     disableRotation: false,
+    hideScale: false,
     fullHeight: false,
     lambert2008: false,
     noBorder: false,
+    scalePosition: SCALE_POSITION.BOTTOM_LEFT,
     activeActionChange: action(EVENT.ACTIVE_ACTION_CHANGED),
     layerVisibleChange: action(EVENT.LAYER_VISIBLE_CHANGED),
 };
@@ -76,6 +85,16 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
             defaultValue: { summary: String(mapArgs.disableKeyboard) },
         },
     },
+    hideScale: {
+        name: 'hide-scale',
+        description:
+            'Verbergt de schaal (ScaleLine) van de map.<br>Standaard toont de map een schaal linksonder.<br>Dit attribuut is niet reactief.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(mapArgs.hideScale) },
+        },
+    },
     fullHeight: {
         name: 'full-height',
         description:
@@ -103,6 +122,17 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(mapArgs.noBorder) },
+        },
+    },
+    scalePosition: {
+        name: 'scale-position',
+        description: 'Bepaalt de hoek waarin de schaal (ScaleLine) op de map staat.<br>Dit attribuut is reactief.',
+        control: { type: CONTROLS.SELECT },
+        options: Object.values(SCALE_POSITION),
+        table: {
+            type: { summary: getSelectControlOptions(Object.values(SCALE_POSITION)) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: mapArgs.scalePosition },
         },
     },
     activeActionChange: {
