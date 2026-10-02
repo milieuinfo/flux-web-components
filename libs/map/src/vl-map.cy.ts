@@ -628,6 +628,16 @@ describe('cypress-component - map - vl-map - scale positie', () => {
                         } else {
                             expect(scaleRect.bottom).to.be.greaterThan(midY);
                         }
+
+                        const zoom = vlMap.shadowRoot?.querySelector<HTMLElement>('.ol-zoom');
+                        expect(zoom, 'zoom control').to.exist;
+                        const zoomRect = zoom!.getBoundingClientRect();
+                        const overlapsZoom =
+                            scaleRect.left < zoomRect.right &&
+                            scaleRect.right > zoomRect.left &&
+                            scaleRect.top < zoomRect.bottom &&
+                            scaleRect.bottom > zoomRect.top;
+                        expect(overlapsZoom, `scale line (${position}) overlaps zoom control`).to.be.false;
                     });
                 });
             });

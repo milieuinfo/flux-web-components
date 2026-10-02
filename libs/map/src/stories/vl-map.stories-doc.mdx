@@ -80,8 +80,11 @@ const hasInvalidGeometries = map.hasInvalidGeometries();
 
 De map toont standaard een schaal (`ScaleLine`) linksonder. Met `scale-position` kies je een andere hoek:
 `bottom-left` (standaard), `bottom-right`, `top-left` of `top-right`. Dit attribuut is reactief (in tegenstelling tot
-`hide-scale`), dus de hoek kan live wijzigen. `top-right` deelt de hoek met de rotatieknop, die enkel zichtbaar is
-wanneer de kaart geroteerd is.
+`hide-scale`), dus de hoek kan live wijzigen.
+
+In de rechterhoeken staat de schaal standaard voorbij de altijd aanwezige zoom- en rotatieknop, via de custom
+property `--vl-map--scale-offset-inline`. Gebruik je ook een `vl-map-overview-map` of de fullscreen-knop (beide ook
+rechtsonder), verhoog die property dan zodat de schaal ook daar vrij blijft.
 
 ```html
 <vl-map scale-position="bottom-right"></vl-map>

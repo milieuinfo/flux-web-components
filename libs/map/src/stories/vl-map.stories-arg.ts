@@ -126,8 +126,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
     },
     scalePosition: {
         name: 'scale-position',
-        description:
-            'Bepaalt de hoek waarin de schaal (ScaleLine) op de map staat.<br>De schaal wijkt automatisch voor een geopende `vl-map-side-sheet` aan de betrokken kant.',
+        description: 'Bepaalt de hoek waarin de schaal (ScaleLine) op de map staat.<br>Dit attribuut is reactief.',
         control: { type: CONTROLS.SELECT },
         options: Object.values(SCALE_POSITION),
         table: {
