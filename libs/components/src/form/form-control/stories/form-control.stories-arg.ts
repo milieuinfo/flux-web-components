@@ -91,7 +91,8 @@ export const formControlArgTypes: ArgTypes<FormControlArgs> = {
     describedby: {
         name: 'describedby',
         description:
-            'Het `id` van een element (in de light DOM) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.',
+            'Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.',
+        control: false,
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,

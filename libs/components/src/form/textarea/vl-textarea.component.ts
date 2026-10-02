@@ -1,5 +1,5 @@
 import { webComponent } from '@domg-wc/common';
-import { vlAccessibilityStyles, vlResetStyles } from '@domg-wc/styles';
+import { vlResetStyles } from '@domg-wc/styles';
 import { maxLengthValidator, minLengthValidator } from '@open-wc/form-control';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
@@ -33,7 +33,7 @@ export class VlTextareaComponent extends FormControl {
     static formControlValidators = [...FormControl.formControlValidators, minLengthValidator, maxLengthValidator];
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlAccessibilityStyles, vlTextareaComponentStyles];
+        return [vlResetStyles, vlTextareaComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {

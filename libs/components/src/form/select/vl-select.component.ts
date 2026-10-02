@@ -1,5 +1,5 @@
 import { webComponent } from '@domg-wc/common';
-import { vlAccessibilityStyles, vlResetStyles } from '@domg-wc/styles';
+import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
@@ -28,7 +28,7 @@ export class VlSelectComponent extends FormControl {
     private parsedOptions: SelectOption[] = [];
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlAccessibilityStyles, vlIconStyles, vlSelectComponentStyles];
+        return [vlResetStyles, vlIconStyles, vlSelectComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {

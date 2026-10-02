@@ -1,6 +1,6 @@
 import { registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlTextComponent } from '@domg-wc/components/atom';
-import { vlAccessibilityStyles, vlGroupStyles, vlResetStyles, vlStackedStyles } from '@domg-wc/styles';
+import { vlGroupStyles, vlResetStyles, vlStackedStyles } from '@domg-wc/styles';
 import { FormValue } from '@open-wc/form-control/src/types';
 import Choices, { Options } from 'choices.js';
 import { ChoiceFull } from 'choices.js/src/scripts/interfaces/choice-full';
@@ -53,14 +53,7 @@ export class VlSelectRichComponent extends FormControl {
     }
 
     static get styles(): CSSResult[] {
-        return [
-            vlResetStyles,
-            vlAccessibilityStyles,
-            vlIconStyles,
-            vlGroupStyles,
-            vlStackedStyles,
-            vlSelectRichComponentStyles,
-        ];
+        return [vlResetStyles, vlIconStyles, vlGroupStyles, vlStackedStyles, vlSelectRichComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {

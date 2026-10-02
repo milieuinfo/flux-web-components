@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { html, nothing, TemplateResult } from 'lit';
+import { html, nothing, render, TemplateResult } from 'lit';
 import { VlCheckboxComponent } from '../checkbox/vl-checkbox.component';
 import { VlDatepickerComponent } from '../datepicker/vl-datepicker.component';
 import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
@@ -104,15 +104,15 @@ formControls.forEach(({ tag, target, template }) => {
         it('should mirror the describer text into a hidden span and reference it via aria-describedby', () => {
             mountWithDescriber();
 
-            cy.get(tag).shadow().find('span#description').should('have.text', 'meter');
-            cy.get(tag).shadow().find('span#description').should('have.attr', 'hidden');
-            cy.get(tag).shadow().find(target).should('have.attr', 'aria-describedby', 'description');
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('have.text', 'meter');
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('have.attr', 'hidden');
+            cy.get(tag).shadow().find(target).should('have.attr', 'aria-describedby', 'vl-form-control-description');
         });
 
         it('should keep the original describer in the accessibility tree', () => {
             mountWithDescriber();
 
-            cy.get(tag).shadow().find('span#description').should('have.text', 'meter');
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('have.text', 'meter');
             cy.get('span#eenheid').should('not.have.attr', 'aria-hidden');
         });
 
@@ -120,24 +120,57 @@ formControls.forEach(({ tag, target, template }) => {
             cy.mount(html`<div>${template(nothing)}</div>`);
 
             cy.get(tag).shadow().find(target).should('not.have.attr', 'aria-describedby');
-            cy.get(tag).shadow().find('span#description').should('not.exist');
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('not.exist');
         });
 
         it('should not set aria-describedby when the describer element does not exist', () => {
             cy.mount(html`<div>${template('onbestaand')}</div>`);
 
             cy.get(tag).shadow().find(target).should('not.have.attr', 'aria-describedby');
-            cy.get(tag).shadow().find('span#description').should('not.exist');
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('not.exist');
         });
 
         it('should reactively update the description when the describer text changes', () => {
             mountWithDescriber();
 
-            cy.get(tag).shadow().find('span#description').should('have.text', 'meter');
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('have.text', 'meter');
 
             cy.get('span#eenheid').then(($el) => $el.text('centimeter'));
 
-            cy.get(tag).shadow().find('span#description').should('have.text', 'centimeter');
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('have.text', 'centimeter');
+        });
+
+        it('should follow a changed describedby attribute and drop the description when it is removed', () => {
+            cy.mount(html`
+                <div>
+                    ${template('eenheid')}
+                    <span id="eenheid">meter</span>
+                    <span id="toelichting">in meter</span>
+                </div>
+            `);
+
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('have.text', 'meter');
+
+            cy.get(tag).invoke('attr', 'describedby', 'toelichting');
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('have.text', 'in meter');
+
+            cy.get('span#toelichting').then(($el) => $el.text('in centimeter'));
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('have.text', 'in centimeter');
+
+            cy.get(tag).invoke('removeAttr', 'describedby');
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('not.exist');
+            cy.get(tag).shadow().find(target).should('not.have.attr', 'aria-describedby');
+        });
+
+        it('should keep following the describer text after the control is moved in the DOM', () => {
+            mountWithDescriber();
+
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('have.text', 'meter');
+
+            cy.get(tag).then(($el) => $el.parent().append($el));
+            cy.get('span#eenheid').then(($el) => $el.text('centimeter'));
+
+            cy.get(tag).shadow().find('span#vl-form-control-description').should('have.text', 'centimeter');
         });
 
         it('should be accessible', () => {
@@ -145,6 +178,105 @@ formControls.forEach(({ tag, target, template }) => {
             cy.injectAxe();
 
             cy.checkA11y(tag);
+        });
+    });
+});
+
+describe('cypress-component - form components - form-control - describedby lookup', () => {
+    it('should find a describer in the same shadow root as the control', () => {
+        cy.mount(html`<div id="host"></div>`);
+
+        cy.get('#host').then(($host) => {
+            render(
+                html`
+                    <vl-input-field label="Lengte" describedby="eenheid"></vl-input-field>
+                    <span id="eenheid">meter</span>
+                `,
+                $host[0].attachShadow({ mode: 'open' })
+            );
+        });
+
+        cy.get('#host')
+            .shadow()
+            .find('vl-input-field')
+            .shadow()
+            .find('span#vl-form-control-description')
+            .should('have.text', 'meter');
+    });
+});
+
+describe('cypress-component - form components - vl-upload - describedby on the upload button', () => {
+    it('should also reference the description on the upload button, which is the element that receives focus', () => {
+        cy.mount(html`
+            <div>
+                <vl-upload label="Bijlage" describedby="eenheid"></vl-upload>
+                <span id="eenheid">meter</span>
+            </div>
+        `);
+
+        cy.get('vl-upload')
+            .shadow()
+            .find('.vl-upload__button')
+            .should('have.attr', 'aria-describedby', 'vl-form-control-description');
+    });
+});
+
+const validatedFormControls: { tag: string; targets: string[]; template: TemplateResult }[] = [
+    {
+        tag: 'vl-input-field',
+        targets: ['input'],
+        template: html`<vl-input-field id="veld" name="veld" label="Lengte" required describedby="eenheid">
+        </vl-input-field>`,
+    },
+    {
+        tag: 'vl-select-rich',
+        targets: ['.js-vl-select'],
+        template: html`
+            <vl-select-rich
+                id="veld"
+                name="veld"
+                label="Vervoer"
+                required
+                describedby="eenheid"
+                .options=${[{ label: 'Fiets', value: 'fiets' }]}
+            ></vl-select-rich>
+        `,
+    },
+    {
+        tag: 'vl-upload',
+        targets: ['input', '.vl-upload__button'],
+        template: html`<vl-upload id="veld" name="veld" label="Bijlage" required describedby="eenheid"></vl-upload>`,
+    },
+];
+
+validatedFormControls.forEach(({ tag, targets, template }) => {
+    describe(`cypress-component - form components - ${tag} - describedby and validation message`, () => {
+        it('should reference both the description and the validation message once the control is invalid', () => {
+            cy.mount(html`
+                <form @submit=${(e: Event) => e.preventDefault()}>
+                    ${template}
+                    <vl-form-message for="veld" state="valueMissing">Vul dit veld in.</vl-form-message>
+                    <span id="eenheid">meter</span>
+                    <button type="submit">Verstuur</button>
+                </form>
+            `);
+
+            cy.get('button[type="submit"]').click();
+
+            targets.forEach((target) => {
+                cy.get(tag)
+                    .shadow()
+                    .find(target)
+                    .should(
+                        'have.attr',
+                        'aria-describedby',
+                        'vl-form-control-description vl-form-control-validation-message'
+                    );
+            });
+            cy.get(tag)
+                .shadow()
+                .find('span#vl-form-control-validation-message')
+                .should('have.text', 'Vul dit veld in.');
         });
     });
 });
@@ -161,28 +293,19 @@ describe('cypress-component - form components - form-control - describedby and v
             </form>
         `);
 
-    it('should reference both the description and the validation message once the control is invalid', () => {
-        mountInForm();
-
-        cy.get('button[type="submit"]').click();
-
-        cy.get('vl-input-field')
-            .shadow()
-            .find('input')
-            .should('have.attr', 'aria-describedby', 'description validation-message');
-        cy.get('vl-input-field').shadow().find('span#validation-message').should('have.text', 'Vul een lengte in.');
-    });
-
     it('should drop the validation message from the description again once the control is valid', () => {
         mountInForm();
 
         cy.get('button[type="submit"]').click();
-        cy.get('vl-input-field').shadow().find('span#validation-message').should('exist');
+        cy.get('vl-input-field').shadow().find('span#vl-form-control-validation-message').should('exist');
 
         cy.get('vl-input-field').shadow().find('input').type('3');
 
-        cy.get('vl-input-field').shadow().find('span#validation-message').should('not.exist');
-        cy.get('vl-input-field').shadow().find('input').should('have.attr', 'aria-describedby', 'description');
+        cy.get('vl-input-field').shadow().find('span#vl-form-control-validation-message').should('not.exist');
+        cy.get('vl-input-field')
+            .shadow()
+            .find('input')
+            .should('have.attr', 'aria-describedby', 'vl-form-control-description');
     });
 
     it('should not keep re-rendering when an invalid control is validated on blur', () => {
@@ -201,7 +324,7 @@ describe('cypress-component - form components - form-control - describedby and v
         cy.get('vl-input-field')
             .shadow()
             .find('input')
-            .should('have.attr', 'aria-describedby', 'description validation-message');
+            .should('have.attr', 'aria-describedby', 'vl-form-control-description vl-form-control-validation-message');
         cy.get('vl-input-field').then(async ($el) => {
             const inputField = $el[0] as VlInputFieldComponent;
             // Een update zonder wijziging van isInvalid hervalideert de control.

@@ -116,11 +116,7 @@ export class VlFormDemoComponent extends LitElement {
                             min-length=${2}
                             max-length=${20}
                             placeholder="bv. Jo"
-                            describedby="naam-annotation"
                         ></vl-input-field>
-                        <vl-form-message variant="annotation" id="naam-annotation">
-                            Vul hier je naam in.
-                        </vl-form-message>
                         <vl-form-message for="naam" state="valueMissing"
                             >Gelieve een naam in te vullen.
                         </vl-form-message>
@@ -200,12 +196,8 @@ export class VlFormDemoComponent extends LitElement {
                             placeholder="bv. Smeerebbe-Vloerzegem"
                             no-results-text="Geen geboorteplaatsen gevonden"
                             search-placeholder="Zoek geboorteplaats"
-                            describedby="geboorteplaats-annotation"
                         >
                         </vl-select-rich>
-                        <vl-form-message variant="annotation" id="geboorteplaats-annotation">
-                            Kies de gemeente waar je geboren bent.
-                        </vl-form-message>
                         <vl-form-message for="geboorteplaats" state="valueMissing"
                             >Gelieve een geboorteplaats te selecteren.
                         </vl-form-message>
@@ -248,11 +240,7 @@ export class VlFormDemoComponent extends LitElement {
                             placeholder="bv. 1"
                             required
                             .options=${this.kinderenOpties}
-                            describedby="kinderen-annotation"
                         ></vl-select>
-                        <vl-form-message variant="annotation" id="kinderen-annotation">
-                            Kies het aantal kinderen in je gezin.
-                        </vl-form-message>
                         <vl-form-message for="kinderen" state="valueMissing"
                             >Gelieve een aantal kinderen te kiezen.
                         </vl-form-message>
@@ -320,19 +308,11 @@ export class VlFormDemoComponent extends LitElement {
                         <vl-form-label for="contactmethode" label="Contactmethode *" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-radio-group
-                            id="contactmethode"
-                            name="contactmethode"
-                            required
-                            describedby="contactmethode-annotation"
-                        >
+                        <vl-radio-group id="contactmethode" name="contactmethode" required>
                             <vl-radio value="e-mail">e-mail</vl-radio>
                             <vl-radio value="telefoon">telefoon</vl-radio>
                             <vl-radio value="post">post</vl-radio>
                         </vl-radio-group>
-                        <vl-form-message variant="annotation" id="contactmethode-annotation">
-                            Kies hoe we je het best kunnen bereiken.
-                        </vl-form-message>
                         <vl-form-message for="contactmethode" state="valueMissing">
                             Gelieve een contactmethode te selecteren.
                         </vl-form-message>
@@ -350,11 +330,7 @@ export class VlFormDemoComponent extends LitElement {
                             accepted-files="image/*"
                             required
                             url="http://httpbin.org/post"
-                            describedby="foto-annotation"
                         ></vl-upload>
-                        <vl-form-message variant="annotation" id="foto-annotation">
-                            Laad een pasfoto op als afbeelding.
-                        </vl-form-message>
                         <vl-form-message for="foto" state="valueMissing">
                             Gelieve een foto te selecteren.
                         </vl-form-message>
@@ -364,18 +340,9 @@ export class VlFormDemoComponent extends LitElement {
                         <vl-form-label for="waarheidsgetrouw" label="Waarheidsgetrouw *" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-checkbox
-                            id="waarheidsgetrouw"
-                            name="waarheidsgetrouw"
-                            block
-                            required
-                            describedby="waarheidsgetrouw-annotation"
-                        >
+                        <vl-checkbox id="waarheidsgetrouw" name="waarheidsgetrouw" block required>
                             Naar waarheid ingevuld
                         </vl-checkbox>
-                        <vl-form-message variant="annotation" id="waarheidsgetrouw-annotation">
-                            Bevestig dat je bovenstaande gegevens naar waarheid hebt ingevuld.
-                        </vl-form-message>
                         <vl-form-message for="waarheidsgetrouw" state="valueMissing">
                             Gelieve te bevestigen dat bovenstaande gegevens naar waarheid zijn ingevuld.
                         </vl-form-message>
@@ -393,7 +360,6 @@ export class VlFormDemoComponent extends LitElement {
                                     label="Gerelateerd veld 1 *"
                                     placeholder="Voorbeeld eerste veld"
                                     required
-                                    describedby="gerelateerd-annotation"
                                 ></vl-input-field>
                                 <vl-input-field
                                     id="gerelateerd-2"
@@ -401,12 +367,8 @@ export class VlFormDemoComponent extends LitElement {
                                     label="Gerelateerd veld 2 *"
                                     placeholder="Voorbeeld tweede veld"
                                     required
-                                    describedby="gerelateerd-annotation"
                                 ></vl-input-field>
                             </div>
-                            <vl-form-message variant="annotation" id="gerelateerd-annotation">
-                                Vul beide gerelateerde velden in.
-                            </vl-form-message>
                             <vl-form-message for="gerelateerd-1" state="valueMissing"
                                 >Gelieve een waarde in te vullen voor "Gerelateerd veld 1".
                             </vl-form-message>

@@ -1,5 +1,5 @@
 import { webComponent } from '@domg-wc/common';
-import { vlAccessibilityStyles, vlResetStyles } from '@domg-wc/styles';
+import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { FormControl } from '../form-control/form-control';
 import { vlRadioGroupComponentStyles } from './vl-radio-group.component.css';
@@ -16,7 +16,7 @@ export class VlRadioGroupComponent extends FormControl {
     private initialValue: string | null = null;
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlAccessibilityStyles, vlRadioGroupComponentStyles];
+        return [vlResetStyles, vlRadioGroupComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {

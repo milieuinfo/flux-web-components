@@ -6,8 +6,8 @@ import { FORM_MESSAGE_CUSTOM_TAG } from '../form-message/vl-form-message.compone
 import { BaseLitElement, findDeepestElementThroughShadowRoot } from '@domg-wc/common';
 import 'reflect-metadata';
 
-const DESCRIPTION_ID = 'description';
-const VALIDATION_MESSAGE_ID = 'validation-message';
+const DESCRIPTION_ID = 'vl-form-control-description';
+const VALIDATION_MESSAGE_ID = 'vl-form-control-validation-message';
 
 export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     // Attributes
@@ -20,7 +20,10 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     protected success = formControlDefaults.success;
     /** Validate on blur (after focus) with live recovery, instead of only on submit. */
     protected blurValidation = formControlDefaults.blurValidation;
-    /** Id of a light DOM element whose text is mirrored into the shadow root and linked via aria-describedby. */
+    /**
+     * Id of an element in the same DOM tree as the control (document or same shadow root) whose text is
+     * mirrored into the shadow root and linked via aria-describedby.
+     */
     protected describedby = formControlDefaults.describedby;
 
     // State
@@ -78,6 +81,10 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         this.addEventListener('vl-input', this.onUserMutation);
         this.addEventListener('focusout', this.onFocusOut);
         this.addEventListener('vl-valid', this.onValid);
+
+        if (this.hasUpdated) {
+            this.syncDescriber();
+        }
     }
 
     disconnectedCallback() {
@@ -112,12 +119,16 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         this.validatedForm = null;
     }
 
-    updated(changedProperties: Map<string, unknown>) {
-        super.updated(changedProperties);
+    willUpdate(changedProperties: Map<string, unknown>) {
+        super.willUpdate(changedProperties);
 
         if (changedProperties.has('describedby')) {
             this.syncDescriber();
         }
+    }
+
+    updated(changedProperties: Map<string, unknown>) {
+        super.updated(changedProperties);
 
         if (this.retainsValidationState) {
             // update error after programmatic value change (no vl-input fired).

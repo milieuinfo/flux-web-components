@@ -1,5 +1,5 @@
 import { webComponent } from '@domg-wc/common';
-import { vlAccessibilityStyles, vlResetStyles } from '@domg-wc/styles';
+import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
@@ -24,7 +24,7 @@ export class VlCheckboxComponent extends FormControl {
     private dispatchInput = false;
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlAccessibilityStyles, vlIconStyles, vlCheckboxComponentStyles];
+        return [vlResetStyles, vlIconStyles, vlCheckboxComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {

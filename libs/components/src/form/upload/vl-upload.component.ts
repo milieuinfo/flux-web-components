@@ -1,6 +1,6 @@
 import { findNodesForSlot, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlIconComponent, vlLinkStyles } from '@domg-wc/components/atom';
-import { vlAccessibilityStyles, vlLayoutStyles, vlResetStyles } from '@domg-wc/styles';
+import { vlLayoutStyles, vlResetStyles } from '@domg-wc/styles';
 import { Validator } from '@open-wc/form-control';
 import { FormValue } from '@open-wc/form-control/src/types';
 import DropzoneImport from 'dropzone';
@@ -77,7 +77,6 @@ export class VlUploadComponent extends FormControl {
     static get styles(): CSSResult[] {
         return [
             vlResetStyles,
-            vlAccessibilityStyles,
             ...vlLayoutStyles,
             vlTextStyles,
             vlLinkStyles('.vl-upload__button'),

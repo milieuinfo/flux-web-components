@@ -1,5 +1,4 @@
 import { webComponent } from '@domg-wc/common';
-import { vlAccessibilityStyles } from '@domg-wc/styles';
 import { maxLengthValidator, minLengthValidator } from '@open-wc/form-control';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
@@ -45,7 +44,7 @@ export class VlInputFieldComponent extends FormControl {
     ];
 
     static get styles(): CSSResult[] {
-        return [inputFieldStyles, vlAccessibilityStyles];
+        return [inputFieldStyles];
     }
 
     static get properties(): PropertyDeclarations {
