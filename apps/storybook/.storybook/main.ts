@@ -18,6 +18,7 @@ const config: StorybookConfig = {
         '../../../libs/components/src/compliance/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/form/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/map/src/**/*.stories.@(js|jsx|ts|tsx)',
+        '../../../libs/structures/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/styles/src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
     addons: ['@chromatic-com/storybook', '@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest'],
@@ -164,6 +165,7 @@ const config: StorybookConfig = {
                 '../../../libs/integrations/src/page-layout/index.ts',
             ),
             '@domg-wc/map': path.resolve(__dirname, '../../../libs/map/src/index.ts'),
+            '@domg-wc/structures': path.resolve(__dirname, '../../../libs/structures/src/index.ts'),
             '@domg-wc/styles': path.resolve(__dirname, '../../../libs/styles/src/index.ts'),
         };
 

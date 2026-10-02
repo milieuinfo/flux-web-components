@@ -77,4 +77,14 @@ fi
 pnpm pack &> /dev/null
 echo '[done] - pack - map'
 
+cd ../structures
+pnpm pkg set sideEffects='["./*/**"]' --json >/dev/null
+echo '[done] - set sideEffects - structures'
+if [[ $1 == "develop" ]]; then
+    pnpm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
+    echo '[done] - set publishConfig to snapshot-npm - structures'
+fi
+pnpm pack &> /dev/null
+echo '[done] - pack - structures'
+
 cd ..

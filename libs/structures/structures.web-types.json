@@ -1,0 +1,35 @@
+{
+    "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
+    "name": "flux-web-components",
+    "version": "DOMG-WC-VERSION",
+    "js-types-syntax": "typescript",
+    "description-markup": "markdown",
+    "contributions": {
+        "html": {
+            "elements": [
+                {
+                    "name": "vl-page",
+                    "description": "`vl-page` bouwt de basis-layout van een pagina op: een header, de main content en een footer.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/structures-page--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "v-center",
+                            "description": "Attribuut wordt gebruikt om ervoor te zorgen dat de content verticaal gecentreerd wordt.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "v-stretch",
+                            "description": "Attribuut wordt gebruikt om ervoor te zorgen dat de content 100% zal innemen.",
+                            "default": "false"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

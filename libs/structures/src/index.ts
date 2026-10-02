@@ -1,0 +1,1 @@
+export { VlPage } from './page';

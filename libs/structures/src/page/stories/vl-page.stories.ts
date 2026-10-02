@@ -1,22 +1,24 @@
 import { registerWebComponents } from '@domg-wc/common';
+import { VlTitleComponent } from '@domg-wc/components/atom';
+import { VlContentHeaderComponent } from '@domg-wc/components/block';
+import { VlFooter, VlHeader } from '@domg-wc/components/compliance/next';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import { VlContentHeaderComponent } from '../../content-header/vl-content-header.component';
-import '../vl-template.component';
-import { VlTitleComponent } from '../../../atom/title';
-import { VlFooter, VlHeader } from '../../../compliance/next';
-import { templateArgs, templateArgTypes } from './vl-template.stories-arg';
+import '../vl-page.component';
+import { pageArgs, pageArgTypes } from './vl-page.stories-arg';
+import pageDoc from './vl-page.stories-doc.mdx';
 
 registerWebComponents([VlContentHeaderComponent, VlTitleComponent, VlHeader, VlFooter]);
 
 export default {
-    id: 'components-block-template',
-    title: 'Components - Block/template',
+    id: 'structures-page',
+    title: 'Structures/page',
     tags: ['autodocs'],
-    args: templateArgs,
-    argTypes: templateArgTypes,
+    args: pageArgs,
+    argTypes: pageArgTypes,
     parameters: {
         docs: {
+            page: pageDoc,
             story: {
                 inline: false,
                 iframeHeight: 600,
@@ -24,7 +26,7 @@ export default {
         },
         layout: 'fullscreen',
     },
-} as Meta<typeof templateArgs>;
+} as Meta<typeof pageArgs>;
 
 const version = '1.2.3'; // TODO uit de package.json halen, om een json te kunnen importeren moet je echter wat config wijzigen
 
@@ -45,23 +47,24 @@ const mainHtml = html`
                 https://images.unsplash.com/photo-1561070791-2526d30994b5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80 2000w
             "
         />
-        <a slot="context-link" href="https://flux.omgeving.vlaanderen.be/release/latest/storybook">flux-webcomponents</a>
+        <a slot="context-link" href="https://flux.omgeving.vlaanderen.be/release/latest/storybook"
+            >flux-webcomponents</a
+        >
         <a slot="title-link" href="https://flux.omgeving.vlaanderen.be/release/latest/storybook">${version}</a>
     </vl-content-header>
     <section data-cy="template-content" class="vl-grid">
         <div class="vl-content-block">
             <div id="grid" class="vl-grid vl-stacked-medium" slot="main">
-                <vl-title type="h1" class="vl-column vl-column--12">vl-template</vl-title>
+                <vl-title type="h1" class="vl-column vl-column--12">vl-page</vl-title>
             </div>
         </div>
     </section>
 `;
 
-const bodySimulation = (component: any, withClass: boolean) => html` <div class=${withClass ? 'vl-u-sticky-gf' : ''}>
-    ${component}
-</div>`;
+const bodySimulation = (component: any, withClass: boolean) =>
+    html` <div class=${withClass ? 'vl-u-sticky-gf' : ''}>${component}</div>`;
 
-export const templateDefault = ({ center, stretch }: typeof templateArgs) =>
+export const PageDefault = ({ center, stretch }: typeof pageArgs) =>
     bodySimulation(
         html`
             <vl-template ?v-center=${center} ?v-stretch=${stretch}>
@@ -80,6 +83,6 @@ export const templateDefault = ({ center, stretch }: typeof templateArgs) =>
                 ></vl-footer-next>
             </vl-template>
         `,
-        true
+        true,
     );
-templateDefault.storyName = 'vl-template - default';
+PageDefault.storyName = 'vl-page - default';

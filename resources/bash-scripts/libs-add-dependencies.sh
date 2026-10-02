@@ -12,7 +12,7 @@ rm -rf ./build/dep-to-add
 # creëer een folder voor de json bestanden met de dependencies
 mkdir -p ./build/dep-to-add
 
-for LIB in common styles components map; do
+for LIB in common styles components map structures; do
     # depcheck lijst de packages op die de gebouwde library importeert maar die nog niet in zijn package.json staan:
     # regel 1 is de titel 'Missing dependencies', regel 2 zijn de namen. Door self-imports (styles, components) staat
     # ook de eigen packagenaam in die lijst; add-dependencies.mjs slaat die met een waarschuwing over.
