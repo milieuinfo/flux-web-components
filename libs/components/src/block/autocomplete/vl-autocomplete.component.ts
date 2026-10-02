@@ -4,6 +4,7 @@ import { autocompleteStyle, inputFieldStyle } from '@domg/govflanders-style/comp
 import { vlStackedStyles } from '@domg-wc/styles';
 import { html, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import 'reflect-metadata';
 import { DEFAULT_CAPTION_FORMAT, DEFAULT_MAX_MATCHES, DEFAULT_MIN_CHARS } from './vl-autocomplete.defaults';
 import { AutocompleteItemTemplateFn, CAPTION_FORMAT } from './vl-autocomplete.model';
@@ -98,6 +99,11 @@ export class VlAutocomplete extends BaseLitElement {
     private _highlightedEl: any;
     private _blur = false;
     private _mouseEnter = false;
+    private _resetHighlight = false;
+    private _hadSuggestions = false;
+    private _statusSignature = '';
+    private _statusBump = false;
+    private _escapeClosedList = false;
 
     get contentElement(): HTMLInputElement | null {
         if (this._inputEl) {
@@ -172,20 +178,26 @@ export class VlAutocomplete extends BaseLitElement {
 
     updated(changed: PropertyValues) {
         const { _suggestionEl } = this;
-        if (
-            (changed.has('opened') || changed.has('firstValidItemIndex')) &&
-            this.opened &&
-            _suggestionEl &&
-            _suggestionEl.childElementCount
-        ) {
-            for (const item of _suggestionEl.children) {
-                item.classList.remove('vl-autocomplete__cta--focus');
-            }
+        if (!this.opened || !_suggestionEl || !_suggestionEl.childElementCount) {
+            return;
+        }
+        if (!this._resetHighlight && !changed.has('opened')) {
+            return;
+        }
 
-            if (this.firstValidItemIndex != null) {
-                this._highlightedEl = _suggestionEl.children[this.firstValidItemIndex];
-                if (this._highlightedEl) this._highlightedEl.classList.add('vl-autocomplete__cta--focus');
-            }
+        this._resetHighlight = false;
+        for (const item of _suggestionEl.children) {
+            this._unmarkElement(item);
+        }
+        this._highlightedEl = null;
+        this.contentElement?.removeAttribute('aria-activedescendant');
+
+        const first = this.firstValidItemIndex != null ? _suggestionEl.children[this.firstValidItemIndex] : null;
+        if (first) {
+            this._highlightedEl = first;
+            first.classList.add('vl-autocomplete__cta--focus');
+            first.setAttribute('aria-selected', 'true');
+            this.contentElement?.setAttribute('aria-activedescendant', first.id);
         }
     }
 
@@ -204,6 +216,12 @@ export class VlAutocomplete extends BaseLitElement {
         if (ev.key === 'ArrowUp' || ev.key === 'ArrowDown') {
             ev.preventDefault();
             ev.stopPropagation();
+        }
+        if (ev.key === 'Escape' && this.opened) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            this._escapeClosedList = true;
+            this.close();
         }
     }
 
@@ -225,6 +243,13 @@ export class VlAutocomplete extends BaseLitElement {
             case 'Enter':
                 if (this._highlightedEl) {
                     this._highlightedEl.click();
+                }
+                break;
+
+            case 'Escape':
+                if (this._escapeClosedList) {
+                    ev.stopPropagation();
+                    this._escapeClosedList = false;
                 }
                 break;
             default:
@@ -278,27 +303,41 @@ export class VlAutocomplete extends BaseLitElement {
     }
 
     _markPreviousElement() {
-        if (!this._highlightedEl || !this._highlightedEl.previousElementSibling) {
+        this._markElement(this._findSelectableSibling(this._highlightedEl, 'previousElementSibling'));
+    }
+
+    _markNextElement() {
+        this._markElement(this._findSelectableSibling(this._highlightedEl, 'nextElementSibling'));
+    }
+
+    _findSelectableSibling(element: any, direction: 'previousElementSibling' | 'nextElementSibling') {
+        let sibling = element ? element[direction] : null;
+        while (sibling && sibling.classList.contains('flux-autocomplete-group')) {
+            sibling = sibling[direction];
+        }
+        return sibling;
+    }
+
+    _markElement(element: any) {
+        if (!element) {
             return;
         }
 
-        this._highlightedEl.classList.remove('vl-autocomplete__cta--focus');
-        this._highlightedEl = this._highlightedEl.previousElementSibling;
+        if (this._highlightedEl) {
+            this._unmarkElement(this._highlightedEl);
+        }
+        this._highlightedEl = element;
         this._highlightedEl.classList.add('vl-autocomplete__cta--focus');
+        this._highlightedEl.setAttribute('aria-selected', 'true');
         this.contentElement?.setAttribute('aria-activedescendant', this._highlightedEl.id);
         this._highlightedEl.scrollIntoView();
     }
 
-    _markNextElement() {
-        if (!this._highlightedEl || !this._highlightedEl.nextElementSibling) {
-            return;
+    _unmarkElement(element: Element) {
+        element.classList.remove('vl-autocomplete__cta--focus');
+        if (element.getAttribute('role') === 'option') {
+            element.setAttribute('aria-selected', 'false');
         }
-
-        this._highlightedEl.classList.remove('vl-autocomplete__cta--focus');
-        this._highlightedEl = this._highlightedEl.nextElementSibling;
-        this._highlightedEl.classList.add('vl-autocomplete__cta--focus');
-        this.contentElement?.setAttribute('aria-activedescendant', this._highlightedEl.id);
-        this._highlightedEl.scrollIntoView();
     }
 
     _onFocus() {
@@ -372,54 +411,62 @@ export class VlAutocomplete extends BaseLitElement {
             this._matches = [];
         }
 
+        const signature = this._matches.map((match: any) => match.title).join('\n');
+        if (signature !== this._statusSignature) {
+            this._statusSignature = signature;
+            this._statusBump = !this._statusBump;
+        }
+
         if (this._matches.length) {
+            this._hadSuggestions = true;
             this.open();
         } else {
             this.close();
         }
 
         this.loading = false;
+        this._resetHighlight = true;
 
         this.requestUpdate();
     }
 
     generateItems() {
-        let groupIndex = 0;
         if (this.groupBy && this._groupedMatches.size > 0) {
             const liElements: any = [];
+            let groupIndex = 0;
+            let optionIndex = 0;
 
             this._groupedMatches.forEach((items: any, groupName: string) => {
-                const id = `flux-autocomplete-item-${groupName.toLowerCase().replace(/\s/g, '-')}-${groupIndex}`;
                 liElements.push(html` <li
-                    id="${id}"
+                    id="flux-autocomplete-group-${groupIndex}"
                     class="vl-autocomplete__cta flux-autocomplete-group"
-                    role="option"
-                    aria-selected="false"
-                    aria-disabled="true"
-                    aria-label="Groep: ${groupName}"
+                    role="presentation"
                 >
                     ${groupName}
                 </li>`);
-                items.forEach((item: any) => liElements.push(this.generateItem(item, groupIndex)));
+                items.forEach((item: any) => liElements.push(this.generateItem(item, optionIndex++, groupName)));
                 groupIndex += 1;
             });
 
             return html`${liElements}`;
         }
 
-        return html`${this._matches.map((item: any) => this.generateItem(item, groupIndex))}`;
+        return html`${this._matches.map((item: any, index: number) => this.generateItem(item, index))}`;
     }
 
-    generateItem(item: any, groupIndex: number) {
-        const id = `flux-autocomplete-item-${item.value || item.title.toLowerCase().replace(/\s/g, '-')}-${groupIndex}`;
+    generateItem(item: any, index: number, groupName?: string) {
+        const id = `flux-autocomplete-item-${index}`;
         return html` <li
             id="${id}"
             @click=${() => this.autocomplete(item, id)}
             class="vl-autocomplete__cta flux-autocomplete-item"
             role="option"
-            aria-selected="${id === this._highlightedEl?.id ? 'true' : 'false'}"
+            aria-selected="false"
+            aria-disabled="${ifDefined(item.value == null ? 'true' : undefined)}"
         >
-            ${this.itemTemplate && item.value != null ? this.itemTemplate(item) : this.formatCaption(item)}
+            ${groupName && !this._captionShows(item, this.groupBy)
+                ? html`<span class="flux-autocomplete__group-name">${groupName}: </span>`
+                : ''}${this.itemTemplate && item.value != null ? this.itemTemplate(item) : this.formatCaption(item)}
         </li>`;
     }
 
@@ -443,6 +490,44 @@ export class VlAutocomplete extends BaseLitElement {
                 bubbles: true,
             })
         );
+    }
+
+    _isCombobox() {
+        return this.items?.length > 0 || this._hadSuggestions;
+    }
+
+    _statusMessage() {
+        if (!this.opened) return '';
+
+        const count = this._matches.length;
+        const message =
+            this.firstValidItemIndex == null
+                ? this.noMatchesText
+                : `${count} ${count === 1 ? 'resultaat' : 'resultaten'} beschikbaar`;
+        return this._statusBump ? `${message}\u00A0` : message;
+    }
+
+    _captionShows(item: any, field: string) {
+        if (this.itemTemplate && item.value != null) return false;
+
+        switch (this.captionFormat) {
+            case CAPTION_FORMAT.TITLE:
+                return field === 'title';
+            case CAPTION_FORMAT.SUBTITLE:
+                return field === 'subtitle';
+            case CAPTION_FORMAT.VALUE:
+                return field === 'value';
+            default:
+        }
+
+        const formatsWithSubtitle: string[] = [
+            CAPTION_FORMAT.TITLE_SUBTITLE_VERTICAL,
+            CAPTION_FORMAT.TITLE_SUBTITLE_HORIZONTAL,
+            CAPTION_FORMAT.SUBTITLE_TITLE_HORIZONTAL,
+        ];
+        const showsSubtitle =
+            item.subtitle != null && (this.captionFormat == null || formatsWithSubtitle.includes(this.captionFormat));
+        return field === 'title' || (field === 'subtitle' && showsSubtitle);
     }
 
     _hasSearchTerm() {
@@ -507,6 +592,7 @@ export class VlAutocomplete extends BaseLitElement {
     }
 
     render() {
+        const isCombobox = this._isCombobox();
         const rendered = this._wrapInLabel(
             html`
                 <div class="js-vl-autocomplete">
@@ -522,15 +608,18 @@ export class VlAutocomplete extends BaseLitElement {
                             autocapitalize="off"
                             spellcheck="false"
                             aria-label="${this.label || this.placeholder || 'Start met typen om suggesties te krijgen'}"
-                            aria-autocomplete="list"
-                            aria-owns="suggestions"
-                            aria-controls="suggestions"
-                            aria-haspopup="true"
-                            aria-expanded="${this.opened}"
+                            role="${ifDefined(isCombobox ? 'combobox' : undefined)}"
+                            aria-autocomplete="${ifDefined(isCombobox ? 'list' : undefined)}"
+                            aria-controls="${ifDefined(isCombobox ? 'suggestions' : undefined)}"
+                            aria-haspopup="${ifDefined(isCombobox ? 'listbox' : undefined)}"
+                            aria-expanded="${ifDefined(isCombobox ? String(this.opened) : undefined)}"
                             .value=${this.initialValue}
                             @input=${this._notify}
                         />
                     </slot>
+                    <div class="flux-autocomplete__status" role="status" aria-live="polite" aria-atomic="true">
+                        ${this._statusMessage()}
+                    </div>
                     <div
                         class="vl-autocomplete__loader ${this._hasSearchTerm()
                             ? 'ui-autocomplete__loader-with-clear'
@@ -551,8 +640,7 @@ export class VlAutocomplete extends BaseLitElement {
                                 id="suggestions"
                                 class="vl-autocomplete__list"
                                 role="listbox"
-                                aria-labelledby="${this.defaultInputId}"
-                                aria-live="polite"
+                                aria-label="${this.label || this.placeholder || 'Suggesties'}"
                             >
                                 ${this.generateItems()}
                             </ul>
