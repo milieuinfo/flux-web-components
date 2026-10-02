@@ -138,6 +138,23 @@ describe('cypress-component - block components - vl-accordion wc - title slot te
     });
 });
 
+describe('cypress-component - block components - vl-accordion wc - isOpen', () => {
+    it('should expose the open state via isOpen and _isOpen', () => {
+        cy.mount(html`
+            <vl-accordion toggle-text="Onderwijsdoelstelling">
+                <span>Onderwijs helpt jonge mensen.</span>
+            </vl-accordion>
+        `);
+        cy.runTestFor<VlAccordionComponent>('vl-accordion', (component) => {
+            expect(component.isOpen).to.be.false;
+            expect(component._isOpen).to.be.false;
+            component.open();
+            expect(component.isOpen).to.be.true;
+            expect(component._isOpen).to.be.true;
+        });
+    });
+});
+
 describe('cypress-component - block components - vl-accordion wc - properties na het toevoegen', () => {
     it('should be open when default-open is set as property before the first render', () => {
         cy.mount(html`<div id="host"></div>`);

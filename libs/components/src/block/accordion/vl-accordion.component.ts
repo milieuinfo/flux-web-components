@@ -70,8 +70,12 @@ export class VlAccordionComponent extends BaseLitElement {
         };
     }
 
-    get _isOpen(): boolean {
+    get isOpen(): boolean {
         return this.accordion.isOpen;
+    }
+
+    get _isOpen(): boolean {
+        return this.isOpen;
     }
 
     open() {
