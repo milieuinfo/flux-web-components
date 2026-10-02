@@ -81,7 +81,9 @@ export class VlCheckboxComponent extends FormControl {
     }
 
     render(): TemplateResult {
-        return html` ${!this.isSwitch ? this.renderCheckboxDefault() : this.renderCheckboxSwitch()} `;
+        return html`
+            ${!this.isSwitch ? this.renderCheckboxDefault() : this.renderCheckboxSwitch()} ${this.renderDescription()}
+        `;
     }
 
     resetFormControl() {
@@ -108,6 +110,7 @@ export class VlCheckboxComponent extends FormControl {
                     class="vl-checkbox__toggle"
                     type="checkbox"
                     aria-label=${this.label || nothing}
+                    aria-describedby=${this.describedByIds}
                     aria-invalid=${this.isInvalid || nothing}
                     ?required=${this.required}
                     ?disabled=${this.disabled}
@@ -152,6 +155,7 @@ export class VlCheckboxComponent extends FormControl {
                     type="checkbox"
                     class="vl-checkbox--switch"
                     role="switch"
+                    aria-describedby=${this.describedByIds}
                     ?required=${this.required}
                     ?disabled=${this.disabled}
                     ?error=${this.error}

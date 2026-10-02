@@ -99,12 +99,7 @@ export class VlFormDemoComponent extends LitElement {
 
     override render() {
         return html`
-            <form
-                id="form"
-                class="vl-form"
-                blur-validation
-                @submit=${this.onSubmit}
-            >
+            <form id="form" class="vl-form" blur-validation @submit=${this.onSubmit}>
                 <div class="vl-grid vl-stacked-small">
                     <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="naam" label="Naam *"></vl-form-label>
@@ -147,8 +142,9 @@ export class VlFormDemoComponent extends LitElement {
                             required
                             mask="rrn"
                             placeholder="bv. 86-12-31-123-45"
+                            describedby="rrn-annotation"
                         ></vl-input-field-masked>
-                        <vl-form-message for="rrn" variant="annotation">
+                        <vl-form-message variant="annotation" id="rrn-annotation">
                             Een rijksregisternummer heeft het formaat yy-dd-mm-xyz-cn
                         </vl-form-message>
                         <vl-form-message for="rrn" state="valueMissing"
@@ -170,8 +166,12 @@ export class VlFormDemoComponent extends LitElement {
                             placeholder="bv. 31.12.1992"
                             block
                             required
+                            describedby="geboortedatum-annotation"
                         >
                         </vl-datepicker>
+                        <vl-form-message variant="annotation" id="geboortedatum-annotation">
+                            Een geboortedatum heeft het formaat dd.mm.jjjj
+                        </vl-form-message>
                         <vl-form-message for="geboortedatum" state="valueMissing">
                             Gelieve een geboortedatum in te vullen.
                         </vl-form-message>
@@ -218,8 +218,12 @@ export class VlFormDemoComponent extends LitElement {
                             placeholder="bv. Boardgames"
                             no-results-text="Geen hobbies gevonden"
                             no-choices-text="Geen resterende hobbies gevonden"
+                            describedby="hobbies-annotation"
                         >
                         </vl-select-rich>
+                        <vl-form-message variant="annotation" id="hobbies-annotation">
+                            Je kan meerdere hobbies selecteren.
+                        </vl-form-message>
                         <vl-form-message for="hobbies" state="valueMissing"
                             >Gelieve een hobby te selecteren.
                         </vl-form-message>
@@ -255,7 +259,11 @@ export class VlFormDemoComponent extends LitElement {
                             max-length=${100}
                             rows=${10}
                             placeholder="bv. Ik ben geïnteresseerd in..."
+                            describedby="interesses-annotation"
                         ></vl-textarea>
+                        <vl-form-message variant="annotation" id="interesses-annotation">
+                            Beschrijf je interesses in minimum 5 en maximum 100 karakters.
+                        </vl-form-message>
                         <vl-form-message for="interesses" state="valueMissing"
                             >Gelieve je interesses in te vullen.
                         </vl-form-message>
@@ -280,7 +288,11 @@ export class VlFormDemoComponent extends LitElement {
                             placeholder="bv. 35"
                             min=${0}
                             max=${99}
+                            describedby="leeftijd-annotation"
                         ></vl-input-field>
+                        <vl-form-message variant="annotation" id="leeftijd-annotation">
+                            Vul je leeftijd in jaren in, van 0 tot en met 99.
+                        </vl-form-message>
                         <vl-form-message for="leeftijd" state="valueMissing"
                             >Gelieve een leeftijd in te vullen.
                         </vl-form-message>

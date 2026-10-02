@@ -135,6 +135,7 @@ export class VlSelectRichComponent extends FormControl {
         });
 
         this.setChoicesInputAttributes();
+        this.updateDescribedBy();
 
         await Promise.resolve();
 
@@ -158,6 +159,10 @@ export class VlSelectRichComponent extends FormControl {
         if (!this.choices) {
             return;
         }
+
+        // De combobox komt uit Choices.js, niet uit de Lit-template, dus aria-describedby kan er niet
+        // declaratief op gebonden worden. De native select is verborgen en krijgt nooit focus.
+        this.updateDescribedBy();
 
         if (changedProperties.has('options')) {
             this.indexOptions();
@@ -242,6 +247,7 @@ export class VlSelectRichComponent extends FormControl {
                 @addItem=${this.onChange}
                 @removeItem=${this.onChange}
             ></select>
+            ${this.renderDescription()}
         `;
     }
 
@@ -382,6 +388,17 @@ export class VlSelectRichComponent extends FormControl {
             inputElement.setAttribute('role', 'textbox');
             inputElement.setAttribute('aria-autocomplete', 'list');
             inputElement.setAttribute('aria-label', 'zoek item');
+        }
+    }
+
+    private updateDescribedBy(): void {
+        const ids = this.describedByIds;
+        const choicesElement = this.getChoicesElement();
+
+        if (typeof ids === 'string') {
+            choicesElement?.setAttribute('aria-describedby', ids);
+        } else {
+            choicesElement?.removeAttribute('aria-describedby');
         }
     }
 

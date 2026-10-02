@@ -1,6 +1,7 @@
 import { ArgTypes, Canvas, Source } from '@storybook/addon-docs/blocks';
 import * as VlSelectStories from './vl-select.stories';
 import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
+import FormControlDescribedby from '../../form-control/stories/form-control.describedby-doc.mdx'
 
 # Select
 
@@ -232,6 +233,21 @@ In plaats van de `options` property te gebruiken, kan je ook gebruik maken van s
 - `value`: De waarde van de optie
 - `selected`: Markeert de optie als geselecteerd
 - `disabled`: Schakelt de optie uit
+
+
+## Beschrijving
+
+<FormControlDescribedby />
+
+```html
+<vl-select label="Vervoermiddel" describedby="vervoermiddel-info">
+    <option value="fiets">Fiets</option>
+    <option value="trein">Trein</option>
+</vl-select>
+<vl-form-message variant="annotation" id="vervoermiddel-info">
+    Kies het vervoermiddel dat je het vaakst gebruikt.
+</vl-form-message>
+```
 
 
 ## Validatie

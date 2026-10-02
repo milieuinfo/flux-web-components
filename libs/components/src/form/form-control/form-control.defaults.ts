@@ -7,4 +7,5 @@ export const formControlDefaults = {
     error: false as boolean,
     success: false as boolean,
     blurValidation: false as boolean,
+    describedby: '' as string,
 } as const;

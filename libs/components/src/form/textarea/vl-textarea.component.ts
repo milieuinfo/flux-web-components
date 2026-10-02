@@ -90,6 +90,7 @@ export class VlTextareaComponent extends FormControl {
                 name=${this.name || nothing}
                 class=${classMap(classes)}
                 aria-label=${this.label || nothing}
+                aria-describedby=${this.describedByIds}
                 aria-invalid=${this.isInvalid || nothing}
                 ?required=${this.required}
                 ?disabled=${this.disabled}
@@ -105,6 +106,7 @@ export class VlTextareaComponent extends FormControl {
                 @input=${this.onInput}
             ></textarea>
             ${this.characterCount && this.maxLength != null ? this.renderCharacterCount(this.maxLength) : nothing}
+            ${this.renderDescription()}
         `;
     }
 
