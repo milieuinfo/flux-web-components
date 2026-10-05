@@ -33,6 +33,7 @@ export const TEST_CATEGORIES = [
     'cypress-e2e - layout',
     'cypress-e2e - map',
     'cypress-e2e - patronen',
+    'cypress-e2e - structures',
     'cypress-e2e - styles',
     'jest - common',
     'jest - components',

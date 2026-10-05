@@ -1,5 +1,6 @@
-import { vlFocusOutlineMixin, vlVisuallyHiddenMixin } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
+import { vlVisuallyHiddenMixin } from '../../base/mixin/vl-accessibility.css';
+import { vlFocusOutlineMixin } from '../../base/mixin/vl-outlines.css';
 
 export const vlAccessibilityStyles: CSSResult = css`
     .vl-visually-hidden,

@@ -669,6 +669,12 @@
             "documentation": "template",
             "wcag": "FLUX-721",
             "jiraMeta": "FLUX-293"
+        },
+        "evolution": {
+            "vStatus": "v2-replace",
+            "legacyText": "vl-template",
+            "nextText": "[vl-page](/docs/structures-page--documentatie)",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#template)"
         }
     },
     "components-block-toaster": {

@@ -1,0 +1,50 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlPageStories from './vl-page.stories';
+
+# Page
+
+<FluxComponentMetaData id="structures-page" />
+
+
+## Doel
+
+`vl-page` bouwt de basis-layout van een pagina op: een header, de main content en een footer.
+
+
+## Voorbeeld
+
+```js
+import { VlPage } from '@domg-wc/structures';
+```
+
+```html
+<vl-page>
+    <vl-header-next slot="header" skip-to-content-id="main-content"></vl-header-next>
+    <div id="main-content" slot="main"></div>
+    <vl-footer-next slot="footer"></vl-footer-next>
+</vl-page>
+```
+
+<Canvas of={VlPageStories.PageDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlPageStories.PageDefault} />
+
+
+## Varianten
+
+### v-center
+
+Met `v-center` staat de main content verticaal gecentreerd in de ruimte tussen de header en de footer.
+Geef `vl-page` daarvoor een hoogte die groter is dan zijn inhoud, bijvoorbeeld `min-height: 100vh`.
+
+<Canvas of={VlPageStories.PageVCenter} />
+
+### v-stretch
+
+Met `v-stretch` neemt de main content de volledige ruimte tussen de header en de footer in.
+Geef `vl-page` daarvoor een hoogte die groter is dan zijn inhoud, bijvoorbeeld `min-height: 100vh`.
+
+<Canvas of={VlPageStories.PageVStretch} />
