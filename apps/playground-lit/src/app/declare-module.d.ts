@@ -67,6 +67,7 @@ declare module '@govflanders/vl-ui-design-system-web-components' {
         connectedCallback(): void;
         disconnectedCallback(): void;
         protected willUpdate(changed: Map<PropertyKey, unknown>): void;
+        protected updated(changed: Map<PropertyKey, unknown>): void;
     }
     export class VlInformativeTag extends VlLitElement {}
     export class VlRemovableTag extends VlLitElement {}

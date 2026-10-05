@@ -788,6 +788,7 @@ workaround in de adapter die verdwijnt zodra VDS het oplost. Detail en motivatie
 | 9 | midden | de vier tags | achtergrond en rand delen één private token; geen tokens voor radius, hoogte, padding | `flux-pill` stylet alles via `::part(base)` | publieke tokens per status plus vormtokens |
 | 10 | midden | `vl-collapsible`, `vl-section-message` | enkel named slots, inhoud zonder `slot` blijft onzichtbaar | adapter zet slot-attributen op de light DOM van de afnemer | default slot laten vallen op `content` / `body` |
 | 11 | laag | tags tegenover messages en avatar | statusnaam wisselt tussen `error` en `danger` | `flux-alert` mapt `error` op `danger` | één naam, of beide aanvaarden |
+| 12 | laag | `vl-removable-tag`, `vl-selectable-tag` | geven hun icoon nog `size="small"` mee, dat sinds 0.11 niet meer bestaat; het icoon valt terug op de standaardmaat | `flux-pill` zet `size` en `icon` op de geneste iconen | `size="s"` gebruiken |
 
 Bestaande verzoeken die de nieuwe componenten ook raken: #3 (focus-offset en -kleur),
 #4a (rem-literals, bv. dikte en wave-hoogte van de divider) en #4b (icon-font-collision

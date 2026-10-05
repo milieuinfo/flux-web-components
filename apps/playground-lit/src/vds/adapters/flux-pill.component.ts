@@ -20,6 +20,7 @@ export class FluxPill extends LitElement {
         checkable: { type: Boolean, reflect: true },
         checked: { type: Boolean, reflect: true },
         clickable: { type: Boolean, reflect: true },
+        bare: { type: Boolean, reflect: true },
     };
 
     declare type: string;
@@ -28,6 +29,7 @@ export class FluxPill extends LitElement {
     declare checkable: boolean;
     declare checked: boolean;
     declare clickable: boolean;
+    declare bare: boolean;
 
     static styles = css`
         :host {
@@ -35,6 +37,9 @@ export class FluxPill extends LitElement {
         }
         :host([disabled]) {
             pointer-events: none;
+            cursor: not-allowed;
+        }
+        :host([bare][disabled]) {
             opacity: 0.5;
         }
         :host(:not([bare])) {
@@ -59,6 +64,63 @@ export class FluxPill extends LitElement {
         }
         :host(:not([bare])[clickable]:not([type])) {
             --flux-pill-color: #0055cc;
+        }
+        :host(:not([bare])[disabled]) {
+            --flux-pill-bg: #f7f9fc;
+            --flux-pill-border: #cfd5dd;
+            --flux-pill-color: #8695a8;
+        }
+        :host(:not([bare])[closable]) *::part(base) {
+            padding-right: 0;
+        }
+        :host(:not([bare])) *::part(close) {
+            box-sizing: border-box;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            margin: -1px -1px -1px 1.4rem;
+            padding: 0;
+            border: 1px solid var(--flux-pill-border);
+            border-radius: 0 0.3rem 0.3rem 0;
+            background: transparent;
+            color: var(--flux-pill-color);
+            font-size: 1.3rem;
+        }
+        :host(:not([bare])[checkable]) *::part(base) {
+            position: relative;
+            padding-left: 3.6rem;
+        }
+        :host(:not([bare])[checkable]) *::part(base)::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            box-sizing: border-box;
+            width: 2.4rem;
+            height: 2.4rem;
+            border: 1px solid var(--flux-pill-border);
+            border-radius: 0.3rem 0 0 0.3rem;
+            background: #ffffff;
+        }
+        :host(:not([bare])[checkable][checked]) *::part(base)::before {
+            border-color: #0055cc;
+            background: #0055cc;
+        }
+        :host(:not([bare])[checkable]) *::part(checkmark) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.2rem;
+            height: 2.2rem;
+            margin: 0;
+            color: #ffffff;
+            font-size: 0.8rem;
         }
         :host(:not([bare])) *::part(base) {
             box-sizing: border-box;
@@ -85,6 +147,16 @@ export class FluxPill extends LitElement {
         this.dispatchEvent(
             new CustomEvent('check', { bubbles: true, composed: true, detail: { checked: this.checked } })
         );
+    }
+
+    protected async updated(): Promise<void> {
+        const inner = this.shadowRoot?.firstElementChild as (Element & { updateComplete?: Promise<unknown> }) | null;
+        await inner?.updateComplete;
+        const root = inner?.shadowRoot;
+        root?.querySelector('[part~="close-icon"] > *')?.setAttribute('size', this.bare ? 'small' : 'l');
+        const check = root?.querySelector('[part~="checkmark"] > *');
+        check?.setAttribute('icon', this.bare ? 'check-filled' : 'check');
+        check?.setAttribute('size', this.bare ? 'small' : 's');
     }
 
     render(): TemplateResult {

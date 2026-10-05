@@ -194,7 +194,7 @@ export class PgNewComponents extends LitElement {
                     )}
                     ${this.row(
                         'banner-message',
-                        vdsFrame('banner-message', 70),
+                        vdsFrame('banner-message', 100),
                         html`<flux-banner-message status="warning" closable style="width: 100%;"
                             ><span slot="title">Gepland onderhoud zaterdag van 8u tot 12u.</span></flux-banner-message
                         >`,

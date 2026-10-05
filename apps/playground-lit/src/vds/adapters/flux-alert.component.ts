@@ -32,6 +32,26 @@ export class FluxAlert extends VlSectionMessage {
             :host(:not([bare]):not([icon])) [part~='icon'] {
                 display: none;
             }
+            :host(:not([bare])) [part~='content'] {
+                flex: 1;
+            }
+            :host(:not([bare])[closable]) [part~='content'] {
+                margin-right: 3rem;
+            }
+            :host(:not([bare])) .vl-section-message__close-button {
+                top: 1rem;
+                right: 1rem;
+            }
+            :host(:not([bare])) .vl-section-message__close-button::part(close-button) {
+                width: 2.6rem;
+                height: 2.6rem;
+                min-height: 2.6rem;
+                padding: 0;
+            }
+            :host(:not([bare])) .vl-section-message__close-button > *::part(icon) {
+                font-size: 1.6rem;
+                color: #000000;
+            }
         `,
     ];
 

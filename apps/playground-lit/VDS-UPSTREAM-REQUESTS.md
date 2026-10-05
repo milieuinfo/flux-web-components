@@ -11,7 +11,7 @@ alternatief** waarmee de consument het zelf kan bijsturen.
 
 Versie waarop dit is vastgesteld: `@govflanders/vl-ui-design-system-web-components`
 **0.6.0** (build van `origin/develop`) voor de punten 1 tot 6, **0.15.0** (release-tag op
-`master`) voor de punten 7 tot 11. Punt 6 is opnieuw nagekeken op 0.15.0.
+`master`) voor de punten 7 tot 12. Punt 6 is opnieuw nagekeken op 0.15.0.
 
 Context: de knop (`vl-button`) is WEL volledig matchbaar via bestaande tokens
 (radius, border-width, padding) en staat dus niet in deze lijst.
@@ -295,10 +295,10 @@ tag). Probleem 2 staat nog open: de box-grootte is nog altijd `1.125rem`.
 
 ## Sinds 0.15.0: de 16 nieuwe componenten
 
-De punten 7 tot 11 kwamen boven bij het afnemen van de componenten die 0.15.0 toevoegde.
+De punten 7 tot 12 kwamen boven bij het afnemen van de componenten die 0.15.0 toevoegde.
 Het zijn fouten of beperkingen in VDS zelf, geen feature-requests: flux omzeilt ze vandaag
 met een workaround in de adapter, die verdwijnt zodra VDS ze oplost. Prioriteit: 7 en 8
-hoog, 9 en 10 midden, 11 laag.
+hoog, 9 en 10 midden, 11 en 12 laag.
 
 ## 7. Tabs: kinderen gezocht op de exacte tagnaam
 
@@ -373,6 +373,18 @@ De tags gebruiken `status="error"`, de messages (`vl-section-message`, `vl-banne
 twee namen binnen VDS zelf. flux gebruikt overal `error`.
 
 **Verzoek:** één naam voor alle componenten, of beide waarden aanvaarden.
+
+---
+
+## 12. Tags: icoon krijgt nog de oude `size="small"`
+
+**Componenten:** `vl-removable-tag` (kruisje), `vl-selectable-tag` (vinkje)
+
+Sinds 0.11 kent `vl-icon` enkel `s`, `m` en `l` als `size`. Beide tags renderen hun icoon nog
+met `size="small"`. Die waarde matcht niet meer, dus het icoon valt stil terug op de
+standaardmaat: een achtergebleven stuk van de breaking change in 0.11.
+
+**Verzoek:** `size="s"` gebruiken in beide tags.
 
 ---
 

@@ -70,6 +70,17 @@ export const UPSTREAM_FIXES: UpstreamFix[] = [
         ask: 'Eén naam voor alle componenten, of beide waarden aanvaarden.',
         prio: 'laag',
     },
+    {
+        nr: 12,
+        vds: 'vl-removable-tag, vl-selectable-tag',
+        flux: ['flux-pill'],
+        title: 'Tags geven hun icoon nog size="small" mee',
+        problem: 'Sinds 0.11 kent vl-icon enkel s/m/l, maar beide tags zetten intern size="small" op hun kruisje en vinkje. Die waarde matcht niet meer, dus het icoon valt terug op de standaardmaat.',
+        impact: 'Het kruisje en het vinkje hebben niet de bedoelde grootte; achtergebleven van de breaking change in 0.11.',
+        workaround: 'flux-pill zet na elke render size en icon op de geneste iconen.',
+        ask: 'size="s" gebruiken in beide tags.',
+        prio: 'laag',
+    },
 ];
 
 export const ALSO_AFFECTED = [

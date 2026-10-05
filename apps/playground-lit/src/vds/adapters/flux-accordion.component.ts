@@ -9,6 +9,7 @@ export class FluxAccordion extends VlCollapsible {
         closeToggleText: { type: String, attribute: 'close-toggle-text' },
         headingLevel: { type: String, attribute: 'heading-level' },
         defaultOpen: { type: Boolean, attribute: 'default-open' },
+        bare: { type: Boolean, reflect: true },
     };
 
     declare toggleText: string | null;
@@ -16,13 +17,25 @@ export class FluxAccordion extends VlCollapsible {
     declare closeToggleText: string | null;
     declare headingLevel: string | null;
     declare defaultOpen: boolean;
+    declare bare: boolean;
 
     private observer?: MutationObserver;
 
     static styles = [
         (VlCollapsible as unknown as { styles: unknown }).styles,
         css`
+            :host(:not([bare])) .vl-collapsible__header {
+                padding: 0;
+            }
+            :host(:not([bare])) .vl-collapsible__icon {
+                width: auto;
+                height: auto;
+            }
+            :host(:not([bare])) .vl-collapsible__icon > *::part(icon) {
+                font-size: 1.8rem;
+            }
             :host(:not([bare])) .vl-collapsible__trigger {
+                gap: 0.4rem;
                 color: #0055cc;
                 font-size: 1.8rem;
                 font-weight: 500;
@@ -85,6 +98,13 @@ export class FluxAccordion extends VlCollapsible {
             this.shim();
         }
         super.willUpdate(changed);
+    }
+
+    protected updated(changed: Map<PropertyKey, unknown>): void {
+        super.updated(changed);
+        this.shadowRoot
+            ?.querySelector('.vl-collapsible__icon > *')
+            ?.setAttribute('icon', this.bare ? 'nav-down' : 'arrow-down-fat');
     }
 }
 

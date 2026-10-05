@@ -53,6 +53,18 @@ const dropLeakedVdsTableSheet = (): void => {
 };
 
 const FLUX_TABLE_LOOK = `
+flux-table:not([bare]) caption {
+  caption-side: bottom;
+  margin: 1.5rem 0 0.5rem;
+  padding: 0;
+  color: #687483;
+  font-size: 1.8rem;
+  font-weight: 500;
+  text-align: left;
+}
+flux-table:not([bare]) thead tr {
+  border-bottom: 2px solid #cbd2da;
+}
 flux-table:not([bare]) tbody tr {
   border-bottom: 1px solid #cbd2da;
 }

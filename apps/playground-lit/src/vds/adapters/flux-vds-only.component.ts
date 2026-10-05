@@ -1,4 +1,4 @@
-import { CSSResultGroup } from 'lit';
+import { css, CSSResultGroup } from 'lit';
 import {
     VlAvatar,
     VlBannerMessage,
@@ -15,11 +15,32 @@ export class FluxAvatar extends VlAvatar {
 }
 
 export class FluxBannerMessage extends VlBannerMessage {
-    static styles = [stylesOf(VlBannerMessage), fluxFocus, fluxMessageTokens];
+    static styles = [
+        stylesOf(VlBannerMessage),
+        fluxFocus,
+        fluxMessageTokens,
+        css`
+            :host(:not([bare])) [part~='icon'] *::part(icon) {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1.5);
+            }
+            :host(:not([bare])) [part~='close-button'] > *::part(icon) {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1);
+            }
+        `,
+    ];
 }
 
 export class FluxInlineMessage extends VlInlineMessage {
-    static styles = [stylesOf(VlInlineMessage), fluxFocus, fluxMessageTokens];
+    static styles = [
+        stylesOf(VlInlineMessage),
+        fluxFocus,
+        fluxMessageTokens,
+        css`
+            :host(:not([bare])) [part~='icon'] *::part(icon) {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1.125);
+            }
+        `,
+    ];
 }
 
 export class FluxGrid extends VlGrid {
