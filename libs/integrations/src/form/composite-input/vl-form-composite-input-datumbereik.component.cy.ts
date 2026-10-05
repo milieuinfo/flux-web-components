@@ -22,6 +22,13 @@ const setDate = (id: 'begin' | 'einde', iso: string) =>
 
 const customError = () => cy.get(HOST).shadow().find('vl-form-message[state="customError"]');
 
+const fieldRects = (assert: (begin: DOMRect, einde: DOMRect) => void) =>
+    cy.get(HOST).should(($host) => {
+        const rect = (id: 'begin' | 'einde') =>
+            ($host[0].shadowRoot?.querySelector(`vl-datepicker#${id}`) as HTMLElement).getBoundingClientRect();
+        assert(rect('begin'), rect('einde'));
+    });
+
 describe('cypress-component - integrations - vl-form-composite-input-datumbereik', () => {
     it('rendert twee datepickers', () => {
         cy.mount(html`<vl-form-composite-input-datumbereik></vl-form-composite-input-datumbereik>`);
@@ -51,5 +58,24 @@ describe('cypress-component - integrations - vl-form-composite-input-datumbereik
         customError().should('not.have.attr', 'show');
         cy.get(HOST).shadow().find('pre').should('contain.text', 'periode-begin');
         cy.get(HOST).shadow().find('pre').should('contain.text', 'periode-einde');
+    });
+});
+
+describe('cypress-component - integrations - vl-form-composite-input-datumbereik - layout', () => {
+    it('should wrap the fields below each other on a narrow screen', () => {
+        cy.viewport(320, 800);
+        cy.mount(html`<vl-form-composite-input-datumbereik></vl-form-composite-input-datumbereik>`);
+        fieldRects((begin, einde) => {
+            expect(einde.top).to.be.at.least(begin.bottom);
+            expect(begin.width).to.be.at.least(150);
+        });
+    });
+
+    it('should keep the fields on one row on desktop', () => {
+        cy.viewport(1280, 800);
+        cy.mount(html`<vl-form-composite-input-datumbereik></vl-form-composite-input-datumbereik>`);
+        fieldRects((begin, einde) => {
+            expect(einde.top).to.equal(begin.top);
+        });
     });
 });
