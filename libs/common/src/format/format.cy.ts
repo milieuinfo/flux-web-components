@@ -34,6 +34,22 @@ describe('cypress-component - common - format utilities (nl-BE) - formatNumber',
         expect(formatNumber(1000, { decimals: 2 })).to.equal('1000,00');
     });
 
+    it('should not add trailing zeros to a whole number', () => {
+        expect(formatNumber(1000, { decimals: 2, noTrailingZeros: true })).to.equal('1000');
+    });
+
+    it('should not add trailing zeros to a number with fewer decimals', () => {
+        expect(formatNumber(1234.5, { decimals: 2, noTrailingZeros: true })).to.equal('1234,5');
+    });
+
+    it('should round to the maximum number of decimals without trailing zeros', () => {
+        expect(formatNumber(1234.5678, { decimals: 2, noTrailingZeros: true })).to.equal('1234,57');
+    });
+
+    it('should keep the default maximum of 3 decimals without trailing zeros and without decimals', () => {
+        expect(formatNumber(1234.5678, { noTrailingZeros: true })).to.equal('1234,568');
+    });
+
     it('should use a specified thousands separator', () => {
         expect(formatNumber(1234567.89, { thousandsSeparator: '.' })).to.equal('1.234.567,89');
     });
@@ -58,6 +74,18 @@ describe('cypress-component - common - format utilities (nl-BE) - formatCurrency
 
     it('should format without decimals, and round it', () => {
         expect(formatCurrency(1234.5678, { decimals: 0 })).to.equal(`€${nbsp}1.235`);
+    });
+
+    it('should not add trailing zeros to a whole amount', () => {
+        expect(formatCurrency(1234, { noTrailingZeros: true })).to.equal(`€${nbsp}1.234`);
+    });
+
+    it('should not add trailing zeros to an amount with fewer decimals', () => {
+        expect(formatCurrency(1234.5, { noTrailingZeros: true })).to.equal(`€${nbsp}1.234,5`);
+    });
+
+    it('should round to the maximum number of decimals without trailing zeros', () => {
+        expect(formatCurrency(1234.5678, { decimals: 3, noTrailingZeros: true })).to.equal(`€${nbsp}1.234,568`);
     });
 
     it('should handle a different currency', () => {
@@ -165,5 +193,17 @@ describe('cypress-component - common - format utilities (nl-BE) - formatPercenta
 
     it('should allow a fixed number of decimals', () => {
         expect(formatPercentage(0.5, { decimals: 2 })).to.equal('50,00%');
+    });
+
+    it('should not add trailing zeros to a whole percentage', () => {
+        expect(formatPercentage(0.5, { decimals: 2, noTrailingZeros: true })).to.equal('50%');
+    });
+
+    it('should round to the maximum number of decimals without trailing zeros', () => {
+        expect(formatPercentage(0.1234, { decimals: 1, noTrailingZeros: true })).to.equal('12,3%');
+    });
+
+    it('should keep the default maximum of 0 decimals without trailing zeros and without decimals', () => {
+        expect(formatPercentage(0.12345, { noTrailingZeros: true })).to.equal('12%');
     });
 });
