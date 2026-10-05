@@ -25,6 +25,7 @@ import '../demos/vl-form-demo.component';
 import './sections/vds-integration-status.component';
 import './sections/vds-overrides-list.component';
 import './sections/vds-api-gaps.component';
+import './sections/vds-upstream-fixes.component';
 import './sections/vds-api-gap-details.component';
 import './sections/vds-variants.component';
 import './sections/vds-new-components.component';
@@ -109,6 +110,7 @@ export class PgVdsShowcase extends LitElement {
                     ? nothing
                     : html`<pg-overrides-list></pg-overrides-list>
                           <pg-api-gaps></pg-api-gaps>
+                          <pg-upstream-fixes></pg-upstream-fixes>
                           <pg-api-gap-details></pg-api-gap-details>`}
 
                 <pg-variants .gapsOff=${this.gapsOff}></pg-variants>

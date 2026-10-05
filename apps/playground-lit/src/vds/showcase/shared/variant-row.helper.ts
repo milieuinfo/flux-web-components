@@ -2,6 +2,7 @@ import { html, nothing, TemplateResult } from 'lit';
 
 import { OverrideRow, renderPatchNotes } from '../data/override-rows';
 import { renderApiDetailAccordion } from '../data/api-detail-rows';
+import { renderFixCallout, UpstreamFix } from '../data/upstream-fix-rows';
 
 export type VariantRow = {
     name: string;
@@ -9,6 +10,7 @@ export type VariantRow = {
     flux: TemplateResult;
     vl: TemplateResult;
     patches?: OverrideRow[];
+    fixes?: UpstreamFix[];
     fluxTag?: string;
     detailKey?: string;
     colRatio?: string;
@@ -31,6 +33,7 @@ export const renderVariantRow = ({
     flux,
     vl,
     patches,
+    fixes = [],
     fluxTag = `flux-${name}`,
     detailKey = `vl-${name}`,
     colRatio = 'repeat(3, minmax(0, 1fr))',
@@ -43,6 +46,7 @@ export const renderVariantRow = ({
     </div>
     ${gapsOff
         ? nothing
-        : html`${patches && patches.length ? renderPatchNotes(patches, html`<code>${fluxTag}</code>`) : ''}
+        : html`${renderFixCallout(fixes)}
+          ${patches && patches.length ? renderPatchNotes(patches, html`<code>${fluxTag}</code>`) : ''}
           ${renderApiDetailAccordion(detailKey)}`}
 `;

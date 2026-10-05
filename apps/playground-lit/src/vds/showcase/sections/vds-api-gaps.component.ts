@@ -2,6 +2,7 @@ import { html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import { API_GAP_ROWS, gapLevelBadge } from '../data/api-gap-rows';
+import { fixesFor, fixNumbers } from '../data/upstream-fix-rows';
 
 @customElement('pg-api-gaps')
 export class PgApiGaps extends LitElement {
@@ -42,7 +43,8 @@ export class PgApiGaps extends LitElement {
                         naar welke kant. <b>flux moet overnemen</b> = functionaliteit die enkel in VDS zit
                         (via overerving/derivative of flux-API uitbreiden). <b>upstream vragen bij VDS</b> =
                         functionaliteit die enkel bij flux zit (feature-request bij VDS, of bewust in onze
-                        derivative houden). Niveau-legende: ${gapLevelBadge({ lvl: 'none', note: '' })}
+                        derivative houden). <b>upstream te fixen</b> = een fout of beperking in VDS zelf, met
+                        nummer uit de sectie hieronder. Niveau-legende: ${gapLevelBadge({ lvl: 'none', note: '' })}
                         ${gapLevelBadge({ lvl: 'low', note: '' })} ${gapLevelBadge({ lvl: 'mid', note: '' })}
                         ${gapLevelBadge({ lvl: 'high', note: '' })} ${gapLevelBadge({ lvl: 'na', note: '' })}
                     </p>
@@ -63,7 +65,12 @@ export class PgApiGaps extends LitElement {
                                         <th scope="col" style="${th}">
                                             upstream vragen bij VDS<br /><span
                                                 style="font-weight: 400; color: #6b7280;"
-                                                >enkel in flux</span
+                                                >enkel in flux, feature-request</span
+                                            >
+                                        </th>
+                                        <th scope="col" style="${th}">
+                                            upstream te fixen<br /><span style="font-weight: 400; color: #6b7280;"
+                                                >fout in VDS</span
                                             >
                                         </th>
                                     </tr>
@@ -78,6 +85,7 @@ export class PgApiGaps extends LitElement {
                                             <td style="${td} color: #555;">${r.base}</td>
                                             <td style="${td} width: 27%;">${gapLevelBadge(r.toFlux)}</td>
                                             <td style="${td} width: 27%;">${gapLevelBadge(r.toVds)}</td>
+                                            <td style="${td}">${r.flux ? fixNumbers(fixesFor(r.flux)) : ''}</td>
                                         </tr>`
                                     )}
                                 </tbody>

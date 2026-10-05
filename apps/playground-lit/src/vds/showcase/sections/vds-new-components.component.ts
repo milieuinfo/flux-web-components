@@ -18,6 +18,7 @@ import '../../adapters/flux-table.component';
 import '../../adapters/flux-vds-only.component';
 
 import { patchesFor } from '../data/override-rows';
+import { fixesFor } from '../data/upstream-fix-rows';
 import { vdsFrame } from '../shared/vds-frame.helper';
 import { note, renderVariantRow } from '../shared/variant-row.helper';
 
@@ -78,6 +79,7 @@ export class PgNewComponents extends LitElement {
             detailKey,
             colRatio,
             patches: patchesFor(fluxTag),
+            fixes: fixesFor(fluxTag),
             gapsOff: this.gapsOff,
         });
     }

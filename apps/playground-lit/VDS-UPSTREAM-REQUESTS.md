@@ -293,6 +293,13 @@ tag). Probleem 2 staat nog open: de box-grootte is nog altijd `1.125rem`.
 
 ---
 
+## Sinds 0.15.0: de 16 nieuwe componenten
+
+De punten 7 tot 11 kwamen boven bij het afnemen van de componenten die 0.15.0 toevoegde.
+Het zijn fouten of beperkingen in VDS zelf, geen feature-requests: flux omzeilt ze vandaag
+met een workaround in de adapter, die verdwijnt zodra VDS ze oplost. Prioriteit: 7 en 8
+hoog, 9 en 10 midden, 11 laag.
+
 ## 7. Tabs: kinderen gezocht op de exacte tagnaam
 
 **Component:** `vl-tabs` (met `vl-tab` en `vl-tabpanel`)

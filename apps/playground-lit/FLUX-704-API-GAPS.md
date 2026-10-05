@@ -32,6 +32,11 @@ functionaliteit classificeren we daarom de status en de bijhorende actie.
   breiden of te aligneren.
 - **upstream-request (VDS)**: functionaliteit die bij ons zit maar niet in VDS, en
   die we upstream als feature-request kunnen voorstellen.
+- **upstream-fix (VDS)**: een fout of beperking in VDS zelf, geen ontbrekende feature.
+  flux omzeilt het tijdelijk met een workaround in de adapter, die weg moet zodra VDS
+  het oplost. Genummerd zoals in [`VDS-UPSTREAM-REQUESTS.md`](VDS-UPSTREAM-REQUESTS.md).
+  Komt pas voor sinds de nieuwe componenten van 0.15.0; zie
+  [Upstream te fixen](#upstream-te-fixen-sinds-0150).
 - **toevoegen in derivative**: toe te voegen in de flux-afgeleide (de `flux-*`
   subclass die de VDS-klasse erft). Waar VDS de functionaliteit al in een base-klasse
   heeft, staat er **(gratis via overerving)**: de afgeleide krijgt ze automatisch
@@ -767,7 +772,33 @@ vertalen de flux-API ernaar.
   VDS vier aparte tags. Eén element kan niet van vier classes erven.
 - **`flux-tabs`**: `vl-tabs` zoekt zijn tabs op de exacte tagnaam
   (`:scope > ${VlTab.elementName}`). Een component die van `VlTab` erft onder een andere
-  tag wordt nooit gevonden, dus erven kan niet (upstream-verzoek 7).
+  tag wordt nooit gevonden, dus erven kan niet (upstream-fix #7).
+
+### Upstream te fixen (sinds 0.15.0)
+
+Voor de overdracht staan deze punten apart: het zijn fouten of beperkingen **in VDS
+zelf**, met een andere eigenaar dan de rest van de analyse. Elk punt heeft vandaag een
+workaround in de adapter die verdwijnt zodra VDS het oplost. Detail en motivatie in
+[`VDS-UPSTREAM-REQUESTS.md`](VDS-UPSTREAM-REQUESTS.md).
+
+| # | prioriteit | VDS-component | probleem in VDS | workaround in de adapter (tijdelijk) | vraag aan VDS |
+|---|---|---|---|---|---|
+| 7 | hoog | `vl-tabs`, `vl-tab`, `vl-tabpanel` | kinderen gezocht op de exacte tagnaam, dus erven kan niet | `flux-tabs` delegeert naar `vds-tabs` | zoeken op type (`instanceof`), zoals `vl-input-group` |
+| 8 | hoog | `vl-table` | document-styles hardcoden `vl-table table`; ongestyled onder prefix of in een afgeleide, en de sheet stylet de echte flux `vl-table` mee | kopie van `lightStyles` onder `flux-table`, VDS-sheet uit het document halen | `lightStyles` opbouwen met de runtime `elementName` |
+| 9 | midden | de vier tags | achtergrond en rand delen één private token; geen tokens voor radius, hoogte, padding | `flux-pill` stylet alles via `::part(base)` | publieke tokens per status plus vormtokens |
+| 10 | midden | `vl-collapsible`, `vl-section-message` | enkel named slots, inhoud zonder `slot` blijft onzichtbaar | adapter zet slot-attributen op de light DOM van de afnemer | default slot laten vallen op `content` / `body` |
+| 11 | laag | tags tegenover messages en avatar | statusnaam wisselt tussen `error` en `danger` | `flux-alert` mapt `error` op `danger` | één naam, of beide aanvaarden |
+
+Bestaande verzoeken die de nieuwe componenten ook raken: #3 (focus-offset en -kleur),
+#4a (rem-literals, bv. dikte en wave-hoogte van de divider) en #4b (icon-font-collision
+bij elke geneste `vds-icon`).
+
+De andere twee soorten acties in de tabellen hieronder:
+
+- **upstream-request (VDS)**: feature-requests, geen fouten. Functionaliteit die flux
+  heeft en VDS niet (bv. `disabled` op tags, `alert-role`, `hover`/`matrix` op table).
+- **flux-kant** (`toevoegen in derivative`, `flux-API uitbreiden`): werk voor ons, plus
+  de API-breuk `accordion.open()` (zie de collapsible-sectie).
 
 ### vl-*-tag (flux-pill)
 
@@ -795,7 +826,7 @@ vertalen de flux-API ernaar.
 | openen | `show()` | `open()` | overlap (andere naam) | **botst**: zie hieronder |
 | sluiten | `hide()` | `close()` | overlap (andere naam) | toevoegen in derivative |
 | event | `vl-toggle` (`detail.expanded`), `vl-open`, `vl-close` | `vl-on-toggle` (`detail.open`) | overlap (andere naam) | toevoegen in derivative |
-| slots | `trigger`, `content`, `actions` | `title`, default, `menu`, `subtitle` | overlap (andere naam) | toevoegen in derivative (upstream-verzoek 10) |
+| slots | `trigger`, `content`, `actions` | `title`, default, `menu`, `subtitle` | overlap (andere naam) | **upstream-fix (VDS) #10**; tot dan toevoegen in derivative |
 
 De flux-methode `open()` kan de adapter niet behouden: VDS heeft een reactieve property
 `open`, en in een component die van `VlCollapsible` erft kunnen een methode en een
@@ -819,13 +850,13 @@ is visueel en niet via tokens te overbruggen.
 
 | functionaliteit | in VDS? | in flux? | status | actie |
 |---|---|---|---|---|
-| status | `status` info/success/warning/**danger** | `type` info/success/warning/**error** | overlap (andere naam) | API gelijk houden (upstream-verzoek 11) |
+| status | `status` info/success/warning/**danger** | `type` info/success/warning/**error** | overlap (andere naam) | **upstream-fix (VDS) #11**; tot dan mapt de adapter |
 | `title` / `message` als attribuut | nee (slots) | ja | enkel-flux | toevoegen in derivative |
 | icoon | automatisch per status | enkel met `icon` | overlap (ander gedrag) | toevoegen in derivative |
 | `size="small"`, `naked`, `multiline` | nee | ja | enkel-flux | upstream-request (VDS) |
 | `alert-role` (alert, alertdialog, geen) + `focus()` | nee | ja | enkel-flux | upstream-request (VDS) |
 | `variant`, `grow` | ja | nee | enkel-VDS | flux-API uitbreiden |
-| inhoud | slot `body` | default slot | overlap (andere naam) | toevoegen in derivative (upstream-verzoek 10) |
+| inhoud | slot `body` | default slot | overlap (andere naam) | **upstream-fix (VDS) #10**; tot dan toevoegen in derivative |
 | slots `illustration`, `footer` | ja | nee (wel `actions`) | enkel-VDS | flux-API uitbreiden |
 | sluiten | `vl-close`, blijft staan | `vl-alert-closed`, verwijdert zichzelf | overlap (ander gedrag) | API gelijk houden |
 
@@ -833,7 +864,7 @@ is visueel en niet via tokens te overbruggen.
 
 | functionaliteit | in VDS? | in flux? | status | actie |
 |---|---|---|---|---|
-| structuur | `vl-tab` + `vl-tabpanel` (`tab-id`) | `vl-tabs-pane` (`id` + `title`) | overlap (andere shape) | API gelijk houden (adapter delegeert) |
+| structuur | `vl-tab` + `vl-tabpanel` (`tab-id`) | `vl-tabs-pane` (`id` + `title`) | overlap (andere shape) | **upstream-fix (VDS) #7**; tot dan delegeert de adapter |
 | actieve tab | `active-tab` | `active-tab` | overlap | API gelijk houden |
 | stijl | `variant`, `density`, `grow`, `align`, `panel-align` | `alt` | overlap (andere shape) | flux-API uitbreiden |
 | verticaal (`orientation`, `collapsed-vertical`) | ja | nee | enkel-VDS | flux-API uitbreiden |
@@ -846,7 +877,7 @@ is visueel en niet via tokens te overbruggen.
 
 | functionaliteit | in VDS? | in flux? | status | actie |
 |---|---|---|---|---|
-| styling van de native `<table>` | document-sheet op `vl-table table` | klasse `vl-table` op de `<table>` | overlap (andere shape) | toevoegen in derivative (upstream-verzoek 8) |
+| styling van de native `<table>` | document-sheet op `vl-table table` | klasse `vl-table` op de `<table>` | overlap (andere shape) | **upstream-fix (VDS) #8**; tot dan toevoegen in derivative |
 | `zebra` | even rijen | oneven rijen (+ `flux-zebra`) | overlap (ander gedrag) | API gelijk houden |
 | `grid` | ja | ja | overlap | API gelijk houden |
 | `hover`, `matrix` | nee (hover altijd aan) | ja | enkel-flux | upstream-request (VDS) |
