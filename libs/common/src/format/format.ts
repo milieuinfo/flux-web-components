@@ -4,11 +4,13 @@ type ThousandsSeparator = '.' | '' | ' ' | typeof nbsp;
 
 type NumberOptions = {
     decimals?: number;
+    noTrailingZeros?: boolean;
     thousandsSeparator?: ThousandsSeparator;
 };
 
 type CurrencyOptions = {
     decimals?: number;
+    noTrailingZeros?: boolean;
     currency?: string;
 };
 
@@ -42,7 +44,7 @@ const applyDateSeparator = (value: string, dateSeparator: DateSeparator = '.'): 
 export const formatNumber = (value: number, options?: NumberOptions): string =>
     applyThousandsSeparator(
         new Intl.NumberFormat('nl-BE', {
-            minimumFractionDigits: options?.decimals,
+            minimumFractionDigits: options?.noTrailingZeros ? 0 : options?.decimals,
             maximumFractionDigits: options?.decimals,
             useGrouping: 'min2',
         } as unknown as Intl.NumberFormatOptions).format(value),
@@ -53,7 +55,7 @@ export const formatCurrency = (value: number, options?: CurrencyOptions): string
     new Intl.NumberFormat('nl-BE', {
         style: 'currency',
         currency: options?.currency || 'EUR',
-        minimumFractionDigits: options?.decimals ?? 2,
+        minimumFractionDigits: options?.noTrailingZeros ? 0 : (options?.decimals ?? 2),
         maximumFractionDigits: options?.decimals ?? 2,
     }).format(value);
 
@@ -119,7 +121,7 @@ export const formatPercentage = (value: number, options?: NumberOptions): string
     applyThousandsSeparator(
         new Intl.NumberFormat('nl-BE', {
             style: 'percent',
-            minimumFractionDigits: options?.decimals,
+            minimumFractionDigits: options?.noTrailingZeros ? 0 : options?.decimals,
             maximumFractionDigits: options?.decimals,
         }).format(value),
         options?.thousandsSeparator

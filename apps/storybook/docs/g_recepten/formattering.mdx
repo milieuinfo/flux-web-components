@@ -20,6 +20,7 @@ volgens de "nl-BE" locale.
 ```ts
 formatNumber(value: number, options?: {
     decimals?: number | undefined;
+    noTrailingZeros?: boolean | undefined;
     thousandsSeparator?: string | undefined;
 } | undefined): string
 ```
@@ -41,6 +42,8 @@ De optie `decimals` geeft aan hoeveel decimalen er moeten verschijnen. Wanneer d
 functie als [Number.toFixed()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed):
 indien nodig worden er extra nullen aangevuld zodat precies het opgegeven aantal decimalen wordt bereikt.
 Het afrondingsgedrag volgt dezelfde logica als [Math.round()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round).
+
+Met de optie `noTrailingZeros` worden er geen nullen aangevuld. `decimals` (standaard maximum 3) geldt dan als het maximum aantal decimalen.
 
 ### Voorbeelden
 
@@ -64,6 +67,12 @@ console.log(formatNumber(1234.5678, { decimals: 0 }));
 
 console.log(formatNumber(1000, { decimals: 2 }));
 // output: '1000,00'
+
+console.log(formatNumber(1000, { decimals: 2, noTrailingZeros: true }));
+// output: '1000'
+
+console.log(formatNumber(1234.5, { decimals: 2, noTrailingZeros: true }));
+// output: '1234,5'
 
 console.log(formatNumber(1234567.89, { thousandsSeparator: '.' }));
 // output: '1.234.567,89'
@@ -270,9 +279,9 @@ import { formatPercentage } from '@domg-wc/common';
 console.log(formatPercentage(0.1234));
 // output: '12%'
 
-console.log(formatPercentage(0.1234, 2));
+console.log(formatPercentage(0.1234, { decimals: 2 }));
 // output: '12,34%'
 
-console.log(formatPercentage(0.5, 2));
+console.log(formatPercentage(0.5, { decimals: 2 }));
 // output: '50,00%'
 ```
