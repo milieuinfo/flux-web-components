@@ -1,1 +1,1 @@
-export {};
+export { VlPage } from './page';

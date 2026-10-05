@@ -1,1 +1,24 @@
-{}
+{
+    "structures-page": {
+        "name": "page",
+        "docs": "structures-page--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": [
+                "Component",
+                "Storybook"
+            ],
+            "documentation": "basis",
+            "wcag": "TODO",
+            "jiraMeta": "FLUX-838"
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-template](/docs/components-block-template--documentatie)",
+            "nextText": "vl-page",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#template)"
+        }
+    }
+}
