@@ -1,6 +1,7 @@
 import { ArgTypes, Canvas, Source } from '@storybook/addon-docs/blocks';
 import * as VlSelectRichStories from './vl-select-rich.stories';
 import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
+import FormControlDescribedby from '../../form-control/stories/form-control.describedby-doc.mdx'
 
 # Select Rich
 
@@ -430,6 +431,18 @@ selectRich.setSearchMatcher(
 ```
 
 De meegeleverde `exactAndMatcher` en `exactOrMatcher` kan je ook rechtstreeks registreren.
+
+## Beschrijving
+
+<FormControlDescribedby />
+
+```html
+<vl-select-rich label="Hobbies" multiple describedby="hobbies-info"></vl-select-rich>
+<vl-form-message variant="annotation" id="hobbies-info">
+    Je kan meerdere hobbies selecteren.
+</vl-form-message>
+```
+
 
 ## Validatie
 

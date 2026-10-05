@@ -12,6 +12,10 @@ export const textareaRichArgs: TextareaRichArgs = {
 
 export const textareaRichArgTypes: ArgTypes<TextareaRichArgs> = {
     ...textareaArgTypes,
+    describedby: {
+        ...textareaArgTypes.describedby,
+        description: 'Heeft geen effect op de `vl-textarea-rich` editor.',
+    },
     rows: {
         name: 'rows',
         description:

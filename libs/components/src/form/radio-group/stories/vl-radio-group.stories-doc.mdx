@@ -1,6 +1,7 @@
 import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
 import * as VlRadioGroupStories from './vl-radio-group.stories';
 import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
+import FormControlDescribedby from '../../form-control/stories/form-control.describedby-doc.mdx'
 
 # Radio Group
 
@@ -40,6 +41,21 @@ import { VlRadioComponent, VlRadioGroupComponent } from '@domg-wc/components/for
 ## Publieke methodes
 
 <FormControlPublicMethods />
+
+
+## Beschrijving
+
+<FormControlDescribedby />
+
+```html
+<vl-radio-group label="Contactmethode" describedby="contactmethode-info">
+    <vl-radio value="e-mail">e-mail</vl-radio>
+    <vl-radio value="telefoon">telefoon</vl-radio>
+</vl-radio-group>
+<vl-form-message variant="annotation" id="contactmethode-info">
+    We contacteren je enkel over je aanvraag.
+</vl-form-message>
+```
 
 
 ## Validatie
