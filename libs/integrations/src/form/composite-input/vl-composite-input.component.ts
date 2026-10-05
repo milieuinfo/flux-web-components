@@ -3,20 +3,28 @@
 // Het gedrag komt uit CompositeFormControl, die wel uit de bibliotheek komt.
 import { webComponent } from '@domg-wc/common';
 import { CompositeFormControl } from '@domg-wc/components/form';
+import { vlGroupStyles } from '@domg-wc/styles';
 import { css, CSSResult, html, TemplateResult } from 'lit';
 
 @webComponent('vl-composite-input')
 export class CompositeInputComponent extends CompositeFormControl {
     static get styles(): CSSResult[] {
         return [
+            vlGroupStyles,
             css`
                 fieldset {
                     border: 0;
                     padding: 0;
                     margin: 0;
-                    display: flex;
-                    gap: 0.5rem;
-                    align-items: center;
+                    min-width: 0;
+                }
+
+                ::slotted(*) {
+                    min-width: 0;
+                }
+
+                ::slotted(:only-child) {
+                    flex: 1 1 auto;
                 }
 
                 .vl-u-visually-hidden {
@@ -37,7 +45,7 @@ export class CompositeInputComponent extends CompositeFormControl {
 
     render(): TemplateResult {
         return html`
-            <fieldset part="fieldset">
+            <fieldset part="fieldset" class="vl-group vl-group--align-center vl-group--wrap">
                 <legend class="vl-u-visually-hidden">${this.label || 'Samengesteld invoerveld'}</legend>
                 <slot @slotchange=${this.onSlotChange}></slot>
             </fieldset>
