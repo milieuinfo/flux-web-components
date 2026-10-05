@@ -10,6 +10,7 @@ const config = {
         vdsFrame: './src/vds/frame/vds-frame.ts',
     },
     devServer: {
+        port: 8090,
         static: {
             directory: path.resolve(__dirname, '../../build/dist/apps/playground-lit'),
             publicPath: '/',
