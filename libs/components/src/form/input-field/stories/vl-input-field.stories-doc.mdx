@@ -1,6 +1,7 @@
 import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
 import * as VlInputFieldStories from './vl-input-field.stories';
 import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
+import FormControlDescribedby from '../../form-control/stories/form-control.describedby-doc.mdx'
 
 # Input Field
 
@@ -44,16 +45,12 @@ voor meer informatie en voorbeelden.
 
 ### Describedby
 
-Met het `describedby` attribuut koppel je een extra beschrijving aan het veld voor gebruikers van een screenreader.
-Verwijs naar het `id` van een element in de light DOM; de tekst wordt overgenomen en via `aria-describedby`
-gekoppeld aan het veld. Handig wanneer visuele context (bv. een eenheid naast het veld) ook hoorbaar moet zijn. De
-koppeling volgt latere tekstwijzigingen van het aangeduide element. Het bron-element krijgt automatisch
-`aria-hidden` (tenzij je het zelf al zette) zodat de beschrijving niet twee keer wordt voorgelezen.
+<FormControlDescribedby />
 
 ```html
 <vl-input-field label="Lengte" describedby="eenheid"></vl-input-field>
 <span aria-hidden="true">m</span>
-<span class="vl-visually-hidden" id="eenheid">meter</span>
+<span class="vl-visually-hidden" id="eenheid" aria-hidden="true">meter</span>
 ```
 
 <Canvas of={VlInputFieldStories.InputFieldDescribedby} />

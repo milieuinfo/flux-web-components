@@ -277,6 +277,7 @@ export class VlDatepickerComponent extends FormControl {
                     class=${classMap(inputClasses)}
                     type="text"
                     aria-label=${this.label || nothing}
+                    aria-describedby=${this.describedByIds}
                     aria-invalid=${this.isInvalid || nothing}
                     ?required=${this.required}
                     ?disabled=${this.disabled}
@@ -308,6 +309,7 @@ export class VlDatepickerComponent extends FormControl {
                 </button>
             </div>
             <div id="datepicker-calendar-placeholder"></div>
+            ${this.renderDescription()}
         `;
     }
 

@@ -54,6 +54,29 @@ expliciete `variant` nodig heeft (zie [Success](#success)).
 
 <Canvas of={VlFormMessageStories.FormMessageAnnotation} />
 
+### Beschrijving koppelen met describedby
+
+Een `variant="annotation"` staat visueel bij het veld, maar is daarmee nog niet aan het veld gekoppeld voor gebruikers
+van een screenreader. Geef de message een `id` en verwijs ernaar met het `describedby` attribuut van de form-control.
+De tekst wordt dan voorgelezen wanneer het veld de focus krijgt.
+
+```html
+<vl-form-label for="naam" label="Naam"></vl-form-label>
+<vl-input-field id="naam" name="naam" required describedby="naam-annotation"></vl-input-field>
+<vl-form-message variant="annotation" id="naam-annotation">Vul hier je achternaam in.</vl-form-message>
+<vl-form-message for="naam" state="valueMissing">Gelieve een naam in te vullen.</vl-form-message>
+```
+
+- De form-control neemt de tekst van de message over en koppelt die via `aria-describedby` aan het veld. Latere
+  tekstwijzigingen van de message worden gevolgd.
+- De message zelf blijft ongewijzigd en is dus ook los van het veld leesbaar voor een screenreader.
+- Is er een fout- of succesboodschap actief, dan wordt die samen met de beschrijving voorgelezen.
+- De annotation heeft geen `for` of `state` nodig: ze blijft altijd zichtbaar en volgt de validatie-lifecycle niet.
+
+Het `describedby` attribuut kan naar elk element met een `id` verwijzen, niet enkel naar een `vl-form-message`. Meer
+uitleg en een voorbeeld per component vind je in de documentatie van de form-control zelf, bijvoorbeeld
+[input-field](/docs/components-form-input-field--documentatie).
+
 ### Success
 
 Plaats een `vl-form-message` met `state="valid"` bij het veld om een success-boodschap automatisch te laten verschijnen
