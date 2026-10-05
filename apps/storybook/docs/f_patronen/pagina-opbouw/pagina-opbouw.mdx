@@ -5,6 +5,10 @@ import * as pageLayoutStories from './pagina-opbouw.stories';
 
 # Pagina Opbouw
 
+Bouw een pagina op met [`vl-page`](/docs/structures-page--documentatie) uit het artifact `@domg-wc/structures`, met
+`vl-header-next` en `vl-footer-next` in de slots `header` en `footer`. `vl-page` zet de main content zelf in een `main`
+landmark; voeg er dus geen eigen `<main>` rond toe.
+
 ## Standaard layout
 
 Dit is de standaard layout voor applicaties. Gebruik de alternatieve "Volledige breedte" variant enkel indien deze layout te smal is om alle content duidelijk te visualiseren.
@@ -18,20 +22,18 @@ Dit is de standaard layout voor applicaties. Gebruik de alternatieve "Volledige 
         code={`
 <html>
     <body>
-        <main>
-            <vl-template>
-                <vl-header slot="header"></vl-header>
-                <div slot="main">
-                    <vl-functional-header title="Page Layout" skip-to-content-id="#main-content">...</vl-functional-header>
-                    <section class="vl-section">
-                        <div class="vl-content-block">
-                            <vl-title type="h1" id="main-content">Content</vl-title>
-                        </div>
-                    </section>
-                </div>
-                <vl-footer slot="footer"></vl-footer>
-            </vl-template>
-        </main>
+        <vl-page>
+            <vl-header-next slot="header" skip-to-content-id="main-content"></vl-header-next>
+            <div slot="main">
+                <vl-functional-header title="Page Layout" skip-to-content-id="#main-content">...</vl-functional-header>
+                <section class="vl-section">
+                    <div class="vl-content-block">
+                        <vl-title type="h1" id="main-content">Content</vl-title>
+                    </div>
+                </section>
+            </div>
+            <vl-footer-next slot="footer"></vl-footer-next>
+        </vl-page>
     </body>
 </html>
         `}
@@ -56,20 +58,18 @@ Voeg hiervoor de volgende attributen toe:
         code={`
 <html>
     <body>
-        <main>
-            <vl-template>
-                <vl-header slot="header"></vl-header>
-                <div slot="main">
-                    <vl-functional-header title="Page Layout" full-width skip-to-content-id="#main-content">...</vl-functional-header>
-                    <section class="vl-section">
-                        <div class="vl-content-block vl-content-block--full-width">
-                            <vl-title type="h1" id="main-content">Content</vl-title>
-                        </div>
-                    </section>
-                </div>
-                <vl-footer slot="footer"></vl-footer>
-            </vl-template>
-        </main>
+        <vl-page>
+            <vl-header-next slot="header" skip-to-content-id="main-content"></vl-header-next>
+            <div slot="main">
+                <vl-functional-header title="Page Layout" full-width skip-to-content-id="#main-content">...</vl-functional-header>
+                <section class="vl-section">
+                    <div class="vl-content-block vl-content-block--full-width">
+                        <vl-title type="h1" id="main-content">Content</vl-title>
+                    </div>
+                </section>
+            </div>
+            <vl-footer-next slot="footer"></vl-footer-next>
+        </vl-page>
     </body>
 </html>
         `}

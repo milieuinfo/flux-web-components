@@ -251,3 +251,46 @@ Deze component is niet compatibel met de oude [Side Navigation [legacy]](/docs/c
         <td><code>{`<vl-tabs>`}</code></td>
     </tr>
 </table>
+
+### Template
+
+`Template` is deprecated in v2 en wordt verwijderd in v3. Het component verhuist naar het artifact `@domg-wc/structures`
+en heet daar `Page`: gebruik voortaan `vl-page`. De slots `header`, `main` en `footer` blijven dezelfde.
+
+De attributen `v-center` en `v-stretch` bestaan nog, maar werken anders:
+
+- `v-center` centreert de main content tussen de header en de footer. In `vl-template` schoof de main content over de
+  header.
+- `v-stretch` laat de main content de ruimte tussen de header en de footer innemen. In `vl-template` werd de main
+  content even hoog als het volledige component, en liep ze daardoor over.
+- `vl-page` is een block-element. `v-center` en `v-stretch` hebben pas effect als `vl-page` hoger is dan zijn inhoud:
+  laat het de ruimte tussen de header en de footer innemen, zoals beschreven in
+  [Page - Hoogte](/docs/structures-page--documentatie#hoogte). Een eigen `display` op `vl-page` schakelt beide
+  attributen uit.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+        <th>v3 - Artifact</th>
+        <th>v3 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Template [legacy]](/docs/components-block-template--documentatie)</td>
+        <td>deprecated</td>
+        <td>components/block</td>
+        <td><code>{`<vl-template>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Page](/docs/structures-page--documentatie)</td>
+        <td>release v2.21.0</td>
+        <td>structures</td>
+        <td><code>{`<vl-page>`}</code></td>
+        <td>structures</td>
+        <td><code>{`<vl-page>`}</code></td>
+    </tr>
+</table>

@@ -1,0 +1,87 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlPageStories from './vl-page.stories';
+
+# Page
+
+<FluxComponentMetaData id="structures-page" />
+
+
+## Doel
+
+`vl-page` bouwt de basis-layout van een pagina op: een header, de main content en een footer.
+
+
+## Voorbeeld
+
+```js
+import { VlPage } from '@domg-wc/structures';
+```
+
+```html
+<vl-page>
+    <vl-header-next slot="header" skip-to-content-id="main-content"></vl-header-next>
+    <div id="main-content" slot="main"></div>
+    <vl-footer-next slot="footer"></vl-footer-next>
+</vl-page>
+```
+
+`vl-header-next` en `vl-footer-next` renderen niet in `vl-page`: ze zetten hun header vooraan en hun footer achteraan
+in de `body`. De slots `header` en `footer` zijn voor die componenten enkel hun plaats in de markup.
+
+<Canvas of={VlPageStories.PageDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlPageStories.PageDefault} />
+
+
+## Varianten
+
+### v-center
+
+Met `v-center` staat de main content verticaal gecentreerd in de ruimte tussen de header en de footer.
+Dat heeft enkel effect als `vl-page` hoger is dan zijn inhoud, zie [Hoogte](#hoogte).
+
+<Canvas of={VlPageStories.PageVCenter} />
+
+### v-stretch
+
+Met `v-stretch` neemt de main content de volledige ruimte tussen de header en de footer in.
+Dat heeft enkel effect als `vl-page` hoger is dan zijn inhoud, zie [Hoogte](#hoogte).
+
+<Canvas of={VlPageStories.PageVStretch} />
+
+
+## Hoogte
+
+`v-center` en `v-stretch` hebben pas effect als `vl-page` hoger is dan zijn inhoud. Laat `vl-page` daarvoor de ruimte
+innemen die tussen de header en de footer overblijft: maak van de `body` een flex-kolom met de hoogte van het venster,
+en laat elk element tussen de `body` en `vl-page` meegroeien, bijvoorbeeld de root van de applicatie.
+
+```css
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+/* elk element tussen body en vl-page, bijvoorbeeld de root van de applicatie */
+app-root {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+vl-page {
+    flex: 1;
+}
+```
+
+De basisstijlen van Flux zetten zelf `min-height: 100%` op de `body`; daarom krijgt `html` de hoogte van het venster
+en niet de `body`. Geef `vl-page` geen `min-height: 100vh`: met `vl-header-next` en `vl-footer-next` wordt de pagina
+dan even hoog als het venster plus de header en de footer, en scrolt ze altijd.

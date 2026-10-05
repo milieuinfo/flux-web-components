@@ -29,6 +29,7 @@ SHARD_2_DIRS=("${E2E_ROOT}/src/e2e/components/atom"
               "${E2E_ROOT}/src/e2e/components/form"
               "${E2E_ROOT}/src/e2e/map"
               "${E2E_ROOT}/src/e2e/patronen"
+              "${E2E_ROOT}/src/e2e/structures"
               "${E2E_ROOT}/src/e2e/styles")
 
 case "${SHARD}" in

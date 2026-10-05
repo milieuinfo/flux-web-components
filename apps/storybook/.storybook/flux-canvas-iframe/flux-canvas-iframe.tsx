@@ -15,7 +15,7 @@ export const FluxCanvasIframe = ({ height }: Props) => {
     const story = useOf('story');
     if (!story || story.type !== 'story') return null;
 
-    const src = `/iframe.html?id=${story.story.id}&viewMode=story`;
+    const src = `iframe.html?id=${story.story.id}&viewMode=story`;
 
     return (
         <iframe

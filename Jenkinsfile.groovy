@@ -243,7 +243,7 @@ pipeline {
                                 }
                             }
                         }
-                        stage('storybook-e2e tests: atom, compliance, form, map, patronen, styles') {
+                        stage('storybook-e2e tests: atom, compliance, form, map, patronen, structures, styles') {
                             // beforeAgent: anders wordt de pod toch opgestart voor een stage die niets doet.
                             when {
                                 beforeAgent true

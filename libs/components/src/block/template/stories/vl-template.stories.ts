@@ -4,9 +4,10 @@ import { html } from 'lit';
 import { VlContentHeaderComponent } from '../../content-header/vl-content-header.component';
 import '../vl-template.component';
 import { VlTitleComponent } from '../../../atom/title';
+import { VlFooter, VlHeader } from '../../../compliance/next';
 import { templateArgs, templateArgTypes } from './vl-template.stories-arg';
 
-registerWebComponents([VlContentHeaderComponent, VlTitleComponent]);
+registerWebComponents([VlContentHeaderComponent, VlTitleComponent, VlHeader, VlFooter]);
 
 export default {
     id: 'components-block-template',
@@ -14,6 +15,15 @@ export default {
     tags: ['autodocs'],
     args: templateArgs,
     argTypes: templateArgTypes,
+    parameters: {
+        docs: {
+            story: {
+                inline: false,
+                iframeHeight: 600,
+            },
+        },
+        layout: 'fullscreen',
+    },
 } as Meta<typeof templateArgs>;
 
 const version = '1.2.3'; // TODO uit de package.json halen, om een json te kunnen importeren moet je echter wat config wijzigen
@@ -55,9 +65,19 @@ export const templateDefault = ({ center, stretch }: typeof templateArgs) =>
     bodySimulation(
         html`
             <vl-template ?v-center=${center} ?v-stretch=${stretch}>
-                <vl-header slot="header" identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb" development></vl-header>
-                <div slot="main">${mainHtml}</div>
-                <vl-footer slot="footer" identifier="0337f8dc-3266-4e7a-8f4a-95fd65189e5b" development></vl-footer>
+                <vl-header-next
+                    slot="header"
+                    identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"
+                    skip-to-content-id="main-content"
+                    development
+                    simple
+                ></vl-header-next>
+                <div id="main-content" slot="main">${mainHtml}</div>
+                <vl-footer-next
+                    slot="footer"
+                    identifier="0337f8dc-3266-4e7a-8f4a-95fd65189e5b"
+                    development
+                ></vl-footer-next>
             </vl-template>
         `,
         true
