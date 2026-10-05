@@ -1,0 +1,12 @@
+Met het `describedby` attribuut koppel je een extra beschrijving aan het veld voor gebruikers van een screenreader.
+Verwijs naar het `id` van een element in dezelfde DOM-boom als het veld (het document of dezelfde shadow root); de
+tekst wordt overgenomen en via `aria-describedby` gekoppeld aan het veld. Handig wanneer visuele context (bv. een
+eenheid of een toelichting bij het veld) ook hoorbaar moet zijn. Het aangeduide element moet bestaan op het moment
+dat het veld rendert. De koppeling volgt latere tekstwijzigingen van het aangeduide element. Het aangeduide element
+zelf blijft ongewijzigd en dus ook los van het veld leesbaar voor een screenreader.
+
+Is het aangeduide element enkel voor screenreaders bedoeld (bv. visueel verborgen), zet er dan zelf
+`aria-hidden="true"` op, anders wordt de tekst twee keer voorgelezen.
+
+Is er op dat moment ook een validatieboodschap actief, dan wordt die mee opgenomen in de `aria-describedby`
+koppeling, zodat beide teksten voorgelezen worden.

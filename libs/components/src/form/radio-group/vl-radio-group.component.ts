@@ -102,9 +102,10 @@ export class VlRadioGroupComponent extends FormControl {
 
     render(): TemplateResult {
         return html`
-            <fieldset>
+            <fieldset aria-describedby=${this.describedByIds}>
                 <legend class="vl-u-visually-hidden">${this.label}</legend>
                 <slot></slot>
+                ${this.renderDescription()}
             </fieldset>
         `;
     }

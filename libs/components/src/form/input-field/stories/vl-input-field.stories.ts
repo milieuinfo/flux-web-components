@@ -109,7 +109,7 @@ export const InputFieldDescribedby = story(
         <div class="vl-group vl-group--align-center">
             <vl-input-field name=${name} label=${label} type="text" describedby="eenheid"></vl-input-field>
             <span aria-hidden="true">m</span>
-            <span class="vl-visually-hidden" id="eenheid">meter</span>
+            <span class="vl-visually-hidden" id="eenheid" aria-hidden="true">meter</span>
         </div>
     `
 );

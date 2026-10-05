@@ -110,6 +110,7 @@ export class VlSelectComponent extends FormControl {
                     name=${this.name || nothing}
                     class=${classMap(selectClasses)}
                     aria-label=${this.label || nothing}
+                    aria-describedby=${this.describedByIds}
                     aria-invalid=${this.isInvalid || nothing}
                     ?required=${this.required}
                     ?disabled=${this.disabled}
@@ -129,6 +130,7 @@ export class VlSelectComponent extends FormControl {
             <div class="slot-container">
                 <slot @slotchange=${this.onSlotChange}></slot>
             </div>
+            ${this.renderDescription()}
         `;
     }
 

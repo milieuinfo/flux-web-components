@@ -88,6 +88,17 @@ export const formControlArgTypes: ArgTypes<FormControlArgs> = {
             defaultValue: { summary: String(formControlArgs.blurValidation) },
         },
     },
+    describedby: {
+        name: 'describedby',
+        description:
+            'Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.',
+        control: false,
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: formControlArgs.describedby },
+        },
+    },
     onVlReset: {
         name: 'vl-reset',
         description: 'Event dat afgevuurd wordt wanneer het veld gereset wordt.',
