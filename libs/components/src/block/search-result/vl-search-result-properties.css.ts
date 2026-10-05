@@ -3,7 +3,7 @@ import { css, CSSResult } from 'lit';
 
 export const vlSearchResultPropertiesStyles: CSSResult = css`
     dl {
-        display: block;
+        display: flow-root;
     }
     dt,
     dd {

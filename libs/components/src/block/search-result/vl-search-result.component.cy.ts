@@ -88,6 +88,45 @@ describe('cypress-component - block components - vl-search-result', () => {
             });
     });
 
+    it('should not let properties overlap the next search result', () => {
+        cy.mount(html`
+            <div>
+                <vl-search-result id="first">
+                    <vl-search-result-title>
+                        <a href="#">Eerste resultaat</a>
+                    </vl-search-result-title>
+                    <vl-search-result-properties>
+                        <vl-property>ID</vl-property>
+                        <vl-property-data>1</vl-property-data>
+                        <vl-property>Naam</vl-property>
+                        <vl-property-data>Eerste</vl-property-data>
+                    </vl-search-result-properties>
+                </vl-search-result>
+                <vl-search-result id="second">
+                    <vl-search-result-title>
+                        <a href="#">Tweede resultaat</a>
+                    </vl-search-result-title>
+                </vl-search-result>
+            </div>
+        `);
+
+        cy.get('#first')
+            .shadow()
+            .find('vl-search-result-properties')
+            .shadow()
+            .find('dl')
+            .then(($dl) => {
+                const dlBottom = $dl[0].getBoundingClientRect().bottom;
+                expect($dl[0].getBoundingClientRect().height).to.be.gt(0);
+                cy.get('#second')
+                    .shadow()
+                    .find('vl-search-result-title')
+                    .then(($title) => {
+                        expect($title[0].getBoundingClientRect().top).to.be.gte(dlBottom);
+                    });
+            });
+    });
+
     it('should have properties', () => {
         // enkel een test dat de properties component correct werkt, de properties component zelf doet voldoende testen
         cy.get('vl-search-result')
