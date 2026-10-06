@@ -295,9 +295,9 @@ tag). Probleem 2 staat nog open: de box-grootte is nog altijd `1.125rem`.
 
 ## Sinds 0.15.0: de 16 nieuwe componenten
 
-De punten 7 tot 12 kwamen boven bij het afnemen van de componenten die 0.15.0 toevoegde.
+De punten 7 tot 13 kwamen boven bij het afnemen van de componenten die 0.15.0 toevoegde.
 Het zijn fouten of beperkingen in VDS zelf, geen feature-requests: flux omzeilt ze vandaag
-met een workaround in de adapter, die verdwijnt zodra VDS ze oplost. Prioriteit: 7 en 8
+met een workaround in de adapter, die verdwijnt zodra VDS ze oplost. Prioriteit: 7, 8 en 13
 hoog, 9 en 10 midden, 11 en 12 laag.
 
 ## 7. Tabs: kinderen gezocht op de exacte tagnaam
@@ -385,6 +385,22 @@ met `size="small"`. Die waarde matcht niet meer, dus het icoon valt stil terug o
 standaardmaat: een achtergebleven stuk van de breaking change in 0.11.
 
 **Verzoek:** `size="s"` gebruiken in beide tags.
+
+## 13. Markdown: HTML wordt niet gesanitized
+
+**Component:** `vl-markdown`
+
+`vl-markdown` zet de uitvoer van `marked` via `unsafeHTML` in zijn shadow DOM. `marked`
+laat ruwe HTML in de markdown staan, dus ook event-handlers. In de playground voert
+`<img src="x" onerror="...">` in de markdown de handler uit, zowel in rauw VDS als in
+`flux-markdown`. Met markdown uit een onbetrouwbare bron (gebruikersinvoer, een CMS) is dat
+XSS. De a11y-nota in de VDS-docs vermeldt dit niet.
+
+Flux kan dit niet in de adapter oplossen zonder de rendering van VDS over te nemen. Tot de
+fix mogen afnemers enkel markdown uit een betrouwbare bron meegeven.
+
+**Verzoek:** de HTML saniteren (bijvoorbeeld met DOMPurify) of ruwe HTML in `marked`
+uitschakelen, eventueel met een opt-in attribuut voor vertrouwde inhoud.
 
 ---
 

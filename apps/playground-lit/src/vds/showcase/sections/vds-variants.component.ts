@@ -7,20 +7,6 @@ import { vdsFrame } from '../shared/vds-frame.helper';
 import { renderVariantRow } from '../shared/variant-row.helper';
 import './vds-new-components.component';
 
-const NOT_IN_FLUX = [
-    { vds: 'vl-avatar', flux: 'geen; wel ronde icoon-badges in vl-info-tile (icon-as-badge) en vl-infoblock', target: 'vergelijk-avatar' },
-    { vds: 'vl-banner-message', flux: 'geen; dichtst is vl-alert', target: 'vergelijk-banner-message' },
-    { vds: 'vl-inline-message', flux: 'geen; dichtst is vl-alert size="small"', target: 'vergelijk-inline-message' },
-    { vds: 'vl-markdown', flux: 'geen; vl-typography toont HTML (geen markdown)', target: 'vergelijk-markdown' },
-    { vds: 'vl-input-group', flux: 'CSS-patroon vl-group--input-group met het input-group-attribuut', target: 'vergelijk-input-group' },
-    { vds: 'vl-grid, vl-grid-item', flux: 'CSS-klassen vl-grid en vl-column', target: 'vergelijk-grid' },
-    { vds: 'vl-divider', flux: 'CSS-klassen vl-separator, -wave en -slash', target: 'vergelijk-separator' },
-    { vds: 'vl-box, vl-inline, vl-stack', flux: 'CSS-klassen vl-padding, vl-group en vl-stacked', target: 'vergelijk-layout' },
-];
-
-const TH = 'text-align: left; padding: 4px 8px; border-bottom: 2px solid #cbd2d9; font-size: 12px;';
-const TD = 'padding: 4px 8px; border-bottom: 1px solid #eaecef; font-size: 12px; vertical-align: top;';
-
 @customElement('pg-variants')
 export class PgVariants extends LitElement {
     @property({ type: Boolean })
@@ -118,38 +104,11 @@ export class PgVariants extends LitElement {
                             </p>
                         </div>
 
-                        <div
-                            style="max-width: 900px; margin: 0 0 16px; padding: 12px 16px;
-                                   border: 1px solid #cbd2d9; border-radius: 6px; background: #fafbfc; font-size: 13px;"
-                        >
-                            <strong>Niet als component in flux</strong>
-                            <p style="margin: 6px 0 8px;">
-                                VDS-componenten die flux vandaag niet als web component aanbiedt. Ze staan gewoon mee in
-                                de vergelijking: de flux-kolom erft van VDS en zet de flux-styling, de vl-kolom toont wat
-                                flux nu in de plaats gebruikt.
-                            </p>
-                            <table style="border-collapse: collapse; width: 100%;">
-                                <caption style="text-align: left; font-size: 12px; color: #6b7280; padding: 0 0 4px;">
-                                    Klik op een component om naar zijn rij te gaan
-                                </caption>
-                                <thead>
-                                    <tr>
-                                        <th scope="col" style="${TH}">VDS</th>
-                                        <th scope="col" style="${TH}">flux vandaag</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${NOT_IN_FLUX.map(
-                                        (r) => html`<tr>
-                                            <td style="${TD}">
-                                                <a href="#${r.target}"><code>${r.vds}</code></a>
-                                            </td>
-                                            <td style="${TD}">${r.flux}</td>
-                                        </tr>`
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
+                        <p style="max-width: 900px; margin: 0 0 16px; font-size: 13px;">
+                            VDS-componenten die flux niet als web component aanbiedt (zoals
+                            <code>vl-markdown</code>) staan ook in deze vergelijking, en samen in het overzicht
+                            <a href="#niet-in-flux">VDS-componenten die flux niet aanbiedt</a>.
+                        </p>
 
                         <details
                             style="max-width: 900px; margin: 0 0 16px; border-left: 3px solid #99c2ff;

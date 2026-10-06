@@ -538,7 +538,31 @@ in `flux-table` ongestyled; zonder opruimen stylet de VDS-sheet de echte flux `v
 meten bleek de flux-tabel in de playground zelfs alleen gestyled door dat lek: de demo miste
 `class="vl-table"`, die flux van de afnemer verwacht.
 
+## 35. Aparte sectie voor de VDS-componenten die flux niet aanbiedt
+**Beslissing:** de playground krijgt bovenaan een eigen sectie met de acht VDS-componenten zonder
+flux-web-component, elk met rauw VDS, de erft over-variant, het huidige flux-alternatief en of de
+look aan de flux-styling aan te passen is. De kleine tabel in de legende van de vergelijking is
+vervangen door een link naar die sectie.
+**Waarom:** in de legende viel het overzicht niet op, en de vergelijkingsrijen heetten "markdown"
+in plaats van `vl-markdown`, waardoor de gebruiker ze niet terugvond. De integratiestatus telt nu
+ook de 32 tags in plaats van de 26 rijen.
+
+## 36. flux-markdown neemt de stylesheets van vl-typography over
+**Beslissing:** `flux-markdown` laat het parsen aan VDS en gebruikt dezelfde
+govflanders-stylesheets als `vl-typography`, met de klasse `vl-typography` op de inhoud. De
+VDS-markdown-styles gelden enkel nog in `bare`: hun scope-selector `:host, :host *` wordt
+herschreven naar `:host([bare])`. Een playground-invoerveld rendert rauw VDS en `flux-markdown`
+live mee.
+**Waarom:** met het rijkere voorbeeld (code, tabel, quote, takenlijst) bleek de eerdere,
+overgetikte typografie op zes elementen na niets te dekken, en de VDS-regels (zebra, randen,
+code-kleur) lekten erdoor. Met de flux-stylesheets is de pagina gemeten identiek aan
+`vl-typography`, op desktop (1094px hoogte) en mobiel (1038px). VDS saniteert de HTML niet
+(upstream-fix #13).
+
 ## Terugkerende valkuilen / lessen
+- **vl-typography meten:** `vl-typography` rendert zijn inhoud opnieuw in de shadow DOM; meet daar,
+  niet in de light DOM. En meet op desktopbreedte: onder 767px gelden de mobiele waarden (16px
+  tekst in plaats van 18px), wat in het smalle preview-paneel standaard het geval is.
 - **Preview-tool onbetrouwbaar:** de webpack-devServer bindt de default-poort (8080/volgende vrije),
   niet de 8084 uit launch.json → de preview-browser is vaak onbereikbaar (chrome-error). We
   verifiëren daarom via Cypress (poort-onafhankelijk).

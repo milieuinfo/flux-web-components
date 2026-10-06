@@ -23,6 +23,7 @@ import '../adapters/flux-icon.component';
 import '../demos/vl-form-demo.component';
 
 import './sections/vds-integration-status.component';
+import './sections/vds-not-in-flux.component';
 import './sections/vds-overrides-list.component';
 import './sections/vds-api-gaps.component';
 import './sections/vds-upstream-fixes.component';
@@ -105,6 +106,7 @@ export class PgVdsShowcase extends LitElement {
                 </div>
 
                 <pg-integration-status></pg-integration-status>
+                <pg-not-in-flux></pg-not-in-flux>
                 ${this.gapsOff
                     ? nothing
                     : html`<pg-overrides-list></pg-overrides-list>
@@ -124,7 +126,7 @@ export class PgVdsShowcase extends LitElement {
         const off = this.overridesOff;
         const sel =
             'flux-button, flux-input, flux-link, flux-datepicker, flux-select, flux-checkbox, flux-textarea, flux-fieldset, flux-radio-group, ' +
-            'flux-pill, flux-accordion, flux-separator, flux-alert, flux-tabs, flux-table, flux-banner-message, flux-inline-message, flux-avatar, flux-grid, flux-grid-item';
+            'flux-pill, flux-accordion, flux-separator, flux-alert, flux-tabs, flux-table, flux-banner-message, flux-inline-message, flux-avatar, flux-grid, flux-grid-item, flux-markdown, flux-input-group';
         this.querySelectorAll(sel).forEach((el) => el.toggleAttribute('bare', off));
         const form = this.querySelector('flux-form-demo');
         form?.shadowRoot?.querySelectorAll(sel).forEach((el) => el.toggleAttribute('bare', off));

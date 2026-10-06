@@ -95,7 +95,7 @@ export class PgIntegrationStatus extends LitElement {
             { tag: 'vl-avatar', flux: 'flux-avatar', state: 'done', note: 'nieuw in 0.15. geen flux-component; flux heeft wel ronde icoon-badges in info-tile (icon-as-badge) en infoblock, die de icoon-variant van vl-avatar kunnen worden' },
             { tag: 'vl-grid, vl-grid-item', flux: 'flux-grid', state: 'done', note: 'nieuw in 0.15. flux kent enkel de CSS-klassen vl-grid/vl-column' },
             { tag: 'vl-input-group', flux: 'flux-input-group', state: 'done', note: 'flux kent enkel het CSS-patroon vl-group--input-group; de adapter erft VlInputGroup met flux-rand, -hoogte en een aansluitende knop' },
-            { tag: 'vl-markdown', flux: 'flux-markdown', state: 'done', note: 'flux heeft geen markdown-component, wel vl-typography voor HTML; de adapter erft VlMarkdown met de flux-typografie' },
+            { tag: 'vl-markdown', flux: 'flux-markdown', state: 'done', note: 'flux heeft geen markdown-component, wel vl-typography voor HTML; de adapter erft VlMarkdown en neemt de stylesheets van vl-typography over. VDS saniteert de HTML niet (upstream-fix #13)' },
         ];
         const icon = (s: Comp['state']) => (s === 'done' ? '✅' : s === 'partial' ? '➖' : '❌');
         const order = { done: 0, partial: 1, todo: 2 };
@@ -103,6 +103,7 @@ export class PgIntegrationStatus extends LitElement {
         const done = comps.filter((c) => c.state === 'done');
         const partial = comps.filter((c) => c.state === 'partial');
         const todo = comps.filter((c) => c.state === 'todo');
+        const tagCount = comps.flatMap((c) => c.tag.split(', ')).length;
         const th = 'text-align: left; padding: 6px 10px; border-bottom: 2px solid #cbd2d9; font-size: 12px;';
         const td = 'padding: 6px 10px; border-bottom: 1px solid #eaecef; font-size: 13px; vertical-align: top;';
         const summaryStyle = 'cursor: pointer; font-weight: 600; padding: 8px 4px; font-size: 14px;';
@@ -136,7 +137,7 @@ export class PgIntegrationStatus extends LitElement {
                 <div class="vl-content-block vl-content-block--full-width">
                     <vl-title type="h2">VDS-componenten: integratie-status</vl-title>
                     <p>
-                        Alle ${comps.length} VDS web-componenten (geregistreerd via
+                        Alle ${tagCount} VDS web-componenten, in ${comps.length} rijen (geregistreerd via
                         <code>defineAll('vds')</code>, bron: het package-manifest
                         <code>custom-elements.json</code>). <b>${done.length}</b> geïntegreerd als
                         <code>flux-*</code> (erven de VDS-klasse + flux-tokens), <b>${partial.length}</b>
@@ -146,7 +147,7 @@ export class PgIntegrationStatus extends LitElement {
                     </p>
                     <details>
                         <summary style="${summaryStyle}">
-                            Alle ${comps.length} VDS-componenten (${done.length} ✅ · ${partial.length} ➖ ·
+                            Alle ${tagCount} VDS-componenten in ${comps.length} rijen (${done.length} ✅ · ${partial.length} ➖ ·
                             ${todo.length} ❌)
                         </summary>
                         ${table(sorted, 'gesorteerd: geïntegreerd, dan onrechtstreeks, dan nog niet')}

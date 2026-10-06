@@ -81,6 +81,17 @@ export const UPSTREAM_FIXES: UpstreamFix[] = [
         ask: 'size="s" gebruiken in beide tags.',
         prio: 'laag',
     },
+    {
+        nr: 13,
+        vds: 'vl-markdown',
+        flux: ['flux-markdown'],
+        title: 'Markdown rendert HTML zonder sanitizing',
+        problem: 'vl-markdown zet de uitvoer van marked via unsafeHTML in de shadow DOM. Ruwe HTML in de markdown blijft staan, inclusief event-handlers zoals onerror.',
+        impact: 'Markdown uit een onbetrouwbare bron (gebruikersinvoer, CMS) voert script uit op de pagina: XSS. Gemeten in de playground: <img src="x" onerror="..."> loopt zowel in rauw VDS als in flux-markdown.',
+        workaround: 'Geen in de adapter. Afnemers mogen enkel markdown uit een betrouwbare bron meegeven.',
+        ask: 'De HTML saniteren (bijvoorbeeld DOMPurify) of ruwe HTML in marked uitschakelen, eventueel met een opt-in attribuut voor vertrouwde inhoud.',
+        prio: 'hoog',
+    },
 ];
 
 export const ALSO_AFFECTED = [

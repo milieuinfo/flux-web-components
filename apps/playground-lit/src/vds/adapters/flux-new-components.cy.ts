@@ -128,11 +128,23 @@ describe('FLUX-704 - nieuwe VDS 0.15-componenten achter de flux-API', () => {
     });
 
     it('flux-markdown zet markdown om naar HTML in de flux-typografie', () => {
-        cy.mount(html`<flux-markdown content=${'## Titel\n\nTekst'}></flux-markdown>`);
+        cy.mount(html`<flux-markdown content=${'## Titel\n\nTekst met `code`'}></flux-markdown>`);
         cy.get('flux-markdown').should(($m) => {
-            const h2 = $m[0].shadowRoot!.querySelector('[part~="content"] h2');
+            const content = $m[0].shadowRoot!.querySelector('[part~="content"]')!;
+            const h2 = content.querySelector('h2');
             expect(h2?.textContent).to.eq('Titel');
+            expect(content.classList.contains('vl-typography'), 'klasse vl-typography').to.eq(true);
             expect(getComputedStyle(h2!).fontWeight).to.eq('500');
+            expect(getComputedStyle(content.querySelector('code')!).color, 'geen VDS-codekleur').to.not.eq('rgb(183, 21, 97)');
+        });
+    });
+
+    it('flux-markdown in bare toont de rauwe VDS-styling', () => {
+        cy.mount(html`<flux-markdown bare content=${'Tekst met `code`'}></flux-markdown>`);
+        cy.get('flux-markdown').should(($m) => {
+            const content = $m[0].shadowRoot!.querySelector('[part~="content"]')!;
+            expect(content.classList.contains('vl-typography')).to.eq(false);
+            expect(getComputedStyle(content.querySelector('code')!).color).to.eq('rgb(183, 21, 97)');
         });
     });
 

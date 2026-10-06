@@ -86,6 +86,11 @@ const DEMOS: Record<string, string> = {
         '<vl-input placeholder="Zoek een adres"></vl-input>' +
         '<vl-button slot="after" variant="secondary">Zoeken</vl-button>' +
         '</vl-input-group>',
+    layout:
+        '<vl-stack gap="s" style="width: 100%;">' +
+        '<vl-box padding="m" background-color="subtle" border-color="default" border-radius="m">vl-box</vl-box>' +
+        '<vl-inline gap="s"><vl-button variant="primary">Eén</vl-button><vl-button variant="secondary">Twee</vl-button></vl-inline>' +
+        '</vl-stack>',
     table:
         '<vl-table zebra style="width: 100%;">' +
         '<table><caption>Inwoners per gemeente</caption><thead><tr><th scope="col">Naam</th><th scope="col">Gemeente</th></tr></thead>' +

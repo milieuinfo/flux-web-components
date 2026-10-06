@@ -182,7 +182,7 @@ export class PgNewComponents extends LitElement {
                         'vl-table'
                     )}
                     ${this.row(
-                        'banner-message',
+                        'banner-message (niet in flux)',
                         vdsFrame('banner-message', 100),
                         html`<flux-banner-message status="warning" closable style="width: 100%;"
                             ><span slot="title">Gepland onderhoud zaterdag van 8u tot 12u.</span></flux-banner-message
@@ -198,7 +198,7 @@ export class PgNewComponents extends LitElement {
                         'vl-banner-message'
                     )}
                     ${this.row(
-                        'inline-message',
+                        'inline-message (niet in flux)',
                         vdsFrame('inline-message', 80),
                         html`<div style="display: grid; gap: 8px; width: 100%;">
                             <flux-inline-message status="success"
@@ -214,7 +214,7 @@ export class PgNewComponents extends LitElement {
                         'vl-inline-message'
                     )}
                     ${this.row(
-                        'avatar',
+                        'avatar (niet in flux)',
                         vdsFrame('avatar', 55),
                         html`<div style="display: flex; gap: 8px; align-items: center;">
                             <flux-avatar initials="KD"></flux-avatar>
@@ -232,7 +232,7 @@ export class PgNewComponents extends LitElement {
                         'vl-avatar'
                     )}
                     ${this.row(
-                        'grid',
+                        'grid (niet in flux)',
                         vdsFrame('grid', 95),
                         html`<flux-grid columns="3" gap="s" style="width: 100%;">
                             <flux-grid-item style="background: #eef6ff; padding: 8px;">1</flux-grid-item>
@@ -247,7 +247,7 @@ export class PgNewComponents extends LitElement {
                         'vl-grid'
                     )}
                     ${this.row(
-                        'markdown',
+                        'markdown (niet in flux)',
                         vdsFrame('markdown', 190),
                         html`<flux-markdown
                             style="width: 100%;"
@@ -269,7 +269,7 @@ export class PgNewComponents extends LitElement {
                         'vl-markdown'
                     )}
                     ${this.row(
-                        'input-group',
+                        'input-group (niet in flux)',
                         vdsFrame('input-group', 90),
                         html`<flux-input-group label="Locatie" grow="fill" style="width: 100%;">
                             <flux-input placeholder="Zoek een adres"></flux-input>

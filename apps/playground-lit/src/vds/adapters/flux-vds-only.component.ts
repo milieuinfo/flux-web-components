@@ -1,4 +1,11 @@
-import { css, CSSResultGroup } from 'lit';
+import {
+    baseStyle,
+    elementStyle,
+    resetStyle,
+    typographyStyle as commonTypographyStyle,
+} from '@domg/govflanders-style/common';
+import { titlesStyle, typographyStyle } from '@domg/govflanders-style/component';
+import { css, CSSResult, CSSResultGroup, PropertyValues, unsafeCSS } from 'lit';
 import {
     VlAvatar,
     VlBannerMessage,
@@ -66,38 +73,39 @@ export class FluxGridItem extends VlGridItem {
     static styles = [stylesOf(VlGridItem)];
 }
 
+const VDS_MARKDOWN_SCOPE = /:host\s*,\s*:host\s*\*/;
+
+export const vdsMarkdownStylesWhenBare = (): CSSResult => {
+    const text = (stylesOf(VlMarkdown) as CSSResult).cssText;
+    if (!VDS_MARKDOWN_SCOPE.test(text)) throw new Error('flux-markdown: VDS-markdown-styles niet herkend');
+    return unsafeCSS(text.replace(VDS_MARKDOWN_SCOPE, ':host([bare]), :host([bare]) *'));
+};
+
 export class FluxMarkdown extends VlMarkdown {
+    static properties = { bare: { type: Boolean, reflect: true } };
+
+    declare bare: boolean;
+
     static styles = [
-        stylesOf(VlMarkdown),
+        vdsMarkdownStylesWhenBare(),
+        resetStyle,
+        baseStyle,
+        elementStyle,
+        typographyStyle,
+        commonTypographyStyle,
+        titlesStyle,
         fluxFocus,
         css`
-            :host(:not([bare])) [part~='content'] {
-                font-size: 1.8rem;
-                line-height: 2.7rem;
-            }
-            :host(:not([bare])) [part~='content'] h2 {
-                margin: 0 0 2rem;
-                font-size: 3.2rem;
-                font-weight: 500;
-                line-height: 1.24;
-            }
-            :host(:not([bare])) [part~='content'] p,
-            :host(:not([bare])) [part~='content'] li {
-                font-size: 1.8rem;
-                line-height: 2.7rem;
-            }
-            :host(:not([bare])) [part~='content'] p {
-                margin: 0 0 1.8rem;
-            }
-            :host(:not([bare])) [part~='content'] ul {
-                margin: 1.8rem 0 0;
-                padding-left: 2rem;
-            }
-            :host(:not([bare])) [part~='content'] li {
-                margin-bottom: 0.9rem;
+            :host(:not([bare])) .vl-typography {
+                display: block;
             }
         `,
     ];
+
+    protected updated(changed: PropertyValues): void {
+        super.updated(changed);
+        this.shadowRoot?.querySelector('[part~="content"]')?.classList.toggle('vl-typography', !this.bare);
+    }
 }
 
 export class FluxInputGroup extends VlInputGroup {

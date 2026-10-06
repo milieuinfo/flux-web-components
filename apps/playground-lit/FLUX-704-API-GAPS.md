@@ -790,6 +790,7 @@ workaround in de adapter die verdwijnt zodra VDS het oplost. Detail en motivatie
 | 10 | midden | `vl-collapsible`, `vl-section-message` | enkel named slots, inhoud zonder `slot` blijft onzichtbaar | adapter zet slot-attributen op de light DOM van de afnemer | default slot laten vallen op `content` / `body` |
 | 11 | laag | tags tegenover messages en avatar | statusnaam wisselt tussen `error` en `danger` | `flux-alert` mapt `error` op `danger` | één naam, of beide aanvaarden |
 | 12 | laag | `vl-removable-tag`, `vl-selectable-tag` | geven hun icoon nog `size="small"` mee, dat sinds 0.11 niet meer bestaat; het icoon valt terug op de standaardmaat | `flux-pill` zet `size` en `icon` op de geneste iconen | `size="s"` gebruiken |
+| 13 | hoog | `vl-markdown` | rendert de HTML van `marked` via `unsafeHTML` zonder sanitizing; een `onerror`-handler in de markdown loopt (XSS) | geen; enkel markdown uit een betrouwbare bron meegeven | HTML saniteren of ruwe HTML in `marked` uitschakelen |
 
 Bestaande verzoeken die de nieuwe componenten ook raken: #3 (focus-offset en -kleur),
 #4a (rem-literals, bv. dikte en wave-hoogte van de divider) en #4b (icon-font-collision
@@ -915,12 +916,14 @@ vertrekpunt.
 ## Niet als component in flux
 
 Naast de nieuwe componenten van 0.15.0 heeft VDS er een paar die flux vandaag niet als web
-component aanbiedt. Ze staan mee in de vergelijking in de playground: de flux-kolom erft van
-VDS en zet de flux-styling, de vl-kolom toont wat flux nu in de plaats gebruikt.
+component aanbiedt. De playground toont ze samen in de sectie "VDS-componenten die flux niet
+aanbiedt": per component rauw VDS naast de erft over-variant, wat flux nu in de plaats
+gebruikt en of de look aan de flux-styling aan te passen is. Ze staan ook mee in de
+vergelijking, waar de vl-kolom het flux-alternatief toont.
 
 | VDS | flux vandaag | adapter |
 |---|---|---|
-| `vl-markdown` | geen; `vl-typography` toont kant-en-klare HTML in de flux-typografie | `flux-markdown` (erft, flux-typografie) |
+| `vl-markdown` | geen; `vl-typography` toont kant-en-klare HTML in de flux-typografie | `flux-markdown` (erft, neemt de stylesheets van `vl-typography` over) |
 | `vl-input-group` | CSS-patroon `vl-group--input-group` met het attribuut `input-group` op veld en knop | `flux-input-group` (erft, flux-rand en aansluitende knop) |
 | `vl-avatar`, `vl-banner-message`, `vl-inline-message`, `vl-grid` | zie [Zonder flux-tegenhanger](#zonder-flux-tegenhanger) | erft |
 | `vl-divider` | CSS-klassen `vl-separator`, `-wave`, `-slash` | `flux-separator` (erft) |
@@ -928,7 +931,11 @@ VDS en zet de flux-styling, de vl-kolom toont wat flux nu in de plaats gebruikt.
 
 - **`vl-markdown`** zet markdown om naar HTML (met code-highlighting). Flux heeft dat niet;
   `vl-typography` krijgt al HTML en kan placeholders invullen. Wie vandaag markdown wil
-  tonen, moet het zelf omzetten. Een `-next` op basis van `VlMarkdown` is een kleine stap.
+  tonen, moet het zelf omzetten. Een `-next` op basis van `VlMarkdown` is een kleine stap:
+  `flux-markdown` laat VDS het parsen doen en neemt de stylesheets van `vl-typography` over,
+  zodat de typografie op desktop en mobiel identiek is aan flux. De playground heeft een
+  invoerveld dat rauw VDS en `flux-markdown` live laat meerenderen. Voorwaarde voor gebruik
+  met gebruikersinvoer is upstream-fix #13 (sanitizing).
 - **`vl-input-group`** maakt van het CSS-patroon een echte component: label en message op de
   groep, en de groep geeft `disabled`, `error`, `success`, `readonly` en `size` door aan de
   kinderen. Omdat het zijn kinderen herkent met `instanceof VlFormLayoutElement`, werkt het
