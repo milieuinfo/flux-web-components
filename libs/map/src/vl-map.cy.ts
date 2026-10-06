@@ -1,5 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
+import { ScaleLine } from 'ol/control';
 import OlFullScreenControl from 'ol/control/FullScreen';
 import Feature from 'ol/Feature';
 import { LineString, Polygon } from 'ol/geom';
@@ -11,6 +12,8 @@ import { VlMapSelectAction } from './components/action/layer-action/select-actio
 import { VlMapMeasureControl } from './components/controls/measure-control/vl-map-measure-control';
 import { VlMapActionControls } from './components/controls/vl-map-action-controls';
 import { VlMapFeaturesLayer } from './components/layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
+import { VlMapLayerStyle } from './components/layer-style/vl-map-layer-style';
+import { VlMapLegend } from './components/legend/vl-map-legend';
 import { OpenLayersUtil } from './utils/ol-util';
 import { VlMap } from './vl-map';
 
@@ -21,6 +24,8 @@ registerWebComponents([
     VlMapMeasureAction,
     VlMapActionControls,
     VlMapMeasureControl,
+    VlMapLayerStyle,
+    VlMapLegend,
 ]);
 
 const mapFixture = html` <vl-map lambert2008></vl-map>`;
@@ -561,6 +566,152 @@ describe('cypress-component - map - vl-map - with lambert2008 attribute', () => 
                 expect(feature.getGeometry().getType()).to.be.equal('Point');
                 // coordinates should be reprojected to EPSG:3812
                 expect(feature.getGeometry().getCoordinates()).to.be.deep.equal([653050.623011303, 703908.5023996672]);
+            });
+        });
+    });
+});
+
+describe('cypress-component - map - vl-map - scale', () => {
+    it('adds a scale line control by default', () => {
+        cy.mount(mapFixture);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                const hasScaleLine = vlMap.map
+                    .getControls()
+                    .getArray()
+                    .some((control) => control instanceof ScaleLine);
+                expect(hasScaleLine).to.be.true;
+            });
+        });
+    });
+
+    it('does not add a scale line control when hide-scale is set', () => {
+        cy.mount(html`<vl-map lambert2008 hide-scale></vl-map>`);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                const hasScaleLine = vlMap.map
+                    .getControls()
+                    .getArray()
+                    .some((control) => control instanceof ScaleLine);
+                expect(hasScaleLine).to.be.false;
+            });
+        });
+    });
+});
+
+describe('cypress-component - map - vl-map - scale positie', () => {
+    const corners: { position: string; horizontal: 'left' | 'right'; vertical: 'top' | 'bottom' }[] = [
+        { position: 'bottom-left', horizontal: 'left', vertical: 'bottom' },
+        { position: 'bottom-right', horizontal: 'right', vertical: 'bottom' },
+        { position: 'top-left', horizontal: 'left', vertical: 'top' },
+        { position: 'top-right', horizontal: 'right', vertical: 'top' },
+    ];
+
+    corners.forEach(({ position, horizontal, vertical }) => {
+        it(`positions the scale line in the ${position} corner`, () => {
+            cy.viewport(1000, 660);
+            cy.mount(html`<vl-map lambert2008 scale-position="${position}"></vl-map>`);
+            cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+                cy.wrap(vlMap.ready).then(() => {
+                    cy.get('vl-map').should(() => {
+                        const scaleLine = vlMap.shadowRoot?.querySelector<HTMLElement>('.ol-scale-line');
+                        expect(scaleLine, 'scale line control').to.exist;
+                        const scaleRect = scaleLine!.getBoundingClientRect();
+                        const mapRect = vlMap.getBoundingClientRect();
+                        const midX = mapRect.left + mapRect.width / 2;
+                        const midY = mapRect.top + mapRect.height / 2;
+
+                        if (horizontal === 'left') {
+                            expect(scaleRect.left).to.be.lessThan(midX);
+                        } else {
+                            expect(scaleRect.right).to.be.greaterThan(midX);
+                        }
+
+                        if (vertical === 'top') {
+                            expect(scaleRect.top).to.be.lessThan(midY);
+                        } else {
+                            expect(scaleRect.bottom).to.be.greaterThan(midY);
+                        }
+
+                        const zoom = vlMap.shadowRoot?.querySelector<HTMLElement>('.ol-zoom');
+                        expect(zoom, 'zoom control').to.exist;
+                        const zoomRect = zoom!.getBoundingClientRect();
+                        const overlapsZoom =
+                            scaleRect.left < zoomRect.right &&
+                            scaleRect.right > zoomRect.left &&
+                            scaleRect.top < zoomRect.bottom &&
+                            scaleRect.bottom > zoomRect.top;
+                        expect(overlapsZoom, `scale line (${position}) overlaps zoom control`).to.be.false;
+                    });
+                });
+            });
+        });
+    });
+});
+
+describe('cypress-component - map - vl-map - scale positie met legende', () => {
+    const features = {
+        type: 'FeatureCollection',
+        features: [{ type: 'Feature', id: 1, geometry: { type: 'Point', coordinates: [210000, 190000] } }],
+    };
+
+    const overlaps = (a: DOMRect, b: DOMRect) =>
+        a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+
+    const legendBox = (vlMap: VlMap) => {
+        const legend = vlMap.querySelector('vl-map-legend');
+        return (
+            legend?.shadowRoot?.querySelector<HTMLElement>('.flux-map-legend') ??
+            legend?.querySelector<HTMLElement>('.flux-map-legend')
+        );
+    };
+
+    it('the bottom-right scale line overlaps a legend with the default bottom_right placement', () => {
+        cy.viewport(1000, 660);
+        cy.mount(html`
+            <vl-map lambert2008 scale-position="bottom-right">
+                <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                    <vl-map-layer-style name="Shapes" color="rgba(102, 51, 153, 0.6)"></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend></vl-map-legend>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    const scaleLine = vlMap.shadowRoot?.querySelector<HTMLElement>('.ol-scale-line');
+                    const legend = legendBox(vlMap);
+                    expect(scaleLine, 'scale line control').to.exist;
+                    expect(legend, 'legend').to.exist;
+                    const legendRect = legend!.getBoundingClientRect();
+                    expect(legendRect.width, 'legend width').to.be.greaterThan(0);
+                    expect(overlaps(scaleLine!.getBoundingClientRect(), legendRect)).to.be.true;
+                });
+            });
+        });
+    });
+
+    it('moving the legend to bottom_left keeps the bottom-right scale line free', () => {
+        cy.viewport(1000, 660);
+        cy.mount(html`
+            <vl-map lambert2008 scale-position="bottom-right">
+                <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                    <vl-map-layer-style name="Shapes" color="rgba(102, 51, 153, 0.6)"></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend placement="bottom_left"></vl-map-legend>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    const scaleLine = vlMap.shadowRoot?.querySelector<HTMLElement>('.ol-scale-line');
+                    const legend = legendBox(vlMap);
+                    expect(scaleLine, 'scale line control').to.exist;
+                    expect(legend, 'legend').to.exist;
+                    const legendRect = legend!.getBoundingClientRect();
+                    expect(legendRect.width, 'legend width').to.be.greaterThan(0);
+                    expect(overlaps(scaleLine!.getBoundingClientRect(), legendRect)).to.be.false;
+                });
             });
         });
     });
