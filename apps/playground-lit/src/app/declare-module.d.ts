@@ -95,6 +95,8 @@ declare module '@govflanders/vl-ui-design-system-web-components' {
     export class VlTabs extends VlLitElement {}
     export class VlTab extends VlLitElement {}
     export class VlTabpanel extends VlLitElement {}
+    export class VlMarkdown extends VlLitElement {}
+    export class VlInputGroup extends VlLitElement {}
     export class VlTable extends VlLitElement {
         layout: string;
     }

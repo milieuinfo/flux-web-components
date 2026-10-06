@@ -54,7 +54,7 @@ export class PgLayoutPrimitives extends LitElement {
 </div>`;
 
         return html`
-                <section class="vl-section" aria-label="VDS layout-primitieven">
+                <section class="vl-section" id="vergelijk-layout" aria-label="VDS layout-primitieven">
                     <div class="vl-content-block vl-content-block--full-width">
                         <vl-title type="h2">VDS layout-primitieven (box · inline · stack)</vl-title>
                         <p>

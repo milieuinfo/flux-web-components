@@ -153,6 +153,20 @@ export const API_GAP_ROWS: ApiGapRow[] = [
         toFlux: { lvl: 'low', note: 'nieuw als component: CSS-grid met areas, spans, auto-fit/fill, gaps als tokens' },
         toVds: { lvl: 'na', note: '' },
     },
+    {
+        vds: 'vl-markdown',
+        flux: 'flux-markdown',
+        base: 'VlElement / geen component (vl-typography toont HTML)',
+        toFlux: { lvl: 'low', note: 'nieuw voor flux: markdown omzetten naar HTML (marked) met code-highlighting' },
+        toVds: { lvl: 'na', note: '' },
+    },
+    {
+        vds: 'vl-input-group',
+        flux: 'flux-input-group',
+        base: 'VlFormLayoutElement / CSS-patroon (vl-group--input-group)',
+        toFlux: { lvl: 'mid', note: 'als component: label, message, state-propagatie naar de kinderen, before/after-slots' },
+        toVds: { lvl: 'na', note: '' },
+    },
 ];
 
 export const gapLevelBadge = (dir: GapDirection): TemplateResult => {

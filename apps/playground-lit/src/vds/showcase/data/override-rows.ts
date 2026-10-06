@@ -85,6 +85,9 @@ export const OVERRIDE_ROWS: OverrideRow[] = [
     { c: 'flux-inline-message', o: 'status-icoon schaalt mee (rem-literal)', v: 'calc(scaled-base * 1.125)', cat: 'rem', up: '#4a' },
     { c: 'flux-avatar', o: '--base-border-focus-spacing-color', v: 'rgba(0,85,204,.65)', cat: 'token', up: '#3' },
     { c: 'flux-avatar', o: 'icoon schaalt mee met de flux-root (rem-literal)', v: 'calc(scaled-base * .8 / 1)', cat: 'rem', up: '#4a' },
+    { c: 'flux-markdown', o: 'flux-typografie: h2, alinea, lijst en marges', v: '3.2rem/500, 1.8rem/2.7rem', cat: 'workaround', up: '' },
+    { c: 'flux-input-group', o: 'rand, radius, hoogte en geen grijze hover', v: '#8695a8 / 0.3rem / 3.5rem', cat: 'token', up: '' },
+    { c: 'flux-input-group', o: 'knop sluit aan: alleen de buitenste hoeken afgerond (::slotted)', v: '0 0.3rem 0.3rem 0', cat: 'token', up: '' },
 ];
 
 export const overrideBadge = (cat: OverrideRow['cat']): TemplateResult => {

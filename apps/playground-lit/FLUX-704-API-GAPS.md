@@ -910,3 +910,27 @@ vertrekpunt.
   van info-tile of infoblock is `vl-avatar` (icoon-variant) een kandidaat om die badge te
   vervangen. De initialen- en foto-variant zijn nieuw voor flux.
 
+---
+
+## Niet als component in flux
+
+Naast de nieuwe componenten van 0.15.0 heeft VDS er een paar die flux vandaag niet als web
+component aanbiedt. Ze staan mee in de vergelijking in de playground: de flux-kolom erft van
+VDS en zet de flux-styling, de vl-kolom toont wat flux nu in de plaats gebruikt.
+
+| VDS | flux vandaag | adapter |
+|---|---|---|
+| `vl-markdown` | geen; `vl-typography` toont kant-en-klare HTML in de flux-typografie | `flux-markdown` (erft, flux-typografie) |
+| `vl-input-group` | CSS-patroon `vl-group--input-group` met het attribuut `input-group` op veld en knop | `flux-input-group` (erft, flux-rand en aansluitende knop) |
+| `vl-avatar`, `vl-banner-message`, `vl-inline-message`, `vl-grid` | zie [Zonder flux-tegenhanger](#zonder-flux-tegenhanger) | erft |
+| `vl-divider` | CSS-klassen `vl-separator`, `-wave`, `-slash` | `flux-separator` (erft) |
+| `vl-box`, `vl-inline`, `vl-stack` | CSS-klassen `vl-padding`, `vl-group`, `vl-stacked` | getoond in de layout-sectie |
+
+- **`vl-markdown`** zet markdown om naar HTML (met code-highlighting). Flux heeft dat niet;
+  `vl-typography` krijgt al HTML en kan placeholders invullen. Wie vandaag markdown wil
+  tonen, moet het zelf omzetten. Een `-next` op basis van `VlMarkdown` is een kleine stap.
+- **`vl-input-group`** maakt van het CSS-patroon een echte component: label en message op de
+  groep, en de groep geeft `disabled`, `error`, `success`, `readonly` en `size` door aan de
+  kinderen. Omdat het zijn kinderen herkent met `instanceof VlFormLayoutElement`, werkt het
+  meteen met `flux-input` (dat van `VlInput` erft).
+

@@ -5,6 +5,8 @@ import {
     VlGrid,
     VlGridItem,
     VlInlineMessage,
+    VlInputGroup,
+    VlMarkdown,
 } from '@govflanders/vl-ui-design-system-web-components';
 import { fluxFocus, fluxMessageTokens } from './flux-tokens';
 
@@ -64,6 +66,63 @@ export class FluxGridItem extends VlGridItem {
     static styles = [stylesOf(VlGridItem)];
 }
 
+export class FluxMarkdown extends VlMarkdown {
+    static styles = [
+        stylesOf(VlMarkdown),
+        fluxFocus,
+        css`
+            :host(:not([bare])) [part~='content'] {
+                font-size: 1.8rem;
+                line-height: 2.7rem;
+            }
+            :host(:not([bare])) [part~='content'] h2 {
+                margin: 0 0 2rem;
+                font-size: 3.2rem;
+                font-weight: 500;
+                line-height: 1.24;
+            }
+            :host(:not([bare])) [part~='content'] p,
+            :host(:not([bare])) [part~='content'] li {
+                font-size: 1.8rem;
+                line-height: 2.7rem;
+            }
+            :host(:not([bare])) [part~='content'] p {
+                margin: 0 0 1.8rem;
+            }
+            :host(:not([bare])) [part~='content'] ul {
+                margin: 1.8rem 0 0;
+                padding-left: 2rem;
+            }
+            :host(:not([bare])) [part~='content'] li {
+                margin-bottom: 0.9rem;
+            }
+        `,
+    ];
+}
+
+export class FluxInputGroup extends VlInputGroup {
+    static styles = [
+        stylesOf(VlInputGroup),
+        fluxFocus,
+        css`
+            :host(:not([bare])) {
+                --base-border-radius-selectable-default: 0.3rem;
+                --base-color-border-default: #8695a8;
+                --vl-form-control-height: 3.5rem;
+                --base-color-background-surface-form-element-hover: var(
+                    --base-color-background-surface-form-element-enabled
+                );
+            }
+            :host(:not([bare])) slot[name='after']::slotted(*) {
+                --base-border-radius-selectable-default: 0 0.3rem 0.3rem 0;
+            }
+            :host(:not([bare])) slot[name='before']::slotted(*) {
+                --base-border-radius-selectable-default: 0.3rem 0 0 0.3rem;
+            }
+        `,
+    ];
+}
+
 const define = (tag: string, cls: CustomElementConstructor): void => {
     if (!customElements.get(tag)) customElements.define(tag, cls);
 };
@@ -73,3 +132,5 @@ define('flux-banner-message', FluxBannerMessage);
 define('flux-inline-message', FluxInlineMessage);
 define('flux-grid', FluxGrid);
 define('flux-grid-item', FluxGridItem);
+define('flux-markdown', FluxMarkdown);
+define('flux-input-group', FluxInputGroup);

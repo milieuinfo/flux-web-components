@@ -9,6 +9,9 @@ import './flux-alert.component';
 import './flux-separator.component';
 import './flux-tabs.component';
 import './flux-table.component';
+import './flux-vds-only.component';
+import './flux-input.component';
+import './flux-button.component';
 
 defineAll('vds');
 
@@ -122,5 +125,29 @@ describe('FLUX-704 - nieuwe VDS 0.15-componenten achter de flux-API', () => {
             );
             expect(leaked, 'geen gelekte vl-table-sheet').to.have.length(0);
         });
+    });
+
+    it('flux-markdown zet markdown om naar HTML in de flux-typografie', () => {
+        cy.mount(html`<flux-markdown content=${'## Titel\n\nTekst'}></flux-markdown>`);
+        cy.get('flux-markdown').should(($m) => {
+            const h2 = $m[0].shadowRoot!.querySelector('[part~="content"] h2');
+            expect(h2?.textContent).to.eq('Titel');
+            expect(getComputedStyle(h2!).fontWeight).to.eq('500');
+        });
+    });
+
+    it('flux-input-group: knop na het veld heeft enkel rechts afgeronde hoeken', () => {
+        cy.mount(html`<flux-input-group label="Locatie">
+            <flux-input></flux-input>
+            <flux-button slot="after" secondary>Zoeken</flux-button>
+        </flux-input-group>`);
+        cy.get('flux-button')
+            .shadow()
+            .find('[part="button"]')
+            .should(($b) => {
+                const cs = getComputedStyle($b[0]);
+                expect(cs.borderTopLeftRadius).to.eq('0px');
+                expect(cs.borderTopRightRadius).to.not.eq('0px');
+            });
     });
 });

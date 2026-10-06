@@ -246,6 +246,48 @@ export class PgNewComponents extends LitElement {
                         'flux-grid',
                         'vl-grid'
                     )}
+                    ${this.row(
+                        'markdown',
+                        vdsFrame('markdown', 190),
+                        html`<flux-markdown
+                            style="width: 100%;"
+                            content=${'## Titel\n\nTekst met **vet**, een [link](https://www.vlaanderen.be) en een lijst:\n\n- een\n- twee'}
+                        ></flux-markdown>`,
+                        html`${note('Geen markdown-component. Dichtst: vl-typography, dat dezelfde HTML in de flux-typografie toont:')}
+                            <vl-typography style="width: 100%;">
+                                <h2>Titel</h2>
+                                <p>
+                                    Tekst met <strong>vet</strong>, een
+                                    <a href="https://www.vlaanderen.be">link</a> en een lijst:
+                                </p>
+                                <ul>
+                                    <li>een</li>
+                                    <li>twee</li>
+                                </ul>
+                            </vl-typography>`,
+                        'flux-markdown',
+                        'vl-markdown'
+                    )}
+                    ${this.row(
+                        'input-group',
+                        vdsFrame('input-group', 90),
+                        html`<flux-input-group label="Locatie" grow="fill" style="width: 100%;">
+                            <flux-input placeholder="Zoek een adres"></flux-input>
+                            <flux-button slot="after" secondary>Zoeken</flux-button>
+                        </flux-input-group>`,
+                        html`${note('Geen component. flux doet het met een CSS-patroon (vl-group--input-group) en het input-group-attribuut:')}
+                            <vl-form-label block for="cmp-vl-input-group" label="Locatie"></vl-form-label>
+                            <div class="vl-group vl-group--input-group">
+                                <vl-input-field
+                                    id="cmp-vl-input-group"
+                                    input-group
+                                    placeholder="Zoek een adres"
+                                ></vl-input-field>
+                                <vl-button input-group secondary>Zoeken</vl-button>
+                            </div>`,
+                        'flux-input-group',
+                        'vl-input-group'
+                    )}
             </div>
         `;
     }

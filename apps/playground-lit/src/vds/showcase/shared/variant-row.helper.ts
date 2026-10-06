@@ -17,6 +17,8 @@ export type VariantRow = {
     gapsOff: boolean;
 };
 
+export const rowId = (name: string): string => `vergelijk-${name.split(' ')[0]}`;
+
 export const note = (text: string): TemplateResult =>
     html`<span style="font-size: 12px; color: #6b7280;">${text}</span>`;
 
@@ -39,7 +41,7 @@ export const renderVariantRow = ({
     colRatio = 'repeat(3, minmax(0, 1fr))',
     gapsOff,
 }: VariantRow): TemplateResult => html`
-    <div style="font-weight: 600; margin: 6px 0;">${name}</div>
+    <div id=${rowId(name)} style="font-weight: 600; margin: 6px 0; scroll-margin-top: 16px;">${name}</div>
     <div style="display: grid; grid-template-columns: ${colRatio}; gap: 12px; max-width: 960px; margin-bottom: 8px;">
         ${cell('vds · rauw VDS', '#0055cc', vds)} ${cell('flux · erft VDS + tokens', '#0055cc', flux)}
         ${cell('vl · echte flux', '#6b7280', vl)}

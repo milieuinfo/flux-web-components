@@ -79,6 +79,13 @@ const DEMOS: Record<string, string> = {
         '<vl-tabpanel tab-id="trein">Inhoud over de trein.</vl-tabpanel>' +
         '<vl-tabpanel tab-id="metro">Inhoud over metro, tram en bus.</vl-tabpanel>' +
         '</vl-tabs>',
+    markdown:
+        '<vl-markdown style="width: 100%;" content="## Titel&#10;&#10;Tekst met **vet**, een [link](https://www.vlaanderen.be) en een lijst:&#10;&#10;- een&#10;- twee"></vl-markdown>',
+    'input-group':
+        '<vl-input-group label="Locatie" style="width: 100%;">' +
+        '<vl-input placeholder="Zoek een adres"></vl-input>' +
+        '<vl-button slot="after" variant="secondary">Zoeken</vl-button>' +
+        '</vl-input-group>',
     table:
         '<vl-table zebra style="width: 100%;">' +
         '<table><caption>Inwoners per gemeente</caption><thead><tr><th scope="col">Naam</th><th scope="col">Gemeente</th></tr></thead>' +

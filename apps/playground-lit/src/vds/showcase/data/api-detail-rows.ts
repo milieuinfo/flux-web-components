@@ -178,6 +178,12 @@ export const API_DETAIL_ROWS: ApiDetailRow[] = [
     { comp: 'vl-icon', cat: 'gedrag', feat: 'dev-warn bij ongeldige icon', vds: 'ja', flux: 'nee', status: 'vds' },
     { comp: 'vl-icon', cat: 'gedrag', feat: 'wrapper-tag-validatie', vds: 'ja', flux: 'nee', status: 'vds' },
 
+    { comp: 'vl-markdown', cat: 'gedrag', feat: 'inhoud', vds: 'markdown (content-property of slot), omgezet naar HTML', flux: 'vl-typography: kant-en-klare HTML', status: 'shape' },
+    { comp: 'vl-markdown', cat: 'gedrag', feat: 'code-highlighting', vds: 'ja (highlight.js)', flux: 'nee', status: 'vds' },
+    { comp: 'vl-markdown', cat: 'prop', feat: 'placeholders in de tekst', vds: 'nee', flux: 'ja (vl-typography parameters)', status: 'flux' },
+    { comp: 'vl-input-group', cat: 'gedrag', feat: 'vorm', vds: 'web component met before/after-slots', flux: 'CSS-patroon (vl-group--input-group) + input-group-attribuut', status: 'shape' },
+    { comp: 'vl-input-group', cat: 'prop', feat: 'label, message, annotation, indicator', vds: 'ja (op de groep)', flux: 'nee (per veld)', status: 'vds' },
+    { comp: 'vl-input-group', cat: 'gedrag', feat: 'state doorgeven aan de kinderen', vds: 'ja (disabled, error, success, readonly, size)', flux: 'nee', status: 'vds' },
     { comp: 'vl-title', cat: 'prop', feat: 'volledige component (type, appearance, underline, alt, no-space-bottom)', vds: 'geen VDS-component (enkel typografie-tokens)', flux: 'ja', status: 'flux' },
     { comp: 'vl-*-tag', cat: 'gedrag', feat: 'één component met modes', vds: '4 componenten (informative, removable, selectable, clickable)', flux: '1 component (closable, checkable, clickable)', status: 'shape' },
     { comp: 'vl-*-tag', cat: 'prop', feat: 'status', vds: 'status default/success/warning/error/info/highlight', flux: 'type success/warning/error', status: 'shape' },
@@ -301,6 +307,8 @@ export const API_DETAIL_INLINED_TAGS = [
     'vl-section-message',
     'vl-tabs',
     'vl-table',
+    'vl-markdown',
+    'vl-input-group',
 ];
 
 export const renderApiDetailAccordion = (vdsTag: string): TemplateResult => {
