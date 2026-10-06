@@ -551,8 +551,8 @@ ook de 32 tags in plaats van de 26 rijen.
 **Beslissing:** `flux-markdown` laat het parsen aan VDS en gebruikt dezelfde
 govflanders-stylesheets als `vl-typography`, met de klasse `vl-typography` op de inhoud. De
 VDS-markdown-styles gelden enkel nog in `bare`: hun scope-selector `:host, :host *` wordt
-herschreven naar `:host([bare])`. Een playground-invoerveld rendert rauw VDS en `flux-markdown`
-live mee.
+herschreven naar `:host([bare])`. Met een playground-invoerveld werken rauw VDS en `flux-markdown`
+live bij.
 **Waarom:** met het rijkere voorbeeld (code, tabel, quote, takenlijst) bleek de eerdere,
 overgetikte typografie op zes elementen na niets te dekken, en de VDS-regels (zebra, randen,
 code-kleur) lekten erdoor. Met de flux-stylesheets is de pagina gemeten identiek aan

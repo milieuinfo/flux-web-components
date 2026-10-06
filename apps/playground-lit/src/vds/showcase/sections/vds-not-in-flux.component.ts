@@ -253,7 +253,7 @@ export class PgNotInFlux extends LitElement {
     private renderMarkdownEditor(): TemplateResult {
         return html`<div style="margin: 0 0 12px;">
             <label for="niet-in-flux-markdown" style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px;">
-                Probeer zelf: pas de markdown aan, beide kolommen renderen live mee
+                Probeer zelf: pas de markdown aan, beide kolommen werken live bij
             </label>
             <textarea
                 id="niet-in-flux-markdown"

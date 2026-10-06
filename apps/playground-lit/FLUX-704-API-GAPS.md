@@ -934,7 +934,7 @@ vergelijking, waar de vl-kolom het flux-alternatief toont.
   tonen, moet het zelf omzetten. Een `-next` op basis van `VlMarkdown` is een kleine stap:
   `flux-markdown` laat VDS het parsen doen en neemt de stylesheets van `vl-typography` over,
   zodat de typografie op desktop en mobiel identiek is aan flux. De playground heeft een
-  invoerveld dat rauw VDS en `flux-markdown` live laat meerenderen. Voorwaarde voor gebruik
+  invoerveld waarmee rauw VDS en `flux-markdown` live bijwerken. Voorwaarde voor gebruik
   met gebruikersinvoer is upstream-fix #13 (sanitizing).
 - **`vl-input-group`** maakt van het CSS-patroon een echte component: label en message op de
   groep, en de groep geeft `disabled`, `error`, `success`, `readonly` en `size` door aan de
