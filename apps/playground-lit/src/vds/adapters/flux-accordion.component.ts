@@ -41,6 +41,7 @@ export class FluxAccordion extends VlCollapsible {
             :host(:not([bare])) .vl-collapsible__header:hover .vl-collapsible__trigger,
             :host(:not([bare])) .vl-collapsible__trigger:active {
                 text-decoration: underline;
+                color: #003bb0;
             }
             :host(:not([bare])) .vl-collapsible__trigger {
                 font-family: 'Flanders Art Sans', sans-serif;

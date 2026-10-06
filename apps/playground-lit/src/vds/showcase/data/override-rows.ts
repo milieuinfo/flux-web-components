@@ -58,7 +58,7 @@ export const OVERRIDE_ROWS: OverrideRow[] = [
     { c: 'flux-accordion', o: 'trigger als flux-link (kleur, grootte, gewicht)', v: '#0055cc / 1.8rem / 500', cat: 'workaround', up: '' },
     { c: 'flux-accordion', o: 'header-padding weg, icoon 1.8rem en glyph arrow-down-fat i.p.v. nav-down', v: '0 / 1.8rem / attribuut na render', cat: 'workaround', up: '' },
     { c: 'flux-accordion', o: 'lettertype Flanders Art Sans i.p.v. de Serif-titeltypografie', v: 'font-family', cat: 'workaround', up: '' },
-    { c: 'flux-accordion', o: 'hover en active: onderlijnd, geen grijze achtergrond op de header', v: 'underline / transparent', cat: 'workaround', up: '' },
+    { c: 'flux-accordion', o: 'hover en active: onderlijnd en donkerder blauw, geen grijze achtergrond op de header', v: 'underline / #003bb0 / transparent', cat: 'workaround', up: '' },
     { c: 'flux-accordion', o: 'slot-overbrugging: title naar trigger, menu naar actions, default naar content, toggle-text als span', v: 'slot-attributen in light DOM', cat: 'workaround', up: '#10' },
     { c: 'flux-alert', o: 'statuskleuren (bg, rand, titel)', v: 'flux-palet (info #f7f9fc / #e8ebee, ...)', cat: 'token', up: '' },
     { c: 'flux-alert', o: '--base-border-radius-container-m', v: '0.3rem', cat: 'token', up: '' },
