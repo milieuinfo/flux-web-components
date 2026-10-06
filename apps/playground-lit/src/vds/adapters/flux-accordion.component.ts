@@ -38,10 +38,14 @@ export class FluxAccordion extends VlCollapsible {
             :host(:not([bare])) .vl-collapsible__header:active:not(:has(.vl-collapsible__actions:hover)) {
                 background: transparent;
             }
-            :host(:not([bare])) .vl-collapsible__header:hover .vl-collapsible__trigger,
-            :host(:not([bare])) .vl-collapsible__trigger:active {
+            :host(:not([bare])) .vl-collapsible__header:hover .vl-collapsible__trigger {
                 text-decoration: underline;
                 color: #003bb0;
+            }
+            :host(:not([bare])) .vl-collapsible__header .vl-collapsible__trigger:focus,
+            :host(:not([bare])) .vl-collapsible__header .vl-collapsible__trigger:active {
+                text-decoration: underline;
+                color: #004099;
             }
             :host(:not([bare])) .vl-collapsible__trigger {
                 font-family: 'Flanders Art Sans', sans-serif;
