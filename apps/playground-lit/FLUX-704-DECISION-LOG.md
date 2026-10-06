@@ -559,7 +559,20 @@ code-kleur) lekten erdoor. Met de flux-stylesheets is de pagina gemeten identiek
 `vl-typography`, op desktop (1094px hoogte) en mobiel (1038px). VDS saniteert de HTML niet
 (upstream-fix #13).
 
+## 37. flux-accordion: focusring rond de header blijft
+**Beslissing:** bij toetsenbordfocus houdt `flux-accordion` de ring die VDS rond de hele
+header tekent (3px, offset 2px, flux-focuskleur), in plaats van de standaardring van de
+browser rond de knop zoals bij `vl-accordion`.
+**Waarom:** de gebruiker koos voor dezelfde focusring als bij de andere adapters. Die is
+duidelijker zichtbaar dan de browserring en hangt niet af van de browser. De overige
+toestanden (rust, hover, ingedrukt, focus na een klik) zijn met een echte muis gemeten en
+gelijk aan `vl-accordion`.
+
 ## Terugkerende valkuilen / lessen
+- **:active en :focus meten:** JavaScript kan `:active` niet forceren en het preview-paneel
+  houdt een muisknop niet ingedrukt. Playwright met `page.mouse.down()` wel: dat stuurt een
+  echte muisknop via het DevTools-protocol, en dan lees je de stijl af terwijl de knop
+  ingedrukt is.
 - **vl-typography meten:** `vl-typography` rendert zijn inhoud opnieuw in de shadow DOM; meet daar,
   niet in de light DOM. En meet op desktopbreedte: onder 767px gelden de mobiele waarden (16px
   tekst in plaats van 18px), wat in het smalle preview-paneel standaard het geval is.

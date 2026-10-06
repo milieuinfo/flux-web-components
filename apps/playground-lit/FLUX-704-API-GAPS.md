@@ -837,6 +837,12 @@ property met dezelfde naam niet samen bestaan. Afnemers die `accordion.open()` a
 moeten naar `show()` of `accordion.open = true`. Dit is de enige echte API-breuk in deze
 reeks.
 
+De look is gemeten met een echte muis in Chromium (Playwright): rust, hover, ingedrukt en
+focus na een klik zijn gelijk aan `vl-accordion`. Eén bewust verschil: bij
+toetsenbordfocus tekent VDS de flux-focusring (3px, offset 2px) rond de hele header, waar
+`vl-accordion` de standaardring van de browser rond de knop toont. We houden de
+header-ring, omdat die gelijk is aan de focusring van de andere adapters.
+
 ### vl-divider (flux-separator)
 
 | functionaliteit | in VDS? | in flux? | status | actie |
