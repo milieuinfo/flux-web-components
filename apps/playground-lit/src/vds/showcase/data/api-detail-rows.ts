@@ -86,6 +86,7 @@ export const API_DETAIL_ROWS: ApiDetailRow[] = [
     { comp: 'vl-select', cat: 'part', feat: 'container + chrome-parts', vds: 'ja', flux: 'nee', status: 'vds' },
     { comp: 'vl-select', cat: 'gedrag', feat: 'data-alt-label (korte label in trigger)', vds: 'ja', flux: 'nee', status: 'vds' },
     { comp: 'vl-select', cat: 'gedrag', feat: 'hug-width (auto-breedte naar langste optie)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-select', cat: 'gedrag', feat: 'weergave', vds: 'native select met appearance: base-select (VDS tekent ook de uitklaplijst)', flux: 'native select met appearance: none (uitklaplijst van het besturingssysteem)', status: 'shape' },
 
     { comp: 'vl-datepicker', cat: 'prop', feat: 'id-koppeling', vds: 'input-id', flux: 'id', status: 'shape' },
     { comp: 'vl-datepicker', cat: 'prop', feat: 'loading + layout-chrome', vds: 'ja', flux: 'nee', status: 'vds' },

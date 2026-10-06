@@ -86,18 +86,7 @@ export class PgNewComponents extends LitElement {
 
     render(): TemplateResult {
         return html`
-            <section class="vl-section" aria-labelledby="pg-new-components-title">
-                <div class="vl-content-block vl-content-block--full-width">
-                    <vl-title type="h2" id="pg-new-components-title">Nieuw in VDS 0.15.0</vl-title>
-                    <p style="max-width: 900px; font-size: 14px;">
-                        Zestien componenten die VDS sinds 0.6.0 toevoegde. Waar flux een tegenhanger heeft, neemt de
-                        <code>flux-*</code>-adapter de flux-API over, zodat afnemers niets hoeven te wijzigen. Twee
-                        adapters erven niet maar delegeren: <code>flux-pill</code> (flux heeft één pill met modes, VDS
-                        vier aparte tags) en <code>flux-tabs</code> (VDS zoekt zijn tabs op de exacte tagnaam, dus een
-                        component die van <code>VlTab</code> erft onder een andere tag wordt niet gevonden). Zonder flux-tegenhanger krijgt de adapter de
-                        VDS-API met de flux-basistokens.
-                    </p>
-
+            <div>
                     ${this.row(
                         'pill (4 VDS-tags)',
                         vdsFrame('tags', 110),
@@ -198,7 +187,13 @@ export class PgNewComponents extends LitElement {
                         html`<flux-banner-message status="warning" closable style="width: 100%;"
                             ><span slot="title">Gepland onderhoud zaterdag van 8u tot 12u.</span></flux-banner-message
                         >`,
-                        note('Geen flux-tegenhanger. Dichtst: vl-alert (zelfde statussen, maar geen balk over de volle pagina) en vl-toaster (zwevend, tijdelijk).'),
+                        html`${note('Geen eigen flux-component. Vergeleken met vl-alert, waarop de flux-look gebaseerd is:')}
+                            <vl-alert
+                                type="warning"
+                                closable
+                                message="Gepland onderhoud zaterdag van 8u tot 12u."
+                                style="width: 100%;"
+                            ></vl-alert>`,
                         'flux-banner-message',
                         'vl-banner-message'
                     )}
@@ -226,7 +221,13 @@ export class PgNewComponents extends LitElement {
                             <flux-avatar initials="AB" status="success"></flux-avatar>
                             <flux-avatar icon="user" size="s"></flux-avatar>
                         </div>`,
-                        note('Geen flux-tegenhanger.'),
+                        html`${note('Geen flux-component. Wel ronde icoon-badges in info-tile (icon-as-badge) en infoblock:')}
+                            <vl-info-tile icon="user" icon-as-badge style="width: 100%;">
+                                <span slot="title">Karim Dehbi</span>
+                            </vl-info-tile>
+                            <vl-infoblock icon="user" style="width: 100%;">
+                                <vl-title type="h3" slot="title">Contact</vl-title>
+                            </vl-infoblock>`,
                         'flux-avatar',
                         'vl-avatar'
                     )}
@@ -245,8 +246,7 @@ export class PgNewComponents extends LitElement {
                         'flux-grid',
                         'vl-grid'
                     )}
-                </div>
-            </section>
+            </div>
         `;
     }
 }

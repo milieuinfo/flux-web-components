@@ -1,4 +1,4 @@
-import { css } from 'lit';
+import { css, unsafeCSS } from 'lit';
 import {
     VlCheckbox,
     VlDatepicker,
@@ -29,6 +29,9 @@ const fluxLook = css`
     }
 `;
 
+const SELECT_CHEVRON =
+    "\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M1.5 4l4.5 4.5L10.5 4' fill='none' stroke='%23333332' stroke-width='1.1'/%3E%3C/svg%3E\"";
+
 export class FluxSelect extends VlSelect {
     static styles = [
         (VlSelect as unknown as { styles: unknown }).styles,
@@ -52,6 +55,18 @@ export class FluxSelect extends VlSelect {
             :host(:not([bare])) .vl-select option {
                 font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1) !important;
             }
+            :host(:not([bare])) .vl-select,
+            :host(:not([bare])) .vl-select::picker(select) {
+                appearance: none;
+            }
+            :host(:not([bare])) .vl-select {
+                box-sizing: border-box;
+                height: 3.5rem;
+                min-height: 3.5rem;
+                padding: 0 4rem 0 1.5rem;
+                line-height: 3.3rem;
+                background: #ffffff url(${unsafeCSS(SELECT_CHEVRON)}) no-repeat right 1.5rem center / 1.2rem 1.2rem;
+            }
         `,
     ];
 }
@@ -67,14 +82,20 @@ export class FluxCheckbox extends VlCheckbox {
             :host(:not([bare])) .vl-checkbox__box {
                 position: relative;
             }
+            :host(:not([bare])) .vl-checkbox {
+                display: block;
+                line-height: 2.4rem;
+            }
+            :host(:not([bare])) .vl-checkbox__label {
+                vertical-align: top;
+            }
+            :host(:not([bare])) [part~='label-container'],
+            :host(:not([bare])) [part~='label'] {
+                line-height: 2.4rem;
+            }
             :host(:not([bare])) .vl-checkbox__check,
             :host(:not([bare])) .vl-checkbox__indeterminate {
                 color: #fff;
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -82,6 +103,10 @@ export class FluxCheckbox extends VlCheckbox {
                 height: auto;
                 line-height: 1;
                 font-size: calc(var(--global-font-size-scaled-base, 1rem) * 0.625);
+            }
+            :host(:not([bare])) .vl-checkbox__check::part(icon),
+            :host(:not([bare])) .vl-checkbox__indeterminate::part(icon) {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 0.5);
             }
             :host(:not([bare]):focus) .vl-checkbox:not(.vl-checkbox--tile) .vl-checkbox__box,
             :host(:not([bare]):focus-visible) .vl-checkbox:not(.vl-checkbox--tile) .vl-checkbox__box {
@@ -110,10 +135,26 @@ export class FluxTextarea extends VlTextarea {
     ];
 }
 export class FluxFieldset extends VlFieldset {
-    static styles = [(VlFieldset as unknown as { styles: unknown }).styles, fluxLook];
+    static styles = [
+        (VlFieldset as unknown as { styles: unknown }).styles,
+        fluxLook,
+        css`
+            :host(:not([bare])) [part~='content'] {
+                gap: 0;
+            }
+        `,
+    ];
 }
 export class FluxRadioGroup extends VlRadioGroup {
-    static styles = [(VlRadioGroup as unknown as { styles: unknown }).styles, fluxLook];
+    static styles = [
+        (VlRadioGroup as unknown as { styles: unknown }).styles,
+        fluxLook,
+        css`
+            :host(:not([bare])) *::part(content) {
+                gap: 0;
+            }
+        `,
+    ];
 
     protected updated(changed: Map<PropertyKey, unknown>): void {
         superUpdated(this, changed);
@@ -124,7 +165,9 @@ export class FluxRadioGroup extends VlRadioGroup {
                 const sheet = new CSSStyleSheet();
                 sheet.replaceSync(
                     '.vl-radio__box{width:calc(var(--global-font-size-scaled-base,1rem)*1.125);height:calc(var(--global-font-size-scaled-base,1rem)*1.125);}' +
-                        '.vl-radio__box::after{width:calc(var(--global-font-size-scaled-base,1rem)*0.375);height:calc(var(--global-font-size-scaled-base,1rem)*0.375);}'
+                        '.vl-radio__box::after{width:calc(var(--global-font-size-scaled-base,1rem)*0.375);height:calc(var(--global-font-size-scaled-base,1rem)*0.375);}' +
+                        '.vl-radio__label{grid-template-columns:calc(var(--global-font-size-scaled-base,1rem)*1.125) auto;gap:0.8rem;min-height:2.8rem;vertical-align:top;}' +
+                        ':host(:focus) .vl-radio:not(.vl-radio--tile) .vl-radio__box,:host(:focus-visible) .vl-radio:not(.vl-radio--tile) .vl-radio__box{outline:3px solid rgba(0,85,204,.65);outline-offset:2px;}'
                 );
                 sr.adoptedStyleSheets = [...sr.adoptedStyleSheets, sheet];
                 sr.__fluxRadioSized = true;

@@ -92,7 +92,7 @@ export class PgIntegrationStatus extends LitElement {
             },
             { tag: 'vl-banner-message', flux: 'flux-banner-message', state: 'done', note: 'nieuw in 0.15. geen flux-tegenhanger; VDS-API met flux-statuspalet' },
             { tag: 'vl-inline-message', flux: 'flux-inline-message', state: 'done', note: 'nieuw in 0.15. geen eigen flux-component; VDS-API met flux-statuspalet' },
-            { tag: 'vl-avatar', flux: 'flux-avatar', state: 'done', note: 'nieuw in 0.15. geen flux-tegenhanger; VDS-API met flux-focus' },
+            { tag: 'vl-avatar', flux: 'flux-avatar', state: 'done', note: 'nieuw in 0.15. geen flux-component; flux heeft wel ronde icoon-badges in info-tile (icon-as-badge) en infoblock, die de icoon-variant van vl-avatar kunnen worden' },
             { tag: 'vl-grid, vl-grid-item', flux: 'flux-grid', state: 'done', note: 'nieuw in 0.15. flux kent enkel de CSS-klassen vl-grid/vl-column' },
             { tag: 'vl-input-group', flux: null, state: 'todo', note: 'nog geen flux-integratie' },
             { tag: 'vl-markdown', flux: null, state: 'todo', note: 'nog geen flux-integratie' },

@@ -5,6 +5,7 @@ import { OverrideRow, patchesFor } from '../data/override-rows';
 import { renderApiDetailAccordion } from '../data/api-detail-rows';
 import { vdsFrame } from '../shared/vds-frame.helper';
 import { renderVariantRow } from '../shared/variant-row.helper';
+import './vds-new-components.component';
 
 @customElement('pg-variants')
 export class PgVariants extends LitElement {
@@ -93,6 +94,14 @@ export class PgVariants extends LitElement {
                                     web-component</b>, ongewijzigd, zoals vóór FLUX-704.
                                 </li>
                             </ul>
+                            <p style="margin: 8px 0 0;">
+                                Waar VDS en flux een andere naam gebruiken, staat de VDS-naam tussen haakjes (bv.
+                                accordion en VDS collapsible). De adapter neemt telkens de flux-API over, zodat afnemers
+                                niets wijzigen. Twee adapters erven niet maar <b>delegeren</b>: <code>flux-pill</code>
+                                (flux heeft één pill met modes, VDS vier aparte tags) en <code>flux-tabs</code> (VDS zoekt
+                                zijn tabs op de exacte tagnaam). Zonder flux-tegenhanger toont de vl-kolom de dichtste
+                                flux-oplossing.
+                            </p>
                         </div>
 
                         <details
@@ -202,8 +211,8 @@ export class PgVariants extends LitElement {
                             </flux-radio-group>`,
                             html`<vl-form-label block for="cmp-vl-radio" label="Contactvoorkeur"></vl-form-label
                                 ><vl-radio-group id="cmp-vl-radio" label="Contactvoorkeur">
-                                    <vl-radio value="email" label="E-mail">E-mail</vl-radio>
-                                    <vl-radio value="post" label="Post">Post</vl-radio>
+                                    <vl-radio block value="email" label="E-mail">E-mail</vl-radio>
+                                    <vl-radio block value="post" label="Post">Post</vl-radio>
                                 </vl-radio-group>`,
                             patchesFor('fluxLook', 'flux-radio-group')
                         )}
@@ -228,10 +237,11 @@ export class PgVariants extends LitElement {
                             </flux-fieldset>`,
                             html`<vl-fieldset>
                                 <span slot="legend">Voorkeuren</span>
-                                <vl-checkbox checked>Sport</vl-checkbox>
-                                <vl-checkbox>Cultuur</vl-checkbox>
+                                <vl-checkbox block checked>Sport</vl-checkbox>
+                                <vl-checkbox block>Cultuur</vl-checkbox>
                             </vl-fieldset>`
                         )}
+                        <pg-new-components .gapsOff=${this.gapsOff}></pg-new-components>
                         ${this.renderTitleVariant()}
                     </div>
                 </section>

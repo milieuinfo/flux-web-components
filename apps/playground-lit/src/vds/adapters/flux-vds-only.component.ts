@@ -11,7 +11,20 @@ import { fluxFocus, fluxMessageTokens } from './flux-tokens';
 const stylesOf = (cls: unknown): CSSResultGroup => (cls as { styles: CSSResultGroup }).styles;
 
 export class FluxAvatar extends VlAvatar {
-    static styles = [stylesOf(VlAvatar), fluxFocus];
+    static styles = [
+        stylesOf(VlAvatar),
+        fluxFocus,
+        css`
+            :host(:not([bare])) [part~='icon']::part(icon),
+            :host(:not([bare])) [part~='icon'] *::part(icon) {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1);
+            }
+            :host(:not([bare])[size='s']) [part~='icon']::part(icon),
+            :host(:not([bare])[size='s']) [part~='icon'] *::part(icon) {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 0.8);
+            }
+        `,
+    ];
 }
 
 export class FluxBannerMessage extends VlBannerMessage {

@@ -341,6 +341,7 @@ buiten deze scope valt.
 | `data-alt-label` op option (korte label in trigger) | ja | nee | enkel-VDS | flux-API uitbreiden |
 | hug-width meten (auto-breedte naar langste optie) | ja (`grow=hug`) | nee | enkel-VDS | flux-API uitbreiden |
 | Enter-in-form triggert submit + blur-validation cascade | nee | ja (base) | enkel-flux | API gelijk houden |
+| weergave | native `<select>` met `appearance: base-select` (nieuw tegenover 0.6.0; VDS tekent ook de uitklaplijst) | native `<select>` met `appearance: none` (uitklaplijst van het besturingssysteem) | overlap (ander gedrag) | API gelijk houden (`flux-select` zet `appearance: none`) |
 
 ---
 
@@ -898,4 +899,14 @@ nagemeten.
 Hun adapter houdt de VDS-API en zet enkel de flux-basistokens (statuspalet, radius,
 focuskleur). Ze zijn kandidaat voor een nieuwe flux-component, met de VDS-API als
 vertrekpunt.
+
+- **`vl-banner-message`** wordt vergeleken met flux `vl-alert`: zelfde statussen, en de
+  flux-look van de adapter komt uit hetzelfde statuspalet. Het verschil is de vorm, een
+  smalle balk over de volle pagina tegenover een blok in de inhoud.
+- **`vl-inline-message`** komt het dichtst bij `vl-alert size="small"`.
+- **`vl-avatar`** bestaat niet in flux, maar flux toont wel ronde icoon-badges: in
+  `vl-info-tile` (`icon-as-badge`) en in de header van `vl-infoblock`. Die zijn functioneel
+  de icoon-variant van een avatar. Er hoeft nu niets te veranderen; bij een volgende versie
+  van info-tile of infoblock is `vl-avatar` (icoon-variant) een kandidaat om die badge te
+  vervangen. De initialen- en foto-variant zijn nieuw voor flux.
 

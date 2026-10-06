@@ -28,7 +28,6 @@ import './sections/vds-api-gaps.component';
 import './sections/vds-upstream-fixes.component';
 import './sections/vds-api-gap-details.component';
 import './sections/vds-variants.component';
-import './sections/vds-new-components.component';
 import './sections/vds-layout-primitives.component';
 import './sections/vds-forms.component';
 import './sections/vds-icon-showcase.component';
@@ -114,7 +113,6 @@ export class PgVdsShowcase extends LitElement {
                           <pg-api-gap-details></pg-api-gap-details>`}
 
                 <pg-variants .gapsOff=${this.gapsOff}></pg-variants>
-                <pg-new-components .gapsOff=${this.gapsOff}></pg-new-components>
                 <pg-layout-primitives .gapsOff=${this.gapsOff}></pg-layout-primitives>
                 <pg-forms .gapsOff=${this.gapsOff}></pg-forms>
                 <pg-icon-showcase .gapsOff=${this.gapsOff}></pg-icon-showcase>
