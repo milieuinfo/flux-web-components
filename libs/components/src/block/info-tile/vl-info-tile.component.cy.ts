@@ -821,6 +821,19 @@ describe('cypress-component - block components - vl-info-tile - properties na he
         cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
     });
 
+    it('should not close when auto-open is removed after the first render', () => {
+        mountDefault({ toggleable: true, autoOpen: true, titleSlot, contentSlot });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+        cy.get('vl-info-tile').then(($infoTile) => {
+            const infoTile = $infoTile[0] as VlInfoTile;
+            infoTile.removeAttribute('auto-open');
+            return infoTile.updateComplete;
+        });
+        cy.runTestFor<VlInfoTile>('vl-info-tile', (component) => {
+            expect(component.isOpen).to.be.true;
+        });
+    });
+
     it('should stay open when opened programmatically before the first render', () => {
         appendInfoTile((infoTile) => {
             infoTile.toggleable = true;
