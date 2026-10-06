@@ -108,8 +108,8 @@ export class VlInfoTile extends BaseLitElement {
     connectedCallback(): void {
         super.connectedCallback();
 
-        if (!this.hasUpdated && this.toggleable) {
-            this.accordion.setOpen(this.autoOpen, false);
+        if (!this.hasUpdated && this.toggleable && this.autoOpen) {
+            this.accordion.setOpen(true, false);
         }
     }
 

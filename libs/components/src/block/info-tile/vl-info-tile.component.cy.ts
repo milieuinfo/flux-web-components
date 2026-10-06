@@ -808,6 +808,19 @@ describe('cypress-component - block components - vl-info-tile - properties na he
         cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
     });
 
+    it('should stay open when opened programmatically before it is connected', () => {
+        cy.mount(html`<div id="host"></div>`);
+        cy.get('#host').then(($host) => {
+            const infoTile = document.createElement('vl-info-tile') as VlInfoTile;
+            infoTile.innerHTML = `${titleSlot}${contentSlot}`;
+            infoTile.toggleable = true;
+            infoTile.open();
+            $host[0].appendChild(infoTile);
+            return infoTile.updateComplete;
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+    });
+
     it('should stay open when opened programmatically before the first render', () => {
         appendInfoTile((infoTile) => {
             infoTile.toggleable = true;
