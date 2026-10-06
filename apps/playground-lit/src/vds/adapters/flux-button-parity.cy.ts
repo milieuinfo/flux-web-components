@@ -81,6 +81,7 @@ describe('FLUX-704 - flux-button geometrie = flux-target, != rauw VDS', () => {
     });
 
     it('flux-button draagt de flux-knop-geometrie (target), niet de rauwe VDS-geometrie', () => {
+        cy.viewport(1280, 800);
         readGeom('flux-button', 'fb');
         readGeom('vds-button', 'vds');
 
