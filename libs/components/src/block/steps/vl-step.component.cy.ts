@@ -418,6 +418,16 @@ describe('cypress-component - block components - vl-step - vindbaar via zoeken i
             .should(($wrapper) => expect($wrapper[0].getAttribute('hidden')).to.equal(value));
     };
 
+    it('should be accessible when closed and when opened', () => {
+        cy.mount(toggleableStepHtml);
+        cy.injectAxe();
+        cy.checkA11y('vl-step');
+
+        cy.get('vl-step').shadow().find('button.vl-step__header').click();
+        cy.get('vl-step').shadow().find('button.vl-step__header').should('have.attr', 'aria-expanded', 'true');
+        cy.checkA11y('vl-step');
+    });
+
     it('should hide closed content with hidden="until-found"', () => {
         cy.mount(toggleableStepHtml);
         shouldHaveContentHidden('until-found');
