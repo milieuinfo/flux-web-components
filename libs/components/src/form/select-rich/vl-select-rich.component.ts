@@ -11,7 +11,7 @@ import { FormControl } from '../form-control';
 import { vlSelectRichComponentStyles } from './vl-select-rich.component.css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
 import { SelectRichItemTemplateFn, SelectRichOption } from './vl-select-rich.model';
-import { getSearchMatcher, SelectRichSearchMatcher } from './vl-select-rich.search-matchers';
+import { getSearchMatcher, searchFields, SelectRichSearchMatcher } from './vl-select-rich.search-matchers';
 
 @webComponent('vl-select-rich')
 export class VlSelectRichComponent extends FormControl {
@@ -39,6 +39,7 @@ export class VlSelectRichComponent extends FormControl {
     private searchStrategy = selectRichDefaults.searchStrategy;
     // Search matcher
     private searchMatcher: SelectRichSearchMatcher | null = null;
+    private searchMatcherSetManually = false;
     private nativeSearchMethod: ((value: string) => number | null) | null = null;
     // State
     private value: FormValue = null;
@@ -203,8 +204,11 @@ export class VlSelectRichComponent extends FormControl {
         }
 
         if (changedProperties.has('searchStrategy')) {
-            // Update de matcher - de wrapper zal automatisch de juiste gebruiken
-            this.searchMatcher = getSearchMatcher(this.searchStrategy);
+            const isInitialStrategy = changedProperties.get('searchStrategy') === undefined;
+            if (!isInitialStrategy || !this.searchMatcherSetManually) {
+                // Update de matcher - de wrapper zal automatisch de juiste gebruiken
+                this.searchMatcher = getSearchMatcher(this.searchStrategy);
+            }
         }
     }
 
@@ -287,6 +291,7 @@ export class VlSelectRichComponent extends FormControl {
      */
     setSearchMatcher(matcher: SelectRichSearchMatcher | null): void {
         this.searchMatcher = matcher;
+        this.searchMatcherSetManually = true;
         // De wrapper functie zal automatisch de juiste matcher gebruiken
     }
 
@@ -440,6 +445,7 @@ export class VlSelectRichComponent extends FormControl {
             searchResultLimit: this.resultLimit,
             noChoicesText: this.noChoicesText,
             searchPlaceholderValue: this.searchPlaceholder,
+            searchFields,
             shadowRoot: this.shadowRoot,
             classNames: {
                 ...Choices.defaults.allOptions.classNames,
@@ -614,7 +620,7 @@ export class VlSelectRichComponent extends FormControl {
         (this.choices as any)._searchChoices = (value: string) => {
             // Als er een custom matcher is, gebruik die
             if (this.searchMatcher) {
-                return this.searchMatcher(this.choices!, value);
+                return this.searchMatcher(this.choices!, value, (optionValue) => this.optionsByValue.get(optionValue));
             }
             // Anders gebruik de native Choices.js methode
             return this.nativeSearchMethod!(value);

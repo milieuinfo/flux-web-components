@@ -177,10 +177,32 @@ SelectRichNotDeletable.args = {
 export const SelectRichOptionDescription = SelectRichTemplate.bind({});
 SelectRichOptionDescription.storyName = 'vl-select-rich - option description';
 SelectRichOptionDescription.args = {
-    id: 'vestigingsnummer',
-    name: 'vestigingsnummer',
-    placeholder: 'Selecteer een optie',
-    options: vestigingOptions,
+    id: 'nace-bel',
+    name: 'nace-bel',
+    placeholder: 'Kies een NACE-BEL code',
+    search: true,
+    searchStrategy: 'exact-and',
+    resultLimit: 20,
+    options: [
+        {
+            label: '01110',
+            labelDescription:
+                'Teelt van granen (met uitzondering van rijst), peulgewassen en oliehoudende zaden',
+            value: '01110',
+        },
+        {
+            label: '10711',
+            labelDescription: 'Industriële vervaardiging van brood en van vers banketbakkerswerk',
+            value: '10711',
+        },
+        {
+            label: '47241',
+            labelDescription: 'Detailhandel in brood en banketbakkerswerk in gespecialiseerde winkels',
+            value: '47241',
+        },
+        { label: '62010', labelDescription: "Ontwerpen en programmeren van computerprogramma's", value: '62010' },
+        { label: '86210', labelDescription: 'Huisartsenpraktijken', value: '86210' },
+    ],
 };
 
 export const SelectRichItemTemplate = story(

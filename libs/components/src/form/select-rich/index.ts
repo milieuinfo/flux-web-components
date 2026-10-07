@@ -7,6 +7,8 @@ export {
 } from './vl-select-rich.model';
 export {
     type SelectRichSearchMatcher,
+    type SelectRichSearchPredicate,
+    createSearchMatcher,
     exactAndMatcher,
     exactOrMatcher,
     getSearchMatcher,
