@@ -13,6 +13,11 @@ export {
     type SelectRichItemTemplateFn,
     type SelectRichOption,
     SelectRichPosition,
+    type SelectRichSearchMatcher,
+    type SelectRichSearchPredicate,
+    createSearchMatcher,
+    exactAndMatcher,
+    exactOrMatcher,
 } from './select-rich';
 export { VlTextareaComponent } from './textarea';
 export { VlTextareaRichComponent } from './textarea-rich';
