@@ -384,7 +384,9 @@ describe('cypress-component - block components - vl-rich-data-table - sorting', 
             const table = tableEl[0] as any;
             const originalData = [...rowData];
             table.addEventListener('change', (e: any) => {
-                const { sorting } = e.detail;
+                const { sorting } = e.detail as {
+                    sorting?: { name: keyof (typeof rowData)[number]; direction: string }[];
+                };
                 if (sorting) {
                     table.data = {
                         data: [...originalData].sort((a, b) => {
