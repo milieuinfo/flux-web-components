@@ -1,6 +1,6 @@
 import { css, CSSResult } from 'lit';
 import { vlMapActionsFluxStyles } from './actions/map-actions.flux-css';
-import { vlLegacyStyles } from '@domg-wc/styles';
+import { vlLegacyStyles, vlMediaScreenSmall } from '@domg-wc/styles';
 
 // styles from @import 'ol/ol';
 const olOlStyles: CSSResult = css`
@@ -21,7 +21,7 @@ const olOlStyles: CSSResult = css`
         background: rgba(0, 60, 136, 0.3);
         border-radius: 4px;
         bottom: 8px;
-        left: 8px;
+        left: calc(8px + var(--vl-map--shift-left, 0px));
         padding: 2px;
         position: absolute;
     }
@@ -29,19 +29,19 @@ const olOlStyles: CSSResult = css`
         top: auto;
         bottom: 8px;
         left: auto;
-        right: var(--vl-map--scale-offset-inline);
+        right: calc(var(--vl-map--scale-offset-inline) + var(--vl-map--shift-right, 0px));
     }
     :host([scale-position='top-left']) .ol-scale-line {
         top: 8px;
         bottom: auto;
-        left: 8px;
+        left: calc(8px + var(--vl-map--shift-left-top, 0px));
         right: auto;
     }
     :host([scale-position='top-right']) .ol-scale-line {
         top: 8px;
         bottom: auto;
         left: auto;
-        right: var(--vl-map--scale-offset-inline);
+        right: calc(var(--vl-map--scale-offset-inline) + var(--vl-map--shift-right-top, 0px));
     }
     .ol-scale-line-inner {
         border: 1px solid #eee;
@@ -137,7 +137,7 @@ const olOlStyles: CSSResult = css`
     }
     .ol-rotate {
         top: 0.5em;
-        right: 0.5em;
+        right: calc(0.5em + var(--vl-map--shift-right-top, 0px));
         transition: opacity 0.25s linear, visibility 0s linear;
     }
     .ol-rotate.ol-hidden {
@@ -147,7 +147,7 @@ const olOlStyles: CSSResult = css`
     }
     .ol-zoom-extent {
         top: 4.643em;
-        left: 0.5em;
+        left: calc(0.5em + var(--vl-map--shift-left-top, 0px));
     }
     .ol-full-screen {
         right: 0.5em;
@@ -335,6 +335,28 @@ const mapStyles: CSSResult = css`
         overflow: hidden;
         background: white;
         z-index: 0;
+        --vl-map--side-sheet-left: 0px;
+        --vl-map--side-sheet-right: 0px;
+        --vl-map--side-sheet-toggle-left: 0px;
+        --vl-map--side-sheet-toggle-right: 0px;
+        --vl-map--shift-left: 0px;
+        --vl-map--shift-right: 0px;
+        --vl-map--shift-left-top: 0px;
+        --vl-map--shift-right-top: 0px;
+    }
+    :host([auto-shift-controls]) #map {
+        --vl-map--shift-left: var(--vl-map--side-sheet-left);
+        --vl-map--shift-right: var(--vl-map--side-sheet-right);
+        --vl-map--shift-left-top: calc(var(--vl-map--side-sheet-left) + var(--vl-map--side-sheet-toggle-left));
+        --vl-map--shift-right-top: calc(var(--vl-map--side-sheet-right) + var(--vl-map--side-sheet-toggle-right));
+    }
+    @media screen and (max-width: ${vlMediaScreenSmall}px) {
+        :host([auto-shift-controls]) #map {
+            --vl-map--shift-left: 0px;
+            --vl-map--shift-right: 0px;
+            --vl-map--shift-left-top: 0px;
+            --vl-map--shift-right-top: 0px;
+        }
     }
     #map .ol-zoom,
     #map .ol-rotate {

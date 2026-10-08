@@ -1,4 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
+import { VlSideSheet } from '@domg-wc/components/block';
 import { html } from 'lit';
 import { ScaleLine } from 'ol/control';
 import OlFullScreenControl from 'ol/control/FullScreen';
@@ -10,10 +11,15 @@ import { VlSelectAction } from './actions/select/select-action';
 import { VlMapMeasureAction } from './components/action/draw-action/measure-action/vl-map-measure-action';
 import { VlMapSelectAction } from './components/action/layer-action/select-action/vl-map-select-action';
 import { VlMapMeasureControl } from './components/controls/measure-control/vl-map-measure-control';
+import { VlMapBaseLayer } from './components/baselayer/vl-map-base-layer';
 import { VlMapActionControls } from './components/controls/vl-map-action-controls';
+import { VlMapCurrentLocation } from './components/current-location/vl-map-current-location';
 import { VlMapFeaturesLayer } from './components/layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
 import { VlMapLayerStyle } from './components/layer-style/vl-map-layer-style';
 import { VlMapLegend } from './components/legend/vl-map-legend';
+import { VlMapOverviewMap } from './components/overview-map/vl-map-overview-map';
+import { VlMapSearch } from './components/search/vl-map-search';
+import { VlMapSideSheet } from './components/side-sheet/vl-map-side-sheet';
 import { OpenLayersUtil } from './utils/ol-util';
 import { VlMap } from './vl-map';
 
@@ -26,6 +32,12 @@ registerWebComponents([
     VlMapMeasureControl,
     VlMapLayerStyle,
     VlMapLegend,
+    VlMapSideSheet,
+    VlMapOverviewMap,
+    VlMapBaseLayer,
+    VlMapCurrentLocation,
+    VlMapSearch,
+    VlSideSheet,
 ]);
 
 const mapFixture = html` <vl-map lambert2008></vl-map>`;
@@ -711,6 +723,509 @@ describe('cypress-component - map - vl-map - scale positie met legende', () => {
                     const legendRect = legend!.getBoundingClientRect();
                     expect(legendRect.width, 'legend width').to.be.greaterThan(0);
                     expect(overlaps(scaleLine!.getBoundingClientRect(), legendRect)).to.be.false;
+                });
+            });
+        });
+    });
+
+    it('the top-right scale line overlaps a legend with placement top_right', () => {
+        cy.viewport(1000, 660);
+        cy.mount(html`
+            <vl-map lambert2008 scale-position="top-right">
+                <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                    <vl-map-layer-style name="Shapes" color="rgba(102, 51, 153, 0.6)"></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend placement="top_right"></vl-map-legend>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    const scaleLine = vlMap.shadowRoot?.querySelector<HTMLElement>('.ol-scale-line');
+                    const legend = legendBox(vlMap);
+                    expect(scaleLine, 'scale line control').to.exist;
+                    expect(legend, 'legend').to.exist;
+                    const legendRect = legend!.getBoundingClientRect();
+                    expect(legendRect.width, 'legend width').to.be.greaterThan(0);
+                    expect(overlaps(scaleLine!.getBoundingClientRect(), legendRect)).to.be.true;
+                });
+            });
+        });
+    });
+
+    it('the top-left scale line overlaps a legend with placement top_left', () => {
+        cy.viewport(1000, 660);
+        cy.mount(html`
+            <vl-map lambert2008 scale-position="top-left">
+                <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                    <vl-map-layer-style name="Shapes" color="rgba(102, 51, 153, 0.6)"></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend placement="top_left"></vl-map-legend>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    const scaleLine = vlMap.shadowRoot?.querySelector<HTMLElement>('.ol-scale-line');
+                    const legend = legendBox(vlMap);
+                    expect(scaleLine, 'scale line control').to.exist;
+                    expect(legend, 'legend').to.exist;
+                    const legendRect = legend!.getBoundingClientRect();
+                    expect(legendRect.width, 'legend width').to.be.greaterThan(0);
+                    expect(overlaps(scaleLine!.getBoundingClientRect(), legendRect)).to.be.true;
+                });
+            });
+        });
+    });
+});
+
+
+describe('cypress-component - map - vl-map - auto-shift-controls', () => {
+    const features = {
+        type: 'FeatureCollection',
+        features: [{ type: 'Feature', id: 1, geometry: { type: 'Point', coordinates: [210000, 190000] } }],
+    };
+
+    const overlaps = (a: DOMRect, b: DOMRect) =>
+        a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+
+    const controlRect = (vlMap: VlMap, selector: string) =>
+        vlMap.shadowRoot!.querySelector<HTMLElement>(selector)!.getBoundingClientRect();
+
+    const childRect = (vlMap: VlMap, tag: string, selector: string, index = 0) =>
+        vlMap.querySelectorAll(tag)[index]!.shadowRoot!.querySelector<HTMLElement>(selector)!.getBoundingClientRect();
+
+    const sheetRect = (vlMap: VlMap, selector = 'vl-map-side-sheet') =>
+        vlMap.querySelector<HTMLElement>(selector)!.getBoundingClientRect();
+
+    const toggleRect = (vlMap: VlMap, selector = 'vl-map-side-sheet') =>
+        vlMap.querySelector(selector)!.shadowRoot!.querySelector<HTMLElement>('vl-button')!.getBoundingClientRect();
+
+    const mapRect = (vlMap: VlMap) => vlMap.shadowRoot!.querySelector<HTMLElement>('#map')!.getBoundingClientRect();
+
+    it('leaves the controls under the side-sheet when the attribute is absent', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008>
+                <vl-map-side-sheet open><p>inhoud</p></vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    const scaleLine = vlMap.shadowRoot!.querySelector<HTMLElement>('.ol-scale-line')!;
+                    expect(window.getComputedStyle(scaleLine).left).to.equal('8px');
+                    expect(scaleLine.getBoundingClientRect().left).to.be.lessThan(sheetRect(vlMap).right);
+                });
+            });
+        });
+    });
+
+    it('shifts the scale line clear of an open left side-sheet', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls>
+                <vl-map-side-sheet open><p>inhoud</p></vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    expect(controlRect(vlMap, '.ol-scale-line').left).to.be.greaterThan(sheetRect(vlMap).right);
+                });
+            });
+        });
+    });
+
+    it('shifts the bottom-right controls clear of an open right side-sheet', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls allow-fullscreen>
+                <vl-map-side-sheet right open><p>inhoud</p></vl-map-side-sheet>
+                <vl-map-overview-map></vl-map-overview-map>
+                <vl-map-baselayer url="https://localhost" layer="layername_1" title="layer title 1"></vl-map-baselayer>
+                <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                    <vl-map-layer-style name="Shapes" color="rgba(102, 51, 153, 0.6)"></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend></vl-map-legend>
+                <vl-map-current-location></vl-map-current-location>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    const sheetLeft = sheetRect(vlMap).left;
+                    expect(controlRect(vlMap, '.ol-zoom').right, 'zoom').to.be.lessThan(sheetLeft);
+                    expect(controlRect(vlMap, '.ol-full-screen').right, 'fullscreen').to.be.lessThan(sheetLeft);
+                    expect(controlRect(vlMap, '.ol-overviewmap').right, 'overview map').to.be.lessThan(sheetLeft);
+                    const legend = childRect(vlMap, 'vl-map-legend', '.flux-map-legend');
+                    expect(legend.width, 'legend rendered').to.be.greaterThan(0);
+                    expect(legend.right, 'legend').to.be.lessThan(sheetLeft);
+                    expect(
+                        childRect(vlMap, 'vl-map-current-location', '.flux-map-current-location').right,
+                        'current location'
+                    ).to.be.lessThan(sheetLeft);
+                });
+            });
+        });
+    });
+
+    it('shifts the top-right controls clear of the toggle button of an open right side-sheet', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls scale-position="top-right">
+                <vl-map-side-sheet right open><p>inhoud</p></vl-map-side-sheet>
+                <vl-map-action-controls>
+                    <vl-map-measure-control></vl-map-measure-control>
+                </vl-map-action-controls>
+                <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                    <vl-map-layer-style name="Shapes" color="rgba(102, 51, 153, 0.6)"></vl-map-layer-style>
+                    <vl-map-measure-action></vl-map-measure-action>
+                </vl-map-features-layer>
+                <vl-map-legend placement="top_right"></vl-map-legend>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.then(() => vlMap.map.getView().setRotation(Math.PI / 4));
+                cy.get('vl-map').should(() => {
+                    const toggleLeft = toggleRect(vlMap).left;
+                    expect(toggleRect(vlMap).width, 'toggle rendered').to.be.greaterThan(0);
+                    expect(controlRect(vlMap, '.ol-rotate').right, 'rotate').to.be.lessThan(toggleLeft);
+                    expect(controlRect(vlMap, '.ol-scale-line').right, 'scale').to.be.lessThan(toggleLeft);
+                    expect(childRect(vlMap, 'vl-map-legend', '.flux-map-legend').right, 'legend').to.be.lessThan(
+                        toggleLeft
+                    );
+                    expect(
+                        vlMap.querySelector('vl-map-measure-control')!.getBoundingClientRect().right,
+                        'measure control'
+                    ).to.be.lessThan(toggleLeft);
+                });
+            });
+        });
+    });
+
+    it('shifts the top-left controls clear of the toggle button of an open left side-sheet', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls scale-position="top-left">
+                <vl-map-side-sheet open><p>inhoud</p></vl-map-side-sheet>
+                <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                    <vl-map-layer-style name="Shapes" color="rgba(102, 51, 153, 0.6)"></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend placement="top_left"></vl-map-legend>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    const toggleRight = toggleRect(vlMap).right;
+                    expect(controlRect(vlMap, '.ol-scale-line').left, 'scale').to.be.greaterThan(toggleRight);
+                    expect(childRect(vlMap, 'vl-map-legend', '.flux-map-legend').left, 'legend').to.be.greaterThan(
+                        toggleRight
+                    );
+                });
+            });
+        });
+    });
+
+    it('follows the width of a toggle button with toggle-text', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls scale-position="top-left">
+                <vl-map-side-sheet open toggle-text="Lagen en legende"><p>inhoud</p></vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    expect(toggleRect(vlMap).width, 'wide toggle').to.be.greaterThan(80);
+                    expect(controlRect(vlMap, '.ol-scale-line').left).to.be.greaterThan(toggleRect(vlMap).right);
+                });
+            });
+        });
+    });
+
+    it('moves every control on one side by the same distance, so they keep their layout', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls>
+                <vl-map-side-sheet right><p>inhoud</p></vl-map-side-sheet>
+                <vl-map-overview-map></vl-map-overview-map>
+                <vl-map-baselayer url="https://localhost" layer="layername_1" title="layer title 1"></vl-map-baselayer>
+                <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                    <vl-map-layer-style name="Shapes" color="rgba(102, 51, 153, 0.6)"></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend></vl-map-legend>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            const positions = () => [
+                controlRect(vlMap, '.ol-zoom').left,
+                controlRect(vlMap, '.ol-overviewmap').left,
+                childRect(vlMap, 'vl-map-legend', '.flux-map-legend').left,
+            ];
+            let closed: number[] = [];
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    expect(childRect(vlMap, 'vl-map-legend', '.flux-map-legend').width).to.be.greaterThan(0);
+                    expect(controlRect(vlMap, '.ol-overviewmap').width).to.be.greaterThan(0);
+                });
+                cy.then(() => {
+                    closed = positions();
+                    vlMap.querySelector<VlMapSideSheet>('vl-map-side-sheet')!.open();
+                });
+                cy.get('vl-map').should(() => {
+                    const open = positions();
+                    const deltas = open.map((left, index) => Math.round(left - closed[index]));
+                    expect(deltas[0], 'zoom moved').to.be.lessThan(0);
+                    expect(new Set(deltas).size, `same distance: ${deltas.join(', ')}`).to.equal(1);
+                });
+            });
+        });
+    });
+
+    it('follows opening and closing of the side-sheet', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls>
+                <vl-map-side-sheet open><p>inhoud</p></vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    expect(controlRect(vlMap, '.ol-scale-line').left).to.be.greaterThan(sheetRect(vlMap).right);
+                });
+                cy.then(() => vlMap.querySelector<VlMapSideSheet>('vl-map-side-sheet')!.close());
+                cy.get('vl-map').should(() => {
+                    const scaleLine = vlMap.shadowRoot!.querySelector<HTMLElement>('.ol-scale-line')!;
+                    expect(window.getComputedStyle(scaleLine).left).to.equal('8px');
+                });
+                cy.then(() => vlMap.querySelector<VlMapSideSheet>('vl-map-side-sheet')!.open());
+                cy.get('vl-map').should(() => {
+                    expect(controlRect(vlMap, '.ol-scale-line').left).to.be.greaterThan(sheetRect(vlMap).right);
+                });
+            });
+        });
+    });
+
+    it('starts and stops shifting when auto-shift-controls is toggled at runtime', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008>
+                <vl-map-side-sheet right open><p>inhoud</p></vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    expect(controlRect(vlMap, '.ol-zoom').right).to.be.greaterThan(sheetRect(vlMap).left);
+                });
+                cy.then(() => vlMap.setAttribute('auto-shift-controls', ''));
+                cy.get('vl-map').should(() => {
+                    expect(controlRect(vlMap, '.ol-zoom').right).to.be.lessThan(sheetRect(vlMap).left);
+                });
+                cy.then(() => vlMap.removeAttribute('auto-shift-controls'));
+                cy.get('vl-map').should(() => {
+                    expect(controlRect(vlMap, '.ol-zoom').right).to.be.greaterThan(sheetRect(vlMap).left);
+                });
+            });
+        });
+    });
+
+    it('follows a runtime change of scale-position', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls>
+                <vl-map-side-sheet right open><p>inhoud</p></vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.then(() => vlMap.setAttribute('scale-position', 'bottom-right'));
+                cy.get('vl-map').should(() => {
+                    const scale = controlRect(vlMap, '.ol-scale-line');
+                    expect(scale.right).to.be.lessThan(sheetRect(vlMap).left);
+                    expect(overlaps(scale, controlRect(vlMap, '.ol-zoom')), 'scale over zoom').to.be.false;
+                });
+            });
+        });
+    });
+
+    it('follows a runtime change of the legend placement', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls>
+                <vl-map-side-sheet open><p>inhoud</p></vl-map-side-sheet>
+                <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                    <vl-map-layer-style name="Shapes" color="rgba(102, 51, 153, 0.6)"></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend></vl-map-legend>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    expect(childRect(vlMap, 'vl-map-legend', '.flux-map-legend').width).to.be.greaterThan(0);
+                });
+                cy.then(() => vlMap.querySelector('vl-map-legend')!.setAttribute('placement', 'bottom_left'));
+                cy.get('vl-map').should(() => {
+                    expect(childRect(vlMap, 'vl-map-legend', '.flux-map-legend').left).to.be.greaterThan(
+                        sheetRect(vlMap).right
+                    );
+                });
+            });
+        });
+    });
+
+    it('follows the side-sheet when the map is resized', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls style="width: 1100px">
+                <vl-map-side-sheet open><p>inhoud</p></vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.then(() => (vlMap.style.width = '800px'));
+                cy.get('vl-map').should(() => {
+                    const sheet = sheetRect(vlMap);
+                    const scale = controlRect(vlMap, '.ol-scale-line');
+                    expect(sheet.width).to.be.closeTo(800 / 3, 2);
+                    expect(scale.left).to.be.greaterThan(sheet.right);
+                    expect(scale.left - sheet.right).to.be.lessThan(16);
+                });
+            });
+        });
+    });
+
+    it('shifts both sides when a left and a right side-sheet are open', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls>
+                <vl-map-side-sheet open style="--vl-side-sheet-width: 25%"><p>links</p></vl-map-side-sheet>
+                <vl-map-side-sheet right open style="--vl-side-sheet-width: 25%"><p>rechts</p></vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    expect(controlRect(vlMap, '.ol-scale-line').left).to.be.greaterThan(
+                        sheetRect(vlMap, 'vl-map-side-sheet[left]').right
+                    );
+                    expect(controlRect(vlMap, '.ol-zoom').right).to.be.lessThan(
+                        sheetRect(vlMap, 'vl-map-side-sheet[right]').left
+                    );
+                });
+            });
+        });
+    });
+
+    it('does not shift on a small screen, where an open side-sheet is modal', () => {
+        cy.viewport(375, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls>
+                <vl-map-side-sheet open><p>inhoud</p></vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    const scaleLine = vlMap.shadowRoot!.querySelector<HTMLElement>('.ol-scale-line')!;
+                    expect(scaleLine.getBoundingClientRect().width).to.be.greaterThan(0);
+                    expect(window.getComputedStyle(scaleLine).left).to.equal('8px');
+                });
+            });
+        });
+    });
+
+    it('gives each legend its own position', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls>
+                <vl-map-side-sheet right open><p>inhoud</p></vl-map-side-sheet>
+                <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                    <vl-map-layer-style name="Shapes" color="rgba(102, 51, 153, 0.6)"></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend></vl-map-legend>
+                <vl-map-legend placement="top_left"></vl-map-legend>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    const right = childRect(vlMap, 'vl-map-legend', '.flux-map-legend', 0);
+                    const left = childRect(vlMap, 'vl-map-legend', '.flux-map-legend', 1);
+                    expect(right.width).to.be.greaterThan(0);
+                    expect(right.right, 'bottom-right legend shifts').to.be.lessThan(sheetRect(vlMap).left);
+                    expect(left.left - mapRect(vlMap).left, 'top-left legend stays').to.be.lessThan(20);
+                });
+            });
+        });
+    });
+
+    it('does not pass the shift on to a nested vl-map', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls>
+                <vl-map-side-sheet right open style="--vl-side-sheet-width: 50%">
+                    <vl-map lambert2008 auto-shift-controls id="nested"></vl-map>
+                </vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            const nested = vlMap.querySelector<VlMap>('#nested')!;
+            cy.wrap(vlMap.ready).then(() => {
+                cy.wrap(nested.ready).then(() => {
+                    cy.get('vl-map').should(() => {
+                        expect(controlRect(vlMap, '.ol-zoom').right, 'outer map shifts').to.be.lessThan(
+                            sheetRect(vlMap).left
+                        );
+                        const nestedZoom = nested.shadowRoot!.querySelector<HTMLElement>('.ol-zoom')!;
+                        expect(window.getComputedStyle(nestedZoom).right).to.equal('10px');
+                    });
+                });
+            });
+        });
+    });
+
+    it('keeps the side-sheet width out of the style attribute of vl-map', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls>
+                <vl-map-side-sheet right open><p>inhoud</p></vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    expect(controlRect(vlMap, '.ol-zoom').right).to.be.lessThan(sheetRect(vlMap).left);
+                    expect(vlMap.getAttribute('style')).not.to.contain('--vl-map--side-sheet');
+                    expect(
+                        vlMap.shadowRoot!.querySelector<HTMLElement>('#map')!.style.getPropertyValue(
+                            '--vl-map--side-sheet-right'
+                        )
+                    ).to.equal(`${vlMap.querySelector<HTMLElement>('vl-map-side-sheet')!.offsetWidth}px`);
+                });
+            });
+        });
+    });
+
+    it('keeps the controls clear of the side-sheet on a narrow map, even if they reach the opposite edge', () => {
+        cy.viewport(1200, 660);
+        cy.mount(html`
+            <vl-map lambert2008 auto-shift-controls style="width: 520px; --vl-side-sheet-width: 80%">
+                <vl-map-side-sheet open><p>inhoud</p></vl-map-side-sheet>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.get('vl-map').should(() => {
+                    const scale = controlRect(vlMap, '.ol-scale-line');
+                    expect(scale.left).to.be.greaterThan(sheetRect(vlMap).right);
+                    expect(scale.right, 'scale reaches past the map edge').to.be.greaterThan(mapRect(vlMap).right);
+                    expect(overlaps(scale, controlRect(vlMap, '.ol-zoom')), 'scale over zoom').to.be.true;
                 });
             });
         });

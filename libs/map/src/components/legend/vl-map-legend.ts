@@ -346,10 +346,11 @@ export class VlMapLegend extends BaseLitElement {
 
     private generateItemStyle() {
         const position = this.getPosition();
+        const row = position.top ? '-top' : '';
         return (
-            (position.left ? `;left:${position.left}` : '') +
+            (position.left ? `;left:calc(${position.left} + var(--vl-map--shift-left${row}, 0px))` : '') +
             (position.top ? `;top:${position.top}` : '') +
-            (position.right ? `;right:${position.right}` : '') +
+            (position.right ? `;right:calc(${position.right} + var(--vl-map--shift-right${row}, 0px))` : '') +
             (position.bottom ? `;bottom:${position.bottom}` : '')
         );
     }

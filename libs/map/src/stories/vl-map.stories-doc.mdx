@@ -62,6 +62,39 @@ Vereist je project Lambert 72 coördinaten bij het intekenen, dan wordt het upgr
 beter uitgesteld tot wanneer het project ook Lambert 2008 data ondersteunt. De regel hierbij is dat het
 coördinatenstelsel van intekenen hetzelfde moet zijn als dat van de kaart.
 
+## Controls laten wijken voor een side-sheet
+
+Een open `vl-map-side-sheet` bedekt een rand van de kaart, en daarmee de controls aan die kant (schaal, zoom,
+rotate, overzichtskaart, fullscreen, zoom-extent, `vl-map-current-location` en `vl-map-action-controls`) en de
+legende. Met het opt-in attribuut `auto-shift-controls` schuiven ze opzij voor een geopende side-sheet, links zowel
+als rechts. Zonder het attribuut verandert er niets.
+
+```html
+<vl-map auto-shift-controls>
+    <vl-map-side-sheet open>...</vl-map-side-sheet>
+</vl-map>
+```
+
+Alle controls aan de kant van de side-sheet schuiven even ver op als de side-sheet breed is, zodat ze onderling op
+hun plaats blijven. Controls bovenaan schuiven ook voorbij de toggle-knop die naast een open side-sheet hangt. De
+controls volgen het openen, het sluiten en elke wijziging in de breedte van de side-sheet.
+
+Let op:
+
+- Enkel een `vl-map-side-sheet` laat de controls wijken. Gebruik in een kaart dus `vl-map-side-sheet`, niet
+  `vl-side-sheet`.
+- Tot een schermbreedte van 767px schuift er niets: daar legt een open side-sheet een backdrop over de hele pagina.
+- Laat naast de side-sheet genoeg kaart vrij. Is de kaart smal tegenover de side-sheet, dan schuiven de controls tot
+  over de rand van de kaart of over de controls aan de overkant. Een half zichtbare schaal toont dan een verkeerde
+  afstand.
+- Controls bovenaan kunnen over een `vl-map-search` schuiven. Zet de schaal en de legende in dat geval onderaan.
+- Zet je via `custom-css` zelf `left` of `right` van een control, dan wint jouw regel en schuift die control niet
+  mee.
+- Open maximaal één side-sheet per kant. Een linker en een rechter side-sheet samen werken, maar de controls worden
+  niet tegen elkaar begrensd.
+
+<Canvas of={VlMapStories.MapAutoShiftControls} />
+
 ## Ongeldige geometrieën
 
 Wanneer je op de kaart een ongeldige geometrie tekent, bijvoorbeeld een zelf-kruisende polygoon, dan krijgt deze

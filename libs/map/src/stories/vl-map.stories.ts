@@ -175,6 +175,7 @@ export const MapPlayground = story(
     ({
         allowFullscreen,
         allowInvalidGeometry,
+        autoShiftControls,
         disableEscape,
         disableRotation,
         disableMousewheelZoom,
@@ -191,6 +192,7 @@ export const MapPlayground = story(
             lambert2008
             ?allow-invalid-geometry=${allowInvalidGeometry}
             ?allow-fullscreen=${allowFullscreen}
+            ?auto-shift-controls=${autoShiftControls}
             ?disable-escape-key=${disableEscape}
             ?disable-rotation=${disableRotation}
             ?disable-mouse-wheel-zoom=${disableMousewheelZoom}
@@ -556,4 +558,35 @@ export const MapPlaygroundLB72 = story(
     `
 );
 MapPlaygroundLB72.storyName = 'vl-map - playground - Lambert 72';
+
+export const MapAutoShiftControls = story(
+    mapArgs,
+    ({ autoShiftControls }) => html`
+        <vl-map id="map-auto-shift" lambert2008 ?auto-shift-controls=${autoShiftControls}>
+            <vl-map-side-sheet right open>
+                <vl-title type="h6">Side-sheet</vl-title>
+                <p>Zolang deze side-sheet open staat, schuiven de controls en de legende opzij.</p>
+            </vl-map-side-sheet>
+
+            <vl-map-overview-map></vl-map-overview-map>
+
+            <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
+
+            <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                <vl-map-layer-style name="Shapes" border-color=${purple} color=${purple}></vl-map-layer-style>
+            </vl-map-features-layer>
+
+            <vl-map-legend placement="top_right"></vl-map-legend>
+        </vl-map>
+    `
+);
+MapAutoShiftControls.storyName = 'vl-map - auto-shift-controls';
+MapAutoShiftControls.args = {
+    autoShiftControls: true,
+};
+MapAutoShiftControls.parameters = {
+    controls: {
+        include: ['autoShiftControls'],
+    },
+};
 

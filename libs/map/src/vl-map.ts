@@ -262,6 +262,21 @@ export class VlMap extends BaseHTMLElement {
         return new Zoom(zoomOptions);
     }
 
+    _setSideSheetInset(side: 'left' | 'right', width?: number, toggleWidth = 0): void {
+        const mapElement = this._mapElement;
+        if (!mapElement) {
+            return;
+        }
+
+        if (width === undefined) {
+            mapElement.style.removeProperty(`--vl-map--side-sheet-${side}`);
+            mapElement.style.removeProperty(`--vl-map--side-sheet-toggle-${side}`);
+            return;
+        }
+        mapElement.style.setProperty(`--vl-map--side-sheet-${side}`, `${width}px`);
+        mapElement.style.setProperty(`--vl-map--side-sheet-toggle-${side}`, `${toggleWidth}px`);
+    }
+
     addLayer(layer) {
         this.map.addOverlayLayer(layer);
     }

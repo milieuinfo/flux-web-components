@@ -14,6 +14,7 @@ export const mapArgs = {
     ...defaultArgs,
     allowFullscreen: false,
     allowInvalidGeometry: false,
+    autoShiftControls: false,
     disableEscape: false,
     disableKeyboard: false,
     disableMousewheelZoom: false,
@@ -47,6 +48,16 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(mapArgs.allowInvalidGeometry) },
+        },
+    },
+    autoShiftControls: {
+        name: 'auto-shift-controls',
+        description:
+            'Laat de controls (schaal, zoom, rotate, overzichtskaart, fullscreen, zoom-extent, vl-map-current-location, vl-map-action-controls) en de legende opzij schuiven voor een geopende vl-map-side-sheet, links zowel als rechts. Alle controls aan die kant schuiven even ver op als de side-sheet breed is, controls bovenaan ook voorbij de toggle-knop. Standaard uit.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(mapArgs.autoShiftControls) },
         },
     },
     disableEscape: {

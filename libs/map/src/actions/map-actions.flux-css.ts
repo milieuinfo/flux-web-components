@@ -1095,7 +1095,7 @@ export const vlMapActionsFluxStyles: CSSResult = css`
         top: initial;
         left: initial;
         bottom: 10px;
-        right: 10px;
+        right: calc(10px + var(--vl-map--shift-right, 0px));
     }
     .ol-zoom .ol-zoom-in,
     .ol-zoom .ol-zoom-out {
@@ -1127,7 +1127,7 @@ export const vlMapActionsFluxStyles: CSSResult = css`
         background: white;
         top: initial;
         left: initial;
-        right: 10px;
+        right: calc(10px + var(--vl-map--shift-right, 0px));
         bottom: 92px;
     }
     .ol-full-screen .ol-full-screen-false,
@@ -1171,7 +1171,7 @@ export const vlMapActionsFluxStyles: CSSResult = css`
         top: initial;
         left: initial;
         bottom: 10px;
-        right: 55px;
+        right: calc(55px + var(--vl-map--shift-right, 0px));
     }
     .ol-overviewmap:not(.ol-collapsed) {
         background: white;
