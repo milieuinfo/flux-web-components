@@ -379,7 +379,7 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
     });
 
     it('should search with a custom search matcher on a field unknown to Choices.js', () => {
-        const vestigingOptions: SelectRichOption[] = [
+        const vestigingOptions: (SelectRichOption & { vestiging: string })[] = [
             { label: '0123.456.789', value: '0123456789', vestiging: 'Vestiging Hasselt' },
             { label: '0987.654.321', value: '0987654321', vestiging: 'Vestiging Turnhout' },
         ];
