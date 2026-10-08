@@ -62,6 +62,37 @@ Vereist je project Lambert 72 coördinaten bij het intekenen, dan wordt het upgr
 beter uitgesteld tot wanneer het project ook Lambert 2008 data ondersteunt. De regel hierbij is dat het
 coördinatenstelsel van intekenen hetzelfde moet zijn als dat van de kaart.
 
+## Controls laten wijken voor een side-sheet
+
+Een open `vl-map-side-sheet` bedekt de hoek van de kaart, waardoor de controls in die hoek (schaal, zoom,
+rotate, overzichtskaart, fullscreen, `vl-map-current-location` en `vl-map-action-controls`) en de legende eronder
+verdwijnen. Met het opt-in attribuut `auto-shift-controls` schuiven ze automatisch weg voor een geopende
+side-sheet, links zowel als rechts. Dat geldt ook voor een `vl-side-sheet` in de kaart, ook zonder `absolute`:
+bij zo'n fixed paneel wordt opnieuw berekend wanneer de pagina of een scroll-container in de light DOM scrollt.
+Scrollen binnen een shadow root wordt niet opgemerkt.
+
+```html
+<vl-map auto-shift-controls>
+    <vl-map-side-sheet open>...</vl-map-side-sheet>
+</vl-map>
+```
+
+Controls aan dezelfde kant die op dezelfde hoogte liggen, vormen een rij. Een rij schuift samen op, net ver
+genoeg om de meest bedekte control vrij te maken, zodat er geen nieuwe overlap ontstaat. Elke rij schuift apart:
+een rij bovenaan die niet kan wijken, houdt een rij onderaan niet tegen. Controls bovenaan wijken ook voor de
+toggle-knop die naast een open paneel hangt. Een verborgen rotate-knop (zolang de kaart niet gedraaid is) telt
+niet mee.
+Een rij schuift nooit over de controls of de legende aan de overkant, over een `vl-map-search` of over de
+kaartrand. Is er daarvoor niet genoeg ruimte, bijvoorbeeld omdat het paneel bijna de hele kaart bedekt, dan
+blijft die rij op haar plaats. Een rij schuift dus nooit half op: een half afgedekte schaal zou een verkeerde
+afstand tonen.
+Een control die niet kan wijken, blijft onder het paneel liggen. Op desktop kan hij dan nog focus krijgen terwijl
+hij afgedekt is; op mobiel is hij niet bereikbaar zolang het paneel open is.
+Open bij voorkeur maximaal één paneel tegelijk: bij een linker en rechter paneel samen wordt niet tegen
+elkaar begrensd. Zonder het attribuut verandert er niets aan het bestaande gedrag.
+
+<Canvas of={VlMapStories.MapAutoShiftControls} />
+
 ## Ongeldige geometrieën
 
 Wanneer je op de kaart een ongeldige geometrie tekent, bijvoorbeeld een zelf-kruisende polygoon, dan krijgt deze
@@ -74,6 +105,33 @@ Om te controleren of een kaart 1 of meerdere ongeldige geometrieën bevat kan je
 ```typescript
 const map = document.querySelector<VlMap>('#my-map');
 const hasInvalidGeometries = map.hasInvalidGeometries();
+```
+
+## Schaal
+
+De map toont standaard een schaal (`ScaleLine`) linksonder. Met `scale-position` kies je een andere hoek:
+`bottom-left` (standaard), `bottom-right`, `top-left` of `top-right`. Dit attribuut is reactief (in tegenstelling tot
+`hide-scale`), dus de hoek kan live wijzigen.
+
+In de rechterhoeken staat de schaal standaard voorbij de zoomknop en de rotatieknop (die zichtbaar wordt zodra
+de kaart gedraaid is), via de custom property `--vl-map--scale-offset-inline`. Een `vl-map-overview-map` of een
+`vl-map-legend` met de standaard `placement="bottom_right"` delen wel de rechteronderhoek met de schaal. Zet de
+legende in dat geval in een andere hoek (bv. `placement="bottom_left"`). Voor de overzichtskaart, die geen
+`placement` heeft, verhoog je `--vl-map--scale-offset-inline`.
+
+Ook de bovenhoeken delen de ruimte. Linksboven overlapt de schaal met een `vl-map-search`, met een legende met
+`placement="top_left"` en met de toggle-knop van een gesloten `vl-map-side-sheet`, die standaard links staat. Rechtsboven overlapt ze met een legende met `placement="top_right"`, met
+`vl-map-action-controls` en met de toggle-knop van een `vl-map-side-sheet` aan de rechterkant als die een
+`toggle-text` heeft. Kies in dat geval een onderhoek voor de schaal.
+
+```html
+<vl-map scale-position="bottom-right"></vl-map>
+```
+
+Met `hide-scale` verberg je de schaal volledig:
+
+```html
+<vl-map hide-scale></vl-map>
 ```
 
 ## Configuratie

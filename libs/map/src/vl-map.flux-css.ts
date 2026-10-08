@@ -25,6 +25,24 @@ const olOlStyles: CSSResult = css`
         padding: 2px;
         position: absolute;
     }
+    :host([scale-position='bottom-right']) .ol-scale-line {
+        top: auto;
+        bottom: 8px;
+        left: auto;
+        right: var(--vl-map--scale-offset-inline);
+    }
+    :host([scale-position='top-left']) .ol-scale-line {
+        top: 8px;
+        bottom: auto;
+        left: 8px;
+        right: auto;
+    }
+    :host([scale-position='top-right']) .ol-scale-line {
+        top: 8px;
+        bottom: auto;
+        left: auto;
+        right: var(--vl-map--scale-offset-inline);
+    }
     .ol-scale-line-inner {
         border: 1px solid #eee;
         border-top: none;
@@ -296,6 +314,16 @@ const mapStyles: CSSResult = css`
         display: none;
         position: relative;
         --vl-map--margin-top: 0px;
+        --vl-map--scale-offset-inline: calc(3.5rem + 20px);
+        --vl-map--shift-scale-line: initial;
+        --vl-map--shift-zoom: initial;
+        --vl-map--shift-rotate: initial;
+        --vl-map--shift-overviewmap: initial;
+        --vl-map--shift-full-screen: initial;
+        --vl-map--shift-zoom-extent: initial;
+        --vl-map--shift-legend: initial;
+        --vl-map--shift-current-location: initial;
+        --vl-map--shift-action-controls: initial;
         border: 1px solid #cbd2da;
         height: calc(var(--vl-map-height, 500px) - var(--vl-map--margin-top));
     }
@@ -320,6 +348,24 @@ const mapStyles: CSSResult = css`
     #map .ol-zoom,
     #map .ol-rotate {
         margin-top: var(--vl-map--margin-top) !important;
+    }
+    #map .ol-scale-line {
+        transform: translateX(var(--vl-map--shift-scale-line));
+    }
+    #map .ol-zoom {
+        transform: translateX(var(--vl-map--shift-zoom));
+    }
+    #map .ol-rotate {
+        transform: translateX(var(--vl-map--shift-rotate));
+    }
+    #map .ol-overviewmap {
+        transform: translateX(var(--vl-map--shift-overviewmap));
+    }
+    #map .ol-full-screen {
+        transform: translateX(var(--vl-map--shift-full-screen));
+    }
+    #map .ol-zoom-extent {
+        transform: translateX(var(--vl-map--shift-zoom-extent));
     }
     #map .vl-map-search__overlaycontainer {
         display: initial !important;

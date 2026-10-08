@@ -55,7 +55,7 @@ export class VlMapLegend extends BaseLitElement {
     layoutVertical: boolean;
     hideTitle: boolean;
     version: string;
-    private placement: string;
+    placement: string;
     private mapElement: VlMap;
     private items: Item[] = [];
     private styledItems: StyledItem[] = [];
@@ -350,7 +350,8 @@ export class VlMapLegend extends BaseLitElement {
             (position.left ? `;left:${position.left}` : '') +
             (position.top ? `;top:${position.top}` : '') +
             (position.right ? `;right:${position.right}` : '') +
-            (position.bottom ? `;bottom:${position.bottom}` : '')
+            (position.bottom ? `;bottom:${position.bottom}` : '') +
+            ';transform:translateX(var(--vl-map--shift-legend))'
         );
     }
 
