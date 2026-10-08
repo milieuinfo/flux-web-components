@@ -14,6 +14,7 @@ const mapCurrentLocationStyles: CSSResult = css`
         left: initial;
         bottom: 90px;
         right: 10px;
+        transform: translateX(var(--vl-map--shift-current-location));
     }
 
     div.flux-map-current-location button {

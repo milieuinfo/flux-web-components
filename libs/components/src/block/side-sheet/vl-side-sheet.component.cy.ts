@@ -153,6 +153,30 @@ describe('cypress-component - block components - vl-side-sheet', () => {
         shouldBeClosed();
     });
 
+    it('should return the position of the toggle button next to an open side-sheet', () => {
+        mountDefault({ open: true, left: true });
+
+        cy.get('vl-side-sheet').should(($sideSheet) => {
+            const sideSheet = $sideSheet[0] as VlSideSheet;
+            const toggleButtonRect = sideSheet.shadowRoot!.querySelector('vl-button')!.getBoundingClientRect();
+            expect(sideSheet.toggleButtonRect?.toJSON()).to.deep.equal(toggleButtonRect.toJSON());
+            expect(toggleButtonRect.width).to.be.greaterThan(0);
+            expect(toggleButtonRect.left).to.be.closeTo(sideSheet.getBoundingClientRect().right, 1);
+        });
+    });
+
+    it('should not return a toggle button position when the toggle button is hidden', () => {
+        mountDefault({ open: true });
+
+        cy.get('vl-side-sheet').should(($sideSheet) => {
+            expect(($sideSheet[0] as VlSideSheet).toggleButtonRect).to.exist;
+        });
+        cy.get('vl-side-sheet').invoke('attr', 'hide-toggle-button', '');
+        cy.get('vl-side-sheet').should(($sideSheet) => {
+            expect(($sideSheet[0] as VlSideSheet).toggleButtonRect).to.be.undefined;
+        });
+    });
+
     it('should place icon before the text by default', () => {
         mountDefault({ toggleText: 'toggle-side-sheet' });
 
