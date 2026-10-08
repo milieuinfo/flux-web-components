@@ -8,5 +8,6 @@ export const vlMapControlsFluxStyles: CSSResult = css`
         display: flex;
         column-gap: 10px;
         padding: 10px;
+        transform: translateX(var(--vl-map--shift-action-controls));
     }
 `;

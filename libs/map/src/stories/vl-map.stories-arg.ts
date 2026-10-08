@@ -1,19 +1,29 @@
-import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
+import {
+    CATEGORIES,
+    CONTROLS,
+    defaultArgs,
+    defaultArgTypes,
+    getSelectControlOptions,
+    TYPES,
+} from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 import { action } from 'storybook/actions';
-import { EVENT } from '../vl-map.model';
+import { EVENT, SCALE_POSITION } from '../vl-map.model';
 
 export const mapArgs = {
     ...defaultArgs,
     allowFullscreen: false,
     allowInvalidGeometry: false,
+    autoShiftControls: false,
     disableEscape: false,
     disableKeyboard: false,
     disableMousewheelZoom: false,
     disableRotation: false,
+    hideScale: false,
     fullHeight: false,
     lambert2008: false,
     noBorder: false,
+    scalePosition: SCALE_POSITION.BOTTOM_LEFT,
     activeActionChange: action(EVENT.ACTIVE_ACTION_CHANGED),
     layerVisibleChange: action(EVENT.LAYER_VISIBLE_CHANGED),
 };
@@ -38,6 +48,16 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(mapArgs.allowInvalidGeometry) },
+        },
+    },
+    autoShiftControls: {
+        name: 'auto-shift-controls',
+        description:
+            'Laat de controls (schaal, zoom, rotate, overzichtskaart, fullscreen, vl-map-current-location, vl-map-action-controls) en de legende automatisch wijken voor een geopende vl-map-side-sheet of vl-side-sheet, links zowel als rechts. Controls aan dezelfde kant en op dezelfde hoogte schuiven samen op als rij, net ver genoeg om de meest bedekte vrij te maken en zonder de overkant of een vl-map-search te raken. Is daar niet genoeg ruimte voor, dan blijft die rij op haar plaats. Standaard uit.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(mapArgs.autoShiftControls) },
         },
     },
     disableEscape: {
@@ -76,6 +96,16 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
             defaultValue: { summary: String(mapArgs.disableKeyboard) },
         },
     },
+    hideScale: {
+        name: 'hide-scale',
+        description:
+            'Verbergt de schaal (ScaleLine) van de map.<br>Standaard toont de map een schaal linksonder.<br>Dit attribuut is niet reactief.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(mapArgs.hideScale) },
+        },
+    },
     fullHeight: {
         name: 'full-height',
         description:
@@ -103,6 +133,17 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(mapArgs.noBorder) },
+        },
+    },
+    scalePosition: {
+        name: 'scale-position',
+        description: 'Bepaalt de hoek waarin de schaal (ScaleLine) op de map staat.',
+        control: { type: CONTROLS.SELECT },
+        options: Object.values(SCALE_POSITION),
+        table: {
+            type: { summary: getSelectControlOptions(Object.values(SCALE_POSITION)) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: mapArgs.scalePosition },
         },
     },
     activeActionChange: {

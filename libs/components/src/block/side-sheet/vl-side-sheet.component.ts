@@ -111,6 +111,19 @@ export class VlSideSheet extends BaseHTMLElement {
         return this.getAttribute('icon-placement');
     }
 
+    /**
+     * Geeft de positie van de toggle button terug, of `undefined` als die verborgen is.
+     * Bij een open side-sheet hangt de toggle button naast het paneel, buiten de rechthoek van de side-sheet zelf.
+     *
+     * @Return {DOMRect | undefined}
+     */
+    get toggleButtonRect(): DOMRect | undefined {
+        if (this.hideToggleButton !== null) {
+            return undefined;
+        }
+        return this._toggleButton?.getBoundingClientRect();
+    }
+
     get _classPrefix() {
         return 'vl-side-sheet--';
     }

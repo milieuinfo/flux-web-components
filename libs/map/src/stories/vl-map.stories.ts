@@ -58,21 +58,27 @@ export const MapDefault = story(
     mapArgs,
     ({
         allowFullscreen,
+        autoShiftControls,
         disableEscape,
         disableRotation,
         disableMousewheelZoom,
         disableKeyboard,
+        hideScale,
         noBorder,
         fullHeight,
+        scalePosition,
     }) => html`
         <vl-map
             ?allow-fullscreen=${allowFullscreen}
+            ?auto-shift-controls=${autoShiftControls}
             ?disable-escape-key=${disableEscape}
             ?disable-rotation=${disableRotation}
             ?disable-mouse-wheel-zoom=${disableMousewheelZoom}
             ?disable-keyboard=${disableKeyboard}
+            ?hide-scale=${hideScale}
             ?no-border=${noBorder}
             ?full-height=${fullHeight}
+            scale-position=${scalePosition}
             zoomInTooltip="Zoom in"
             zoomOutTooltip="Zoom uit"
         >
@@ -86,12 +92,15 @@ export const MapFullHeight = story(
     mapArgs,
     ({
         allowFullscreen,
+        autoShiftControls,
         disableEscape,
         disableRotation,
         disableMousewheelZoom,
         disableKeyboard,
+        hideScale,
         noBorder,
         fullHeight,
+        scalePosition,
     }) => html`
         <div style="height: 800px; display: flex; flex-direction: column; border: 1px solid black">
             <vl-functional-header
@@ -103,12 +112,15 @@ export const MapFullHeight = story(
             ></vl-functional-header>
             <vl-map
                 ?allow-fullscreen=${allowFullscreen}
+                ?auto-shift-controls=${autoShiftControls}
                 ?disable-escape-key=${disableEscape}
                 ?disable-rotation=${disableRotation}
                 ?disable-mouse-wheel-zoom=${disableMousewheelZoom}
                 ?disable-keyboard=${disableKeyboard}
+                ?hide-scale=${hideScale}
                 ?no-border=${noBorder}
                 ?full-height=${fullHeight}
+                scale-position=${scalePosition}
                 zoomInTooltip="Zoom in"
                 zoomOutTooltip="Zoom uit"
                 id="main-content"
@@ -171,12 +183,15 @@ export const MapPlayground = story(
     ({
         allowFullscreen,
         allowInvalidGeometry,
+        autoShiftControls,
         disableEscape,
         disableRotation,
         disableMousewheelZoom,
         disableKeyboard,
+        hideScale,
         noBorder,
         fullHeight,
+        scalePosition,
         activeActionChange,
         layerVisibleChange,
     }) => html`
@@ -185,12 +200,15 @@ export const MapPlayground = story(
             lambert2008
             ?allow-invalid-geometry=${allowInvalidGeometry}
             ?allow-fullscreen=${allowFullscreen}
+            ?auto-shift-controls=${autoShiftControls}
             ?disable-escape-key=${disableEscape}
             ?disable-rotation=${disableRotation}
             ?disable-mouse-wheel-zoom=${disableMousewheelZoom}
             ?disable-keyboard=${disableKeyboard}
+            ?hide-scale=${hideScale}
             ?no-border=${noBorder}
             ?full-height=${fullHeight}
+            scale-position=${scalePosition}
             @vl-active-action-changed=${(event) => {
                 activeActionChange({ previous: event.detail.previous });
                 activeActionChange({ current: event.detail.current });
@@ -361,12 +379,15 @@ export const MapPlaygroundLB72 = story(
     ({
         allowFullscreen,
         allowInvalidGeometry,
+        autoShiftControls,
         disableEscape,
         disableRotation,
         disableMousewheelZoom,
         disableKeyboard,
+        hideScale,
         noBorder,
         fullHeight,
+        scalePosition,
         activeActionChange,
         layerVisibleChange,
     }) => html`
@@ -374,12 +395,15 @@ export const MapPlaygroundLB72 = story(
             id="map-playground-lb72"
             ?allow-fullscreen=${allowFullscreen}
             ?allow-invalid-geometry=${allowInvalidGeometry}
+            ?auto-shift-controls=${autoShiftControls}
             ?disable-escape-key=${disableEscape}
             ?disable-rotation=${disableRotation}
             ?disable-mouse-wheel-zoom=${disableMousewheelZoom}
             ?disable-keyboard=${disableKeyboard}
+            ?hide-scale=${hideScale}
             ?no-border=${noBorder}
             ?full-height=${fullHeight}
+            scale-position=${scalePosition}
             @vl-active-action-changed=${(event) => {
                 activeActionChange({ previous: event.detail.previous });
                 activeActionChange({ current: event.detail.current });
@@ -544,4 +568,35 @@ export const MapPlaygroundLB72 = story(
     `
 );
 MapPlaygroundLB72.storyName = 'vl-map - playground - Lambert 72';
+
+export const MapAutoShiftControls = story(
+    mapArgs,
+    ({ autoShiftControls }) => html`
+        <vl-map id="map-auto-shift" lambert2008 ?auto-shift-controls=${autoShiftControls}>
+            <vl-map-side-sheet right open>
+                <vl-title type="h6">Paneel</vl-title>
+                <p>Zet je dit paneel open, dan wijken de controls en de legende ervoor.</p>
+            </vl-map-side-sheet>
+
+            <vl-map-overview-map></vl-map-overview-map>
+
+            <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
+
+            <vl-map-features-layer name="Shapes" .features=${features} projection-code="EPSG:31370">
+                <vl-map-layer-style name="Shapes" border-color=${purple} color=${purple}></vl-map-layer-style>
+            </vl-map-features-layer>
+
+            <vl-map-legend placement="top_right"></vl-map-legend>
+        </vl-map>
+    `
+);
+MapAutoShiftControls.storyName = 'vl-map - auto-shift-controls';
+MapAutoShiftControls.args = {
+    autoShiftControls: true,
+};
+MapAutoShiftControls.parameters = {
+    controls: {
+        include: ['autoShiftControls'],
+    },
+};
 
