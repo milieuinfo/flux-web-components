@@ -324,7 +324,19 @@
                 {
                     "name": "vl-breadcrumb",
                     "description": "Gebruik de `breadcrumb` component om de locatie van de huidige pagina af te beelden binnen een navigeerbare hiërarchie.",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-breadcrumb--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-breadcrumb--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "ellipsis",
+                            "description": "Houdt elk breadcrumb item op één regel en kapt het af met een ellipsis wanneer het niet past.<br>Zonder dit attribuut loopt een lang breadcrumb item door over meerdere regels.",
+                            "default": "false"
+                        }
+                    ]
                 },
                 {
                     "name": "vl-breadcrumb-item",
@@ -1343,11 +1355,60 @@
                 {
                     "name": "vl-side-navigation-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `side-navigation` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen aan de hand van de titels en leidt de gebruiker door de pagina inhoud.\n\n<FluxAlert type=\"info\">\n{`\n    Er bestaat een bijbehorend **Side Navigation Layout** component dat automatisch de grid-layout en een side navigation combineert.\n    Heb je meer controle of maatwerk nodig, gebruik dan \\`vl-side-navigation-next\\` rechtstreeks. Voor de standaard combinatie van layout en inhoudsopgave volstaat het layout-component.\n    Voor meer informatie: [Side Navigation Layout](/docs/components-next-side-navigation-layout--documentatie).\n`}\n</FluxAlert>",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-side-navigation-next--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-side-navigation--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "closed",
+                            "description": "Wanneer aanwezig wordt de inhoudstafel standaard verborgen. Heeft enkel effect wanneer het attribuut `compact` is gezet of bij mobiele weergave (viewport < 768px). Op desktop zonder compact wordt de navigatie altijd getoond.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "compact",
+                            "description": "Forceert de compacte weergave (toggle knop, verborgen navigatie standaard) ongeacht de viewport grootte.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "heading-root-selector",
+                            "description": "CSS selector om het root container element te vinden waarbinnen naar headings gezocht wordt. Indien niet opgegeven, wordt het volledige document/shadow root doorzocht. Voorbeeld: \"#section-1\" om enkel headings binnen die sectie te scannen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "max-depth",
+                            "description": "Optionele maximum diepte voor shadow DOM traversal (bij scannen van headings én bij zoeken van scroll-target). Biedt fijnmazige controle over performantie vs compatibiliteit. 0 = enkel light DOM, 1 = light DOM + eerste niveau shadow DOM, undefined = onbeperkt (standaard).",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "navigation-title",
+                            "description": "Tekst die getoond wordt als titel boven de inhoudstafel.",
+                            "default": "Op deze pagina"
+                        },
+                        {
+                            "name": "child-spacing",
+                            "description": "Bepaalt de verticale ruimte tussen child-links. `medium` geeft extra ruimte (1.3rem marge boven en onder), vergelijkbaar met de stijl van de klassieke vl-side-navigation. `small` is de standaard compacte weergave.",
+                            "default": "small"
+                        },
+                        {
+                            "name": "multi-active",
+                            "description": "Wanneer aanwezig worden alle items waarvan content zichtbaar is als actief gemarkeerd, in plaats van enkel het bovenste. De actieve items worden aangeduid met een doorlopende lijn uiterst links. Zonder dit attribuut kan het zijn dat de onderste items onderaan nooit aangeduid worden.<br>Dit attribuut is niet reactief.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "Custom inhoudsopgave. Wanneer je hier content plaatst (bijv. een ul/li-structuur met vl-link elementen met href=\"#...\"), wordt die gebruikt in plaats van de automatisch gegenereerde inhoudsopgave. De links moeten verwijzen naar heading-ids in de content.",
+                            "default": ""
+                        }
+                    ]
                 },
                 {
                     "name": "vl-side-navigation-section-next",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-side-navigation-next--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-layout-next",
@@ -1424,46 +1485,9 @@
                             "default": ""
                         },
                         {
-                            "name": "closed",
-                            "description": "Wanneer aanwezig wordt de inhoudstafel standaard verborgen. Heeft enkel effect wanneer het attribuut `compact` is gezet of bij mobiele weergave (viewport < 768px). Op desktop zonder compact wordt de navigatie altijd getoond.",
+                            "name": "hash-sync",
+                            "description": "Attribute wordt gebruikt om aan te duiden dat de url hash gesynchroniseerd moet worden met de side navigation. Dit gebeurt in twee richtingen: enerzijds, indien er een hash aanwezig in de url die overeenkomt met een item op de pagina dan zal de browser automatisch scrollen naar dat item, en anderzijds, wanneer je klikt op een item in de side navigation, zal de url hash worden bijgewerkt naar het id van dat item.",
                             "default": "false"
-                        },
-                        {
-                            "name": "compact",
-                            "description": "Forceert de compacte weergave (toggle knop, verborgen navigatie standaard) ongeacht de viewport grootte.",
-                            "default": "false"
-                        },
-                        {
-                            "name": "heading-root-selector",
-                            "description": "CSS selector om het root container element te vinden waarbinnen naar headings gezocht wordt. Indien niet opgegeven, wordt het volledige document/shadow root doorzocht. Voorbeeld: \"#section-1\" om enkel headings binnen die sectie te scannen.",
-                            "default": ""
-                        },
-                        {
-                            "name": "max-depth",
-                            "description": "Optionele maximum diepte voor shadow DOM traversal (bij scannen van headings én bij zoeken van scroll-target). Biedt fijnmazige controle over performantie vs compatibiliteit. 0 = enkel light DOM, 1 = light DOM + eerste niveau shadow DOM, undefined = onbeperkt (standaard).",
-                            "default": "undefined"
-                        },
-                        {
-                            "name": "navigation-title",
-                            "description": "Tekst die getoond wordt als titel boven de inhoudstafel.",
-                            "default": "Op deze pagina"
-                        },
-                        {
-                            "name": "child-spacing",
-                            "description": "Bepaalt de verticale ruimte tussen child-links. `medium` geeft extra ruimte (1.3rem marge boven en onder), vergelijkbaar met de stijl van de klassieke vl-side-navigation. `small` is de standaard compacte weergave.",
-                            "default": "small"
-                        },
-                        {
-                            "name": "multi-active",
-                            "description": "Wanneer aanwezig worden alle items waarvan content zichtbaar is als actief gemarkeerd, in plaats van enkel het bovenste. De actieve items worden aangeduid met een doorlopende lijn uiterst links. Zonder dit attribuut kan het zijn dat de onderste items onderaan nooit aangeduid worden.<br>Dit attribuut is niet reactief.",
-                            "default": "false"
-                        }
-                    ],
-                    "slots": [
-                        {
-                            "name": "[default]",
-                            "description": "Custom inhoudsopgave. Wanneer je hier content plaatst (bijv. een ul/li-structuur met vl-link elementen met href=\"#...\"), wordt die gebruikt in plaats van de automatisch gegenereerde inhoudsopgave. De links moeten verwijzen naar heading-ids in de content.",
-                            "default": ""
                         }
                     ]
                 },
@@ -1748,7 +1772,7 @@
                 },
                 {
                     "name": "vl-pill",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-pill-pill--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-pill--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1896,7 +1920,24 @@
                 },
                 {
                     "name": "vl-popover-action",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "selected",
+                                "description": "Duidt aan dat de actie geselecteerd is.",
+                                "type": "boolean",
+                                "default": "false"
+                            }
+                        ]
+                    }
                 },
                 {
                     "name": "vl-popover-action-list",
@@ -2005,7 +2046,7 @@
                 {
                     "name": "vl-proza-message",
                     "description": "Gebruik de `proza-message` component om een Proza bericht af te beelden dat achterliggend beheerd kan worden door de\nbusiness.<br/>\nVoor het ophalen van alle Proza berichten voor een domein zie de\n[proza-message-preloader](/docs/components-block-proza-message-preloader--proza-message-preloader-default) component.",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-proza-message--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-proza-message-proza-message--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -2042,7 +2083,7 @@
                 {
                     "name": "vl-proza-message-preloader",
                     "description": "Gebruik de `proza-message-preloader` component om alle Proza berichten van een domein in 1 keer op te halen en in\ncache te stoppen.<br/>\nDe [proza-message](/docs/components-block-proza-message--proza-message-default) component gaat eerst kijken of het bericht in\nde cache zit vooraleer een request naar buiten te sturen.<br/>\nDeze component voeg je 1 keer toe in je applicatie per domein, bij voorkeur op het hoogste niveau.",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-proza-message-preloader--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-proza-message-proza-message-preloader--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -2371,7 +2412,7 @@
                 {
                     "name": "vl-tabs",
                     "description": "Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs-tabs--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -2439,51 +2480,44 @@
                             "default": ""
                         },
                         {
-                            "name": "active-tab",
-                            "description": "Het id van de actieve tab. De tab in kwestie wordt geselecteerd bij het aanpassen van dit id.",
+                            "name": "label",
+                            "description": "Toegankelijke naam van de tab navigatie of widget.",
                             "default": ""
                         },
                         {
-                            "name": "alt",
-                            "description": "Toont de alt variant van de tabs. Deze variant dient gebruikt te worden als subnavigatie onder de functional header.",
+                            "name": "horizontal-navigation",
+                            "description": "Gebruik dit attribuut om enkel een horizontale tabbed-stijl navigatie te renderen. Er zullen geen ARIA tablist attributen toegepast worden.",
                             "default": "false"
                         },
                         {
-                            "name": "disable-links",
-                            "description": "Zet de automatische url manipulaties uit.<br>Dit attribuut wordt enkel bij de initiële render van een tab gebruikt en werkt niet dynamisch.",
+                            "name": "no-border",
+                            "description": "Verbergt de onderste rand van de tab navigatie.",
                             "default": "false"
-                        },
+                        }
+                    ],
+                    "slots": [
                         {
-                            "name": "responsive-label",
-                            "description": "Wordt afgebeeld op mobile wanneer de tabs samengevoegd worden tot een uitklapbaar menu. Wordt enkel afgebeeld wanneer er geen tab geselecteerd is.",
+                            "name": "default slot",
+                            "description": "Gebruik dit slot voor de tab links.",
                             "default": ""
                         },
                         {
-                            "name": "display-style",
-                            "description": "Geeft aan op welke manier de tabs getoond worden.<br>Standaard gedrag (`default`) is responsief; bij een breedte groter dan 768px is stijl de `tabs` stijl, anders is het de `collapsed` stijl.<br>Je kan ook expliciet de `tabs` of `collapsed` stijl kiezen die respectievelijk altijd de tabs of altijd de collapsed stijl toont.",
-                            "value": {
-                                "kind": "plain",
-                                "type": "'default' | 'tabs' | 'collapsed'"
-                            },
-                            "default": "default"
-                        },
-                        {
-                            "name": "within-functional-header",
-                            "description": "Duidt aan dat de tabs in de functional header gerenderd worden. Aan de hand van dit attribuut wordt de layout van de tabs licht aangepast.",
-                            "default": "false"
+                            "name": "panel slot",
+                            "description": "Gebruik dit slot voor de tab panels.",
+                            "default": ""
                         }
                     ],
                     "js": {
                         "events": [
                             {
-                                "name": "change",
-                                "description": "Afgevuurd na het klikken op een niet actieve tab. Het event bevat het id van de tab.",
-                                "type": "{ activeTab: string }"
+                                "name": "vl-tab-click",
+                                "description": "Event dat afgevuurd wordt wanneer een tab wordt aangeklikt.",
+                                "type": "{ tab: VlTabComponent }"
                             },
                             {
-                                "name": "vl-click",
-                                "description": "Afgevuurd na het klikken op een tab. Het event bevat het id van de tab.",
-                                "type": "{ activeTab: string }"
+                                "name": "vl-tab-link-click",
+                                "description": "Event dat afgevuurd wordt wanneer een tab link wordt aangeklikt.",
+                                "type": "{ tab: VlTabLinkComponent }"
                             }
                         ]
                     }
@@ -2502,7 +2536,7 @@
                 },
                 {
                     "name": "vl-tabs-pane",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs-tabs-pane--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -2526,11 +2560,11 @@
                 },
                 {
                     "name": "vl-tab",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs-tabs--documentatie"
                 },
                 {
                     "name": "vl-tab-section",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs-tabs--documentatie"
                 },
                 {
                     "name": "vl-template",

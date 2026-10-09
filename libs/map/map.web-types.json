@@ -1543,6 +1543,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "describedby",
+                            "description": "Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
+                            "default": ""
+                        },
+                        {
                             "name": "placeholder",
                             "description": "De placeholder tekst.<br>Dit attribuut is niet reactief.",
                             "default": ""
@@ -1745,6 +1750,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "auto-shift-controls",
+                            "description": "Laat de controls (schaal, zoom, rotate, overzichtskaart, fullscreen, vl-map-current-location, vl-map-action-controls) en de legende automatisch wijken voor een geopende vl-map-side-sheet of vl-side-sheet, links zowel als rechts. Controls aan dezelfde kant en op dezelfde hoogte schuiven samen op als rij, net ver genoeg om de meest bedekte vrij te maken en zonder de overkant of een vl-map-search te raken. Is daar niet genoeg ruimte voor, dan blijft die rij op haar plaats. Standaard uit.",
+                            "default": "false"
+                        },
+                        {
                             "name": "disable-escape-key",
                             "description": "Schakelt de escape-key uit.<br>Dit attribuut is niet reactief.",
                             "default": "false"
@@ -1765,6 +1775,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "hide-scale",
+                            "description": "Verbergt de schaal (ScaleLine) van de map.<br>Standaard toont de map een schaal linksonder.<br>Dit attribuut is niet reactief.",
+                            "default": "false"
+                        },
+                        {
                             "name": "full-height",
                             "description": "De map neemt de volledige beschikbare hoogte in van zijn parent.<br>Zie de docs pagina voor meer informatie over het gebruik van dit attribuut.",
                             "default": "false"
@@ -1778,6 +1793,15 @@
                             "name": "no-border",
                             "description": "De border rond de map wordt niet afgebeeld.",
                             "default": "false"
+                        },
+                        {
+                            "name": "scale-position",
+                            "description": "Bepaalt de hoek waarin de schaal (ScaleLine) op de map staat.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'"
+                            },
+                            "default": "bottom-left"
                         }
                     ],
                     "js": {

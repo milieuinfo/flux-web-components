@@ -1,3 +1,33 @@
+# [2.21.0](https://github.com/milieuinfo/flux-web-components/compare/v2.20.0...v2.21.0) (2026-10-09)
+
+### Bug Fixes
+
+* FLUX-208 - vl-autocomplete - toegankelijkheid verbeterd ([0b2db7c](https://github.com/milieuinfo/flux-web-components/commit/0b2db7c853a94998bd3f8b61cc3218764072aa02))
+* FLUX-702 - vl-table, vl-rich-data-table - toegankelijke naam voor focusbare host ([fe20924](https://github.com/milieuinfo/flux-web-components/commit/fe20924c8c197862415c4def704f33f2c9c54753))
+* FLUX-799 - cross-validatie - conditioneel verplicht veld via native required ([3d1570b](https://github.com/milieuinfo/flux-web-components/commit/3d1570b0018f726d6695fc0592ca1640f985ca8a))
+* FLUX-820 - web-types - argTypes correct gekoppeld en validatie van de koppeling toegevoegd ([914400d](https://github.com/milieuinfo/flux-web-components/commit/914400d973adbbc0b9b1170d06d868c8bef804a1))
+* FLUX-829 - vl-composite-input - velden krimpen en wrappen in een smalle kolom ([c40e885](https://github.com/milieuinfo/flux-web-components/commit/c40e885b1e5f9240dec622da30bf7eb00dac31d5))
+* FLUX-830 - vl-search-result - properties overlappen niet meer met het volgende resultaat ([d9484d1](https://github.com/milieuinfo/flux-web-components/commit/d9484d127bad65edd36b019efdd6186f02445942))
+* web-types - verbeteringen ([92c22d3](https://github.com/milieuinfo/flux-web-components/commit/92c22d3fe262b672135703e4782fdff8bcce813f))
+
+### Features
+
+* FLUX-388 - documentatie over het testen van toegankelijkheid ([9fd3ac3](https://github.com/milieuinfo/flux-web-components/commit/9fd3ac3922f2dc4a8b9e05351ce1d5b1cab37014))
+* FLUX-717 - code-connect - koppeling van de code met Figma Code Connect ([b99f0ab](https://github.com/milieuinfo/flux-web-components/commit/b99f0ab7400c753fc1155a05ac8dff479f6d0a0d))
+* FLUX-777 - form-control - describedby attribuut voor alle form controls ([8cb5443](https://github.com/milieuinfo/flux-web-components/commit/8cb5443989586f7e26f65236cbdcb46cc3fa88eb))
+* FLUX-798 - vl-duration-step - selected en interactive attribuut toegevoegd ([61d1895](https://github.com/milieuinfo/flux-web-components/commit/61d1895236d9abbd2250cbf489b1f0f88c46865c))
+* FLUX-803 - vl-map - scale-position, hide-scale en auto-shift-controls attributen toegevoegd ([99a031b](https://github.com/milieuinfo/flux-web-components/commit/99a031bdba65c59235782794a7b6517c6cd44756))
+* FLUX-814 - vl-select-rich - labelDescription doorzocht en createSearchMatcher toegevoegd ([2232b52](https://github.com/milieuinfo/flux-web-components/commit/2232b522ebb765c6165b6d6e4ab3f89eda542c4f))
+* FLUX-826 - technische opzet nieuw artifact @domg-wc/structures ([ea79401](https://github.com/milieuinfo/flux-web-components/commit/ea79401d5b2950255bb2931597f2a115ce85007e))
+* FLUX-828 - nummer formattering - noTrailingZeros optie toegevoegd ([023f38c](https://github.com/milieuinfo/flux-web-components/commit/023f38c67b81943213ace460d3b6a16d3368078d))
+* FLUX-839 - vl-page - nieuw component in @domg-wc/structures, vervangt vl-template ([ff17cfe](https://github.com/milieuinfo/flux-web-components/commit/ff17cfedcb2ceb8fbbdc38ecde42fd2c479de52a))
+
+### Documentation
+
+* FLUX-708 - recept 'Van npm naar pnpm' - afweging tegenover npm 12 toegevoegd ([9c9c5ea](https://github.com/milieuinfo/flux-web-components/commit/9c9c5ea9ba83148f997b41a51bb61e615849723e))
+* FLUX-799 - validatie - conditioneel verplicht veld via een gebonden required attribuut ([8e8a6e0](https://github.com/milieuinfo/flux-web-components/commit/8e8a6e0cef38ceff03e53378a42d6220463efcf0))
+* FLUX-824 - componenten overzicht - DV status ([e2d91d7](https://github.com/milieuinfo/flux-web-components/commit/e2d91d70baf8d31a7316dd463b395c040bb41080))
+
 # [2.20.0](https://github.com/milieuinfo/flux-web-components/compare/v2.19.0...v2.20.0) (2026-09-18)
 
 ### Bug Fixes

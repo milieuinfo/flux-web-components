@@ -58,6 +58,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "describedby",
+                            "description": "Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
+                            "default": ""
+                        },
+                        {
                             "name": "block",
                             "description": "Duidt aan dat de component de volledige breedte van zijn parent mag innemen.",
                             "default": "false"
@@ -163,6 +168,11 @@
                             "name": "blur-validation",
                             "description": "Valideert het veld zodra de gebruiker het verlaat. Een foutmelding verdwijnt weer zodra de waarde geldig is.<br>Raadpleeg de [blur-validatie documentatie](/?path=/docs/patronen-formulier-blur-validatie--documentatie) voor meer info.",
                             "default": "false"
+                        },
+                        {
+                            "name": "describedby",
+                            "description": "Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
+                            "default": ""
                         },
                         {
                             "name": "block",
@@ -468,6 +478,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "describedby",
+                            "description": "Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
+                            "default": ""
+                        },
+                        {
                             "name": "block",
                             "description": "Duidt aan dat de component de volledige breedte van zijn parent mag innemen.",
                             "default": "false"
@@ -536,11 +551,6 @@
                             "name": "input-group",
                             "description": "Duidt aan dat de component deel is van een input-group.",
                             "default": "false"
-                        },
-                        {
-                            "name": "describedby",
-                            "description": "Het `id` van een element (in de light DOM) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
-                            "default": ""
                         }
                     ],
                     "js": {
@@ -626,6 +636,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "describedby",
+                            "description": "Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
+                            "default": ""
+                        },
+                        {
                             "name": "block",
                             "description": "Duidt aan dat de component de volledige breedte van zijn parent mag innemen.",
                             "default": "false"
@@ -694,11 +709,6 @@
                             "name": "input-group",
                             "description": "Duidt aan dat de component deel is van een input-group.",
                             "default": "false"
-                        },
-                        {
-                            "name": "describedby",
-                            "description": "Het `id` van een element (in de light DOM) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
-                            "default": ""
                         },
                         {
                             "name": "mask",
@@ -895,6 +905,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "describedby",
+                            "description": "Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
+                            "default": ""
+                        },
+                        {
                             "name": "readonly",
                             "description": "Duidt aan dat het veld enkel leesbaar is.",
                             "default": "false"
@@ -978,6 +993,11 @@
                             "name": "blur-validation",
                             "description": "Valideert het veld zodra de gebruiker het verlaat. Een foutmelding verdwijnt weer zodra de waarde geldig is.<br>Raadpleeg de [blur-validatie documentatie](/?path=/docs/patronen-formulier-blur-validatie--documentatie) voor meer info.",
                             "default": "false"
+                        },
+                        {
+                            "name": "describedby",
+                            "description": "Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
+                            "default": ""
                         },
                         {
                             "name": "block",
@@ -1087,6 +1107,11 @@
                             "name": "blur-validation",
                             "description": "Valideert het veld zodra de gebruiker het verlaat. Een foutmelding verdwijnt weer zodra de waarde geldig is.<br>Raadpleeg de [blur-validatie documentatie](/?path=/docs/patronen-formulier-blur-validatie--documentatie) voor meer info.",
                             "default": "false"
+                        },
+                        {
+                            "name": "describedby",
+                            "description": "Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
+                            "default": ""
                         },
                         {
                             "name": "placeholder",
@@ -1247,6 +1272,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "describedby",
+                            "description": "Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
+                            "default": ""
+                        },
+                        {
                             "name": "block",
                             "description": "Duidt aan dat de component de volledige breedte van zijn parent mag innemen.",
                             "default": "false"
@@ -1370,6 +1400,11 @@
                             "name": "blur-validation",
                             "description": "Valideert het veld zodra de gebruiker het verlaat. Een foutmelding verdwijnt weer zodra de waarde geldig is.<br>Raadpleeg de [blur-validatie documentatie](/?path=/docs/patronen-formulier-blur-validatie--documentatie) voor meer info.",
                             "default": "false"
+                        },
+                        {
+                            "name": "describedby",
+                            "description": "Heeft geen effect op de `vl-textarea-rich` editor.",
+                            "default": ""
                         },
                         {
                             "name": "block",
@@ -1522,6 +1557,11 @@
                             "name": "blur-validation",
                             "description": "Valideert het veld zodra de gebruiker het verlaat. Een foutmelding verdwijnt weer zodra de waarde geldig is.<br>Raadpleeg de [blur-validatie documentatie](/?path=/docs/patronen-formulier-blur-validatie--documentatie) voor meer info.",
                             "default": "false"
+                        },
+                        {
+                            "name": "describedby",
+                            "description": "Het `id` van een element in dezelfde DOM-boom als het veld (document of dezelfde shadow root) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.",
+                            "default": ""
                         },
                         {
                             "name": "readonly",

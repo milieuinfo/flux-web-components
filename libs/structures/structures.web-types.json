@@ -6,7 +6,44 @@
     "description-markup": "markdown",
     "contributions": {
         "html": {
-            "elements": []
+            "elements": [
+                {
+                    "name": "vl-page",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>`vl-page` bouwt de basis-layout van een pagina op: een header, de main content en een footer.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/structures-page--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "v-center",
+                            "description": "Centreert de main content verticaal in de ruimte tussen de header en de footer.<br>Heeft enkel effect als `vl-page` hoger is dan zijn inhoud, zie Hoogte in de documentatie.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "v-stretch",
+                            "description": "Laat de main content de volledige ruimte tussen de header en de footer innemen.<br>Heeft enkel effect als `vl-page` hoger is dan zijn inhoud, zie Hoogte in de documentatie.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "header",
+                            "description": "De header van de pagina, gewoonlijk een `vl-header-next`. Die rendert zijn header zelf vooraan in de `body`."
+                        },
+                        {
+                            "name": "main",
+                            "description": "De main content van de pagina. Komt in het `main` landmark terecht."
+                        },
+                        {
+                            "name": "footer",
+                            "description": "De footer van de pagina, gewoonlijk een `vl-footer-next`. Die rendert zijn footer zelf achteraan in de `body`."
+                        }
+                    ]
+                }
+            ]
         }
     }
 }
