@@ -137,7 +137,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         '/docs/components-block-input-slider--documentatie'
     ),
     buildWTConfig('vl-loader', loaderArgTypes, null, '/docs/components-block-loader--documentatie'),
-    buildWTConfig('vl-modal', modalArgTypes, null, '/docs/components-block-modal--documentatie'),
+    buildWTConfig(
+        'vl-modal',
+        modalArgTypes,
+        '../../libs/components/src/block/modal/stories/vl-modal.stories-doc.mdx',
+        '/docs/components-block-modal--documentatie'
+    ),
     buildWTConfig(
         'vl-cascader',
         cascaderArgTypes,

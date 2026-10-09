@@ -263,7 +263,7 @@
         "name": "modal",
         "docs": "components-block-modal--documentatie",
         "condition": {
-            "base": "HTMLElement",
+            "base": "LitElement",
             "generation": "legacy",
             "css": "govflanders",
             "tests": ["Component"],

@@ -55,7 +55,7 @@ export const modalArgTypes: ArgTypes<typeof modalArgs> = {
     closable: {
         name: 'closable',
         description:
-            'Attribuut om de modal sluitbaar te maken via het "Sluit"-icoon in de rechterbovenhoek of door de "Escape"-toets te gebruiken.',
+            'Attribuut om de modal sluitbaar te maken via het "Sluit"-icoon in de rechterbovenhoek, de "Escape"-toets of een klik op de backdrop.',
         table: {
             type: { summary: 'Boolean' },
             defaultValue: { summary: 'false' },
@@ -140,7 +140,7 @@ export const modalArgTypes: ArgTypes<typeof modalArgs> = {
     onVlOpen: {
         name: 'vl-open',
         description:
-            'Event dat afgevuurd wordt wanneer de modal opent, ongeacht of dat via het `open`-attribuut, de `open()`-methode, een knop of escape gebeurt.',
+            'Event dat afgevuurd wordt wanneer de modal opent, ongeacht of dat via het `open`-attribuut, de `open()`-methode of een trigger gebeurt.',
         table: {
             category: CATEGORIES.EVENTS,
         },
@@ -148,7 +148,7 @@ export const modalArgTypes: ArgTypes<typeof modalArgs> = {
     onVlClose: {
         name: 'vl-close',
         description:
-            'Event dat afgevuurd wordt wanneer de modal sluit, ongeacht of dat via het `open`-attribuut, de `close()`-methode, een knop of escape gebeurt.',
+            'Event dat afgevuurd wordt wanneer de modal sluit, ongeacht of dat via het `open`-attribuut, de `close()`-methode, de annuleer-/sluit-knop, escape of de backdrop gebeurt.',
         table: {
             category: CATEGORIES.EVENTS,
         },
