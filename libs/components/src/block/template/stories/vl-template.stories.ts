@@ -51,7 +51,7 @@ const mainHtml = html`
     <section data-cy="template-content" class="vl-grid">
         <div class="vl-content-block">
             <div id="grid" class="vl-grid vl-stacked-medium" slot="main">
-                <vl-title type="h1" class="vl-column vl-column--12">vl-template</vl-title>
+                <vl-title type="h1" id="page-title" class="vl-column vl-column--12">vl-template</vl-title>
             </div>
         </div>
     </section>
@@ -68,11 +68,11 @@ export const templateDefault = ({ center, stretch }: typeof templateArgs) =>
                 <vl-header-next
                     slot="header"
                     identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"
-                    skip-to-content-id="main-content"
+                    skip-to-content-id="page-title"
                     development
                     simple
                 ></vl-header-next>
-                <div id="main-content" slot="main">${mainHtml}</div>
+                <div slot="main">${mainHtml}</div>
                 <vl-footer-next
                     slot="footer"
                     identifier="0337f8dc-3266-4e7a-8f4a-95fd65189e5b"

@@ -35,13 +35,13 @@ const PageTemplate = story(
             <vl-header-next
                 slot="header"
                 identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"
-                skip-to-content-id="main-content"
+                skip-to-content-id="page-title"
                 development
                 simple
             ></vl-header-next>
-            <section id="main-content" slot="main" class="vl-section vl-section--alt" data-cy="page-content">
+            <section slot="main" class="vl-section vl-section--alt" data-cy="page-content">
                 <div class="vl-content-block">
-                    <vl-title type="h1" no-space-bottom>vl-page</vl-title>
+                    <vl-title type="h1" id="page-title" no-space-bottom>vl-page</vl-title>
                 </div>
             </section>
             <vl-footer-next
@@ -53,9 +53,8 @@ const PageTemplate = story(
     `
 );
 
-// Past het recept uit de documentatie (Hoogte) toe op de keten body > #storybook-root > #root-inner > vl-page van
-// Storybook. Storybook zet de body zelf op display: block, vandaar de specifiekere selector. Via beforeEach komt deze
-// stijl niet in de getoonde code van de story.
+// Past het recept uit de documentatie (Hoogte) toe. Storybook zet de body zelf op display: block, vandaar de
+// specifiekere selector. Via beforeEach komt deze stijl niet in de getoonde code van de story.
 const applyPageHeightRecipe = () => {
     const style = document.createElement('style');
     style.textContent = `
@@ -69,8 +68,7 @@ const applyPageHeightRecipe = () => {
             min-height: 100%;
         }
 
-        #storybook-root,
-        #root-inner {
+        body :has(vl-page) {
             display: flex;
             flex: 1;
             flex-direction: column;
