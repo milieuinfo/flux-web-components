@@ -1,9 +1,9 @@
 {
     "extends": "../../tsconfig.base.json",
     "include": [
+        "./src/declare-module.d.ts",
         "./src/form/**/*.ts",
-        "./src/page-layout/**/*.ts",
-        "./src/page-popover/**/*.ts",
+        "./src/popover/**/*.ts",
         "../../resources/cypress-commands/*.d.ts",
         "../../resources/cypress-component/support/*.d.ts"
     ],

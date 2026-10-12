@@ -19,8 +19,10 @@ import { VlPage } from '@domg-wc/structures';
 
 ```html
 <vl-page>
-    <vl-header-next slot="header" skip-to-content-id="main-content"></vl-header-next>
-    <div id="main-content" slot="main"></div>
+    <vl-header-next slot="header" skip-to-content-id="page-title"></vl-header-next>
+    <div slot="main">
+        <vl-title type="h1" id="page-title">Paginatitel</vl-title>
+    </div>
     <vl-footer-next slot="footer"></vl-footer-next>
 </vl-page>
 ```
@@ -28,7 +30,20 @@ import { VlPage } from '@domg-wc/structures';
 `vl-header-next` en `vl-footer-next` renderen niet in `vl-page`: ze zetten hun header vooraan en hun footer achteraan
 in de `body`. De slots `header` en `footer` zijn voor die componenten enkel hun plaats in de markup.
 
+Laat `skip-to-content-id` verwijzen naar de id van de eerste heading van de content, niet naar het element in het slot
+`main`: een screenreader leest anders de volledige inhoud voor zodra de skip link gebruikt wordt.
+
 <Canvas of={VlPageStories.PageDefault} />
+
+<FluxAlert type="info" title="Uitgewerkte voorbeelden" icon="info-circle">
+{`
+    De opbouw van de main content vind je in het patroon
+    <a href="/docs/patronen-pagina-opbouw--documentatie">Pagina Opbouw</a>: de
+    <a href="/story/patronen-pagina-opbouw--pagina-opbouw-standaard">standaard layout</a>, de
+    <a href="/story/patronen-pagina-opbouw--pagina-opbouw-volledige-breedte">volledige breedte</a> en een pagina
+    <a href="/story/patronen-pagina-opbouw--pagina-opbouw-met-side-navigation">met side navigation</a>.
+`}
+</FluxAlert>
 
 
 ## Configuratie
@@ -57,7 +72,8 @@ Dat heeft enkel effect als `vl-page` hoger is dan zijn inhoud, zie [Hoogte](#hoo
 
 `v-center` en `v-stretch` hebben pas effect als `vl-page` hoger is dan zijn inhoud. Laat `vl-page` daarvoor de ruimte
 innemen die tussen de header en de footer overblijft: maak van de `body` een flex-kolom met de hoogte van het venster,
-en laat elk element tussen de `body` en `vl-page` meegroeien, bijvoorbeeld de root van de applicatie.
+en laat elk element tussen de `body` en `vl-page` meegroeien. De selector `body :has(vl-page)` selecteert precies die
+elementen, bijvoorbeeld de root van de applicatie.
 
 ```css
 html {
@@ -70,8 +86,8 @@ body {
     min-height: 100%;
 }
 
-/* elk element tussen body en vl-page, bijvoorbeeld de root van de applicatie */
-app-root {
+/* elk element tussen body en vl-page */
+body :has(vl-page) {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -85,3 +101,38 @@ vl-page {
 De basisstijlen van Flux zetten zelf `min-height: 100%` op de `body`; daarom krijgt `html` de hoogte van het venster
 en niet de `body`. Geef `vl-page` geen `min-height: 100vh`: met `vl-header-next` en `vl-footer-next` wordt de pagina
 dan even hoog als het venster plus de header en de footer, en scrolt ze altijd.
+
+<FluxAlert type="warning">
+{`
+    <code>:has()</code> kijkt niet door een shadow root. Staat <code>vl-page</code> in de shadow DOM van een component,
+    laat dan ook de host van dat component en de elementen tussen de shadow root en <code>vl-page</code> meegroeien.
+`}
+</FluxAlert>
+
+Bijvoorbeeld voor een applicatie met `app-root` als host. In de stylesheet van het document vervangt deze regel
+`body :has(vl-page)`:
+
+```css
+/* elk element tussen body en de host, en de host zelf */
+body :has(app-root),
+app-root {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+```
+
+In de styles van `app-root` zelf, want de stylesheet van het document bereikt de shadow DOM niet:
+
+```css
+/* elk element tussen de shadow root en vl-page */
+.app-layout {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+vl-page {
+    flex: 1;
+}
+```

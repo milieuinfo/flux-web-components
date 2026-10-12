@@ -74,15 +74,15 @@ reden waarom hij open is en een werkende omweg.
 
 ## Designs maken (code → design)
 
-- **Pagina's:** `vl-template` is de standaardkeuze; `vl-dashboard` enkel voor grote applicaties die eerder
+- **Pagina's:** `vl-page` is de standaardkeuze; `vl-dashboard` enkel voor grote applicaties die eerder
   een dashboard of desktop-app zijn. Stel gerichte vragen om die keuze te valideren vóór je begint. Bij
-  `vl-template` met grote tabellen of een kaart: full-width functional header en full-width content-blokken.
+  `vl-page` met grote tabellen of een kaart: full-width functional header en full-width content-blokken.
 - **Opbouw van de main content:** `vl-section`, en daarbinnen `vl-content-block`. Vul de meegeleverde
   `.vl-section`-slots in; verzin er niets naast.
 - **Zijnavigatie** (TOC van de pagina) komt rond de content, binnen de `vl-content-block`, met
   `vl-side-navigation` op een `vl-grid`. In code is dat `vl-side-navigation-layout-next`
   (`content-block heading-root-selector="#..."`), dat de TOC uit de heading-ids genereert. Voorbeeld:
-  `libs/integrations/src/page-layout/page-layout-example.component.ts` en Figma-node `563-51452`.
+  `apps/storybook/docs/f_patronen/pagina-opbouw/pagina-opbouw.helpers.ts` en Figma-node `563-51452`.
 - **Bedenk geen eigen layouts** — geen eigen frames, backgrounds, borders of spacing. Een component weet
   niet in welke parent hij zit: de **parent bepaalt de spacing**, met `.vl-stacked` voor verticaal en
   `.vl-group` voor horizontaal. Gebruik `vl-title` met `no-space-bottom` in een `.vl-stacked`.
@@ -97,7 +97,7 @@ reden waarom hij open is en een werkende omweg.
 
 | Wat je zoekt | Component |
 |---|---|
-| Pagina-layout (standaard / dashboard) | `vl-template` / `vl-dashboard` |
+| Pagina-layout (standaard / dashboard) | `vl-page` / `vl-dashboard` |
 | App-/titelbalk bovenaan | `vl-functional-header` |
 | Footer | `vl-footer` |
 | Knop · link | `vl-button` · `vl-link` |
