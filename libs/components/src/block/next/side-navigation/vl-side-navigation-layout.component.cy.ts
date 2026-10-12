@@ -545,12 +545,38 @@ const runMobileTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) => 
         cy.get('vl-side-navigation-layout-next')
             .shadow()
             .find('navigation-part')
-            .should('have.class', 'vl-column--s-12');
+            .should('have.class', 'vl-column--s-12')
+            .should('have.class', 'vl-column--s-start-1');
         cy.get('vl-side-navigation-layout-next').shadow().find('content-part').should('have.class', 'vl-column--s-12');
 
         cy.injectAxe();
         cy.checkA11y('vl-side-navigation-layout-next');
     });
+
+    it('should span the full grid width on mobile viewport', () => {
+        mountFn();
+        cy.get('vl-side-navigation-layout-next')
+            .shadow()
+            .find('layout-container')
+            .then(($container) => {
+                const containerWidth = $container[0].getBoundingClientRect().width;
+
+                cy.get('vl-side-navigation-layout-next')
+                    .shadow()
+                    .find('content-part')
+                    .should(($content) => {
+                        expect($content[0].getBoundingClientRect().width).to.be.closeTo(containerWidth, 1);
+                    });
+
+                cy.get('vl-side-navigation-layout-next')
+                    .shadow()
+                    .find('navigation-part')
+                    .should(($navigation) => {
+                        expect($navigation[0].getBoundingClientRect().width).to.be.closeTo(containerWidth, 1);
+                    });
+            });
+    });
+
 
     it('should be accessible on mobile viewport', () => {
         mountFn();

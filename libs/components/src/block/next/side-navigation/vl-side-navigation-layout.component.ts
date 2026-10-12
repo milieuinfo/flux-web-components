@@ -273,6 +273,7 @@ export class VlSideNavigationLayoutComponent extends BaseLitElement {
             'vl-column--start-10': !this.compact,
             'vl-column--m-3': !this.compact,
             'vl-column--s-12': true,
+            'vl-column--s-start-1': !this.compact,
         };
     }
 

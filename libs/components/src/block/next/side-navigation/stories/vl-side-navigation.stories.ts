@@ -146,7 +146,7 @@ export const SideNavigationDefault = story(
         return html`
             <div class="vl-grid vl-content-block">
                 <vl-side-navigation-next
-                    class="vl-column vl-column--3 vl-column--start-10 vl-column--m-3  vl-column--s-12 vl-side-navigation--order-1"
+                    class="vl-column vl-column--3 vl-column--start-10 vl-column--m-3 vl-column--s-12 vl-column--s-start-1 vl-side-navigation--order-1"
                     ?closed=${closed}
                     ?compact=${compact}
                     ?multi-active=${multiActive}
@@ -199,7 +199,7 @@ export const SideNavigationWithCustomToc = story(
         return html`
             <div class="vl-grid vl-content-block">
                 <vl-side-navigation-next
-                    class="vl-column vl-column--3 vl-column--start-10 vl-column--m-3  vl-column--s-12  vl-side-navigation--order-1"
+                    class="vl-column vl-column--3 vl-column--start-10 vl-column--m-3 vl-column--s-12 vl-column--s-start-1 vl-side-navigation--order-1"
                     ?closed=${closed}
                     ?compact=${compact}
                     ?multi-active=${multiActive}
@@ -391,7 +391,7 @@ export const SideNavigationWithSections = story(
         return html`
             <div class="vl-grid vl-content-block">
                 <vl-side-navigation-next
-                    class="vl-column vl-column--3 vl-column--start-10 vl-column--m-3 vl-column--s-12 vl-side-navigation--order-1"
+                    class="vl-column vl-column--3 vl-column--start-10 vl-column--m-3 vl-column--s-12 vl-column--s-start-1 vl-side-navigation--order-1"
                     ?closed=${closed}
                     ?compact=${compact}
                     child-spacing=${childSpacing}
