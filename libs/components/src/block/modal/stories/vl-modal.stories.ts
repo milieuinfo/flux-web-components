@@ -38,10 +38,12 @@ export const modalDefault = story(
         position,
         id,
         focusOnModal,
+        onVlOpen,
+        onVlClose,
     }) => html`
         <div>
             <vl-button
-                id="button-open-modal-vt"
+                id="button-open-${id}"
                 modal-open="${id}"
                 data-cy="button-modal-toggle"
                 aria-controls="${id}"
@@ -62,6 +64,8 @@ export const modalDefault = story(
                 size="${size}"
                 position="${position}"
                 ?focus-on-modal=${focusOnModal}
+                @vl-open=${onVlOpen}
+                @vl-close=${onVlClose}
             >
                 <span slot="content">
                     <vl-datepicker block label="Kies een datum"></vl-datepicker>
@@ -79,10 +83,10 @@ modalDefault.args = {
     title: 'Modal default',
 };
 
-export const modalWithOtherAction = () => html`
+export const modalWithOtherAction = ({ onVlOpen, onVlClose }: typeof modalArgs) => html`
     <div>
         <vl-button
-            id="button-open-modal-vt"
+            id="button-open-modal-cl-nc-li"
             modal-open="modal-cl-nc-li"
             data-cy="button-modal-toggle"
             aria-controls="modal-cl-nc-li"
@@ -90,7 +94,15 @@ export const modalWithOtherAction = () => html`
         >
             Open
         </vl-button>
-        <vl-modal id="modal-cl-nc-li" title="Modal met andere actie" closable not-cancellable data-cy="modal">
+        <vl-modal
+            id="modal-cl-nc-li"
+            title="Modal met andere actie"
+            closable
+            not-cancellable
+            data-cy="modal"
+            @vl-open=${onVlOpen}
+            @vl-close=${onVlClose}
+        >
             <span slot="content">Lorem ipsum dolor sit amet.</span>
             <vl-link slot="button" button-as-link icon="cross" icon-placement="before" modal-close>
                 Andere actie
@@ -100,7 +112,7 @@ export const modalWithOtherAction = () => html`
 `;
 modalWithOtherAction.storyName = 'vl-modal - with other action';
 modalWithOtherAction.parameters = {
-    controls: { hideNoControlsWarning: true },
+    controls: { disable: true },
 };
 
 export const modalMedium = modalDefault.bind({});

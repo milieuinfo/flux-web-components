@@ -50,10 +50,6 @@ interface Infotext {
     dressAll(): void;
 }
 
-interface Modal {
-    lastClickedToggle: any;
-}
-
 interface Pattern {
     patterns: any;
     patternInstances: any[];
@@ -207,7 +203,6 @@ export interface VL {
     formValidation: FormValidation;
     i18n: Translation;
     infotext: Infotext;
-    modal: Modal;
     ns: 'vl-';
     pattern: Pattern;
     select: Select;
