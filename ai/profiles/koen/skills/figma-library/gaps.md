@@ -3,7 +3,7 @@
 Wat in Figma of in code nog niet klopt, met de reden waarom het open staat. Een opgeloste gap verdwijnt hier;
 een nieuwe is één rij. De werkafspraken en recepten staan in [SKILL.md](SKILL.md).
 
-Stand 2026-09-30.
+Stand 2026-10-13.
 
 | Component | Gap | Waarom open / omweg |
 |---|---|---|
@@ -25,6 +25,9 @@ Stand 2026-09-30.
 | `vl-functional-header` | geen `full-width` bij `size=S` | op mobiel functioneel gelijk |
 | `vl-select-rich` | label en placeholder gaan verloren bij een variantwissel | tekst zit in geneste componenten, een property bovenaan kan er niet aan |
 | `vl-step`, `vl-pill`, `vl-form-message` | variant-assen mengen code-concepten | herstructureren = reconciliatie |
+| `vl-accordion` | geen `bold` (titel op gewicht 700) | een boolean stuurt geen lettergewicht: vraagt een nieuwe as of een verborgen vette titellaag |
+| `vl-autocomplete` | geen `show-clear` (sluit-icoon in het veld) | kan als boolean, standaard uit; raakt geen bestaande designs |
+| `vl-map` | geen schaallijn; code toont ze standaard (`hide-scale`, `scale-position`) | een laag die standaard aan staat, wijzigt elke geplaatste kaart |
 | 🚧-componenten, `vl-dashboard` | work-in-progress zit in productie-designs | promoveren of expliciet WIP |
 | `vl-header`, `vl-functional-header`, `vl-dashboard` | instances verwijzen naar vijf van het canvas verwijderde main components (`↳ SelectBase`, twee `login/logged out/2/…`, `dashboard-content`, `content-sample`) | enkel via script te onderhouden; opnieuw koppelen aan levende componenten |
 | **Extern of geblokkeerd** | | |

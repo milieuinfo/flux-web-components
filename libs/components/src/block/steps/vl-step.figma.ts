@@ -9,7 +9,8 @@ const instance = figma.selectedInstance;
 
 // De Figma-as `type` mengt het `type`-attribuut (disabled, success, warning, error, highlighted) met
 // weergaven die in code aparte booleans zijn (`timeline`, `simple-timeline`) en met `duration`, dat in code
-// een apart element is (vl-duration-step in de `duration`-slot van een vl-step).
+// een apart element is (vl-duration-step in de `duration`-slot van een vl-step). `duration - interactive` is
+// datzelfde element met het attribuut `interactive`.
 // `size` (M/S) heeft geen code-equivalent. `toggle-opened` (INSTANCE_SWAP) is het interne accordion-icoon.
 // `open` mapt op `default-open` (enkel zinvol samen met `toggleable`).
 // `heading-level`, `icon-aria-label`, `timeline-aria-label` en `last-step-no-line` hebben geen Figma-equivalent.
@@ -28,9 +29,16 @@ const typeValue =
               timeline: { timeline: true },
               'simple-timeline': { simpleTimeline: true },
               duration: { duration: true },
+              'duration - interactive': { duration: true, interactive: true },
           })
         : undefined;
-const type: { type?: string; timeline?: boolean; simpleTimeline?: boolean; duration?: boolean } = typeValue ?? {};
+const type: {
+    type?: string;
+    timeline?: boolean;
+    simpleTimeline?: boolean;
+    duration?: boolean;
+    interactive?: boolean;
+} = typeValue ?? {};
 instance.getEnum('size', {
     M: {},
     S: {},
@@ -74,7 +82,7 @@ const stepStart = `<vl-step${type.type ? ` type="${type.type}"` : ''}${type.time
     type.simpleTimeline ? ' simple-timeline' : ''
 }${line ? ' line' : ''}${toggleable ? ' toggleable' : ''}${toggleable && open ? ' default-open' : ''}>${iconSlot}
     <span slot="title">${title}</span>${subtitleSlot}${contentSlot}`;
-const durationStep = `<vl-duration-step slot="duration">${title}</vl-duration-step>`;
+const durationStep = `<vl-duration-step slot="duration"${type.interactive ? ' interactive' : ''}>${title}</vl-duration-step>`;
 const duration = type.duration === true;
 
 export default {
