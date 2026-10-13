@@ -205,8 +205,7 @@ describe('cypress-component - structures - vl-page - with vl-header-next and vl-
         });
     };
 
-    // het recept uit de documentatie (Hoogte), toegepast op de keten body > main > [data-cy-root] > div > vl-page
-    // van de harness
+    // het recept uit de documentatie (Hoogte)
     const applyPageHeightRecipe = () => {
         cy.document().then((document) => {
             const style = document.createElement('style');
@@ -214,7 +213,7 @@ describe('cypress-component - structures - vl-page - with vl-header-next and vl-
             style.textContent = `
                 html { height: 100%; }
                 body { display: flex; flex-direction: column; min-height: 100%; margin: 0; }
-                main, [data-cy-root], [data-cy-root] > div { display: flex; flex: 1; flex-direction: column; }
+                body :has(vl-page) { display: flex; flex: 1; flex-direction: column; }
                 vl-page { flex: 1; }
             `;
             document.head.append(style);
@@ -274,6 +273,52 @@ describe('cypress-component - structures - vl-page - with vl-header-next and vl-
                         expect(spaceAbove).to.be.greaterThan(0);
                         expect(spaceAbove).to.be.closeTo(spaceBelow, 1);
                     });
+                });
+            });
+        });
+    });
+
+    it('should fit the page in the viewport with v-stretch when vl-page is in a shadow root', () => {
+        stubHeaderAndFooterContainers();
+        // het recept uit de documentatie (Hoogte) voor een vl-page in de shadow DOM van een component
+        cy.document().then((document) => {
+            const style = document.createElement('style');
+            style.id = 'page-height-recipe';
+            style.textContent = `
+                html { height: 100%; }
+                body { display: flex; flex-direction: column; min-height: 100%; margin: 0; }
+                body :has(app-root), app-root { display: flex; flex: 1; flex-direction: column; }
+            `;
+            document.head.append(style);
+        });
+        cy.mount(html`<app-root></app-root>`);
+        cy.get('app-root').then(([host]) => {
+            host.attachShadow({ mode: 'open' }).innerHTML = `
+                <style>
+                    .app-layout { display: flex; flex: 1; flex-direction: column; }
+                    vl-page { flex: 1; }
+                </style>
+                <div class="app-layout">
+                    <vl-page v-stretch>
+                        <div slot="main" data-cy="main">main</div>
+                    </vl-page>
+                </div>
+            `;
+        });
+
+        cy.window().then((window) => {
+            rectOf('#header__container').then((header) => {
+                rectOf('#footer__container').then((footer) => {
+                    cy.get('app-root')
+                        .shadow()
+                        .find('[data-cy="main"]')
+                        .should(([main]) => {
+                            const rect = main.getBoundingClientRect();
+
+                            expect(window.document.documentElement.scrollHeight).to.equal(window.innerHeight);
+                            expect(rect.top).to.be.closeTo(header.bottom, 1);
+                            expect(rect.bottom).to.be.closeTo(footer.top, 1);
+                        });
                 });
             });
         });

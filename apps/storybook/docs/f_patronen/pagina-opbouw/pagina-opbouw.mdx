@@ -1,5 +1,6 @@
-import { Meta, Source } from '@storybook/addon-docs/blocks';
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
 import * as pageLayoutStories from './pagina-opbouw.stories';
+import { pageLayoutDefaultHtml, pageLayoutFullWidthHtml, pageLayoutSideNavigationHtml } from './pagina-opbouw.helpers';
 
 <Meta of={pageLayoutStories} />
 
@@ -9,69 +10,66 @@ Bouw een pagina op met [`vl-page`](/docs/structures-page--documentatie) uit het 
 `vl-header-next` en `vl-footer-next` in de slots `header` en `footer`. `vl-page` zet de main content zelf in een `main`
 landmark; voeg er dus geen eigen `<main>` rond toe.
 
+De main content begint met een `vl-functional-header`. Daaronder komt elke sectie in een `.vl-section` met daarin een
+`.vl-content-block`. De verticale ruimte tussen de elementen van een sectie komt van `.vl-stacked` op de container;
+geef een `vl-title` daarin het attribuut `no-space-bottom`.
+
+Vervang in de voorbeelden de `identifier` van `vl-header-next` en `vl-footer-next` door die van je eigen applicatie.
+Het attribuut `development` laat de header en de footer van de ontwikkel-servers van Digitaal Vlaanderen komen; laat
+het weg in productie.
+
+## Componenten
+
+- [vl-page](/docs/structures-page--documentatie)
+- [vl-functional-header](/docs/components-block-functional-header--documentatie)
+- [vl-side-navigation-layout-next](/docs/components-block-next-side-navigation-layout--documentatie)
+
 ## Standaard layout
 
 Dit is de standaard layout voor applicaties. Gebruik de alternatieve "Volledige breedte" variant enkel indien deze layout te smal is om alle content duidelijk te visualiseren.
 
+<Canvas of={pageLayoutStories.PaginaOpbouwStandaard} sourceState="none" />
+
 <details open>
     <summary>Code</summary>
-    <Source
-        language="html"
-        dark
-        format={true}
-        code={`
-<html>
-    <body>
-        <vl-page>
-            <vl-header-next slot="header" skip-to-content-id="main-content"></vl-header-next>
-            <div slot="main">
-                <vl-functional-header title="Page Layout" skip-to-content-id="#main-content">...</vl-functional-header>
-                <section class="vl-section">
-                    <div class="vl-content-block">
-                        <vl-title type="h1" id="main-content">Content</vl-title>
-                    </div>
-                </section>
-            </div>
-            <vl-footer-next slot="footer"></vl-footer-next>
-        </vl-page>
-    </body>
-</html>
-        `}
-    ></Source>
+    <Source code={pageLayoutDefaultHtml} language="html" dark format={true} />
 </details>
+
+De skip link van `vl-header-next` verwijst naar de titel van de functional header: `title` is de id van die titel
+binnen `vl-functional-header`. De skip link van de functional header verwijst naar de titel van de pagina.
+
+<FluxAlert type="warning">
+{`
+    De skip link gaat naar het eerste element met de id <code>title</code> op de pagina. Componenten zoals
+    <code>vl-alert</code> en <code>vl-content-header</code> gebruiken die id ook voor hun eigen titel. Staat zo'n
+    component boven de functional header, dan landt de skip link van <code>vl-header-next</code> daar.
+`}
+</FluxAlert>
 
 ## Volledige breedte
 
 Dit is een layout voor applicaties die de volledige schermbreedte nodig hebben. Gebruik dit enkel wanneer de standaard layout niet mogelijk is, bijvoorbeeld in het geval van uitgebreide data tabellen.
 
-Voeg hiervoor de volgende attributen toe:
+Voeg hiervoor het volgende toe:
 
-- `full-width` op het `<vl-functional-header>` component
+- het attribuut `full-width` op het `<vl-functional-header>` component
 - de class `vl-content-block--full-width` op alle content blokken
+
+<Canvas of={pageLayoutStories.PaginaOpbouwVolledigeBreedte} sourceState="none" />
 
 <details open>
     <summary>Code</summary>
-    <Source
-        language="html"
-        dark
-        format={true}
-        code={`
-<html>
-    <body>
-        <vl-page>
-            <vl-header-next slot="header" skip-to-content-id="main-content"></vl-header-next>
-            <div slot="main">
-                <vl-functional-header title="Page Layout" full-width skip-to-content-id="#main-content">...</vl-functional-header>
-                <section class="vl-section">
-                    <div class="vl-content-block vl-content-block--full-width">
-                        <vl-title type="h1" id="main-content">Content</vl-title>
-                    </div>
-                </section>
-            </div>
-            <vl-footer-next slot="footer"></vl-footer-next>
-        </vl-page>
-    </body>
-</html>
-        `}
-    ></Source>
+    <Source code={pageLayoutFullWidthHtml} language="html" dark format={true} />
+</details>
+
+## Met side navigation
+
+Gebruik deze layout voor een lange pagina met meerdere onderdelen. `vl-side-navigation-layout-next` komt binnen het
+content blok en bouwt de side navigation op uit de headings met een `id` in het slot `content`.
+
+<Canvas of={pageLayoutStories.PaginaOpbouwMetSideNavigation} sourceState="none" />
+
+<details open>
+    <summary>Code</summary>
+    <Source code={pageLayoutSideNavigationHtml} language="html" dark format={true} />
 </details>
