@@ -5,7 +5,7 @@ import { VlAccordionComponent } from './vl-accordion.component';
 
 registerWebComponents([VlAccordionComponent, VlLinkComponent]);
 
-describe('cypress-component - block components - vl-accordion dom', () => {
+describe('cypress-component - block components - vl-accordion', () => {
     const content = `Onderwijs helpt jonge mensen en volwassenen om zichzelf te ontwikkelen en hun weg te vinden in onze
     samenleving. Het hoger onderwijs speelt daarnaast een belangrijke rol in innovatie dankzij het
     belang van wetenschappelijk onderzoek.`;
@@ -35,10 +35,7 @@ describe('cypress-component - block components - vl-accordion dom', () => {
     });
 
     it('should not show content on first render', () => {
-        cy.get('vl-accordion')
-            .shadow()
-            .find('.vl-accordion > .vl-accordion__content')
-            .should('have.css', 'display', 'none');
+        shouldBeRendered('vl-accordion span', false);
     });
 
     it('should show the content when the expand button is clicked', () => {
@@ -127,7 +124,7 @@ describe('cypress-component - block components - vl-accordion dom', () => {
     });
 });
 
-describe('cypress-component - block components - vl-accordion dom - default testen', () => {
+describe('cypress-component - block components - vl-accordion - default testen', () => {
     const accordionDefaultHtml = html`
         <vl-accordion icon="university" toggle-text="Lees meer over de onderwijsdoelstelling">
             <span>Onderwijs helpt jonge mensen.</span>
@@ -200,7 +197,7 @@ describe('cypress-component - block components - vl-accordion dom - default test
     });
 });
 
-describe('cypress-component - block components - vl-accordion dom - headings testen', () => {
+describe('cypress-component - block components - vl-accordion - headings testen', () => {
     const accordionHeadingsHtml = html`
         <vl-accordion icon="university" toggle-text="Dit is een heading van ingevouwen inhoud" heading-level="3">
             <span>Onderwijs helpt jonge mensen.</span>
@@ -308,7 +305,7 @@ describe('cypress-component - block components - vl-accordion dom - headings tes
     });
 });
 
-describe('cypress-component - block components - vl-accordion dom - dynamic toggle testen', () => {
+describe('cypress-component - block components - vl-accordion - dynamic toggle testen', () => {
     const accordionDynamicToggleHtml = html`
         <vl-accordion
             icon="university"
@@ -395,7 +392,7 @@ describe('cypress-component - block components - vl-accordion dom - dynamic togg
     });
 });
 
-describe('cypress-component - block components - vl-accordion dom - title slot testen', () => {
+describe('cypress-component - block components - vl-accordion - title slot testen', () => {
     const accordionTitleSlotHtml = html`
         <vl-accordion icon="university">
             <span slot="title">Lees meer over de onderwijsdoelstelling</span>
@@ -459,7 +456,52 @@ describe('cypress-component - block components - vl-accordion dom - title slot t
     });
 });
 
-describe('cypress-component - block components - vl-accordion dom - border en achtergrond opties', () => {
+describe('cypress-component - block components - vl-accordion - vindbaar via zoeken in de pagina', () => {
+    const accordionHtml = html`
+        <vl-accordion toggle-text="Onderwijsdoelstelling">
+            <p id="doel">Onderwijs helpt jonge mensen.</p>
+        </vl-accordion>
+    `;
+
+    it('should hide closed content with hidden="until-found"', () => {
+        cy.mount(accordionHtml);
+        shouldHaveContentHidden('until-found');
+        shouldBeRendered('#doel', false);
+    });
+
+    it('should open when the browser reveals the content', () => {
+        cy.mount(accordionHtml);
+        cy.createStubForEvent('vl-accordion', 'vl-on-toggle');
+        dispatchBeforeMatch();
+        shouldBeOpen();
+        shouldHaveContentHidden(null);
+        shouldBeRendered('#doel', true);
+        cy.get('@vl-on-toggle').should('have.been.calledOnce');
+    });
+
+    it('should restore hidden="until-found" when closed again', () => {
+        cy.mount(accordionHtml);
+        toggleAccordion();
+        shouldHaveContentHidden(null);
+        toggleAccordion();
+        shouldHaveContentHidden('until-found');
+    });
+
+    it('should not be revealable when disabled', () => {
+        cy.mount(html`
+            <vl-accordion toggle-text="Onderwijsdoelstelling" disabled>
+                <p id="doel">Onderwijs helpt jonge mensen.</p>
+            </vl-accordion>
+        `);
+        shouldHaveContentHidden('');
+        shouldBeRendered('#doel', false);
+        dispatchBeforeMatch();
+        shouldBeClosed();
+        shouldBeRendered('#doel', false);
+    });
+});
+
+describe('cypress-component - block components - vl-accordion - border en achtergrond opties', () => {
     it('should apply alt-background class when alt-background attribute is set', () => {
         cy.mount(html`
             <vl-accordion toggle-text="Alternatieve achtergrond" alt-background>
@@ -477,10 +519,49 @@ describe('cypress-component - block components - vl-accordion dom - border en ac
         `);
         cy.get('vl-accordion').should('not.have.class', 'vl-accordion--alt-background');
     });
+
+    it('should keep a manually set host class when the attribute is absent', () => {
+        cy.mount(html`
+            <vl-accordion class="vl-accordion--bold" toggle-text="Handmatige klasse">
+                <span>Content.</span>
+            </vl-accordion>
+        `);
+        cy.get('vl-accordion').shadow().find('button.vl-toggle').click({ force: true });
+        cy.get('vl-accordion').should('have.class', 'vl-accordion--bold');
+    });
+
+    it('should remove the host class when the attribute is removed', () => {
+        cy.mount(html`
+            <vl-accordion toggle-text="Attribuut verwijderd" bold>
+                <span>Content.</span>
+            </vl-accordion>
+        `);
+        cy.get('vl-accordion').should('have.class', 'vl-accordion--bold');
+        cy.get('vl-accordion').invoke('removeAttr', 'bold');
+        cy.get('vl-accordion').should('not.have.class', 'vl-accordion--bold');
+    });
 });
 
 const toggleAccordion = () => {
     cy.get('vl-accordion').shadow().find('button.vl-toggle').click({ force: true });
+};
+
+const shouldHaveContentHidden = (value: string | null) => {
+    cy.get('vl-accordion')
+        .shadow()
+        .find('.vl-accordion__content')
+        .should(($content) => expect($content[0].getAttribute('hidden')).to.equal(value));
+};
+
+const shouldBeRendered = (selector: string, rendered: boolean) => {
+    cy.get(selector).should(($element) => expect($element[0].checkVisibility()).to.equal(rendered));
+};
+
+const dispatchBeforeMatch = () => {
+    cy.get('vl-accordion')
+        .shadow()
+        .find('.vl-accordion__content')
+        .then(($content) => $content[0].dispatchEvent(new Event('beforematch')));
 };
 
 const shouldBeClosed = () => {
@@ -523,4 +604,228 @@ const shouldEmitEventOnToggle = () => {
     cy.createStubForEvent('vl-accordion', 'vl-on-toggle');
     toggleAccordion();
     cy.get('@vl-on-toggle').should('have.been.calledOnce');
+};
+
+describe('cypress-component - block components - vl-accordion - api - default testen', () => {
+    const accordionDefaultHtml = html`
+        <vl-accordion icon="university" toggle-text="Lees meer over de onderwijsdoelstelling">
+            <span>Onderwijs helpt jonge mensen.</span>
+        </vl-accordion>
+    `;
+
+    it('should be toggleable', () => {
+        cy.mount(accordionDefaultHtml);
+        shouldBeToggleableViaApi();
+    });
+
+    it('should disable accordion', () => {
+        cy.mount(html`
+            <vl-accordion icon="university" toggle-text="Lees meer over de onderwijsdoelstelling" disabled>
+                <span>Onderwijs helpt jonge mensen.</span>
+            </vl-accordion>
+        `);
+        shouldDisableAccordionViaApi();
+    });
+
+    it('should emit event on toggle', () => {
+        cy.mount(accordionDefaultHtml);
+        shouldEmitEventOnToggleViaApi();
+    });
+
+    it('should emit event on open', () => {
+        cy.mount(accordionDefaultHtml);
+        shouldEmitEventOnOpenViaApi();
+    });
+
+    it('should emit event on close', () => {
+        cy.mount(accordionDefaultHtml);
+        shouldEmitEventOnCloseViaApi();
+    });
+
+    it('should be open by default', () => {
+        cy.mount(html`
+            <vl-accordion icon="university" toggle-text="Lees meer over de onderwijsdoelstelling" default-open>
+                <span>Onderwijs helpt jonge mensen.</span>
+            </vl-accordion>
+        `);
+        shouldBeOpenViaApi();
+    });
+});
+
+describe('cypress-component - block components - vl-accordion - api - dynamic toggle testen', () => {
+    const accordionDynamicToggleHtml = html`
+        <vl-accordion
+            icon="university"
+            toggle-text="Lees meer over de onderwijsdoelstelling"
+            close-toggle-text="Sluit de onderwijsdoelstelling"
+            open-toggle-text="Open de onderwijsdoelstelling"
+        >
+            <span>Onderwijs helpt jonge mensen.</span>
+        </vl-accordion>
+    `;
+
+    it('should be toggleable', () => {
+        cy.mount(accordionDynamicToggleHtml);
+        shouldBeToggleableViaApi();
+    });
+
+
+    it('should disable accordion', () => {
+        cy.mount(html`
+            <vl-accordion icon="university"
+                              toggle-text="Lees meer over de onderwijsdoelstelling"
+                              close-toggle-text="Sluit de onderwijsdoelstelling"
+                              open-toggle-text="Open de onderwijsdoelstelling"
+                              disabled
+                <span>Onderwijs helpt jonge mensen.</span>
+            </vl-accordion>
+        `);
+        shouldDisableAccordionViaApi();
+    });
+
+    it('should emit event on toggle', () => {
+        cy.mount(accordionDynamicToggleHtml);
+        shouldEmitEventOnToggleViaApi();
+    });
+
+    it('should emit event on open', () => {
+        cy.mount(accordionDynamicToggleHtml);
+        shouldEmitEventOnOpenViaApi();
+    });
+
+    it('should emit event on close', () => {
+        cy.mount(accordionDynamicToggleHtml);
+        shouldEmitEventOnCloseViaApi();
+    });
+});
+
+describe('cypress-component - block components - vl-accordion - api - title slot testen', () => {
+    const accordionTitleSlotHtml = html`
+        <vl-accordion icon="university">
+            <span slot="title">Lees meer over de onderwijsdoelstelling</span>
+            <span>Onderwijs helpt jonge mensen.</span>
+        </vl-accordion>
+    `;
+
+    it('should be toggleable', () => {
+        cy.mount(accordionTitleSlotHtml);
+        shouldBeToggleableViaApi();
+    });
+
+    it('should disable accordion', () => {
+        cy.mount(html`
+            <vl-accordion icon="university" disabled>
+                <span>Onderwijs helpt jonge mensen.</span>
+                <span slot="title">Lees meer over de onderwijsdoelstelling</span>
+            </vl-accordion>
+        `);
+        shouldDisableAccordionViaApi();
+    });
+
+    it('should emit event on toggle', () => {
+        cy.mount(accordionTitleSlotHtml);
+        shouldEmitEventOnToggleViaApi();
+    });
+
+    it('should emit event on open', () => {
+        cy.mount(accordionTitleSlotHtml);
+        shouldEmitEventOnOpenViaApi();
+    });
+
+    it('should emit event on close', () => {
+        cy.mount(accordionTitleSlotHtml);
+        shouldEmitEventOnCloseViaApi();
+    });
+});
+
+describe('cypress-component - block components - vl-accordion - api - isOpen', () => {
+    it('should expose the open state via isOpen and _isOpen', () => {
+        cy.mount(html`
+            <vl-accordion toggle-text="Onderwijsdoelstelling">
+                <span>Onderwijs helpt jonge mensen.</span>
+            </vl-accordion>
+        `);
+        cy.runTestFor<VlAccordionComponent>('vl-accordion', (component) => {
+            expect(component.isOpen).to.be.false;
+            expect(component._isOpen).to.be.false;
+            component.open();
+            expect(component.isOpen).to.be.true;
+            expect(component._isOpen).to.be.true;
+        });
+    });
+});
+
+describe('cypress-component - block components - vl-accordion - api - properties na het toevoegen', () => {
+    it('should be open when default-open is set as property before the first render', () => {
+        cy.mount(html`<div id="host"></div>`);
+        cy.get('#host').then(($host) => {
+            const accordion = document.createElement('vl-accordion') as VlAccordionComponent;
+            accordion.setAttribute('toggle-text', 'Onderwijsdoelstelling');
+            $host[0].appendChild(accordion);
+            accordion.defaultOpen = true;
+            return accordion.updateComplete;
+        });
+        shouldBeOpenViaApi();
+    });
+});
+
+const shouldBeToggleableViaApi = async () => {
+    cy.runTestFor<VlAccordionComponent>('vl-accordion', (component) => {
+        expect(component._isOpen).to.be.false;
+        component.open();
+        expect(component._isOpen).to.be.true;
+        component.close();
+        expect(component._isOpen).to.be.false;
+        component.toggle();
+        expect(component._isOpen).to.be.true;
+        component.toggle();
+        expect(component._isOpen).to.be.false;
+    });
+};
+
+const shouldBeOpenViaApi = async () => {
+    cy.runTestFor<VlAccordionComponent>('vl-accordion', (component) => {
+        expect(component._isOpen).to.be.true;
+    });
+};
+
+const shouldDisableAccordionViaApi = () => {
+    cy.runTestFor<VlAccordionComponent>('vl-accordion', (component) => {
+        expect(component._isOpen).to.be.false;
+        component.open();
+        expect(component._isOpen).to.be.false;
+        component.close();
+        expect(component._isOpen).to.be.false;
+        component.toggle();
+        expect(component._isOpen).to.be.false;
+    });
+};
+
+const shouldEmitEventOnToggleViaApi = () => {
+    cy.createStubForEvent('vl-accordion', 'vl-on-toggle');
+
+    cy.runTestFor<VlAccordionComponent>('vl-accordion', (component) => {
+        component.toggle();
+        cy.get('@vl-on-toggle').should('have.been.calledOnce');
+    });
+};
+
+const shouldEmitEventOnOpenViaApi = () => {
+    cy.createStubForEvent('vl-accordion', 'vl-on-toggle');
+
+    cy.runTestFor<VlAccordionComponent>('vl-accordion', (component) => {
+        component.open();
+        cy.get('@vl-on-toggle').should('have.been.calledOnce');
+    });
+};
+
+const shouldEmitEventOnCloseViaApi = () => {
+    // Open de accordion vooraleer de eventListener toe te voegen
+    cy.get('vl-accordion').shadow().find('button.vl-toggle').click({force: true});
+    cy.createStubForEvent('vl-accordion', 'vl-on-toggle');
+
+    cy.runTestFor<VlAccordionComponent>('vl-accordion', (component) => {
+        component.close();
+        cy.get('@vl-on-toggle').should('have.been.calledOnce');
+    });
 };

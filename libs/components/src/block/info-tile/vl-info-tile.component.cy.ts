@@ -752,3 +752,102 @@ describe('cypress-component - block components - vl-info-tile - title click even
         cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
     });
 });
+
+describe('cypress-component - block components - vl-info-tile - vindbaar via zoeken in de pagina', () => {
+    const shouldHaveContentHidden = (value: string | null) => {
+        cy.get('vl-info-tile')
+            .shadow()
+            .find('.vl-info-tile__content')
+            .should(($content) => expect($content[0].getAttribute('hidden')).to.equal(value));
+    };
+
+    it('should hide closed content with hidden="until-found"', () => {
+        mountDefault({ toggleable: true, titleSlot, contentSlot });
+        shouldHaveContentHidden('until-found');
+        cy.get('vl-info-tile')
+            .find('[slot="content"]')
+            .should(($content) => expect($content[0].checkVisibility()).to.be.false);
+    });
+
+    it('should open when the browser reveals the content', () => {
+        mountDefault({ toggleable: true, titleSlot, contentSlot });
+        cy.get('vl-info-tile')
+            .shadow()
+            .find('.vl-info-tile__content')
+            .then(($content) => $content[0].dispatchEvent(new Event('beforematch')));
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+        shouldHaveContentHidden(null);
+        cy.runTestFor<VlInfoTile>('vl-info-tile', (component) => {
+            expect(component.isOpen).to.be.true;
+        });
+    });
+
+    it('should not hide the content of an info-tile that is not toggleable', () => {
+        mountDefault({ titleSlot, contentSlot });
+        shouldHaveContentHidden(null);
+    });
+});
+
+describe('cypress-component - block components - vl-info-tile - properties na het toevoegen', () => {
+    const appendInfoTile = (configure: (infoTile: VlInfoTile) => void) => {
+        cy.mount(html`<div id="host"></div>`);
+        cy.get('#host').then(($host) => {
+            const infoTile = document.createElement('vl-info-tile') as VlInfoTile;
+            infoTile.innerHTML = `${titleSlot}${contentSlot}`;
+            $host[0].appendChild(infoTile);
+            configure(infoTile);
+            return infoTile.updateComplete;
+        });
+    };
+
+    it('should be open when toggleable and auto-open are set as properties before the first render', () => {
+        appendInfoTile((infoTile) => {
+            infoTile.toggleable = true;
+            infoTile.autoOpen = true;
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+    });
+
+    it('should stay open when opened programmatically before it is connected', () => {
+        cy.mount(html`<div id="host"></div>`);
+        cy.get('#host').then(($host) => {
+            const infoTile = document.createElement('vl-info-tile') as VlInfoTile;
+            infoTile.innerHTML = `${titleSlot}${contentSlot}`;
+            infoTile.toggleable = true;
+            infoTile.open();
+            $host[0].appendChild(infoTile);
+            return infoTile.updateComplete;
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+    });
+
+    it('should not close when auto-open is removed after the first render', () => {
+        mountDefault({ toggleable: true, autoOpen: true, titleSlot, contentSlot });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+        cy.get('vl-info-tile').then(($infoTile) => {
+            const infoTile = $infoTile[0] as VlInfoTile;
+            infoTile.removeAttribute('auto-open');
+            return infoTile.updateComplete;
+        });
+        cy.runTestFor<VlInfoTile>('vl-info-tile', (component) => {
+            expect(component.isOpen).to.be.true;
+        });
+    });
+
+    it('should stay open when opened programmatically before the first render', () => {
+        appendInfoTile((infoTile) => {
+            infoTile.toggleable = true;
+            infoTile.open();
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+    });
+
+    it('should reflect toggleable and clickable set as properties to their attributes', () => {
+        appendInfoTile((infoTile) => {
+            infoTile.toggleable = true;
+            infoTile.clickable = true;
+        });
+        cy.get('vl-info-tile').should('have.attr', 'toggleable');
+        cy.get('vl-info-tile').should('have.attr', 'clickable');
+    });
+});

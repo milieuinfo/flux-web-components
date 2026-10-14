@@ -20,8 +20,9 @@ export const vlAccordionFluxStyles: CSSResult = css`
         background-color: var(--vl-color--background-alt, #f7f9fc);
     }
 
-    .vl-accordion:not(.js-vl-accordion--open) .vl-accordion__content {
-        display: none;
+    .js .vl-accordion__content {
+        visibility: visible;
+        max-height: none;
     }
 
     .vl-accordion.vl-accordion--has-icon #toggle-icon,

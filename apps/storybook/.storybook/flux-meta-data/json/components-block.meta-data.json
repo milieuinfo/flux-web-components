@@ -3,7 +3,7 @@
         "name": "accordion",
         "docs": "components-block-accordion--documentatie",
         "condition": {
-            "base": "HTMLElement",
+            "base": "LitElement",
             "generation": "legacy",
             "css": "govflanders",
             "tests": ["Component", "Storybook", "DOM"],
@@ -205,7 +205,7 @@
         "name": "info-tile",
         "docs": "components-block-info-tile--documentatie",
         "condition": {
-            "base": "HTMLElement",
+            "base": "LitElement",
             "generation": "legacy",
             "css": "govflanders",
             "tests": ["Component", "Storybook"],

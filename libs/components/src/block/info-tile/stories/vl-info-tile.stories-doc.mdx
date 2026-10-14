@@ -90,7 +90,7 @@ maar is geen onderdeel van het getogglede gedeelte.
 
 ### Clickable
 
-Maakt de info-tile aanklikbaar. Dit is niet combineerbaar met het `data-vl-toggleable`-attribuut.
+Maakt de info-tile aanklikbaar. Dit is niet combineerbaar met het `toggleable`-attribuut.
 In dit voorbeeld wordt dit gebruikt in combinatie met een menu-slot.
 
 <Canvas of={VlInfoTileStories.InfoTileClickable} />
@@ -121,6 +121,12 @@ vl-info-tile {
 ```
 
 <Canvas of={VlInfoTileStories.InfoTileIconPrimaryBackground} />
+
+## Toegankelijkheid
+
+De inhoud van een gesloten `toggleable` info tile blijft vindbaar via de zoekfunctie van de browser (Ctrl+F of Cmd+F).
+Vindt de browser een resultaat in die inhoud, dan klapt de info tile open. Hetzelfde gebeurt bij een link naar een
+`id` in de inhoud.
 
 ## Referenties
 

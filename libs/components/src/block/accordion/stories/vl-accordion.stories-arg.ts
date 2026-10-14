@@ -92,7 +92,7 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
     },
     icon: {
         name: 'icon',
-        description: 'Icoon dat getoond wordt voor de tekst van de toggle.<br>Dit attribuut is niet reactief.',
+        description: 'Icoon dat getoond wordt voor de tekst van de toggle.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
