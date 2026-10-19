@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=513-188
 // source=libs/components/src/block/popover/vl-popover.component.ts
 // component=VlPopoverComponent
+// code-only vl-popover: distance, for, hide-on-click, max-height, open, strategy, trigger
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 

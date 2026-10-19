@@ -56,6 +56,10 @@ reden waarom hij open is en een werkende omweg.
   aflopend, `sortable - unsorted` niet gesorteerd. In code komt sorteren enkel van `vl-rich-data-table`: de kop
   is daar altijd onderstreept, en zonder sortering is er geen icoon en geen gereserveerde ruimte. De
   sorteerklassen in `vl-table.css.ts` worden nergens gebruikt.
+- **Smalle actiekolom in een tabel:** zet de laatste cel van élke rij op `Hug` en geef ook de kopregel de
+  actieknop, met `opacity = 0`. Figma kent geen gedeelde kolombreedte: staat de kopcel op `Fill` of leeg,
+  dan loopt de kolom per rij uit de pas. Dragen niet alle rijen een actie, dan krijgen de andere eveneens
+  een knop op `opacity = 0`.
 - **Nooit een component namaken** met losse frames + borders + eigen tekst. Elk UI-patroon dat op een
   component lijkt, ís er bijna altijd een. `search_design_system` geeft enkel de top-matches: varieer met
   synoniemen én korte losse termen, NL én EN (zoek ook op `tile` apart, niet enkel `data tile`). Grep ook de
@@ -135,6 +139,13 @@ reden waarom hij open is en een werkende omweg.
   `resize()` op geneste nodes.
 - **Probeer `layoutSizing` vóór je "vaste maat" concludeert**, en lees de properties van **geneste**
   instances, niet enkel van de root.
+- **Scan een afgewerkt design op ingeklapte instances** (breedte of hoogte < 5px, `.vl-separator` en
+  `vl-progress-bar` uitgezonderd): een 1px hoge knop of titel rendert nog wel, maar haar rand leest als een
+  streep door de tekst en de spacing klopt niet. `layoutSizingVertical = 'HUG'` zet ze terug.
+- **Icoonkleur in een knop is een kleurstijl op de laag `Shape`, per variant.** Herstel een afwijkend icoon
+  met `setFillStyleIdAsync(<stijl van de variant>)`, nooit met een losse fill: een losse kleur is een
+  override die elke latere typewissel overleeft. Controle: vergelijk met de `Shape` in het eigen main
+  component (`getMainComponentAsync`), zodat `state` (disabled, actief navigatie-item) meetelt.
 - **`Fill` in een `Hug`-parent is circulair.** Een frame blijft dan op zijn laatste breedte; een tekst valt
   terug op zijn natuurlijke breedte. Oplossing: parent `Fixed`, kind `Fill`.
 - **Native SLOT vs `[Flux] Slot`-instance.** In een instance kan je enkel bouwen in een native SLOT, of
@@ -205,6 +216,11 @@ reden waarom hij open is en een werkende omweg.
 
 - Parserless `*.figma.ts`-templates naast de componentcode. De sleutel is `(fileKey, nodeId, label)`;
   er is geen versie-as.
+- **Maak van een los component geen set** (geen variant-as toevoegen) zonder het met de templates af te
+  stemmen. Het component wordt een variant in een nieuwe set met een andere node-ID, en Code Connect aanvaardt
+  enkel een component of set op het hoogste niveau: na de merge faalt `code connect: validate` op élke branch
+  tot de URL in het template volgt. Terugdraaien kan: `page.appendChild(variant)` maakt er weer een los
+  component van, met dezelfde node-ID en key, en Figma zet zijn eigen properties met hun oude keys terug.
 - **Pas de template aan bij elke nieuwe Figma-property of variant-waarde** — de drift-check
   (`pnpm run figma:code-connect:check`) meldt VARIANT-waarden die niet gelezen worden. Valideren:
   `pnpm run figma:code-connect:validate` (contacteert de Figma-API). Beide lezen de token uit `FIGMA_TOKEN`.

@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=162-42686
 // source=libs/components/src/block/alert/vl-alert.component.ts
 // component=VlAlert
+// code-only vl-alert: alert-role, multiline
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
@@ -8,7 +9,6 @@ import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 const instance = figma.selectedInstance;
 
 // Bewust niet gemapt:
-// - Het icoon volgt in Figma automatisch uit `type`; het code-attribuut `icon` wordt dus niet gezet.
 // - `multiline` en `alert-role` hebben geen Figma-tegenhanger.
 // - `actions slot` bestaat in Figma enkel in de default-stijl, de sluitknop in de default- en banner-stijl. Een
 //   naked alert krijgt nooit een sluitknop of actions-hint, ook al staat de boolean `closable` op set-niveau
@@ -31,6 +31,17 @@ const sizeValue = banner ? '' : instance.getEnum('size', { default: '', small: '
 const size = typeof sizeValue === 'string' ? sizeValue : '';
 const closable = !naked && booleanProperty(instance, 'closable', false);
 const hasActionsSlot = style === 'default' && booleanProperty(instance, 'actions slot', false);
+
+// De boolean `icon` toont het icoon van het type. In code staat er enkel een icoon met het attribuut `icon`; de naam
+// per type is die uit Storybook. Een oudere library zonder de boolean toonde het icoon altijd.
+const ICON_PER_TYPE: Record<string, string> = {
+    info: 'info-circle',
+    success: 'check',
+    warning: 'warning',
+    error: 'warning',
+};
+const showIcon = booleanProperty(instance, 'icon', true);
+const icon = showIcon ? (ICON_PER_TYPE[type] ?? '') : '';
 
 // Titel en boodschap hangen niet aan een property maar zitten in tekstlagen. De boodschap heet "↳ text" in de
 // default-stijl en "↳ text line 1" in de naked-stijl. De banner heeft één laag "↳ titel + text" met het
@@ -60,7 +71,7 @@ const actions = !naked && hasActionsSlot ? '<div slot="actions"></div>' : '';
 export default {
     example: figma.code`<vl-alert type="${type}"${size ? ` size="${size}"` : ''}${naked ? ' naked' : ''}${
         banner ? ' banner' : ''
-    }${closable ? ' closable' : ''} title="${title}"${messageAttribute}>${content}${actions}</vl-alert>`,
+    }${closable ? ' closable' : ''}${icon ? ` icon="${icon}"` : ''} title="${title}"${messageAttribute}>${content}${actions}</vl-alert>`,
     id: 'vl-alert',
     metadata: { nestable: true },
 };

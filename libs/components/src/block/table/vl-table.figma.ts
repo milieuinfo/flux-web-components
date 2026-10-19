@@ -2,6 +2,7 @@
 // source=libs/components/src/block/table/vl-table.component.ts
 // component=VlTableComponent
 // unmapped: size
+// code-only vl-table: collapsed-m, collapsed-s, collapsed-xs, flux-zebra, hover
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';

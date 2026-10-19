@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=24-1865
 // source=libs/components/src/atom/button/vl-button.component.ts
 // component=VlButtonComponent
+// code-only vl-button: block, controlled, cta-link, download, external, on, toggle
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';

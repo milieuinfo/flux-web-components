@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=563-50953
 // source=libs/components/src/block/template/vl-template.component.ts
 // component=VlTemplate
+// code-only vl-template: v-stretch
 import figma from 'figma';
 
 const instance = figma.selectedInstance;

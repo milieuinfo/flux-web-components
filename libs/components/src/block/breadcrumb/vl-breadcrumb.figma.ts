@@ -2,6 +2,8 @@
 // source=libs/components/src/block/breadcrumb/vl-breadcrumb.component.ts
 // component=VlBreadcrumbComponent
 // unmapped: variant
+// code-only vl-breadcrumb: ellipsis
+// code-only vl-breadcrumb-item: type
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

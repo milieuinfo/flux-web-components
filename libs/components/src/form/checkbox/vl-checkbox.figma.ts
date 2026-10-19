@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=11-7786
 // source=libs/components/src/form/checkbox/vl-checkbox.component.ts
 // component=VlCheckboxComponent
+// code-only vl-checkbox: block, blur-validation, describedby, label, name, required, value
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
@@ -33,7 +34,9 @@ const base =
           : null;
 const check = base ? String(base.getPropertyValue('check')).toLowerCase() : '';
 const state = base ? String(base.getPropertyValue('state')).toLowerCase() : '';
-const checked = check === 'true';
+// `Indeterminate` toont een streepje; in code overschrijft `indeterminate` het vinkje, dus geen `checked` erbij.
+const indeterminate = state === 'indeterminate';
+const checked = check === 'true' && !indeterminate;
 const disabled = state === 'disabled';
 const error = state === 'error';
 const success = state === 'success';
@@ -44,7 +47,7 @@ const success = state === 'success';
 // - `size` (M) op "↳ Checkbox base": vl-checkbox heeft geen size-attribuut.
 
 export default {
-    example: figma.code`<vl-checkbox${isSwitch ? ' switch' : ''}${checked ? ' checked' : ''}${
+    example: figma.code`<vl-checkbox${isSwitch ? ' switch' : ''}${checked ? ' checked' : ''}${indeterminate ? ' indeterminate' : ''}${
         disabled ? ' disabled' : ''
     }${error ? ' error' : ''}${success ? ' success' : ''}>${label}</vl-checkbox>`,
     id: 'vl-checkbox',

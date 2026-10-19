@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=990-21301
 // source=libs/components/src/block/rich-data-table/vl-rich-data-table.component.ts
 // component=VlRichDataTable
+// code-only vl-rich-data-table: collapsed-m, collapsed-s, collapsed-xs, filter-max-width, flux-zebra, label, multi-sort, zebra
 import figma from 'figma';
 
 const instance = figma.selectedInstance;

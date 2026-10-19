@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=726-5702
 // source=libs/components/src/block/description-data/vl-description-data.component.ts
 // component=VlDescriptionData
+// code-only vl-description-data: items-extra-small-size, items-medium-size, items-size, items-small-size
 import figma from 'figma';
 
 const instance = figma.selectedInstance;

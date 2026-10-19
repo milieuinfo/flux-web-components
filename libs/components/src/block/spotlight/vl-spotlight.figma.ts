@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=159-20408
 // source=libs/components/src/block/spotlight/vl-spotlight.component.ts
 // component=VlSpotlight
+// code-only vl-spotlight: link-label
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
@@ -9,8 +10,8 @@ const instance = figma.selectedInstance;
 // De Figma-set heeft drie assen: `size` (S/L/XS), `header` (Image/--none--) en `Link` (yes/no).
 // `header=Image` mapt op `img-src` (+ `img-alt`), `Link=yes` op `link`; de effectieve url's zijn geen
 // design-informatie en worden als placeholder getoond.
-// `alt`, `no-border`, `external` en `link-label` hebben geen Figma-equivalent (de geneste spotlight-container
-// heeft enkel `alt background=No`).
+// `alt` en `link-label` hebben geen Figma-equivalent (de geneste spotlight-container heeft enkel
+// `alt background=No`). `external` en `no-border` staan op de geneste instances, zie hieronder.
 // Een bestand met een oudere versie van de library kan de as missen; `getEnum` geeft dan een foutobject terug in
 // plaats van `undefined`.
 const sizeValue = instance.getEnum('size', {
@@ -35,10 +36,20 @@ const link: { link?: boolean } =
 const container = instance.findInstance('spotlight-container');
 let hasSubtitle = false;
 let hasText = false;
+let external = false;
 if (container && container.type === 'INSTANCE') {
     hasSubtitle = String(container.getPropertyValue('subtitle')) === 'true';
     hasText = String(container.getPropertyValue('text')) === 'true';
+    // De boolean `external` toont het externe icoon na de titel.
+    external = String(container.getPropertyValue('external')) === 'true';
 }
+
+// De rand is in code de lijn bovenaan de spotlight; in Figma de boolean `Top border` van de geneste spotlight-header.
+const spotlightHeader = instance.findInstance('spotlight-header');
+const noBorder =
+    spotlightHeader && spotlightHeader.type === 'INSTANCE'
+        ? String(spotlightHeader.getPropertyValue('Top border')) === 'false'
+        : false;
 
 const titleLayer = instance.findText('↳ Title', { traverseInstances: true });
 const title = titleLayer && titleLayer.type === 'TEXT' ? escapeHtml(titleLayer.textContent) : '';
@@ -60,7 +71,7 @@ const textSlot = text
     : '';
 
 export default {
-    example: figma.code`<vl-spotlight size="${size}"${header.image ? ' img-src="..." img-alt="..."' : ''}${link.link ? ' link="..."' : ''}>
+    example: figma.code`<vl-spotlight size="${size}"${header.image ? ' img-src="..." img-alt="..."' : ''}${link.link ? ' link="..."' : ''}${external ? ' external' : ''}${noBorder ? ' no-border' : ''}>
     <span slot="title">${title}</span>${subtitleSlot}${textSlot}
 </vl-spotlight>`,
     id: 'vl-spotlight',

@@ -1,7 +1,10 @@
-// url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=674-13
+// url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=3566-2
 // source=libs/components/src/block/autocomplete/vl-autocomplete.component.ts
 // component=VlAutocomplete
+// code-only vl-autocomplete: caption-format, clear-tooltip, disable-loading, group-by, initial-value, items, loading
+// code-only vl-autocomplete: max-suggestions, min-chars, no-matches-text, opened
 import figma from 'figma';
+import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
 const instance = figma.selectedInstance;
@@ -16,8 +19,22 @@ const instance = figma.selectedInstance;
 const textLayer = instance.findText('↳ text', { traverseInstances: true });
 const placeholder = textLayer && textLayer.type === 'TEXT' ? escapeHtml(textLayer.textContent) : '';
 
+// De boolean `label` toont een vl-form-label boven het veld; zijn tekst gaat naar het attribuut `label`. Een oudere
+// library zonder de boolean had geen label.
+const showLabel = booleanProperty(instance, 'label', false);
+const labelInstance = instance.findInstance('🧩 vl-form-label');
+const labelText =
+    showLabel && labelInstance && labelInstance.type === 'INSTANCE'
+        ? labelInstance.findLayers((node) => node.type === 'TEXT')[0]
+        : undefined;
+const label = labelText && labelText.type === 'TEXT' ? escapeHtml(labelText.textContent) : '';
+
+// De assen `show-clear` (sluit-icoon in het veld) en `label-small` (label op 14px) zijn de gelijknamige attributen.
+const showClear = instance.getEnum('show-clear', { false: false, true: true }) === true;
+const labelSmall = instance.getEnum('label-small', { false: false, true: true }) === true;
+
 export default {
-    example: figma.code`<vl-autocomplete${placeholder ? ` placeholder="${placeholder}"` : ''}></vl-autocomplete>`,
+    example: figma.code`<vl-autocomplete${label ? ` label="${label}"` : ''}${labelSmall && label ? ' label-small' : ''}${placeholder ? ` placeholder="${placeholder}"` : ''}${showClear ? ' show-clear' : ''}></vl-autocomplete>`,
     id: 'vl-autocomplete',
     metadata: { nestable: true },
 };

@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=882-2
 // source=libs/components/src/block/video-player/vl-video-player.component.ts
 // component=VlVideoPlayerComponent
+// code-only vl-video-player: poster, subtitles, type
 import figma from 'figma';
 
 // Het Figma-component heeft geen properties; de enige tekstlaag ("-6:03") is de resterende

@@ -38,6 +38,8 @@
         "libs:component-tests:run-firefox-anchor": "cd ./resources/cypress-component && ../../node_modules/.bin/cypress run --component --browser firefox --spec '../../libs/components/src/form/datepicker/vl-datepicker-anchor-positioning*.component.cy.ts'",
         "libs:component-tests:watch": "cd ./resources/cypress-component && ../../node_modules/.bin/cypress open --component",
         "figma:code-connect:check": "tsx ./resources/code-connect/check-figma-drift.ts",
+        "figma:code-connect:check-attributes": "tsx --tsconfig tsconfig.base.json ./resources/code-connect/check-template-attributes.ts",
+        "figma:code-connect:test": "tsx --tsconfig tsconfig.base.json --test ./resources/code-connect/*.test.ts",
         "figma:code-connect:validate": "FIGMA_ACCESS_TOKEN=$FIGMA_TOKEN figma connect publish --dry-run --exit-on-unreadable-files",
         "libs:eslint": "cd ./resources/bash-scripts && bash ./libs-eslint.sh",
         "libs:icons:generate": "cd ./resources/bash-scripts && bash ./libs-icons-generate.sh",

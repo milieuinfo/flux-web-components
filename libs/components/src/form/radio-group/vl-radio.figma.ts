@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=381-716
 // source=libs/components/src/form/radio-group/vl-radio.component.ts
 // component=VlRadioComponent
+// code-only vl-radio: block, label, name, readonly, value
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=11-8339
 // source=libs/components/src/atom/title/vl-title.component.ts
 // component=VlTitleComponent
+// code-only vl-title: appearance
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

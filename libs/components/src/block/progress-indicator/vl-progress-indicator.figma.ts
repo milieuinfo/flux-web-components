@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=213-736
 // source=libs/components/src/block/progress-indicator/vl-progress-indicator.component.ts
 // component=VlProgressIndicatorComponent
+// code-only vl-progress-indicator: enable-future-steps, focus-on-change, static-steps
 import figma from 'figma';
 import { escapeHtmlInSingleQuotes } from '../../../../../resources/code-connect/escape-html';
 

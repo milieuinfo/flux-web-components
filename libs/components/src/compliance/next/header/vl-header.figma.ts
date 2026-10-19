@@ -2,6 +2,8 @@
 // source=libs/components/src/compliance/next/header/vl-header.component.ts
 // component=VlHeader
 // unmapped: size, variant
+// code-only vl-header-next: authenticated-user-url, development, idp-data-url, login-url, logout-url, profile-token-url
+// code-only vl-header-next: simple, skeleton, switch-capacity-url
 import figma from 'figma';
 
 // vl-header-next laadt de global header (v2) van Digitaal Vlaanderen; het oude vl-header laadt de

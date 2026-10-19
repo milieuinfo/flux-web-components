@@ -2,6 +2,7 @@
 // source=libs/components/src/block/cascader/vl-cascader-item.component.ts
 // component=VlCascaderItemComponent
 // unmapped: last
+// code-only vl-cascader-item: item, template-type
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
