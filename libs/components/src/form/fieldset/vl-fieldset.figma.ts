@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=385-1693
 // source=libs/components/src/form/fieldset/vl-fieldset.component.ts
 // component=VlFieldsetComponent
+// code-only vl-fieldset: legend-classes
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

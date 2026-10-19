@@ -2,6 +2,8 @@
 // source=libs/components/src/form/radio-group/vl-radio-group.component.ts
 // component=VlRadioGroupComponent
 // unmapped: variant
+// code-only vl-radio-group: block, blur-validation, checked, describedby, disabled, error, name, readonly, required
+// code-only vl-radio-group: success, value
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

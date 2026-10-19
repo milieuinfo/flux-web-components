@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=204-2270
 // source=libs/components/src/block/pager/vl-pager.component.ts
 // component=VlPagerComponent
+// code-only vl-pager: align-center, align-right
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=765-13
 // source=libs/components/src/block/doormat/vl-doormat.component.ts
 // component=VlDoormatComponent
+// code-only vl-doormat: full-height, image-alt, image-height, image-width, link-label
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';

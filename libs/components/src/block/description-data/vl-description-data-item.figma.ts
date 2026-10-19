@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=272-5680
 // source=libs/components/src/block/description-data/vl-description-data-item.component.ts
 // component=VlDescriptionDataItem
+// code-only vl-description-data-item: items-extra-small-size, items-medium-size, items-size, items-small-size
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

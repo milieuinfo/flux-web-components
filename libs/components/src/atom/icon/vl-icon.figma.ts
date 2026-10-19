@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=620-1116
 // source=libs/components/src/atom/icon/vl-icon.component.ts
 // component=VlIconComponent
+// code-only vl-icon: clickable, label, left-margin, right-margin
 import figma from 'figma';
 
 const instance = figma.selectedInstance;

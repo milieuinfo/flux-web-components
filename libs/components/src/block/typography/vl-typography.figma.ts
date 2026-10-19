@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=592-271
 // source=libs/components/src/block/typography/vl-typography.component.ts
 // component=VlTypography
+// code-only vl-typography: parameters, update-url-hash
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

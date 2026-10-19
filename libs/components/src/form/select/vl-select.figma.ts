@@ -1,6 +1,8 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=840-4850
 // source=libs/components/src/form/select/vl-select.component.ts
 // component=VlSelectComponent
+// code-only vl-select: autocomplete, block, blur-validation, describedby, initial-options, label, name, readonly
+// code-only vl-select: required, value
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';

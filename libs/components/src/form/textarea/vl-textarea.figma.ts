@@ -1,6 +1,8 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=903-23
 // source=libs/components/src/form/textarea/vl-textarea.component.ts
 // component=VlTextareaComponent
+// code-only vl-textarea: autocomplete, block, blur-validation, cols, describedby, label, max-length, min-length, name
+// code-only vl-textarea: readonly, required, rows, value
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';

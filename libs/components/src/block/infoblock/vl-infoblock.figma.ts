@@ -2,6 +2,7 @@
 // source=libs/components/src/block/infoblock/vl-infoblock.component.ts
 // component=VlInfoblockComponent
 // unmapped: Property 1
+// code-only vl-infoblock: icon
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';

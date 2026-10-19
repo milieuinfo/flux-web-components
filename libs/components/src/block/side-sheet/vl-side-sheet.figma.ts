@@ -1,6 +1,8 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=448-151
 // source=libs/components/src/block/side-sheet/vl-side-sheet.component.ts
 // component=VlSideSheet
+// code-only vl-side-sheet: absolute, custom-icon, custom-size, enable-swipe, icon-placement, icon-position, right
+// code-only vl-side-sheet: shadow, toggle-text, tooltip-text, top
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 

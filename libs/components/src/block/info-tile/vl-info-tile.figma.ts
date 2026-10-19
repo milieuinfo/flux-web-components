@@ -1,14 +1,15 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=69-1488
 // source=libs/components/src/block/info-tile/vl-info-tile.component.ts
 // component=VlInfoTile
+// code-only vl-info-tile: clickable, clickable-label, full-height, heading-level, highlight, highlight-left
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
 const instance = figma.selectedInstance;
 
-// Bewust niet gemapt: `auto-open`, `clickable`, `clickable-label`, `full-height`, `heading-level`, `highlight`,
-// `highlight-left` en de `badge`- en `title-label`-slots hebben geen Figma-property.
+// Bewust niet gemapt: `clickable`, `clickable-label`, `full-height`, `heading-level`, `highlight`, `highlight-left`
+// en de `badge`- en `title-label`-slots hebben geen Figma-property.
 
 // De Figma-boolean `icon` toont enkel dát er een icoon staat; het icoon zelf is een geneste instance
 // zonder swap-property. De naam komt daarom uit de Code Connect van het icoon zelf, via
@@ -49,11 +50,17 @@ const typeValue = instance.getEnum('type', {
     warning: 'warning',
 });
 const type = typeof typeValue === 'string' ? typeValue : '';
-const toggleable =
+// De as `toggleable`: `true` toont de open tile (pijl naar beneden, inhoud zichtbaar), `closed` de dichte. In code
+// staat een toggleable tile standaard dicht; open is `auto-open`. Een dichte tile toont in Figma geen inhoud, dus de
+// content-slot blijft dan leeg.
+const toggle: { toggleable?: boolean; autoOpen?: boolean } =
     instance.getEnum('toggleable', {
-        false: false,
-        true: true,
-    }) === true;
+        false: {},
+        true: { toggleable: true, autoOpen: true },
+        closed: { toggleable: true },
+    }) ?? {};
+const toggleable = toggle.toggleable === true;
+const autoOpen = toggle.autoOpen === true;
 const icon = booleanProperty(instance, 'icon', false);
 const iconAsBadge = booleanProperty(instance, 'icon-as-badge', false);
 // `icon-as-badge` toont in Figma óók een icoon, terwijl de boolean `icon` dan op false kan staan.
@@ -86,7 +93,7 @@ const footerSlot = footer ? '\n    <div slot="footer"></div>' : '';
 export default {
     example: figma.code`<vl-info-tile${size ? ` size="${size}"` : ''}${type ? ` type="${type}"` : ''}${
         variant.center ? ' center' : ''
-    }${toggleable ? ' toggleable' : ''}${showsIcon ? ` icon="${iconName}"` : ''}${iconAsBadge ? ' icon-as-badge' : ''}>
+    }${toggleable ? ' toggleable' : ''}${autoOpen ? ' auto-open' : ''}${showsIcon ? ` icon="${iconName}"` : ''}${iconAsBadge ? ' icon-as-badge' : ''}>
     <span slot="title">${title}</span>${subtitleSlot}${menuSlotHint}
     <div slot="content">${content}</div>${footerSlot}
 </vl-info-tile>`,

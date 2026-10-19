@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=642-3093
 // source=libs/components/src/block/steps/vl-steps.component.ts
 // component=VlStepsComponent
+// code-only vl-steps: last-step-no-line, line, simple-timeline, timeline
 import figma from 'figma';
 
 const instance = figma.selectedInstance;

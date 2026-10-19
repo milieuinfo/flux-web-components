@@ -13,6 +13,12 @@ quiet_step "pnpm install" pnpm install --frozen-lockfile --network-concurrency 5
 
 echo 'BUILDING - BEGIN'
 
+# Leest de argTypes en de componenten, niet de web-types of Figma. Hoort dus niet bij de stage
+# 'code connect: validate', die met SKIP_CODE_CONNECT overgeslagen kan worden.
+echo "check that every attribute is in a Code Connect template"
+pnpm run figma:code-connect:test
+pnpm run figma:code-connect:check-attributes
+
 quiet_step "generate web-types" pnpm run libs:web-types:generate
 
 echo "validate the generated web-types"

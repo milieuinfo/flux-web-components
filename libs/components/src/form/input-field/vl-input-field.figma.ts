@@ -1,6 +1,8 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=16-8774
 // source=libs/components/src/form/input-field/vl-input-field.component.ts
 // component=VlInputFieldComponent
+// code-only vl-input-field: autocomplete, blur-validation, describedby, max, max-exclusive, max-length, min
+// code-only vl-input-field: min-exclusive, min-length, pattern, readonly, regex, required
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
