@@ -1,0 +1,66 @@
+<svg width="910" height="876" viewBox="-44 -64 910 876" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="arrowb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#3A5A9B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="arrowm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#7A6E85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="-80" y="-110" width="1000" height="960" fill="#FFFFFF"/>
+
+<!-- Kennislaag: Figma, en de catalogus per Flux-release -->
+<rect x="16" y="32" width="700" height="132" rx="12" fill="none" stroke="#888780" stroke-width="0.75" stroke-dasharray="4 4"/>
+<text x="40" y="50" font-size="12" fill="#5F5E5A">Kennislaag</text>
+<rect x="40" y="84" width="148" height="56" rx="8" fill="#FBF0DC" stroke="#A8761C" stroke-width="0.75"/><text x="114" y="108" font-size="13" font-weight="500" fill="#7A5312" text-anchor="middle">Figma</text><text x="114" y="126" font-size="11" fill="#A8761C" text-anchor="middle">componenten, patronen</text>
+<rect x="204" y="58" width="496" height="96" rx="10" fill="none" stroke="#A8761C" stroke-width="0.75" stroke-dasharray="3 3"/>
+<text x="686" y="75" font-size="11" fill="#A8761C" text-anchor="end">catalogus per Flux-release</text>
+<rect x="218" y="84" width="148" height="56" rx="8" fill="#FBF0DC" stroke="#A8761C" stroke-width="0.75"/><text x="292" y="108" font-size="13" font-weight="500" fill="#7A5312" text-anchor="middle">Web-types</text><text x="292" y="126" font-size="11" fill="#A8761C" text-anchor="middle">de API, per versie</text>
+<rect x="378" y="84" width="148" height="56" rx="8" fill="#FBF0DC" stroke="#A8761C" stroke-width="0.75"/><text x="452" y="108" font-size="13" font-weight="500" fill="#7A5312" text-anchor="middle">Storybook</text><text x="452" y="126" font-size="11" fill="#A8761C" text-anchor="middle">documentatie + analyse</text>
+<rect x="538" y="84" width="148" height="56" rx="8" fill="#FBF0DC" stroke="#A8761C" stroke-width="0.75"/><text x="612" y="108" font-size="13" font-weight="500" fill="#7A5312" text-anchor="middle">Changelog</text><text x="612" y="126" font-size="11" fill="#A8761C" text-anchor="middle">per ticket + analyse</text>
+
+<!-- Ontsluiting: de Figma-MCP (bestaande tooling, lichter) en de Flux-MCP -->
+<rect x="76" y="212" width="148" height="70" rx="8" fill="#F2FAF7" stroke="#7FB3A2" stroke-width="0.75"/><text x="150" y="242" font-size="13" font-weight="500" fill="#085041" text-anchor="middle">Figma-MCP</text><text x="150" y="260" font-size="11.5" fill="#0F6E56" text-anchor="middle">Code Connect</text>
+<rect x="254" y="212" width="396" height="70" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.75"/><text x="452" y="234" font-size="13" font-weight="500" fill="#085041" text-anchor="middle">Flux-MCP</text><text x="452" y="252" font-size="11.5" fill="#0F6E56" text-anchor="middle">kennis per versie: tools en resources</text><text x="452" y="269" font-size="11.5" fill="#0F6E56" text-anchor="middle">de workflows: recepten als MCP-prompts</text>
+<line x1="150" y1="146" x2="150" y2="206" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="292" y1="146" x2="412" y2="206" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="452" y1="146" x2="452" y2="206" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="612" y1="146" x2="492" y2="206" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+<!-- Uitvoering: de AI-client van het project (bestaande tooling, lichter), met zijn eigen koppelingen en model -->
+<rect x="76" y="318" width="574" height="56" rx="8" fill="#F2FAF7" stroke="#7FB3A2" stroke-width="0.75"/><text x="363" y="342" font-size="13" font-weight="500" fill="#085041" text-anchor="middle">AI-client van het project</text><text x="363" y="360" font-size="11.5" fill="#0F6E56" text-anchor="middle">Claude Code, Codex, VS Code met Copilot, … · de ontwikkelaar start een recept</text>
+<line x1="150" y1="288" x2="150" y2="312" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<line x1="452" y1="288" x2="452" y2="312" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<line x1="72" y1="340" x2="-8" y2="340" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)" marker-start="url(#arrow)"/><text x="32" y="332" font-size="11.5" fill="#5F5E5A" text-anchor="middle">Jira</text>
+<line x1="72" y1="352" x2="-8" y2="352" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)" marker-start="url(#arrow)"/><text x="32" y="369" font-size="11.5" fill="#5F5E5A" text-anchor="middle">code en Git</text>
+<line x1="654" y1="346" x2="734" y2="346" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)" marker-start="url(#arrow)"/><text x="694" y="338" font-size="11.5" fill="#5F5E5A" text-anchor="middle">AI-model</text>
+<line x1="312" y1="378" x2="213" y2="414" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="346" y1="378" x2="313" y2="414" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="380" y1="378" x2="413" y2="414" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+<line x1="414" y1="378" x2="513" y2="414" stroke="#5F5E5A" stroke-width="1.2" marker-end="url(#arrow)"/>
+
+<!-- Recepten: links van ontwerp naar frontend, in volgorde; rechts op een bestaande frontend -->
+<rect x="16" y="418" width="700" height="370" rx="12" fill="none" stroke="#888780" stroke-width="0.75" stroke-dasharray="4 4"/>
+<text x="40" y="436" font-size="12" fill="#5F5E5A">Recepten: de workflows, uitgevoerd in het project</text>
+<text x="196" y="460" font-size="11" fill="#3A5A9B" text-anchor="middle">van ontwerp naar frontend, in 5 stappen</text>
+<text x="536" y="460" font-size="11" fill="#3A5A9B" text-anchor="middle">op een bestaande frontend</text>
+<rect x="40" y="470" width="312" height="44" rx="8" fill="#E8EDF7" stroke="#3A5A9B" stroke-width="0.75"/><text x="196" y="488" font-size="12.5" font-weight="500" fill="#26406F" text-anchor="middle">frontend-aanmaken</text><text x="196" y="504" font-size="11" fill="#3A5A9B" text-anchor="middle">de frontend uit de flux-starter-app</text>
+<rect x="40" y="528" width="312" height="44" rx="8" fill="#E8EDF7" stroke="#3A5A9B" stroke-width="0.75"/><text x="196" y="546" font-size="12.5" font-weight="500" fill="#26406F" text-anchor="middle">frontend-analyseren</text><text x="196" y="562" font-size="11" fill="#3A5A9B" text-anchor="middle">het ontwerp: schermen, menu en navigatie</text>
+<rect x="40" y="586" width="312" height="44" rx="8" fill="#E8EDF7" stroke="#3A5A9B" stroke-width="0.75"/><text x="196" y="604" font-size="12.5" font-weight="500" fill="#26406F" text-anchor="middle">frontend-structuur-bouwen</text><text x="196" y="620" font-size="11" fill="#3A5A9B" text-anchor="middle">de opbouw, het menu en lege schermen</text>
+<rect x="40" y="644" width="312" height="44" rx="8" fill="#E8EDF7" stroke="#3A5A9B" stroke-width="0.75"/><text x="196" y="662" font-size="12.5" font-weight="500" fill="#26406F" text-anchor="middle">scherm-analyseren</text><text x="196" y="678" font-size="11" fill="#3A5A9B" text-anchor="middle">één scherm uit zijn ontwerp in Figma</text>
+<rect x="40" y="702" width="312" height="44" rx="8" fill="#E8EDF7" stroke="#3A5A9B" stroke-width="0.75"/><text x="196" y="720" font-size="12.5" font-weight="500" fill="#26406F" text-anchor="middle">scherm-bouwen</text><text x="196" y="736" font-size="11" fill="#3A5A9B" text-anchor="middle">het scherm volgens zijn analyse</text>
+<line x1="196" y1="516" x2="196" y2="525" stroke="#3A5A9B" stroke-width="1.2" marker-end="url(#arrowb)"/>
+<line x1="196" y1="574" x2="196" y2="583" stroke="#3A5A9B" stroke-width="1.2" marker-end="url(#arrowb)"/>
+<line x1="196" y1="632" x2="196" y2="641" stroke="#3A5A9B" stroke-width="1.2" marker-end="url(#arrowb)"/>
+<line x1="196" y1="690" x2="196" y2="699" stroke="#3A5A9B" stroke-width="1.2" marker-end="url(#arrowb)"/>
+<rect x="380" y="470" width="312" height="44" rx="8" fill="#E8EDF7" stroke="#3A5A9B" stroke-width="0.75"/><text x="536" y="488" font-size="12.5" font-weight="500" fill="#26406F" text-anchor="middle">frontend-uitbreiden</text><text x="536" y="504" font-size="11" fill="#3A5A9B" text-anchor="middle">vanuit een Jira-ticket of een ontwerp</text>
+<rect x="380" y="528" width="312" height="44" rx="8" fill="#E8EDF7" stroke="#3A5A9B" stroke-width="0.75"/><text x="536" y="546" font-size="12.5" font-weight="500" fill="#26406F" text-anchor="middle">frontend-upgraden</text><text x="536" y="562" font-size="11" fill="#3A5A9B" text-anchor="middle">naar een nieuwere versie van Flux</text>
+<rect x="380" y="586" width="312" height="44" rx="8" fill="#E8EDF7" stroke="#3A5A9B" stroke-width="0.75"/><text x="536" y="604" font-size="12.5" font-weight="500" fill="#26406F" text-anchor="middle">frontend-wijzigingen-reviewen</text><text x="536" y="620" font-size="11" fill="#3A5A9B" text-anchor="middle">de diff van een branch, voor de PR of MR</text>
+<rect x="380" y="644" width="312" height="44" rx="8" fill="#E8EDF7" stroke="#3A5A9B" stroke-width="0.75"/><text x="536" y="662" font-size="12.5" font-weight="500" fill="#26406F" text-anchor="middle">frontend-valideren</text><text x="536" y="678" font-size="11" fill="#3A5A9B" text-anchor="middle">een rapport van de afwijkingen</text>
+<rect x="380" y="702" width="312" height="44" rx="8" fill="#E8EDF7" stroke="#3A5A9B" stroke-width="0.75"/><text x="536" y="720" font-size="12.5" font-weight="500" fill="#26406F" text-anchor="middle">frontend-verbeteren</text><text x="536" y="736" font-size="11" fill="#3A5A9B" text-anchor="middle">de toepassing aanpassen</text>
+<text x="366" y="772" font-size="11" fill="#3A5A9B" text-anchor="middle">elk recept: checkpoint · verificatie met flux_check_markup en e2e · rapport · voorstel voor een PR</text>
+
+<!-- De terugkoppellus: frontend-valideren levert een rapport; op basis daarvan wordt de toepassing of Flux-AI aangepast, of blijft alles zoals het is -->
+<line x1="696" y1="666" x2="726" y2="666" stroke="#7A6E85" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrowm)"/>
+<rect x="730" y="644" width="120" height="44" rx="8" fill="#EFEBF0" stroke="#7A6E85" stroke-width="1.2"/><text x="790" y="670" font-size="12.5" font-weight="500" fill="#544A61" text-anchor="middle">rapport</text>
+<path d="M790 692 V714 Q790 724 780 724 H698" fill="none" stroke="#7A6E85" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrowm)"/>
+<text x="790" y="744" font-size="11.5" fill="#7A6E85" text-anchor="middle"><tspan x="790">toepassing</tspan><tspan x="790" dy="15">aanpassen</tspan></text>
+<path d="M790 640 V-12 Q790 -22 780 -22 H114" fill="none" stroke="#7A6E85" stroke-width="1.2" stroke-dasharray="4 3"/>
+<line x1="114" y1="-22" x2="114" y2="80" stroke="#7A6E85" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrowm)"/>
+<line x1="292" y1="-22" x2="292" y2="80" stroke="#7A6E85" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrowm)"/>
+<line x1="452" y1="-22" x2="452" y2="80" stroke="#7A6E85" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrowm)"/>
+<text x="570" y="-30" font-size="11.5" fill="#7A6E85" text-anchor="middle">Flux-AI aanpassen</text>
+</svg>
