@@ -1,0 +1,246 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import fluxAiDoel from '../../resources/afnemen/flux-ai-doel.png';
+import fluxAiConcept from '../../resources/afnemen/flux-ai-concept.png';
+import fluxAiTechnischFundament from '../../resources/afnemen/flux-ai-technisch-fundament.png';
+
+<Meta title="Afnemen/Flux-AI - Frontendstroomlijning" />
+
+# Flux-AI - Frontendstroomlijning met AI
+
+**Flux-AI helpt teams in hun dagdagelijkse werking, bij alles wat met frontend-ontwikkeling te maken heeft. Elk
+ team behoudt daarbij zijn eigenheid.**
+
+## 0. Inhoudstafel
+
+- [1. Doel](#1-doel)
+- [2. Concept](#2-concept)
+- [3. Kennislaag](#3-kennislaag)
+- [4. Ontsluiting: 2 MCP-servers](#4-ontsluiting-2-mcp-servers)
+- [5. Recepten](#5-recepten)
+- [6. De Terugkoppellus](#6-de-terugkoppellus)
+- [7. Wat de AI-werking versterkt](#7-wat-de-ai-werking-versterkt)
+- [8. Randvoorwaarden en Risico's](#8-randvoorwaarden-en-risicos)
+- [9. Conclusie](#9-conclusie)
+
+## 1. Doel
+
+<div style={{textAlign: 'center'}}>
+    <img
+        src={fluxAiDoel}
+        alt="Frontendstroomlijning met Flux-AI: elke toepassing behoudt haar eigen frontend, REST-api en backend, en de frontends worden gestroomlijnd met Flux-AI"
+        width="650"
+    />
+</div>
+
+
+## 2. Concept
+
+Flux ondersteunt frontend-ontwikkeling met een bibliotheek van web-componenten. Flux-AI voegt daar AI aan toe, voor
+ al het frontendwerk van een team: bouwen, uitbreiden, upgraden, reviewen en verbeteren, sneller en met minder
+ routinewerk. Daarvoor moet de kennis over Flux **centraal, machineleesbaar en betrouwbaar** beschikbaar zijn. Dat doet
+ **Flux-MCP**: de kennis per versie van Flux, en recepten die ze inzetten, aanbieden aan de AI-client van elk project.
+
+<div style={{textAlign: 'center'}}>
+    <img
+        src={fluxAiConcept}
+        alt="Flux-AI - de kennislaag voedt via 2 MCP-servers de AI-client van het project, die de recepten uitvoert; op basis van het rapport van frontend-valideren wordt de toepassing of Flux-AI aangepast"
+        width="900"
+    />
+</div>
+
+Het schema leest van boven naar onder, met rechts een lus terug naar boven:
+
+- **Kennislaag** (sectie 3): Figma voor het ontwerp, en per Flux-release een **catalogus** met de API (web-types), de
+  documentatie uit Storybook en de changelog. De catalogus wordt na elke release automatisch opgebouwd.
+- **Ontsluiting** (sectie 4): de **Flux-MCP** stelt die kennis per versie beschikbaar: zoeken in de documentatie, een
+  component of richtlijn opvragen, de wijzigingen tussen 2 versies bekijken en markup controleren. Daarnaast biedt hij
+  de **recepten** aan. De **Figma-MCP** ontsluit het ontwerp, met Code Connect naar de Flux-componenten.
+- **Uitvoering** (sectie 4): de **AI-client van het project** - Claude Code, Codex, VS Code met Copilot of Cursor -
+  maakt rechtstreeks verbinding met de Flux-MCP en met de Figma-MCP. De ontwikkelaar start een recept en de AI-client
+  voert het uit, met het AI-model van het team, in de code van het project en met de eigen koppelingen met Jira en Git.
+- **Recepten** (sectie 5): de workflows. Een deel brengt een ontwerp stap voor stap naar een nieuwe frontend, de rest
+  werkt op een bestaande frontend: uitbreiden, upgraden, reviewen, valideren en verbeteren. Elk recept vraagt
+  bevestiging voor er code wijzigt, verifieert het resultaat en eindigt in een rapport, en wat code wijzigt in een
+  voorstel voor een PR of MR.
+- **Terugkoppellus** (sectie 6): `frontend-valideren` legt een frontend naast de richtlijnen en de API van Flux en
+  levert een rapport van de afwijkingen. Het rapport stelt vast, het oordeelt niet. Op basis daarvan kan:
+  - het team de toepassing aanpassen, met `frontend-verbeteren`;
+  - Flux-AI aangepast worden: het team meldt dat het Flux-AI gebruikte, Team Flux beslist op basis van de `.flux`-map
+    van het project;
+  - alles blijven zoals het is: de afwijkingen staan in het rapport, daar stopt het.
+
+Het principe: **alle recepten putten uit dezelfde kennis, via dezelfde server**, en elk team voert ze uit in zijn eigen
+ project, met zijn eigen AI-client. Via de rapporten geven toepassingen Flux-AI mee vorm.
+
+
+## 3. Kennislaag
+
+De kennislaag bestaat uit Figma en een catalogus per Flux-release. Bij elke versie van Flux-MCP hoort 1 eenduidige
+ set kennis.
+
+**Figma - componenten en patronen.** Het ontwerp zoals het bedoeld is: de componenten en de UI/UX-patronen
+ (paginastructuur, formulieren, foutafhandeling, ...). Componenten in Figma komen 1-op-1 overeen met de
+ `vl`-componenten, met dezelfde namen en met varianten die overeenkomen met attributen. Hoe beter die mapping, hoe
+ beter een ontwerp naar code gaat.
+
+**Catalogus per Flux-release.** Scripts bouwen hem na elke release. Hij bevat:
+
+- **Web-types** - de API van elke component in die versie: attributen, properties, events, slots en CSS custom
+  properties. Een ander formaat, zoals een Custom Elements Manifest, heeft geen impact op de recepten.
+- **Documentatie uit Storybook** - de richtlijnen, patronen en voorbeelden per component. Een LLM vult ze aan met
+  voorbeelden, een samenvatting en zoektermen.
+- **Changelog per ticket** - wat er in elke versie veranderde. Een LLM vult elk ticket aan met de impact, de nodige
+  actie en een voorbeeld. Een apart migratiebestand is daardoor niet nodig.
+
+Figma voedt de Figma-MCP, de catalogus de Flux-MCP (sectie 4). De toepassingen zelf staan niet in de kennislaag: ze
+ zijn het onderwerp van de recepten, niet de bron.
+
+
+## 4. Ontsluiting: 2 MCP-servers
+
+**Flux-MCP.** Eigen ontwikkeling. Hij ontsluit de catalogus met tools en resources: zoeken in de documentatie, een
+ component of richtlijn opvragen, de wijzigingen tussen 2 versies opvragen en markup controleren tegen de API van een
+ versie (`flux_check_markup`). Elke vraag noemt de versie van het project, elk antwoord de versie van de catalogus en
+ zijn bronnen. Daarnaast biedt hij de recepten aan als MCP-prompts (sectie 5). De Flux-MCP draait als dienst op het
+ containerplatform, achter een gateway waar je na aanmelding een persoonlijk token aanvraagt.
+
+**Figma-MCP (Code Connect).** Bestaande Figma-tooling die we inzetten. Hij ontsluit het ontwerp: welke Figma-component
+ en -variant overeenkomt met welke `vl`-component en welke attributen. Flux-MCP verrijkt de Figma-bibliotheek daarvoor
+ met Code Connect, beschrijvingen per component en links naar de documentatie.
+
+**AI-client van het project.** Claude Code, Codex, VS Code met Copilot, Cursor of een andere AI-client met
+ MCP-ondersteuning maakt rechtstreeks verbinding met de Flux-MCP en met de Figma-MCP. De ontwikkelaar start een recept
+ en de AI-client voert het uit, met het AI-model van het team, in de code van het project en met de eigen koppelingen
+ met Jira en Git.
+
+<vl-alert icon="alert-circle" title="Belangrijk" type="warning" size="small">
+    De MCP-servers voeren zelf niets uit: ze roepen geen model aan en lezen of wijzigen geen code. Ze leveren kennis en
+    recepten, de AI-client van het project voert ze uit.
+</vl-alert>
+
+
+## 5. Recepten
+
+Een recept is een workflow als MCP-prompt: vaste stappen, uitgevoerd door de AI-client van het project. Elk recept volgt
+ hetzelfde stramien:
+
+1. **Checkpoint** - de ontwikkelaar bevestigt het plan voor er code wijzigt.
+2. **Verificatie** - `flux_check_markup`, de build en de e2e-testen.
+3. **Rapport** - wat er gebeurde en wat er nog openstaat.
+
+Wat code wijzigt, eindigt in een voorstel voor een branch en een PR of MR, nooit in een losse AI-output. Voor Jira en
+ Git gebruikt de AI-client de eigen koppelingen van het team. Elk recept raadt een model en een effort aan.
+
+### 5.1 Van ontwerp naar frontend
+
+Deze recepten brengen een ontwerp uit Figma stap voor stap naar een nieuwe frontend:
+
+- `frontend-aanmaken` - zet de frontend op vanuit de flux-starter-app.
+- `frontend-analyseren` - analyseert het ontwerp: de schermen, het menu en de navigatie.
+- `frontend-structuur-bouwen` - bouwt de opbouw, het menu en lege schermen.
+- `scherm-analyseren` - analyseert 1 scherm uit zijn ontwerp in Figma.
+- `scherm-bouwen` - bouwt het scherm volgens zijn analyse.
+
+Een analyse wijzigt geen code: ze wordt eerst in een PR nagekeken, de volgende stap bouwt erop verder.
+
+### 5.2 Op een bestaande frontend
+
+- `frontend-uitbreiden` - een uitbreiding vanuit een Jira-ticket of een ontwerp.
+- `frontend-upgraden` - naar een nieuwere versie van Flux, op basis van de changelog van alle tussenliggende versies.
+  De e2e-testen bevestigen dat het gedrag ongewijzigd blijft.
+- `frontend-wijzigingen-reviewen` - de diff van een branch naast de richtlijnen en de API van Flux, ter voorbereiding
+  van de PR of MR. De menselijke review blijft de poort.
+- `frontend-valideren` - de hele frontend naast de richtlijnen en de API van Flux, met een rapport van de afwijkingen
+  (sectie 6).
+- `frontend-verbeteren` - de toepassing aanpassen op basis van dat rapport, voor de afwijkingen die het team kiest.
+
+
+## 6. De Terugkoppellus
+
+`frontend-valideren` legt een frontend naast de richtlijnen en de API van zijn Flux-versie en levert een rapport van de
+ afwijkingen. Het rapport stelt vast, het oordeelt niet: een toepassing is niet goed of slecht, ze is wat ze is.
+
+De richtlijnen beschrijven hoe Flux een frontend opbouwt:
+
+- paginastructuur en navigatie;
+- interactiepatronen: formulieren, validatie en foutmeldingen, laad- en lege toestanden, bevestigingen, tabellen en
+  paginering;
+- componenten uit de bibliotheek in plaats van lokale varianten;
+- terminologie en 'tone-of-voice' in labels, meldingen en hulpteksten;
+- toegankelijkheid: richtlijn WCAG 2.2 AA, wettelijk minimum WCAG 2.1 AA.
+
+Ze staan in de kennislaag: de patronen in Figma, de richtlijnen en voorbeelden in de documentatie uit Storybook, de
+ componenten en hun API in de web-types.
+
+Op basis van het rapport zijn er 3 mogelijkheden:
+
+1. **De toepassing aanpassen** - het team past zijn toepassing aan, met `frontend-verbeteren`.
+2. **Flux-AI aanpassen** - de toepassing is ok, maar Flux-AI kan verbeterd worden: aanvullen, schrappen of iets
+   fundamentelers. Het team meldt Team Flux dat het Flux-AI gebruikte. Team Flux bekijkt zelf de informatie in de
+   `.flux`-map van het project en beslist welke acties volgen. De aanpassing landt in de richtlijnen in Storybook, in
+   Figma, in de componenten of in de recepten.
+3. **Niets aanpassen** - de afwijkingen staan in het rapport, daar stopt het.
+
+Die keuze is geen AI-beslissing: het recept stelt vast, het team beslist over zijn toepassing en Team Flux over
+ Flux-AI. Eens beslist, kan het doorvoeren wel met AI. Toegankelijkheid is de uitzondering: het wettelijk minimum
+ geldt voor elke toepassing.
+
+Zo groeit Flux-AI mee met wat teams in de praktijk tegenkomen, zonder dat elke toepassing hetzelfde moet worden.
+
+
+## 7. Wat de AI-werking versterkt
+
+Flux-AI werkt op elke toepassing. Deze punten maken de AI-werking sterker en efficiënter. Ze zitten volledig in de
+ codebase en veranderen niets aan wat de eindgebruiker ziet of doet. Een team kan elk punt zelf aanpakken.
+
+<div style={{textAlign: 'center'}}>
+    <img
+        src={fluxAiTechnischFundament}
+        alt="Flux-AI - wat de AI-werking versterkt: vaste versie, standalone opstartbaar, backend uitgemockt en uitgebreide e2e-testen maken een toepassing een sterkere en efficiëntere werkomgeving voor AI"
+        width="770"
+    />
+</div>
+
+**Vaste versie van Flux.** De toepassing pint 1 versie. Zo is eenduidig welke catalogus geldt, en gaat
+ `frontend-upgraden` van 1 gekende versie naar 1 gekende versie, met de changelog ertussen.
+
+**Standalone opstartbaar.** 1 commando (`pnpm install && pnpm start`) en de app draait, zonder toegang tot interne
+ infrastructuur, VPN's of credentials. Zo kan de AI-client de app zelf starten, bekijken en testen.
+
+**Backend uitgemockt, puur Node.** Mocks (bv. MSW of een lichte Node-mockserver) in plaats van een Java-runtime, een
+ databank of externe afhankelijkheden. Zo is het gedrag deterministisch: dezelfde input geeft altijd dezelfde output.
+
+**Uitgebreide e2e-testen.** De e2e-suite is het gedragscontract van de toepassing en versterkt de AI-werking het meest:
+ ze maakt AI-wijzigingen verifieerbaar. Na een upgrade, een uitbreiding of een aanpassing geldt: testen groen = gedrag
+ behouden. Zo kan de AI-client zelf itereren tot het resultaat klopt.
+
+
+## 8. Randvoorwaarden en Risico's
+
+- **Kwaliteit van de kennislaag is bepalend.** Onvolledige web-types, gedateerde documentatie of een vage changelog
+  vertalen zich direct in slechte AI-output. Documentatie-discipline wordt een productie-eis: elke release levert een
+  volledige catalogus op.
+- **Figma-governance.** Van ontwerp naar code staat of valt met een strak beheerde Figma-bibliotheek en een onderhouden
+  Code Connect-mapping. Zonder 1-op-1 mapping levert AI generieke HTML in plaats van `vl`-componenten.
+- **Governance van Flux-AI.** Wat er aan Flux-AI verbeterd kan worden, haalt Team Flux zelf uit de `.flux`-map van de
+  projecten die melden dat ze Flux-AI gebruikten. Zonder eigenaar wordt dat drift: Team Flux beslist en houdt de
+  richtlijnen, de componenten en de recepten samenhangend.
+- **Rechten en reikwijdte.** De AI-client werkt met de rechten van de ontwikkelaar, in Jira en Git. Dat vraagt
+  afspraken over wat een recept zelf mag doen (analyse, branch, PR of MR) en wat niet (bv. mergen, tickets sluiten).
+- **Review blijft nodig.** AI-output gaat door dezelfde review- en kwaliteitspoorten als menselijke code. De
+  e2e-testen verlagen de review-last, maar vervangen hem niet, zeker niet voor toegankelijkheid, waar automatische
+  verificatie tekortschiet.
+- **Versnippering vermijden.** Alle recepten halen hun kennis via dezelfde server. Zo sleept geen enkele tool een
+  eigen, verouderende kopie van de kennis over Flux mee.
+- **Toegang tot een AI-model.** Flux-AI levert geen model: elk team heeft een AI-client met toegang tot een model
+  nodig, en een persoonlijk token voor de Flux-MCP.
+
+
+## 9. Conclusie
+
+De recepten zijn geen losse experimenten maar 1 systeem met een gedeelde kern: 1 kennislaag, ontsloten via 2
+ MCP-servers, uitgevoerd in de AI-client van elk team. De terugkoppellus houdt Flux-AI in beweging: op basis van een
+ rapport kan een toepassing of Flux-AI zelf veranderen.
+
+Wat de AI-werking versterkt (sectie 7), kan elk team meteen zelf aanpakken. Wat een team met een rapport doet, beslist
+ het team zelf: Flux-AI helpt, elk team behoudt zijn eigenheid.
