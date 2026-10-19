@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=681-92
 // source=libs/components/src/block/cascader/vl-cascader.component.ts
 // component=VlCascaderComponent
+// code-only vl-cascader: header-text, level, loading, loading-message, templates
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 

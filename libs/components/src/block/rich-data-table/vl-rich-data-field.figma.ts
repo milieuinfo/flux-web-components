@@ -2,6 +2,7 @@
 // source=libs/components/src/block/rich-data-table/vl-rich-data-field.component.ts
 // component=VlRichDataField
 // unmapped: size
+// code-only vl-rich-data-field: sorting-priority
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

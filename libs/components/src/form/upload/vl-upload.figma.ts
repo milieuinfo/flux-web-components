@@ -1,6 +1,10 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=902-39
 // source=libs/components/src/form/upload/vl-upload.component.ts
 // component=VlUploadComponent
+// code-only vl-upload: accepted-files, auto-process, blur-validation, chunking, describedby, disallow-duplicates
+// code-only vl-upload: error-message-accepted-files, error-message-filesize, error-message-max-files
+// code-only vl-upload: error-message-maxfiles, label, max-files, max-size, multiple, name, parallel-uploads, readonly
+// code-only vl-upload: required, type, url
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

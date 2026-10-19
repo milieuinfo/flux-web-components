@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=794-8
 // source=libs/components/src/block/progress-bar/vl-progress-bar.component.ts
 // component=VlProgressBarComponent
+// code-only vl-progress-bar: label, labelledby, value
 import figma from 'figma';
 
 const instance = figma.selectedInstance;

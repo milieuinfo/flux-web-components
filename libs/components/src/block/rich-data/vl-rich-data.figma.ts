@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=987-2
 // source=libs/components/src/block/rich-data/vl-rich-data.component.ts
 // component=VlRichData
+// code-only vl-rich-data: collapsed-m, collapsed-s, collapsed-xs, data, filter-max-width, mobile-modal
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 

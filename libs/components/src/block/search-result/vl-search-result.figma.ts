@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=841-2
 // source=libs/components/src/block/search-result/vl-search-result.component.ts
 // component=VlSearchResultComponent
+// code-only vl-search-result-properties: label-width, no-clone, props
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

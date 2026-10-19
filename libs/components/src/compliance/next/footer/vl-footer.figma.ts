@@ -2,6 +2,7 @@
 // source=libs/components/src/compliance/next/footer/vl-footer.component.ts
 // component=VlFooter
 // unmapped: variant, size, collapsed
+// code-only vl-footer-next: development
 import figma from 'figma';
 
 // vl-footer-next laadt de global footer (v2) van Digitaal Vlaanderen; het oude vl-footer laadt de

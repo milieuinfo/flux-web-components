@@ -1,6 +1,8 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=144-13841
 // source=libs/components/src/block/next/side-navigation/vl-side-navigation.component.ts
 // component=VlSideNavigationComponent
+// code-only vl-side-navigation-next: child-spacing, closed, compact, exclude-selectors, heading-root-selector
+// code-only vl-side-navigation-next: max-depth, max-level, min-level, multi-active
 import figma from 'figma';
 import { escapeHtml } from '../../../../../../resources/code-connect/escape-html';
 

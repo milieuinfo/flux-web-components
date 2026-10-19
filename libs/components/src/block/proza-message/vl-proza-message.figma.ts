@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=592-316
 // source=libs/components/src/block/proza-message/vl-proza-message.component.ts
 // component=VlProzaMessage
+// code-only vl-proza-message: base-url, block, parameters
 import figma from 'figma';
 
 // De Figma-component heeft geen properties en bevat enkel een vl-typography-instance als

@@ -2,6 +2,7 @@
 // source=libs/components/src/block/functional-header/vl-functional-header.component.ts
 // component=VlFunctionalHeaderComponent
 // unmapped: size
+// code-only vl-functional-header: back-link, disable-back-link, link, margin-bottom, skip-to-content-id, sticky
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';

@@ -2,7 +2,9 @@
 // source=libs/components/src/block/tooltip/vl-tooltip.component.ts
 // component=VlTooltipComponent
 // unmapped: Content
+// code-only vl-tooltip: content-padding, distance, hide-on-click, max-height, open, strategy, trigger, type
 import figma from 'figma';
+import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
 const instance = figma.selectedInstance;
@@ -17,15 +19,16 @@ const placement: { placement?: string } =
     }) ?? {};
 
 // De Figma-as `Content` (Default/Large) toont enkel een korte of lange voorbeeldtekst
-// en heeft geen code-equivalent. `hide-arrow`, `distance`, `strategy`, `type` en `open`
-// bestaan enkel in code.
+// en heeft geen code-equivalent. `distance`, `strategy`, `type` en `open` bestaan enkel in code.
+// De boolean `arrow` toont de pijl; uit is `hide-arrow`. Een oudere library zonder de boolean toonde de pijl altijd.
+const arrow = booleanProperty(instance, 'arrow', true);
 // De tooltiptekst zit in de tekstlaag "↳ Text" en hangt niet aan een component-property.
 // `for` (id van het trigger-element) is verplicht in code maar zit niet in Figma; het blijft leeg.
 const textLayer = instance.findText('↳ Text');
 const text = textLayer && textLayer.type === 'TEXT' ? escapeHtml(textLayer.textContent) : '';
 
 export default {
-    example: figma.code`<vl-tooltip for=""${placement.placement ? ` placement="${placement.placement}"` : ''}>${text}</vl-tooltip>`,
+    example: figma.code`<vl-tooltip for=""${placement.placement ? ` placement="${placement.placement}"` : ''}${arrow ? '' : ' hide-arrow'}>${text}</vl-tooltip>`,
     id: 'vl-tooltip',
     metadata: { nestable: true },
 };

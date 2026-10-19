@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=182-61297
 // source=libs/components/src/block/properties/vl-properties.component.ts
 // component=VlPropertiesComponent
+// code-only vl-properties: label-width, no-clone, props, value-bold
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 

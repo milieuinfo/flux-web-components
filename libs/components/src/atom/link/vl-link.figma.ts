@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=182-66884
 // source=libs/components/src/atom/link/vl-link.component.ts
 // component=VlLinkComponent
+// code-only vl-link: block, button-as-link, download, label, type
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

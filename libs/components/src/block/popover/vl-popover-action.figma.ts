@@ -1,6 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=828-216
 // source=libs/components/src/block/popover/vl-popover-action.component.ts
 // component=VlPopoverActionComponent
+// code-only vl-popover-action: action
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
