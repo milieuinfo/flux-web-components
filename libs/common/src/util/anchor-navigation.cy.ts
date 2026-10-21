@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import '@domg-wc/components/block/typography/vl-typography.component';
+import '@domg-wc/components/atom/title/vl-title.component';
 import {
     dispatchNavigateToAnchor,
     enableAnchorNavigation,
@@ -145,5 +146,79 @@ describe('cypress-component - common - anchor-navigation utility', () => {
                 expect(win.history.length).to.equal(Number(lengthBefore) + 1);
             });
         });
+    });
+
+    it('should move focus to the heading inside vl-title when vl-title is the target', () => {
+        cy.mount(html`<vl-title type="h1" id="doel">Doel</vl-title>`);
+        cy.get('vl-title').shadow().find('h1');
+
+        cy.then(() => {
+            expect(navigateToAnchor('#doel')).to.equal(true);
+        });
+
+        // Een screenreader (VoiceOver in Safari) volgt focus op het generieke host-element niet, wel op de heading.
+        cy.get('vl-title')
+            .shadow()
+            .find('h1')
+            .then(([heading]) => {
+                expect(heading.getRootNode()).to.have.property('activeElement', heading);
+                expect(heading.tabIndex).to.equal(-1);
+            });
+        cy.get('vl-title').should('not.have.attr', 'tabindex');
+    });
+
+    it('should move focus to the heading inside vl-title when an earlier navigation left tabindex -1 on the host', () => {
+        // Een navigatie vóór de render van vl-title viel terug op het host-element en liet daar tabindex="-1" achter.
+        cy.mount(html`<vl-title type="h1" id="doel" tabindex="-1">Doel</vl-title>`);
+        cy.get('vl-title').shadow().find('h1');
+
+        cy.then(() => {
+            expect(navigateToAnchor('#doel')).to.equal(true);
+        });
+
+        cy.get('vl-title')
+            .shadow()
+            .find('h1')
+            .then(([heading]) => {
+                expect(heading.getRootNode()).to.have.property('activeElement', heading);
+            });
+    });
+
+    it('should keep moving focus to a native heading target', () => {
+        cy.mount(html`<h2 id="doel">Doel</h2>`);
+
+        cy.then(() => {
+            expect(navigateToAnchor('#doel')).to.equal(true);
+        });
+
+        cy.focused().should('have.id', 'doel');
+    });
+
+    it('should keep moving focus to a custom element target that is more than a heading', () => {
+        cy.mount(html`
+            <vl-typography id="doel">
+                <h2>Kop</h2>
+                <p>Tekst</p>
+            </vl-typography>
+        `);
+
+        cy.then(() => {
+            expect(navigateToAnchor('#doel')).to.equal(true);
+        });
+
+        cy.focused().should('have.id', 'doel');
+        cy.get('vl-typography').should('have.attr', 'tabindex', '-1');
+    });
+
+    it('should keep moving focus to a vl-title target that has its own tabindex', () => {
+        cy.mount(html`<vl-title type="h1" id="doel" tabindex="0">Doel</vl-title>`);
+        cy.get('vl-title').shadow().find('h1');
+
+        cy.then(() => {
+            expect(navigateToAnchor('#doel')).to.equal(true);
+        });
+
+        cy.focused().should('have.id', 'doel');
+        cy.get('vl-title').shadow().find('h1').should('not.have.attr', 'tabindex');
     });
 });

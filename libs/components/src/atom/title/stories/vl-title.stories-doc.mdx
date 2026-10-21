@@ -63,6 +63,15 @@ Gebruik opeenvolgende rangorde om de titel te bepalen en sla geen rangorde over.
 
 **NIET** bv. `h2` voor de hoofdtitel, `h4` voor de subtitel.
 
+### Gedrag
+
+Op een klein scherm loopt een titel nooit over de rand (WCAG 1.4.10). Heeft de pagina een taal (`lang`, bv.
+`<html lang="nl">`) en kent de browser die, dan kan een lang woord aan het einde van een regel met een koppelteken
+afgebroken worden, bv. "Toegankelijkheids-verklaring". In Chrome, Edge en Firefox komen daarvoor enkel woorden van
+minstens 12 letters in aanmerking, zodat gewone woorden heel blijven; Safari ondersteunt die grens (nog) niet en
+gebruikt zijn eigen. Een woord dat nergens op een regel past, breekt altijd af, desnoods zonder koppelteken. Op
+grotere schermen blijft een woord heel.
+
 
 ## Referenties
 

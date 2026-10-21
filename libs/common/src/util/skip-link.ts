@@ -12,7 +12,8 @@ export const SKIP_TO_CONTENT_MISSING_ID_WARNING = [
  * Bouwt een `<a class="vl-skip-link">` waarmee toetsenbordgebruikers het header-blok kunnen overslaan
  * (WCAG 2.4.1). De link is visueel verborgen tot hij focus krijgt (zie `vlAccessibilityStyles`) en
  * verplaatst bij activatie de focus en de scroll naar het doel-element - pagina-breed gezocht, ook
- * diep in shadow roots. Bestaat het doel niet, dan doet de link niets.
+ * diep in shadow roots. Bestaat het doel niet, dan doet de link niets. Wijst de link naar een `vl-title`, dan
+ * krijgt de heading in diens shadow root de focus (zie `navigateToAnchor`).
  */
 export const createSkipToContentLink = (skipToContentId: string): HTMLAnchorElement => {
     const href = `${skipToContentId.startsWith('#') ? '' : '#'}${skipToContentId}`;
