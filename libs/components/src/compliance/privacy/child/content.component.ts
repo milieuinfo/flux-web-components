@@ -114,7 +114,6 @@ export const privacyContentSection = () => html`
                                             <vl-link
                                                 href="http://www.omgevingvlaanderen.be"
                                                 external
-                                                label="Ga naar omgevingvlaanderen.be (opent in een nieuw venster)"
                                             >
                                                 http://www.omgevingvlaanderen.be
                                             </vl-link>
@@ -582,9 +581,8 @@ export const privacyContentSection = () => html`
                                 Departement Omgeving dit publiek melden en hiervan op transparante wijze mededeling doen
                                 in nieuwsbrieven, op de website
                                 <vl-link
-                                    href="www.omgevingvlaanderen.be"
+                                    href="https://www.omgevingvlaanderen.be"
                                     external
-                                    label="Bezoek de website omgevingvlaanderen.be (opent in een nieuw venster)"
                                     >www.omgevingvlaanderen.be</vl-link
                                 >
                                 en via andere mediakanalen waarvan het Departement Omgeving gebruik maakt.
@@ -594,9 +592,8 @@ export const privacyContentSection = () => html`
                                 passen aan nieuwe noden of inzichten. Er zal van wijzigingen aan de Privacyverklaring
                                 transparant melding gemaakt worden op de hoofdwebsite van het Departement Omgeving
                                 (<vl-link
-                                    href="www.omgevingvlaanderen.be"
+                                    href="https://www.omgevingvlaanderen.be"
                                     external
-                                    label="Bezoek de website omgevingvlaanderen.be (opent in een nieuw venster)"
                                     >www.omgevingvlaanderen.be</vl-link
                                 >) alsook op de papieren versie die op eenvoudige aanvraag verkrijgbaar is bij de Dienst
                                 Communicatie van het Departement Omgeving en via de Functionaris voor

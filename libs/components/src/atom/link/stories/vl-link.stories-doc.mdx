@@ -56,14 +56,25 @@ linktekst. Je hoeft dit dus niet zelf te voorzien. Het external icoon zelf is de
 voorgelezen.
 
 Gebruik je het `label` attribuut, dan vervangt dat de volledige voorgelezen linktekst en wordt de automatische melding
-niet toegevoegd. Neem in dat geval zelf de vermelding op, bv.
-`label="Ga naar Vlaanderen.be (opent in een nieuw venster)"`.
+niet toegevoegd. Neem in dat geval zelf de vermelding op, na de zichtbare linktekst, bv.
+`label="Lees meer over toegankelijkheid (opent in een nieuw venster)"` bij de zichtbare tekst "Lees meer".
 
 <Canvas of={VlLinkStories.LinkExternal} />
 
 ### Icon
 
 <Canvas of={VlLinkStories.LinkIcon} />
+
+### Enkel icoon
+
+Een link met enkel een icoon heeft geen zichtbare tekst. Het `label` attribuut is hier verplicht: het is de enige naam
+die schermlezers en spraakbesturing van de link kennen.
+
+Gebruik een link met enkel een icoon enkel om te navigeren. Voert het icoon een actie uit, zoals bewerken of
+verwijderen, gebruik dan een [vl-button](/docs/components-atom-button--documentatie) met enkel een icoon en het
+`ghost` attribuut, ook met een `label`.
+
+<Canvas of={VlLinkStories.LinkIconOnly} />
 
 ### Download
 
@@ -103,7 +114,7 @@ Via het `type`-attribuut kan je het type van de onderliggende `<button>` instell
 Shadow DOM boundary overschrijdt en door parent-elementen kan worden opgevangen.
 
 ```html
-<vl-link href="https://www.vlaanderen.be">Vlaanderen</vl-link>
+<vl-link href="#">Lees meer over dit onderwerp</vl-link>
 <script>
   document.querySelector('vl-link').addEventListener('vl-click', () => {
     console.log('link geklikt');
@@ -131,6 +142,17 @@ niet zelf te voorzien in de linktekst of via het `label` attribuut.
 Indien `label` gebruikt wordt, is dit de enige linktekst die door schermlezers wordt voorgelezen; de automatische
 melding wordt dan niet toegevoegd. Neem in dat geval zowel de zichtbare linktekst als de vermelding "(opent in een
 nieuw venster)" op in het label.
+
+Gebruik `label` enkel als de zichtbare tekst niet volstaat of als er geen zichtbare tekst is. Heeft de link zichtbare
+tekst, dan moet het label die tekst bevatten, bij voorkeur vooraan (WCAG 2.5.3 Label in Name). Gebruikers van
+spraakbesturing activeren een link met de tekst die ze zien; ontbreekt die tekst in het label, dan vinden ze de link
+niet.
+
+- Goed: `<vl-link label="Lees meer over toegankelijkheid">Lees meer</vl-link>`, het label begint met de zichtbare tekst
+- Te vermijden: `<vl-link label="Over toegankelijkheid: lees meer">Lees meer</vl-link>`, de zichtbare tekst staat niet
+  vooraan
+- Fout: `<vl-link label="Toegankelijkheidsverklaring">Lees meer</vl-link>`, de zichtbare tekst ontbreekt
+- Fout: `<vl-link button-as-link label="Annuleer inschrijving">Annuleren</vl-link>`, de zichtbare tekst ontbreekt
 
 Indien de link enkel een icoon bevat, is het verplicht om het `label` attribuut te gebruiken zodat een beschrijvende
 `aria-label` wordt toegevoegd aan de link.

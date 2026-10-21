@@ -45,6 +45,13 @@ describe('cypress-component - compliance components - vl-cookie-statement - defa
         });
         cy.checkA11y('vl-cookie-statement');
     });
+
+    it('should give every link an accessible name that contains its visible text (label in name)', () => {
+        cy.get('vl-cookie-statement');
+
+        cy.injectAxe();
+        cy.checkA11y('vl-cookie-statement', { runOnly: { type: 'rule', values: ['label-content-name-mismatch'] } });
+    });
 });
 
 describe('cypress-component - compliance components - vl-cookie-statement - children', () => {
