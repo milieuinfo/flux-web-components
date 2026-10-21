@@ -16,11 +16,29 @@ declare global {
     }
 }
 
+const HEADING_TAGS = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
+
+/**
+ * Geeft de heading terug wanneer het doel enkel een omhulsel is rond één heading in zijn shadow root, zoals
+ * `vl-title`. Focus op zo'n host zonder rol volgt VoiceOver in Safari niet, focus op de heading wel (WCAG 2.4.1).
+ * Een doel dat zelf focusbaar is (`tabindex` 0 of hoger) of een `role` heeft, of met meer inhoud dan één heading,
+ * behoudt zelf de focus. Een `tabindex="-1"` telt niet mee: die zet deze functie zelf op een host waarvan de
+ * heading nog niet gerenderd was, en een volgende navigatie moet dan wel naar de heading gaan.
+ */
+const findHeadingInShadowRoot = (target: HTMLElement): HTMLElement | null => {
+    if (!target.shadowRoot || target.tabIndex >= 0 || target.hasAttribute('role')) {
+        return null;
+    }
+    const children = [...target.shadowRoot.children].filter((child) => !['STYLE', 'LINK'].includes(child.tagName));
+    return children.length === 1 && HEADING_TAGS.includes(children[0].tagName) ? (children[0] as HTMLElement) : null;
+};
+
 /**
  * Navigeert naar een same-page anchor en zoekt het doel pagina-breed door alle (open) shadow roots
  * én de light DOM. Bij een treffer wordt er gescrold - onder eventuele sticky of fixed page chrome,
  * zie {@link scrollIntoViewBelowSticky} - de focus mee verplaatst (WCAG 2.4.3) en optioneel de
- * URL-hash bijgewerkt.
+ * URL-hash bijgewerkt. Is het doel een omhulsel rond één heading in zijn shadow root (bv. `vl-title`), dan
+ * krijgt die heading de focus, zodat ook een screenreader meeschuift.
  *
  * @param hash - de hash of het id van het doel (met of zonder leidende `#`)
  * @param options.updateHash - of de URL-hash bijgewerkt mag worden via `history.pushState` (default false).
@@ -42,10 +60,11 @@ export const navigateToAnchor = (hash: string, { updateHash = false }: { updateH
     scrollIntoViewBelowSticky(target);
 
     // Verplaats focus naar het doel zodat toetsenbord-/screenreader-context meeschuift (WCAG 2.4.3).
-    if (target.tabIndex < 0) {
-        target.tabIndex = -1;
+    const focusTarget = findHeadingInShadowRoot(target) ?? target;
+    if (focusTarget.tabIndex < 0) {
+        focusTarget.tabIndex = -1;
     }
-    target.focus({ preventScroll: true });
+    focusTarget.focus({ preventScroll: true });
 
     if (updateHash && location.hash !== `#${id}`) {
         history.pushState(null, '', `#${id}`);

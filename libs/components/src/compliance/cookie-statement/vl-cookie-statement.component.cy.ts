@@ -161,3 +161,28 @@ describe('cypress-component - compliance components - vl-cookie-statement - hide
             .should('not.exist');
     });
 });
+
+describe('cypress-component - compliance components - vl-cookie-statement - skip-link', () => {
+    it('should move focus to the main heading inside vl-title when the skip-link is activated', () => {
+        mountDefault(props);
+
+        // Wacht tot vl-title zijn h1 gerenderd heeft, zoals een gebruiker die de pagina ziet.
+        cy.get('vl-cookie-statement').shadow().find('vl-title#main-content').shadow().find('h1');
+        cy.get('vl-cookie-statement')
+            .shadow()
+            .find('vl-functional-header')
+            .shadow()
+            .find('a.vl-skip-link')
+            .click({ force: true });
+
+        // VoiceOver in Safari volgt de focus enkel naar een element met een rol, dus naar de h1 en niet naar vl-title.
+        cy.get('vl-cookie-statement')
+            .shadow()
+            .find('vl-title#main-content')
+            .shadow()
+            .find('h1')
+            .then(([heading]) => {
+                expect(heading.getRootNode()).to.have.property('activeElement', heading);
+            });
+    });
+});
