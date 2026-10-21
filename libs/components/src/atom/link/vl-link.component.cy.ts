@@ -123,9 +123,20 @@ describe('cypress-component - atom components - vl-link', () => {
     });
 
     it('should set aria-label', () => {
-        cy.mount(html`<vl-link label="link naar Vlaanderen">Vlaanderen</vl-link>`);
+        cy.mount(html`<vl-link label="Lees meer over toegankelijkheid">Lees meer</vl-link>`);
 
-        cy.get('vl-link').shadow().find('a').should('have.attr', 'aria-label', 'link naar Vlaanderen');
+        cy.get('vl-link').shadow().find('a').should('have.attr', 'aria-label', 'Lees meer over toegankelijkheid');
+    });
+
+    it('should be accessible when the label contains the visible text (label in name)', () => {
+        cy.mount(
+            html`<vl-link href="https://www.vlaanderen.be" external label="Lees meer (opent in een nieuw venster)"
+                >Lees meer</vl-link
+            >`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-link', { runOnly: { type: 'rule', values: ['label-content-name-mismatch'] } });
     });
 
     it('should forward aria-current to the link for every valid value', () => {
@@ -257,9 +268,16 @@ describe('cypress-component - atom components - vl-link - button as link', () =>
     });
 
     it('should set aria-label', () => {
-        cy.mount(html`<vl-link button-as-link label="registreren">Registratie</vl-link>`);
+        cy.mount(html`<vl-link button-as-link label="Annuleren van de inschrijving">Annuleren</vl-link>`);
 
-        cy.get('vl-link').shadow().find('button').should('have.attr', 'aria-label', 'registreren');
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'aria-label', 'Annuleren van de inschrijving');
+    });
+
+    it('should be accessible when the label contains the visible text (label in name)', () => {
+        cy.mount(html`<vl-link button-as-link label="Annuleren van de inschrijving">Annuleren</vl-link>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-link', { runOnly: { type: 'rule', values: ['label-content-name-mismatch'] } });
     });
 
     it('should forward aria-current to the button and follow changes', () => {

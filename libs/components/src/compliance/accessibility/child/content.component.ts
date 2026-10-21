@@ -204,7 +204,6 @@ export const content = ({
                                 <vl-link
                                     href="http://www.vlaamseombudsdienst.be"
                                     external
-                                    label="Ga naar vlaamseombudsdienst.be (opent in een nieuw venster)"
                                 >
                                     http://www.vlaamseombudsdienst.be
                                 </vl-link>

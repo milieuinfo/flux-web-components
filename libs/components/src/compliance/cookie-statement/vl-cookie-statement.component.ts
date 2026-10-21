@@ -251,7 +251,7 @@ export class VlCookieStatement extends BaseHTMLElement {
                                         </vl-property-data>
                                         <vl-property>Website</vl-property>
                                         <vl-property-data>
-                                            <vl-link href="http://www.omgevingvlaanderen.be" external label="Ga naar omgevingvlaanderen.be (opent in een nieuw venster)">
+                                            <vl-link href="http://www.omgevingvlaanderen.be" external>
                                                 http://www.omgevingvlaanderen.be
                                             </vl-link>
                                         </vl-property-data>
