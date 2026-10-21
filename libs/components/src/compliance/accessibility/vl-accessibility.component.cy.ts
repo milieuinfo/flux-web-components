@@ -167,3 +167,40 @@ describe('cypress-component - compliance components - vl-accessibility - header 
         cy.get('vl-accessibility').find('vl-functional-header').should('exist');
     });
 });
+
+describe('cypress-component - compliance components - vl-accessibility - skip-link', () => {
+    it('should move focus to the main heading inside vl-title when the skip-link is activated', () => {
+        mountDefault(defaultProps);
+
+        // Wacht tot vl-title zijn h1 gerenderd heeft, zoals een gebruiker die de pagina ziet.
+        cy.get('vl-accessibility').shadow().find('vl-title#main-content').shadow().find('h1');
+        cy.get('vl-accessibility')
+            .shadow()
+            .find('vl-functional-header')
+            .shadow()
+            .find('a.vl-skip-link')
+            .click({ force: true });
+
+        // VoiceOver in Safari volgt de focus enkel naar een element met een rol, dus naar de h1 en niet naar vl-title.
+        cy.get('vl-accessibility')
+            .shadow()
+            .find('vl-title#main-content')
+            .shadow()
+            .find('h1')
+            .then(([heading]) => {
+                expect(heading.getRootNode()).to.have.property('activeElement', heading);
+            });
+    });
+});
+
+describe('cypress-component - compliance components - vl-accessibility - reflow', () => {
+    it('should not overflow horizontally on a small screen with the long main heading', () => {
+        cy.viewport(320, 640);
+        mountDefault(defaultProps);
+
+        cy.get('vl-accessibility').shadow().find('vl-title#main-content').shadow().find('h1');
+        cy.document().then((doc) => {
+            expect(doc.documentElement.scrollWidth).to.be.at.most(doc.documentElement.clientWidth);
+        });
+    });
+});

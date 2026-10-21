@@ -1,4 +1,4 @@
-import { vlMediaScreenSmall } from '@domg-wc/styles';
+import { vlHyphenateMixin, vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 import {
     vlHeading1,
@@ -68,6 +68,11 @@ export const vlTitleStyles: CSSResult[] = [
             }
 
             @media screen and (max-width: ${vlMediaScreenSmall}px) {
+                h${heading}, .h${heading} {
+                    ${vlHyphenateMixin()}
+                    overflow-wrap: anywhere;
+                }
+
                 h${heading}.underline, .h${heading}.underline {
                     margin-bottom: 1rem;
                 }
