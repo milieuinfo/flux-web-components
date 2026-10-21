@@ -62,71 +62,65 @@ const LinkTemplate = story(
 export const LinkDefault = LinkTemplate.bind({});
 LinkDefault.storyName = 'vl-link - default';
 LinkDefault.args = {
-    href: 'https://www.vlaanderen.be',
-    defaultSlot: 'Vlaanderen',
-    label: 'Ga naar Vlaanderen.be',
+    href: '#',
+    defaultSlot: 'Lees meer over dit onderwerp',
 };
 
 export const LinkBold = LinkTemplate.bind({});
 LinkBold.storyName = 'vl-link - bold';
 LinkBold.args = {
-    href: 'https://www.vlaanderen.be',
-    defaultSlot: 'Vlaanderen',
+    href: '#',
+    defaultSlot: 'Lees meer over dit onderwerp',
     bold: true,
-    label: 'Ga naar Vlaanderen.be',
 };
 
 export const LinkSmall = LinkTemplate.bind({});
 LinkSmall.storyName = 'vl-link - small';
 LinkSmall.args = {
-    href: 'https://www.vlaanderen.be',
-    defaultSlot: 'Vlaanderen',
+    href: '#',
+    defaultSlot: 'Lees meer over dit onderwerp',
     small: true,
-    label: 'Ga naar Vlaanderen.be',
 };
 
 export const LinkLarge = LinkTemplate.bind({});
 LinkLarge.storyName = 'vl-link - large';
 LinkLarge.args = {
-    href: 'https://www.vlaanderen.be',
-    defaultSlot: 'Vlaanderen',
+    href: '#',
+    defaultSlot: 'Lees meer over dit onderwerp',
     large: true,
-    label: 'Ga naar Vlaanderen.be',
 };
 
 export const LinkError = LinkTemplate.bind({});
 LinkError.storyName = 'vl-link - error';
 LinkError.args = {
-    href: 'https://www.vlaanderen.be',
-    defaultSlot: 'Vlaanderen',
+    href: '#',
+    defaultSlot: 'Lees meer over dit onderwerp',
     error: true,
-    label: 'Ga naar Vlaanderen.be',
 };
 
 export const LinkExternal = LinkTemplate.bind({});
 LinkExternal.storyName = 'vl-link - external';
 LinkExternal.args = {
     href: 'https://www.vlaanderen.be',
-    defaultSlot: 'Vlaanderen',
+    defaultSlot: 'Vlaanderen.be',
     external: true,
 };
 
 export const LinkIcon = LinkTemplate.bind({});
 LinkIcon.storyName = 'vl-link - icon';
 LinkIcon.args = {
-    href: 'https://www.vlaanderen.be',
-    defaultSlot: 'Vlaanderen',
+    href: '#',
+    defaultSlot: 'Lees meer over dit onderwerp',
     icon: 'arrow-right-fat',
     iconPlacement: 'before',
-    label: 'Ga naar Vlaanderen.be',
 };
 
 export const LinkIconOnly = LinkTemplate.bind({});
 LinkIconOnly.storyName = 'vl-link - icon only';
 LinkIconOnly.args = {
-    href: 'https://www.vlaanderen.be',
+    href: '#',
     icon: 'arrow-right-fat',
-    label: 'Ga naar Vlaanderen.be',
+    label: 'Lees meer over dit onderwerp',
 };
 
 export const LinkDownload = LinkTemplate.bind({});
@@ -137,7 +131,6 @@ LinkDownload.args = {
     download: 'verslag.txt',
     icon: 'file-download',
     iconPlacement: 'before',
-    label: 'Download verslag.txt',
 };
 
 export const ButtonStyledAsLink = LinkTemplate.bind({});
@@ -145,5 +138,4 @@ ButtonStyledAsLink.storyName = 'vl-link - button as link';
 ButtonStyledAsLink.args = {
     defaultSlot: 'Annuleren',
     buttonAsLink: true,
-    label: 'Annuleer inschrijving',
 };

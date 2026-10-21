@@ -42,6 +42,23 @@ describe('cypress-component - compliance components - vl-privacy', () => {
         cy.checkA11y('vl-privacy');
     });
 
+    it('should give every link an accessible name that contains its visible text (label in name)', () => {
+        cy.get('vl-privacy');
+
+        cy.injectAxe();
+        cy.checkA11y('vl-privacy', { runOnly: { type: 'rule', values: ['label-content-name-mismatch'] } });
+    });
+
+    it('should give every link an absolute url', () => {
+        cy.get('vl-privacy')
+            .shadow()
+            .find('vl-link')
+            .should('have.length.greaterThan', 0)
+            .each(($link) => {
+                expect($link.attr('href')).to.match(/^(https?:\/\/|mailto:|tel:)/);
+            });
+    });
+
     it('should have privacy header', () => {
         cy.get('vl-privacy');
 

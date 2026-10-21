@@ -218,7 +218,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
     label: {
         name: 'label',
         description:
-            'Stelt het aria-label attribuut van de button in. Gebruik je een `cta-link` met `external`, geef dan een duidelijke omschrijving mee van waar de link naartoe leidt, bv. "Ga naar Vlaanderen.be (opent in een nieuw venster)".',
+            'Stelt het aria-label attribuut van de button in en vervangt zo de volledige voorgelezen tekst. Gebruik het enkel als de zichtbare tekst niet volstaat of als er geen zichtbare tekst is, bv. bij een button met enkel een icoon.<br/>Het label moet de zichtbare tekst bevatten, bij voorkeur vooraan (WCAG 2.5.3 Label in Name). Gebruik je een `cta-link` met `external`, voeg dan de vermelding toe na de zichtbare tekst, bv. "Vlaanderen.be (opent in een nieuw venster)" bij de zichtbare tekst "Vlaanderen.be".',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,

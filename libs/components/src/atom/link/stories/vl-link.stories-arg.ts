@@ -35,7 +35,7 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
     label: {
         name: 'label',
         description:
-            'Vult het aria-label attribuut van de link in en vervangt zo de volledige voorgelezen linktekst. Geef een duidelijke omschrijving mee van waar de link naartoe leidt.<br/>Bij een externe link wordt de automatische melding "(opent in een nieuw venster)" dan niet toegevoegd; neem die vermelding zelf op in het label, bv. "Ga naar Vlaanderen.be (opent in een nieuw venster)".',
+            'Vult het aria-label attribuut van de link in en vervangt zo de volledige voorgelezen linktekst. Gebruik het enkel als de zichtbare tekst niet volstaat of als er geen zichtbare tekst is, bv. bij een link met enkel een icoon.<br/>Het label moet de zichtbare tekst bevatten, bij voorkeur vooraan (WCAG 2.5.3 Label in Name), bv. "Lees meer over toegankelijkheid" bij de zichtbare tekst "Lees meer".<br/>Bij een externe link wordt de automatische melding "(opent in een nieuw venster)" dan niet toegevoegd; neem die vermelding zelf op in het label.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,

@@ -57,6 +57,11 @@ describe('cypress-component - compliance components - vl-accessibility', () => {
         });
         cy.checkA11y('vl-accessibility');
     });
+
+    it('should give every link an accessible name that contains its visible text (label in name)', () => {
+        cy.injectAxe();
+        cy.checkA11y('vl-accessibility', { runOnly: { type: 'rule', values: ['label-content-name-mismatch'] } });
+    });
 });
 
 describe('cypress-component - compliance components - vl-accessibility - properties default ', () => {
