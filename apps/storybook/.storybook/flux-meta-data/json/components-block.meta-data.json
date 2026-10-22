@@ -10,7 +10,7 @@
             "documentation": "uitgebreid",
             "wcag": "FLUX-205",
             "jiraMeta": "FLUX-21",
-            "dv": { "idea": "DS-134", "name": "Collapsible (FKA accordion)", "status": "Productie" }
+            "dv": { "idea": "DS-134", "name": "Collapsible (FKA accordion)", "status": "Gepubliceerd" }
         },
         "evolution": {
             "vStatus": "v2-replace",
@@ -154,7 +154,7 @@
             "documentation": "basis",
             "wcag": "TODO",
             "jiraMeta": "FLUX-220",
-            "dv": { "idea": "DS-149", "name": "Description list", "status": "Spec" }
+            "dv": { "idea": "DS-149", "name": "Description list", "status": "Gepubliceerd" }
         }
     },
     "components-block-description-data-description-data-item": {
@@ -281,7 +281,7 @@
             "documentation": "basis",
             "wcag": "FLUX-241",
             "jiraMeta": "FLUX-242",
-            "dv": { "idea": "DS-110", "name": "Range", "status": "Spec" }
+            "dv": { "idea": "DS-110", "name": "Range", "status": "Gepubliceerd" }
         }
     },
     "components-block-loader": {
@@ -348,7 +348,7 @@
             "documentation": "template",
             "wcag": "FLUX-740",
             "jiraMeta": "FLUX-255",
-            "dv": { "idea": "DS-132", "name": "Pagination", "status": "Spec" }
+            "dv": { "idea": "DS-132", "name": "Pagination", "status": "Gepubliceerd" }
         }
     },
     "components-block-pill": {
@@ -759,8 +759,8 @@
             "wcag": "FLUX-739",
             "jiraMeta": "FLUX-16",
             "dv": [
-                { "idea": "DS-138", "name": "Tabs", "status": "Ontwerpen" },
-                { "idea": "DS-137", "name": "Tab navigation", "status": "Ontwerpen" }
+                { "idea": "DS-138", "name": "Tabs", "status": "Gepubliceerd" },
+                { "idea": "DS-137", "name": "Tab navigation", "status": "Gepubliceerd" }
             ]
         },
         "evolution": {
