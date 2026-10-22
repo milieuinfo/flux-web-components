@@ -38,6 +38,7 @@ Kan je nog niet migreren, dan is een **veilige npm 12** het minimum: npm 12 of h
 ```
 min-release-age=3
 min-release-age-exclude[]=@domg-wc/*
+min-release-age-exclude[]=@domg/*
 strict-allow-scripts=true
 ```
 
@@ -103,6 +104,7 @@ overrides:
 # Uitzonderingen op de standaard wachttijd van 24 uur na publicatie
 minimumReleaseAgeExclude:
   - '@domg-wc/*'
+  - '@domg/*'
 ```
 
 - `allowBuilds` hoef je niet vooraf te vullen. Bij de eerste `pnpm install` stopt pnpm met `ERR_PNPM_IGNORED_BUILDS`
@@ -110,8 +112,10 @@ minimumReleaseAgeExclude:
   installeer opnieuw (`pnpm approve-builds` doet hetzelfde interactief). Cypress moet op `true`, anders ontbreekt de
   Cypress binary. esbuild, core-js en vue-demi werken ook op `false`; die `false` blijft staan als bewijs dat je het
   package beoordeeld hebt.
-- Zonder de uitzondering voor `@domg-wc/*` kan je een nieuwe Flux-release pas 24 uur na publicatie installeren. Zet
-  er ook de scope bij van packages die je eigen organisatie publiceert.
+- Zonder de uitzondering voor `@domg-wc/*` kan je een nieuwe Flux-release pas 24 uur na publicatie installeren.
+  `@domg-wc/components` en `@domg-wc/styles` hebben `@domg/govflanders-style` als dependency. Brengt een release een
+  nieuwe versie van die package mee, dan geldt de wachttijd daar ook voor, vandaar `@domg/*`. Publiceert je team zelf
+  packages onder een eigen scope, zet die scope er dan ook bij.
 
 ### 4. package.json opkuisen
 

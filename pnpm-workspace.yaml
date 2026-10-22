@@ -6,6 +6,8 @@ overrides:
 strictDepBuilds: true
 
 minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - '@domg/*'
 
 allowBuilds:
   cypress: true
