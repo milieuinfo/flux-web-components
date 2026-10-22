@@ -129,7 +129,7 @@
         "webpack-dev-server": "5.2.0"
     },
     "dependencies": {
-        "@domg/govflanders-style": "21.3.0",
+        "@domg/govflanders-style": "21.4.0",
         "@floating-ui/dom": "1.7.6",
         "@govflanders/vl-widget-global-footer-types": "1.0.28",
         "@govflanders/vl-widget-global-header-types": "2.0.39",
@@ -145,7 +145,7 @@
         "dropzone": "5.9.3",
         "flatpickr": "4.6.13",
         "jsts": "2.11.0",
-        "lit": "3.1.0",
+        "lit": "3.3.3",
         "prettier": "3.8.1",
         "proj4": "2.10.0",
         "reflect-metadata": "0.2.2",
