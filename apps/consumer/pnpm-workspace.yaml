@@ -10,6 +10,7 @@ strictDepBuilds: true
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - '@domg-wc/*'
+  - '@domg/*'
 
 allowBuilds:
   vue-demi: false
