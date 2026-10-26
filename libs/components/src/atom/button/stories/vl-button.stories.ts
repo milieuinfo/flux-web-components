@@ -72,7 +72,7 @@ const ButtonTemplate = story(
                 ?on=${on}
                 ?controlled=${controlled}
                 ?external=${external}
-                ?inputGroup=${inputGroup}
+                ?input-group=${inputGroup}
                 @vl-click=${onVlClick}
                 @vl-toggle=${onVlToggle}
             >
