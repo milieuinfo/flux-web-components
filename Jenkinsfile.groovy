@@ -75,6 +75,10 @@ pipeline {
             yaml podBuilder.from([buildPod(), trivy])
         }
     }
+    options {
+        timeout(time: 2, unit: 'HOURS')
+        parallelsAlwaysFailFast()
+    }
     parameters {
         booleanParam(
                 name: 'SKIP_TESTS',
