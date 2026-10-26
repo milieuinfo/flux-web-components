@@ -44,6 +44,7 @@ export const wizardArgTypes: ArgTypes<typeof wizardArgs> = {
         },
     },
     title: {
+        name: 'title',
         description: 'Slot voor de titel.',
         table: {
             category: CATEGORIES.SLOTS,
@@ -51,6 +52,7 @@ export const wizardArgTypes: ArgTypes<typeof wizardArgs> = {
         },
     },
     header: {
+        name: 'header',
         description: 'Slot voor de header.',
         table: {
             category: CATEGORIES.SLOTS,
