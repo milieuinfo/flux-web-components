@@ -73,6 +73,7 @@ export const progressIndicatorArgTypes: ArgTypes<typeof progressIndicatorArgs> =
         },
     },
     steps: {
+        name: 'steps',
         description: 'Lijst met omschrijvingen per stap.',
         control: { type: CONTROLS.OBJECT, required: true },
         table: {
