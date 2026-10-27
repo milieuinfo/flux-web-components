@@ -1,6 +1,8 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const r = (...p: string[]) => path.resolve(__dirname, ...p);
 
 const config: StorybookConfig = {
@@ -21,7 +23,7 @@ const config: StorybookConfig = {
         '../../../libs/map/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/styles/src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
-    addons: ['@chromatic-com/storybook', '@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest'],
+    addons: ['@storybook/addon-docs', '@storybook/addon-a11y'],
     docs: {
         defaultName: 'documentatie',
     },
@@ -80,7 +82,7 @@ const config: StorybookConfig = {
         (function () {
           function inject() {
             const sidebar =
-              document.querySelector('nav.sidebar-container');
+              document.querySelector('.sidebar-container');
             if (!sidebar) return false;
             if (sidebar.querySelector('#sb-custom-sidebar-footer')) return true;
 
@@ -173,10 +175,7 @@ const config: StorybookConfig = {
         if (configType === 'DEVELOPMENT') {
             const allow = new Set([
                 ...(config.server.fs.allow ?? []),
-                r('.'), // .storybook
-                r('../docs'), // ← jouw MDX docs-map
-                r('../stories'), // (optioneel) stories-map
-                r('..'), // (optioneel) SB subproject-root
+                r('../../..'),
             ]);
             // Laat Vite buiten de SB-subfolder lezen:
             config.server ??= {};
