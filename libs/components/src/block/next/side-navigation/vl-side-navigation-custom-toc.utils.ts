@@ -1,3 +1,4 @@
+import { scrollIntoViewBelowSticky } from '@domg-wc/common';
 import { extractHeadingIdsFromLinks, findHeadingElementById } from './vl-side-navigation-scanner.utils';
 
 /**
@@ -84,8 +85,8 @@ function handleCustomTocLinkClick(
     // Update the URL hash without triggering navigation
     history.pushState(null, '', href);
 
-    // Scroll to the target element
-    targetElement.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
+    // Scroll to the target element, below any sticky page chrome
+    scrollIntoViewBelowSticky(targetElement, { behavior: scrollBehavior });
 
     // Focus remains on the link (no explicit action needed since we prevented default)
 }
