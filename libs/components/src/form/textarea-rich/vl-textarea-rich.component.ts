@@ -18,7 +18,12 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
     private customConfig = textareaRichDefaults.customConfig;
 
     // Variables
-    private editor: Editor | null = null;
+    private createdEditor: Editor | null = null;
+
+    // TinyMCE maakt de editor al aan bij de start van de init, maar pas na de init is die bruikbaar
+    private get editor(): Editor | null {
+        return this.createdEditor?.initialized && !this.createdEditor.removed ? this.createdEditor : null;
+    }
 
     constructor() {
         super();
@@ -45,6 +50,11 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
 
     firstUpdated(changedProperties: Map<string, unknown>) {
         super.firstUpdated(changedProperties);
+
+        // Lit voert de eerste update ook uit als het element vóór die update al uit de DOM gehaald werd
+        if (!this.isConnected) {
+            return;
+        }
 
         this.initTinyMCE().then(() => {
             // TinyMCE stelt aria-hidden in op true, maar dit is problematisch voor screenreaders
@@ -90,7 +100,8 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
         super.disconnectedCallback();
 
         this.editor?.mode?.set('readonly');
-        this.editor?.destroy();
+        this.createdEditor?.remove();
+        this.createdEditor = null;
     }
 
     resetFormControl() {
@@ -104,6 +115,8 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
     }
 
     private async initTinyMCE() {
+        const customSetup = this.customConfig?.setup;
+
         await tinymce.init({
             target: this.validationTarget as HTMLElement,
             suffix: '.min',
@@ -132,9 +145,19 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
             link_default_target: '_blank',
             // Custom TinyMCE configuratie
             ...this.customConfig,
+            // Na de spread zodat een setup uit customConfig deze niet overschrijft. TinyMCE roept setup synchroon aan
+            // bij het aanmaken van de editor, zodat disconnectedCallback die ook tijdens de init kan opruimen.
+            setup: (editor: Editor) => {
+                this.createdEditor = editor;
+                if (typeof customSetup === 'function') {
+                    customSetup.call(editor, editor);
+                }
+            },
         });
 
-        this.editor = tinymce.get(this.id) as Editor | null;
+        if (!this.editor) {
+            return;
+        }
 
         this.editor?.on('input', () => {
             this.dispatchInput = true;
