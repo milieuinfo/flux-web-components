@@ -1,5 +1,5 @@
-import { registerWebComponents } from '@domg-wc/common';
-import { html } from 'lit';
+import { GlobalStyles, registerWebComponents } from '@domg-wc/common';
+import { html, render } from 'lit';
 import { VlTableComponent } from './vl-table.component';
 import { tableDefaults } from './vl-table.defaults';
 
@@ -383,6 +383,119 @@ describe('cypress-component - block components - vl-table - accessible name', ()
 
         cy.get('vl-table').find('div').should('exist');
         cy.get('vl-table').should('have.attr', 'aria-label', 'Mijn tabel');
+    });
+});
+
+const focusTableTemplate = html`
+    <vl-table>
+        <table>
+            <caption>
+                Data table
+            </caption>
+            <tbody>
+                <tr>
+                    <td>Entry line 1</td>
+                    <td>Entry line 2</td>
+                </tr>
+            </tbody>
+        </table>
+    </vl-table>
+`;
+
+const mountWithPrecedingButton = () =>
+    cy.mount(html`
+        <button id="preceding-action" type="button">voorgaande actie</button>
+        ${focusTableTemplate}
+    `);
+
+const mountInShadowRootWithPrecedingButton = () => {
+    cy.mount(html`
+        <button id="preceding-action" type="button">voorgaande actie</button>
+        <div id="shadow-host"></div>
+    `);
+    cy.get('#shadow-host').then(($host) => {
+        render(focusTableTemplate, $host[0].attachShadow({ mode: 'open' }));
+    });
+};
+
+// jQuery kent :focus-visible niet, dus de match-assertion van Cypress kan hier niet gebruikt worden.
+const shouldMatchFocusVisible = (focusVisible: boolean) => ($element: JQuery<HTMLElement>) =>
+    expect($element[0].matches(':focus-visible')).to.equal(focusVisible);
+
+// cy.click() simuleert enkel events, waardoor de browser geen muisinteractie registreert en :focus-visible anders
+// beoordeelt; via het Chrome DevTools Protocol verloopt de klik als echte browser-input.
+const realClick = ($element: JQuery<HTMLElement>) => {
+    const element = $element[0];
+    const autWindow = element.ownerDocument.defaultView!;
+    const frameRect = autWindow.frameElement!.getBoundingClientRect();
+    const scale = frameRect.width / autWindow.innerWidth;
+    const elementRect = element.getBoundingClientRect();
+    const x = frameRect.left + (elementRect.left + elementRect.width / 2) * scale;
+    const y = frameRect.top + (elementRect.top + elementRect.height / 2) * scale;
+    (['mousePressed', 'mouseReleased'] as const).forEach((type) => {
+        cy.then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Input.dispatchMouseEvent',
+                params: { type, x, y, button: 'left', clickCount: 1 },
+            }),
+        );
+    });
+};
+
+describe('cypress-component - block components - vl-table - focus', () => {
+    beforeEach(() => {
+        // vl-table registreert de globale styles niet zelf; zonder --vl-color--focus is de outline ongeldig
+        cy.then(() => GlobalStyles.getInstance().register());
+    });
+
+    it('should show a focus outline when focused with the keyboard', () => {
+        mountWithPrecedingButton();
+
+        cy.get('#preceding-action').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        cy.get('vl-table')
+            .should('have.focus')
+            .and(shouldMatchFocusVisible(true))
+            .shouldHaveComputedStyle({ style: 'outline-style', value: 'solid' });
+    });
+
+    it('should not show a focus outline when a cell is clicked with the mouse', () => {
+        mountDefault({});
+
+        cy.get('vl-table').find('tbody td').first().then(realClick);
+
+        cy.get('vl-table')
+            .should('have.focus')
+            .and(shouldMatchFocusVisible(false))
+            .shouldHaveComputedStyle({ style: 'outline-style', value: 'none' });
+    });
+
+    it('should show a focus outline when focused with the keyboard inside a shadow root', () => {
+        mountInShadowRootWithPrecedingButton();
+
+        cy.get('#preceding-action').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        cy.get('#shadow-host')
+            .shadow()
+            .find('vl-table')
+            .should('have.focus')
+            .and(shouldMatchFocusVisible(true))
+            .shouldHaveComputedStyle({ style: 'outline-style', value: 'solid' });
+    });
+
+    it('should not show a focus outline when a cell is clicked with the mouse inside a shadow root', () => {
+        mountInShadowRootWithPrecedingButton();
+
+        cy.get('#shadow-host').shadow().find('vl-table td').first().then(realClick);
+
+        cy.get('#shadow-host')
+            .shadow()
+            .find('vl-table')
+            .should('have.focus')
+            .and(shouldMatchFocusVisible(false))
+            .shouldHaveComputedStyle({ style: 'outline-style', value: 'none' });
     });
 });
 
