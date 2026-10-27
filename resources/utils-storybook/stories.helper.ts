@@ -1,7 +1,5 @@
 import { StoryContext, StoryFn } from '@storybook/web-components-vite';
 import { nothing } from 'lit';
-import * as prettierHtml from 'prettier/parser-html';
-import * as prettier from 'prettier/standalone';
 import { action } from 'storybook/actions';
 
 export const CATEGORIES = {
@@ -33,34 +31,6 @@ export const CONTROLS = {
     RANGE: 'range',
     NUMBER: 'number',
 } as const;
-
-export const filterOutDataCy = (input: string) => {
-    return input?.replace(/ data-cy=".*?"/, '');
-};
-
-export const filterOutClasses = (input: string) => {
-    return input?.replace(/ class=".*?"/, '');
-};
-
-// een upgrade naar Prettier v3 kan niet, v3 geeft een Promise<string> terug bij de format methode en dat wordt niet
-// ondersteund door Storybook - er is ook geen manier in Javascript om van een async-call een sync-call te maken
-export const formatHTML = (input: string) => {
-    // de 'html' parser sluit self-closing tags expliciet - <input> wordt <input />, dit is op zich niet
-    // gewenst maar de 'babel' parser geeft een fout - waardoor de ongeformatteerde input terug komt
-    try {
-        return prettier.format(input, {
-            parser: 'html',
-            plugins: [prettierHtml as any],
-            semi: false,
-            printWidth: 120,
-            tabWidth: 4,
-        });
-    } catch (error) {
-        console.log('formatHTML fout', error);
-        // geeft de originele input terug als het formatteren mislukt is
-        return input;
-    }
-};
 
 export const getSelectControlOptions = (options: string[]) => options.join(' | ');
 
