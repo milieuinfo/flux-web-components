@@ -7,6 +7,7 @@ export {
     type NavigateToAnchorDetail,
     dispatchNavigateToAnchor,
     enableAnchorNavigation,
+    findHeadingInShadowRoot,
     handleAnchorClick,
     navigateToAnchor,
 } from './util/anchor-navigation';

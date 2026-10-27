@@ -1,0 +1,87 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlNavLinkStories from './vl-nav-link.stories';
+
+# Nav link
+
+<FluxComponentMetaData id="structures-dashboard-nav-link" />
+
+
+## Doel
+
+`vl-nav-link` is een link in de navigatie van `vl-dashboard`, in de slots `nav-main` en `nav-utils` of in een `vl-nav-sub`.
+
+
+## Voorbeeld
+
+Gebruik `vl-nav-link` in [vl-dashboard](/docs/structures-dashboard--documentatie) of in een
+[vl-nav-sub](/docs/structures-dashboard-nav-sub--documentatie). De stories tonen de link in een container zo breed
+als de navigatie van `vl-dashboard`.
+
+```js
+import { VlNavLink } from '@domg-wc/structures';
+```
+
+```html
+<vl-nav-link slot="nav-main" href="/overzicht" icon="places-home" active>Overzicht</vl-nav-link>
+```
+
+<Canvas of={VlNavLinkStories.NavLinkDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlNavLinkStories.NavLinkDefault} />
+
+
+## Varianten
+
+### active
+
+Met `active` duidt de link de huidige pagina aan. `vl-nav-link` zet dan `aria-current="page"` op zijn interne link,
+zodat een schermlezer de link als huidige pagina voorleest.
+
+Er is maar één actieve link tegelijk in de navigatie. `vl-nav-link` verplaatst `active` niet zelf: doe dat bij elke
+navigatie, bv. in de router, door `active` van de vorige link te halen en op de nieuwe link te zetten. Het
+[navigatievoorbeeld van vl-dashboard](/docs/structures-dashboard--documentatie#actieve-link) toont hoe.
+
+```js
+navigation.querySelectorAll('vl-nav-link').forEach((link) => {
+    link.active = link.getAttribute('href') === location.pathname;
+});
+```
+
+<Canvas of={VlNavLinkStories.NavLinkActive} />
+
+### link-action
+
+In het slot `link-action` komt een icon-only actieknop naast de link. Geef de knop een `label`.
+
+<Canvas of={VlNavLinkStories.NavLinkWithAction} />
+
+### link-badge
+
+In het slot `link-badge` komt een badge, bv. een aantal meldingen. Gebruik daarvoor een `span`:
+`vl-nav-link` toont die als een rode badge rechts in de link, en als een kleine stip als de link ingeklapt is.
+
+```html
+<vl-nav-link slot="nav-main" href="/notificaties" icon="bell">
+    Notificaties
+    <span slot="link-badge">3</span>
+</vl-nav-link>
+```
+
+Houd de inhoud kort, bv. een getal. De tekst van de badge wordt toegevoegd aan de toegankelijke naam van de link,
+hier "Notificaties, 3", en volgt ook een gewijzigde teller. De badge zelf wordt niet nog eens voorgelezen. `vl-dashboard` toont op mobiel een stip op de menuknop zolang een link een badge heeft.
+
+<Canvas of={VlNavLinkStories.NavLinkWithBadge} />
+
+### collapsed
+
+Met `collapsed` toont de link enkel zijn icoon en verbergt hij de `link-action`, zoals in een ingeklapte navigatie van
+`vl-dashboard`. Een `span` wordt dan een kleine stip. Dat geldt vanaf een schermbreedte van 1024px; daaronder
+toont `vl-dashboard` de volledige mobiele navigatie. De stories tonen de link in een container zo breed als de
+ingeklapte navigatie.
+
+<Canvas of={VlNavLinkStories.NavLinkCollapsed} />
+
+<Canvas of={VlNavLinkStories.NavLinkCollapsedWithBadge} />

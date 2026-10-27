@@ -1,0 +1,65 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlNavSubStories from './vl-nav-sub.stories';
+
+# Nav sub
+
+<FluxComponentMetaData id="structures-dashboard-nav-sub" />
+
+
+## Doel
+
+`vl-nav-sub` groepeert `vl-nav-link` componenten onder een gedeeld label in het slot `nav-main` van `vl-dashboard`.
+
+
+## Voorbeeld
+
+Gebruik `vl-nav-sub` met [vl-nav-link](/docs/structures-dashboard-nav-link--documentatie) in
+[vl-dashboard](/docs/structures-dashboard--documentatie). De stories tonen de groep in een container zo breed als de
+navigatie van `vl-dashboard`.
+
+```js
+import { VlNavLink, VlNavSub } from '@domg-wc/structures';
+```
+
+```html
+<vl-nav-sub slot="nav-main" label="Dossier X" icon="file">
+    <vl-nav-link href="/dossiers/x/lopend" icon="hourglass">Lopende taken</vl-nav-link>
+    <vl-nav-link href="/dossiers/x/afgesloten" icon="file-tasks-check">Afgesloten taken</vl-nav-link>
+</vl-nav-sub>
+```
+
+<Canvas of={VlNavSubStories.NavSubDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlNavSubStories.NavSubDefault} />
+
+
+## Varianten
+
+### href
+
+Zonder `href` is het label gewone tekst: de groep heeft dan geen eigen pagina. Met `href` wordt het label een link naar
+een pagina van de groep, bv. een overzicht van het dossier, met de stijl, het icoon en de uitlijning van een
+`vl-nav-link`. Met `active` duidt die link de huidige pagina aan (`aria-current="page"`); verplaats `active` net als bij
+de links. De link blijft de toegankelijke naam van de lijst met links.
+
+Kies `href` als de groep een eigen landingspagina heeft, en laat het weg als de groep enkel de links bundelt.
+
+```html
+<vl-nav-sub slot="nav-main" label="Dossier X" icon="file" href="/dossiers/x" active>
+    <vl-nav-link href="/dossiers/x/lopend" icon="hourglass">Lopende taken</vl-nav-link>
+</vl-nav-sub>
+```
+
+<Canvas of={VlNavSubStories.NavSubWithHref} />
+
+### collapsed
+
+Met `collapsed` verbergt `vl-nav-sub` de tekst van zijn label en geeft het `collapsed` door aan zijn links, zoals in
+een ingeklapte navigatie van `vl-dashboard`. Met `href` wordt het label een klikbaar icoon, zoals de links. Het label
+blijft de toegankelijke naam van de lijst met links. Dat geldt
+vanaf een schermbreedte van 1024px. De story toont de groep in een container zo breed als de ingeklapte navigatie.
+
+<Canvas of={VlNavSubStories.NavSubCollapsed} />

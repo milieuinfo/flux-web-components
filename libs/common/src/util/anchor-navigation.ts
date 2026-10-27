@@ -25,7 +25,7 @@ const HEADING_TAGS = ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
  * behoudt zelf de focus. Een `tabindex="-1"` telt niet mee: die zet deze functie zelf op een host waarvan de
  * heading nog niet gerenderd was, en een volgende navigatie moet dan wel naar de heading gaan.
  */
-const findHeadingInShadowRoot = (target: HTMLElement): HTMLElement | null => {
+export const findHeadingInShadowRoot = (target: HTMLElement): HTMLElement | null => {
     if (!target.shadowRoot || target.tabIndex >= 0 || target.hasAttribute('role')) {
         return null;
     }
