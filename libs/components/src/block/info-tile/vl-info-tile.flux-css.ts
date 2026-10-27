@@ -1,3 +1,4 @@
+import { vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 // deze css is gegenereerd uit de oude custom scss
@@ -33,8 +34,13 @@ export const vlInfoTileFluxStyles: CSSResult = css`
     :host([toggleable]) .vl-info-tile__header__title {
         flex-grow: 1;
     }
+    /* volgt de breedte van het toggle-icoon (body font-size + 0.4rem), zodat de subtitel onder de titeltekst begint */
     :host([toggleable]) .vl-info-tile__header__subtitle {
-        margin-left: 2rem;
+        margin-left: 2.2rem;
+
+        @media screen and (max-width: ${vlMediaScreenSmall}px) {
+            margin-left: 2rem;
+        }
     }
     :host([toggleable]) .vl-info-tile.js-vl-accordion:not(.js-vl-accordion--open) .vl-info-tile__content {
         visibility: hidden;
@@ -45,6 +51,10 @@ export const vlInfoTileFluxStyles: CSSResult = css`
     :host([toggleable]) .vl-info-tile.js-vl-accordion.js-vl-accordion--open .vl-info-tile__content {
         visibility: visible;
         max-height: 100%;
+    }
+    :host([toggleable])
+        .vl-info-tile.js-vl-accordion.js-vl-accordion--open:not(.vl-info-tile--center)
+        .vl-info-tile__content {
         margin-left: 2rem;
     }
 
