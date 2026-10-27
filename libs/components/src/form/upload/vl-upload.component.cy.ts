@@ -541,8 +541,18 @@ describe('cypress-component - form components - vl-upload - upload', () => {
             </div>
         `);
 
+        cy.intercept('POST', uploadTargetUrl, (req) => {
+            req.reply({
+                statusCode: 200,
+                fixture: mockedResponseFixturePath,
+            });
+        }).as('uploadPost');
         shouldAddPdfFiles(1);
-        shouldSuccessfullyUploadFiles(1);
+        cy.wait('@uploadPost');
+        cy.get('@uploadPost.all').then((interceptions) => {
+            expect(interceptions).to.have.length(1);
+        });
+        shouldHaveSuccessUploadFiles(1);
         cy.wait(500);
         cy.get('.snapshot-wrapper').matchImageSnapshot('upload-file-success');
     });
