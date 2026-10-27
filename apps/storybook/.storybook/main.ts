@@ -1,6 +1,8 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const r = (...p: string[]) => path.resolve(__dirname, ...p);
 
 const config: StorybookConfig = {
