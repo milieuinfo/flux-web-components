@@ -9,6 +9,7 @@ export {
     type VlAlertAttributes,
 } from './alert';
 export { VlAutocomplete, type AutocompleteItem, type AutocompleteItemTemplateFn } from './autocomplete';
+export { BADGE_BACKGROUND, VlBadgeComponent, type BadgeBackground } from './badge';
 export { VlBreadcrumbComponent, VlBreadcrumbItemComponent } from './breadcrumb';
 export {
     VlCascaderComponent,

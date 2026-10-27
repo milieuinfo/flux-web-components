@@ -31,6 +31,9 @@
             "@domg-wc/components/block/next": [
                 "libs/components/src/block/next/index.ts"
             ],
+            "@domg-wc/components/block/badge": [
+                "libs/components/src/block/badge/index.ts"
+            ],
             "@domg-wc/components/compliance": [
                 "libs/components/src/compliance/index.ts"
             ],
