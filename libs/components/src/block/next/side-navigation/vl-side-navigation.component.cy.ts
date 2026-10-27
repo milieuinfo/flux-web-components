@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlIconComponent } from '../../../atom/icon';
 import { VlLinkComponent } from '../../../atom/link';
@@ -1986,5 +1986,148 @@ describe('cypress-component - block components - vl-side-navigation-next - secti
 
         cy.injectAxe();
         cy.checkA11y('vl-side-navigation-next');
+    });
+});
+
+describe('cypress-component - block components - vl-side-navigation-next - sticky page chrome', () => {
+    const HEADER_HEIGHT = 60;
+    const FUNCTIONAL_HEADER_HEIGHT = 40;
+
+    const customToc = html`
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li><vl-link href="#content-1-heading">Content 1</vl-link></li>
+            <li><vl-link href="#content-2-heading">Content 2</vl-link></li>
+            <li><vl-link href="#content-3-heading">Content 3</vl-link></li>
+        </ul>
+    `;
+
+    // Een fixed globale header met eventueel een sticky functional header eronder, zoals op een echte pagina. De
+    // spacer onderaan zorgt dat elke heading tot bovenaan de viewport gescrold kan worden.
+    const mountWithPageChrome = ({
+        header = false,
+        functionalHeader = false,
+        toc = 'generated',
+    }: {
+        header?: boolean;
+        functionalHeader?: boolean;
+        toc?: 'generated' | 'custom';
+    }) =>
+        cy.mount(html`
+            <div>
+                ${header
+                    ? html`<div
+                              style="position: fixed; top: 0; left: 0; right: 0; height: ${HEADER_HEIGHT}px; background: #05c;"
+                          ></div>
+                          <div style="height: ${HEADER_HEIGHT}px"></div>`
+                    : nothing}
+                ${functionalHeader
+                    ? html`<div
+                          style="position: sticky; top: ${HEADER_HEIGHT}px; height: ${FUNCTIONAL_HEADER_HEIGHT}px; background: #fa0;"
+                      ></div>`
+                    : nothing}
+                <div class="vl-grid">
+                    <vl-side-navigation-next
+                        class="${NAVIGATION_COLUMN_CLASSES}"
+                        style="--vl-side-navigation-top: ${HEADER_HEIGHT + FUNCTIONAL_HEADER_HEIGHT + 20}px"
+                        heading-root-selector="#story-content-container"
+                    >
+                        ${toc === 'custom' ? customToc : nothing}
+                    </vl-side-navigation-next>
+                    <div class="${CONTENT_COLUMN_CLASSES}">${sampleContent}</div>
+                </div>
+                <div style="height: 1500px"></div>
+            </div>
+        `);
+
+    const clickTocLink = (toc: 'generated' | 'custom', href: string) => {
+        if (toc === 'custom') {
+            cy.get('vl-side-navigation-next').find(`vl-link[href="${href}"]`).shadow().find('a').click({ force: true });
+        } else {
+            cy.get('vl-side-navigation-next').shadow().find(`nav a[href="${href}"]`).click();
+        }
+    };
+
+    const headingTopShouldBe = (selector: string, expectedTop: number) =>
+        cy.get(selector).should(($heading) => {
+            expect($heading[0].getBoundingClientRect().top).to.be.closeTo(expectedTop, 1);
+        });
+
+    const spyOnScrollIntoView = (selector: string) =>
+        cy.get(selector).then(($heading) => {
+            cy.spy($heading[0], 'scrollIntoView').as('scrollIntoView');
+        });
+
+    beforeEach(() => {
+        cy.viewport(1440, 900);
+    });
+
+    (['generated', 'custom'] as const).forEach((toc) => {
+        it(`should smoothly scroll the heading below a fixed header when clicking a ${toc} TOC link`, () => {
+            mountWithPageChrome({ header: true, toc });
+            spyOnScrollIntoView('#content-2-heading');
+
+            clickTocLink(toc, '#content-2-heading');
+
+            cy.get('@scrollIntoView').should('have.been.calledWith', { behavior: 'smooth' });
+            headingTopShouldBe('#content-2-heading', HEADER_HEIGHT);
+        });
+
+        it(`should scroll the heading below stacked sticky chrome when clicking a ${toc} TOC link`, () => {
+            mountWithPageChrome({ header: true, functionalHeader: true, toc });
+
+            clickTocLink(toc, '#content-2-heading');
+
+            headingTopShouldBe('#content-2-heading', HEADER_HEIGHT + FUNCTIONAL_HEADER_HEIGHT);
+        });
+
+        it(`should scroll the heading to the top of the viewport without sticky chrome when clicking a ${toc} TOC link`, () => {
+            mountWithPageChrome({ toc });
+
+            clickTocLink(toc, '#content-2-heading');
+
+            headingTopShouldBe('#content-2-heading', 0);
+            cy.get('#content-2-heading').should('not.have.attr', 'style');
+        });
+    });
+
+    it('should scroll the heading below a fixed header without animation when the user prefers reduced motion', () => {
+        cy.window().then((win) => {
+            const originalMatchMedia = win.matchMedia.bind(win);
+            cy.stub(win, 'matchMedia').callsFake((query: string) => {
+                if (query === '(prefers-reduced-motion: reduce)') {
+                    return {
+                        matches: true,
+                        media: query,
+                        onchange: null,
+                        addListener: () => {},
+                        removeListener: () => {},
+                        addEventListener: () => {},
+                        removeEventListener: () => {},
+                        dispatchEvent: () => true,
+                    } as MediaQueryList;
+                }
+                return originalMatchMedia(query);
+            });
+        });
+        mountWithPageChrome({ header: true });
+        spyOnScrollIntoView('#content-2-heading');
+
+        clickTocLink('generated', '#content-2-heading');
+
+        // Zonder animatie staat de heading meteen op zijn plaats, dus bewust zonder retry.
+        cy.get('#content-2-heading').then(($heading) => {
+            expect($heading[0].getBoundingClientRect().top).to.be.closeTo(HEADER_HEIGHT, 1);
+        });
+        cy.get('@scrollIntoView').should('have.been.calledWith', { behavior: 'auto' });
+    });
+
+    it('should not count the TOC overlay on a small screen as sticky chrome', () => {
+        cy.viewport(375, 667);
+        mountWithPageChrome({ header: true, functionalHeader: true });
+        cy.get('vl-side-navigation-next').shadow().find('table-of-contents').should('not.have.attr', 'hidden');
+
+        clickTocLink('generated', '#content-2-heading');
+
+        headingTopShouldBe('#content-2-heading', HEADER_HEIGHT + FUNCTIONAL_HEADER_HEIGHT);
     });
 });

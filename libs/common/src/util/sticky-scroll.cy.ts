@@ -158,3 +158,90 @@ describe('cypress-component - common - sticky-scroll utility - scrollIntoViewBel
         });
     });
 });
+
+describe('cypress-component - common - sticky-scroll utility - scrollIntoViewBelowSticky() with smooth behavior', () => {
+    // Een sticky balk die bij de start van de scroll nog niet vastgeklikt is: hij staat lager op de pagina en klikt
+    // pas onderweg vast onder de fixed header.
+    const fixedHeaderWithStickyBarFurtherDown = () => html`
+        <div>
+            ${fixedHeader()}
+            <div style="height: 300px"></div>
+            ${stickyBar()} ${contentWithTarget()}
+        </div>
+    `;
+
+    beforeEach(() => {
+        cy.viewport(800, 600);
+        cy.window().then((win) => win.scrollTo(0, 0));
+    });
+
+    it('should measure the fixed header before smoothly scrolling the target below it', () => {
+        cy.mount(html`<div>${fixedHeader()}${contentWithTarget()}</div>`);
+
+        cy.then(() => {
+            const scrollIntoView = cy.spy(getTarget(), 'scrollIntoView');
+
+            scrollIntoViewBelowSticky(getTarget(), { behavior: 'smooth' });
+
+            expect(scrollIntoView).to.have.been.calledOnceWith({ behavior: 'smooth' });
+            expect(getTarget().style.scrollMarginTop).to.equal(`${FIXED_HEADER_HEIGHT}px`);
+        });
+
+        cy.window().should(() => expect(getTargetTop()).to.be.closeTo(FIXED_HEADER_HEIGHT, 1));
+    });
+
+    it('should correct a smooth scroll for sticky chrome that only sticks along the way', () => {
+        cy.mount(fixedHeaderWithStickyBarFurtherDown());
+
+        cy.then(() => scrollIntoViewBelowSticky(getTarget(), { behavior: 'smooth' }));
+
+        cy.window().should(() => {
+            expect(getTargetTop()).to.be.closeTo(FIXED_HEADER_HEIGHT + STICKY_BAR_HEIGHT, 1);
+            expect(getTarget().style.scrollMarginTop).to.equal(`${FIXED_HEADER_HEIGHT + STICKY_BAR_HEIGHT}px`);
+        });
+    });
+
+    it('should smoothly scroll the target to the top of the viewport when there is no chrome to avoid', () => {
+        cy.mount(html`<div>${contentWithTarget()}</div>`);
+
+        cy.then(() => scrollIntoViewBelowSticky(getTarget(), { behavior: 'smooth' }));
+
+        cy.window().should(() => expect(getTargetTop()).to.be.closeTo(0, 1));
+        cy.then(() => expect(getTarget().style.scrollMarginTop).to.equal(''));
+    });
+
+    it('should leave a scroll-margin-top set by the consumer untouched when smooth scrolling', () => {
+        cy.mount(html`
+            <div>
+                ${fixedHeader()}
+                <div style="height: 800px"></div>
+                <h2 data-cy="doel" id="doel" style="scroll-margin-top: 100px">Doel</h2>
+                <div style="height: 1500px"></div>
+            </div>
+        `);
+
+        cy.then(() => scrollIntoViewBelowSticky(getTarget(), { behavior: 'smooth' }));
+
+        cy.window().should(() => expect(getTargetTop()).to.be.closeTo(100, 1));
+        cy.then(() => expect(getTarget().style.scrollMarginTop).to.equal('100px'));
+    });
+
+    it('should not scroll back to the target when the user scrolled past it during the smooth scroll', () => {
+        cy.mount(fixedHeaderWithStickyBarFurtherDown());
+
+        let userScrollY: number;
+        cy.window().then((win) => {
+            scrollIntoViewBelowSticky(getTarget(), { behavior: 'smooth' });
+            // Net voorbij het doel: het staat nog in beeld, maar hoger dan waar het naartoe gestuurd werd.
+            win.scrollTo(0, win.scrollY + getTargetTop() - FIXED_HEADER_HEIGHT / 2);
+            userScrollY = win.scrollY;
+        });
+
+        // Laat de correctie na het einde van de scroll de kans om (onterecht) terug te scrollen.
+        cy.wait(500);
+        cy.window().then((win) => {
+            expect(win.scrollY).to.be.closeTo(userScrollY, 1);
+            expect(getTarget().style.scrollMarginTop).to.equal(`${FIXED_HEADER_HEIGHT}px`);
+        });
+    });
+});

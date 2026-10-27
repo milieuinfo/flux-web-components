@@ -43,6 +43,13 @@ zodat de side-navigation niet onder dat element schuift.
 Accepteert elke geldige CSS waarde (bijv. `140px`, `10rem`, of `var(--header-height)`). Definieer de variabele op een
 voorouder van de side navigation (bijv. op `main` of op de layout container).
 
+## Scrollen naar een heading
+
+Bij een klik op een link in de inhoudsopgave scrolt de heading tot net onder sticky of fixed elementen bovenaan de
+pagina, zoals de globale header of een sticky functional header. Die elementen worden automatisch gemeten; je hoeft
+hiervoor niets in te stellen. Zet je zelf een `scroll-margin-top` op een heading, dan blijft die behouden zolang de
+heading daarmee onder die elementen uitkomt.
+
 ## Eigenschappen
 
 Het attribuut **`closed`** zorgt ervoor dat de inhoudstafel standaard verborgen is. Dit heeft enkel effect wanneer **`compact`** is gezet of bij mobiele weergave (viewport &lt; 768px); op desktop zonder compact wordt de navigatie altijd getoond.
