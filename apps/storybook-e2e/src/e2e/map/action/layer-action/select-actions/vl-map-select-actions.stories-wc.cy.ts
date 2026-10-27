@@ -4,6 +4,16 @@ const mapSelectActionsUrl =
     'http://localhost:8080/iframe.html?id=map-action-layer-action-select-action-select-actions--map-select-actions-default&viewMode=story';
 const mapSelectActionsClusteringUrl =
     'http://localhost:8080/iframe.html?id=map-action-layer-action-select-action-select-actions--map-select-actions-clustering&viewMode=story';
+// Een actieve cluster-actie zet een selectie om naar markeringen zodra ze na 300 ms geactiveerd wordt
+// (VlMapWithActions.activateAction). Inactief houden maakt de selectie-asserties deterministisch.
+const mapSelectActionsClusteringInactiveUrl = `${mapSelectActionsClusteringUrl}&args=active:!false`;
+
+// OL clustert pas tijdens de eerste render van de laag, dus het element kan al in de DOM staan zonder clusters.
+const waitForClustering = () =>
+    cy.get('vl-map-select-actions').should(([selectActions]) => {
+        const cluster = selectActions.olLayers[1]?.getSource().getFeatures()[0];
+        expect(cluster?.get('features'), 'clustered features').to.have.length.of.at.least(2);
+    });
 
 describe('cypress-e2e - map - vl-map-select-actions - wc default story', () => {
     it('should contain 2 layers', () => {
@@ -108,12 +118,9 @@ describe('cypress-e2e - map - vl-map-select-actions - wc clustering story', () =
     });
 
     it('should select and unselect clustered features', () => {
-        cy.visit(mapSelectActionsClusteringUrl);
+        cy.visit(mapSelectActionsClusteringInactiveUrl);
 
-        // Wachten op het clusteren van de features door OL.
-        cy.wait(100);
-
-        cy.runTestFor<VlMapSelectActions>('vl-map-select-actions', (selectActions) => {
+        waitForClustering().then(([selectActions]) => {
             const feature1 = selectActions.olLayers[0].getSource().getFeatures()[0];
             const cluster1 = selectActions.olLayers[1].getSource().getFeatures()[0];
             const clusteredFeature1 = cluster1.get('features')[0];
@@ -138,12 +145,9 @@ describe('cypress-e2e - map - vl-map-select-actions - wc clustering story', () =
     });
 
     it('should select and unselect clusters', () => {
-        cy.visit(mapSelectActionsClusteringUrl);
+        cy.visit(mapSelectActionsClusteringInactiveUrl);
 
-        // Wachten op het clusteren van de features door OL.
-        cy.wait(100);
-
-        cy.runTestFor<VlMapSelectActions>('vl-map-select-actions', (selectActions) => {
+        waitForClustering().then(([selectActions]) => {
             const cluster1 = selectActions.olLayers[1].getSource().getFeatures()[0];
             const selectedFeatures = (selectActions._action as VlSelectActions).selectInteraction
                 .getFeatures()
