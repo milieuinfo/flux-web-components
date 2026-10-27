@@ -1,4 +1,5 @@
 import { html } from 'lit';
+import tinymce, { Editor } from 'tinymce';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlTextareaRichComponent } from './vl-textarea-rich.component';
 import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
@@ -215,5 +216,146 @@ describe('cypress-component - form components - vl-textarea-rich - blur-validati
             tar.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
         });
         cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+});
+
+describe('cypress-component - form components - vl-textarea-rich - cleanup', () => {
+    const mountPanel = () => {
+        cy.mount(html`<div id="panel"></div>`);
+        return cy.get('#panel');
+    };
+
+    // Zonder vast id genereert de component een uniek id, zodat een retry niet de editor van een vorige poging ziet
+    const appendTextareaRich = (panel: HTMLElement) => {
+        const textareaRich = new VlTextareaRichComponent();
+        panel.append(textareaRich);
+        return textareaRich;
+    };
+
+    const waitForEditorInit = () =>
+        cy.get('vl-textarea-rich').should(($el) => {
+            expect(tinymce.get($el[0].id)?.initialized).to.equal(true);
+        });
+
+    const expectNoErrorsOnWindowResize = () => {
+        cy.window().then((win) => {
+            cy.spy(win.console, 'error').as('consoleError');
+        });
+        // laat TinyMCE thema en plugins van de CDN laden, zoals een achtergebleven editor dat zou doen
+        cy.wait(1000);
+        cy.window().then((win) => {
+            win.dispatchEvent(new Event('resize'));
+        });
+        cy.get('@consoleError').should('not.have.been.called');
+    };
+
+    beforeEach(() => {
+        cy.viewport(1280, 720);
+    });
+
+    it('should not leave an editor behind when removed before the first update', () => {
+        mountPanel().then(async ($panel) => {
+            const textareaRich = appendTextareaRich($panel[0]);
+            textareaRich.remove();
+            await textareaRich.updateComplete;
+
+            expect(tinymce.get(textareaRich.id)).to.equal(null);
+        });
+        expectNoErrorsOnWindowResize();
+    });
+
+    it('should not leave an editor behind when removed during TinyMCE init', () => {
+        mountPanel().then(async ($panel) => {
+            const textareaRich = appendTextareaRich($panel[0]);
+            await textareaRich.updateComplete;
+            const editor = tinymce.get(textareaRich.id);
+            expect(editor?.initialized).to.equal(false);
+
+            textareaRich.remove();
+
+            expect(tinymce.get(textareaRich.id)).to.equal(null);
+            expect(tinymce.get()).not.to.include(editor);
+            expect(editor?.removed).to.equal(true);
+        });
+        expectNoErrorsOnWindowResize();
+    });
+
+    it('should not leave an editor behind when removed while the content CSS loads', () => {
+        let removedEditor: Editor | undefined;
+        let stateAtRemoval: { initialized: boolean; hasBody: boolean } | undefined;
+        const removeWhileContentCssLoads = (editor: Editor) => {
+            editor.on('PreInit', () => {
+                // PreInit vuurt vlak voor het laden van de content-CSS, de microtask loopt na de rest van die synchrone stap
+                queueMicrotask(() => {
+                    removedEditor = editor;
+                    stateAtRemoval = { initialized: editor.initialized, hasBody: editor.getBody() !== null };
+                    document.querySelector('vl-textarea-rich')?.remove();
+                });
+            });
+        };
+        cy.mount(html`<vl-textarea-rich .customConfig=${{ setup: removeWhileContentCssLoads }}></vl-textarea-rich>`);
+
+        cy.get('vl-textarea-rich')
+            .should('not.exist')
+            .then(() => {
+                expect(stateAtRemoval).to.deep.equal({ initialized: false, hasBody: true });
+                expect(removedEditor?.removed).to.equal(true);
+                expect(tinymce.get()).not.to.include(removedEditor);
+            });
+        expectNoErrorsOnWindowResize();
+    });
+
+    it('should ignore focus() and a new value during TinyMCE init and load that value into the editor', () => {
+        mountPanel().then(async ($panel) => {
+            const textareaRich = appendTextareaRich($panel[0]);
+            await textareaRich.updateComplete;
+            expect(tinymce.get(textareaRich.id)?.initialized).to.equal(false);
+
+            textareaRich.focus();
+            textareaRich.setAttribute('value', '<p>Nieuwe waarde</p>');
+            await textareaRich.updateComplete;
+        });
+        waitForEditorInit().then(($el) => {
+            expect(tinymce.get($el[0].id)?.getContent()).to.equal('<p>Nieuwe waarde</p>');
+        });
+    });
+
+    it('should ignore a new value while the editor iframe loads and load that value into the editor', () => {
+        const setValueOnIframeLoad = (editor: Editor) => {
+            editor.on('load', () => {
+                document.querySelector('vl-textarea-rich')?.setAttribute('value', '<p>Nieuwe waarde</p>');
+            });
+        };
+        cy.mount(html`<vl-textarea-rich .customConfig=${{ setup: setValueOnIframeLoad }}></vl-textarea-rich>`);
+
+        waitForEditorInit().then(($el) => {
+            expect(tinymce.get($el[0].id)?.getContent()).to.equal('<p>Nieuwe waarde</p>');
+        });
+        cy.get('vl-textarea-rich').should('have.attr', 'value', '<p>Nieuwe waarde</p>');
+    });
+
+    it('should remove the editor when removed after TinyMCE init', () => {
+        cy.mount(html`<vl-textarea-rich></vl-textarea-rich>`);
+        waitForEditorInit().then(($el) => {
+            const editor = tinymce.get($el[0].id);
+            $el[0].remove();
+
+            expect(tinymce.get($el[0].id)).to.equal(null);
+            expect(editor?.removed).to.equal(true);
+        });
+    });
+
+    it('should call the setup callback from customConfig and keep the value in sync', () => {
+        const setup = cy.stub();
+        cy.mount(html`<vl-textarea-rich .customConfig=${{ setup }}></vl-textarea-rich>`);
+        waitForEditorInit().then(($el) => {
+            const editor = tinymce.get($el[0].id);
+            expect(setup).to.have.been.calledOnceWith(editor);
+            expect(setup).to.have.been.calledOn(editor);
+
+            editor?.setContent('<p>Hallo</p>');
+            editor?.dispatch('change');
+        });
+        cy.get('vl-textarea-rich').should('have.attr', 'value', '<p>Hallo</p>');
     });
 });
