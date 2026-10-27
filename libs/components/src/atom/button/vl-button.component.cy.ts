@@ -5,6 +5,34 @@ import { VlButtonComponent } from './vl-button.component';
 
 registerWebComponents([VlButtonComponent]);
 
+// Cypress kan de accessible name niet opvragen; via het Chrome DevTools Protocol (enkel Chromium) krijg je de naam
+// zoals de browser die berekent, inclusief de slot-content over de shadow DOM-grens heen.
+const shouldHaveAccessibleName = (selector: 'button' | 'a', expectedName: string) => {
+    const runnerWindow = window.top as Window & { vlButtonAxTarget?: Element };
+
+    cy.get('vl-button')
+        .shadow()
+        .find(selector)
+        .then(($element) => {
+            runnerWindow.vlButtonAxTarget = $element[0];
+        })
+        .then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Runtime.evaluate',
+                params: { expression: 'window.vlButtonAxTarget' },
+            })
+        )
+        .then(({ result }) => {
+            delete runnerWindow.vlButtonAxTarget;
+            return Cypress.automation('remote:debugger:protocol', {
+                command: 'Accessibility.getPartialAXTree',
+                params: { objectId: result.objectId, fetchRelatives: false },
+            });
+        })
+        .its('nodes.0.name.value')
+        .should('equal', expectedName);
+};
+
 describe('cypress-component - atom components - vl-button', () => {
     it('should mount', () => {
         cy.mount(html` <vl-button></vl-button>`);
@@ -86,6 +114,37 @@ describe('cypress-component - atom components - vl-button', () => {
 
         cy.get('vl-button').should('have.attr', 'loading');
         cy.get('vl-button').shadow().find('button').should('have.class', 'loading');
+    });
+
+    it('should keep the slot text in the accessible name when loading', () => {
+        cy.mount(html` <vl-button loading>Bewaren</vl-button>`);
+
+        cy.get('vl-button').shadow().find('button').should('not.have.attr', 'aria-label');
+        shouldHaveAccessibleName('button', 'Bewaren (Wordt geladen...)');
+    });
+
+    it('should keep nested slot content in the accessible name when loading with an icon after', () => {
+        cy.mount(html` <vl-button loading icon="search" icon-placement="after"><span>Bewaren</span></vl-button>`);
+
+        shouldHaveAccessibleName('button', 'Bewaren (Wordt geladen...)');
+    });
+
+    it('should add the loading text to the aria-label when loading with a label', () => {
+        cy.mount(html` <vl-button loading label="Zoeken" icon="search"></vl-button>`);
+
+        cy.get('vl-button').shadow().find('button').should('have.attr', 'aria-label', 'Zoeken (Wordt geladen...)');
+        cy.get('vl-button').shadow().find('.vl-visually-hidden').should('not.exist');
+        shouldHaveAccessibleName('button', 'Zoeken (Wordt geladen...)');
+    });
+
+    it('should remove the loading text from the accessible name when loading stops', () => {
+        cy.mount(html` <vl-button loading>Bewaren</vl-button>`);
+        shouldHaveAccessibleName('button', 'Bewaren (Wordt geladen...)');
+
+        cy.get('vl-button').invoke('removeAttr', 'loading');
+
+        cy.get('vl-button').shadow().find('button').should('not.have.class', 'loading');
+        shouldHaveAccessibleName('button', 'Bewaren');
     });
 
     it('should not grow when "loading" class is set (large viewport)', () => {
@@ -412,6 +471,23 @@ describe('cypress-component - atom components - vl-button - cta-link', () => {
 
         cy.get('vl-button').should('have.attr', 'loading');
         cy.get('vl-button').shadow().find('a').should('have.class', 'loading');
+    });
+
+    it('should keep the slot text in the accessible name when loading', () => {
+        cy.mount(html` <vl-button loading cta-link="https://www.vlaanderen.be">Bewaren</vl-button>`);
+
+        cy.get('vl-button').shadow().find('a').should('not.have.attr', 'aria-label');
+        shouldHaveAccessibleName('a', 'Bewaren (Wordt geladen...)');
+    });
+
+    it('should add the loading text to the aria-label when loading with a label', () => {
+        cy.mount(
+            html` <vl-button loading label="Zoeken" icon="search" cta-link="https://www.vlaanderen.be"></vl-button>`
+        );
+
+        cy.get('vl-button').shadow().find('a').should('have.attr', 'aria-label', 'Zoeken (Wordt geladen...)');
+        cy.get('vl-button').shadow().find('.vl-visually-hidden').should('not.exist');
+        shouldHaveAccessibleName('a', 'Zoeken (Wordt geladen...)');
     });
 
     it('should not grow when "loading" class is set (large viewport)', () => {
