@@ -11,6 +11,22 @@ const MAX_STICKY_LAYERS = 4;
 const MAX_STICKY_OFFSET_RATIO = 0.5;
 
 /**
+ * Aantal opeenvolgende frames dat het doel stil moet staan voor een smooth scroll als afgelopen geldt.
+ */
+const SCROLL_SETTLED_FRAMES = 5;
+
+/**
+ * Bovengrens voor het wachten op het einde van een smooth scroll, zodat de correctie niet eindeloos uitgesteld wordt.
+ */
+const MAX_SCROLL_SETTLE_MS = 3000;
+
+/**
+ * Elke scroll-aanvraag krijgt een volgnummer, zodat de correctie van een eerdere smooth scroll niet meer
+ * uitgevoerd wordt nadat er intussen naar een ander doel gescrold werd.
+ */
+let latestScrollRequest = 0;
+
+/**
  * Zoekt de elementen op een punt in de viewport, ook diep in (open) shadow roots. `elementsFromPoint`
  * op het document stopt namelijk bij de host van een shadow root, terwijl de sticky balk zelf vaak
  * net binnen die shadow root zit.
@@ -97,19 +113,34 @@ export const getStickyOffsetTop = (target: HTMLElement): number => {
     return Math.min(offset, maxOffset);
 };
 
+const getScrollMarginTop = (target: HTMLElement): number => parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+
 /**
- * Scrolt een element in beeld en houdt daarbij rekening met sticky of fixed page chrome bovenaan de
- * viewport: een gewone `scrollIntoView()` legt het doel tegen de bovenrand en dus achter die chrome.
- *
- * Er wordt eerst gescrold en pas daarna gemeten - zo staat de chrome in zijn definitieve (vastgeklikte)
- * positie. Dekt ze het doel af, dan krijgt het doel een `scroll-margin-top` en wordt er opnieuw
- * gescrold. Die `scroll-margin-top` blijft staan zodat ook latere (native) scrolls naar het element,
- * bv. via de URL-hash, eronder uitkomen.
- *
- * @param target - het element dat in beeld gescrold wordt
+ * Roept `callback` aan zodra het doel een aantal frames niet meer beweegt. Bewust geen `scrollend`: dat event
+ * vuurt niet als er niets te scrollen valt, verlaat geen shadow root en is niet in elke browser beschikbaar.
  */
-export const scrollIntoViewBelowSticky = (target: HTMLElement): void => {
-    target.scrollIntoView();
+const whenScrollSettled = (target: HTMLElement, callback: () => void): void => {
+    const start = performance.now();
+    let lastTop = target.getBoundingClientRect().top;
+    let stableFrames = 0;
+
+    const check = (now: number) => {
+        const { top } = target.getBoundingClientRect();
+        stableFrames = top === lastTop ? stableFrames + 1 : 0;
+        lastTop = top;
+
+        if (stableFrames >= SCROLL_SETTLED_FRAMES || now - start >= MAX_SCROLL_SETTLE_MS) {
+            callback();
+        } else {
+            requestAnimationFrame(check);
+        }
+    };
+
+    requestAnimationFrame(check);
+};
+
+const scrollIntoViewThenCorrect = (target: HTMLElement, behavior: ScrollBehavior): void => {
+    target.scrollIntoView({ behavior });
 
     const offset = getStickyOffsetTop(target);
     // Zit het doel al onder de chrome (bv. omdat de consumer zelf al een scroll-margin-top zette),
@@ -119,5 +150,62 @@ export const scrollIntoViewBelowSticky = (target: HTMLElement): void => {
     }
 
     target.style.scrollMarginTop = `${offset}px`;
-    target.scrollIntoView();
+    target.scrollIntoView({ behavior });
+};
+
+const scrollSmoothlyBelowSticky = (target: HTMLElement, request: number): void => {
+    // Tijdens een smooth scroll valt er niets betrouwbaar te meten, dus de scroll-margin-top wordt vooraf
+    // gezet op basis van de chrome die nu al bovenaan staat.
+    const offset = getStickyOffsetTop(target);
+    if (getScrollMarginTop(target) < offset) {
+        target.style.scrollMarginTop = `${offset}px`;
+    }
+    target.scrollIntoView({ behavior: 'smooth' });
+
+    // Chrome die pas onderweg vastklikt (bv. een sticky balk lager op de pagina) is pas na de scroll meetbaar.
+    whenScrollSettled(target, () => {
+        if (request !== latestScrollRequest) {
+            return;
+        }
+
+        const { top } = target.getBoundingClientRect();
+        // Ligt het doel hoger dan waar het naartoe gestuurd werd, dan heeft de gebruiker intussen zelf verder gescrold.
+        const landed = top >= getScrollMarginTop(target) - 1;
+        const settledOffset = getStickyOffsetTop(target);
+        if (!landed || top >= settledOffset - 1) {
+            return;
+        }
+
+        target.style.scrollMarginTop = `${settledOffset}px`;
+        target.scrollIntoView({ behavior: 'smooth' });
+    });
+};
+
+/**
+ * Scrolt een element in beeld en houdt daarbij rekening met sticky of fixed page chrome bovenaan de
+ * viewport: een gewone `scrollIntoView()` legt het doel tegen de bovenrand en dus achter die chrome.
+ *
+ * Zonder smooth wordt er eerst gescrold en pas daarna gemeten - zo staat de chrome in zijn definitieve
+ * (vastgeklikte) positie. Dekt ze het doel af, dan krijgt het doel een `scroll-margin-top` en wordt er opnieuw
+ * gescrold. Die `scroll-margin-top` blijft staan zodat ook latere (native) scrolls naar het element,
+ * bv. via de URL-hash, eronder uitkomen.
+ *
+ * Bij `behavior: 'smooth'` is het omgekeerd: de `scroll-margin-top` wordt vooraf gemeten en gezet. Klikt er
+ * onderweg nog chrome vast die het doel afdekt, dan volgt na de scroll een korte correctie.
+ *
+ * @param target - het element dat in beeld gescrold wordt
+ * @param options - optionele scroll-opties
+ * @param options.behavior - het scrollgedrag, zoals bij `scrollIntoView` (default `'auto'`)
+ */
+export const scrollIntoViewBelowSticky = (
+    target: HTMLElement,
+    { behavior = 'auto' }: { behavior?: ScrollBehavior } = {},
+): void => {
+    const request = ++latestScrollRequest;
+
+    if (behavior === 'smooth') {
+        scrollSmoothlyBelowSticky(target, request);
+    } else {
+        scrollIntoViewThenCorrect(target, behavior);
+    }
 };
