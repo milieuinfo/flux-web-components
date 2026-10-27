@@ -84,7 +84,7 @@
         "axe-core": "4.8.4",
         "conventional-changelog-conventionalcommits": "9.1.0",
         "css-loader": "7.1.4",
-        "cypress": "15.4.0",
+        "cypress": "15.21.1",
         "cypress-axe": "1.7.0",
         "cypress-wait-until": "3.0.2",
         "depcheck": "1.4.7",

@@ -8,7 +8,7 @@ registerWebComponents([VlUploadComponent, VlFormMessageComponent]);
 const pdfFileFixturePath = 'fixtures/upload/file.pdf';
 const txtFileFixturePath = 'fixtures/upload/file.txt';
 const mockedResponseFixturePath = 'upload/upload-mock-response-200.json';
-const uploadTargetUrl = 'fake-url';
+const uploadTargetUrl = 'http://localhost/fake-url';
 
 describe('cypress-component - form components - vl-upload - properties & states', () => {
     beforeEach(() => {
@@ -143,7 +143,7 @@ describe('cypress-component - form components - vl-upload - properties & states'
     it('should change the subtitle and title of the upload component', () => {
         const titel = 'Upload je documenten';
         const subTitel = 'Sleep je bestand naar hier om te uploaden ';
-        cy.mount(html` <vl-upload main-title=${titel} sub-title=${subTitel} url="fake-url"></vl-upload>`);
+        cy.mount(html` <vl-upload main-title=${titel} sub-title=${subTitel} url=${uploadTargetUrl}></vl-upload>`);
 
         cy.get('vl-upload').contains(titel);
         cy.get('vl-upload').contains(subTitel);

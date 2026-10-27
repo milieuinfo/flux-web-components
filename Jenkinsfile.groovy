@@ -5,7 +5,7 @@ String buildPod() {
 spec:
   containers:
     - name: cypress
-      image: acd-docker.repository.milieuinfo.be/cypress/included:15.4.0
+      image: acd-docker.repository.milieuinfo.be/cypress/included:15.21.1
       command:
         - cat
       tty: true
