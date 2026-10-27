@@ -140,6 +140,17 @@ Indien de link een dropdown menu of dialog opent, gebruik dan het `aria-haspopup
 schermlezers om de gebruiker correct te informeren over de aanwezigheid van een popup. `aria-haspopup` wordt doorgegeven
 aan de onderliggende link.
 
+Indien de link naar de huidige pagina of locatie verwijst, bijvoorbeeld in een navigatie of inhoudstafel, gebruik dan
+het `aria-current` attribuut met de juiste waarde (`page`, `step`, `location`, `date`, `time`, `true`). Zo meldt een
+schermlezer welke link de huidige is. `aria-current` wordt doorgegeven aan de onderliggende link, ook als je het
+attribuut na de eerste render zet, wijzigt of verwijdert. Een lege waarde wordt niet doorgegeven. In combinatie met
+`button-as-link` wordt `aria-current` doorgegeven aan de onderliggende button, maar het attribuut is vooral bedoeld
+voor echte links.
+
+```html
+<vl-link href="/codes" aria-current="page">Codes</vl-link>
+```
+
 ## Referenties
 
 ### Digitaal Vlaanderen
