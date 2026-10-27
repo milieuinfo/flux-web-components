@@ -62,6 +62,7 @@ export class VlButtonComponent extends BaseLitElement {
             disabled: { type: Boolean, reflect: true },
             slotIsEmpty: { type: Boolean, state: true },
             ariaExpanded: { type: String, attribute: 'aria-expanded', reflect: true },
+            ariaCurrent: { type: String, attribute: 'aria-current', reflect: true },
             on: {
                 type: Boolean,
                 reflect: true,
@@ -207,6 +208,7 @@ export class VlButtonComponent extends BaseLitElement {
                         ? (this.getAttribute('aria-expanded') as 'false' | 'true')
                         : undefined
                 )}
+                aria-current=${ifDefined(this.getAttribute('aria-current') ?? undefined)}
             >
                 ${positionIconBefore ? this.renderIcon() : nothing}
                 <slot @slotchange=${this.handleSlotChange}></slot>
@@ -245,6 +247,7 @@ export class VlButtonComponent extends BaseLitElement {
                               | 'dialog')
                         : undefined
                 )}
+                aria-current=${ifDefined(this.getAttribute('aria-current') ?? undefined)}
             >
                 ${positionIconBefore ? this.renderIcon() : nothing}
                 <slot @slotchange=${this.handleSlotChange}></slot>

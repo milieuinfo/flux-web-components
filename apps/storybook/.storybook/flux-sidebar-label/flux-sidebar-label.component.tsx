@@ -9,7 +9,9 @@ export const FluxSidebarLabel = ({ storyData }: { storyData: API_HashEntry }) =>
 
     useEffect(() => {
         const input = inputRef.current;
-        const fluxMetaDataComponent = fluxAllMetaData()[id] as FluxMetaDataComponent;
+        // een component in een map (bv. dashboard/dashboard) heeft een ander id dan zijn stories; zoek dan op dat van de stories
+        const storiesId = type === 'component' ? storyData.children?.[0]?.split('--')[0] : undefined;
+        const fluxMetaDataComponent = (fluxAllMetaData()[id] ?? fluxAllMetaData()[storiesId]) as FluxMetaDataComponent;
         const componentEvolution = fluxMetaDataComponent?.evolution;
         if (componentEvolution && componentEvolution.vStatus) {
             input.parentElement.setAttribute('data-version', componentEvolution.vStatus);

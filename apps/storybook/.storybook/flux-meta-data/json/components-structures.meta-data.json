@@ -1,4 +1,84 @@
 {
+    "structures-dashboard": {
+        "name": "dashboard",
+        "docs": "structures-dashboard--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": [
+                "Component",
+                "Storybook"
+            ],
+            "documentation": "basis",
+            "wcag": "TODO",
+            "jiraMeta": "FLUX-842"
+        },
+        "evolution": {
+            "vStatus": "v2-new",
+            "nextText": "vl-dashboard"
+        }
+    },
+    "structures-dashboard-dashboard-header": {
+        "name": "dashboard-header",
+        "docs": "structures-dashboard-dashboard-header--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": [
+                "Component",
+                "Storybook"
+            ],
+            "documentation": "basis",
+            "wcag": "TODO",
+            "jiraMeta": "FLUX-842"
+        },
+        "evolution": {
+            "vStatus": "v2-new",
+            "nextText": "vl-dashboard-header"
+        }
+    },
+    "structures-dashboard-nav-link": {
+        "name": "nav-link",
+        "docs": "structures-dashboard-nav-link--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": [
+                "Component",
+                "Storybook"
+            ],
+            "documentation": "basis",
+            "wcag": "TODO",
+            "jiraMeta": "FLUX-842"
+        },
+        "evolution": {
+            "vStatus": "v2-new",
+            "nextText": "vl-nav-link"
+        }
+    },
+    "structures-dashboard-nav-sub": {
+        "name": "nav-sub",
+        "docs": "structures-dashboard-nav-sub--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": [
+                "Component",
+                "Storybook"
+            ],
+            "documentation": "basis",
+            "wcag": "TODO",
+            "jiraMeta": "FLUX-842"
+        },
+        "evolution": {
+            "vStatus": "v2-new",
+            "nextText": "vl-nav-sub"
+        }
+    },
     "structures-page": {
         "name": "page",
         "docs": "structures-page--documentatie",
@@ -15,7 +95,7 @@
             "jiraMeta": "FLUX-838"
         },
         "evolution": {
-            "vStatus": "v3-next",
+            "vStatus": "v2-next",
             "legacyText": "[vl-template](/docs/components-block-template--documentatie)",
             "nextText": "vl-page",
             "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#template)"

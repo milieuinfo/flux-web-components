@@ -1,0 +1,71 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDashboardHeaderStories from './vl-dashboard-header.stories';
+
+# Dashboard header
+
+<FluxComponentMetaData id="structures-dashboard-dashboard-header" />
+
+
+## Doel
+
+`vl-dashboard-header` is de header van een pagina in `vl-dashboard`: de titel, een ondertitel, een icoon en de acties van de pagina.
+
+
+## Voorbeeld
+
+Zet één `vl-dashboard-header` bovenaan de inhoud van elke pagina, in het slot `content` van
+[vl-dashboard](/docs/structures-dashboard--documentatie). Hij mag ook dieper staan, bv. in de shadow root van een
+route-component.
+
+De header is optioneel: een pagina zonder titel, ondertitel of acties heeft hem niet nodig. Zonder
+`vl-dashboard-header`:
+
+- springt de skip link van `vl-dashboard` naar het begin van de inhoud (`main`) in plaats van naar de `h1`;
+- blijft na het activeren van een navigatielink de focus op die link (op een smal scherm: op `main`);
+- zorg je zelf voor één `h1` bovenaan de inhoud, zodat de pagina een duidelijke koppenstructuur houdt.
+
+```js
+import { VlDashboardHeader } from '@domg-wc/structures';
+```
+
+```html
+<vl-dashboard-header page-title="Beheer items" page-icon="list">
+    <vl-button slot="header-actions" icon="add">Nieuw item</vl-button>
+</vl-dashboard-header>
+```
+
+<Canvas of={VlDashboardHeaderStories.DashboardHeaderDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlDashboardHeaderStories.DashboardHeaderDefault} />
+
+
+## Varianten
+
+### Zonder header-actions
+
+Het slot `header-actions` mag leeg blijven als de pagina geen acties heeft.
+
+<Canvas of={VlDashboardHeaderStories.DashboardHeaderWithoutActions} />
+
+
+## Gedrag
+
+- De header blijft bovenaan staan als de inhoud van `vl-dashboard` scrolt. Op een smal scherm blijft hij onder de
+  balk met de menuknop van `vl-dashboard`. Zet hem niet in een element met `overflow: hidden` of
+  `overflow: auto`, anders blijft hij niet staan. Zet hem ook buiten de wrapper die de inhoud padding geeft, anders
+  krijgt hij die padding er nog eens bij.
+- De `page-title` is een `h1` met het vaste id `vl-dashboard-page-title` en `tabindex="-1"`. De skip link van
+  `vl-dashboard` en die van `vl-header-next` (met `skip-to-content-id="vl-dashboard-page-title"`) springen ernaartoe.
+  Dat id is een vast contract: **zet maar één `vl-dashboard-header` tegelijk in de pagina**, zodat er ook maar één `h1`
+  is. Tijdens een routewissel kunnen er kort twee staan; de skip link gaat dan naar de eerste.
+- Zodra de header met een `page-title` gerenderd is of een andere `page-title` krijgt, meldt hij zich bij
+  `vl-dashboard`. Volgt dat op het activeren van een navigatielink, dan zet `vl-dashboard` de focus op zijn `h1`.
+- Links en rechts gebruikt de header de padding `--vl-dashboard-content-inline-padding` die `vl-dashboard` zet
+  (zonder `vl-dashboard`: `--vl-spacing--normal`). Gebruik dezelfde variabele voor de inhoud eronder, dan lijnt die uit
+  met de titel.
+- Worden de `header-actions` smaller dan de titel toelaat, dan gaan ze onder de titel staan. De minimale breedte van de
+  titel zet je met de CSS-variabele `--vl-dashboard-title-min-width` (standaard `30rem`), op de header of op een ouder,
+  bv. `vl-dashboard`.

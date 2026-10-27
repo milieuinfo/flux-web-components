@@ -70,7 +70,7 @@
             "jiraMeta": "FLUX-785"
         },
         "evolution": {
-            "vStatus": "v3-next",
+            "vStatus": "v2-next",
             "legacyText": "[vl-footer](/docs/components-compliance-footer--documentatie)",
             "nextText": "vl-footer-next",
             "planningInfo": "[v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#footer)"
@@ -108,7 +108,7 @@
             "jiraMeta": "FLUX-113"
         },
         "evolution": {
-            "vStatus": "v3-next",
+            "vStatus": "v2-next",
             "legacyText": "[vl-header](/docs/components-compliance-header--documentatie)",
             "nextText": "vl-header-next",
             "planningInfo": "[v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#header)"

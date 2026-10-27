@@ -1,0 +1,256 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDashboardStories from './vl-dashboard.stories';
+
+# Dashboard
+
+<FluxComponentMetaData id="structures-dashboard" />
+
+
+## Doel
+
+`vl-dashboard` bouwt de layout van een applicatie op: een header, een inklapbare navigatie, de inhoud en een footer.
+
+
+## Voorbeeld
+
+```js
+import { VlDashboard, VlDashboardHeader, VlNavLink, VlNavSub } from '@domg-wc/structures';
+```
+
+```html
+<vl-dashboard user-name="Bedrijfsnaam" user-icon="building-big">
+    <vl-header-next slot="header" skip-to-content-id="vl-dashboard-page-title"></vl-header-next>
+    <vl-nav-link slot="nav-main" href="/overzicht" icon="places-home" active>Overzicht</vl-nav-link>
+    <vl-nav-link slot="nav-main" href="/dossiers" icon="folder">Dossiers</vl-nav-link>
+    <vl-nav-sub slot="nav-main" label="Dossier X" icon="file" href="/dossiers/x">
+        <vl-nav-link href="/dossiers/x/lopend" icon="hourglass">Lopende taken</vl-nav-link>
+    </vl-nav-sub>
+    <vl-nav-link slot="nav-utils" href="/help" icon="question-mark-filled">Help</vl-nav-link>
+    <div slot="content">
+        <vl-dashboard-header page-title="Overzicht" page-icon="places-home"></vl-dashboard-header>
+        <div class="dashboard-content vl-stacked vl-stacked-small"></div>
+    </div>
+    <vl-footer-next slot="footer"></vl-footer-next>
+</vl-dashboard>
+```
+
+Gebruik in de navigatie [vl-nav-link](/docs/structures-dashboard-nav-link--documentatie) en
+[vl-nav-sub](/docs/structures-dashboard-nav-sub--documentatie), en bovenaan de inhoud een
+[vl-dashboard-header](/docs/structures-dashboard-dashboard-header--documentatie).
+
+Klik in het voorbeeld op een link: die wordt actief, en de pagina met haar header wisselt mee, zie
+[Pagina's](#paginas).
+
+<Canvas of={VlDashboardStories.DashboardDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlDashboardStories.DashboardDefault} />
+
+
+## Varianten
+
+### Zonder gebruiker en titel
+
+Zonder `user-name`, `user-img` en `user-icon` heeft de navigatie geen header. Zonder `vl-dashboard-header` heeft de
+inhoud geen header.
+
+<Canvas of={VlDashboardStories.DashboardWithoutUserAndTitle} />
+
+### collapsed
+
+Met `collapsed` start de navigatie ingeklapt, ook als de gebruiker ze bij een vorig bezoek uitklapte: het attribuut wint
+van de toestand in `localStorage`. Zonder het attribuut geldt de toestand uit `localStorage`. Geef `collapsed` ook zelf
+door aan de `vl-nav-link` en `vl-nav-sub` componenten, zie [Navigatie](#navigatie).
+
+<Canvas of={VlDashboardStories.DashboardCollapsed} />
+
+### not-collapsible
+
+Inklappen heeft enkel zin als alle links een icoon hebben: een ingeklapte link toont enkel zijn icoon. Hebben de links
+geen iconen, zet dan `not-collapsible`. De knop om in te klappen verdwijnt, `collapsed` is altijd `false`, en een
+ingeklapte toestand uit een vorig bezoek wordt niet overgenomen.
+
+<Canvas of={VlDashboardStories.DashboardNotCollapsible} />
+
+
+## Pagina's
+
+`vl-dashboard` is de vaste schil van de applicatie: de header, de navigatie en de footer staan er één keer in. Elke
+pagina of route zet haar eigen titel, ondertitel, icoon en acties in een
+[vl-dashboard-header](/docs/structures-dashboard-dashboard-header--documentatie) bovenaan haar inhoud, in het slot
+`content`. Zo past de router enkel de inhoud aan, en niet de attributen van `vl-dashboard`.
+
+- Zet **precies één `vl-dashboard-header`** in de pagina: zijn `h1` heeft het vaste id `vl-dashboard-page-title`, het
+  doel van de skip links.
+- De header mag rechtstreeks in het slot `content` staan, of dieper, bv. in de shadow root van een route-component.
+- De `header-actions` horen bij de header van de pagina; zonder acties blijft het slot leeg.
+- De `h1` van de pagina komt uit de `vl-dashboard-header`; begin de inhoud eronder met een `h2`.
+- Na het activeren van een link in de navigatie zet `vl-dashboard` de focus op de `h1` van de nieuwe
+  `vl-dashboard-header`, ook als de route die pas later rendert. De header meldt zich daarvoor zelf, zodra hij met een
+  `page-title` gerenderd is of een andere `page-title` krijgt. Heeft de gebruiker de focus intussen ergens anders
+  gezet, dan blijft ze daar.
+
+Een schets met een router in een single-page applicatie:
+
+```html
+<vl-dashboard user-name="Bedrijfsnaam">
+    <vl-nav-link slot="nav-main" href="/overzicht" icon="places-home">Overzicht</vl-nav-link>
+    <vl-nav-link slot="nav-main" href="/items" icon="list">Beheer items</vl-nav-link>
+    <!-- de router rendert hier de pagina van de huidige route -->
+    <main-outlet slot="content"></main-outlet>
+</vl-dashboard>
+```
+
+```js
+// per route: de actieve link verplaatsen en de pagina met haar eigen header renderen
+router.on('/items', () => {
+    dashboard.querySelectorAll('vl-nav-link').forEach((link) => {
+        link.active = link.getAttribute('href') === '/items';
+    });
+    render(
+        html`
+            <vl-dashboard-header page-title="Beheer items" page-icon="list">
+                <vl-button slot="header-actions" icon="add">Nieuw item</vl-button>
+            </vl-dashboard-header>
+            <div class="dashboard-content vl-stacked vl-stacked-small">…</div>
+        `,
+        outlet,
+    );
+});
+```
+
+In het [voorbeeld bovenaan](#voorbeeld) doet een click handler wat een router zou doen: de geklikte link wordt actief,
+en de pagina met haar header komt in het slot `content`. Overzicht heeft een ondertitel en geen acties, Beheer items één
+knop, en Dossiers, Lopende taken en Afgesloten taken een zoekveld, een knop en een icon-only knop met een `label`.
+Dossier X is een `vl-nav-sub` met `href`: zijn label linkt naar een eigen pagina zonder acties. Lopende taken en
+Afgesloten taken tonen hun pad in een [vl-breadcrumb](/docs/components-block-breadcrumb--documentatie).
+
+### Actieve link
+
+Zet `active` op de link van de huidige pagina; `vl-nav-link` zet dan `aria-current="page"` op zijn interne link. Is de
+huidige pagina die van een `vl-nav-sub` met `href`, zet `active` dan op de `vl-nav-sub`. Er is maar één actieve link
+tegelijk. Verplaats `active` bij elke navigatie, samen met de pagina die je rendert.
+
+
+## Navigatie
+
+De navigatie neemt de volledige hoogte tussen de header en de footer in. Met de knop onderaan klapt de gebruiker ze in
+tot de breedte van een icoon; `vl-dashboard` onthoudt die keuze in `localStorage`. Op een scherm tot 1023px verdwijnt
+de navigatie achter een menuknop, in een eigen balk boven de inhoud, en neemt ze opengeklapt de plaats van de inhoud
+in, minstens zo hoog als het scherm onder de header.
+
+Een klik op een link (een `vl-nav-link` of `vl-nav-sub` met `href`, of een andere `<a href>`), met de muis of met Enter, zet de focus
+op de `h1` van de nieuwe `vl-dashboard-header` zodra die er is, ook bij een asynchrone route. Op mobiel sluit de
+navigatie meteen en gaat de focus eerst naar het `main` landmark, het begin van de inhoud, tot de nieuwe header er is.
+Rendert de link geen nieuwe pagina, dan blijft de focus op de link (op mobiel op `main`). Een pagina die meer dan 10
+seconden na de klik rendert, of pas nadat de gebruiker intussen klikte of een toets indrukte, krijgt de focus niet meer
+automatisch: die blijft dan op de link (op mobiel op `main`). Een knop (een `vl-nav-link`
+zonder `href`), een `link-action` of een `disabled` link laat de navigatie open. `Escape` sluit de
+navigatie en zet de focus terug op de menuknop. Wordt het scherm breder dan 1023px, dan verdwijnt de mobiele navigatie.
+
+De open mobiele navigatie houdt de toetsenbordfocus vast. Bij het openen gaat de focus naar de knop om te sluiten. Tab en
+Shift+Tab lopen rond binnen het paneel: na de laatste link komt het eerste focusbare element van het paneel, en
+omgekeerd. De inhoud van het dashboard, de header en de footer zijn zo niet met het toetsenbord te bereiken tot de
+navigatie weer sluit. Dat werkt ook als `vl-dashboard` in de shadow root van een applicatie staat.
+
+De toestand staat in de property en het gereflecteerde attribuut `collapsed`: lees `dashboard.collapsed` uit, of zet
+het om de navigatie zelf in of uit te klappen. Enkel de keuze van de gebruiker, met de knop om in of uit te klappen,
+wordt bewaard in `localStorage`; zet je `collapsed` zelf, dan blijft de bewaarde keuze ongewijzigd.
+
+Klapt de gebruiker de navigatie in of uit, of herstelt `vl-dashboard` bij het laden een ingeklapte navigatie, dan vuurt
+het het event `vl-toggle-navigation` af. Zet je `collapsed` zelf, dan niet: je weet dan al dat het verandert. Geef
+`collapsed` zelf door aan de `vl-nav-link` en `vl-nav-sub` componenten in de slots, zowel bij het event als wanneer je
+`collapsed` zelf zet; `vl-dashboard` doet dat niet. Een `vl-nav-sub` geeft het verder door aan zijn eigen links.
+
+```js
+dashboard.addEventListener('vl-toggle-navigation', (event) => {
+    dashboard
+        .querySelectorAll(':scope > vl-nav-link, :scope > vl-nav-sub')
+        .forEach((element) => element.toggleAttribute('collapsed', event.detail.collapsed));
+});
+```
+
+Heeft een `vl-nav-link` een `<span slot="link-badge">`, dan toont de menuknop op mobiel een stip en vermeldt zijn
+label dat er meldingen zijn.
+
+
+## Breedte en padding van de inhoud
+
+`vl-dashboard` geeft de inhoud in het slot `content` de volledige ruimte naast de navigatie, zonder padding en zonder
+maximale breedte. Die bepaal je zelf per pagina, met een eigen klasse op het element onder de `vl-dashboard-header`.
+Gebruik voor de padding links en rechts `--vl-dashboard-content-inline-padding`: dezelfde waarde als in de
+`vl-dashboard-header` (en de mobiele balk), zodat de inhoud op dezelfde lijn begint als de titel. `vl-dashboard` zet ze
+zelf, kleiner op een smal scherm. Gebruik verder de spacing tokens. Zet de ruimte tussen de blokken van de inhoud met
+`vl-stacked vl-stacked-small` (of `-medium`, ook in geneste blokken) in plaats van marges, en geef een `vl-title`
+daarin `no-space-bottom`, anders telt zijn eigen marge bovenop die ruimte. `vl-stacked` en `vl-stacked-small` zijn
+globale utility-classes uit `@domg-wc/styles`: in de light DOM werken ze enkel als de globale Flux-styles geladen zijn.
+Zet de CSS hieronder in een extern stylesheet (bestand), niet in een `<style>`-blok of een `style`-attribuut, zodat een
+Content Security Policy zonder `unsafe-inline` ze toelaat.
+
+Twee patronen, allebei links uitgelijnd met de titel in de `vl-dashboard-header`:
+
+- **Tekst** krijgt een maximale breedte van 1280px, de padding inbegrepen (`box-sizing: border-box`), zodat tekst niet
+  de volle breedte van een breed scherm inneemt. De inhoud blijft links staan, niet gecentreerd. Zie de pagina Help in het
+  [voorbeeld bovenaan](#voorbeeld).
+- **Tabellen en kaarten** gebruiken de volle breedte, met enkel de padding links en rechts. Een tabel die breder is
+  dan het scherm, scrolt in zijn eigen wrapper; `vl-table` doet dat zelf. Zie de pagina Beheer items in het
+  [voorbeeld bovenaan](#voorbeeld).
+
+```css
+/* tekst: maximaal 1280px breed, de padding inbegrepen */
+.dashboard-content {
+    box-sizing: border-box;
+    max-width: 128rem;
+    padding-block: var(--vl-spacing--medium);
+    padding-inline: var(--vl-dashboard-content-inline-padding);
+}
+
+/* tabellen en kaarten: de volle breedte */
+.dashboard-content--full-width {
+    max-width: none;
+}
+```
+
+```html
+<div slot="content">
+    <vl-dashboard-header page-title="Beheer items"></vl-dashboard-header>
+    <div class="dashboard-content dashboard-content--full-width vl-stacked vl-stacked-small">
+        <vl-table>
+            <table>…</table>
+        </vl-table>
+    </div>
+</div>
+```
+
+
+## Hoogte
+
+`vl-dashboard` is even hoog als het venster min de header en de footer, zodat de navigatie en de inhoud elk apart
+scrollen. `vl-header-next` en `vl-footer-next` renderen niet in `vl-dashboard`, maar vooraan en achteraan in de `body`.
+Geef hun hoogte daarom mee met CSS-variabelen op `vl-dashboard` of een ouder ervan:
+
+| CSS-variabele | Standaard | Gebruik |
+| --- | --- | --- |
+| `--vl-dashboard-header-height` | `43px` | Hoogte van de header, ook voor de mobiele navigatie en de mobiele balk |
+| `--vl-dashboard-footer-height` | `128px` | Hoogte van de footer |
+| `--vl-dashboard-navigation-width` | `300px` | Breedte van de uitgeklapte navigatie |
+| `--vl-dashboard-title-min-width` | `30rem` | Minimale breedte van de titel in de `vl-dashboard-header` voor de `header-actions` naar een nieuwe lijn gaan |
+| `--vl-dashboard-content-inline-padding` | `--vl-spacing--medium`, tot 1023px `--vl-spacing--normal` | Padding links en rechts van de `vl-dashboard-header` en de mobiele balk; hergebruik ze voor de inhoud, zie [Breedte en padding van de inhoud](#breedte-en-padding-van-de-inhoud). Overschrijf ze op `vl-dashboard` zelf: een waarde op een ouder verliest van de waarde die `vl-dashboard` zet |
+
+
+## Toegankelijkheid
+
+De `h1` van de `vl-dashboard-header` heeft het vaste id `vl-dashboard-page-title` en kan focus krijgen
+(`tabindex="-1"`). Dat is het doel van de skip links:
+
+- **De skip link van de header.** Geef `vl-header-next` de `skip-to-content-id="vl-dashboard-page-title"`. Zijn skip
+  link is het eerste focusbare element van de pagina en springt meteen naar de hoofdinhoud, de `h1`, over de header én
+  de navigatie heen (WCAG 2.4.1). Het doel mag in een shadow root zitten: `vl-header-next` zoekt het ook daar.
+- **De skip link van `vl-dashboard`.** Die staat aan het begin van de navigatie, slaat de navigatie over en gaat ook naar
+  de `h1`, waar de `vl-dashboard-header` ook staat. Is er geen `vl-dashboard-header` met een `page-title`, dan gaat hij
+  naar het `main` landmark.
+
+Heeft de pagina geen `vl-dashboard-header` met een `page-title`, geef `vl-header-next` dan geen `skip-to-content-id`
+die naar de `h1` wijst, maar het id van de inhoud in het slot `content`.
