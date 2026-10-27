@@ -11,6 +11,8 @@
         "outDir": "../../build/app/storybook",
         "resolveJsonModule": true,
         "strict": false,
-        "jsx": "react"
+        "jsx": "react",
+        "module": "esnext",
+        "moduleResolution": "bundler"
     }
 }

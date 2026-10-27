@@ -41,7 +41,7 @@ Een `.stories.ts` bestand bestaat uit 3 delen: de [default export](#default-expo
 ### Default Export
 
 Hierin wordt de basis configuratie van een Story bepaald, deze volgt het door Storybook gespecifieerde
-[Component Story Format (CSF)](https://storybook.js.org/docs/6.5/web-components/api/csf). Dit heeft typisch
+[Component Story Format (CSF)](https://storybook.js.org/docs/10/api/csf?renderer=web-components). Dit heeft typisch
 volgende structuur:
 
 - __title__: de titel van de Storybook entry, bv. `Components/accordion`
@@ -136,7 +136,7 @@ ProgressIndicatorDefault.args = {
 
 ## Args
 
-Storybook definiëert de [args specificatie](https://storybook.js.org/docs/6.1/web-components/writing-stories/args).
+Storybook definiëert de [args specificatie](https://storybook.js.org/docs/10/writing-stories/args?renderer=web-components).
 Het bestand heeft een naam conform: `[component].stories-arg.ts` en volgt volgende richtlijnen:
 
 - bij voorkeur **alfabetisch gesorteerd**, indien zinvol kan hier van afgeweken worden
@@ -144,10 +144,10 @@ Het bestand heeft een naam conform: `[component].stories-arg.ts` en volgt volgen
   ..) - hierdoor kan de default waarde afgetest worden; args zonder default waarde in de component krijgen een lege
   waarde
 - **slots suffixen** we met het woord `slot` - bv. `titleSlot` of `defaultSlot`
-- voor events gebruiken we de [action addon](https://storybook.js.org/addons/@storybook/addon-actions) van Storybook
+- voor events gebruiken we de [actions](https://storybook.js.org/docs/10/essentials/actions?renderer=web-components) van Storybook
   zodat het event getoond wordt in de actions sectie
 
-> opgelet: maak geen gebruik van de Args-interface uit @storybook/web-component omdat daardoor de types verloren gaan
+> opgelet: maak geen gebruik van de Args-interface uit @storybook/web-components-vite omdat daardoor de types verloren gaan
 
 ```ts
 export const progressBarArgs = {
@@ -162,11 +162,11 @@ export const progressBarArgs = {
 
 ## ArgTypes
 
-Storybook definiëert de [arg-types specificatie](https://storybook.js.org/docs/6.5/web-components/api/argtypes).
+Storybook definiëert de [arg-types specificatie](https://storybook.js.org/docs/10/api/arg-types?renderer=web-components).
 De arg-types worden bij in het `[component].stories-arg.ts` bestand gezet en volgen volgende richtlijnen:
 
 - bij voorkeur **alfabetisch gesorteerd**, indien zinvol kan hier van afgeweken worden
-- maak gebruik van de **ArgTypes-interface** uit @storybook/web-components
+- maak gebruik van de **ArgTypes-interface** uit @storybook/web-components-vite
 - voor `categories` en `types` zijn er `CATEGORIES` en `TYPES` constanten voorzien
 - de defaultValue van de `argType` moet gelijkgesteld worden aan de waarde in de equivalente `args`-waarde; conform
   `defaultValue: { summary: progressBarArgs.activeStep }`
@@ -184,7 +184,7 @@ Het ArgType volgt een vaste structuur:
                     constante `CATEGORIES`
     - **defaultValue** (optioneel) > **summary**: de default waarde in de component
 - **control** (optioneel): wordt gebruikt bij o.a. een enum om een dropdown control te tonen
-                           zie [controls](https://storybook.js.org/docs/6.5/web-components/essentials/controls) in
+                           zie [controls](https://storybook.js.org/docs/10/essentials/controls?renderer=web-components) in
                            Storybook
     - **type**: het type van de control (select, ...)
     - **options**: de opties van de control
@@ -266,7 +266,8 @@ De docs voor Storybook worden geschreven in [MDX](https://mdxjs.com) formaat.
 Het bestand heeft een naam conform: `[component].stories-doc.mdx` en volgt onderstaande template:
 
 ````
-import { ArgsTable, DocsStory, PRIMARY_STORY } from '@storybook/addon-docs';
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as <Naam>Stories from './<naam>.stories';
 
 # <naam>
 
@@ -282,21 +283,21 @@ import { ArgsTable, DocsStory, PRIMARY_STORY } from '@storybook/addon-docs';
 <custom tag>
 ```
 
-<DocsStory id="<default story id>" />
+<Canvas of={<Naam>Stories.<DefaultStory>} />
 
 ## Configuratie
 
-<ArgsTable story={PRIMARY_STORY} />
+<ArgTypes of={<Naam>Stories.<DefaultStory>} />
 
 ## Varianten
 
 ### Naam Variant 1
 
-<DocsStory id="id-variant-1" />
+<Canvas of={<Naam>Stories.<Variant1>} />
 
 ### Naam Variant 2
 
-<DocsStory id="id-variant-2" />
+<Canvas of={<Naam>Stories.<Variant2>} />
 
 ## Referenties
 
@@ -320,3 +321,13 @@ Voer onderstaande script uit om Storybook lokaal op te starten op http://localho
 ```
 pnpm run apps:storybook:dev
 ```
+
+Storybook is zo enkel bereikbaar vanaf je eigen computer. Wil je Storybook openen vanaf een ander toestel, zoals een
+telefoon of een virtuele machine, start dan met `--host`. Storybook draait dan op het IP-adres van je computer, bv.
+http://192.168.1.10:8080, en iedereen op hetzelfde netwerk kan het openen:
+
+```
+pnpm run apps:storybook:dev --host 0.0.0.0
+```
+
+Doe dit enkel op een netwerk dat je vertrouwt: wie het adres kent, kan via Storybook ook bestanden uit de repo lezen en wijzigen.
