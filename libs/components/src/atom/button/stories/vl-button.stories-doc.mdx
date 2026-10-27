@@ -135,6 +135,9 @@ Beperkingen:
 -   bij gebruik van `cta-link` wordt de `<button>` tag vervangen door een `<a>` tag, hierdoor kan dit niet binnen een
 form gebruikt worden
 -   het type attribuut heeft geen effect bij gebruik van `cta-link`
+-   een link heeft geen disabled state, gebruik `disabled` daarom niet samen met `cta-link`. Toon de link pas als de
+bestemming beschikbaar is, of gebruik een gewone button als het om een actie gaat. Zet je `disabled` toch, dan heeft de
+link geen `href`, staat hij niet in de tabvolgorde en melden schermlezers hem als een niet-beschikbare link
 
 Meer context over wanneer een button of een link te gebruiken kan je vinden in de blogpost
 ['but sometimes buttons look like links'](https://adamsilver.io/blog/but-sometimes-buttons-look-like-links/).
@@ -183,6 +186,8 @@ label, na de zichtbare tekst.
 - Fout: `<vl-button label="Annuleer inschrijving">Annuleren</vl-button>`, de zichtbare tekst ontbreekt
 
 Indien de button een dropdown menu of dialog opent, gebruik dan het `aria-haspopup` attribuut met de juiste waarde (`true`, `menu`, `listbox`, `tree`, `grid`, `dialog`) om aan te geven dat er een popup aanwezig is. Dit helpt schermlezers om de gebruiker correct te informeren over de aanwezigheid van een popup. `aria-haspopup` wordt doorgegeven aan de onderliggende button.
+
+Roep je `focus()` aan op `vl-button`, dan krijgt de onderliggende button (of de link bij `cta-link`) de focus. Zo kan je bv. de focus terugzetten op de knop die een dialog opende, nadat die dialog gesloten is. Een disabled button krijgt geen focus. Roep `focus()` pas aan na de eerste render van de component (bv. na `await button.updateComplete`). `document.activeElement` is daarna de `vl-button` zelf, het onderliggende element vind je via `shadowRoot.activeElement`.
 
 ## Referenties
 

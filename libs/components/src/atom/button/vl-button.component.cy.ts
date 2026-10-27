@@ -33,6 +33,13 @@ const shouldHaveAccessibleName = (selector: 'button' | 'a', expectedName: string
         .should('equal', expectedName);
 };
 
+// Roept focus() aan op de vl-button zelf, zoals een consumer dat doet, niet op de interne knop of link. Wacht eerst op de
+// eerste render: daarvoor is er nog geen intern element om de focus aan door te geven.
+const callFocusOnHost = (innerElement: 'button' | 'a') => {
+    cy.get('vl-button').shadow().find(innerElement).should('exist');
+    cy.get('vl-button').then(($host) => $host[0].focus());
+};
+
 describe('cypress-component - atom components - vl-button', () => {
     it('should mount', () => {
         cy.mount(html` <vl-button></vl-button>`);
@@ -352,6 +359,70 @@ describe('cypress-component - atom components - vl-button', () => {
 
         cy.get('vl-button').shadow().find('button').should('not.have.attr', 'aria-current');
     });
+
+    it('should focus the inner button when focus() is called on the host', () => {
+        cy.mount(html`<vl-button>Klik op mij</vl-button>`);
+
+        callFocusOnHost('button');
+
+        cy.get('vl-button').shadow().find('button').should('have.focus');
+        cy.get('vl-button').should(($host) => {
+            const shadowRoot = $host[0].shadowRoot!;
+            expect(shadowRoot.activeElement).to.equal(shadowRoot.querySelector('button'));
+        });
+    });
+
+    it('should not focus the inner button when focus() is called on a disabled host', () => {
+        cy.mount(html`<vl-button disabled>Klik op mij</vl-button>`);
+
+        callFocusOnHost('button');
+
+        cy.get('vl-button').should(($host) => expect($host[0].shadowRoot!.activeElement).to.be.null);
+    });
+
+    it('should still focus the inner button via the shadow root', () => {
+        cy.mount(html`<vl-button>Klik op mij</vl-button>`);
+
+        cy.get('vl-button')
+            .shadow()
+            .find('button')
+            .then(($button) => $button[0].focus());
+
+        cy.get('vl-button').shadow().find('button').should('have.focus');
+    });
+
+    it('should visibly restore focus to the button when a dialog closes', () => {
+        cy.mount(html`
+            <vl-button id="open-dialog">Open dialog</vl-button>
+            <div id="dialog">
+                <button id="close-dialog" type="button">Sluiten</button>
+            </div>
+        `);
+        cy.get('#dialog').then(($dialog) => {
+            $dialog[0].addEventListener('vl-close', () => document.querySelector<HTMLElement>('#open-dialog')!.focus());
+        });
+
+        cy.get('vl-button').shadow().find('button').should('exist');
+
+        cy.get('#close-dialog').focus();
+        cy.get('#dialog').then(($dialog) => $dialog[0].dispatchEvent(new CustomEvent('vl-close')));
+
+        cy.get('vl-button').shadow().find('button').should('have.focus').and('have.css', 'outline-style', 'solid');
+    });
+
+    it('should have a single tab stop', () => {
+        cy.mount(html`
+            <button id="before" type="button">Voor</button>
+            <vl-button>Klik op mij</vl-button>
+            <button id="after" type="button">Na</button>
+        `);
+
+        cy.get('#before').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        cy.get('vl-button').shadow().find('button').should('have.focus');
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        cy.get('#after').should('have.focus');
+    });
 });
 
 describe('cypress-component - atom components - vl-button - cta-link', () => {
@@ -443,8 +514,59 @@ describe('cypress-component - atom components - vl-button - cta-link', () => {
         cy.mount(html` <vl-button disabled cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
 
         cy.get('vl-button').should('have.attr', 'disabled');
-        cy.get('vl-button').shadow().find('a').should('have.attr', 'tabindex', '-1');
-        cy.get('vl-button').shadow().find('a').should('have.attr', 'aria-disabled');
+        cy.get('vl-button').shadow().find('a').should('not.have.attr', 'href');
+        cy.get('vl-button').shadow().find('a').should('not.have.attr', 'tabindex');
+        cy.get('vl-button').shadow().find('a').should('have.attr', 'role', 'link');
+        cy.get('vl-button').shadow().find('a').should('have.attr', 'aria-disabled', 'true');
+    });
+
+    it('should be accessible when disabled', () => {
+        cy.mount(html` <vl-button disabled cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-button');
+    });
+
+    it('should restore href when no longer disabled', () => {
+        cy.mount(html` <vl-button disabled cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        cy.get('vl-button').invoke('removeAttr', 'disabled');
+
+        cy.get('vl-button').shadow().find('a').should('have.attr', 'href', 'https://www.vlaanderen.be');
+        cy.get('vl-button').shadow().find('a').should('not.have.attr', 'role');
+    });
+
+    it('should skip a disabled link in the tab order', () => {
+        cy.mount(html`
+            <button id="before" type="button">Voor</button>
+            <vl-button disabled cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>
+            <button id="after" type="button">Na</button>
+        `);
+
+        cy.get('#before').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        cy.get('#after').should('have.focus');
+    });
+
+    it('should focus the inner link when focus() is called on the host', () => {
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        callFocusOnHost('a');
+
+        cy.get('vl-button').shadow().find('a').should('have.focus');
+        cy.get('vl-button').should(($host) => {
+            const shadowRoot = $host[0].shadowRoot!;
+            expect(shadowRoot.activeElement).to.equal(shadowRoot.querySelector('a'));
+        });
+    });
+
+    it('should not focus the inner link when focus() is called on a disabled host', () => {
+        cy.mount(html` <vl-button disabled cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        callFocusOnHost('a');
+
+        cy.get('vl-button').should(($host) => expect($host[0].shadowRoot!.activeElement).to.be.null);
     });
 
     it('should set error', () => {

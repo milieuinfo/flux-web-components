@@ -367,7 +367,7 @@ describe('cypress-component - structures - vl-nav-link', () => {
         mountNavLink({ disabled: true });
 
         cy.get('vl-nav-link').should('have.attr', 'disabled');
-        getLink().should('have.attr', 'aria-disabled', 'true').and('have.attr', 'tabindex', '-1');
+        getLink().should('have.attr', 'aria-disabled', 'true').and('not.have.attr', 'href');
     });
 
     it('should render the link-action slot', () => {
