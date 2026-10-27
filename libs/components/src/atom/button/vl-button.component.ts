@@ -1,10 +1,13 @@
 import { BaseLitElement, ICON_PLACEMENT, isSlotEmpty, webComponent } from '@domg-wc/common';
+import { vlAccessibilityStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlButtonStyles } from '../button-style/vl-button-style.css';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
 import { buttonDefaults } from './vl-button.defaults';
+
+const loadingText = '(Wordt geladen...)';
 
 @webComponent('vl-button')
 export class VlButtonComponent extends BaseLitElement {
@@ -32,7 +35,7 @@ export class VlButtonComponent extends BaseLitElement {
     private slotIsEmpty = true;
 
     static get styles(): CSSResult[] {
-        return [vlButtonStyles(), vlButtonStyles('a'), vlIconStyles];
+        return [vlButtonStyles(), vlButtonStyles('a'), vlIconStyles, vlAccessibilityStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -165,10 +168,12 @@ export class VlButtonComponent extends BaseLitElement {
         }
     };
 
+    // Zonder label geen aria-label: die zou de slot-tekst als accessible name overschrijven (zie renderLoadingText).
     get ariaLabel(): string {
-        const labelText = this.label || '';
-        const loadingText = this.loading ? ' (Wordt geladen...)' : '';
-        return labelText + loadingText;
+        if (!this.label) {
+            return '';
+        }
+        return this.loading ? `${this.label} ${loadingText}` : this.label;
     }
 
     private renderButton(classes: ClassInfo): TemplateResult {
@@ -205,6 +210,7 @@ export class VlButtonComponent extends BaseLitElement {
             >
                 ${positionIconBefore ? this.renderIcon() : nothing}
                 <slot @slotchange=${this.handleSlotChange}></slot>
+                ${this.renderLoadingText()}
                 ${!positionIconBefore ? this.renderIcon() : nothing}
             </button>
         `;
@@ -242,6 +248,7 @@ export class VlButtonComponent extends BaseLitElement {
             >
                 ${positionIconBefore ? this.renderIcon() : nothing}
                 <slot @slotchange=${this.handleSlotChange}></slot>
+                ${this.renderLoadingText()}
                 ${!positionIconBefore ? this.renderIcon() : nothing}
                 ${this.external
                     ? html`<span class="vl-icon vl-icon--external vl-icon--after" aria-hidden="true"></span>`
@@ -257,6 +264,10 @@ export class VlButtonComponent extends BaseLitElement {
         };
 
         return this.icon ? html`<span class=${classMap(classes)} part="icon" aria-hidden="true"></span>` : nothing;
+    }
+
+    private renderLoadingText(): TemplateResult | typeof nothing {
+        return this.loading && !this.label ? html`<span class="vl-visually-hidden">${loadingText}</span>` : nothing;
     }
 }
 
