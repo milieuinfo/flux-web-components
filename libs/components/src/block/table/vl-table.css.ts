@@ -7,7 +7,7 @@ export const tableStyles = css`
         max-width: 100%;
         overflow-x: auto;
 
-        &:focus {
+        &:focus-visible {
             ${vlFocusOutlineMixin()};
         }
     }
