@@ -1,6 +1,6 @@
 import { BaseLitElement, ICON_PLACEMENT, isSlotEmpty, webComponent } from '@domg-wc/common';
 import { vlAccessibilityStyles } from '@domg-wc/styles';
-import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
+import { CSSResult, html, LitElement, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlButtonStyles } from '../button-style/vl-button-style.css';
@@ -33,6 +33,8 @@ export class VlButtonComponent extends BaseLitElement {
     private inputGroup = buttonDefaults.inputGroup;
     private label = buttonDefaults.label;
     private slotIsEmpty = true;
+
+    static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
     static get styles(): CSSResult[] {
         return [vlButtonStyles(), vlButtonStyles('a'), vlIconStyles, vlAccessibilityStyles];
@@ -221,11 +223,13 @@ export class VlButtonComponent extends BaseLitElement {
     private renderCtaLink(classes: ClassInfo): TemplateResult {
         const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
 
+        // Zonder href is een disabled link niet focusbaar, ook niet via focus() op de host.
+        // Een <a> zonder href heeft volgens de HTML-AAM de rol generic in plaats van link, daarom zetten we die expliciet.
         return html`
             <a
                 part="link"
-                href=${this.disabled ? 'javascript:void(0);' : this.ctaLink}
-                tabindex=${ifDefined(this.disabled ? '-1' : undefined)}
+                href=${this.disabled ? nothing : this.ctaLink}
+                role=${this.disabled ? 'link' : nothing}
                 class=${classMap(classes)}
                 target=${this.ctaLink && this.external ? '_blank' : nothing}
                 rel=${this.ctaLink && this.external ? 'noopener noreferrer nofollow' : nothing}

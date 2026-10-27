@@ -1,5 +1,5 @@
 import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common';
-import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
+import { CSSResult, html, LitElement, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
@@ -23,6 +23,8 @@ export class VlLinkComponent extends BaseLitElement {
     private iconPlacement = linkDefaults.iconPlacement;
     private buttonAsLink = linkDefaults.buttonAsLink;
     private type = linkDefaults.type;
+
+    static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
     static get styles(): CSSResult[] {
         return [vlLinkFluxStyles, vlLinkStyles(), vlLinkIconStyles, buttonAsLinkStyles, vlIconStyles];

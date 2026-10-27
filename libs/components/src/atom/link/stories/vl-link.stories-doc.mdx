@@ -173,6 +173,11 @@ voor echte links.
 <vl-link href="/codes" aria-current="page">Codes</vl-link>
 ```
 
+Roep je `focus()` aan op `vl-link`, dan krijgt de onderliggende link (of de button bij `button-as-link`) de focus. Zo
+kan je bv. de focus terugzetten op de link die een dialog opende, nadat die dialog gesloten is. Roep `focus()` pas aan
+na de eerste render van de component (bv. na `await link.updateComplete`). `document.activeElement` is daarna de
+`vl-link` zelf, het onderliggende element vind je via `shadowRoot.activeElement`.
+
 ## Referenties
 
 ### Digitaal Vlaanderen
