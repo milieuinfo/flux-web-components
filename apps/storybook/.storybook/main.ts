@@ -171,6 +171,7 @@ const config: StorybookConfig = {
         if (configType === 'DEVELOPMENT') {
             const allow = new Set([
                 ...(config.server.fs.allow ?? []),
+                r('../../..'),
                 r('.'), // .storybook
                 r('../docs'), // ← jouw MDX docs-map
                 r('../stories'), // (optioneel) stories-map
