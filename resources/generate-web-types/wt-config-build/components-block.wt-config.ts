@@ -1,6 +1,7 @@
 import { accordionArgTypes } from '../../../libs/components/src/block/accordion/stories/vl-accordion.stories-arg';
 import { alertArgTypes } from '../../../libs/components/src/block/alert/stories/vl-alert.stories-arg';
 import { autocompleteArgTypes } from '../../../libs/components/src/block/autocomplete/stories/vl-autocomplete.stories-arg';
+import { badgeArgTypes } from '../../../libs/components/src/block/badge/stories/vl-badge.stories-arg';
 import { breadcrumbItemArgTypes } from '../../../libs/components/src/block/breadcrumb/stories/vl-breadcrumb-item.stories-arg';
 import { breadcrumbArgTypes } from '../../../libs/components/src/block/breadcrumb/stories/vl-breadcrumb.stories-arg';
 import { cascaderItemArgTypes } from '../../../libs/components/src/block/cascader/stories/vl-cascader-item.stories-arg';
@@ -82,6 +83,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         autocompleteArgTypes,
         '../../libs/components/src/block/autocomplete/stories/vl-autocomplete.stories-doc.mdx',
         '/docs/components-block-autocomplete--documentatie'
+    ),
+    buildWTConfig(
+        'vl-badge',
+        badgeArgTypes,
+        '../../libs/components/src/block/badge/stories/vl-badge.stories-doc.mdx',
+        '/docs/components-block-badge--documentatie'
     ),
     buildWTConfig(
         'vl-breadcrumb',

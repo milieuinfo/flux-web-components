@@ -1,0 +1,96 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlBadgeStories from './vl-badge.stories';
+
+# Badge
+
+<FluxComponentMetaData id="components-block-badge" />
+
+## Doel
+
+`vl-badge` is een ronde badge met een icoon of een afbeelding, bv. een avatar of het logo van een bedrijf.
+
+## Voorbeeld
+
+```js
+import { VlBadgeComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-badge icon="file-tasks-check"></vl-badge>
+<vl-badge img="/logo.png" alt="Logo van het bedrijf"></vl-badge>
+```
+
+<Canvas of={VlBadgeStories.BadgeDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlBadgeStories.BadgeDefault} />
+
+## Varianten
+
+### primary
+
+Met `background="primary"` krijgt de badge de primaire kleur van het thema (`--vl-theme-primary-color`), of
+`--vl-color--background-primary` als er geen thema is. Met `background="default"` krijgt hij de standaard
+achtergrondkleur, bv. voor een badge op een `subtle` achtergrond.
+
+<Canvas of={VlBadgeStories.BadgePrimary} />
+
+### action
+
+Met `background="action"` krijgt de badge de blauwe actiekleur van de huisstijl (`--vl-color--action`), met een witte
+tekst of icoon (`--vl-color--text-on-action`).
+
+<Canvas of={VlBadgeStories.BadgeAction} />
+
+### img
+
+Met `img` toont de badge een afbeelding in plaats van een icoon. Geef de afbeelding een `alt`, tenzij ze enkel
+decoratief is, bv. omdat de naam ernaast staat.
+
+<Canvas of={VlBadgeStories.BadgeImage} />
+
+## Toegankelijkheid
+
+Een badge is meestal decoratief: de informatie staat ernaast, bv. de naam van de gebruiker naast zijn avatar. Laat
+`alt` dan weg of leeg; schermlezers slaan de badge over.
+
+Draagt de badge zelf informatie die nergens anders staat, geef hem dan een `alt`:
+
+- Met `img` komt `alt` op de afbeelding.
+- Met een icoon krijgt de badge `role="img"` en `alt` als `aria-label`; het icoon zelf blijft verborgen voor
+  schermlezers.
+
+```html
+<vl-badge icon="building-big" alt="Bedrijf"></vl-badge>
+```
+
+Zet je zelf een `role` of `aria-label` op een badge zonder `alt`, dan laat de badge die staan. Gebruik voor een icoon
+wel liever `alt`.
+
+## Grootte
+
+De badge is standaard 4.5rem groot. Het icoon volgt de `font-size` van de badge. Pas beide aan op het element zelf:
+
+```css
+vl-badge {
+    width: 2.4rem;
+    height: 2.4rem;
+    font-size: 1rem;
+}
+```
+
+## CSS parts
+
+Via `::part()` kan je de inhoud van de badge van buitenaf stijlen:
+
+| Part | Element |
+| --- | --- |
+| `img` | De afbeelding, als `img` gezet is |
+| `icon` | Het icoon, als `icon` gezet is en `img` niet |
+
+```css
+vl-badge::part(img) {
+    object-fit: contain;
+}
+```

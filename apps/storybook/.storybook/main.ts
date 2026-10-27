@@ -147,6 +147,10 @@ const config: StorybookConfig = {
                 __dirname,
                 '../../../libs/components/src/block/next/index.ts',
             ),
+            '@domg-wc/components/block/badge': path.resolve(
+                __dirname,
+                '../../../libs/components/src/block/badge/index.ts',
+            ),
             '@domg-wc/components/block': path.resolve(__dirname, '../../../libs/components/src/block/index.ts'),
             '@domg-wc/components/compliance/next': path.resolve(
                 __dirname,
