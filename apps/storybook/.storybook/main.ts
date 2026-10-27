@@ -82,7 +82,7 @@ const config: StorybookConfig = {
         (function () {
           function inject() {
             const sidebar =
-              document.querySelector('nav.sidebar-container');
+              document.querySelector('.sidebar-container');
             if (!sidebar) return false;
             if (sidebar.querySelector('#sb-custom-sidebar-footer')) return true;
 
