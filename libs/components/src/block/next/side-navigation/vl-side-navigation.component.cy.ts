@@ -746,6 +746,37 @@ describe('cypress-component - block components - vl-side-navigation-next - with 
             .should('have.attr', 'aria-current', 'location');
     });
 
+    it('should forward aria-current to the internal link of the active custom TOC vl-link', () => {
+        mountSideNavigationWithCustomToc();
+
+        cy.get('vl-side-navigation-next')
+            .find('vl-link[href="#custom-aanvraag"]')
+            .shadow()
+            .find('a')
+            .click({ force: true });
+        cy.get('vl-side-navigation-next')
+            .find('vl-link[href="#custom-aanvraag"]')
+            .shadow()
+            .find('a')
+            .should('have.attr', 'aria-current', 'location');
+
+        cy.get('vl-side-navigation-next')
+            .find('vl-link[href="#custom-intro"]')
+            .shadow()
+            .find('a')
+            .click({ force: true });
+        cy.get('vl-side-navigation-next')
+            .find('vl-link[href="#custom-intro"]')
+            .shadow()
+            .find('a')
+            .should('have.attr', 'aria-current', 'location');
+        cy.get('vl-side-navigation-next')
+            .find('vl-link[href="#custom-aanvraag"]')
+            .shadow()
+            .find('a')
+            .should('not.have.attr', 'aria-current');
+    });
+
     it('should be accessible with custom TOC', () => {
         mountSideNavigationWithCustomToc();
         cy.injectAxe();
