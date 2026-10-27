@@ -42,7 +42,6 @@
     const mOpen = ''.concat(mAttr, '-open');
     const mClose = ''.concat(mAttr, '-close');
     const mCloseSelector = '['.concat(mClose, '],[data-').concat(mClose, ']');
-    const mFallbackBackdropClass = '.backdrop';
     const noOverflowClass = ''.concat(vl.ns, 'u-no-overflow');
 
     /**
@@ -78,6 +77,30 @@
         return triggers;
     }
 
+    // Close-triggers wisselen runtime (sluitkruis, Annuleer), daarom bij de klik opzoeken i.p.v. bij dress().
+    // element.contains() beperkt tot de eigen boom: light-DOM elementen met modal-close in een slot sluiten niet.
+    function isCloseTriggerClick(element, event) {
+        return event
+            .composedPath()
+            .some((node) => node instanceof Element && element.contains(node) && node.matches(mCloseSelector));
+    }
+
+    function isEscapeKey(event) {
+        return event.key === 'Escape' || event.keyCode === 27;
+    }
+
+    // Een klik op de ::backdrop komt binnen op de dialog zelf, buiten zijn kader.
+    function isBackdropClick(element, event) {
+        const dialogBounds = element.getBoundingClientRect();
+        const isInDialog =
+            event.clientY > dialogBounds.top &&
+            event.clientY < dialogBounds.top + dialogBounds.height &&
+            event.clientX > dialogBounds.left &&
+            event.clientX < dialogBounds.left + dialogBounds.width;
+
+        return event.target === element && !isInDialog;
+    }
+
     const Modal =
         /* #__PURE__ */
         (function () {
@@ -85,6 +108,32 @@
                 _classCallCheck(this, Modal);
 
                 this.lastClickedToggle = null;
+                // In openingsvolgorde, de bovenste modal laatst. Een modal blijft erin tot de opruiming na zijn sluiting.
+                this.openModals = [];
+                // Ligt de focus buiten elke open dialog (bv. op body nadat de gefocuste knop disabled werd), dan bereikt
+                // Escape de keydown-listener van de dialog niet. Een open dialog in het pad beslist zelf, anders de
+                // bovenste modal. Eén listener voor alle modals, zodat er per modal geen op document achterblijft.
+                document.addEventListener(
+                    'keydown',
+                    (event) => {
+                        if (!isEscapeKey(event)) {
+                            return;
+                        }
+                        // isConnected: een dialog die open uit de DOM verdwijnt, houdt zijn open-attribuut.
+                        const openModals = this.openModals.filter(
+                            (openModal) => openModal.isConnected && openModal.hasAttribute('open'),
+                        );
+                        const topModal = openModals[openModals.length - 1];
+                        if (
+                            topModal &&
+                            !topModal.hasAttribute(mClosable) &&
+                            !event.composedPath().some((node) => node instanceof HTMLDialogElement && node.open)
+                        ) {
+                            event.preventDefault();
+                        }
+                    },
+                    true,
+                );
             }
 
             _createClass(Modal, [
@@ -97,13 +146,15 @@
                         if (visible || forceClose) {
                             if (visible) {
                                 element.close();
-                                element.setAttribute('aria-hidden', true);
                             }
 
-                            this.lastClickedToggle.focus();
+                            this.openModals = this.openModals.filter((openModal) => openModal !== element);
+                            element.setAttribute('aria-hidden', true);
+                            this.lastClickedToggle?.focus();
                             vl.util.removeClass(document.body, noOverflowClass);
                         } else {
                             element.showModal();
+                            this.openModals.push(element);
                             if (element.dataset.focusOnModal === 'true') element.focus();
                             element.setAttribute('aria-hidden', false);
                             vl.util.addClass(document.body, noOverflowClass);
@@ -111,11 +162,19 @@
                     },
                 },
                 {
+                    key: 'finishClose',
+                    // Ruimt op na een sluiting buiten toggle() om, zoals via Escape. Na toggle() staat de modal niet meer
+                    // in openModals: dan is er al opgeruimd en mag de focus niet nog eens verspringen.
+                    value: function finishClose(element) {
+                        if (!element.hasAttribute('open') && this.openModals.includes(element)) {
+                            this.toggle(element, true);
+                        }
+                    },
+                },
+                {
                     key: 'dress',
                     value: function dress(element) {
                         let linkedOpenTrigger;
-                        let linkedClosedTrigger;
-                        let closable = false;
                         const self = this;
 
                         element.setAttribute(mDressedAtt, true); // Handle open/close
@@ -128,9 +187,6 @@
                                 .concat(mOpen, '="')
                                 .concat(element.id, '"]')
                         );
-                        linkedClosedTrigger = element.querySelectorAll(mCloseSelector); // See if closable (by esc or backdrop)
-
-                        closable = element.hasAttribute(mClosable);
                         vl.util.each(linkedOpenTrigger, (openTrigger) => {
                             openTrigger.addEventListener('click', function (event) {
                                 self.lastClickedToggle = this;
@@ -142,45 +198,22 @@
                                 event.preventDefault();
                             });
                         });
-                        vl.util.each(linkedClosedTrigger, (closeTrigger) => {
-                            closeTrigger.addEventListener('click', () => {
-                                if (element.hasAttribute('open')) {
-                                    self.toggle(element);
-                                }
-                            });
-                        }); // If attribute closable is available
-
-                        if (closable) {
-                            // Make sure click outside of element closes modal
-                            document.addEventListener('click', (event) => {
-                                if (element.hasAttribute('open')) {
-                                    const dialogBounds = element.getBoundingClientRect();
-                                    const isInDialog =
-                                        event.clientY > dialogBounds.top &&
-                                        event.clientY < dialogBounds.top + dialogBounds.height &&
-                                        event.clientX > dialogBounds.left &&
-                                        event.clientX < dialogBounds.left + dialogBounds.width;
-
-                                    if (
-                                        !isInDialog &&
-                                        (event.target.tagName === 'VL-MODAL' ||
-                                            vl.util.hasClass(event.target, mFallbackBackdropClass))
-                                    ) {
-                                        self.toggle(element);
-                                    }
-                                }
-                            });
-                            element.addEventListener('close', () => {
-                                self.toggle(element, true);
-                            });
-                        } else {
-                            element.addEventListener('keydown', (event) => {
-                                if (event.keyCode === 27) {
-                                    event.preventDefault();
-                                    event.stopPropagation();
-                                }
-                            });
-                        }
+                        element.addEventListener('click', (event) => {
+                            if (
+                                element.hasAttribute('open') &&
+                                (isCloseTriggerClick(element, event) ||
+                                    (element.hasAttribute(mClosable) && isBackdropClick(element, event)))
+                            ) {
+                                self.toggle(element);
+                            }
+                        });
+                        element.addEventListener('close', () => self.finishClose(element));
+                        element.addEventListener('keydown', (event) => {
+                            if (isEscapeKey(event) && !element.hasAttribute(mClosable)) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                        });
                     },
                 },
                 {

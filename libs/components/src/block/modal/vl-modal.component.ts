@@ -116,7 +116,7 @@ export class VlModalComponent extends BaseHTMLElement {
     }
 
     get _dressed() {
-        return !!this.getAttribute('modal-dressed');
+        return !!this._dialogElement?.hasAttribute('data-modal-dressed');
     }
 
     setAriaLabel() {
@@ -176,6 +176,11 @@ export class VlModalComponent extends BaseHTMLElement {
         if (isOpen === this._lastDispatchedOpen) {
             return;
         }
+        // Na een sluiting via Escape zou de lib pas opruimen bij het close-event, een task na vl-close, en zo de focus
+        // terugpakken die een vl-close-handler zette.
+        if (!isOpen) {
+            vl.modal.finishClose(this._dialogElement);
+        }
         this._lastDispatchedOpen = isOpen;
         if (isOpen && !this.hasAttribute('open')) {
             this.setAttribute('open', '');
@@ -191,8 +196,8 @@ export class VlModalComponent extends BaseHTMLElement {
     dress() {
         if (!this._dressed) {
             vl.modal.dress(this._dialogElement);
-            this._dialogElement.dataset.focusOnModal = this.hasAttribute('focus-on-modal') ? 'true' : 'false';
         }
+        this._dialogElement.dataset.focusOnModal = this.hasAttribute('focus-on-modal') ? 'true' : 'false';
     }
 
     /**
@@ -312,7 +317,12 @@ export class VlModalComponent extends BaseHTMLElement {
             }
         } else {
             this._dialogElement.removeAttribute(VlModalComponent._closableAttribute);
-            this._closeButtonElement?.remove();
+            const closeButton = this._closeButtonElement;
+            // Verdwijnt het gefocuste sluitkruis, dan valt de focus anders naar body terwijl de modal open blijft.
+            if (closeButton && this._shadow?.activeElement === closeButton) {
+                this._dialogElement.focus();
+            }
+            closeButton?.remove();
         }
     }
 

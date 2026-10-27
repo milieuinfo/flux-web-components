@@ -2,7 +2,7 @@
 // source=libs/components/src/block/modal/vl-modal.component.ts
 // component=VlModalComponent
 // unmapped: variant
-// code-only vl-modal: allow-overflow, focus-on-modal, label, modal-dressed, not-auto-closable, open
+// code-only vl-modal: allow-overflow, focus-on-modal, label, not-auto-closable, open
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';

@@ -55,7 +55,7 @@ export const modalArgTypes: ArgTypes<typeof modalArgs> = {
     closable: {
         name: 'closable',
         description:
-            'Attribuut om de modal sluitbaar te maken via het "Sluit"-icoon in de rechterbovenhoek of door de "Escape"-toets te gebruiken.',
+            'Attribuut om de modal sluitbaar te maken via het "Sluit"-icoon in de rechterbovenhoek, door de "Escape"-toets te gebruiken of door op de backdrop te klikken. Het attribuut is reactief: verwijder je het terwijl de modal open is (bv. tijdens een bewaaractie), dan verdwijnt het sluit-icoon en sluiten Escape en backdrop de modal niet meer.',
         table: {
             type: { summary: 'Boolean' },
             defaultValue: { summary: 'false' },
