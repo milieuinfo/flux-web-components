@@ -21,7 +21,7 @@ const config: StorybookConfig = {
         '../../../libs/map/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/styles/src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
-    addons: ['@chromatic-com/storybook', '@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest'],
+    addons: ['@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest'],
     docs: {
         defaultName: 'documentatie',
     },
