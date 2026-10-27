@@ -41,8 +41,8 @@ describe('jest - generate-web-types - web-types-completeness', () => {
         expect(componentsAtomWTWithoutWC).toStrictEqual([]);
     });
     it('components-block - valideer de volledigheid van de web-types', () => {
-        expect(componentsBlockWCNameCount).toEqual(78);
-        expect(componentsBlockWTNameCount).toEqual(83);
+        expect(componentsBlockWCNameCount).toEqual(79);
+        expect(componentsBlockWTNameCount).toEqual(84);
         expect(componentsBlockWCWithoutWT).toStrictEqual([]);
         expect(componentsBlockWTWithoutWC).toStrictEqual([]);
     });
@@ -65,8 +65,8 @@ describe('jest - generate-web-types - web-types-completeness', () => {
         expect(mapWTWithoutWC).toStrictEqual([]);
     });
     it('structures - valideer de volledigheid van de web-types', () => {
-        expect(structuresWCNameCount).toEqual(1);
-        expect(structuresWTNameCount).toEqual(1);
+        expect(structuresWCNameCount).toEqual(5);
+        expect(structuresWTNameCount).toEqual(5);
         expect(structuresWCWithoutWT).toStrictEqual([]);
         expect(structuresWTWithoutWC).toStrictEqual([]);
     });

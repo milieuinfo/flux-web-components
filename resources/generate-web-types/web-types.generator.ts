@@ -45,7 +45,7 @@ const buildPrefix = (fluxMetaDataComponent: FluxMetaDataComponent): string => {
             return '<span style="color: rgb(25,140,25)">[v2 base style]</span><br/>';
         case 'v2-style-layout':
             return '<span style="color: rgb(25,140,25)">[v2 layout style]</span><br/>';
-        case 'v3-next':
+        case 'v2-next':
             return '<span style="color: rgb(25,140,25)">[next-component]</span><br/>';
         default:
             return '';

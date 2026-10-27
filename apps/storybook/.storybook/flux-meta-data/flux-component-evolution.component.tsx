@@ -28,7 +28,8 @@ const buildType = (componentEvolution: ComponentEvolution): string => {
             return 'warning';
         case 'v2-replace':
             return 'error';
-        case 'v3-next':
+        case 'v2-next':
+        case 'v2-new':
             return 'success';
         default:
             return 'info';
@@ -44,8 +45,10 @@ const buildTitle = (componentEvolution: ComponentEvolution): string => {
             return 'Styling voor intern gebruik';
         case 'v2-replace':
             return 'Legacy Component';
-        case 'v3-next':
+        case 'v2-next':
             return 'Next Component';
+        case 'v2-new':
+            return 'Nieuw Component';
         default:
             return '';
     }
@@ -60,9 +63,11 @@ const buildText = (componentEvolution: ComponentEvolution): string => {
         case 'v2-replace':
             return `De **${componentEvolution.legacyText}** is een legacy-component die vervangen wordt door
                     ${componentEvolution.nextText}, zie ${componentEvolution.planningInfo} voor bijkomende informatie.`;
-        case 'v3-next':
+        case 'v2-next':
             return `De **${componentEvolution.nextText}** is een next-component die ${componentEvolution.legacyText}
                     vervangt, zie ${componentEvolution.planningInfo} voor bijkomende informatie.`;
+        case 'v2-new':
+            return `De **${componentEvolution.nextText}** is een nieuw component, zonder voorganger.`;
         default:
             return '';
     }
