@@ -47,6 +47,19 @@
             "dv": { "idea": "DS-146", "name": "Dynamic Select", "status": "Discovery" }
         }
     },
+    "components-block-badge": {
+        "name": "badge",
+        "docs": "components-block-badge--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcag": "TODO",
+            "jiraMeta": "FLUX-806"
+        }
+    },
     "components-block-breadcrumb": {
         "name": "breadcrumb",
         "docs": "components-block-breadcrumb--documentatie",
