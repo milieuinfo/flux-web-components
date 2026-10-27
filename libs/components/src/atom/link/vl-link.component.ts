@@ -43,6 +43,8 @@ export class VlLinkComponent extends BaseLitElement {
             iconPlacement: { type: String, attribute: 'icon-placement' },
             buttonAsLink: { type: Boolean, attribute: 'button-as-link' },
             type: { type: String },
+            // overschaduwt de native ARIAMixin-accessor zodat een gewijzigd aria-current een render triggert
+            ariaCurrent: { type: String, attribute: 'aria-current', reflect: true },
         };
     }
 
@@ -65,6 +67,7 @@ export class VlLinkComponent extends BaseLitElement {
                       download=${ifDefined(this.download ?? undefined)}
                       part="link"
                       aria-label=${this.label || nothing}
+                      aria-current=${this.ariaCurrent || nothing}
                       aria-haspopup=${ifDefined(
                           this.hasAttribute('aria-haspopup')
                               ? (this.getAttribute('aria-haspopup') as
@@ -88,6 +91,7 @@ export class VlLinkComponent extends BaseLitElement {
                       type=${this.type}
                       part="button"
                       aria-label=${this.label || nothing}
+                      aria-current=${this.ariaCurrent || nothing}
                       aria-haspopup=${ifDefined(
                           this.hasAttribute('aria-haspopup')
                               ? (this.getAttribute('aria-haspopup') as

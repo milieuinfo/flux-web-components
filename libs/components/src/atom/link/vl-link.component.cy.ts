@@ -4,6 +4,8 @@ import { VlLinkComponent } from './vl-link.component';
 
 registerWebComponents([VlLinkComponent]);
 
+const ariaCurrentValues = ['page', 'step', 'location', 'date', 'time', 'true', 'false'];
+
 describe('cypress-component - atom components - vl-link', () => {
     it('should mount', () => {
         cy.mount(html`<vl-link></vl-link>`);
@@ -126,6 +128,65 @@ describe('cypress-component - atom components - vl-link', () => {
         cy.get('vl-link').shadow().find('a').should('have.attr', 'aria-label', 'link naar Vlaanderen');
     });
 
+    it('should forward aria-current to the link for every valid value', () => {
+        cy.mount(
+            html`${ariaCurrentValues.map((value) => html`<vl-link href="/codes" aria-current=${value}>Codes</vl-link>`)}`
+        );
+
+        ariaCurrentValues.forEach((value, index) => {
+            cy.get('vl-link').eq(index).should('have.attr', 'aria-current', value);
+            cy.get('vl-link').eq(index).shadow().find('a').should('have.attr', 'aria-current', value);
+        });
+    });
+
+    it('should not set aria-current on the link when absent', () => {
+        cy.mount(html`<vl-link href="/codes">Codes</vl-link>`);
+
+        cy.get('vl-link').shadow().find('a').should('not.have.attr', 'aria-current');
+    });
+
+    it('should not set an empty aria-current on the link', () => {
+        cy.mount(html`<vl-link href="/codes" aria-current="">Codes</vl-link>`);
+
+        cy.get('vl-link').shadow().find('a').should('not.have.attr', 'aria-current');
+    });
+
+    it('should follow aria-current changes after the first render', () => {
+        cy.mount(html`<vl-link href="/codes">Codes</vl-link>`);
+        cy.get('vl-link').shadow().find('a').should('not.have.attr', 'aria-current');
+
+        ariaCurrentValues.forEach((value) => {
+            cy.get('vl-link').invoke('attr', 'aria-current', value);
+            cy.get('vl-link').shadow().find('a').should('have.attr', 'aria-current', value);
+        });
+
+        cy.get('vl-link').invoke('removeAttr', 'aria-current');
+        cy.get('vl-link').shadow().find('a').should('not.have.attr', 'aria-current');
+    });
+
+    it('should reflect the ariaCurrent property to the host and the link', () => {
+        cy.mount(html`<vl-link href="/codes">Codes</vl-link>`);
+
+        cy.get('vl-link').then(($link) => {
+            $link[0].ariaCurrent = 'page';
+        });
+        cy.get('vl-link').should('have.attr', 'aria-current', 'page');
+        cy.get('vl-link').shadow().find('a').should('have.attr', 'aria-current', 'page');
+
+        cy.get('vl-link').then(($link) => {
+            $link[0].ariaCurrent = null;
+        });
+        cy.get('vl-link').should('not.have.attr', 'aria-current');
+        cy.get('vl-link').shadow().find('a').should('not.have.attr', 'aria-current');
+    });
+
+    it('should be accessible with aria-current', () => {
+        cy.mount(html`<vl-link href="/codes" aria-current="page">Codes</vl-link>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-link');
+    });
+
     it('should set icon', () => {
         cy.mount(html`<vl-link icon="pin">Vlaanderen</vl-link>`);
 
@@ -199,6 +260,14 @@ describe('cypress-component - atom components - vl-link - button as link', () =>
         cy.mount(html`<vl-link button-as-link label="registreren">Registratie</vl-link>`);
 
         cy.get('vl-link').shadow().find('button').should('have.attr', 'aria-label', 'registreren');
+    });
+
+    it('should forward aria-current to the button and follow changes', () => {
+        cy.mount(html`<vl-link button-as-link aria-current="true">Stap 2</vl-link>`);
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'aria-current', 'true');
+
+        cy.get('vl-link').invoke('removeAttr', 'aria-current');
+        cy.get('vl-link').shadow().find('button').should('not.have.attr', 'aria-current');
     });
 
     it('should set href', () => {
