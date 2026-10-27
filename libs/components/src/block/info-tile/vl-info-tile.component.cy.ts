@@ -95,6 +95,17 @@ const badgeSlot = `<div slot="badge" style="
         ">BD</div>`;
 const clickableLabel = 'opent info-tile';
 
+// de componenttest-omgeving laadt geen globale styles, dus de root font-size is hier niet 10px
+const haveMarginLeftOfRem = (rem: number) => ($element: JQuery<HTMLElement>) => {
+    const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    expect(parseFloat($element.css('margin-left'))).to.be.closeTo(rem * rootFontSize, 0.1);
+};
+
+const horizontalCenterOf = (element: Element) => {
+    const { left, right } = element.getBoundingClientRect();
+    return (left + right) / 2;
+};
+
 describe('cypress-component - block components - vl-info-tile - default', () => {
     beforeEach(() => {
         mountDefault({
@@ -382,6 +393,22 @@ describe('cypress-component - block components - vl-info-tile - toggleable', () 
         cy.get('vl-info-tile').shadow().find('button.vl-toggle').should('have.attr', 'aria-expanded', 'false');
         cy.checkA11y('vl-info-tile');
     });
+
+    it('should indent the subtitle to line up with the title text after the toggle icon', () => {
+        cy.viewport(1200, 800);
+        cy.get('vl-info-tile').shadow().find('#subtitle').should(haveMarginLeftOfRem(2.2));
+    });
+
+    it('should indent the subtitle less on small screens, where the toggle icon is smaller', () => {
+        cy.viewport(500, 800);
+        cy.get('vl-info-tile').shadow().find('#subtitle').should(haveMarginLeftOfRem(2));
+    });
+
+    it('should indent the content when open', () => {
+        cy.get('vl-info-tile').shadow().find('button.vl-toggle').click();
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile__content').should(haveMarginLeftOfRem(2));
+    });
 });
 
 describe('cypress-component - block components - vl-info-tile - center', () => {
@@ -406,6 +433,42 @@ describe('cypress-component - block components - vl-info-tile - center', () => {
 
     it('should center', () => {
         cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--center');
+    });
+});
+
+describe('cypress-component - block components - vl-info-tile - center and toggleable', () => {
+    beforeEach(() => {
+        mountDefault({
+            autoOpen: true,
+            toggleable: true,
+            center: true,
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+        });
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should indent the subtitle to line up with the title text after the toggle icon', () => {
+        cy.viewport(1200, 800);
+        cy.get('vl-info-tile').shadow().find('#subtitle').should(haveMarginLeftOfRem(2.2));
+    });
+
+    it('should center the content when open, without a left margin', () => {
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
+        cy.get('vl-info-tile')
+            .shadow()
+            .find('.vl-info-tile__content')
+            .should(($content) => {
+                const $tile = $content.closest('.vl-info-tile');
+                expect($content.css('margin-left')).to.equal('0px');
+                expect(horizontalCenterOf($content[0])).to.be.closeTo(horizontalCenterOf($tile[0]), 0.5);
+            });
     });
 });
 
