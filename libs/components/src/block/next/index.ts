@@ -1,3 +1,4 @@
+export { VlModalComponent } from './modal';
 export {
     VlSideNavigationComponent,
     VlSideNavigationLayoutComponent,

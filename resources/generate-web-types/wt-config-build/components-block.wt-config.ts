@@ -18,6 +18,7 @@ import { infotextArgTypes } from '../../../libs/components/src/block/infotext/st
 import { inputSliderArgTypes } from '../../../libs/components/src/block/input-slider/stories/vl-input-slider.stories-arg';
 import { loaderArgTypes } from '../../../libs/components/src/block/loader/stories/vl-loader.stories-arg';
 import { modalArgTypes } from '../../../libs/components/src/block/modal/stories/vl-modal.stories-arg';
+import { modalArgTypes as modalNextArgTypes } from '../../../libs/components/src/block/next/modal/stories/vl-modal.stories-arg';
 import { sideNavigationLayoutArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation-layout.stories-arg';
 import { sideNavigationArgTypes as sideNavigationNextArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation.stories-arg';
 import { tabsArgTypes as tabsNextArgTypes } from '../../../libs/components/src/block/next/tabs/stories/vl-tabs.stories-arg';
@@ -308,6 +309,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         tabsArgTypes,
         '../../libs/components/src/block/tabs/stories/vl-tabs.stories-doc.mdx',
         '/docs/components-block-tabs-tabs--documentatie'
+    ),
+    buildWTConfig(
+        'vl-modal-next',
+        modalNextArgTypes,
+        '../../libs/components/src/block/next/modal/stories/vl-modal.stories-doc.mdx',
+        '/docs/components-block-next-modal--documentatie'
     ),
     buildWTConfig(
         'vl-tabs-next',
