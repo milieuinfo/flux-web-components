@@ -150,12 +150,6 @@ export const vlStepFluxStyles: CSSResult = css`
             }
         }
 
-        .vl-step__content-wrapper {
-            visibility: hidden;
-            overflow: hidden;
-            max-height: 0;
-        }
-
         .vl-step__title {
             /* --vl-theme-.. colors are deprecated, but leaving it in for backwards compatibility */
             color: var(--vl-theme-action-color, var(--vl-color--action));
@@ -177,12 +171,6 @@ export const vlStepFluxStyles: CSSResult = css`
         }
 
         &.js-vl-accordion--open {
-            .vl-step__content-wrapper {
-                visibility: visible;
-                overflow: visible;
-                max-height: 100%;
-            }
-
             .vl-step__accordion-toggle::part(icon)::before {
                 transform: rotate(180deg);
             }

@@ -2,7 +2,7 @@
 // source=libs/components/src/block/steps/vl-step.component.ts
 // component=VlStepComponent
 // code-only vl-duration-step: selected
-// code-only vl-step: accordion-dressed, heading-level, icon-aria-label, last-step-no-line, timeline-aria-label
+// code-only vl-step: heading-level, icon-aria-label, last-step-no-line, timeline-aria-label
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';

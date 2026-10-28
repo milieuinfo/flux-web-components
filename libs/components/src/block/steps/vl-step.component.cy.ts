@@ -400,3 +400,164 @@ describe('cypress-component - block components - vl-step - default', () => {
         cy.get('vl-step').shadow().find('li').should('have.class', 'js-vl-accordion--open');
     });
 });
+
+describe('cypress-component - block components - vl-step - vindbaar via zoeken in de pagina', () => {
+    const toggleableStepHtml = html`
+        <vl-steps>
+            <vl-step toggleable>
+                <span slot="icon">1</span>
+                <span slot="title">Toggleable stap</span>
+                <span slot="content" id="doel">Deze inhoud is ingeklapt.</span>
+            </vl-step>
+        </vl-steps>
+    `;
+
+    const shouldHaveContentHidden = (value: string | null) => {
+        cy.get('vl-step')
+            .shadow()
+            .find('.vl-step__content-wrapper')
+            .should(($wrapper) => expect($wrapper[0].getAttribute('hidden')).to.equal(value));
+    };
+
+    it('should be accessible when closed and when opened', () => {
+        cy.mount(toggleableStepHtml);
+        cy.injectAxe();
+        cy.checkA11y('vl-step');
+
+        cy.get('vl-step').shadow().find('button.vl-step__header').click();
+        cy.get('vl-step').shadow().find('button.vl-step__header').should('have.attr', 'aria-expanded', 'true');
+        cy.checkA11y('vl-step');
+    });
+
+    it('should hide closed content with hidden="until-found"', () => {
+        cy.mount(toggleableStepHtml);
+        shouldHaveContentHidden('until-found');
+        cy.get('#doel').should(($content) => expect($content[0].checkVisibility()).to.be.false);
+    });
+
+    it('should open when the browser reveals the content', () => {
+        cy.mount(toggleableStepHtml);
+        cy.createStubForEvent('vl-step', 'vl-on-toggle');
+        cy.get('vl-step')
+            .shadow()
+            .find('.vl-step__content-wrapper')
+            .then(($wrapper) => $wrapper[0].dispatchEvent(new Event('beforematch')));
+        cy.get('vl-step').shadow().find('li').should('have.class', 'js-vl-accordion--open');
+        shouldHaveContentHidden(null);
+        cy.get('#doel').should(($content) => expect($content[0].checkVisibility()).to.be.true);
+        cy.get('@vl-on-toggle').should('have.been.calledOnce');
+    });
+
+    it('should not hide the content of a step that is not toggleable', () => {
+        cy.mount(html`
+            <vl-steps>
+                <vl-step>
+                    <span slot="icon">1</span>
+                    <span slot="title">Stap</span>
+                    <span slot="content">Altijd zichtbaar.</span>
+                </vl-step>
+            </vl-steps>
+        `);
+        shouldHaveContentHidden(null);
+    });
+});
+
+const realPress = (key: 'Enter' | ' ') => {
+    const code = key === 'Enter' ? 'Enter' : 'Space';
+    const keyCode = key === 'Enter' ? 13 : 32;
+    (['keyDown', 'keyUp'] as const).forEach((type) => {
+        cy.then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Input.dispatchKeyEvent',
+                params: { type, key, code, windowsVirtualKeyCode: keyCode, text: key === 'Enter' ? '\r' : ' ' },
+            }),
+        );
+    });
+};
+
+describe('cypress-component - block components - vl-step - toggleable', () => {
+    const mountToggleableStep = () =>
+        cy.mount(html`
+            <vl-steps>
+                <vl-step toggleable>
+                    <span slot="icon">1</span>
+                    <span slot="title" id="titel">Toggleable stap</span>
+                    <span slot="content">Inhoud</span>
+                </vl-step>
+            </vl-steps>
+        `);
+    const header = () => cy.get('vl-step').shadow().find('button.vl-step__header');
+
+    it('should toggle on click and fire vl-on-toggle with the open state', () => {
+        mountToggleableStep();
+        const toggle = cy.stub().as('toggle');
+        cy.get('vl-step').then(($step) =>
+            $step[0].addEventListener('vl-on-toggle', (event) => toggle((event as CustomEvent).detail)),
+        );
+
+        header().click();
+        cy.get('@toggle').should('have.been.calledOnceWith', { open: true });
+        header().should('have.attr', 'aria-expanded', 'true').and('have.attr', 'aria-controls', 'content');
+
+        header().click();
+        cy.get('@toggle').should('have.been.calledTwice').and('have.been.calledWith', { open: false });
+        header().should('have.attr', 'aria-expanded', 'false');
+    });
+
+    it('should toggle when the title is clicked', () => {
+        mountToggleableStep();
+
+        cy.get('#titel').click();
+        cy.get('vl-step').shadow().find('li').should('have.class', 'js-vl-accordion--open');
+    });
+
+    it('should toggle with Enter and Space', () => {
+        mountToggleableStep();
+
+        header().focus();
+        realPress('Enter');
+        header().should('have.attr', 'aria-expanded', 'true');
+        realPress(' ');
+        header().should('have.attr', 'aria-expanded', 'false');
+    });
+
+    it('should pass the open state to the contentRenderer', () => {
+        mountToggleableStep();
+        const renderer = cy
+            .stub()
+            .as('renderer')
+            .returns(html`<span>gerenderd</span>`);
+        cy.get('vl-step').then(($step) => {
+            ($step[0] as unknown as { contentRenderer: unknown }).contentRenderer = renderer;
+            return ($step[0] as unknown as { updateComplete: Promise<unknown> }).updateComplete;
+        });
+
+        header().click();
+        cy.get('@renderer').should('have.been.calledWith', true);
+        header().click();
+        cy.get('@renderer').should('have.been.calledWith', false);
+    });
+
+    it('should not fire vl-on-toggle when toggleable is set after the first render', () => {
+        cy.mount(html`
+            <vl-steps>
+                <vl-step>
+                    <span slot="icon">1</span>
+                    <span slot="title">Stap</span>
+                    <span slot="content">Inhoud</span>
+                </vl-step>
+            </vl-steps>
+        `);
+        const toggle = cy.stub().as('toggle');
+        cy.get('vl-step').shadow().find('li').should('exist');
+        cy.get('vl-step').then(($step) => {
+            $step[0].addEventListener('vl-on-toggle', toggle);
+            $step[0].setAttribute('toggleable', '');
+            return ($step[0] as unknown as { updateComplete: Promise<unknown> }).updateComplete;
+        });
+
+        cy.get('vl-step').shadow().find('li').should('have.class', 'vl-step--accordion');
+        cy.get('vl-step').shadow().find('li').should('not.have.class', 'js-vl-accordion--open');
+        cy.get('@toggle').should('not.have.been.called');
+    });
+});
