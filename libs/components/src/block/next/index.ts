@@ -1,3 +1,4 @@
+export { VlAccordionComponent } from './accordion';
 export { VlModalComponent } from './modal';
 export {
     VlSideNavigationComponent,

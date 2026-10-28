@@ -11,6 +11,12 @@
             "wcag": "FLUX-205",
             "jiraMeta": "FLUX-21",
             "dv": { "idea": "DS-134", "name": "Collapsible (FKA accordion)", "status": "Productie" }
+        },
+        "evolution": {
+            "vStatus": "v2-replace",
+            "legacyText": "vl-accordion",
+            "nextText": "[vl-accordion-next](/docs/components-block-next-accordion--documentatie)",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#accordion)"
         }
     },
     "components-block-alert": {
@@ -527,6 +533,26 @@
             "legacyText": "vl-side-navigation",
             "nextText": "[vl-side-navigation-next](/docs/components-block-next-side-navigation-next--documentatie)",
             "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#side-navigation)"
+        }
+    },
+    "components-block-next-accordion": {
+        "name": "accordion-next",
+        "docs": "components-block-next-accordion--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcag": "FLUX-205",
+            "jiraMeta": "FLUX-21",
+            "dv": { "idea": "DS-134", "name": "Collapsible (FKA accordion)", "status": "Productie" }
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-accordion](/docs/components-block-accordion--documentatie)",
+            "nextText": "vl-accordion-next",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#accordion)"
         }
     },
     "components-block-next-side-navigation": {
