@@ -5,6 +5,8 @@ export type AccordionHost = ReactiveControllerHost & HTMLElement & { open: boole
 export type AccordionControllerOptions = {
     isToggleable?: () => boolean;
     isDisabled?: () => boolean;
+    dispatchEvents?: boolean;
+    onChange?: (expanded: boolean) => void;
 };
 
 export type AccordionToggleEventDetail = { expanded: boolean };
@@ -13,6 +15,7 @@ export class AccordionController implements ReactiveController {
     private host: AccordionHost;
     private options: AccordionControllerOptions;
     private renderedOpen: boolean | null = null;
+    private renderedToggleable: boolean | null = null;
 
     constructor(host: AccordionHost, options: AccordionControllerOptions = {}) {
         this.host = host;
@@ -52,15 +55,18 @@ export class AccordionController implements ReactiveController {
 
     hostUpdated(): void {
         const expanded = this.isExpanded;
-        if (this.renderedOpen === null) {
-            this.renderedOpen = expanded;
-            return;
-        }
-        if (expanded === this.renderedOpen || !this.isToggleable()) {
-            this.renderedOpen = expanded;
-            return;
-        }
+        const toggleable = this.isToggleable();
+        const unchanged = this.renderedOpen === null || expanded === this.renderedOpen;
+        const toggleableChanged = toggleable !== this.renderedToggleable;
         this.renderedOpen = expanded;
+        this.renderedToggleable = toggleable;
+        if (unchanged || toggleableChanged || !toggleable) {
+            return;
+        }
+        this.options.onChange?.(expanded);
+        if (this.options.dispatchEvents === false) {
+            return;
+        }
         this.dispatch('vl-toggle', { expanded });
         this.dispatch(expanded ? 'vl-open' : 'vl-close');
     }
