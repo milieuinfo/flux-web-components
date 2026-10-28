@@ -1,0 +1,168 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlInfoTileStories from './vl-info-tile.stories';
+
+# Info Tile next
+
+<FluxComponentMetaData id="components-block-next-info-tile" />
+
+
+## Doel
+
+Gebruik de `info-tile-next` component in informatieve en interactieve dashboards.
+
+Deze component is de nieuwe versie van de [vl-info-tile](/docs/components-block-info-tile--documentatie) component.
+
+
+## Voorbeeld
+
+```js
+import { VlInfoTileComponent } from '@domg-wc/components/block/next';
+```
+
+```html
+<vl-info-tile-next>
+    <span slot="trigger">Titel</span>
+    <div slot="content">Inhoud</div>
+</vl-info-tile-next>
+```
+
+<Canvas of={VlInfoTileStories.InfoTileDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlInfoTileStories.InfoTileDefault} />
+
+
+## Varianten
+
+### Small
+
+<Canvas of={VlInfoTileStories.InfoTileSmall} />
+
+### Medium
+
+<Canvas of={VlInfoTileStories.InfoTileMedium} />
+
+### Large
+
+<Canvas of={VlInfoTileStories.InfoTileLarge} />
+
+### Alt
+
+<Canvas of={VlInfoTileStories.InfoTileAlt} />
+
+### Success
+
+<Canvas of={VlInfoTileStories.InfoTileSuccess} />
+
+### Warning
+
+<Canvas of={VlInfoTileStories.InfoTileWarning} />
+
+### Error
+
+<Canvas of={VlInfoTileStories.InfoTileError} />
+
+### Gecentreerd
+
+<Canvas of={VlInfoTileStories.InfoTileCentered} />
+
+### Verticaal vullend
+
+Hiermee krijgt de info tile een hoogte van 100%. Dit werkt enkel als de container ook een vaste hoogte heeft, bijvoorbeeld
+in een `.vl-grid` met `.vl-column--align-self-stretch` op elke info tile.
+
+<Canvas of={VlInfoTileStories.InfoTileFullHeight} />
+
+### Heading
+
+Met `heading-level` kies je het niveau van de heading van de titel. Standaard is dat 3.
+
+<Canvas of={VlInfoTileStories.InfoTileHeadingLevel} />
+
+### Met toggle
+
+<Canvas of={VlInfoTileStories.InfoTileToggleable} />
+
+> **Let op:** bij een `toggleable` info tile blijft de subtitel zichtbaar als de tile gesloten is. Zet tekst die mee
+open en dicht moet klappen in de `content` slot.
+
+### Met acties
+
+<Canvas of={VlInfoTileStories.InfoTileActionsSlot} />
+
+### Icoon
+
+<Canvas of={VlInfoTileStories.InfoTileIcon} />
+
+### Badge slot
+
+<Canvas of={VlInfoTileStories.InfoTileBadgeSlot} />
+
+### Footer slot
+
+<Canvas of={VlInfoTileStories.InfoTileFooterSlot} />
+
+### Clickable
+
+Maakt de hele info tile aanklikbaar. Niet combineren met `toggleable`. Geef met `clickable-label` een toegankelijke naam.
+
+<Canvas of={VlInfoTileStories.InfoTileClickable} />
+
+### Highlight
+
+<Canvas of={VlInfoTileStories.InfoTileHighlight} />
+
+### Highlight left
+
+<Canvas of={VlInfoTileStories.InfoTileHighlightLeft} />
+
+
+## Open en sluiten
+
+Bij een `toggleable` info tile zet het `open` attribuut de begintoestand en volgt het daarna de huidige toestand. Je kan
+het lezen en zetten, of de methodes `show()`, `hide()` en `toggle()` gebruiken.
+
+Bij elke wijziging van de open-toestand worden `vl-toggle` (met `{ expanded }`) en daarna `vl-open` of `vl-close`
+afgevuurd. Die events bubbelen.
+
+
+## Styling
+
+De component toont zijn onderdelen via `::part()`: `base` (krijgt ook `expanded` als de info tile open is), `header`,
+`trigger` (enkel bij `toggleable`), `icon`, `subtitle`, `content`, `actions` en `footer`.
+
+De achtergrondkleur, randkleur en iconkleur van de icon badge zijn aanpasbaar via CSS variabelen.
+
+- **`--vl-info-tile-icon-background-color`**: de achtergrondkleur van de icon badge.
+- **`--vl-info-tile-icon-border-color`**: de randkleur van de icon badge.
+- **`--vl-info-tile-icon-color`**: de kleur van het icoon zelf.
+
+<Canvas of={VlInfoTileStories.InfoTileIconPrimaryBackground} />
+
+
+## Toegankelijkheid
+
+De inhoud van een gesloten `toggleable` info tile blijft vindbaar via de zoekfunctie van de browser (Ctrl+F of Cmd+F).
+Vindt de browser een resultaat in die inhoud, dan klapt de info tile open. Hetzelfde gebeurt bij een link naar een `id`
+in de inhoud.
+
+
+## Migratie van vl-info-tile
+
+| vl-info-tile | vl-info-tile-next |
+| --- | --- |
+| `auto-open` | `open` |
+| slot `title` | slot `trigger` |
+| slot `menu` | slot `actions` |
+| `isOpen` | `open` |
+| `open()` en `close()` | `show()` en `hide()` |
+| `custom-css` op klassen in de shadow DOM | `::part()` en `vl-info-tile-next[open]` |
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Info Tile](https://www.vlaanderen.be/vlaanderen-design-system/componenten/info-tile)

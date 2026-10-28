@@ -219,6 +219,12 @@
             "wcag": "FLUX-731",
             "jiraMeta": "FLUX-97",
             "dv": { "idea": "DS-130", "name": "Card", "status": "Spec" }
+        },
+        "evolution": {
+            "vStatus": "v2-replace",
+            "legacyText": "vl-info-tile",
+            "nextText": "[vl-info-tile-next](/docs/components-block-next-info-tile--documentatie)",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#info-tile)"
         }
     },
     "components-block-infoblock": {
@@ -553,6 +559,26 @@
             "legacyText": "[vl-accordion](/docs/components-block-accordion--documentatie)",
             "nextText": "vl-accordion-next",
             "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#accordion)"
+        }
+    },
+    "components-block-next-info-tile": {
+        "name": "info-tile-next",
+        "docs": "components-block-next-info-tile--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcag": "FLUX-731",
+            "jiraMeta": "FLUX-97",
+            "dv": { "idea": "DS-130", "name": "Card", "status": "Spec" }
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-info-tile](/docs/components-block-info-tile--documentatie)",
+            "nextText": "vl-info-tile-next",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#info-tile)"
         }
     },
     "components-block-next-side-navigation": {
