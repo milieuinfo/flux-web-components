@@ -1,0 +1,165 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlModalStories from './vl-modal.stories';
+
+# Modal Next
+
+<FluxComponentMetaData id="components-block-next-modal" />
+
+## Doel
+
+Gebruik de `modal` component om een modal te tonen.
+
+
+## Wanneer gebruik je een modal?
+
+Twijfel je tussen een modal en een side-sheet? Een modal schermt de pagina af voor een geïsoleerde taak (en is
+altijd de keuze bij verwijderen); een side-sheet laat de pagina-context bruikbaar. Zie
+[Patronen/Overlays/Modal vs Side sheet](/docs/patronen-overlays-modal-vs-side-sheet--documentatie) voor het
+volledige keuzekader.
+
+
+## Voorbeeld
+
+```js
+import { VlModalComponent } from '@domg-wc/components/block/next';
+```
+
+```html
+<vl-button modal-open="mijn-modal" aria-haspopup="dialog">Open</vl-button>
+<vl-modal-next id="mijn-modal" title-label="Titel van de modal">
+    <div slot="content">Inhoud van de modal.</div>
+    <vl-button slot="button">Bevestigen</vl-button>
+</vl-modal-next>
+```
+
+<Canvas of={VlModalStories.modalDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlModalStories.modalDefault} />
+
+
+## Openen via een trigger
+
+Geef een knop of link het `modal-open` attribuut met als waarde de `id` van de modal. Een klik op die trigger opent de
+modal, en bij het sluiten keert de focus terug naar de trigger.
+
+```html
+<vl-button modal-open="mijn-modal" aria-haspopup="dialog">Open</vl-button>
+<vl-modal-next id="mijn-modal" title-label="Titel van de modal"></vl-modal-next>
+```
+
+De modal zoekt zijn triggers op wanneer hij aan de pagina toegevoegd wordt, in het document en in de shadow DOM's
+waarin hij zelf zit. Een trigger die pas later toegevoegd wordt, of in een andere shadow DOM staat, opent de modal
+niet; gebruik dan de `open()` methode.
+
+## Reactief open-attribuut
+
+Het `open` attribuut is reactief en weerspiegelt de werkelijke open-staat van de modal. Het attribuut toevoegen opent
+de modal, het verwijderen sluit ze:
+
+```html
+<vl-modal-next open></vl-modal-next>
+```
+
+Wanneer de modal sluit via de annuleer-knop, de sluit-knop, de escape-toets of de backdrop, wordt het `open` attribuut
+automatisch van de host verwijderd.
+
+> **Let op met toegankelijkheid:** openen via het `open` attribuut (of via de `open()` methode) ontslaat de afnemer niet
+> van de regel dat een modal idealiter via een knop of link getriggerd wordt. Bij het sluiten zet de modal de focus
+> terug op het element dat de focus had vóór het openen. Had geen enkel element de focus, bijvoorbeeld bij een modal die
+> al open is bij het laden van de pagina, dan moet de afnemer zelf bepalen waar de focus na het sluiten heen gaat. Zie
+> [Toegankelijkheid](#toegankelijkheid) voor de aanbevolen werkwijze.
+
+
+## Events
+
+<table>
+    <caption>Events van vl-modal-next</caption>
+    <thead>
+        <tr>
+            <th scope="col">Event</th>
+            <th scope="col">Beschrijving</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>vl-open</code></td>
+            <td>Wordt afgevuurd wanneer de modal opent, ongeacht of dat via het <code>open</code> attribuut, de <code>open()</code> methode of een trigger gebeurde.</td>
+        </tr>
+        <tr>
+            <td><code>vl-close</code></td>
+            <td>Wordt afgevuurd wanneer de modal sluit, ongeacht of dat via het <code>open</code> attribuut, de <code>close()</code> methode, de annuleer-/sluit-knop, escape of de backdrop gebeurde.</td>
+        </tr>
+    </tbody>
+</table>
+
+Beide events bubbelen en gaan door de shadow-DOM (`bubbles: true, composed: true`), zodat ze ook buiten de component
+opgevangen kunnen worden:
+
+```js
+document.querySelector('vl-modal-next').addEventListener('vl-close', () => {
+    // reageer op het sluiten van de modal
+});
+```
+
+
+## Varianten
+
+### Met andere actie
+
+<Canvas of={VlModalStories.modalWithOtherAction} />
+
+### Medium
+
+<Canvas of={VlModalStories.modalMedium} />
+
+### Large
+
+<Canvas of={VlModalStories.modalLarge} />
+
+### Full Screen
+
+<Canvas of={VlModalStories.modalFullScreen} />
+
+### Left
+
+<Canvas of={VlModalStories.modalLeft} />
+
+### Right
+
+<Canvas of={VlModalStories.modalRight} />
+
+### Focus op modal
+
+<Canvas of={VlModalStories.modalWithFocusOnModal} />
+
+## Toegankelijkheid
+
+Het triggeren van de modal moet altijd gebeuren via een knop of link. Voor screen readers is het belangrijk dat deze
+knop of link de juiste aria-attributen bevat. Het gebruik van `aria-haspopup="dialog"` is in dit geval verplicht.
+Optioneel kan je `aria-controls` toevoegen met als value de ID van de modal (dit is echter overbodig wanneer de knop
+binnen een shadow DOM zit (bv vl-button), omdat de koppeling met de ID niet werkt doorheen de shadow DOM). **Deze
+aria-attributen moet de afnemer zelf implementeren!**.
+
+Een belangrijke reden voor deze regel is het focusbeheer: wanneer de modal sluit, moet de focus terugkeren naar de
+trigger (de knop of link die de modal opende). Bij een trigger zet de modal de focus daar zelf terug. Opent de modal via
+het [reactief `open` attribuut](#reactief-open-attribuut) of de `open()` methode, dan zet de modal de focus bij het
+sluiten terug op het element dat de focus had vóór het openen. Had geen enkel element de focus, bijvoorbeeld bij een
+modal die al open is bij het laden van de pagina, dan moet de afnemer zelf bepalen waar de focus na het sluiten heen
+gaat. Het `vl-close` event is hiervoor een geschikt aangrijpingspunt.
+
+De vl-modal-next zal standaard de focus leggen op het eerste focusbare element binnenin de modal wanneer deze geopend wordt.
+Dit kan aangepast worden door het `focus-on-modal` attribuut toe te voegen aan de modal,
+in dat geval zal de focus op de modal zelf gelegd worden bij het openen. Gebruik dit enkel indien
+het automatisch focussen op het eerste focusbare element problemen veroorzaakt, bijvoorbeeld wanneer dit meteen een
+popover triggert.
+
+Het is essentieel dat de modal goed gelabeld is voor gebruikers van schermlezers.
+Dit kan op twee manieren bereikt worden:
+- Door het `title-label` attribuut te gebruiken. Onderliggend wordt dit gekoppeld adhv `aria-labelledby`.
+- Indien het design geen titel toelaat, moet het `label` attribuut gebruikt worden zodat een beschrijvende `aria-label`
+  kan toegevoegd worden aan de modal.
+
+
