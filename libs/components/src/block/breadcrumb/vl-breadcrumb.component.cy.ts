@@ -1,9 +1,10 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
+import { VlPopoverComponent } from '../popover';
 import { VlBreadcrumbItemComponent } from './vl-breadcrumb-item.component';
 import { VlBreadcrumbComponent } from './vl-breadcrumb.component';
 
-registerWebComponents([VlBreadcrumbComponent, VlBreadcrumbItemComponent]);
+registerWebComponents([VlBreadcrumbComponent, VlBreadcrumbItemComponent, VlPopoverComponent]);
 
 describe('cypress-component - block components - vl-breadcrumb', () => {
     beforeEach(() => {
@@ -107,6 +108,92 @@ describe('cypress-component - block components - vl-breadcrumb - long text', () 
     });
 });
 
+describe('cypress-component - block components - vl-breadcrumb - submenu', () => {
+    // De knop zit in de shadow DOM van vl-breadcrumb-item; de popover zet daar aria-expanded en aria-controls.
+    const triggerButton = () => cy.get('#submenu-fauna-flora').shadow().find('button');
+    const actionButton = (index: number) => cy.get('vl-popover-action').eq(index).shadow().find('button');
+
+    // Een echte toetsaanslag, zodat de browser zelf de click vuurt zoals bij een gebruiker.
+    const openWithKeyboard = (key: 'Enter' | ' ' = 'Enter') => {
+        triggerButton().focus();
+        triggerButton().should('have.focus');
+        realPress(key);
+        cy.get('vl-popover').should('have.attr', 'open');
+    };
+
+    beforeEach(() => {
+        mountWithSubmenu();
+    });
+
+    it('should expose the submenu as a disclosure and not as a menu', () => {
+        triggerButton()
+            .should('have.attr', 'aria-controls', 'submenu-fauna-flora-popover')
+            .and('have.attr', 'aria-expanded', 'false')
+            .and('not.have.attr', 'aria-haspopup');
+
+        openWithKeyboard();
+
+        triggerButton().should('have.attr', 'aria-expanded', 'true');
+        cy.get('vl-popover-action-list').should('not.have.attr', 'role', 'menu');
+        actionButton(0).should('not.have.attr', 'role');
+        actionButton(1).should('not.have.attr', 'role');
+    });
+
+    it('should have an accessible submenu when it is open', () => {
+        cy.injectAxe();
+        openWithKeyboard();
+
+        // Enkel de popover: aria-controls op de knop in de shadow DOM verwijst naar een id buiten die shadow root, wat
+        // axe als ongeldig meldt (aria-valid-attr-value). Dat geldt voor elke trigger in een shadow root, ook vl-button.
+        cy.checkA11y('vl-popover');
+    });
+
+    it('should move focus from the breadcrumb button to the submenu actions with Tab', () => {
+        openWithKeyboard();
+
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        actionButton(0).should('have.focus');
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        actionButton(1).should('have.focus');
+    });
+
+    it('should return focus to the breadcrumb button when closing the submenu with Escape from an action', () => {
+        openWithKeyboard();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        actionButton(0).should('have.focus');
+
+        cy.press(Cypress.Keyboard.Keys.ESC);
+
+        cy.get('vl-popover').should('not.have.attr', 'open');
+        triggerButton().should('have.focus').and('have.attr', 'aria-expanded', 'false');
+    });
+
+    it('should open and close the submenu with Space', () => {
+        openWithKeyboard(' ');
+        triggerButton().should('have.attr', 'aria-expanded', 'true');
+
+        realPress(' ');
+
+        cy.get('vl-popover').should('not.have.attr', 'open');
+        triggerButton().should('have.focus').and('have.attr', 'aria-expanded', 'false');
+    });
+});
+
+// cy.press(ENTER) vuurt in Electron geen click op een knop; een toetsaanslag via het Chrome DevTools Protocol wel.
+// Zoals in de specs van vl-info-tile-next, vl-accordion-next, vl-step en vl-side-sheet.
+const realPress = (key: 'Enter' | ' ') => {
+    const code = key === 'Enter' ? 'Enter' : 'Space';
+    const keyCode = key === 'Enter' ? 13 : 32;
+    (['keyDown', 'keyUp'] as const).forEach((type) => {
+        cy.then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Input.dispatchKeyEvent',
+                params: { type, key, code, windowsVirtualKeyCode: keyCode, text: key === 'Enter' ? '\r' : ' ' },
+            }),
+        );
+    });
+};
+
 const longText =
     'Besluit van de Vlaamse Regering tot vaststelling van een gewestelijke stedenbouwkundige verordening voor publiciteitsinrichtingen';
 
@@ -127,6 +214,32 @@ const getCta = ($item: JQuery<HTMLElement>) =>
     $item[0].shadowRoot!.querySelector<HTMLElement>('.vl-breadcrumb__list__item__cta')!;
 
 const getContainerRight = () => cy.$$('#container')[0].getBoundingClientRect().right;
+
+// Zoals de story "vl-breadcrumb - buttons": een breadcrumb item met type="button" opent een submenu in een popover.
+const mountWithSubmenu = () => {
+    cy.mount(html`
+        <vl-breadcrumb>
+            <vl-breadcrumb-item type="button">Natuur</vl-breadcrumb-item>
+            <div>
+                <vl-breadcrumb-item id="submenu-fauna-flora" type="button">Flora</vl-breadcrumb-item>
+                <vl-popover
+                    id="submenu-fauna-flora-popover"
+                    distance="6"
+                    for="submenu-fauna-flora"
+                    hide-arrow
+                    placement="bottom-start"
+                    trigger="click hover"
+                >
+                    <vl-popover-action-list>
+                        <vl-popover-action icon="nature-leaf">Flora</vl-popover-action>
+                        <vl-popover-action icon="programming-bug">Fauna</vl-popover-action>
+                    </vl-popover-action-list>
+                </vl-popover>
+            </div>
+            <vl-breadcrumb-item>Bomen</vl-breadcrumb-item>
+        </vl-breadcrumb>
+    `);
+};
 
 const mount = () => {
     cy.mount(html` <vl-breadcrumb>
