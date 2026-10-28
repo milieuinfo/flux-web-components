@@ -280,6 +280,32 @@
             "wcag": "FLUX-735",
             "jiraMeta": "FLUX-17",
             "dv": { "idea": "DS-144", "name": "Modal/Dialog", "status": "Ontwerpen" }
+        },
+        "evolution": {
+            "vStatus": "v2-replace",
+            "legacyText": "vl-modal",
+            "nextText": "[vl-modal-next](/docs/components-block-next-modal--documentatie)",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#modal)"
+        }
+    },
+    "components-block-next-modal": {
+        "name": "modal-next",
+        "docs": "components-block-next-modal--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "FLUX-17",
+            "dv": { "idea": "DS-144", "name": "Modal/Dialog", "status": "Ontwerpen" }
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-modal](/docs/components-block-modal--documentatie)",
+            "nextText": "vl-modal-next",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#modal)"
         }
     },
     "components-block-pager": {
