@@ -19,6 +19,7 @@ import { inputSliderArgTypes } from '../../../libs/components/src/block/input-sl
 import { loaderArgTypes } from '../../../libs/components/src/block/loader/stories/vl-loader.stories-arg';
 import { modalArgTypes } from '../../../libs/components/src/block/modal/stories/vl-modal.stories-arg';
 import { accordionArgTypes as accordionNextArgTypes } from '../../../libs/components/src/block/next/accordion/stories/vl-accordion.stories-arg';
+import { infoTileArgTypes as infoTileNextArgTypes } from '../../../libs/components/src/block/next/info-tile/stories/vl-info-tile.stories-arg';
 import { modalArgTypes as modalNextArgTypes } from '../../../libs/components/src/block/next/modal/stories/vl-modal.stories-arg';
 import { sideNavigationLayoutArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation-layout.stories-arg';
 import { sideNavigationArgTypes as sideNavigationNextArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation.stories-arg';
@@ -136,6 +137,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         infoTileArgTypes,
         '../../libs/components/src/block/info-tile/stories/vl-info-tile.stories-doc.mdx',
         '/docs/components-block-info-tile--documentatie'
+    ),
+    buildWTConfig(
+        'vl-info-tile-next',
+        infoTileNextArgTypes,
+        '../../libs/components/src/block/next/info-tile/stories/vl-info-tile.stories-doc.mdx',
+        '/docs/components-block-next-info-tile--documentatie'
     ),
     buildWTConfig('vl-infoblock', infoblockArgTypes, null, '/docs/components-block-infoblock--documentatie'),
     buildWTConfig(

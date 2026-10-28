@@ -14,6 +14,7 @@ const componentsBlockWCMismatch = [
 ];
 const componentsBlockWTMismatch = [
     'vl-accordion-next',
+    'vl-info-tile-next',
     'vl-side-navigation-next', // in next folder - naam komt niet overeen met bestandsnaam
     'vl-side-navigation-section-next', // in next folder - naam komt niet overeen met bestandsnaam (WC is vl-side-navigation-section)
     'vl-side-navigation-layout-next', // in next folder - naam komt niet overeen met bestandsnaam (WC is vl-side-navigation-layout)
