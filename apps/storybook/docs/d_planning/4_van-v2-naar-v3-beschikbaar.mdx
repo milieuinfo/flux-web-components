@@ -27,6 +27,37 @@ witte rij
 
 ## Geïmpacteerde Web Componenten
 
+### Accordion
+
+`Accordion [legacy]` wordt vervangen door `Accordion [next]`. Deze component is herschreven in Lit met eigen Flux-CSS, met een opgekuiste API (`open`, `show()`, `hide()`, `toggle()`) en inhoud die vindbaar blijft met de zoekfunctie van de browser. Zie de migratietabel in de documentatie.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+        <th>v3 - Artifact</th>
+        <th>v3 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Accordion [legacy]](/docs/components-block-accordion--documentatie)</td>
+        <td>deprecated</td>
+        <td>components/block</td>
+        <td><code>{`<vl-accordion>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Accordion [next]](/docs/components-block-next-accordion--documentatie)</td>
+        <td>release v2.22.0</td>
+        <td>components/block/next</td>
+        <td><code>{`<vl-accordion-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-accordion>`}</code></td>
+    </tr>
+</table>
+
 ### Datepicker
 
 In v2 is de anchor-positioning codepath (Popover API + CSS Anchor Positioning) de default geworden.

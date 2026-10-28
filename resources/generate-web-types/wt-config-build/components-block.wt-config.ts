@@ -18,6 +18,7 @@ import { infotextArgTypes } from '../../../libs/components/src/block/infotext/st
 import { inputSliderArgTypes } from '../../../libs/components/src/block/input-slider/stories/vl-input-slider.stories-arg';
 import { loaderArgTypes } from '../../../libs/components/src/block/loader/stories/vl-loader.stories-arg';
 import { modalArgTypes } from '../../../libs/components/src/block/modal/stories/vl-modal.stories-arg';
+import { accordionArgTypes as accordionNextArgTypes } from '../../../libs/components/src/block/next/accordion/stories/vl-accordion.stories-arg';
 import { modalArgTypes as modalNextArgTypes } from '../../../libs/components/src/block/next/modal/stories/vl-modal.stories-arg';
 import { sideNavigationLayoutArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation-layout.stories-arg';
 import { sideNavigationArgTypes as sideNavigationNextArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation.stories-arg';
@@ -62,6 +63,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         accordionArgTypes,
         '../../libs/components/src/block/accordion/stories/vl-accordion.stories-doc.mdx',
         '/docs/components-block-accordion--documentatie'
+    ),
+    buildWTConfig(
+        'vl-accordion-next',
+        accordionNextArgTypes,
+        '../../libs/components/src/block/next/accordion/stories/vl-accordion.stories-doc.mdx',
+        '/docs/components-block-next-accordion--documentatie'
     ),
     buildWTConfig(
         'vl-alert',
