@@ -302,11 +302,8 @@ describe('cypress-component - block components - vl-popover - keyboard', () => {
 
         triggerButton().click();
         cy.press(Cypress.Keyboard.Keys.TAB);
-        // Enter op een knop met focus vuurt een click op die knop, zonder de focus te verplaatsen. cy.click() zou de focus
-        // eerst weghalen, omdat het element onder de muis de host van vl-popover-action is.
-        actionButton(0)
-            .should('have.focus')
-            .then(($button) => $button[0].click());
+        actionButton(0).should('have.focus');
+        realPress('Enter');
         cy.get('vl-popover').should('not.have.attr', 'open');
         triggerButton().should('have.focus');
     });
@@ -340,23 +337,18 @@ describe('cypress-component - block components - vl-popover - keyboard', () => {
 
         triggerButton().click();
         cy.press(Cypress.Keyboard.Keys.TAB);
-        // Enter op een knop met focus vuurt een click op die knop, zonder de focus te verplaatsen. cy.click() zou de focus
-        // eerst weghalen, omdat het element onder de muis de host van vl-popover-action is.
-        actionButton(0)
-            .should('have.focus')
-            .then(($button) => $button[0].click());
+        actionButton(0).should('have.focus');
+        realPress('Enter');
         cy.get('vl-popover').should('not.have.attr', 'open');
         cy.get('#elders').should('have.focus');
     });
 
-    it('should open when the focused trigger is activated like Enter does when trigger is click hover', () => {
+    it('should open with Enter when trigger is click hover', () => {
         mountDefault({ trigger: 'click hover' });
 
-        // Enter of Spatie op een knop met focus vuurt een click op die knop; cy.press(ENTER) doet dat niet in Electron.
         triggerButton().focus();
-        triggerButton()
-            .should('have.focus')
-            .then(($button) => $button[0].click());
+        triggerButton().should('have.focus');
+        realPress('Enter');
         cy.get('vl-popover').should('have.attr', 'open');
         triggerButton().should('have.attr', 'aria-expanded', 'true');
     });
@@ -390,3 +382,18 @@ describe('cypress-component - block components - vl-popover - keyboard', () => {
         cy.get('vl-popover').should('not.have.attr', 'open');
     });
 });
+
+// cy.press(ENTER) vuurt in Electron geen click op een knop; een toetsaanslag via het Chrome DevTools Protocol wel.
+// Zoals in de specs van vl-breadcrumb, vl-info-tile-next, vl-accordion-next, vl-step en vl-side-sheet.
+const realPress = (key: 'Enter' | ' ') => {
+    const code = key === 'Enter' ? 'Enter' : 'Space';
+    const keyCode = key === 'Enter' ? 13 : 32;
+    (['keyDown', 'keyUp'] as const).forEach((type) => {
+        cy.then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Input.dispatchKeyEvent',
+                params: { type, key, code, windowsVirtualKeyCode: keyCode, text: key === 'Enter' ? '\r' : ' ' },
+            }),
+        );
+    });
+};
