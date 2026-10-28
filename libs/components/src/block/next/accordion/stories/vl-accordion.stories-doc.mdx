@@ -1,0 +1,119 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlAccordionStories from './vl-accordion.stories';
+
+# Accordion next
+
+<FluxComponentMetaData id="components-block-next-accordion" />
+
+
+## Doel
+
+Gebruik de `accordion-next` component om inhoud te tonen of te verbergen met een toggle-knop.
+
+Deze component is de nieuwe versie van de [vl-accordion](/docs/components-block-accordion--documentatie) component.
+
+
+## Voorbeeld
+
+```js
+import { VlAccordionComponent } from '@domg-wc/components/block/next';
+```
+
+```html
+<vl-accordion-next toggle-text="Lees meer">
+    <p slot="content">Inhoud</p>
+</vl-accordion-next>
+```
+
+<Canvas of={VlAccordionStories.AccordionDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlAccordionStories.AccordionDefault} />
+
+
+## Varianten
+
+### Heading
+
+Met `heading-level` staat de toggle-knop in een heading van niveau 1 tot 6.
+
+<Canvas of={VlAccordionStories.AccordionHeading} />
+
+### Dynamische toggle
+
+<Canvas of={VlAccordionStories.AccordionDynamicToggle} />
+
+### Icoon
+
+<Canvas of={VlAccordionStories.AccordionIcon} />
+
+### Trigger slot
+
+<Canvas of={VlAccordionStories.AccordionTriggerSlot} />
+
+### Subtitle slot
+
+<Canvas of={VlAccordionStories.AccordionSubtitleSlot} />
+
+### Actions slot
+
+<Canvas of={VlAccordionStories.AccordionActionsSlot} />
+
+### Alternatieve achtergrond
+
+<Canvas of={VlAccordionStories.AccordionAltBackground} />
+
+### Bold
+
+<Canvas of={VlAccordionStories.AccordionBold} />
+
+### Disabled
+
+<Canvas of={VlAccordionStories.AccordionDisabled} />
+
+
+## Open en sluiten
+
+Het `open` attribuut zet de begintoestand en volgt daarna de huidige toestand. Je kan het lezen en zetten, of de
+methodes `show()`, `hide()` en `toggle()` gebruiken. Een disabled accordion negeert die methodes.
+
+Bij elke wijziging van de open-toestand worden `vl-toggle` (met `{ expanded }`) en daarna `vl-open` of `vl-close`
+afgevuurd. Die events bubbelen; bij geneste accordions geeft `event.target` aan welke accordion het event afvuurde.
+
+
+## Styling
+
+De component toont zijn onderdelen via `::part()`: `base` (krijgt ook `expanded` als de accordion open is), `header`,
+`trigger`, `icon`, `subtitle`, `content` en `actions`. Stijl op de open-toestand met `vl-accordion-next[open]`.
+
+
+## Toegankelijkheid
+
+De inhoud van een gesloten accordion blijft vindbaar via de zoekfunctie van de browser (Ctrl+F of Cmd+F). Vindt de
+browser een resultaat in die inhoud, dan klapt de accordion open. Hetzelfde gebeurt bij een link naar een `id` in de
+inhoud.
+
+Een accordion met het `disabled` attribuut blijft gesloten, en zijn inhoud is niet vindbaar.
+
+
+## Migratie van vl-accordion
+
+| vl-accordion | vl-accordion-next |
+| --- | --- |
+| `default-open` | `open` |
+| slot `title` | slot `trigger` |
+| slot `menu` | slot `actions` |
+| default slot | slot `content` |
+| `open()` en `close()` | `show()` en `hide()` |
+| `_isOpen` | `open` |
+| event `vl-on-toggle` met `{ open }` | event `vl-toggle` met `{ expanded }`, plus `vl-open` en `vl-close` |
+| `custom-css` op klassen in de shadow DOM | `::part()` en `vl-accordion-next[open]` |
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Accordion](https://www.vlaanderen.be/vlaanderen-design-system/componenten/accordion)
