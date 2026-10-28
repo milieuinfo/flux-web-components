@@ -3,7 +3,7 @@
 Wat in Figma of in code nog niet klopt, met de reden waarom het open staat. Een opgeloste gap verdwijnt hier;
 een nieuwe is één rij. De werkafspraken en recepten staan in [SKILL.md](SKILL.md).
 
-Stand 2026-10-19.
+Stand 2026-10-29.
 
 | Component | Gap | Waarom open / omweg |
 |---|---|---|
@@ -42,6 +42,9 @@ Stand 2026-10-19.
 | `vl-pager` | verbergt zich niet bij één pagina | code |
 | `vl-table` | zebrakleuren hardgecodeerd | code, kandidaat voor tokens |
 | — | herhaalbaar formulierveld bestaat niet | nieuw component, Figma én code |
+| `vl-toaster` | bestaat in code, niet in Figma | `vl-alert` size=small, closable, rechtsboven als omweg |
+| `vl-table` | geen lege staat ("Nog geen …") | gewone rij met de tekst in de eerste cel |
+| `vl-select` | vast 490 breed | in een filterrij zelf op fill zetten |
 | `vl-map` | niet volwaardig in Figma | nieuw werk |
 | **Bewust zo gelaten** | | |
 | `vl-content-header` | nota over `vl-site-header` op de pagina | blijft: dat component moet nog gemaakt worden |
