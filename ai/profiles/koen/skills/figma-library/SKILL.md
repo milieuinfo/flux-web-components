@@ -177,6 +177,8 @@ reden waarom hij open is en een werkende omweg.
   `figma.mixed` faalt op tekst in een instance ("Cannot unwrap symbol").
 - **`t.characters = …` geeft de hele tekst de opmaak van het eerste teken.** Lees vooraf álle
   range-eigenschappen (fills, fontName, textDecoration, …), zet ze terug en controleer ze allemaal.
+- **Een regelbreuk in een tabelcel is ` `, geen `\n`.** De celtekst van `vl-table` heeft
+  `paragraphSpacing` 18: met `\n` krijg je een witregel tussen de twee regels.
 - **`textAutoResize` vóór `layoutSizing`**; `HUG` op tekst met `textAutoResize = NONE` valt stil terug op
   `FIXED`.
 - **INSTANCE_SWAP en `swapComponent` vragen een lokaal id:** `importComponentByKeyAsync(key)`, per script
