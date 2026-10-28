@@ -1,14 +1,12 @@
-import { BaseLitElement, registerWebComponents, VL } from '@domg-wc/common';
+import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { VlIconComponent } from '@domg-wc/components/atom';
 import { vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { VlAccordionComponent } from '../accordion/vl-accordion.component';
+import { AccordionController } from '../next/accordion/vl-accordion.controller';
 import { vlStepFluxStyles } from './vl-step.flux-css';
-
-declare const vl: VL;
 
 @customElement('vl-step')
 export class VlStepComponent extends BaseLitElement {
@@ -31,9 +29,14 @@ export class VlStepComponent extends BaseLitElement {
     // Private properties
     private isTitleAnnotationSlotAssigned = true;
     private customCSSStyleSheet = new CSSStyleSheet();
+    private accordion = new AccordionController(this, {
+        isToggleable: () => this.toggleable,
+        dispatchEvents: false,
+        onChange: (open) => this.handleToggle(open),
+    });
 
     static {
-        registerWebComponents([VlAccordionComponent, VlIconComponent]);
+        registerWebComponents([VlIconComponent]);
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
@@ -90,6 +93,7 @@ export class VlStepComponent extends BaseLitElement {
             [`vl-step--${stepType}`]: !!stepType,
             'vl-step--accordion': this.toggleable,
             'js-vl-accordion': this.toggleable,
+            'js-vl-accordion--open': this.toggleable && this.accordion.isExpanded,
             'vl-step--has-line': this.line,
             'vl-step--timeline': this.timeline,
             'vl-step--timeline-simple': this.simpleTimeline,
@@ -121,7 +125,12 @@ export class VlStepComponent extends BaseLitElement {
                     </div>
                     <div class="vl-step__wrapper">
                         ${stepHeaderTemplate}
-                        <div class="vl-step__content-wrapper">
+                        <div
+                            id="content"
+                            class="vl-step__content-wrapper"
+                            hidden=${ifDefined(this.accordion.contentHidden)}
+                            @beforematch=${this.accordion.handleBeforeMatch}
+                        >
                             <div class="vl-step__content">${contentTemplate}</div>
                             <ul class="vl-step__duration-list">
                                 <slot name="duration"></slot>
@@ -140,25 +149,8 @@ export class VlStepComponent extends BaseLitElement {
     protected firstUpdated(changedProperties: Map<PropertyKey, unknown>): void {
         super.firstUpdated(changedProperties);
 
-        if (this.toggleable) {
-            const accordionToggle = this.shadowRoot?.querySelector<HTMLButtonElement>('.js-vl-accordion__toggle');
-            const isAccordionDressed = accordionToggle?.hasAttribute('accordion-dressed');
-
-            if (!isAccordionDressed) {
-                vl.accordion.dress(accordionToggle);
-                this.shadowRoot?.querySelector('slot[name="title"]')?.addEventListener('click', (event: Event) => {
-                    event.stopPropagation();
-                    (this.shadowRoot?.querySelector('button.js-vl-accordion__toggle') as HTMLButtonElement)?.click();
-                });
-            }
-
-            accordionToggle?.addEventListener('click', () => this.handleClick());
-
-            if (this.defaultOpen) {
-                if (!this.shadowRoot?.querySelector('li.js-vl-accordion--open')) {
-                    accordionToggle?.click();
-                }
-            }
+        if (this.toggleable && this.defaultOpen) {
+            this.accordion.show();
         }
 
         const titleAnnotationSlot = this.shadowRoot?.querySelector(
@@ -168,16 +160,11 @@ export class VlStepComponent extends BaseLitElement {
             (titleAnnotationSlot && titleAnnotationSlot.assignedNodes().length > 0) || false;
     }
 
-    private handleClick(): void {
-        const accordionElement = this.shadowRoot?.querySelector('.js-vl-accordion');
-        const isOpen = accordionElement?.classList.contains('js-vl-accordion--open') || false;
-
-        this.open = isOpen;
-
+    private handleToggle(open: boolean): void {
         this.dispatchEvent(
             new CustomEvent('vl-on-toggle', {
                 detail: {
-                    open: isOpen,
+                    open,
                 },
             }),
         );
@@ -193,7 +180,12 @@ export class VlStepComponent extends BaseLitElement {
         const stepHeaderTitleTemplate = this.getStepHeaderTitleTemplate();
 
         return html`
-            <button class="vl-step__header js-vl-accordion__toggle" aria-expanded="${this.open}">
+            <button
+                class="vl-step__header js-vl-accordion__toggle"
+                aria-expanded="${this.accordion.isExpanded}"
+                aria-controls="content"
+                @click=${() => this.accordion.toggle()}
+            >
                 ${stepHeaderTitleTemplate}
                 <div class="vl-step__header__info" aria-hidden="true">
                     <vl-icon class="vl-step__accordion-toggle" icon="nav-down"></vl-icon>
