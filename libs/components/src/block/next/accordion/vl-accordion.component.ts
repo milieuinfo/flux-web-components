@@ -6,7 +6,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { VlIconComponent } from '@domg-wc/components/atom';
-import { vlAccordionFluxStyles } from './vl-accordion.flux-css';
+import { vlAccordionStyles } from './vl-accordion.css';
 import { AccordionController } from './vl-accordion.controller';
 import { accordionDefaults } from './vl-accordion.defaults';
 
@@ -67,7 +67,7 @@ export class VlAccordionComponent extends BaseLitElement {
     }
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlAccordionFluxStyles];
+        return [vlResetStyles, vlAccordionStyles];
     }
 
     show(): void {
