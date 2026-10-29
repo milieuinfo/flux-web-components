@@ -10,6 +10,7 @@ export const cookieConsentArgs = {
     link: '',
     matomoId: '',
     matomoUrl: '',
+    matomoShadowDomLinkTracking: false,
     onClose: action('vl-close'),
 };
 
@@ -80,6 +81,19 @@ export const cookieConsentArgTypes: ArgTypes<typeof cookieConsentArgs> = {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: cookieConsentArgs.matomoUrl },
+        },
+    },
+    matomoShadowDomLinkTracking: {
+        name: 'matomo-shadow-dom-link-tracking',
+        description:
+            'Attribuut wordt gebruikt om Matomo ook klikken op uitgaande links en downloads in de shadow DOM van ' +
+            'web-componenten te laten loggen. Werkt enkel in combinatie met `matomo-id` en `matomo-url`. Wordt ' +
+            'gelezen wanneer de component aan de pagina toegevoegd wordt: later zetten of verwijderen heeft geen ' +
+            'effect.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(cookieConsentArgs.matomoShadowDomLinkTracking) },
         },
     },
     onClose: {

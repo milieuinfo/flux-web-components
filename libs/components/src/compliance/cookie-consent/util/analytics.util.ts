@@ -1,12 +1,9 @@
-declare global {
-    interface Window {
-        _paq?: Array<Array<string | number | object | undefined>>;
-    }
-}
+import { enableMatomoShadowDomLinkTracking } from './matomo-shadow-dom-link-tracking.util';
+import { matomoWindow } from './matomo-window.util';
 
 class AnalyticsUtil {
     private _matomoPiwikScriptId: string;
-    private matomoParameters: { matomoId: number; matomoUrl: string } | undefined;
+    private matomoParameters: { matomoId: number; matomoUrl: string; shadowDomLinkTracking: boolean } | undefined;
 
     constructor() {
         this._matomoPiwikScriptId = 'vl-cookie-consent-matomo-piwik-script';
@@ -16,9 +13,10 @@ class AnalyticsUtil {
      * Matomo configuratie instellen.
      * @param matomoId - Het Matomo site ID
      * @param matomoUrl - De Matomo server URL (bijvoorbeeld '//stats.example.com/')
+     * @param shadowDomLinkTracking - Ook klikken op links in de shadow DOM van web-componenten loggen
      */
-    setMatomoConfig(matomoId: number, matomoUrl: string): void {
-        this.matomoParameters = { matomoId, matomoUrl };
+    setMatomoConfig(matomoId: number, matomoUrl: string, shadowDomLinkTracking = false): void {
+        this.matomoParameters = { matomoId, matomoUrl, shadowDomLinkTracking };
     }
 
     get id(): { id: number; url: string } | undefined {
@@ -43,17 +41,21 @@ class AnalyticsUtil {
         }
 
         // Initialiseer _paq array als deze nog niet bestaat
-        if (!window._paq) {
-            window._paq = [];
+        const win = matomoWindow();
+        if (!win._paq) {
+            win._paq = [];
         }
 
-        const _paq = window._paq;
+        const _paq = win._paq;
 
         // Configureer Matomo
         _paq.push(['setTrackerUrl', matomo.url + 'piwik.php']);
         _paq.push(['setSiteId', matomo.id]);
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
+        if (this.matomoParameters?.shadowDomLinkTracking) {
+            enableMatomoShadowDomLinkTracking();
+        }
 
         // Load Matomo script
         this.loadMatomoScript(matomo.url);
@@ -83,23 +85,24 @@ class AnalyticsUtil {
         let currentUrl = window.location.href;
 
         window.addEventListener('hashchange', () => {
-            if (!window._paq) return;
+            const _paq = matomoWindow()._paq;
+            if (!_paq) return;
 
-            window._paq.push(['setReferrerUrl', currentUrl]);
+            _paq.push(['setReferrerUrl', currentUrl]);
             currentUrl = window.location.hash.substring(1);
-            window._paq.push(['setCustomUrl', currentUrl]);
-            window._paq.push(['setDocumentTitle', document.title]);
-            window._paq.push(['deleteCustomVariables', 'page']);
-            window._paq.push(['setPagePerformanceTiming', 0]);
-            window._paq.push(['trackPageView']);
+            _paq.push(['setCustomUrl', currentUrl]);
+            _paq.push(['setDocumentTitle', document.title]);
+            _paq.push(['deleteCustomVariables', 'page']);
+            _paq.push(['setPagePerformanceTiming', 0]);
+            _paq.push(['trackPageView']);
 
             const content = document.getElementById('content');
             if (content) {
-                window._paq.push(['MediaAnalytics::scanForMedia', content]);
-                window._paq.push(['FormAnalytics::scanForForms', content]);
-                window._paq.push(['trackContentImpressionsWithinNode', content]);
+                _paq.push(['MediaAnalytics::scanForMedia', content]);
+                _paq.push(['FormAnalytics::scanForForms', content]);
+                _paq.push(['trackContentImpressionsWithinNode', content]);
             }
-            window._paq.push(['enableLinkTracking']);
+            _paq.push(['enableLinkTracking']);
         });
     }
 }

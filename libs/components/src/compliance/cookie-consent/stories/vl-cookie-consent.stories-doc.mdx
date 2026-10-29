@@ -25,6 +25,97 @@ import { VlCookieConsent } from '@domg-wc/components/compliance';
 <Canvas of={VlCookieConsentStories.CookieConsentDefault} />
 
 
+## Matomo link tracking in web-componenten
+
+Met `matomo-id` en `matomo-url` laadt `vl-cookie-consent` Matomo en activeert het ook `enableLinkTracking`. Matomo logt
+dan klikken op uitgaande links en downloads. Matomo vindt die links echter enkel in de light DOM: een klik op een link
+in de shadow DOM van een web-component, zoals bij `vl-spotlight`, `vl-document` of `vl-link`, wordt niet gelogd.
+
+Met het attribuut `matomo-shadow-dom-link-tracking` worden ook die klikken gelogd:
+
+```html
+<vl-cookie-consent
+    matomo-id="1"
+    matomo-url="https://stats.example.com/"
+    matomo-shadow-dom-link-tracking
+></vl-cookie-consent>
+```
+
+Vul bij `matomo-id` en `matomo-url` het site id en de URL van je eigen Matomo-omgeving in; de URL eindigt op een `/`.
+`vl-cookie-consent` leest het attribuut `matomo-shadow-dom-link-tracking` wanneer het aan de pagina toegevoegd wordt:
+zet het dus meteen. Het attribuut later zetten of verwijderen heeft geen effect, en de optie blijft actief tot de pagina
+herladen wordt. Zonder `matomo-id` en `matomo-url` doet het attribuut niets en geeft `vl-cookie-consent` een
+waarschuwing in de console.
+
+Laadt de toepassing Matomo zelf, activeer de optie dan met `enableMatomoShadowDomLinkTracking()`:
+
+```js
+import { enableMatomoShadowDomLinkTracking } from '@domg-wc/components/compliance';
+
+enableMatomoShadowDomLinkTracking();
+```
+
+Dat werkt als de toepassing Matomo via `window._paq` configureert, zoals in de standaard snippet van Matomo. Het werkt
+niet met een tracker die de toepassing zelf aanmaakt met `Matomo.getTracker()`.
+
+De optie geldt voor elke link in een open shadow DOM op de pagina: de links in Flux-componenten, maar ook die in de
+eigen web-componenten van de toepassing.
+
+### Wat wordt gelogd
+
+Voor een link zonder Matomo class beslist Matomo zelf of het om een uitgaande link of een download gaat. De instellingen
+`setDomains` en `setDownloadExtensions` van de toepassing blijven dus gelden, en een link met een `download` attribuut,
+zoals in `vl-document`, wordt gelogd als download.
+
+De optie logt een gewone klik, een klik met de middelste muisknop en het openen van het contextmenu op de link, zoals
+Matomo dat standaard voor links in de light DOM doet. Ze staat los van `enableLinkTracking`: roept de toepassing
+`enableLinkTracking` niet aan, of met `false` als argument, dan logt de optie die klikken toch.
+
+### Matomo classes op een component
+
+Matomo leest de classes `matomo_ignore`, `matomo_link` en `matomo_download` enkel op de link zelf, en die is in de
+shadow DOM niet bereikbaar. Daarom mogen ze op de component staan:
+
+- `matomo_ignore`: de klik wordt niet gelogd
+- `matomo_link`: de klik wordt gelogd als uitgaande link, ook bij een interne link
+- `matomo_download`: de klik wordt gelogd als download, ook zonder bestandsextensie in de URL
+
+```html
+<vl-spotlight
+    class="matomo_download"
+    link="https://www.omgevingvlaanderen.be/document/123"
+    link-label="Jaarverslag 2025 (opent in een nieuw venster)"
+    external
+>
+    <span slot="title">Jaarverslag 2025</span>
+</vl-spotlight>
+<vl-link class="matomo_ignore" href="https://www.vlaanderen.be">Vlaanderen</vl-link>
+```
+
+De class geldt voor alle links die de component zelf toont, ook voor links in componenten binnen haar shadow DOM. Zet
+de class op de component die de link toont: bij `vl-breadcrumb` is dat elk `vl-breadcrumb-item` en niet `vl-breadcrumb`
+zelf. Een class op een gewoon element rond de component telt niet mee. Ook de varianten met `piwik` of met een `-`
+worden herkend, eigen class-namen via `setIgnoreClasses`, `setLinkClasses` of `setDownloadClasses` niet.
+
+**Opgelet:** stuurt de toepassing vandaag zelf `trackLink` bij een klik op een component, verwijder dat dan bij het
+activeren van deze optie. Een link die Matomo zelf als uitgaande link of download herkent, wordt anders 2 keer gelogd.
+Logde je zo een link anders dan Matomo het zelf doet, bv. een document zonder bestandsextensie in de URL als download,
+zet dan eerst `matomo_download` of `matomo_link` op de component. Zonder die class logt Matomo zo'n document als
+uitgaande link (externe URL) of helemaal niet (interne URL).
+
+### Gekende beperkingen
+
+- Een link in een gesloten shadow DOM (`mode: 'closed'`) wordt niet gelogd. Alle Flux-componenten hebben een open
+  shadow DOM.
+- Activeer de optie vanuit 1 exemplaar van de library. Staat de library 2 keer op de pagina, bv. de CDN bundel naast
+  een npm-import, en activeren beide de optie, dan wordt elke klik 2 keer gelogd. Het attribuut samen met
+  `enableMatomoShadowDomLinkTracking()` uit hetzelfde exemplaar is geen probleem.
+- De CDN bundel (fat-lib) biedt `enableMatomoShadowDomLinkTracking()` niet aan: daar is enkel het attribuut
+  beschikbaar.
+- De optie steunt op de manier waarop Matomo zijn link tracking aan een element koppelt (`addListener`). Kijk na een
+  upgrade van Matomo na of een klik op een link in een component nog precies 1 keer gelogd wordt.
+
+
 ## Configuratie
 
 <ArgTypes of={VlCookieConsentStories.CookieConsentDefault} />

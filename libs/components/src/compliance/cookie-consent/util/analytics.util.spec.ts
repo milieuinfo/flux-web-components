@@ -1,4 +1,6 @@
 import { analytics } from './analytics.util';
+import { matomoShadowDomLinkTracking } from './matomo-shadow-dom-link-tracking.util';
+import { matomoWindow } from './matomo-window.util';
 
 describe('jest - components - cookie-consent - analytics util', () => {
     let mockScript: HTMLScriptElement;
@@ -80,7 +82,7 @@ describe('jest - components - cookie-consent - analytics util', () => {
         it('should not initialize when no configuration is set', () => {
             analytics.initializeTracking();
 
-            expect(window._paq).toBeUndefined();
+            expect(matomoWindow()._paq).toBeUndefined();
         });
 
         it('should initialize and configure Matomo tracking', () => {
@@ -88,22 +90,22 @@ describe('jest - components - cookie-consent - analytics util', () => {
 
             analytics.initializeTracking();
 
-            expect(window._paq).toBeDefined();
-            expect(Array.isArray(window._paq)).toBe(true);
-            expect(window._paq).toContainEqual(['setTrackerUrl', '//matomo.test.com/piwik.php']);
-            expect(window._paq).toContainEqual(['setSiteId', 789]);
-            expect(window._paq).toContainEqual(['trackPageView']);
-            expect(window._paq).toContainEqual(['enableLinkTracking']);
+            expect(matomoWindow()._paq).toBeDefined();
+            expect(Array.isArray(matomoWindow()._paq)).toBe(true);
+            expect(matomoWindow()._paq).toContainEqual(['setTrackerUrl', '//matomo.test.com/piwik.php']);
+            expect(matomoWindow()._paq).toContainEqual(['setSiteId', 789]);
+            expect(matomoWindow()._paq).toContainEqual(['trackPageView']);
+            expect(matomoWindow()._paq).toContainEqual(['enableLinkTracking']);
         });
 
         it('should preserve existing _paq commands', () => {
-            window._paq = [['existing', 'command']];
+            matomoWindow()._paq = [['existing', 'command']];
             setupAnalytics();
 
             analytics.initializeTracking();
 
-            expect(window._paq).toContainEqual(['existing', 'command']);
-            expect(window._paq).toContainEqual(['setTrackerUrl', '//matomo.test.com/piwik.php']);
+            expect(matomoWindow()._paq).toContainEqual(['existing', 'command']);
+            expect(matomoWindow()._paq).toContainEqual(['setTrackerUrl', '//matomo.test.com/piwik.php']);
         });
 
         it('should load Matomo script with correct attributes', () => {
@@ -116,6 +118,24 @@ describe('jest - components - cookie-consent - analytics util', () => {
             expect(mockScript.src).toContain('matomo.test.com/piwik.js');
             expect(mockScript.async).toBe(true);
             expect(mockScript.defer).toBe(true);
+        });
+
+        it('should not enable shadow DOM link tracking by default', () => {
+            const enableSpy = jest.spyOn(matomoShadowDomLinkTracking, 'enable').mockImplementation(() => {});
+            setupAnalytics();
+
+            analytics.initializeTracking();
+
+            expect(enableSpy).not.toHaveBeenCalled();
+        });
+
+        it('should enable shadow DOM link tracking when configured', () => {
+            const enableSpy = jest.spyOn(matomoShadowDomLinkTracking, 'enable').mockImplementation(() => {});
+            analytics.setMatomoConfig(789, '//matomo.test.com/', true);
+
+            analytics.initializeTracking();
+
+            expect(enableSpy).toHaveBeenCalledTimes(1);
         });
 
         it('should setup hashchange tracking', () => {
@@ -149,7 +169,7 @@ describe('jest - components - cookie-consent - analytics util', () => {
     describe('setupHashChangeTracking', () => {
         it('should track page view on hashchange', () => {
             setupAnalytics();
-            window._paq = [];
+            matomoWindow()._paq = [];
 
             analytics.initializeTracking();
 
@@ -159,8 +179,8 @@ describe('jest - components - cookie-consent - analytics util', () => {
             window.location.hash = '#test-page';
             hashchangeHandler!();
 
-            expect(window._paq).toContainEqual(['trackPageView']);
-            expect(window._paq).toContainEqual(['setCustomUrl', 'test-page']);
+            expect(matomoWindow()._paq).toContainEqual(['trackPageView']);
+            expect(matomoWindow()._paq).toContainEqual(['setCustomUrl', 'test-page']);
         });
 
         it('should not track if _paq is not initialized', () => {
@@ -182,15 +202,15 @@ describe('jest - components - cookie-consent - analytics util', () => {
             });
 
             setupAnalytics();
-            window._paq = [];
+            matomoWindow()._paq = [];
             analytics.initializeTracking();
 
             const hashchangeHandler = getHashchangeHandler();
             hashchangeHandler!();
 
-            expect(window._paq).toContainEqual(['MediaAnalytics::scanForMedia', mockContent]);
-            expect(window._paq).toContainEqual(['FormAnalytics::scanForForms', mockContent]);
-            expect(window._paq).toContainEqual(['trackContentImpressionsWithinNode', mockContent]);
+            expect(matomoWindow()._paq).toContainEqual(['MediaAnalytics::scanForMedia', mockContent]);
+            expect(matomoWindow()._paq).toContainEqual(['FormAnalytics::scanForForms', mockContent]);
+            expect(matomoWindow()._paq).toContainEqual(['trackContentImpressionsWithinNode', mockContent]);
         });
     });
 });
