@@ -8,7 +8,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { INFO_TILE_SIZE, INFO_TILE_TYPE } from '../../info-tile/vl-info-tile.model';
 import { AccordionController } from '../accordion/vl-accordion.controller';
 import { SlotPresenceController } from './slot-presence.controller';
-import { vlInfoTileFluxStyles } from './vl-info-tile.flux-css';
+import { vlInfoTileStyles } from './vl-info-tile.css';
 import { infoTileDefaults } from './vl-info-tile.defaults';
 
 const HEADING_LEVELS = ['1', '2', '3', '4', '5', '6'];
@@ -97,7 +97,7 @@ export class VlInfoTileComponent extends BaseLitElement {
     }
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlInfoTileFluxStyles];
+        return [vlResetStyles, vlInfoTileStyles];
     }
 
     show(): void {
