@@ -1,7 +1,7 @@
 import { vlFocusOutlineMixin, vlMediaScreenExtraSmall, vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
-export const vlAccordionFluxStyles: CSSResult = css`
+export const vlAccordionStyles: CSSResult = css`
     :host {
         display: block;
     }
