@@ -30,8 +30,8 @@ spec:
           name: js-settings
       resources:
         requests:
-          memory: "3500Mi"
-          cpu: "2"
+          memory: "1Gi"
+          cpu: "200m"
         limits:
           memory: "8Gi"
   volumes:
