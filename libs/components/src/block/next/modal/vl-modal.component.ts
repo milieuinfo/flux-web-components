@@ -8,7 +8,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlIconStyles } from '../../../atom/icon-style/vl-icon-style.css';
 import { VlLinkComponent } from '../../../atom/link';
-import { vlModalFluxStyles } from './vl-modal.flux-css';
+import { vlModalStyles } from './vl-modal.css';
 import { CLOSE_ATTRIBUTES, DIALOG_MODIFIERS, FOCUSABLE_SELECTOR } from './vl-modal.model';
 
 @webComponent('vl-modal-next')
@@ -63,7 +63,7 @@ export class VlModalComponent extends BaseLitElement {
         return [
             resetStyle,
             modalStyle,
-            vlModalFluxStyles,
+            vlModalStyles,
             accessibilityStyle,
             vlGroupStyles,
             vlGridStyles,
