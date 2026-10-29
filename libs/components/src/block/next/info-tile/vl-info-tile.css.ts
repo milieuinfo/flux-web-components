@@ -1,7 +1,7 @@
 import { vlFocusOutlineMixin, vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
-export const vlInfoTileFluxStyles: CSSResult = css`
+export const vlInfoTileStyles: CSSResult = css`
     :host {
         display: block;
     }
