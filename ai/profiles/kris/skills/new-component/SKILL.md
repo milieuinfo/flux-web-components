@@ -1,6 +1,6 @@
 ---
 name: new-component
-description: Scaffold een nieuw Flux component (vl-*) met code, flux-css, tests, stories, metadata, web-types en exports.
+description: Scaffold een nieuw Flux component (vl-*) met code, css-in-ts, tests, stories, metadata, web-types en exports.
 argument-hint: <vl-naam> <atom|block|form|compliance>
 ---
 
@@ -14,22 +14,23 @@ Argumenten: `$ARGUMENTS`. Verwacht een naam in kebab-case met `vl-`-prefix en ee
 |-----|--------|
 | Map | `libs/components/src/block/info-tile/` |
 | Class | `VlInfoTileComponent` |
-| Defaults / styles | `infoTileDefaults` / `vlInfoTileFluxStyles` |
+| Defaults / styles | `infoTileDefaults` / `vlInfoTileStyles` |
 | Args / ArgTypes | `infoTileArgs` / `infoTileArgTypes` |
 | Story id / title | `components-block-info-tile` / `Components - Block/info-tile` |
 | Default story | `InfoTileDefault` → story-URL-id `components-block-info-tile--info-tile-default` |
 
 ## Bestanden
 
-Kopieer structuur, imports en stijl van een sibling van hetzelfde type (`atom/button`, `block/progress-bar`, `form/checkbox`, `compliance/privacy`), met twee uitzonderingen:
+Kopieer structuur, imports en stijl van een sibling van hetzelfde type (`atom/button`, `block/progress-bar`, `form/checkbox`, `compliance/privacy`), met drie uitzonderingen:
 
 - **Registratie** altijd met `@webComponent()` uit `@domg-wc/common`. Sommige siblings (bv. `vl-progress-bar`) gebruiken ten onrechte `@customElement()`.
 - **Properties** met `@property`/`@state`-decorators zoals in `block/next/tabs/vl-tab.component.ts`, ook al gebruiken de meeste siblings nog `static get properties()`.
+- **Styles** in `vl-{naam}.css.ts`, ook al gebruiken siblings als `vl-progress-bar` nog `.flux-css.ts`.
 
 In de componentmap:
 1. `vl-{naam}.defaults.ts`
 2. `vl-{naam}.component.ts`, met `declare global { interface HTMLElementTagNameMap }` onderaan
-3. `vl-{naam}.flux-css.ts`
+3. `vl-{naam}.css.ts`
 4. `index.ts` met de export van de class. **Vergeet ook niet** de export in `libs/components/src/{type}/index.ts`
 5. `vl-{naam}.component.cy.ts`: minstens `should mount`, `should be accessible` en een test per attribuut, slot en event
 6. `stories/`: `.stories.ts`, `.stories-arg.ts` (elke slot en elk event gedocumenteerd, events via `action()`) en `.stories-doc.mdx` met `<FluxComponentMetaData id="components-{type}-{naam}"/>` en de secties Doel, Voorbeeld, Configuratie, Varianten
