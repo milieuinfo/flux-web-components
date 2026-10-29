@@ -14,7 +14,7 @@ Een audit steunt op bewijs uit drie bronnen: de **code** toont de bedoeling (sem
 
 ## 1. Context
 
-- Lees het component, de flux-css, de stories en de component test. Controleer de basisklasse: de Lit-valkuilen gelden niet voor `BaseHTMLElement`.
+- Lees het component, de styles (`.css.ts`, bij oudere componenten `.flux-css.ts`), de stories en de component test. Controleer de basisklasse: de Lit-valkuilen gelden niet voor `BaseHTMLElement`.
 - Lees de huidige status in `apps/storybook/.storybook/flux-meta-data/json/components-{type}.meta-data.json`, veld `wcag`:
   - `TODO`: nog niet geaudit
   - `FLUX-{nr}`: geaudit, met een openstaand ticket. Lees dat ticket en ga na of de punten nog gelden, in plaats van ze als nieuw te melden

@@ -17,7 +17,7 @@ Regels:
 - Gebruik altijd `@webComponent()` uit `@domg-wc/common`, niet `@customElement()` uit Lit - bevat eigen registratielogica
 - Gebruik Lit decorators (`@property`, `@state`, `@query`, `@queryAll`) waar mogelijk
 - Custom events krijgen `vl-` prefix, dispatched met `bubbles: true, composed: true`
-- Shadow DOM altijd; nieuwe styles als css-in-ts in `vl-component-name.flux-css.ts` (Lit `css`), zie `libs/components/src/block/progress-bar/vl-progress-bar.flux-css.ts`. Oudere componenten importeren nog `@domg/govflanders-style`
+- Shadow DOM altijd; nieuwe styles als css-in-ts in `vl-component-name.css.ts` (Lit `css`, export `vlComponentNameStyles`), zie `libs/components/src/atom/text/vl-text.css.ts`. Oudere componenten gebruiken nog `.flux-css.ts` of importeren `@domg/govflanders-style`
 - Nooit raw colors of hardcoded spacing - altijd CSS custom properties (design tokens, `var(--vl-…)`)
 - De meeste componenten ondersteunen een `custom-css` attribuut voor externe tweaks
 
@@ -29,7 +29,7 @@ Regels:
 | Class | `VlComponentName` of `VlComponentNameComponent` |
 | Component file | `vl-component-name.component.ts` |
 | Defaults | `vl-component-name.defaults.ts` |
-| Styles | `vl-component-name.flux-css.ts` |
+| Styles | `vl-component-name.css.ts` |
 | Tests | `vl-component-name.component.cy.ts` |
 | Stories | `vl-component-name.stories.ts` (in `stories/` subdir) |
 | Story args | `vl-component-name.stories-arg.ts` (singular `arg`) |
