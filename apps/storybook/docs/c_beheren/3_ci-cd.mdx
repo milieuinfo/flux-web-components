@@ -68,3 +68,7 @@ In die __release-and-publish__ stap gebeurt het volgende:
   `storybook-<versie>.tgz` build-artifact gearchiveerd
 - in het geval van een release wordt er een changelog aangemaakt en een
 [GitHub release](https://github.com/milieuinfo/flux-web-components/releases) uitgevoerd
+
+Vindt semantic-release sinds de vorige release geen relevante commits (bv. enkel `chore` commits, of een build die
+opnieuw draait op een commit die al gereleased is), dan wordt er geen nieuwe versie gemaakt: er wordt niets
+gepubliceerd en __verify-release__ wordt overgeslagen.
