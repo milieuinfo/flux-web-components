@@ -9,7 +9,7 @@
             "elements": [
                 {
                     "name": "vl-accordion",
-                    "description": "Gebruik de `accordion` component om informatie te tonen of te verbergen aan de hand van een toggle.\nVoor meer informatie over het afbeelden van meerdere accordions zie de\n[accordion-list](/docs/components-block-accordion-list--documentatie) component.",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `accordion` component om informatie te tonen of te verbergen aan de hand van een toggle.\nVoor meer informatie over het afbeelden van meerdere accordions zie de\n[accordion-list](/docs/components-block-accordion-list--documentatie) component.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-accordion--documentatie",
                     "attributes": [
                         {
@@ -104,6 +104,115 @@
                                 "name": "vl-on-toggle",
                                 "description": "Afgevuurd bij het openen of sluiten van de accordion.<br>Het event bevat of de accordion geopend of gesloten is.",
                                 "type": "{ open: boolean }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-accordion-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `accordion-next` component om inhoud te tonen of te verbergen met een toggle-knop.\n\nDeze component is de nieuwe versie van de [vl-accordion](/docs/components-block-accordion--documentatie) component.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-accordion--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "open",
+                            "description": "Of de accordion open is. Zet de begintoestand en volgt daarna de huidige toestand, ook na een klik.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "toggle-text",
+                            "description": "Tekst van de toggle-knop.<br>Niet combineren met `open-toggle-text`, `close-toggle-text` of de `trigger` slot.",
+                            "default": ""
+                        },
+                        {
+                            "name": "open-toggle-text",
+                            "description": "Tekst van de toggle-knop als de accordion gesloten is.<br>Gebruik samen met `close-toggle-text`.",
+                            "default": ""
+                        },
+                        {
+                            "name": "close-toggle-text",
+                            "description": "Tekst van de toggle-knop als de accordion open is.<br>Gebruik samen met `open-toggle-text`.",
+                            "default": ""
+                        },
+                        {
+                            "name": "content-padding",
+                            "description": "De padding van de inhoud, op desktop en mobiel.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'none' | 'small' | 'medium' | 'large'"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "name": "heading-level",
+                            "description": "Zet de toggle-knop in een heading van niveau 1 tot 6.<br>Zonder of met een ongeldige waarde staat de knop niet in een heading.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'1' | '2' | '3' | '4' | '5' | '6'"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Icoon voor de tekst van de toggle-knop.",
+                            "default": ""
+                        },
+                        {
+                            "name": "alt-background",
+                            "description": "Toont de accordion met een alternatieve grijze achtergrond.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "bold",
+                            "description": "Toont de tekst van de toggle-knop vetgedrukt.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "disabled",
+                            "description": "Schakelt de accordion uit. Hij blijft gesloten en zijn inhoud is niet vindbaar.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "trigger",
+                            "description": "Tekst of elementen in de toggle-knop.<br>Niet combineren met `toggle-text`, `open-toggle-text` of `close-toggle-text`.",
+                            "default": ""
+                        },
+                        {
+                            "name": "subtitle",
+                            "description": "Tekst onder de toggle-knop, zichtbaar in open en gesloten toestand.",
+                            "default": ""
+                        },
+                        {
+                            "name": "actions",
+                            "description": "Knoppen of links naast de toggle-knop, bijvoorbeeld een menu.",
+                            "default": ""
+                        },
+                        {
+                            "name": "content",
+                            "description": "De inhoud die open- en dichtklapt.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-toggle",
+                                "description": "Afgevuurd bij elke wijziging van de open-toestand. Bubbelt.",
+                                "type": "{ expanded: boolean }"
+                            },
+                            {
+                                "name": "vl-open",
+                                "description": "Afgevuurd wanneer de accordion opent. Bubbelt."
+                            },
+                            {
+                                "name": "vl-close",
+                                "description": "Afgevuurd wanneer de accordion sluit. Bubbelt."
                             }
                         ]
                     }
@@ -320,6 +429,42 @@
                             }
                         ]
                     }
+                },
+                {
+                    "name": "vl-badge",
+                    "description": "`vl-badge` is een ronde badge met een icoon of een afbeelding, bv. een avatar of het logo van een bedrijf.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-badge--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "alt",
+                            "description": "Het tekstalternatief van de badge. Met `img` komt het op de afbeelding; met een icoon krijgt de badge `role=\"img\"` en dit `aria-label`.<br>Laat leeg als de badge enkel decoratief is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "background",
+                            "description": "De achtergrondkleur van de badge.<br>`subtle`: `--vl-color--background-subtle`.<br>`default`: `--vl-color--background-default`, bv. op een `subtle` achtergrond.<br>`primary`: `--vl-theme-primary-color`, of `--vl-color--background-primary` zonder thema.<br>`action`: `--vl-color--action`, de blauwe actiekleur van de huisstijl.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'subtle' | 'default' | 'primary' | 'action'"
+                            },
+                            "default": "subtle"
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Het icoon in de badge. Het icoon is decoratief. Wordt enkel getoond als er geen `img` is.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "img",
+                            "description": "De url van een afbeelding in de badge, bv. een avatar of een logo. Heeft voorrang op `icon`.",
+                            "default": "undefined"
+                        }
+                    ]
                 },
                 {
                     "name": "vl-breadcrumb",
@@ -694,7 +839,7 @@
                 },
                 {
                     "name": "vl-info-tile",
-                    "description": "Gebruik de `info-tile` component in informatieve en interactieve dashboards.",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `info-tile` component in informatieve en interactieve dashboards.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-info-tile--documentatie",
                     "attributes": [
                         {
@@ -817,6 +962,153 @@
                             {
                                 "name": "vl-click-info-tile",
                                 "description": "Event dat afgevuurd wordt als er op de info-tile wordt geklikt."
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-info-tile-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `info-tile-next` component in informatieve en interactieve dashboards.\n\nDeze component is de nieuwe versie van de [vl-info-tile](/docs/components-block-info-tile--documentatie) component.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-info-tile--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "open",
+                            "description": "Of een `toggleable` info tile open is. Zet de begintoestand en volgt daarna de huidige toestand, ook na een klik.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "toggleable",
+                            "description": "Maakt de inhoud van de info tile open- en dichtklapbaar.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "clickable",
+                            "description": "Maakt de hele info tile aanklikbaar.<br>Niet combineren met `toggleable`.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "clickable-label",
+                            "description": "Toegankelijke naam van een `clickable` info tile. Verplicht samen met `clickable`.",
+                            "default": ""
+                        },
+                        {
+                            "name": "center",
+                            "description": "Centreert de inhoud van de info tile.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "full-height",
+                            "description": "Geeft de info tile een hoogte van 100%. Werkt enkel als de container een vaste hoogte heeft.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "size",
+                            "description": "De grootte van de padding.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'small' | 'medium' | 'large'"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "name": "type",
+                            "description": "Het type van de info tile.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'default' | 'alt' | 'warning' | 'error' | 'success'"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Icoon naast de titel.<br>Niet combineren met de `badge` slot.",
+                            "default": ""
+                        },
+                        {
+                            "name": "icon-as-badge",
+                            "description": "Toont het icoon in een ronde badge.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "heading-level",
+                            "description": "Het niveau van de heading van de titel, 1 tot 6.<br>Zonder of met een ongeldige waarde: 3.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'1' | '2' | '3' | '4' | '5' | '6'"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "name": "highlight",
+                            "description": "Voegt een accent toe aan de bovenkant van de info tile.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "highlight-left",
+                            "description": "Voegt een accent toe aan de linkerkant van de info tile.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "trigger",
+                            "description": "De titel van de info tile. Bij een `toggleable` info tile staat hij in de toggle-knop.",
+                            "default": ""
+                        },
+                        {
+                            "name": "title-label",
+                            "description": "Label naast de titel, bijvoorbeeld een pill.",
+                            "default": ""
+                        },
+                        {
+                            "name": "subtitle",
+                            "description": "De subtitel van de info tile.<br>Bij een `toggleable` info tile blijft de subtitel zichtbaar als de tile gesloten is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "badge",
+                            "description": "Een eigen badge naast de titel.<br>Niet combineren met `icon`.",
+                            "default": ""
+                        },
+                        {
+                            "name": "actions",
+                            "description": "Knoppen of links in de rechterbovenhoek, bijvoorbeeld een popover menu.",
+                            "default": ""
+                        },
+                        {
+                            "name": "content",
+                            "description": "De inhoud van de info tile. Bij een `toggleable` info tile klapt die open en dicht.",
+                            "default": ""
+                        },
+                        {
+                            "name": "footer",
+                            "description": "De footer van de info tile, bijvoorbeeld voor actieknoppen.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-click-info-tile",
+                                "description": "Afgevuurd bij een klik op een `clickable` info tile. Bubbelt."
+                            },
+                            {
+                                "name": "vl-toggle",
+                                "description": "Afgevuurd bij elke wijziging van de open-toestand van een `toggleable` info tile. Bubbelt.",
+                                "type": "{ expanded: boolean }"
+                            },
+                            {
+                                "name": "vl-open",
+                                "description": "Afgevuurd wanneer een `toggleable` info tile opent. Bubbelt."
+                            },
+                            {
+                                "name": "vl-close",
+                                "description": "Afgevuurd wanneer een `toggleable` info tile sluit. Bubbelt."
                             }
                         ]
                     }
@@ -946,7 +1238,7 @@
                         },
                         {
                             "name": "closable",
-                            "description": "Attribuut om de modal sluitbaar te maken via het \"Sluit\"-icoon in de rechterbovenhoek of door de \"Escape\"-toets te gebruiken.",
+                            "description": "Attribuut om de modal sluitbaar te maken via het \"Sluit\"-icoon in de rechterbovenhoek, door de \"Escape\"-toets te gebruiken of door op de backdrop te klikken. Het attribuut is reactief: verwijder je het terwijl de modal open is (bv. tijdens een bewaaractie), dan verdwijnt het sluit-icoon en sluiten Escape en backdrop de modal niet meer.",
                             "default": "false"
                         },
                         {
@@ -2411,7 +2703,7 @@
                 },
                 {
                     "name": "vl-tabs",
-                    "description": "Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs-tabs--documentatie",
                     "attributes": [
                         {
@@ -2465,6 +2757,90 @@
                                 "name": "vl-click",
                                 "description": "Afgevuurd na het klikken op een tab. Het event bevat het id van de tab.",
                                 "type": "{ activeTab: string }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-modal-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `modal` component om een modal te tonen.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-modal--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "title-label",
+                            "description": "Attribuut gebruikt om een `<h2>` titel toe te voegen. Indien leeg, wordt er geen titel element aangemaakt.",
+                            "default": ""
+                        },
+                        {
+                            "name": "label",
+                            "description": "Attribuut gebruikt om een aria-label toe te voegen aan de modal. Dit is verplicht indien er geen title-label attribuut is opgegeven.",
+                            "default": ""
+                        },
+                        {
+                            "name": "open",
+                            "description": "Reactief attribuut dat de open-staat van de modal stuurt: toevoegen opent de modal, verwijderen sluit hem. Het attribuut blijft in sync met de werkelijke staat (na sluiten via knop, escape of backdrop is het weg).",
+                            "default": "false"
+                        },
+                        {
+                            "name": "closable",
+                            "description": "Attribuut om de modal sluitbaar te maken via het \"Sluit\"-icoon in de rechterbovenhoek, de \"Escape\"-toets of een klik op de backdrop.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "not-cancellable",
+                            "description": "Attribuut gebruikt om de modal niet annuleerbaar te maken.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "not-auto-closable",
+                            "description": "Attribuut om het afsluiten van de modal uit te schakelen bij het klikken op de actie in het button-slot.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "allow-overflow",
+                            "description": "Attribuut om de afgesneden inhoud van de modal zichtbaar te maken.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "size",
+                            "description": "Attribuut om de grootte van de modal te bepalen.",
+                            "default": "default"
+                        },
+                        {
+                            "name": "position",
+                            "description": "Attribuut om de positie van de modal op het scherm te bepalen.",
+                            "default": "center"
+                        },
+                        {
+                            "name": "focus-on-modal",
+                            "description": "Attribuut om de focus op de modal zelf te zetten bij het openen.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "content",
+                            "description": "Dit slot bevat de HTML inhoud van de modal."
+                        },
+                        {
+                            "name": "button",
+                            "description": "Gebruik dit slot om de primaire actie mee te geven."
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-open",
+                                "description": "Event dat afgevuurd wordt wanneer de modal opent, ongeacht of dat via het `open`-attribuut, de `open()`-methode of een trigger gebeurt."
+                            },
+                            {
+                                "name": "vl-close",
+                                "description": "Event dat afgevuurd wordt wanneer de modal sluit, ongeacht of dat via het `open`-attribuut, de `close()`-methode, de annuleer-/sluit-knop, escape of de backdrop gebeurt."
                             }
                         ]
                     }

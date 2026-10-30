@@ -1,3 +1,40 @@
+# [2.22.0](https://github.com/milieuinfo/flux-web-components/compare/v2.21.0...v2.22.0) (2026-10-30)
+
+### Bug Fixes
+
+* FLUX-708 - recept 'Van npm naar pnpm' - ingekort en aanbeveling voor pnpm aangescherpt ([7c6a92f](https://github.com/milieuinfo/flux-web-components/commit/7c6a92f737163f918dd1fed21d39f6e9eaab99c3)), closes [#pnpm-of-een-veilige-npm-12](https://github.com/milieuinfo/flux-web-components/issues/pnpm-of-een-veilige-npm-12)
+* FLUX-726 - vl-link, vl-button, vl-privacy - WCAG verbeteringen - label bevat de zichtbare tekst (label in name) ([8f87b4d](https://github.com/milieuinfo/flux-web-components/commit/8f87b4d381f8ef3ba6a191820f119e10098a3142))
+* FLUX-753 - anchor-navigation, vl-title - WCAG verbeteringen - skiplink-focus naar de heading en lange koppen breken af ([41ab5a5](https://github.com/milieuinfo/flux-web-components/commit/41ab5a5b314c08f08bd6f599c177166a7537aa58))
+* FLUX-793 - vl-side-navigation-next - heading onder sticky header bij klik in inhoudstafel ([d8e33b9](https://github.com/milieuinfo/flux-web-components/commit/d8e33b985bb671e99bdb07057f1deb97fcb055a0))
+* FLUX-835 - vl-side-navigation-layout-next - content neemt op mobiel de volledige breedte in ([1533887](https://github.com/milieuinfo/flux-web-components/commit/15338870c937158d502a1b0b154741cdbaec8ce3))
+* FLUX-850 - vl-info-tile - inspringing subtitel en inhoud bij toggleable en center ([70bf0a4](https://github.com/milieuinfo/flux-web-components/commit/70bf0a4876f653979d44c87f88daa237e5815ce6))
+* FLUX-851 - vl-map-select-actions - stabiele e2e-test van de clustering story ([2f897db](https://github.com/milieuinfo/flux-web-components/commit/2f897db5909d48a520020eff6df13ec2b368f268))
+* FLUX-852 - vl-modal - sluitgedrag volgt closable terwijl de modal open is ([1412d03](https://github.com/milieuinfo/flux-web-components/commit/1412d03c2301f29d87ec5f31d485eacf5517aa94))
+* FLUX-854 - vl-button - slot-tekst blijft accessible name bij loading ([bf83825](https://github.com/milieuinfo/flux-web-components/commit/bf83825fc4f946afaa0cdb7a009c4e694c7be243))
+* FLUX-855 - vl-button, vl-link - focus() zet de focus op de interne knop of link ([7b9e428](https://github.com/milieuinfo/flux-web-components/commit/7b9e428c635581ebbf47a646e919867934fa9e59))
+* FLUX-856 - vl-textarea-rich - editor opgeruimd bij verwijderen tijdens init ([a6a4d8a](https://github.com/milieuinfo/flux-web-components/commit/a6a4d8ab4e9f7adcc48570b479092fdcdcc63db1))
+* FLUX-859 - vl-table - focus ring enkel bij toetsenbordnavigatie ([bd4a55b](https://github.com/milieuinfo/flux-web-components/commit/bd4a55b94e3626e9322e597d0ede49abb2fa5e86))
+* FLUX-862 - vl-link - aria-current doorgegeven aan de interne link ([bed0fb1](https://github.com/milieuinfo/flux-web-components/commit/bed0fb111e369ba4271390c34f2fe929dbaa09d0))
+* FLUX-874 - Jenkins build - timeout van 2 uur en parallelsAlwaysFailFast toegevoegd ([b145736](https://github.com/milieuinfo/flux-web-components/commit/b1457367ef9d0bc95a759fa25b14c52e3c909390))
+
+### Features
+
+* FLUX-26 - vl-modal-next - Lit modal zonder vl-modal.lib.js toegevoegd ([f542ad4](https://github.com/milieuinfo/flux-web-components/commit/f542ad4eda28b48325db3076868f4b0a85c66374))
+* FLUX-32 - vl-accordion-next - nieuw component met een AccordionController ([a5b6d65](https://github.com/milieuinfo/flux-web-components/commit/a5b6d6558e4d45f44b1d1c8d2f64b1ffb5ab80c1)), closes [#anker](https://github.com/milieuinfo/flux-web-components/issues/anker)
+* FLUX-32 - vl-info-tile-next - nieuw component met de AccordionController ([c6ccc6d](https://github.com/milieuinfo/flux-web-components/commit/c6ccc6dedd61a622ffbeda182158a7bbc40ffeef)), closes [#anker](https://github.com/milieuinfo/flux-web-components/issues/anker)
+* FLUX-32 - vl-step - open-state via de AccordionController ([c29ebec](https://github.com/milieuinfo/flux-web-components/commit/c29ebecaedb8e826b73861539ac8eab4b448d440)), closes [#anker](https://github.com/milieuinfo/flux-web-components/issues/anker)
+* FLUX-621 - vl-badge - nieuw component voor een icoon of afbeelding in een cirkel ([96e7ca4](https://github.com/milieuinfo/flux-web-components/commit/96e7ca417da0eabdc76ffe5a6029fd73f8cc74bb))
+* FLUX-709 - vl-page - voorbeelden voor pagina opbouw uitgewerkt ([a9d0e3a](https://github.com/milieuinfo/flux-web-components/commit/a9d0e3a20781cecac6ddb03db84c0f925c8e5e9c))
+* FLUX-841 - vl-dashboard, vl-dashboard-header, vl-nav-link, vl-nav-sub - nieuwe componenten voor applicaties van het type dashboard ([ba96bf5](https://github.com/milieuinfo/flux-web-components/commit/ba96bf55b687bb68efcd4bff5a1bfe3c0dba0986))
+* FLUX-845 - lit - upgrade naar 3.3.3 ([b2ff215](https://github.com/milieuinfo/flux-web-components/commit/b2ff21567479137315f8536822d70b687b672f6e))
+* FLUX-846 - verificatie of alle component attributen aanwezig zijn in Figma ([c332e23](https://github.com/milieuinfo/flux-web-components/commit/c332e23928a5a6f4e97d296e3071099aa50b7fdf))
+* FLUX-881 - vl-upload-progress - code connect update ([bf77548](https://github.com/milieuinfo/flux-web-components/commit/bf77548efb3809ade92c97a2bd3b89910d27afae))
+
+### Documentation
+
+* FLUX-840 - Flux-AI - bijgewerkt naar Flux-MCP en frontendstroomlijning ([d4034cc](https://github.com/milieuinfo/flux-web-components/commit/d4034ccff6ab45695820b136cfd69dbfab1cab24))
+* FLUX-880 - vl-tabs, vl-tabs-pane - gemarkeerd als legacy, vervangen door vl-tabs-next ([57f26fa](https://github.com/milieuinfo/flux-web-components/commit/57f26fa679b2d9efc5bbd863d8b2e13e2b325e1b))
+
 # [2.21.0](https://github.com/milieuinfo/flux-web-components/compare/v2.20.0...v2.21.0) (2026-10-09)
 
 ### Bug Fixes

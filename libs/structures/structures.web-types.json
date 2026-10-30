@@ -8,6 +8,206 @@
         "html": {
             "elements": [
                 {
+                    "name": "vl-dashboard",
+                    "description": "`vl-dashboard` bouwt de layout van een applicatie op: een header, een inklapbare navigatie, de inhoud en een footer.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/structures-dashboard--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "user-name",
+                            "description": "De naam van de gebruiker, het bedrijf of de entiteit in de header van de navigatie.<br>Staat naast `user-img`; die afbeelding is daarom decoratief en heeft een lege alt-tekst.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "user-img",
+                            "description": "Een afbeelding in de header van de navigatie, bv. een avatar van de gebruiker of een logo van het bedrijf of de entiteit.<br>Heeft voorrang op `user-icon`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "user-icon",
+                            "description": "Een icoon in de header van de navigatie. Wordt enkel getoond als er geen `user-img` is.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "collapsed",
+                            "description": "Of de navigatie ingeklapt is. Wordt gereflecteerd: lees het uit, of zet het om de navigatie zelf in of uit te klappen.<br>Staat het attribuut er bij de start, dan wint het van de toestand in `localStorage`. Een wijziging van buitenaf wordt niet bewaard in `localStorage` en vuurt geen `vl-toggle-navigation` af.<br>Geef `collapsed` zelf door aan de `vl-nav-link` en `vl-nav-sub` componenten. Met `not-collapsible` is `collapsed` altijd `false`.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "not-collapsible",
+                            "description": "Verbergt de knop om de navigatie in te klappen, bv. als de links geen iconen hebben.<br>Een ingeklapte toestand uit `localStorage` wordt dan niet overgenomen.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "header",
+                            "description": "De header van de pagina, gewoonlijk een `vl-header-next`."
+                        },
+                        {
+                            "name": "nav-main",
+                            "description": "De hoofdnavigatie, met `vl-nav-link` en `vl-nav-sub` componenten.<br>Gebruik ofwel iconen voor alle links, ofwel geen iconen."
+                        },
+                        {
+                            "name": "nav-utils",
+                            "description": "De hulpnavigatie, met `vl-nav-link` componenten, bv. voor instellingen of hulp.<br>Wordt enkel getoond als er inhoud is."
+                        },
+                        {
+                            "name": "content",
+                            "description": "De inhoud van de pagina, met bovenaan één `vl-dashboard-header`. Neemt de volledige ruimte naast de navigatie in, zonder padding of maximale breedte.<br>De `vl-dashboard-header` mag ook dieper staan, bv. in de shadow root van een route-component."
+                        },
+                        {
+                            "name": "footer",
+                            "description": "De footer van de pagina, gewoonlijk een `vl-footer-next`."
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-toggle-navigation",
+                                "description": "Event dat afgevuurd wordt bij het in- of uitklappen van de navigatie, ook bij het herstellen van een ingeklapte navigatie bij het laden.",
+                                "type": "{ collapsed: boolean }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-dashboard-header",
+                    "description": "`vl-dashboard-header` is de header van een pagina in `vl-dashboard`: de titel, een ondertitel, een icoon en de acties van de pagina.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/structures-dashboard-dashboard-header--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "page-icon",
+                            "description": "Een icoon voor de `page-title`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "page-subtitle",
+                            "description": "Een ondertitel van de pagina, naast de `page-title`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "page-title",
+                            "description": "De titel van de pagina, als `h1` met het vaste id `vl-dashboard-page-title`.<br>Is het doel van de skip links van `vl-dashboard` en `vl-header-next`.",
+                            "default": "undefined"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "header-actions",
+                            "description": "Acties bij de pagina, zoals knoppen en een zoekveld. Mag leeg blijven."
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-nav-link",
+                    "description": "`vl-nav-link` is een link in de navigatie van `vl-dashboard`, in de slots `nav-main` en `nav-utils` of in een `vl-nav-sub`.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/structures-dashboard-nav-link--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "active",
+                            "description": "Duidt de link van de huidige pagina aan. Zet `aria-current=\"page\"`.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "collapsed",
+                            "description": "Toont enkel het icoon, voor een ingeklapte navigatie van `vl-dashboard`.<br>Verbergt ook de `link-action`.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "disabled",
+                            "description": "Schakelt de link uit.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "external",
+                            "description": "Opent de link in een nieuw tabblad en toont het icoon voor een externe link.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "href",
+                            "description": "De url van de link. Aangeraden voor navigatie; zonder `href` is het een knop.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Het icoon van de link. Gebruik in een navigatie ofwel iconen voor alle links, ofwel geen iconen.<br>Zonder icoon heeft een ingeklapte link geen zichtbare inhoud.",
+                            "default": "undefined"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "De tekst van de link."
+                        },
+                        {
+                            "name": "link-action",
+                            "description": "Een icon-only actieknop naast de link, bv. `<vl-button slot=\"link-action\" icon=\"plus-circle-filled\" label=\"Item toevoegen\" ghost></vl-button>`."
+                        },
+                        {
+                            "name": "link-badge",
+                            "description": "Een badge bij de link, bv. een aantal meldingen: `<span slot=\"link-badge\">3</span>`. De tekst wordt toegevoegd aan de toegankelijke naam van de link.<br>`vl-dashboard` toont op mobiel een stip op de menuknop zolang een link een badge heeft."
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-nav-sub",
+                    "description": "`vl-nav-sub` groepeert `vl-nav-link` componenten onder een gedeeld label in het slot `nav-main` van `vl-dashboard`.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/structures-dashboard-nav-sub--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "active",
+                            "description": "Duidt de pagina van de groep aan als huidige pagina, met `aria-current=\"page\"` op de link. Enkel zinvol met `href`.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "collapsed",
+                            "description": "Verbergt de tekst van het label, voor een ingeklapte navigatie van `vl-dashboard`.<br>Geeft `collapsed` door aan de `vl-nav-link` componenten in het slot.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "href",
+                            "description": "Maakt van het label een link naar een pagina van de groep, bv. een overzicht van het dossier. De link heeft de stijl van een `vl-nav-link`. Zonder `href` is het label gewone tekst.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Het icoon naast het label.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "label",
+                            "description": "Het label van de groep. Is ook de toegankelijke naam van de lijst met links, ook als het label ingeklapt verborgen is.",
+                            "default": "undefined"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "De `vl-nav-link` componenten van de groep."
+                        }
+                    ]
+                },
+                {
                     "name": "vl-page",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>`vl-page` bouwt de basis-layout van een pagina op: een header, de main content en een footer.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/structures-page--documentatie",
