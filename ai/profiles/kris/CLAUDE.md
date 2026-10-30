@@ -20,6 +20,8 @@ Regels:
 - Shadow DOM altijd; nieuwe styles als css-in-ts in `vl-component-name.css.ts` (Lit `css`, export `vlComponentNameStyles`), zie `libs/components/src/atom/text/vl-text.css.ts`. Oudere componenten gebruiken nog `.flux-css.ts` of importeren `@domg/govflanders-style`
 - Nooit raw colors of hardcoded spacing - altijd CSS custom properties (design tokens, `var(--vl-…)`)
 - De meeste componenten ondersteunen een `custom-css` attribuut voor externe tweaks
+- `.vl-icon` enkel op een losstaand icoon-element, nooit op een container: de class zet `font-family`, `font-size` en `display` op het element zelf en lekt naar de kinderen. Op een container enkel de glyph-class (bv. `vl-icon--nav-down`), met `font-family: var(--vl-icon-font)` op de `::before`
+- Geen `vl-grid` in een `vl-grid` (dat geeft een 144-koloms layout); binnen een grid-kolom een gewone CSS-grid met eigen classes
 
 ## Naming Conventions
 
@@ -49,6 +51,7 @@ Conventies:
 - Feature → tests per nieuw attribuut, property, event, slot of interactie; gewijzigd gedrag → bestaande tests aanpassen
 - Bugfix → eerst een regressietest schrijven en draaien tot hij **rood** is om de juiste reden, dan pas fixen
 - Nieuwe of hernoemde story → Storybook E2E test in `apps/storybook-e2e/src/e2e/components/{type}/{naam}/`
+- Attribuut toegevoegd, hernoemd of verwijderd (component of argTypes) → `pnpm run figma:code-connect:check-attributes` draaien, want de CI-build faalt erop. Schrijft een Code Connect template (`*.figma.ts`) het component uit, dan moet elk publiek attribuut daar gemapt zijn of in de header `// code-only vl-{naam}: attr-a, attr-b` staan
 - Nooit als klaar melden zonder de tests van het gewijzigde component effectief gedraaid te hebben
 
 **Uitvoeren** (headless; specs staan onder heel `libs/**`, niet enkel `libs/components`):
@@ -58,8 +61,14 @@ pnpm run libs:component-tests:run --spec "../../libs/components/src/{type}/{naam
 ```
 
 - Spec-paden relatief t.o.v. `resources/cypress-component` (prefix `../../`), meerdere komma-gescheiden; **geen `--`** vóór `--spec` (pnpm geeft die letterlijk door)
-- `runMode` doet tot 4 retries: een test die pas bij `(Attempt 2 of 5)` of later slaagt, is flaky. Meld hem als flaky, niet als geslaagd
+- `runMode` doet retries (component tests 4, E2E 5): een test die pas bij `(Attempt 2 of …)` of later slaagt, is flaky. Meld hem als flaky, niet als geslaagd
 - Na `cy.viewport()` eerst wachten op de toestand die de ResizeObserver zet (bv. `mobile-modal`) vóór een eenmalige `{esc}` of klik; retries lossen die race niet op
+
+Storybook E2E, met Storybook draaiend op http://localhost:8080 (`pnpm run apps:storybook:dev`); spec-pad relatief t.o.v. `apps/storybook-e2e`:
+
+```bash
+pnpm run apps:storybook-e2e:run --spec "src/e2e/components/{type}/{naam}/vl-{naam}.stories.cy.ts"
+```
 
 ## Accessibility (WCAG 2.2 AA)
 
@@ -141,6 +150,9 @@ Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 ## Werkafspraken
 
 - **Nooit een em-dash (U+2014) gebruiken, altijd een gewoon streepje `-`.** Geldt voor alle tekst die je schrijft: code, comments, documentatie, stories, commit messages, PR-beschrijvingen, Jira-tickets en antwoorden
+- **Antwoord in het Nederlands**, ook als eerdere antwoorden in de sessie Engels waren; code-identifiers, commando's en citaten blijven zoals ze zijn
+- **In Nederlandse teksten** componenten bij hun naam noemen (`vl-side-navigation-next`, niet "zijnavigatie") en gangbare Engelse vaktermen niet vertalen (release, technical debt, legacy, flaky, dependencies)
+- **Comments in code in het Nederlands** (inline en JSDoc); identifiers en tests blijven Engels. Bestaande Engelse comments enkel omzetten als je die code toch wijzigt
 - **Plans opslaan in `.claude/plans/`**, NIET in `docs/plans/` (`docs/` is voor projectdocumentatie / Storybook)
 
 ## Skills

@@ -48,7 +48,7 @@ Button en toggle button · Link · Checkbox · Radiogroep · Switch · Disclosur
 - Scenario: focus op de knop, Enter, capture (expanded=true, inhoud in de snapshot), Enter, capture.
 
 ## Tabs
-- Flux: vl-tabs, vl-next-tabs.
+- Flux: vl-tabs, vl-tabs-next.
 - `role="tablist"` met naam; `role="tab"` met `aria-selected="true|false"` en `aria-controls`; `role="tabpanel"` met `aria-labelledby` naar de tab.
 - Roving tabindex: actieve tab `tabindex="0"`, andere `-1`. Het tabpanel krijgt `tabindex="0"` als het geen focusbare inhoud heeft.
 - Links/Rechts (horizontaal) of Omhoog/Omlaag (verticaal) verplaatsen focus; Home en End naar de uitersten. Automatische activatie bij focus is aanbevolen als panelen direct tonen.

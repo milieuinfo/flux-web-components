@@ -15,6 +15,7 @@ Stand 2026-10-29.
 | `vl-step` | geen slot voor acties | — |
 | `vl-property` | `data slot` is een placeholder | swappen, bv. naar `vl-link` |
 | `vl-cascader` | vijf vaste items | meer items: melden aan de gebruiker |
+| `vl-cascader` | header heeft geen slot (zoekveld onder de titel) | laag `titel` swappen naar `.vl-stacked` |
 | `vl-popover` | geen `content-padding` (code: standaard `1rem`, ook `none`/`small`/`large`); de 10px zit sinds de update in `vl-popover-action-list`, een slot met eigen tekst heeft dus geen padding | padding op de `content`-slot overriden |
 | `vl-breadcrumb` | verborgen restlaag `places-home` (absoluut, achteraan in de slot); code kent geen home-optie | niet gebruiken; `vl-cascader` zet zijn eigen home-icoon vooraan |
 | `.vl-group` | horizontale `--stretch-children` ontbreekt | — |
@@ -22,6 +23,8 @@ Stand 2026-10-29.
 | **Vraagt een beslissing** | | |
 | `vl-alert` | `naked` stapelt titel en boodschap, code zet ze inline | samenvoegen breekt tekst-overrides |
 | `vl-functional-header` | geen `full-width` bij `size=S` | op mobiel functioneel gelijk |
+| `vl-functional-header` | de laag `actions` heeft een lichtblauwe achtergrond; code heeft er geen | fill op `actions` per instance leegmaken |
+| `vl-functional-header` | `variant=full-width`: laag `actions` op vaste hoogte 39px, een `vl-button` loopt eruit | `actions` per instance op Hug |
 | `vl-select-rich` | label en placeholder gaan verloren bij een variantwissel | tekst zit in geneste componenten, een property bovenaan kan er niet aan |
 | `vl-step`, `vl-pill`, `vl-form-message` | variant-assen mengen code-concepten | herstructureren = reconciliatie |
 | `vl-button` | bij `icon-placement=none` gebruikt geen laag de swap `icon`: kies je daar een icoon en zet je daarna de as op `before`/`after`/`only`, dan komt het icoon zonder kleurstijl binnen en toont het `#333332`. De booleans `icon-placement=before`/`after` met `↪︎ icon left`/`right` werken wel | eerst `icon-placement` kiezen, dan het icoon. Fix getest: de verborgen lagen bij `none` aan `icon` koppelen; maar dan worden `↪︎ icon left`/`right` ongebruikt en vallen bestaande keuzes terug op het standaardicoon |
@@ -35,6 +38,7 @@ Stand 2026-10-29.
 | `vl-alert` | titel in `size=small` is een 16px-override, geen stijl | Foundations mist de 16px-stijl |
 | tokens | `color/text/subtle` is vlak, code gebruikt de transparante grijs | remote collectie; lokaal token `--vl-color--text-subtle` als tussenoplossing |
 | typografie | Flanders Art Sans heeft geen Light | `vl-content-header` vraagt 300 |
+| `vl-http-error-message` | bestaat niet in Figma | nabouwen met `vl-title`, `vl-paragraph`, `vl-properties` en `vl-link`, laag `PLACEHOLDER …` |
 | **Code of Code Connect** | | |
 | `vl-functional-header` | `search?` naast de terug-link of tabs; een knop naast de breadcrumb (patroon "met button") | Code Connect mapt enkel `search?` + `breadcrumb` |
 | `vl-info-tile` | `highlight` en `highlight-left` zijn een effect style | Code Connect kan styles niet lezen |
