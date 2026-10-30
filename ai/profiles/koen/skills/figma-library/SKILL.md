@@ -198,6 +198,15 @@ reden waarom hij open is en een werkende omweg.
   als het enkel leest.
 - **Houd de return klein** (ruwweg < 20 KB): een groter resultaat breekt de MCP-respons ("Failed to parse
   SSE message"). Geef geen `componentProperties` van knoppen terug — `preferredValues` is honderden keys.
+  Dezelfde fout krijg je bij tekst met U+2028 (regelscheiding, typisch in annotaties): vertaal zulke
+  tekens naar ASCII vóór je ze teruggeeft. In een regex-literal breekt ` ` het script; gebruik
+  `charCodeAt`.
+- **`findOne`/`findAll` dalen niet af in de slot-inhoud van instances**: loop zelf over `children`.
+- **`resize()` op een auto-layout-frame zet beide assen op `FIXED`**: zet de as die moet meegroeien daarna
+  terug op `HUG`. Een leeg auto-layout-frame houdt 100 px; geef het minstens een spatie als inhoud.
+- **Iets in een slot bouwen:** bouw de boom eerst los (buiten instances) en verplaats dan enkel de
+  bovenste nodes naar de slot; zoek ze daarna opnieuw op voor `layoutSizing`. Een referentie naar een
+  node die net in een slot belandde, is meteen ongeldig.
 
 ## MCP en tooling
 
