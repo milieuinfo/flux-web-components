@@ -687,6 +687,11 @@
             "dv": { "idea": "DS-74", "name": "Table", "status": "Gepubliceerd" }
         }
     },
+    "components-block-tabs": {
+        "evolution": {
+            "vStatus": "v2-replace"
+        }
+    },
     "components-block-tabs-tabs": {
         "name": "tabs",
         "docs": "components-block-tabs-tabs--documentatie",
@@ -698,6 +703,12 @@
             "documentation": "basis",
             "wcag": "n.v.t.",
             "jiraMeta": "FLUX-16"
+        },
+        "evolution": {
+            "vStatus": "v2-replace",
+            "legacyText": "vl-tabs",
+            "nextText": "[vl-tabs-next](/docs/components-block-next-tabs--documentatie)",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#tabs)"
         }
     },
     "components-block-tabs-tabs-pane": {
@@ -711,6 +722,12 @@
             "documentation": "template",
             "wcag": "n.v.t.",
             "jiraMeta": "FLUX-16"
+        },
+        "evolution": {
+            "vStatus": "v2-replace",
+            "legacyText": "vl-tabs-pane",
+            "nextText": "[vl-tab-next en vl-tab-panel-next](/docs/components-block-next-tabs--documentatie)",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#tabs)"
         }
     },
     "components-block-next-tabs": {
