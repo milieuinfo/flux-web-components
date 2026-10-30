@@ -121,12 +121,27 @@ if [[ ${DEVELOP_BRANCH} == true ]];
     cp ./resources/ci-jenkins/release/.releaserc-develop .releaserc
 fi
 
+# de versie in package.json is die van de laatste release: semantic-release past ze enkel aan wanneer het een
+# nieuwe versie maakt (prepareCmd in de .releaserc)
+PREVIOUS_RELEASE_VERSION=$(pnpm pkg get version | sed 's/"//g')
+
 echo "semantic-release - uitvoering"
 pnpm exec semantic-release --no-ci
 
 echo "variabelen bepalen en zetten"
 NEXT_RELEASE_VERSION=$(pnpm pkg get version | sed 's/"//g')
+
+# Geen nieuwe versie: sinds de vorige release zijn er geen relevante commits (bv. enkel chore commits, of een build die
+# opnieuw draait op een commit die al gereleased is). De versie in package.json is dan nog die van de laatste release,
+# en die bestaat al - op een develop branch zou dat bovendien een gewone release-versie in snapshot-npm opleveren.
+if [[ ${NEXT_RELEASE_VERSION} == ${PREVIOUS_RELEASE_VERSION} ]];
+  then
+    echo "semantic-release maakte geen nieuwe versie (versie blijft ${PREVIOUS_RELEASE_VERSION}) - niets te publiceren"
+    exit 0
+fi
 echo using ${NEXT_RELEASE_VERSION} as NEXT_RELEASE_VERSION
+# de Jenkinsfile laat verify-release enkel lopen wanneer dit bestand bestaat
+echo ${NEXT_RELEASE_VERSION} > ./build/release-version
 
 # de feitelijke release actie is afhankelijk van de branch
 # (output streamt live, en set -e breekt af zodra pack of publish faalt)
