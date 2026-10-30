@@ -1,11 +1,11 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=26-15688
-// source=libs/components/src/block/modal/vl-modal.component.ts
+// source=libs/components/src/block/next/modal/vl-modal.component.ts
 // component=VlModalComponent
 // unmapped: variant
-// code-only vl-modal: allow-overflow, focus-on-modal, label, not-auto-closable, open
+// code-only vl-modal-next: allow-overflow, focus-on-modal, label, not-auto-closable, open
 import figma from 'figma';
-import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
-import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
+import { booleanProperty } from '../../../../../../resources/code-connect/boolean-property';
+import { escapeHtml } from '../../../../../../resources/code-connect/escape-html';
 
 const instance = figma.selectedInstance;
 
@@ -33,6 +33,7 @@ const cancellable = booleanProperty(instance, 'cancellable', false);
 // De instance "[Flux] Slot" is een generieke placeholder (geen SLOT-property) en wordt niet gemapt.
 
 // De titel en de tekst zitten in de tekstlagen "↳ Title" en "↳ Text" en hangen niet aan een component-property.
+// De titel is in vl-modal-next het attribuut `title-label`.
 const titleLayer = instance.findText('↳ Title');
 const title = titleLayer && titleLayer.type === 'TEXT' ? escapeHtml(titleLayer.textContent) : '';
 const textLayer = instance.findText('↳ Text');
@@ -51,12 +52,12 @@ if (actionButton && actionButton.type === 'INSTANCE') {
 }
 
 export default {
-    example: figma.code`<vl-modal title="${title}"${size ? ` size="${size}"` : ''}${
+    example: figma.code`<vl-modal-next title-label="${title}"${size ? ` size="${size}"` : ''}${
         position ? ` position="${position}"` : ''
     }${closeButton ? ' closable' : ''}${cancellable ? '' : ' not-cancellable'}>
     <div slot="content">${text}</div>
     ${actionButtonCode ? figma.code`<span slot="button">${actionButtonCode}</span>` : ''}
-</vl-modal>`,
-    id: 'vl-modal',
+</vl-modal-next>`,
+    id: 'vl-modal-next',
     metadata: { nestable: false },
 };
