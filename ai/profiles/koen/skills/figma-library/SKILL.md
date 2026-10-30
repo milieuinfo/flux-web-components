@@ -47,6 +47,8 @@ reden waarom hij open is en een werkende omweg.
   Een nieuwe regel voor een description voeg je toe in flux-mcp (`figma/descriptions/<soort>/<naam>.figma.md`,
   via een PR), niet in Figma: de volgende update overschrijft wat daar met de hand staat.
 - **`vl-functional-header`:** knop of zoekveld naast de breadcrumb: `search?` aan en de laag swappen.
+  Acties rechtsboven (ook een taalkeuze) zijn altijd `vl-button` tertiary, geen `vl-link` of `vl-text` —
+  zoals het Storybook-patroon "met action buttons".
 - **Richtingen heten `horizontal` / `vertical`**, zoals in code (`vl-fieldset`, `Form/Select`,
   `Form/Multiselect`).
 - **`vl-cascader`:** de breadcrumb (boolean `breadcrumb`) is een geneste `vl-breadcrumb`, zoals in code
@@ -137,6 +139,10 @@ reden waarom hij open is en een werkende omweg.
 - **Overridebaar:** `layoutSizing*`, `visible`, `characters`, `fontName`, `fills`, alle component
   properties, ook diep genest. **Niet:** `appendChild`/`remove` (behalve in een SLOT), `constraints`,
   `resize()` op geneste nodes.
+- **Kinderen van een native SLOT zijn wél te resizen** (`layoutSizingHorizontal = 'FIXED'` + `resize()`),
+  geneste instances buiten een slot niet: daar faalt `resize()` stil. `minWidth` is op een instance nooit
+  overridebaar. Een brede tabel die moet overlopen: rijen in de `table`-SLOT op een vaste breedte, en
+  `clipsContent` op die SLOT.
 - **Probeer `layoutSizing` vóór je "vaste maat" concludeert**, en lees de properties van **geneste**
   instances, niet enkel van de root.
 - **Scan een afgewerkt design op ingeklapte instances** (breedte of hoogte < 5px, `.vl-separator` en
