@@ -1,10 +1,10 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=69-1488
-// source=libs/components/src/block/info-tile/vl-info-tile.component.ts
-// component=VlInfoTile
-// code-only vl-info-tile: clickable, clickable-label, full-height, heading-level, highlight, highlight-left
+// source=libs/components/src/block/next/info-tile/vl-info-tile.component.ts
+// component=VlInfoTileComponent
+// code-only vl-info-tile-next: clickable, clickable-label, full-height, heading-level, highlight, highlight-left
 import figma from 'figma';
-import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
-import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
+import { booleanProperty } from '../../../../../../resources/code-connect/boolean-property';
+import { escapeHtml } from '../../../../../../resources/code-connect/escape-html';
 
 const instance = figma.selectedInstance;
 
@@ -51,21 +51,21 @@ const typeValue = instance.getEnum('type', {
 });
 const type = typeof typeValue === 'string' ? typeValue : '';
 // De as `toggleable`: `true` toont de open tile (pijl naar beneden, inhoud zichtbaar), `closed` de dichte. In code
-// staat een toggleable tile standaard dicht; open is `auto-open`. Een dichte tile toont in Figma geen inhoud, dus de
+// staat een toggleable tile standaard dicht; open is `open`. Een dichte tile toont in Figma geen inhoud, dus de
 // content-slot blijft dan leeg.
-const toggle: { toggleable?: boolean; autoOpen?: boolean } =
+const toggle: { toggleable?: boolean; open?: boolean } =
     instance.getEnum('toggleable', {
         false: {},
-        true: { toggleable: true, autoOpen: true },
+        true: { toggleable: true, open: true },
         closed: { toggleable: true },
     }) ?? {};
 const toggleable = toggle.toggleable === true;
-const autoOpen = toggle.autoOpen === true;
+const open = toggle.open === true;
 const icon = booleanProperty(instance, 'icon', false);
 const iconAsBadge = booleanProperty(instance, 'icon-as-badge', false);
 // `icon-as-badge` toont in Figma óók een icoon, terwijl de boolean `icon` dan op false kan staan.
 // In code voegt `icon-as-badge` alleen de badge-styling toe aan het icoon uit het `icon`-attribuut
-// (zie `__processIcon`), dus zonder `icon` rendert er niets. Het attribuut hoort er dus bij zodra
+// (zie `renderIcon`), dus zonder `icon` rendert er niets. Het attribuut hoort er dus bij zodra
 // een van beide booleans aan staat.
 const showsIcon = icon || iconAsBadge;
 const iconName = showsIcon
@@ -75,6 +75,7 @@ const iconName = showsIcon
           .find((name) => name) ?? '')
     : '';
 const footer = booleanProperty(instance, 'footer', false);
+// De Figma-boolean `menu slot` is in code de `actions`-slot.
 const menuSlot = booleanProperty(instance, 'menu slot', false);
 
 // Titel, subtitel en content zitten in de tekstlagen "↳ Title", "↳ Subtitle" en "↳ Content".
@@ -87,16 +88,16 @@ const contentText = instance.findText('↳ Content');
 const content = contentText && contentText.type === 'TEXT' ? escapeHtml(contentText.textContent) : '';
 
 const subtitleSlot = subtitle ? `\n    <span slot="subtitle">${subtitle}</span>` : '';
-const menuSlotHint = menuSlot ? '\n    <div slot="menu"></div>' : '';
+const actionsSlotHint = menuSlot ? '\n    <div slot="actions"></div>' : '';
 const footerSlot = footer ? '\n    <div slot="footer"></div>' : '';
 
 export default {
-    example: figma.code`<vl-info-tile${size ? ` size="${size}"` : ''}${type ? ` type="${type}"` : ''}${
+    example: figma.code`<vl-info-tile-next${size ? ` size="${size}"` : ''}${type ? ` type="${type}"` : ''}${
         variant.center ? ' center' : ''
-    }${toggleable ? ' toggleable' : ''}${autoOpen ? ' auto-open' : ''}${showsIcon ? ` icon="${iconName}"` : ''}${iconAsBadge ? ' icon-as-badge' : ''}>
-    <span slot="title">${title}</span>${subtitleSlot}${menuSlotHint}
+    }${toggleable ? ' toggleable' : ''}${open ? ' open' : ''}${showsIcon ? ` icon="${iconName}"` : ''}${iconAsBadge ? ' icon-as-badge' : ''}>
+    <span slot="trigger">${title}</span>${subtitleSlot}${actionsSlotHint}
     <div slot="content">${content}</div>${footerSlot}
-</vl-info-tile>`,
-    id: 'vl-info-tile',
+</vl-info-tile-next>`,
+    id: 'vl-info-tile-next',
     metadata: { nestable: true },
 };

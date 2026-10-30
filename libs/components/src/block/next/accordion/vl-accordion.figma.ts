@@ -1,18 +1,17 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=146-14883
-// source=libs/components/src/block/accordion/vl-accordion.component.ts
+// source=libs/components/src/block/next/accordion/vl-accordion.component.ts
 // component=VlAccordionComponent
 // unmapped: variant
-// code-only vl-accordion: accordion-dressed, close-toggle-text, content-padding, heading-level
-// code-only vl-accordion: open-toggle-text
+// code-only vl-accordion-next: close-toggle-text, content-padding, heading-level, open-toggle-text
 import figma from 'figma';
-import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
-import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
+import { booleanProperty } from '../../../../../../resources/code-connect/boolean-property';
+import { escapeHtml } from '../../../../../../resources/code-connect/escape-html';
 
 const instance = figma.selectedInstance;
 
 // Bewust niet gemapt:
 // - `variant` (desktop/mobile): responsief gedrag, geen code-equivalent.
-// - De geneste vl-button (menu-icoon) is vaste Figma-inhoud; in code hoort eigen inhoud in het `menu`-slot.
+// - De geneste vl-button (menu-icoon) is vaste Figma-inhoud; in code hoort eigen inhoud in het `actions`-slot.
 
 // De titel zit in de tekstlaag "↳ Titel": rechtstreeks (icon=ja) of binnen de geneste "Accordion toggle"-instance
 // (icon=nee).
@@ -41,16 +40,17 @@ const toggle = instance.findInstance('Accordion toggle');
 const hasToggle = toggle && toggle.type === 'INSTANCE';
 const subtitleSlot =
     hasToggle && booleanProperty(toggle, 'subtitle slot', false) ? '<span slot="subtitle"></span>' : '';
-const menuSlot = hasToggle && booleanProperty(toggle, 'menu slot', false) ? '<span slot="menu"></span>' : '';
-// `open=ja` op die eerste toggle toont de accordion open: in code `default-open`.
-const defaultOpen = hasToggle && String(toggle.getPropertyValue('open')) === 'ja';
+const actionsSlot = hasToggle && booleanProperty(toggle, 'menu slot', false) ? '<span slot="actions"></span>' : '';
+// `open=ja` op die eerste toggle toont de accordion open: in code `open`.
+const open = hasToggle && String(toggle.getPropertyValue('open')) === 'ja';
 
+// De inhoud staat in code in de `content`-slot.
 const slot = instance.getSlot('Slot');
 
 export default {
-    example: figma.code`<vl-accordion toggle-text="${toggleText}"${icon ? ` icon="${icon}"` : ''}${
+    example: figma.code`<vl-accordion-next toggle-text="${toggleText}"${icon ? ` icon="${icon}"` : ''}${
         altBackground ? ' alt-background' : ''
-    }${bold ? ' bold' : ''}${disabled ? ' disabled' : ''}${defaultOpen ? ' default-open' : ''}>${subtitleSlot}${menuSlot}${slot}</vl-accordion>`,
-    id: 'vl-accordion',
+    }${bold ? ' bold' : ''}${disabled ? ' disabled' : ''}${open ? ' open' : ''}>${subtitleSlot}${actionsSlot}<div slot="content">${slot}</div></vl-accordion-next>`,
+    id: 'vl-accordion-next',
     metadata: { nestable: true },
 };
