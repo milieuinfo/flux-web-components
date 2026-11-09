@@ -1,10 +1,11 @@
-import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
+import { BaseLitElement, HeadingLevelController, headingLevelProperty, registerWebComponents } from '@domg-wc/common';
 import { VlIconComponent } from '@domg-wc/components/atom';
 import { vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { html as staticHtml } from 'lit/static-html.js';
 import { AccordionController } from '../next/accordion/vl-accordion.controller';
 import { vlStepFluxStyles } from './vl-step.flux-css';
 
@@ -14,7 +15,7 @@ export class VlStepComponent extends BaseLitElement {
     private type: string | null = null;
     private toggleable = false;
     private defaultOpen = false;
-    private headingLevel: string = '3';
+    headingLevel: string = '3';
     private iconAriaLabel: string = '';
     private timelineAriaLabel: string = '';
     public line = false;
@@ -34,6 +35,7 @@ export class VlStepComponent extends BaseLitElement {
         dispatchEvents: false,
         onChange: (open) => this.handleToggle(open),
     });
+    private heading = new HeadingLevelController(this, '3');
 
     static {
         registerWebComponents([VlIconComponent]);
@@ -48,7 +50,7 @@ export class VlStepComponent extends BaseLitElement {
             type: { type: String, reflect: true },
             toggleable: { type: Boolean, reflect: true },
             defaultOpen: { type: Boolean, attribute: 'default-open', reflect: true },
-            headingLevel: { type: String, attribute: 'heading-level', reflect: true },
+            headingLevel: headingLevelProperty,
             iconAriaLabel: { type: String, attribute: 'icon-aria-label', reflect: true },
             timelineAriaLabel: { type: String, attribute: 'timeline-aria-label', reflect: true },
             open: { type: Boolean, reflect: true, attribute: false },
@@ -206,28 +208,8 @@ export class VlStepComponent extends BaseLitElement {
                 : ''}
         `;
 
-        let headingTemplate: TemplateResult;
-        switch (this.headingLevel) {
-            case '1':
-                headingTemplate = html`<h1 class="vl-step__title">${titleContent}</h1>`;
-                break;
-            case '2':
-                headingTemplate = html`<h2 class="vl-step__title">${titleContent}</h2>`;
-                break;
-            case '4':
-                headingTemplate = html`<h4 class="vl-step__title">${titleContent}</h4>`;
-                break;
-            case '5':
-                headingTemplate = html`<h5 class="vl-step__title">${titleContent}</h5>`;
-                break;
-            case '6':
-                headingTemplate = html`<h6 class="vl-step__title">${titleContent}</h6>`;
-                break;
-            case '3':
-            default:
-                headingTemplate = html`<h3 class="vl-step__title">${titleContent}</h3>`;
-                break;
-        }
+        const tag = this.heading.tag;
+        const headingTemplate = staticHtml`<${tag} class="vl-step__title">${titleContent}</${tag}>`;
 
         return html`
             <div class="vl-step__header__titles">
