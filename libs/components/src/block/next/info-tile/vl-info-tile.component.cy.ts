@@ -25,9 +25,11 @@ const updated = () => cy.get('vl-info-tile-next').then(($el) => ($el[0] as VlInf
 
 describe('cypress-component - block components - vl-info-tile-next', () => {
     it('should render title, subtitle and content', () => {
+        cy.window().then((win) => cy.spy(win.console, 'warn').as('warn'));
         mountInfoTile();
 
         shadow().find('h3.info-tile__title slot[name="trigger"]').should('exist');
+        cy.get('@warn').should('not.have.been.calledWithMatch', /heading-level/);
         shadow().find('[part="subtitle"] slot[name="subtitle"]').should('exist');
         hiddenValue(null);
         trigger().should('not.exist');
@@ -37,6 +39,17 @@ describe('cypress-component - block components - vl-info-tile-next', () => {
         mountInfoTile('heading-level="5"');
 
         shadow().find('h5.info-tile__title').should('exist');
+    });
+
+    it('should fall back to h3 and warn for an invalid heading level', () => {
+        cy.window().then((win) => cy.spy(win.console, 'warn').as('warn'));
+        mountInfoTile('heading-level="7"');
+
+        shadow().find('h3.info-tile__title').should('exist');
+        cy.get('@warn').should(
+            'have.been.calledWithMatch',
+            /^vl-info-tile-next: de waarde "7" van het attribuut "heading-level"/,
+        );
     });
 
     it('should render the toggle button inside the heading of a toggleable info tile', () => {

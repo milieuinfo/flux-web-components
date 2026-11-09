@@ -1,17 +1,23 @@
-import { BaseLitElement, findNodesForSlot, registerWebComponents, webComponent } from '@domg-wc/common';
+import {
+    BaseLitElement,
+    findNodesForSlot,
+    HeadingLevelController,
+    headingLevelProperty,
+    registerWebComponents,
+    webComponent,
+} from '@domg-wc/common';
 import { VlIconComponent } from '@domg-wc/components/atom';
 import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyValues, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { html as staticHtml } from 'lit/static-html.js';
 import { INFO_TILE_SIZE, INFO_TILE_TYPE } from '../../info-tile/vl-info-tile.model';
 import { AccordionController } from '../accordion/vl-accordion.controller';
 import { SlotPresenceController } from './slot-presence.controller';
 import { vlInfoTileStyles } from './vl-info-tile.css';
 import { infoTileDefaults } from './vl-info-tile.defaults';
-
-const HEADING_LEVELS = ['1', '2', '3', '4', '5', '6'];
 
 const SIZE_CLASSES: Record<string, string> = {
     [INFO_TILE_SIZE.MEDIUM]: 'info-tile--m',
@@ -79,7 +85,7 @@ export class VlInfoTileComponent extends BaseLitElement {
     @property({ type: String, reflect: true })
     type = infoTileDefaults.type;
 
-    @property({ type: String, reflect: true, attribute: 'heading-level' })
+    @property(headingLevelProperty)
     headingLevel = infoTileDefaults.headingLevel;
 
     @property({ type: Boolean, reflect: true })
@@ -91,6 +97,7 @@ export class VlInfoTileComponent extends BaseLitElement {
     private accordion = new AccordionController(this, { isToggleable: () => this.toggleable });
 
     private slots = new SlotPresenceController(this);
+    private heading = new HeadingLevelController(this, '3');
 
     static {
         registerWebComponents([VlIconComponent]);
@@ -114,12 +121,6 @@ export class VlInfoTileComponent extends BaseLitElement {
 
     protected willUpdate(changedProperties: PropertyValues): void {
         super.willUpdate(changedProperties);
-
-        if (changedProperties.has('headingLevel') && this.headingLevel && !this.isValidHeadingLevel()) {
-            console.warn(
-                `De waarde "${this.headingLevel}" van het attribuut "heading-level" is ongeldig. Gebruik een waarde tussen 1 en 6.`,
-            );
-        }
 
         if ((changedProperties.has('clickable') || changedProperties.has('clickableLabel')) && this.clickable) {
             if (!this.clickableLabel) {
@@ -249,28 +250,12 @@ export class VlInfoTileComponent extends BaseLitElement {
             ? html`<slot name="title-label"></slot>`
             : nothing}`;
 
-        switch (this.isValidHeadingLevel() ? this.headingLevel : '3') {
-            case '1':
-                return html`<h1 class="info-tile__title">${content}</h1>`;
-            case '2':
-                return html`<h2 class="info-tile__title">${content}</h2>`;
-            case '4':
-                return html`<h4 class="info-tile__title">${content}</h4>`;
-            case '5':
-                return html`<h5 class="info-tile__title">${content}</h5>`;
-            case '6':
-                return html`<h6 class="info-tile__title">${content}</h6>`;
-            default:
-                return html`<h3 class="info-tile__title">${content}</h3>`;
-        }
+        const tag = this.heading.tag;
+        return staticHtml`<${tag} class="info-tile__title">${content}</${tag}>`;
     }
 
     private hasSlot(name: string): boolean {
         return findNodesForSlot(this, name).length > 0;
-    }
-
-    private isValidHeadingLevel(): boolean {
-        return HEADING_LEVELS.includes(this.headingLevel);
     }
 }
 
