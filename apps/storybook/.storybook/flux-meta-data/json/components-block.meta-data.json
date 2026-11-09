@@ -569,7 +569,7 @@
             "documentation": "uitgebreid",
             "wcag": "FLUX-205",
             "jiraMeta": "FLUX-21",
-            "dv": { "idea": "DS-134", "name": "Collapsible (FKA accordion)", "status": "Productie" }
+            "dv": { "idea": "DS-134", "name": "Collapsible (FKA accordion)", "status": "Gepubliceerd" }
         },
         "evolution": {
             "vStatus": "v2-next",
