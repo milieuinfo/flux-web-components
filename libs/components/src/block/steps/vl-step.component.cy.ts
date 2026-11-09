@@ -46,6 +46,7 @@ describe('cypress-component - block components - vl-step - default', () => {
     });
 
     it('should have default heading level h3', () => {
+        cy.window().then((win) => cy.spy(win.console, 'warn').as('warn'));
         cy.mount(html`
             <vl-steps>
                 <vl-step>
@@ -58,6 +59,7 @@ describe('cypress-component - block components - vl-step - default', () => {
         `);
 
         cy.get('vl-step').shadow().find('h3.vl-step__title').should('exist');
+        cy.get('@warn').should('not.have.been.calledWithMatch', /heading-level/);
     });
 
     it('should support custom heading level', () => {
@@ -74,6 +76,38 @@ describe('cypress-component - block components - vl-step - default', () => {
 
         cy.get('vl-step').shadow().find('h2.vl-step__title').should('exist');
         cy.get('vl-step').shadow().find('h3.vl-step__title').should('not.exist');
+    });
+
+    it('should fall back to heading level h3 and warn for an invalid heading level', () => {
+        cy.window().then((win) => cy.spy(win.console, 'warn').as('warn'));
+        cy.mount(html`
+            <vl-steps>
+                <vl-step heading-level="7">
+                    <span slot="icon">1</span>
+                    <span slot="title">Stap 1: eerste actie</span>
+                    <span slot="subtitle">Dit is de eerste subtitel.</span>
+                    <span slot="content">Dit is de eerste stap content.</span>
+                </vl-step>
+            </vl-steps>
+        `);
+
+        cy.get('vl-step').shadow().find('.vl-step__title').should('have.length', 1);
+        cy.get('vl-step').shadow().find('h3.vl-step__title').should('exist');
+
+        cy.get('vl-step').invoke('attr', 'heading-level', '2');
+        cy.get('vl-step').shadow().find('h2.vl-step__title').should('exist');
+
+        cy.get('vl-step').invoke('attr', 'heading-level', 'h2');
+        cy.get('vl-step').shadow().find('h3.vl-step__title').should('exist');
+        cy.get('vl-step').shadow().find('h2.vl-step__title').should('not.exist');
+        cy.get('@warn').should(
+            'have.been.calledWithMatch',
+            /^vl-step: de waarde "7" van het attribuut "heading-level"/,
+        );
+        cy.get('@warn').should(
+            'have.been.calledWithMatch',
+            /^vl-step: de waarde "h2" van het attribuut "heading-level"/,
+        );
     });
 
     it('should support icon aria-label', () => {

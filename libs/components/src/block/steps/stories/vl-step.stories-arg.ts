@@ -49,7 +49,7 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
     },
     headingLevel: {
         name: 'heading-level',
-        description: 'Het heading niveau voor de step titel.',
+        description: 'Het niveau van de heading van de titel, 1 tot 6.<br>Zonder of met een ongeldige waarde: 3.',
         control: { type: CONTROLS.SELECT },
         options: ['1', '2', '3', '4', '5', '6'],
         table: {
