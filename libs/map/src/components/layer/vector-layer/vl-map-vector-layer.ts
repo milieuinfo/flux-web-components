@@ -1,6 +1,7 @@
 import OlVectorLayer from 'ol/layer/Vector';
 import OlStyle from 'ol/style/Style';
 import { getLambert72Code } from '../../../utils/capabilities';
+import { isLambert72And2008, isLambertGridSettled } from '../../../utils/lambert-transformation';
 import { VlMapLayerStyle } from '../../layer-style/vl-map-layer-style';
 import { VlMapLayer } from '../vl-map-layer';
 
@@ -31,6 +32,14 @@ export class VlMapVectorLayer extends VlMapLayer {
 
     get __mapProjectionCode(): string {
         return this.mapElement?._projection?.getCode() || getLambert72Code();
+    }
+
+    protected get __waitsForLambertGrid(): boolean {
+        return (
+            !!this.mapElement?.ntv2Grid &&
+            !isLambertGridSettled() &&
+            isLambert72And2008(this.__layerProjectionCode, this.__mapProjectionCode)
+        );
     }
 
     async connectedCallback(): Promise<void> {

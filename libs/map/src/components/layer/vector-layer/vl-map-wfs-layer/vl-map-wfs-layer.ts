@@ -3,6 +3,7 @@ import OlGML2 from 'ol/format/GML2';
 import * as OlLoadingstrategy from 'ol/loadingstrategy';
 import { transformExtent } from 'ol/proj';
 import OlVectorSource from 'ol/source/Vector';
+import { ensureLambertGrid } from '../../../../utils/lambert-transformation';
 import { VlMapVectorLayer } from '../vl-map-vector-layer';
 
 // De geometry-property in een DescribeFeatureType-schema herken je aan het feit dat zijn type tot de GML-namespace
@@ -20,8 +21,8 @@ export class VlMapWfsLayer extends VlMapVectorLayer {
     private __resolvedGeometryName?: string;
 
     connectedCallback() {
-        if (this.__shouldDetectGeometryName) {
-            return this.__connectAfterGeometryDetection();
+        if (this.__shouldDetectGeometryName || this.__waitsForLambertGrid) {
+            return this.__connectWhenPrepared();
         }
         this._source = this.__createSource();
         this._layer = this._createLayer();
@@ -113,8 +114,18 @@ export class VlMapWfsLayer extends VlMapVectorLayer {
         return !!this.__cqlFilter && !this.getAttribute('geometry-name');
     }
 
-    private async __connectAfterGeometryDetection(): Promise<void> {
-        this.__resolvedGeometryName = await this.__describeGeometryName();
+    // Zonder te wachten op het grid zou de bbox-strategie de eerste extents met Helmert omzetten en latere met het grid.
+    private async __connectWhenPrepared(): Promise<void> {
+        const detectsGeometryName = this.__shouldDetectGeometryName;
+        const [geometryName] = await Promise.all([
+            detectsGeometryName ? this.__describeGeometryName() : undefined,
+            this.__waitsForLambertGrid ? ensureLambertGrid() : undefined,
+        ]);
+        this.__resolvedGeometryName = geometryName;
+        // Een cql-filter dat tijdens het wachten gezet werd, passeerde _cqlFilterChangedCallback zonder source.
+        if (!detectsGeometryName && this.__shouldDetectGeometryName) {
+            this.__resolvedGeometryName = await this.__describeGeometryName();
+        }
         this._source = this.__createSource();
         this._layer = this._createLayer();
         return super.connectedCallback();
