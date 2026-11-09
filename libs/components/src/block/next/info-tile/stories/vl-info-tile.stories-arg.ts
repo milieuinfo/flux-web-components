@@ -147,7 +147,7 @@ export const infoTileArgTypes: ArgTypes<InfoTileArgs> = {
         table: {
             type: { summary: '1 | 2 | 3 | 4 | 5 | 6' },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: infoTileArgs.headingLevel },
+            defaultValue: { summary: '3' },
         },
     },
     highlight: {
