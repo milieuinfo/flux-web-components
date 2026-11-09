@@ -1,7 +1,10 @@
 import Choices from 'choices.js';
-import type { FilterChoicesAction } from 'choices.js/src/scripts/actions/choices';
-import type { ChoiceFull } from 'choices.js/src/scripts/interfaces/choice-full';
-import { SelectRichOption, SelectSearchStrategy } from './vl-select-rich.model';
+import { ChoiceFull, SelectRichOption, SelectSearchStrategy } from './vl-select-rich.model';
+
+type FilterChoicesAction = {
+    type: 'FILTER_CHOICES';
+    results: { item: ChoiceFull; score: number; rank: number }[];
+};
 
 /**
  * Type definitie voor een search matcher functie.

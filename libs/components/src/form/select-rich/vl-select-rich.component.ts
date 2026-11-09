@@ -1,16 +1,15 @@
 import { registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlTextComponent } from '@domg-wc/components/atom';
 import { vlGroupStyles, vlResetStyles, vlStackedStyles } from '@domg-wc/styles';
-import { FormValue } from '@open-wc/form-control/src/types';
+import { FormValue } from '@open-wc/form-control';
 import Choices, { Options } from 'choices.js';
-import { ChoiceFull } from 'choices.js/src/scripts/interfaces/choice-full';
 import { CSSResult, html, nothing, PropertyDeclarations, render, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { FormControl } from '../form-control';
 import { vlSelectRichComponentStyles } from './vl-select-rich.component.css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
-import { SelectRichItemTemplateFn, SelectRichOption } from './vl-select-rich.model';
+import { ChoiceFull, SelectRichItemTemplateFn, SelectRichOption } from './vl-select-rich.model';
 import { getSearchMatcher, searchFields, SelectRichSearchMatcher } from './vl-select-rich.search-matchers';
 
 @webComponent('vl-select-rich')
