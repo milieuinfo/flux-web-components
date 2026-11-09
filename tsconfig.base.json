@@ -63,7 +63,7 @@
             ]
         },
         "target": "es2021",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "sourceMap": true,
         "inlineSources": true,
         "declaration": true,
