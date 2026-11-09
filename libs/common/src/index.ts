@@ -28,6 +28,8 @@ export {
 } from './format/format';
 export { type VL } from './models/vl.model';
 export { GlobalStyles } from './styles/global-styles';
+export { type HeadingLevel } from './util/heading-level';
+export { HeadingLevelController, type HeadingLevelHost, headingLevelProperty } from './util/heading-level.controller';
 export { onChildListChange } from './util/mutation-utils';
 export {
     SKIP_TO_CONTENT_LINK_TEXT,
