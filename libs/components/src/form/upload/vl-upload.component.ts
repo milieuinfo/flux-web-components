@@ -1,8 +1,7 @@
 import { findNodesForSlot, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlIconComponent, vlLinkStyles } from '@domg-wc/components/atom';
 import { vlLayoutStyles, vlResetStyles } from '@domg-wc/styles';
-import { Validator } from '@open-wc/form-control';
-import { FormValue } from '@open-wc/form-control/src/types';
+import { FormValue, Validator } from '@open-wc/form-control';
 import DropzoneImport from 'dropzone';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
