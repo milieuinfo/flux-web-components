@@ -147,10 +147,46 @@ describe('cypress-component - block components - vl-accordion-next', () => {
         cy.get('vl-accordion-next').shadow().find('h2 > button#trigger').should('exist');
     });
 
-    it('should not render a heading without or with an invalid heading level', () => {
+    it('should wrap the trigger in an h3 by default', () => {
+        cy.window().then((win) => cy.spy(win.console, 'warn').as('warn'));
+        mountAccordion();
+
+        cy.get('vl-accordion-next').shadow().find('h3.accordion__heading > button#trigger').should('exist');
+        cy.get('@warn').should('not.have.been.calledWithMatch', /heading-level/);
+    });
+
+    it('should render the heading level when the property is set as a number', () => {
+        cy.window().then((win) => cy.spy(win.console, 'warn').as('warn'));
+        mountAccordion();
+        accordion((component) => {
+            component.headingLevel = 2 as unknown as string;
+        });
+
+        cy.get('vl-accordion-next').should('have.attr', 'heading-level', '2');
+        cy.get('vl-accordion-next').shadow().find('h2.accordion__heading > button#trigger').should('exist');
+        cy.get('@warn').should('not.have.been.calledWithMatch', /heading-level/);
+    });
+
+    it('should fall back to h3 and warn for an invalid heading level', () => {
+        cy.window().then((win) => cy.spy(win.console, 'warn').as('warn'));
         mountAccordion('heading-level="7"');
 
-        cy.get('vl-accordion-next').shadow().find('h1, h2, h3, h4, h5, h6').should('not.exist');
+        cy.get('vl-accordion-next').shadow().find('h3.accordion__heading > button#trigger').should('exist');
+        cy.get('@warn').should(
+            'have.been.calledWithMatch',
+            /^vl-accordion-next: de waarde "7" van het attribuut "heading-level"/,
+        );
+    });
+
+    it('should warn only once for an invalid heading level when the accordion re-renders', () => {
+        cy.window().then((win) => cy.spy(win.console, 'warn').as('warn'));
+        mountAccordion('heading-level="7"');
+
+        trigger().click();
+        trigger().should('have.attr', 'aria-expanded', 'true');
+        trigger().click();
+        trigger().should('have.attr', 'aria-expanded', 'false');
+        cy.get('@warn').should('have.been.calledOnce');
     });
 
     it('should render the trigger, subtitle and actions slots', () => {

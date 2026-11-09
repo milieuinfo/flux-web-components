@@ -1,16 +1,23 @@
-import { BaseLitElement, findNodesForSlot, PADDINGS, registerWebComponents, webComponent } from '@domg-wc/common';
+import {
+    BaseLitElement,
+    findNodesForSlot,
+    HeadingLevelController,
+    headingLevelProperty,
+    PADDINGS,
+    registerWebComponents,
+    webComponent,
+} from '@domg-wc/common';
 import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyValues, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { html as staticHtml } from 'lit/static-html.js';
 import { VlIconComponent } from '@domg-wc/components/atom';
 import { vlAccordionStyles } from './vl-accordion.css';
 import { AccordionController } from './vl-accordion.controller';
 import { accordionDefaults } from './vl-accordion.defaults';
-
-const HEADING_LEVELS = ['1', '2', '3', '4', '5', '6'];
 
 /**
  * Accordion die inhoud toont of verbergt met een toggle-knop.
@@ -19,7 +26,7 @@ const HEADING_LEVELS = ['1', '2', '3', '4', '5', '6'];
  * @property {string} openToggleText - Tekst van de toggle-knop als de accordion gesloten is.
  * @property {string} closeToggleText - Tekst van de toggle-knop als de accordion open is.
  * @property {string} contentPadding - Padding van de inhoud: none, small, medium of large.
- * @property {string} headingLevel - Zet de toggle-knop in een heading van niveau 1 tot 6.
+ * @property {string} headingLevel - Niveau van de heading rond de toggle-knop, 1 tot 6. Standaard 3.
  * @property {string} icon - Icoon voor de tekst van de toggle-knop.
  * @property {boolean} altBackground - Alternatieve achtergrondkleur.
  * @property {boolean} bold - Vetgedrukte tekst in de toggle-knop.
@@ -45,7 +52,7 @@ export class VlAccordionComponent extends BaseLitElement {
     @property({ type: String, reflect: true, attribute: 'content-padding' })
     contentPadding = accordionDefaults.contentPadding;
 
-    @property({ type: String, reflect: true, attribute: 'heading-level' })
+    @property(headingLevelProperty)
     headingLevel = accordionDefaults.headingLevel;
 
     @property({ type: String, reflect: true })
@@ -61,6 +68,7 @@ export class VlAccordionComponent extends BaseLitElement {
     disabled = accordionDefaults.disabled;
 
     private accordion = new AccordionController(this, { isDisabled: () => this.disabled });
+    private heading = new HeadingLevelController(this, '3');
 
     static {
         registerWebComponents([VlIconComponent]);
@@ -87,12 +95,6 @@ export class VlAccordionComponent extends BaseLitElement {
 
         if (this.disabled && this.open) {
             this.open = false;
-        }
-
-        if (changedProperties.has('headingLevel') && this.headingLevel && !this.isValidHeadingLevel()) {
-            console.warn(
-                `De waarde "${this.headingLevel}" van het attribuut "heading-level" is ongeldig. Gebruik een waarde tussen 1 en 6.`,
-            );
         }
     }
 
@@ -163,28 +165,8 @@ export class VlAccordionComponent extends BaseLitElement {
     }
 
     private renderHeading(content: TemplateResult): TemplateResult {
-        if (!this.isValidHeadingLevel()) {
-            return content;
-        }
-
-        switch (this.headingLevel) {
-            case '1':
-                return html`<h1 class="accordion__heading">${content}</h1>`;
-            case '2':
-                return html`<h2 class="accordion__heading">${content}</h2>`;
-            case '3':
-                return html`<h3 class="accordion__heading">${content}</h3>`;
-            case '4':
-                return html`<h4 class="accordion__heading">${content}</h4>`;
-            case '5':
-                return html`<h5 class="accordion__heading">${content}</h5>`;
-            default:
-                return html`<h6 class="accordion__heading">${content}</h6>`;
-        }
-    }
-
-    private isValidHeadingLevel(): boolean {
-        return HEADING_LEVELS.includes(this.headingLevel);
+        const tag = this.heading.tag;
+        return staticHtml`<${tag} class="accordion__heading">${content}</${tag}>`;
     }
 
     private getTriggerText(expanded: boolean): string {

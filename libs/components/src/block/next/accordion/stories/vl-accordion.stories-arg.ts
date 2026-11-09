@@ -88,13 +88,13 @@ export const accordionArgTypes: ArgTypes<AccordionArgs> = {
     headingLevel: {
         name: 'heading-level',
         description:
-            'Zet de toggle-knop in een heading van niveau 1 tot 6.<br>Zonder of met een ongeldige waarde staat de knop niet in een heading.',
+            'Het niveau van de heading rond de toggle-knop, 1 tot 6.<br>Zonder of met een ongeldige waarde: 3.',
         control: { type: CONTROLS.SELECT },
         options: ['', '1', '2', '3', '4', '5', '6'],
         table: {
             type: { summary: '1 | 2 | 3 | 4 | 5 | 6' },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: accordionArgs.headingLevel },
+            defaultValue: { summary: '3' },
         },
     },
     icon: {

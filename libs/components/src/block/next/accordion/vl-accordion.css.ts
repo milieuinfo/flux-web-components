@@ -15,6 +15,7 @@ export const vlAccordionStyles: CSSResult = css`
     }
 
     .accordion__heading {
+        display: flex;
         flex: 1;
     }
 
