@@ -15,6 +15,12 @@ import { VlMapWfsLayer } from './components/layer/vector-layer/vl-map-wfs-layer/
 import { VlMapLayer } from './components/layer/vl-map-layer';
 import { VlMapWmsLayer } from './components/layer/wms-layer/vl-map-wms-layer';
 import { getLambert2008Code, getLambert2008Extent, getLambert72Code, getLambert72Extent } from './utils/capabilities';
+import {
+    getLambertTransformation,
+    LAMBERT2008_DEFINITION,
+    LAMBERT72_DEFINITION,
+    type LambertTransformation,
+} from './utils/lambert-transformation';
 import { OpenLayersUtil } from './utils/ol-util';
 import { vlMapFluxStyles } from './vl-map.flux-css';
 import { EVENT } from './vl-map.model';
@@ -195,6 +201,23 @@ export class VlMap extends BaseHTMLElement {
      */
     get isLambert2008() {
         return this.hasAttribute('lambert2008');
+    }
+
+    /**
+     * Laat vector kaartlagen Lambert 72 (EPSG:31370) en Lambert 2008 (EPSG:3812) omzetten met het officiële NTv2-grid
+     * (± 1 cm) in plaats van met de Helmert-transformatie (tot ± 33 cm). Het grid wordt pas opgehaald als een laag het
+     * nodig heeft.
+     */
+    get ntv2Grid(): boolean {
+        return this.hasAttribute('ntv2-grid');
+    }
+
+    /**
+     * Geeft terug waarmee Lambert 72 en Lambert 2008 op deze pagina omgezet worden: `ntv2` zodra het NTv2-grid geladen is,
+     * anders `helmert`.
+     */
+    get lambertTransformation(): LambertTransformation {
+        return getLambertTransformation();
     }
 
     get _code() {
@@ -512,16 +535,8 @@ export class VlMap extends BaseHTMLElement {
     }
 
     __initializeCoordinateSystem() {
-        // Lambert 78
-        proj4.defs(
-            'EPSG:31370',
-            '+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.869,52.2978,-103.724,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs'
-        );
-        // Lambert 2008
-        proj4.defs(
-            'EPSG:3812',
-            '+proj=lcc +lat_0=50.797815 +lon_0=4.35921583333333 +lat_1=49.8333333333333 +lat_2=51.1666666666667 +x_0=649328 +y_0=665262 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs'
-        );
+        proj4.defs('EPSG:31370', LAMBERT72_DEFINITION);
+        proj4.defs('EPSG:3812', LAMBERT2008_DEFINITION);
         register(proj4);
     }
 

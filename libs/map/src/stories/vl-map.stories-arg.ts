@@ -22,7 +22,9 @@ export const mapArgs = {
     hideScale: false,
     fullHeight: false,
     lambert2008: false,
+    lambertTransformation: 'helmert',
     noBorder: false,
+    ntv2Grid: false,
     scalePosition: SCALE_POSITION.BOTTOM_LEFT,
     activeActionChange: action(EVENT.ACTIVE_ACTION_CHANGED),
     layerVisibleChange: action(EVENT.LAYER_VISIBLE_CHANGED),
@@ -126,6 +128,17 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
             defaultValue: { summary: String(mapArgs.lambert2008) },
         },
     },
+    lambertTransformation: {
+        name: 'lambertTransformation',
+        description:
+            'Read-only. Geeft `ntv2` zodra het NTv2-grid op de pagina geladen is, anders `helmert`. Zie het attribuut `ntv2-grid`.',
+        control: false,
+        table: {
+            type: { summary: "'helmert' | 'ntv2'" },
+            category: CATEGORIES.PROPERTIES,
+            defaultValue: { summary: mapArgs.lambertTransformation },
+        },
+    },
     noBorder: {
         name: 'no-border',
         description: 'De border rond de map wordt niet afgebeeld.',
@@ -133,6 +146,16 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(mapArgs.noBorder) },
+        },
+    },
+    ntv2Grid: {
+        name: 'ntv2-grid',
+        description:
+            'Vector kaartlagen zetten Lambert 72 (EPSG:31370) en Lambert 2008 (EPSG:3812) om met het officiële NTv2-grid (± 1 cm) in plaats van met de Helmert-transformatie (tot ± 33 cm). Het grid wordt pas van de CDN opgehaald als een kaartlaag het nodig heeft.<br>Zie de docs pagina voor de CDN-URL en het page-globale gedrag.<br>Dit attribuut is niet reactief.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(mapArgs.ntv2Grid) },
         },
     },
     scalePosition: {
