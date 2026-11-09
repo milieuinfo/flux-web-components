@@ -44,7 +44,7 @@
             "documentation": "uitgebreid",
             "wcag": "FLUX-208",
             "jiraMeta": "FLUX-200",
-            "dv": { "idea": "DS-146", "name": "Dynamic Select", "status": "Discovery" }
+            "dv": { "idea": "DS-146", "name": "Dynamic Select", "status": "Productie" }
         }
     },
     "components-block-badge": {
@@ -828,7 +828,7 @@
             "documentation": "uitgebreid",
             "wcag": "reviewed",
             "jiraMeta": "FLUX-297",
-            "dv": { "idea": "DS-114", "name": "Typography/WYSIWYG", "status": "Discovery" }
+            "dv": { "idea": "DS-114", "name": "Typography/WYSIWYG", "status": "Productie" }
         }
     },
     "components-block-upload-progress": {

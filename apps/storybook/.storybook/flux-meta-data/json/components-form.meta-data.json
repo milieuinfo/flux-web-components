@@ -147,7 +147,7 @@
             "documentation": "uitgebreid",
             "wcag": "FLUX-188",
             "jiraMeta": "FLUX-86",
-            "dv": { "idea": "DS-146", "name": "Dynamic Select", "status": "Discovery" }
+            "dv": { "idea": "DS-146", "name": "Dynamic Select", "status": "Productie" }
         }
     },
     "components-form-textarea": {

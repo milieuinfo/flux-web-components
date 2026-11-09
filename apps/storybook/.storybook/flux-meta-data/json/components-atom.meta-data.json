@@ -158,7 +158,7 @@
             "documentation": "uitgebreid",
             "wcag": "reviewed",
             "jiraMeta": "FLUX-280",
-            "dv": { "idea": "DS-121", "name": "Headings - titles", "status": "Discovery" }
+            "dv": { "idea": "DS-121", "name": "Headings - titles", "status": "Productie" }
         }
     }
 }
