@@ -51,6 +51,17 @@ export const searchFilterStyles: CSSResult = css`
                 font-size: 2.6rem;
                 margin: 0;
             }
+            vl-button {
+                margin-left: auto;
+            }
+        }
+    }
+
+    /* mobileModal volgt de breedte van body, zonder padding en scrollbar; de layout volgt de viewport. In de band
+       ertussen staat de filter in de desktoplayout, en daar hoort geen sluitknop. */
+    @media screen and (min-width: 768px) {
+        #close-mobile-modal-button {
+            display: none;
         }
     }
 `;

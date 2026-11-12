@@ -241,6 +241,31 @@ describe('cypress-component - block components - vl-rich-data-table - mobile fil
 
         cy.get('vl-rich-data-table').shadow().find('#open-filter').should('have.attr', 'hidden');
     });
+
+    it('should expose the mobile filter button as a dialog trigger without aria-expanded', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+
+        cy.get('vl-rich-data-table')
+            .shadow()
+            .find('#open-toggle-filter-button')
+            .shadow()
+            .find('button')
+            .should('have.attr', 'aria-haspopup', 'dialog')
+            .and('not.have.attr', 'aria-expanded');
+    });
+
+    it('should close the opened mobile filter with its close button', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+
+        cy.get('vl-rich-data-table').shadow().find('#open-toggle-filter-button').click({ force: true });
+        cy.get('vl-search-filter').should('have.attr', 'aria-modal', 'true');
+        cy.get('vl-search-filter').shadow().find('#close-mobile-modal-button').click();
+
+        cy.get('vl-search-filter').should('have.attr', 'hidden');
+        cy.get('vl-search-filter').should('not.have.attr', 'aria-modal');
+    });
 });
 
 // ============================================================
