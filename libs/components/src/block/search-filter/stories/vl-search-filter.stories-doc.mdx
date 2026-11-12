@@ -36,3 +36,14 @@ import { VlSearchFilterComponent } from '@domg-wc/components/block';
 ## Configuratie
 
 <ArgTypes of={VlSearchFilterStories.SearchFilterDefault}/>
+
+
+## Toegankelijkheid
+
+### Gedrag
+
+Op een klein scherm (`mobile-modal`) toont de zoekfilter zich over het volledige scherm. Met `mobile-modal-closable`
+staat naast de titel een knop "Filter sluiten"; die verbergt de zoekfilter en vuurt `vl-close` af. In een
+`vl-rich-data` hoef je daar niets voor te doen: die zet het attribuut zelf, maakt van de filter een modale dialoog en
+zet de focus na het sluiten terug op de filterknop (zie "Toegankelijkheid" bij
+[Rich Data](?path=/docs/components-block-rich-data--documentatie#toegankelijkheid)).

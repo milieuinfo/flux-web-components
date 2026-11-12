@@ -41,6 +41,41 @@ describe('cypress-component - block components - vl-search-filter', () => {
         cy.checkA11y('vl-search-filter');
     });
 
+    it('should render a close button on mobile with mobile-modal-closable', () => {
+        cy.viewport('iphone-6');
+        cy.injectAxe();
+        cy.mount(html` <vl-search-filter filter-title="Filter title" mobile-modal-closable></vl-search-filter>`);
+        const onClose = cy.stub().as('close');
+        cy.get('vl-search-filter').then(([searchFilter]) => searchFilter.addEventListener('vl-close', onClose));
+
+        cy.get('vl-search-filter')
+            .shadow()
+            .find('.vl-search-filter--header-modal #close-mobile-modal-button')
+            .shadow()
+            .find('button')
+            .should('have.attr', 'aria-label', 'Filter sluiten');
+        cy.checkA11y('vl-search-filter');
+
+        cy.get('vl-search-filter').shadow().find('#close-mobile-modal-button').click();
+
+        cy.get('vl-search-filter').should('have.attr', 'hidden');
+        cy.get('@close').should('have.been.calledOnce');
+    });
+
+    it('should not render a close button on mobile without mobile-modal-closable', () => {
+        cy.viewport('iphone-6');
+        cy.mount(html` <vl-search-filter filter-title="Filter title"></vl-search-filter>`);
+        cy.get('vl-search-filter').shadow().find('.vl-search-filter--header-modal');
+        cy.get('vl-search-filter').shadow().find('#close-mobile-modal-button').should('not.exist');
+    });
+
+    it('should not render a close button on desktop with mobile-modal-closable', () => {
+        cy.viewport('macbook-15');
+        cy.mount(html` <vl-search-filter filter-title="Filter title" mobile-modal-closable></vl-search-filter>`);
+        cy.get('vl-search-filter').shadow().find('.vl-search-filter--intro');
+        cy.get('vl-search-filter').shadow().find('#close-mobile-modal-button').should('not.exist');
+    });
+
     it('should render the filter title on desktop', () => {
         cy.viewport('macbook-15');
         cy.mount(html` <vl-search-filter filter-title="Filter title"></vl-search-filter>`);
