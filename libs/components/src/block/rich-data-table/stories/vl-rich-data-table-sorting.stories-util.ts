@@ -23,7 +23,7 @@ export const sortingRichTableImplementation = () => {
                     sorting,
                 };
             } else {
-                table.data = originalTableData;
+                table.data = { data: [...originalTableData] };
             }
         };
     };
