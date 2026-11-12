@@ -263,6 +263,236 @@ describe('cypress-component - block components - vl-rich-data - mobile filter be
         cy.get('vl-rich-data').shadow().find('#search').should('not.have.attr', 'hidden');
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
     });
+
+    const mobileFilterButton = () =>
+        cy.get('vl-rich-data').shadow().find('#open-toggle-filter-button').shadow().find('button');
+
+    it('should expose the mobile filter button as a dialog trigger without aria-expanded', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+
+        mobileFilterButton().should('have.attr', 'aria-haspopup', 'dialog').and('not.have.attr', 'aria-expanded');
+
+        cy.get('vl-rich-data').shadow().find('#open-toggle-filter-button').click({ force: true });
+        cy.get('vl-search-filter').should('not.have.attr', 'hidden');
+        mobileFilterButton().should('have.attr', 'aria-haspopup', 'dialog').and('not.have.attr', 'aria-expanded');
+
+        cy.get('vl-search-filter').find('form').submit();
+        cy.get('vl-search-filter').should('have.attr', 'hidden');
+        mobileFilterButton().should('have.attr', 'aria-haspopup', 'dialog').and('not.have.attr', 'aria-expanded');
+
+        cy.get('vl-rich-data').shadow().find('#open-toggle-filter-button').click({ force: true });
+        cy.get('#filterInput').shadow().find('input').type('{esc}', { force: true });
+        cy.get('vl-search-filter').should('have.attr', 'hidden');
+        mobileFilterButton().should('have.attr', 'aria-haspopup', 'dialog').and('not.have.attr', 'aria-expanded');
+    });
+
+    it('should expose the opened mobile filter as a named dialog', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+        cy.injectAxe();
+
+        cy.get('vl-rich-data').shadow().find('#open-toggle-filter-button').click({ force: true });
+        cy.get('vl-search-filter').should('have.attr', 'role', 'dialog').and('have.attr', 'aria-label', 'Filter');
+        cy.checkA11y('vl-rich-data');
+
+        cy.get('#filterInput').shadow().find('input').type('{esc}', { force: true });
+        cy.get('vl-search-filter').should('have.attr', 'hidden');
+        cy.get('vl-search-filter').invoke('attr', 'mobile-modal-title', 'Filteren');
+        cy.get('vl-rich-data').shadow().find('#open-toggle-filter-button').click({ force: true });
+        cy.get('vl-search-filter').should('have.attr', 'role', 'dialog').and('have.attr', 'aria-label', 'Filteren');
+    });
+
+    it('should remove the dialog role when resizing back to desktop', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+
+        cy.get('vl-rich-data').shadow().find('#open-toggle-filter-button').click({ force: true });
+        cy.get('vl-search-filter').should('have.attr', 'role', 'dialog');
+
+        // Enkel de resize-handler van vl-rich-data: een echte viewportwissel na het openen laat de renderer van
+        // Cypress crashen, ook zonder deze wijziging (ResizeObserver van vl-search-filter).
+        cy.window().then((win) => {
+            cy.stub(win, 'innerWidth').value(1280);
+            win.dispatchEvent(new Event('resize'));
+        });
+
+        cy.get('vl-search-filter').should('not.have.attr', 'role');
+        cy.get('vl-search-filter').should('not.have.attr', 'aria-label');
+    });
+
+    const mountWithOwnFilterSemantics = () => {
+        cy.mount(html`
+            <vl-rich-data>
+                <vl-search-filter slot="filter" role="search" aria-label="Projecten filteren">
+                    <form>
+                        <vl-input-field id="filterInput" type="text" name="id" block></vl-input-field>
+                        <footer>
+                            <vl-button type="submit">Zoeken</vl-button>
+                        </footer>
+                    </form>
+                </vl-search-filter>
+                <div slot="content">Content</div>
+            </vl-rich-data>
+        `);
+    };
+
+    const resizeToDesktop = () =>
+        cy.window().then((win) => {
+            cy.stub(win, 'innerWidth').value(1280);
+            win.dispatchEvent(new Event('resize'));
+        });
+
+    it('should keep the own role and aria-label of the filter when resizing on desktop', () => {
+        cy.viewport(1280, 800);
+        mountWithOwnFilterSemantics();
+
+        cy.window().then((win) => win.dispatchEvent(new Event('resize')));
+
+        cy.get('vl-search-filter').should('have.attr', 'role', 'search');
+        cy.get('vl-search-filter').should('have.attr', 'aria-label', 'Projecten filteren');
+    });
+
+    it('should restore the own role and aria-label of the filter after the mobile dialog', () => {
+        cy.viewport(375, 667);
+        mountWithOwnFilterSemantics();
+
+        cy.get('vl-rich-data').shadow().find('#open-toggle-filter-button').click({ force: true });
+        cy.get('vl-search-filter').should('have.attr', 'role', 'dialog').and('have.attr', 'aria-label', 'Filter');
+
+        resizeToDesktop();
+
+        cy.get('vl-search-filter').should('have.attr', 'role', 'search');
+        cy.get('vl-search-filter').should('have.attr', 'aria-label', 'Projecten filteren');
+    });
+
+    // document.activeElement stopt aan de eerste shadow host
+    const deepActiveElement = () =>
+        cy.document().then((document) => {
+            let active = document.activeElement;
+            while (active?.shadowRoot?.activeElement) {
+                active = active.shadowRoot.activeElement;
+            }
+            return Cypress.$(active ?? []);
+        });
+
+    const hostIdOfFocusedElement = () =>
+        cy.document().then((document) => {
+            let active = document.activeElement;
+            while (active?.shadowRoot?.activeElement) {
+                active = active.shadowRoot.activeElement;
+            }
+            return (active?.getRootNode() as ShadowRoot).host?.id;
+        });
+
+    const closeButton = () => cy.get('vl-search-filter').shadow().find('#close-mobile-modal-button');
+    const openMobileFilter = () => {
+        cy.get('vl-rich-data').shadow().find('#open-toggle-filter-button').click({ force: true });
+        cy.get('vl-search-filter').should('not.have.attr', 'hidden');
+    };
+
+    it('should expose the opened mobile filter as a modal dialog only while it is open', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+
+        cy.get('vl-search-filter').should('not.have.attr', 'aria-modal');
+        openMobileFilter();
+        cy.get('vl-search-filter').should('have.attr', 'aria-modal', 'true');
+
+        cy.get('#filterInput').shadow().find('input').type('{esc}', { force: true });
+        cy.get('vl-search-filter').should('have.attr', 'hidden');
+        cy.get('vl-search-filter').should('not.have.attr', 'aria-modal');
+
+        openMobileFilter();
+        cy.get('vl-search-filter').should('have.attr', 'aria-modal', 'true');
+        cy.get('vl-search-filter').find('form').submit();
+        cy.get('vl-search-filter').should('have.attr', 'hidden');
+        cy.get('vl-search-filter').should('not.have.attr', 'aria-modal');
+    });
+
+    it('should move the focus from the last element to the close button with Tab in the mobile filter', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+        openMobileFilter();
+
+        cy.get('vl-search-filter vl-button[type="reset"]').shadow().find('button').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        hostIdOfFocusedElement().should('equal', 'close-mobile-modal-button');
+    });
+
+    it('should move the focus from the close button to the last element with Shift+Tab in the mobile filter', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+        openMobileFilter();
+
+        closeButton().shadow().find('button').focus();
+        // cy.press kent geen Shift; een keydown met shiftKey volstaat voor de trap, die de focus zelf verplaatst
+        deepActiveElement().then(([active]) => {
+            active?.dispatchEvent(
+                new KeyboardEvent('keydown', {
+                    key: 'Tab',
+                    shiftKey: true,
+                    bubbles: true,
+                    composed: true,
+                    cancelable: true,
+                })
+            );
+        });
+
+        deepActiveElement().should(([active]) => {
+            expect((active?.getRootNode() as ShadowRoot).host?.getAttribute('type')).to.equal('reset');
+        });
+    });
+
+    it('should close the mobile filter with the close button and return the focus to the filter button', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+        cy.injectAxe();
+        openMobileFilter();
+
+        closeButton().shadow().find('button').should('have.attr', 'aria-label', 'Filter sluiten');
+        cy.checkA11y('vl-rich-data');
+        closeButton().click();
+
+        cy.get('vl-search-filter').should('have.attr', 'hidden');
+        cy.get('vl-search-filter').should('not.have.attr', 'aria-modal');
+        cy.get('vl-rich-data').should('have.attr', 'filter-closed');
+        hostIdOfFocusedElement().should('equal', 'open-toggle-filter-button');
+    });
+
+    it('should close the mobile filter with Escape on the close button', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+        openMobileFilter();
+
+        closeButton().shadow().find('button').focus();
+        cy.press(Cypress.Keyboard.Keys.ESC);
+
+        cy.get('vl-search-filter').should('have.attr', 'hidden');
+        hostIdOfFocusedElement().should('equal', 'open-toggle-filter-button');
+    });
+
+    it('should not show a close button in the filter on desktop', () => {
+        cy.viewport(1280, 800);
+        mountWithFilter(true);
+
+        cy.get('vl-search-filter').should('not.have.attr', 'hidden');
+        closeButton().should('not.exist');
+        cy.get('vl-search-filter').should('not.have.attr', 'aria-modal');
+    });
+
+    it('should keep aria-expanded on the desktop toggle button', () => {
+        cy.viewport(1280, 800);
+        mountWithFilter(true);
+
+        const toggleButton = () =>
+            cy.get('vl-rich-data').shadow().find('#toggle-filter-button').shadow().find('button');
+
+        toggleButton().should('have.attr', 'aria-expanded', 'true').and('not.have.attr', 'aria-haspopup');
+        cy.get('vl-rich-data').shadow().find('#toggle-filter-button').click();
+        toggleButton().should('have.attr', 'aria-expanded', 'false').and('not.have.attr', 'aria-haspopup');
+    });
 });
 
 describe('cypress-component - block components - vl-rich-data - with vl-select', () => {

@@ -24,6 +24,8 @@ export type RichData<T = unknown> = { data: T[] } & RichDataMeta;
 const resultsTextMultiple = 'We vonden <strong>[x] resultaten</strong>';
 const resultsTextSingle = 'We vonden <strong>1 resultaat</strong>';
 const resultsTextNone = 'We vonden <strong>geen resultaten</strong>';
+const tabbableSelector =
+    'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]';
 
 @webComponent('vl-rich-data')
 export class VlRichData extends BaseHTMLElement {
@@ -45,7 +47,7 @@ export class VlRichData extends BaseHTMLElement {
                 </div>
                 <div id="open-filter" class="vl-u-align-right">
                     <vl-button id="open-toggle-filter-button" icon="content-filter"
-                     secondary narrow label="Filteren" aria-controls="filter-slot-container" aria-expanded="false">
+                     secondary narrow label="Filteren" aria-haspopup="dialog">
                         <slot name="toggle-filter-button-text">Filter</slot>
                     </vl-button>
                 </div>
@@ -112,6 +114,9 @@ export class VlRichData extends BaseHTMLElement {
     }
 
     protected _data: RichData | undefined;
+
+    // De eigen role, aria-label en aria-modal van de filter, bewaard zolang vl-rich-data er de dialoog van maakt.
+    private __filterSemantics: { role: string | null; ariaLabel: string | null; ariaModal: string | null } | undefined;
 
     /**
      * Geeft de data terug die in de tabel wordt getoond. De actieve pagina komt
@@ -283,6 +288,8 @@ export class VlRichData extends BaseHTMLElement {
             ) {
                 this.__filterSlotContainer.appendChild(this.__filterSlot);
             }
+            // Inline is de filter geen dialoog meer: zet terug wat de afnemer er zelf op zette.
+            this.__restoreFilterSemantics();
 
             if (!this.hasAttribute('filter-closable')) {
                 this.removeAttribute('filter-closed');
@@ -384,6 +391,18 @@ export class VlRichData extends BaseHTMLElement {
             this.__hideHiddenInModalElements();
             if (this.__searchFilter instanceof VlSearchFilterComponent) {
                 this.__searchFilter.removeAttribute('hidden');
+                // Op mobiel opent de knop de filter als volledig-scherm dialoog (aria-haspopup="dialog" op de knop).
+                // De naam volgt de titel van vl-search-filter; aria-labelledby kan niet over de shadow-grens.
+                if (!this.__filterSemantics) {
+                    this.__filterSemantics = {
+                        role: this.__searchFilter.getAttribute('role'),
+                        ariaLabel: this.__searchFilter.getAttribute('aria-label'),
+                        ariaModal: this.__searchFilter.getAttribute('aria-modal'),
+                    };
+                }
+                this.__searchFilter.setAttribute('role', 'dialog');
+                this.__searchFilter.setAttribute('aria-modal', 'true');
+                this.__searchFilter.setAttribute('aria-label', this.__searchFilter.mobileModalHeading);
                 requestAnimationFrame(() => {
                     if (this.__searchFilterForm) {
                         const selector =
@@ -398,6 +417,76 @@ export class VlRichData extends BaseHTMLElement {
                 });
             }
         });
+    }
+
+    __restoreFilterSemantics() {
+        if (!this.__filterSemantics || !this.__searchFilter) {
+            return;
+        }
+        const { role, ariaLabel, ariaModal } = this.__filterSemantics;
+        this.__restoreAttribute(this.__searchFilter, 'role', role);
+        this.__restoreAttribute(this.__searchFilter, 'aria-label', ariaLabel);
+        this.__restoreAttribute(this.__searchFilter, 'aria-modal', ariaModal);
+        this.__filterSemantics = undefined;
+    }
+
+    // De open mobiele dialoog houdt de toetsenbordfocus vast: Tab en Shift+Tab lopen rond binnen de filter.
+    __onFilterKeydown = (event: KeyboardEvent) => {
+        if (!this.__filterSemantics || event.key !== 'Tab' || !this.__searchFilter) {
+            return;
+        }
+        const tabbables = this.__getTabbables(this.__searchFilter);
+        if (tabbables.length === 0) {
+            return;
+        }
+        const first = tabbables[0];
+        const last = tabbables[tabbables.length - 1];
+        const current = event.composedPath()[0];
+        if (event.shiftKey && current === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && current === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    };
+
+    // De zichtbare, focusbare elementen in tabvolgorde, ook in shadow roots en slots.
+    __getTabbables(root: Element): HTMLElement[] {
+        const tabbables: HTMLElement[] = [];
+        const visit = (element: Element) => {
+            if (
+                element instanceof HTMLElement &&
+                element.matches(tabbableSelector) &&
+                element.tabIndex >= 0 &&
+                element.getClientRects().length > 0
+            ) {
+                tabbables.push(element);
+            }
+            if (element.shadowRoot) {
+                [...element.shadowRoot.children].forEach(visit);
+            } else if (element instanceof HTMLSlotElement) {
+                element.assignedElements({ flatten: true }).forEach(visit);
+            } else {
+                [...element.children].forEach(visit);
+            }
+        };
+        visit(root);
+        return tabbables;
+    }
+
+    // De sluitknop van vl-search-filter sluit de dialoog zoals Escape.
+    __onCloseFilter = () => {
+        this.setAttribute('filter-closed', '');
+        this.__hideSearchColumn();
+    };
+
+    __restoreAttribute(element: HTMLElement, name: string, value: string | null) {
+        if (value == null) {
+            element.removeAttribute(name);
+        } else {
+            element.setAttribute(name, value);
+        }
     }
 
     __showHiddenInModalElements() {
@@ -441,6 +530,10 @@ export class VlRichData extends BaseHTMLElement {
     __processSearchFilter(): void {
         if (this.__searchFilter) {
             this.__searchFilter.setAttribute('alt', '');
+            if (this.__searchFilter instanceof VlSearchFilterComponent) {
+                // Enkel zichtbaar in de volledig-scherm weergave op mobiel.
+                this.__searchFilter.setAttribute('mobile-modal-closable', '');
+            }
             this.__searchColumn?.classList.add('vl-u-hidden--s');
             this.__filterOpenContainer!.hidden = false;
 
@@ -494,11 +587,10 @@ export class VlRichData extends BaseHTMLElement {
         this.__searchColumn!.hidden = true;
         this.__filterToggleButton?.setAttribute('aria-expanded', 'false');
         this.__filterToggleButton?.setAttribute('aria-controls', 'filter-slot-container');
-        this.__filterOpenButton?.setAttribute('aria-expanded', 'false');
-        this.__filterOpenButton?.setAttribute('aria-controls', 'filter-slot-container');
         this.__filterToggleButtonTextSlot!.hidden = false;
         this.__filterCloseButtonTextSlot!.hidden = true;
         this.__searchColumn!.removeEventListener('keyup', this.__onEscapeFilter);
+        this.__restoreFilterSemantics();
 
         if (window.innerWidth > vlMediaScreenSmall) {
             this.__filterToggleButton?.shadowRoot?.querySelector('button')?.focus();
@@ -529,8 +621,6 @@ export class VlRichData extends BaseHTMLElement {
         this.__searchColumn!.addEventListener('keyup', this.__onEscapeFilter);
         this.__filterToggleButton?.setAttribute('aria-expanded', 'true');
         this.__filterToggleButton?.setAttribute('aria-controls', 'filter-slot-container');
-        this.__filterOpenButton?.setAttribute('aria-expanded', 'true');
-        this.__filterOpenButton?.setAttribute('aria-controls', 'filter-slot-container');
         this.__filterToggleButtonTextSlot!.hidden = true;
         this.__filterCloseButtonTextSlot!.hidden = false;
     }
@@ -570,6 +660,10 @@ export class VlRichData extends BaseHTMLElement {
     __addSearchFilterEventListeners() {
         this.__searchFilter?.addEventListener('vl-change', this.stopPropagationPreventDefault);
         this.__searchFilter?.addEventListener('vl-input', this.__onFilterFieldChanged);
+        // Op de host en niet op het formulier: zo sluit Escape ook vanaf de sluitknop in de shadow DOM.
+        this.__searchFilter?.addEventListener('keyup', this.__onEscapeFilter);
+        this.__searchFilter?.addEventListener('keydown', this.__onFilterKeydown);
+        this.__searchFilter?.addEventListener('vl-close', this.__onCloseFilter);
 
         if (this.__searchFilterForm) {
             this.__searchFilterForm.addEventListener('reset', (e: any) => {
@@ -577,9 +671,9 @@ export class VlRichData extends BaseHTMLElement {
                     this.__onFilterFieldChanged(e);
                 });
             });
-            this.__searchFilterForm.addEventListener('keyup', this.__onEscapeFilter);
             this.__searchFilterForm.addEventListener('submit', () => {
                 if (window.innerWidth <= vlMediaScreenSmall) {
+                    this.__restoreFilterSemantics();
                     requestAnimationFrame(() => {
                         this.__filterOpenButton?.shadowRoot?.querySelector('button')?.focus();
                     });

@@ -46,3 +46,19 @@ Een uitgewerkt voorbeeld vind je hier:
     <summary>mock data voor voorbeeld kan je hier vinden</summary>
     <Source code={richDataMockData} language="ts" dark={true} />
 </details>
+
+
+## Toegankelijkheid
+
+### Gedrag
+
+Met een `vl-search-filter` in het `filter` slot werkt de filterknop anders op een groot en op een klein scherm:
+
+- **Groot scherm, met `filter-closable`:** de knop "Filter verbergen" / "Filter tonen" klapt de filter naast de
+  resultaten open en dicht. Een schermlezer meldt of de filter uitgevouwen is (`aria-expanded`).
+- **Klein scherm:** de knop "Filter" opent de filter als modale dialoog over het volledige scherm. Een schermlezer
+  meldt dat de knop een dialoog opent (`aria-haspopup="dialog"`), niet dat er iets uitgevouwen is. De geopende filter
+  heeft de rol `dialog`, `aria-modal="true"` en als naam de `mobile-modal-title`, anders de `filter-title`, anders
+  "Filter". De focus gaat naar het eerste veld van de filter en blijft binnen de dialoog: Tab en Shift+Tab lopen rond.
+  De knop "Filter sluiten" naast de titel, Escape of "Zoeken" sluit de dialoog en zet de focus terug op de knop.
+  Een eigen `role`, `aria-label` of `aria-modal` op de `vl-search-filter` komt terug zodra de dialoog sluit.

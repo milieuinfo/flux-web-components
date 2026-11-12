@@ -51,6 +51,9 @@ export const searchFilterStyles: CSSResult = css`
                 font-size: 2.6rem;
                 margin: 0;
             }
+            vl-button {
+                margin-left: auto;
+            }
         }
     }
 `;

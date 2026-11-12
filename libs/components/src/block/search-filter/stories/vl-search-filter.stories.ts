@@ -35,12 +35,14 @@ registerWebComponents([
 
 const searchFilterTemplate = story(
     searchFilterArgs,
-    ({ filterTitle, alt, mobileModal, mobileModalTitle }) => html`
+    ({ filterTitle, alt, mobileModal, mobileModalTitle, mobileModalClosable, onVlClose }) => html`
         <vl-search-filter
             filter-title=${filterTitle}
             ?alt=${alt}
             ?mobile-modal=${mobileModal}
             mobile-modal-title=${mobileModalTitle}
+            ?mobile-modal-closable=${mobileModalClosable}
+            @vl-close=${onVlClose}
         >
             <form>
                 <div>
