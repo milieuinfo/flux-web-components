@@ -1,7 +1,7 @@
 // url=https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten?node-id=204-2948
 // source=libs/components/src/block/search-filter/vl-search-filter.component.ts
 // component=VlSearchFilterComponent
-// code-only vl-search-filter: mobile-modal, mobile-modal-title
+// code-only vl-search-filter: mobile-modal, mobile-modal-closable, mobile-modal-title
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 
@@ -9,7 +9,7 @@ const instance = figma.selectedInstance;
 
 // De Figma-as `variant` bevat naast `default` en `alt` ook twee "(deprecated)"-varianten met een oudere opbouw
 // (vl-form-label + vl-input-field in plaats van de .vl-stacked-slot); die mappen op dezelfde attributen.
-// `mobile-modal` en `mobile-modal-title` hebben geen Figma-equivalent.
+// `mobile-modal`, `mobile-modal-closable` en `mobile-modal-title` hebben geen Figma-equivalent.
 const variant: { alt?: boolean } =
     instance.getEnum('variant', {
         'default (deprecated)': {},

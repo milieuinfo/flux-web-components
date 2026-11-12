@@ -1,6 +1,7 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common';
+import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { VlButtonComponent } from '../../atom/button';
 import { searchFilterStyles } from './vl-search-filter.css';
 import { searchFilterDefaults } from './vl-search-filter.defaults';
 import { searchFilterGlobalStyles } from './vl-search-filter.global.css';
@@ -11,7 +12,12 @@ export class VlSearchFilterComponent extends BaseLitElement {
     private alt: string | undefined;
     private mobileModal = searchFilterDefaults.mobileModal;
     private mobileModalTitle: string | undefined;
+    private mobileModalClosable = searchFilterDefaults.mobileModalClosable;
     private resizeObserver: ResizeObserver | null = null;
+
+    static {
+        registerWebComponents([VlButtonComponent]);
+    }
 
     static get styles(): (CSSResult | CSSResult[])[] {
         return [searchFilterStyles];
@@ -23,6 +29,7 @@ export class VlSearchFilterComponent extends BaseLitElement {
             alt: { type: Boolean },
             mobileModal: { type: Boolean, attribute: 'mobile-modal', reflect: true },
             mobileModalTitle: { type: String, attribute: 'mobile-modal-title' },
+            mobileModalClosable: { type: Boolean, attribute: 'mobile-modal-closable' },
         };
     }
 
@@ -36,6 +43,11 @@ export class VlSearchFilterComponent extends BaseLitElement {
 
     get buttonContainer(): HTMLElement | null | undefined {
         return this.form?.querySelector<HTMLElement>('*:has(vl-button[type="submit"],button[type="submit"])');
+    }
+
+    /** De titel van de mobiele weergave, ook de naam van de dialoog die vl-rich-data ervan maakt. */
+    get mobileModalHeading(): string {
+        return this.mobileModalTitle || this.filterTitle || 'Filter';
     }
 
     get formData(): FormData | undefined {
@@ -122,10 +134,26 @@ export class VlSearchFilterComponent extends BaseLitElement {
     private renderMobileModal() {
         return html`
             <div class="vl-search-filter--header-modal">
-                <h2>${this.mobileModalTitle || this.filterTitle || 'Filter'}</h2>
+                <h2>${this.mobileModalHeading}</h2>
+                ${this.mobileModalClosable
+                    ? html`<vl-button
+                          id="close-mobile-modal-button"
+                          icon="close"
+                          ghost
+                          label="Filter sluiten"
+                          @vl-click=${this.handleCloseModal}
+                      ></vl-button>`
+                    : nothing}
             </div>
         `;
     }
+
+    // Sluit de volledig-scherm weergave zoals een submit dat doet; wie de filter opende (bv. vl-rich-data) hoort het
+    // via vl-close en zet de focus terug.
+    private handleCloseModal = () => {
+        this.setAttribute('hidden', 'true');
+        this.dispatchEvent(new CustomEvent('vl-close', { bubbles: true, composed: true }));
+    };
 
     private handleSubmitModal = (event: Event) => {
         event.preventDefault();
