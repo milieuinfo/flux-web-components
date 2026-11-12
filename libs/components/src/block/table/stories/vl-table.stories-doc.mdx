@@ -183,9 +183,14 @@ Deze klassen kunnen zowel op een `<tr>` element worden toegepast om een hele rij
 
 ## Toegankelijkheid
 
-Geef elke tabel een naam, via een `<caption>` in de tabel of via een `aria-label` op `vl-table`. De component is
-focusbaar zodat de tabel scrollbaar blijft met het toetsenbord, en krijgt daardoor de rol `group`. Zonder naam
-kondigt een schermlezer een naamloze groep aan en geraakt de gebruiker niet bij de inhoud van de tabel.
+Geef elke tabel een naam, via een `<caption>` in de tabel of via een `aria-label` op `vl-table`. De component krijgt
+de rol `group`. Zonder naam kondigt een schermlezer een naamloze groep aan en geraakt de gebruiker niet bij de inhoud
+van de tabel.
+
+Scrollt de tabel, omdat ze breder is dan de beschikbare ruimte of hoger dan een `height` of `max-height` op
+`vl-table`, dan wordt de component focusbaar (`tabindex="0"`), zodat de tabel met het toetsenbord te scrollen is.
+Past de tabel, dan is de component geen tab-stop; heeft ze op dat moment de focus, dan blijft ze focusbaar tot de
+focus weggaat. Een `tabindex` die je zelf op `vl-table` zet, blijft staan.
 
 Ontbreken zowel de `<caption>` als een `aria-label`, dan valt de component terug op de naam "Naamloze tabel" en
 verschijnt er een waarschuwing in de console. Die fallback is een vangnet, geen alternatief voor een eigen naam.

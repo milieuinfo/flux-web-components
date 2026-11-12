@@ -10,6 +10,9 @@ export class VlTableComponent extends LitElement {
     private static captionIdCounter = 0;
 
     private observer: MutationObserver | undefined;
+    private resizeObserver: ResizeObserver | undefined;
+    private generatedTabindex = false;
+    private readonly onBlur = () => this.processTabindex();
     private generatedLabelledby: string | undefined;
     private fallbackLabel: string | undefined;
     private hasWarnedMissingName = false;
@@ -57,16 +60,19 @@ export class VlTableComponent extends LitElement {
         this.processScopeAttributes();
         this.processRowElements();
 
-        // scrollable element moet focusbaar zijn voor a11y
-        this.setAttribute('tabindex', '0');
         // zonder expliciete rol is de host "generic", waarop aria-label/aria-labelledby genegeerd worden
         if (!this.hasAttribute('role')) {
             this.setAttribute('role', 'group');
         }
 
+        this.resizeObserver = new ResizeObserver(() => this.processTabindex());
+        this.observeSize();
+        this.addEventListener('blur', this.onBlur);
+
         this.observer = this.observeHeaderElements(() => {
             this.processScopeAttributes();
             this.processAccessibleName();
+            this.observeSize();
         });
     }
 
@@ -74,6 +80,8 @@ export class VlTableComponent extends LitElement {
         super.disconnectedCallback();
 
         this.observer?.disconnect();
+        this.resizeObserver?.disconnect();
+        this.removeEventListener('blur', this.onBlur);
     }
 
     updated(changedProperties: Map<string, any>) {
@@ -141,8 +149,8 @@ export class VlTableComponent extends LitElement {
         this.processAccessibleName();
     }
 
-    // De host krijgt tabindex="0" (connectedCallback), waardoor VoiceOver de host als "group"
-    // behandelt. Zonder toegankelijke naam blokkeert dat de navigatie naar de tabelinhoud.
+    // De host krijgt de rol group (connectedCallback) en is focusbaar zodra de tabel horizontaal scrollt.
+    // Zonder toegankelijke naam blokkeert die groep in VoiceOver de navigatie naar de tabelinhoud.
     private processAccessibleName(): void {
         // Een attribuut is enkel van ons zolang het nog de waarde heeft die wij zetten;
         // een door de consumer aangeleverde naam wordt nooit overschreven.
@@ -178,6 +186,33 @@ export class VlTableComponent extends LitElement {
             console.warn(
                 'vl-table: geef de tabel een toegankelijke naam via een <caption> of een aria-label op <vl-table>.'
             );
+        }
+    }
+
+    // De host en de tabel apart observeren: de host wijzigt met de beschikbare ruimte, de tabel met zijn inhoud.
+    private observeSize(): void {
+        this.resizeObserver?.disconnect();
+        this.resizeObserver?.observe(this);
+        if (this.table) this.resizeObserver?.observe(this.table);
+    }
+
+    // Een tabel die scrollt, moet met het toetsenbord te scrollen zijn (WCAG 2.1.1): enkel dan is de host focusbaar.
+    // Een tabel die past, is geen overbodige tab-stop (WCAG 2.4.3). Een tabindex van de consumer blijft. Heeft de host
+    // de focus, dan blijft de tabindex tot de blur: anders valt de focus naar body.
+    private processTabindex(): void {
+        const ownTabindex = this.generatedTabindex && this.getAttribute('tabindex') === '0';
+        if (this.hasAttribute('tabindex') && !ownTabindex) {
+            this.generatedTabindex = false;
+            return;
+        }
+
+        const overflows = this.scrollWidth > this.clientWidth || this.scrollHeight > this.clientHeight;
+        if (overflows) {
+            this.generatedTabindex = true;
+            this.setAttribute('tabindex', '0');
+        } else if (!this.matches(':focus')) {
+            this.generatedTabindex = false;
+            this.removeAttribute('tabindex');
         }
     }
 
