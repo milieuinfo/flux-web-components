@@ -5,7 +5,7 @@ import React from 'react';
 
 addons.setConfig({
     theme: voTheme,
-    enableShortcuts: false,
+    ui: { enableShortcuts: false },
     sidebar: {
         renderLabel: (storyData) => <FluxSidebarLabel storyData={storyData} />,
     }

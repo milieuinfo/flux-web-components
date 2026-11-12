@@ -1,6 +1,5 @@
-import { html, TemplateResult } from 'lit';
+import { CSSResult, html, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { CSSResult } from 'lit/development';
 import { VlMapActionControl } from './action-control/vl-map-action-control';
 import { vlMapControlsFluxStyles } from './vl-map-controls.flux-css';
 import { BaseLitElement } from '@domg-wc/common';

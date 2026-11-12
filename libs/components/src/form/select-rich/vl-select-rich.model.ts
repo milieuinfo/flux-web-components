@@ -1,5 +1,4 @@
-import { InputChoice } from 'choices.js/src/scripts/interfaces/input-choice';
-import { InputGroup } from 'choices.js/src/scripts/interfaces/input-group';
+import type { InputChoice, InputGroup, State } from 'choices.js';
 import { TemplateResult } from 'lit';
 
 type MergeToOptional<T, U> = Pick<T, Extract<keyof T, keyof U>> & // gedeelde velden blijven required
@@ -7,6 +6,8 @@ type MergeToOptional<T, U> = Pick<T, Extract<keyof T, keyof U>> & // gedeelde ve
     Partial<Omit<U, keyof T>>; // velden enkel in U (optioneel)
 
 export type SelectRichOption = MergeToOptional<InputChoice, InputGroup>;
+
+export type ChoiceFull = State['choices'][number];
 
 export interface SelectRichItemTemplateFn {
     (option: SelectRichOption): TemplateResult;

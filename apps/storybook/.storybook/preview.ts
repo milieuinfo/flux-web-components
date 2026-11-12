@@ -4,7 +4,6 @@ import { VlAlert } from '@domg-wc/components/block';
 import { VlIconComponent } from '@domg-wc/components/atom';
 import './styles.css';
 import 'reflect-metadata';
-import { filterOutClasses, filterOutDataCy, formatHTML } from '@resources/utils-storybook';
 import { addons } from 'storybook/internal/preview-api';
 import { FluxAlert } from './flux-alert/flux-alert.component';
 import FluxDocument from './flux-document/flux-document.template.mdx';
@@ -30,11 +29,6 @@ export const parameters = {
     },
     docs: {
         components: { FluxAlert, FluxComponentOverview, FluxComponentMetaData, FluxComponentEvolution, FluxComponentCondition, FluxCanvasIframe },
-        transformSource: (input: string, { id }: { id: string }) => {
-            if (id.startsWith('elements-')) {
-                return formatHTML(filterOutDataCy(filterOutClasses(input)));
-            }
-        },
         page: FluxDocument,
     },
 };
@@ -56,7 +50,34 @@ const cleanupDecorator: Decorator = (Story) => {
     return Story();
 };
 
+// De ArgTypes-tabel op een docs-pagina volgt de volgorde van het argTypes-object. Sinds Storybook 10 start inferArgTypes
+// niet meer met alle args: args met een eigen `type` slaat het eerst over, waardoor ze achteraan belanden en bv. de
+// verplichte attributen van een kaartlaag niet meer bovenaan staan. Daarom zetten we hier de volgorde van de args terug,
+// met daarachter de argTypes zonder arg. Een sleutel verwijderen en opnieuw toevoegen zet hem achteraan in het object.
+// Enkel de volgorde wijzigt: de lege return voegt geen args toe. Te verwijderen zodra Storybook de volgorde zelf behoudt.
+const keepArgOrder = ({
+    initialArgs,
+    argTypes,
+}: {
+    initialArgs: Record<string, unknown>;
+    argTypes: Record<string, unknown>;
+}) => {
+    const moveToEnd = (key: string) => {
+        const argType = argTypes[key];
+        delete argTypes[key];
+        argTypes[key] = argType;
+    };
+    Object.keys(initialArgs)
+        .filter((key) => key in argTypes)
+        .forEach(moveToEnd);
+    Object.keys(argTypes)
+        .filter((key) => !(key in initialArgs))
+        .forEach(moveToEnd);
+    return {};
+};
+
 const preview: Preview = {
+    argsEnhancers: [keepArgOrder],
     loaders: [mswLoader],
     decorators: [cleanupDecorator],
 };
