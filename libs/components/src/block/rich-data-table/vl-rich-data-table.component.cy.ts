@@ -8,6 +8,7 @@ import { VlPagerComponent } from '../pager';
 import { VlSearchFilterComponent } from '../search-filter';
 import richDataFilterData from './stories/vl-rich-data-table-filter.stories-mock';
 import richDataFilterPagerData from './stories/vl-rich-data-table-pagination.stories-mock';
+import sortingRichTableImplementation from './stories/vl-rich-data-table-sorting.stories-util';
 import { VlRichDataField } from './vl-rich-data-field.component';
 import { VlRichDataSorter } from './vl-rich-data-sorter.component';
 import { VlRichDataTable } from './vl-rich-data-table.component';
@@ -757,5 +758,244 @@ describe('cypress-component - block components - vl-rich-data-table - selectable
         getSelectAllCheckbox().shadow().find('input').should('be.checked');
         getDefaultActions().should('not.be.visible');
         getSelectionActions().should('be.visible');
+    });
+});
+
+// ============================================================
+// Toegankelijkheid van het sorteren en de focus (FLUX-749)
+// ============================================================
+
+describe('cypress-component - block components - vl-rich-data-table - sorting accessibility', () => {
+    const rowData = [
+        { id: 0, name: 'Water', owner: 'Kevin Jansens' },
+        { id: 1, name: 'Vuur', owner: 'Anton Vanherrewege' },
+        { id: 2, name: 'Aarde', owner: 'Hedwig Jansens' },
+    ];
+
+    // zoals de story "vl-rich-data-table - sorting", met de sorteerlogica uit het codevoorbeeld van de docs
+    const mountSortingTable = () =>
+        cy.mount(html`
+            <vl-rich-data-table
+                id="rich-data-table-sorting"
+                data="${JSON.stringify({ data: rowData })}"
+                caption="Sorteerbare tabel"
+            >
+                <vl-rich-data-field
+                    name="id"
+                    label="ID"
+                    selector="id"
+                    sortable
+                    sorting-direction="asc"
+                ></vl-rich-data-field>
+                <vl-rich-data-field name="name" label="Naam" selector="name" sortable></vl-rich-data-field>
+                <vl-rich-data-field name="owner" label="Eigenaar" selector="owner" sortable></vl-rich-data-field>
+            </vl-rich-data-table>
+        `);
+
+    const mountSortingStory = () => {
+        mountSortingTable();
+        cy.then(() => sortingRichTableImplementation());
+    };
+
+    const getHeaderCell = (field: string) =>
+        cy.get('vl-rich-data-table').shadow().find(`vl-rich-data-sorter[for="${field}"]`).parents('th');
+
+    const getSortButton = (field: string) =>
+        cy.get('vl-rich-data-table').shadow().find(`vl-rich-data-sorter[for="${field}"]`).parent('button');
+
+    const shouldHaveFocusOnSortButton = (field: string) =>
+        cy.get('vl-rich-data-table').should(($table) => {
+            const active = $table[0].shadowRoot?.activeElement;
+            expect(active?.tagName, 'gefocust element').to.equal('BUTTON');
+            expect(active?.querySelector('vl-rich-data-sorter')?.getAttribute('for'), 'sorteerknop').to.equal(field);
+        });
+
+    it('should keep the rows when the story implementation removes the sorting', () => {
+        mountSortingStory();
+
+        clickSorterForField('id');
+        clickSorterForField('id');
+
+        cy.get('vl-rich-data-table').shadow().find('slot[name="content"]').should('not.have.attr', 'hidden');
+        cy.get('vl-rich-data-table').shadow().find('slot[name="no-content"]').should('have.attr', 'hidden');
+        shouldMatchTableData(rowData);
+    });
+
+    it('should expose the initial sort direction with aria-sort', () => {
+        mountSortingStory();
+
+        getHeaderCell('id').should('have.attr', 'aria-sort', 'ascending');
+        getHeaderCell('name').should('not.have.attr', 'aria-sort');
+        getHeaderCell('owner').should('not.have.attr', 'aria-sort');
+    });
+
+    it('should update aria-sort when sorting is set via data', () => {
+        mountSortingStory();
+
+        cy.get('vl-rich-data-table').then(($table) => {
+            ($table[0] as VlRichDataTable).data = {
+                data: [...rowData],
+                sorting: [{ name: 'name', direction: 'desc' }],
+            } as any;
+        });
+
+        getHeaderCell('name').should('have.attr', 'aria-sort', 'descending');
+        getHeaderCell('id').should('not.have.attr', 'aria-sort');
+    });
+
+    it('should update aria-sort when the user sorts', () => {
+        mountSortingStory();
+
+        clickSorterForField('id');
+        getHeaderCell('id').should('have.attr', 'aria-sort', 'descending');
+
+        clickSorterForField('id');
+        getHeaderCell('id').should('not.have.attr', 'aria-sort');
+    });
+
+    it('should sort on a click right after the first render', () => {
+        mountSortingStory();
+
+        clickSorterForField('id');
+
+        getHeaderCell('id').should('have.attr', 'aria-sort', 'descending');
+        cy.get('vl-rich-data-table').shadow().find('#sort-label').should('have.text', 'Gesorteerd op ID aflopend');
+    });
+
+    it('should announce when the sorting is removed', () => {
+        mountSortingStory();
+
+        clickSorterForField('id');
+        cy.get('vl-rich-data-table').shadow().find('#sort-label').should('have.text', 'Gesorteerd op ID aflopend');
+
+        clickSorterForField('id');
+        cy.get('vl-rich-data-table').shadow().find('#sort-label').should('have.text', 'Niet meer gesorteerd op ID');
+    });
+
+    it('should accept an Array as data', () => {
+        mountSortingTable();
+
+        cy.get('vl-rich-data-table').then(($table) => {
+            ($table[0] as any).data = [...rowData].reverse();
+        });
+
+        cy.get('vl-rich-data-table').shadow().find('slot[name="content"]').should('not.have.attr', 'hidden');
+        cy.get('vl-rich-data-table').shadow().find('slot[name="no-content"]').should('have.attr', 'hidden');
+        shouldMatchTableData([...rowData].reverse());
+        cy.get('vl-rich-data-table').should(($table) =>
+            expect(($table[0] as VlRichDataTable).data).to.deep.equal({ data: [...rowData].reverse() }),
+        );
+    });
+
+    it('should stop listening to a field that is removed', () => {
+        mountSortingStory();
+
+        let field: HTMLElement;
+        cy.get('vl-rich-data-field[name="owner"]').then(($field) => {
+            field = $field[0];
+            field.remove();
+        });
+        // de tabel heeft de verwijdering verwerkt zodra de kolom weg is
+        cy.get('vl-rich-data-table').shadow().find('th').should('have.length', 2);
+        cy.get('vl-rich-data-table').then(($table) => {
+            const renderHeaders = cy.spy($table[0] as any, '_renderHeaders');
+            // een veld meldt een gewijzigd attribuut synchroon met een change-event
+            field.setAttribute('label', 'Beheerder');
+            expect(renderHeaders.callCount).to.equal(0);
+        });
+    });
+
+    it('should observe the fields only once after the table is connected again', () => {
+        mountSortingTable();
+
+        cy.get('vl-rich-data-table').then(($table) => {
+            const table = $table[0] as any;
+            const parent = table.parentNode;
+            table.remove();
+            parent.appendChild(table);
+            cy.spy(table, '_render').as('render');
+            const field = document.createElement('vl-rich-data-field');
+            field.setAttribute('name', 'extra');
+            field.setAttribute('label', 'Extra');
+            field.setAttribute('selector', 'id');
+            table.appendChild(field);
+        });
+
+        cy.get('vl-rich-data-table').shadow().find('th').should('have.length', 4);
+        cy.get('@render').should('have.been.calledOnce');
+    });
+
+    it('should keep aria-sort after the headers are rendered again', () => {
+        mountSortingStory();
+
+        cy.get('vl-rich-data-field[name="name"]').invoke('attr', 'label', 'Projectnaam');
+
+        cy.get('vl-rich-data-table').shadow().find('th').should('contain.text', 'Projectnaam');
+        getHeaderCell('id').should('have.attr', 'aria-sort', 'ascending');
+    });
+
+    it('should describe the sort action on every sortable header button', () => {
+        mountSortingStory();
+
+        cy.get('vl-rich-data-table')
+            .shadow()
+            .find('th[data-sortable] > button')
+            .should('have.length', 3)
+            .each(($button) => {
+                const id = $button.attr('aria-describedby');
+                expect(id, 'aria-describedby').to.be.a('string').and.have.length.greaterThan(0);
+                const description = ($button[0].getRootNode() as ShadowRoot).getElementById(id!);
+                expect(description?.textContent?.trim()).to.equal('Sorteer: oplopend, aflopend of niet gesorteerd.');
+            });
+    });
+
+    it('should keep the column label as accessible name of the sort button', () => {
+        mountSortingStory();
+
+        getSortButton('id').should('have.text', 'ID').and('not.have.attr', 'aria-label');
+        getSortButton('name').should('have.text', 'Naam').and('not.have.attr', 'aria-label');
+    });
+
+    it('should keep focus on the sort button after sorting', () => {
+        mountSortingStory();
+
+        getSortButton('name').focus().click();
+
+        getHeaderCell('name').should('have.attr', 'aria-sort', 'ascending');
+        shouldHaveFocusOnSortButton('name');
+    });
+
+    it('should keep focus on the sort button when the headers are rendered again', () => {
+        mountSortingStory();
+
+        getSortButton('name').focus();
+        cy.get('vl-rich-data-field[name="name"]').invoke('attr', 'sorting-direction', 'desc');
+
+        getHeaderCell('name').should('have.attr', 'aria-sort', 'descending');
+        shouldHaveFocusOnSortButton('name');
+    });
+
+    it('should not make the table a tab stop when it fits', () => {
+        cy.viewport(1280, 800);
+        mountSortingStory();
+
+        shouldMatchTableData(rowData);
+        cy.get('vl-rich-data-table')
+            .shadow()
+            .find('vl-table')
+            .should(($host) => expect($host[0].scrollWidth).to.be.at.most($host[0].clientWidth));
+        // De ResizeObserver meldt zich vóór de volgende paint: na twee animation frames heeft hij gemeten.
+        cy.window().then(
+            (win) => new Promise((resolve) => win.requestAnimationFrame(() => win.requestAnimationFrame(resolve))),
+        );
+        cy.get('vl-rich-data-table').shadow().find('vl-table').should('not.have.attr', 'tabindex');
+    });
+
+    it('should be accessible', () => {
+        mountSortingStory();
+        cy.injectAxe();
+
+        shouldMatchTableData(rowData);
+        cy.checkA11y('vl-rich-data-table');
     });
 });

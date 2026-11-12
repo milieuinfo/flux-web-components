@@ -28,12 +28,16 @@ export class VlRichDataTable extends VlRichData {
                     <tbody></tbody>
                 </table>
                 <span class="vl-visually-hidden" id="sort-label" aria-live="polite"></span>
+                <span id="sort-description" hidden>Sorteer: oplopend, aflopend of niet gesorteerd.</span>
             </vl-table>
         `;
         super(content);
-
-        this.__observeSorters();
     }
+
+    // Vaste referenties: removeEventListener verwijdert enkel dezelfde functie die addEventListener kreeg.
+    private readonly __boundFieldChanged = this.__fieldChanged.bind(this);
+    private readonly __boundSortingChanged = this.__sortingChanged.bind(this);
+    private __fieldsObserver: MutationObserver | undefined;
 
     static get _observedAttributes() {
         return super._observedAttributes.concat([
@@ -58,7 +62,7 @@ export class VlRichDataTable extends VlRichData {
 
     /**
      * Geeft de data terug die in de tabel wordt getoond.
-     * @return {Object[]}
+     * @return {{data: Object[]}}
      */
     get data(): RichData {
         return super.data;
@@ -66,11 +70,12 @@ export class VlRichDataTable extends VlRichData {
 
     /**
      * Stelt in welke data de tabel moet tonen.
-     * @param {data: Object[]} object - Een Array van objecten die de data voorstellen.
+     * @param {{data: Object[]} | Object[]} object - Een object met de rijen in `data` (en eventueel `paging`,
+     * `sorting` en `filter`), of enkel de Array van rijen, die als `{ data: [...] }` behandeld wordt.
      */
-    set data(object: RichData) {
+    set data(object: RichData | unknown[]) {
         const previousData = this.data ? this.data.data : undefined;
-        super.data = object;
+        super.data = Array.isArray(object) ? { data: object } : object;
         const hasNewData = previousData !== this.data.data;
         if (hasNewData) {
             try {
@@ -167,6 +172,7 @@ export class VlRichDataTable extends VlRichData {
                     sorter.direction = matchedSorter ? matchedSorter.direction : undefined;
                     sorter.priority = matchedSorter ? matchedSorter.priority : undefined;
                 });
+            this.__updateAriaSort();
         }
     }
 
@@ -196,7 +202,7 @@ export class VlRichDataTable extends VlRichData {
             this.__tableElement?.removeAttribute('aria-label');
         }
 
-        // De vl-table host is focusbaar en krijgt de rol group: die heeft een eigen naam nodig.
+        // De vl-table host krijgt de rol group en wordt focusbaar als de tabel scrollt: hij heeft een eigen naam nodig.
         const name = label || caption;
         if (name) {
             this.__table?.setAttribute('aria-label', name);
@@ -219,6 +225,12 @@ export class VlRichDataTable extends VlRichData {
                 buttonAsLinkStyles.styleSheet!,
             ];
         }
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        // bij een nieuwe connectedCallback komt er een nieuwe observer; de oude mag niet blijven renderen
+        this.__fieldsObserver?.disconnect();
     }
 
     attributeChangedCallback(attr: string, oldValue: any, newValue: any) {
@@ -249,6 +261,12 @@ export class VlRichDataTable extends VlRichData {
 
     _renderHeaders(): void {
         const { __tableHeaderRow, __richDataFields, __addHeaderColumn } = this;
+        // De koppen worden opnieuw gemaakt: stond de focus op een sorteerknop, dan gaat ze naar de nieuwe knop.
+        const focusedElement = this.shadowRoot?.activeElement;
+        const focusedSorterFor =
+            focusedElement && __tableHeaderRow?.contains(focusedElement)
+                ? focusedElement.querySelector(VlRichDataSorter.is)?.getAttribute('for')
+                : undefined;
         if (__tableHeaderRow) __tableHeaderRow.innerHTML = '';
         const headerColumns = __richDataFields.map((field) => field.headerTemplate());
         const atLeastOneHeaderColumnHasContent = headerColumns.some((header) => !!header.textContent);
@@ -257,6 +275,13 @@ export class VlRichDataTable extends VlRichData {
             this.__showHeader();
         } else {
             this.__hideHeader();
+        }
+        this.__updateAriaSort();
+        if (focusedSorterFor) {
+            this.__tableHeaderRow
+                ?.querySelector<HTMLElement>(`vl-rich-data-sorter[for="${focusedSorterFor}"]`)
+                ?.closest<HTMLElement>('a, button')
+                ?.focus();
         }
     }
 
@@ -277,6 +302,9 @@ export class VlRichDataTable extends VlRichData {
         // Support both legacy anchors and new buttons used as sort toggles
         const sorterButton = header.querySelector('th[data-sortable] > a, th[data-sortable] > button');
         if (sorterButton) {
+            // meteen koppelen: een klik vlak na de eerste render mag niet verloren gaan
+            sorterButton.querySelector(VlRichDataSorter.is)?.addEventListener('change', this.__boundSortingChanged);
+            sorterButton.setAttribute('aria-describedby', 'sort-description');
             sorterButton.addEventListener('click', () => {
                 sorterButton.querySelector('vl-rich-data-sorter').nextDirection();
             });
@@ -320,19 +348,11 @@ export class VlRichDataTable extends VlRichData {
     }
 
     __listenToFieldChanges(field: any) {
-        field.addEventListener('change', this.__fieldChanged.bind(this));
+        field.addEventListener('change', this.__boundFieldChanged);
     }
 
     __stopListeningToFieldChanges(field: any) {
-        field.removeEventListener('change', this.__fieldChanged.bind(this));
-    }
-
-    __listenToSortChanges(sorter: any) {
-        sorter.addEventListener('change', this.__sortingChanged.bind(this));
-    }
-
-    __stopListeningToSortChanges(sorter: any) {
-        sorter.removeEventListener('change', this.__sortingChanged.bind(this));
+        field.removeEventListener('change', this.__boundFieldChanged);
     }
 
     __fieldChanged(event: any): void {
@@ -365,15 +385,7 @@ export class VlRichDataTable extends VlRichData {
             this.__tableHeaderRow?.querySelectorAll('th[data-sortable]') || []
         ) as HTMLElement[];
 
-        allSortableHeaderCells.forEach((th) => th.removeAttribute('aria-sort'));
-
-        this.__sortingState?.forEach(({ name, direction }) => {
-            const header = this.__tableHeaderRow
-                ?.querySelector(`th[data-sortable] vl-rich-data-sorter[for="${name}"]`)
-                ?.closest('th');
-
-            header?.setAttribute('aria-sort', direction === 'asc' ? 'ascending' : 'descending');
-        });
+        this.__updateAriaSort();
 
         const headerNamesMap = new Map(
             allSortableHeaderCells.map((th) => [
@@ -382,6 +394,11 @@ export class VlRichDataTable extends VlRichData {
             ]) || []
         );
 
+        // zonder sortering meldt de live region dat de sortering wegviel, anders hoort een schermlezer niets
+        const removedSorterFor = event?.target?.getAttribute?.('for');
+        const removedSorterLabel = removedSorterFor
+            ? ` op ${headerNamesMap.get(removedSorterFor) || removedSorterFor}`
+            : '';
         this.__screenReaderSortLabel.textContent = !!this.__sortingState?.length
             ? `Gesorteerd op ${this.__sortingState
                   .map(
@@ -389,9 +406,23 @@ export class VlRichDataTable extends VlRichData {
                           `${headerNamesMap.get(name) || name} ${direction === 'asc' ? 'oplopend' : 'aflopend'}`
                   )
                   .join(', en ')}`
-            : '';
+            : `Niet meer gesorteerd${removedSorterLabel}`;
 
         this.__onStateChange(event);
+    }
+
+    // aria-sort volgt de richting van de sorters, ook bij het laden en wanneer de sortering via data wijzigt.
+    // Enkel gesorteerde kolommen krijgen aria-sort.
+    __updateAriaSort(): void {
+        this.__tableHeaderRow?.querySelectorAll('th[data-sortable]').forEach((th) => th.removeAttribute('aria-sort'));
+
+        this.__sortingState?.forEach(({ name, direction }) => {
+            const header = this.__tableHeaderRow
+                ?.querySelector(`th[data-sortable] vl-rich-data-sorter[for="${name}"]`)
+                ?.closest('th');
+
+            header?.setAttribute('aria-sort', direction === 'asc' ? 'ascending' : 'descending');
+        });
     }
 
     __createObserver(
@@ -420,30 +451,12 @@ export class VlRichDataTable extends VlRichData {
 
     __observeFields(): void {
         this.__fields.forEach(this.__listenToFieldChanges.bind(this));
-        const observer = this.__createObserver(
+        this.__fieldsObserver = this.__createObserver(
             this.__listenToFieldChanges.bind(this),
             this.__stopListeningToFieldChanges.bind(this),
             true
         );
-        observer.observe(this as any, { childList: true });
-    }
-
-    __observeSorters(): void {
-        const nodeToSorter = (doWithSorter: any) => {
-            return (node: any) => {
-                const sorter = node.querySelector(VlRichDataSorter.is);
-                if (sorter) {
-                    doWithSorter(sorter);
-                }
-            };
-        };
-        if (this.__tableHeaderRow) {
-            this.__createObserver(
-                nodeToSorter((sorter: any) => this.__listenToSortChanges(sorter)),
-                nodeToSorter((sorter: any) => this.__stopListeningToSortChanges(sorter)),
-                false
-            ).observe(this.__tableHeaderRow, { childList: true });
-        }
+        this.__fieldsObserver.observe(this as any, { childList: true });
     }
 }
 

@@ -54,7 +54,8 @@ Werk je met statische data (die client side niet gaan wijzigen), dan kan je de d
 Wil je client-side mogelijkheden aanbieden om te filteren / pagineren, is het belangrijk dat de data dynamisch zelf update:
 - voor filtering & paginatie (zie ook code voorbeelden verder) moet je `.data` dynamisch bijwerken
 - refereer `rich-data-table` en stel in: `richDataTable.data = ...`
-- geef data door als JavaScript object, bv.:
+- geef data door als JavaScript object, bv. hieronder; een Array van rijen (`richDataTable.data = [...]`) wordt
+  behandeld als `{ data: [...] }`, maar met een object kan je ook `paging`, `sorting` en `filter` meegeven:
 
 ```json
 {
@@ -149,6 +150,19 @@ Hieronder vind je een voorbeeld van hoe je rijen selecteerbaar kan maken, met ee
 Template voorbeeld van een implementatie met selecteerbare rijen. Klik op `Show code` om de html te zien.
 
 <Canvas of={VlRichDataTableStories.RichDataTableSelectable} layout="padded" />
+
+## Toegankelijkheid
+
+- Elke sorteerbare kolom heeft een knop met de naam van de kolom. De kolomkop van een gesorteerde kolom krijgt
+  `aria-sort` (`ascending` of `descending`), ook bij het laden (`sorting-direction`) en wanneer je de sortering via
+  `data` meegeeft.
+- Elke sorteerknop krijgt een beschrijving die zegt wat de knop doet: "Sorteer: oplopend, aflopend of niet
+  gesorteerd." De naam van de knop blijft de zichtbare tekst van de kolom.
+- Na een klik kondigt een schermlezer de nieuwe sortering aan, bv. "Gesorteerd op Naam oplopend", of "Niet meer
+  gesorteerd op Naam" als de sortering wegvalt.
+- De focus blijft op de sorteerknop, ook als de kolomkoppen opnieuw gerenderd worden.
+- De tabel is enkel een tab-stop als ze scrollt, bv. omdat ze breder is dan de beschikbare ruimte (zie
+  [Table](?path=/docs/components-block-table--documentatie)).
 
 ## Configuratie
 
