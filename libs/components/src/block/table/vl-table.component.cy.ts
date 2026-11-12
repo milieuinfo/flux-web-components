@@ -1,5 +1,5 @@
 import { GlobalStyles, registerWebComponents } from '@domg-wc/common';
-import { html, render } from 'lit';
+import { html, nothing, render } from 'lit';
 import { VlTableComponent } from './vl-table.component';
 import { tableDefaults } from './vl-table.defaults';
 
@@ -386,17 +386,23 @@ describe('cypress-component - block components - vl-table - accessible name', ()
     });
 });
 
+// De host is enkel focusbaar als de tabel horizontaal overloopt: een vaste breedte met lange cellen garandeert dat,
+// onafhankelijk van de viewport.
+const overflowingRows = html`
+    <tr>
+        <td style="white-space: nowrap">Een lange waarde die niet in de tabel past 1</td>
+        <td style="white-space: nowrap">Een lange waarde die niet in de tabel past 2</td>
+    </tr>
+`;
+
 const focusTableTemplate = html`
-    <vl-table>
+    <vl-table style="width: 200px">
         <table>
             <caption>
                 Data table
             </caption>
             <tbody>
-                <tr>
-                    <td>Entry line 1</td>
-                    <td>Entry line 2</td>
-                </tr>
+                ${overflowingRows}
             </tbody>
         </table>
     </vl-table>
@@ -451,6 +457,7 @@ describe('cypress-component - block components - vl-table - focus', () => {
     it('should show a focus outline when focused with the keyboard', () => {
         mountWithPrecedingButton();
 
+        cy.get('vl-table').should('have.attr', 'tabindex', '0');
         cy.get('#preceding-action').focus();
         cy.press(Cypress.Keyboard.Keys.TAB);
 
@@ -461,7 +468,8 @@ describe('cypress-component - block components - vl-table - focus', () => {
     });
 
     it('should not show a focus outline when a cell is clicked with the mouse', () => {
-        mountDefault({});
+        cy.mount(focusTableTemplate);
+        cy.get('vl-table').should('have.attr', 'tabindex', '0');
 
         cy.get('vl-table').find('tbody td').first().then(realClick);
 
@@ -473,6 +481,7 @@ describe('cypress-component - block components - vl-table - focus', () => {
 
     it('should show a focus outline when focused with the keyboard inside a shadow root', () => {
         mountInShadowRootWithPrecedingButton();
+        cy.get('#shadow-host').shadow().find('vl-table').should('have.attr', 'tabindex', '0');
 
         cy.get('#preceding-action').focus();
         cy.press(Cypress.Keyboard.Keys.TAB);
@@ -487,6 +496,7 @@ describe('cypress-component - block components - vl-table - focus', () => {
 
     it('should not show a focus outline when a cell is clicked with the mouse inside a shadow root', () => {
         mountInShadowRootWithPrecedingButton();
+        cy.get('#shadow-host').shadow().find('vl-table').should('have.attr', 'tabindex', '0');
 
         cy.get('#shadow-host').shadow().find('vl-table td').first().then(realClick);
 
@@ -496,6 +506,136 @@ describe('cypress-component - block components - vl-table - focus', () => {
             .should('have.focus')
             .and(shouldMatchFocusVisible(false))
             .shouldHaveComputedStyle({ style: 'outline-style', value: 'none' });
+    });
+});
+
+describe('cypress-component - block components - vl-table - tabindex', () => {
+    const mountWithWidth = (width: string, tabindex?: string) =>
+        cy.mount(html`
+            <button id="preceding-action" type="button">voorgaande actie</button>
+            <vl-table style="width: ${width}" tabindex=${tabindex ?? nothing}>
+                <table>
+                    <caption>
+                        Data table
+                    </caption>
+                    <tbody>
+                        ${overflowingRows}
+                    </tbody>
+                </table>
+            </vl-table>
+        `);
+
+    const setWidth = (width: string) => cy.get('vl-table').invoke('css', 'width', width);
+
+    // De ResizeObserver meldt zich vóór de volgende paint: na twee animation frames heeft hij gemeten.
+    const waitForResizeObserver = () =>
+        cy.window().then(
+            (win) => new Promise((resolve) => win.requestAnimationFrame(() => win.requestAnimationFrame(resolve))),
+        );
+
+    it('should not be focusable when the table fits', () => {
+        cy.viewport(1600, 600);
+        mountWithWidth('100%');
+
+        cy.get('vl-table').should(($host) => expect($host[0].scrollWidth).to.be.at.most($host[0].clientWidth));
+        cy.get('vl-table').should('not.have.attr', 'tabindex');
+        cy.get('#preceding-action').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        cy.get('vl-table').should('not.have.focus');
+    });
+
+    it('should be focusable when the table overflows horizontally', () => {
+        mountWithWidth('200px');
+
+        cy.get('vl-table').should('have.attr', 'tabindex', '0');
+        cy.get('#preceding-action').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        cy.get('vl-table').should('have.focus');
+    });
+
+    it('should become focusable when the table starts to overflow and stop when it fits again', () => {
+        cy.viewport(1600, 600);
+        mountWithWidth('100%');
+        cy.get('vl-table').should('not.have.attr', 'tabindex');
+
+        setWidth('200px');
+        cy.get('vl-table').should('have.attr', 'tabindex', '0');
+
+        setWidth('100%');
+        cy.get('vl-table').should('not.have.attr', 'tabindex');
+    });
+
+    it('should become focusable when wider content is added', () => {
+        cy.viewport(1600, 600);
+        cy.mount(html`
+            <vl-table>
+                <table>
+                    <caption>
+                        Data table
+                    </caption>
+                    <tbody>
+                        <tr>
+                            <td>Entry line 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </vl-table>
+        `);
+        cy.get('vl-table').should('not.have.attr', 'tabindex');
+
+        cy.get('vl-table td').then(($cell) => {
+            $cell[0].style.whiteSpace = 'nowrap';
+            $cell[0].textContent = 'Een lange waarde die niet in de tabel past '.repeat(20);
+        });
+
+        cy.get('vl-table').should('have.attr', 'tabindex', '0');
+    });
+
+    it('should be focusable when the table overflows vertically', () => {
+        cy.viewport(1600, 600);
+        cy.mount(html`
+            <vl-table style="height: 60px">
+                <table>
+                    <caption>
+                        Data table
+                    </caption>
+                    <tbody>
+                        ${Array.from({ length: 10 }, (_, index) => html`<tr><td>Entry line ${index}</td></tr>`)}
+                    </tbody>
+                </table>
+            </vl-table>
+        `);
+
+        cy.get('vl-table').should(($host) => expect($host[0].scrollWidth).to.be.at.most($host[0].clientWidth));
+        cy.get('vl-table').should(($host) => expect($host[0].scrollHeight).to.be.greaterThan($host[0].clientHeight));
+        cy.get('vl-table').should('have.attr', 'tabindex', '0');
+    });
+
+    it('should keep focus when the focused table stops overflowing, and stop being focusable after blur', () => {
+        cy.viewport(1600, 600);
+        mountWithWidth('200px');
+        cy.get('vl-table').should('have.attr', 'tabindex', '0');
+        cy.get('vl-table').focus();
+
+        setWidth('100%');
+        cy.get('vl-table').should(($host) => expect($host[0].scrollWidth).to.be.at.most($host[0].clientWidth));
+        waitForResizeObserver();
+        cy.get('vl-table').should('have.focus').and('have.attr', 'tabindex', '0');
+
+        cy.get('#preceding-action').focus();
+        cy.get('vl-table').should('not.have.attr', 'tabindex');
+    });
+
+    it('should keep a consumer-provided tabindex', () => {
+        cy.viewport(1600, 600);
+        mountWithWidth('100%', '-1');
+
+        cy.get('vl-table').should('have.attr', 'tabindex', '-1');
+        setWidth('200px');
+        cy.get('vl-table').should(($host) => expect($host[0].scrollWidth).to.be.greaterThan($host[0].clientWidth));
+        cy.get('vl-table').should('have.attr', 'tabindex', '-1');
+        setWidth('100%');
+        cy.get('vl-table').should('have.attr', 'tabindex', '-1');
     });
 });
 
