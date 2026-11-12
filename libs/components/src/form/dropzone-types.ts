@@ -181,7 +181,7 @@ export interface DropzoneListener {
     };
 }
 
-export class Dropzone {
+export declare class Dropzone {
     constructor(container: string | HTMLElement, options?: DropzoneOptions);
 
     static autoDiscover: boolean;
