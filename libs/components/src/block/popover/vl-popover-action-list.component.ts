@@ -17,7 +17,9 @@ export class VlPopoverActionListComponent extends BaseLitElement {
 
     protected firstUpdated(changedProperties: PropertyValues) {
         super.firstUpdated(changedProperties);
-        this.setAttribute('role', 'menu');
+        // Een groep, geen ARIA-menu: de acties zijn gewone knoppen en links die je met Tab bereikt. Een groep laat ook
+        // een aria-label en een scheidingslijn (<hr>) toe.
+        this.setAttribute('role', 'group');
     }
 }
 

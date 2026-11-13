@@ -60,13 +60,20 @@ Om te vermijden dat de popover gepositioneerd wordt tegenover het verkeerde elem
 
 ### Hover / Tooltip
 
-Je kan de standaard `click` waarde voor `trigger` ook instellen op bv. de combinatie van `hover` & `focus` interacties.
+Je kan de standaard `click` waarde voor `trigger` combineren met `hover`: `trigger="click hover"`. De popover opent dan
+bij hover en bij een klik, en dus ook met Enter of Spatie op de trigger. Een klik op een popover die net door hover
+openging, laat hem open. Bevat de popover acties of andere interactieve inhoud, gebruik dan liefst enkel `click`.
 
-Het gebruik van het vl-popover component als tooltip is echter **deprecated**. Gebruik hiervoor het [vl-tooltip](/docs/components-block-tooltip--documentatie) component.
+Gebruik `hover` **nooit alleen**. Met enkel `trigger="hover"` kan je de popover niet openen met het toetsenbord of een
+schermlezer (WCAG 2.1.1 en 1.4.13).
+
+Het gebruik van het vl-popover component als tooltip is **deprecated**. Gebruik voor tekst zonder interactie het
+[vl-tooltip](/docs/components-block-tooltip--documentatie) component.
 
 ### Popover Actions
 
-Je kan een lijst van acties toevoegen aan de popover en die acties markeren als `active`.
+Je kan een lijst van acties toevoegen aan de popover en een actie markeren als het huidige item met `selected`, bv. de
+huidige pagina of de laatst gekozen weergave. Een schermlezer leest dat via `aria-current`.
 
 <Canvas of={VlPopoverStories.PopoverActions} />
 
@@ -125,6 +132,25 @@ Een lijst van acties kan visueel opgesplitst worden adhv de horizontale regel: `
 </vl-popover-action-list>`}
 />
 <Canvas of={VlPopoverStories.PopoverActionsDivider} />
+
+## Toegankelijkheid
+
+De popover werkt als een disclosure: een knop die een groep met acties toont of verbergt. Het is geen ARIA-menu.
+
+Dat is een bewuste keuze. Een ARIA-menu belooft het toetsenbordgedrag van een applicatiemenu (pijltoetsen, Home en End,
+één tabstop), terwijl een popover vaak links en andere inhoud bevat. Voor navigatie raadt het APG een disclosure aan
+([Disclosure Navigation Menu](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/)).
+Voeg daarom zelf geen `role="menu"` of `role="menuitem"` toe.
+
+- De trigger krijgt `aria-expanded` en `aria-controls`. Zet de `vl-popover` in de DOM direct na de trigger, zodat de
+  volgorde met Tab klopt.
+- De acties zijn gewone knoppen en links. Je gaat ernaar met Tab, niet met de pijltoetsen.
+- Escape sluit de popover. Stond de focus in de popover, dan gaat ze terug naar de trigger. Dat gebeurt ook wanneer een
+  actie de popover sluit met `hide-on-click`, tenzij je eigen click-handler de focus al elders zette, bv. in een modal.
+- Opende de popover door hover, dan sluit Escape hem ook als de focus ergens anders staat.
+- Verlaat de focus de popover met Tab of Shift+Tab, ook terug naar de trigger, dan sluit hij.
+- Een `vl-popover-action` met `href` blijft een link.
+- Geef de `vl-popover-action-list` eventueel een `aria-label`, bv. `aria-label="Acties"`.
 
 ## Referenties
 
