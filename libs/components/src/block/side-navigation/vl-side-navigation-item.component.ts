@@ -1,22 +1,13 @@
 import { BaseLitElement, findDeepestElementThroughShadowRoot, webComponent } from '@domg-wc/common';
 import { VlHeader } from '@domg-wc/components/compliance';
 import { VlHeader as VlHeaderNext } from '@domg-wc/components/compliance/next';
-import { PropertyDeclarations } from 'lit';
 import { VlFunctionalHeaderComponent } from '../functional-header';
 
 @webComponent('vl-side-navigation-item')
 export class VlSideNavigationItemComponent extends BaseLitElement {
-    private parent = false;
-
     constructor() {
         super();
         this.classList.add('vl-side-navigation__item');
-    }
-
-    static get properties(): PropertyDeclarations {
-        return {
-            parent: { type: Boolean },
-        };
     }
 
     protected createRenderRoot(): HTMLElement | DocumentFragment {
