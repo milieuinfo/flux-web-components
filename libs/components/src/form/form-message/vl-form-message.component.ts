@@ -60,6 +60,6 @@ export class VlFormMessageComponent extends BaseLitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        FORM_MESSAGE_CUSTOM_TAG: VlFormMessageComponent;
+        'vl-form-message': VlFormMessageComponent;
     }
 }

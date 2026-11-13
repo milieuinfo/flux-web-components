@@ -151,7 +151,7 @@ Het bestand heeft een naam conform: `[component].stories-arg.ts` en volgt volgen
 
 ```ts
 export const progressBarArgs = {
-    activeStep: 1,
+    activeStep: 0,
     focusOnChange: false,
     numeric: false,
     steps: [''],
@@ -168,12 +168,13 @@ De arg-types worden bij in het `[component].stories-arg.ts` bestand gezet en vol
 - bij voorkeur **alfabetisch gesorteerd**, indien zinvol kan hier van afgeweken worden
 - maak gebruik van de **ArgTypes-interface** uit @storybook/web-components
 - voor `categories` en `types` zijn er `CATEGORIES` en `TYPES` constanten voorzien
-- de defaultValue van de `argType` moet gelijkgesteld worden aan de waarde in de equivalente `args`-waarde; conform
-  `defaultValue: { summary: progressBarArgs.activeStep }`
+- de defaultValue van de `argType` toont de default waarde in de component: is die gelijk aan de waarde in `args`,
+  verwijs dan naar `args`, conform `defaultValue: { summary: String(progressBarArgs.numeric) }`; wijkt ze af,
+  noteer ze dan letterlijk, conform `defaultValue: { summary: String(1) }`
 
 Het ArgType volgt een vaste structuur:
 
-- **name**: de naam die in de component gebruikt wordt<br/>
+- **name**: de naam die in de component gebruikt wordt, verplicht: zonder name faalt `libs:web-types:generate`<br/>
             slots gebruiken de waarde van het name-attribuut of de waarde '[default]' indien het een default slot is
 - **description**: korte omschrijving, vermeldt de argumenten die niet in combinatie gebruikt kunnen worden
 - **table**
@@ -181,7 +182,7 @@ Het ArgType volgt een vaste structuur:
                               voor een enum worden alle mogelijke waarden genoteerd, bv.
                               '[waarde 1] | [waarde 2] | [waarde 3]'
     - **category**: de categorie, bepaalt de groepering in de controls sectie van Storybook, maakt gebruik van de
-                    constante `CATEGORIES`
+                    constante `CATEGORIES`, verplicht: zonder category faalt `libs:web-types:generate`
     - **defaultValue** (optioneel) > **summary**: de default waarde in de component
 - **control** (optioneel): wordt gebruikt bij o.a. een enum om een dropdown control te tonen
                            zie [controls](https://storybook.js.org/docs/6.5/web-components/essentials/controls) in
@@ -197,7 +198,7 @@ activeStep: {
     table: {
         type: { summary: TYPES.NUMBER },
         category: CATEGORIES.ATTRIBUTES,
-        defaultValue: { summary: progressBarArgs.activeStep },
+        defaultValue: { summary: String(1) },
     }
 }
 ```
@@ -215,7 +216,7 @@ activeStep: {
                     table: {
                         type: { summary: TYPES.NUMBER },
                         category: CATEGORIES.ATTRIBUTES,
-                        defaultValue: { summary: progressIndicatorArgs.activeStep },
+                        defaultValue: { summary: String(1) },
                     },
                 },
                 focusOnChange: {
@@ -224,7 +225,7 @@ activeStep: {
                     table: {
                         type: { summary: TYPES.BOOLEAN },
                         category: CATEGORIES.ATTRIBUTES,
-                        defaultValue: { summary: progressIndicatorArgs.focusOnChange },
+                        defaultValue: { summary: String(progressIndicatorArgs.focusOnChange) },
                     },
                 },
                 numeric: {
@@ -233,16 +234,17 @@ activeStep: {
                     table: {
                         type: { summary: TYPES.BOOLEAN },
                         category: CATEGORIES.ATTRIBUTES,
-                        defaultValue: { summary: progressIndicatorArgs.numeric },
+                        defaultValue: { summary: String(progressIndicatorArgs.numeric) },
                     },
                 },
                 steps: {
+                    name: 'steps',
                     description: 'Lijst met omschrijvingen per stap.',
                     control: { type: 'object', required: true },
                     table: {
                         type: { summary: TYPES.ARRAY },
                         category: CATEGORIES.PROPERTIES,
-                        defaultValue: { summary: progressIndicatorArgs.steps },
+                        defaultValue: { summary: String(progressIndicatorArgs.steps) },
                     },
                 },
                 onClickStep: {
@@ -252,7 +254,6 @@ activeStep: {
                     table: {
                         type: { summary: '{ step: string, number: number }' },
                         category: CATEGORIES.EVENTS,
-                        defaultValue: { summary: progressIndicatorArgs.onClickStep },
                     },
                 },
             };

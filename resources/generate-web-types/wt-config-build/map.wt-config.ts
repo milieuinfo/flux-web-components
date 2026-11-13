@@ -1,4 +1,5 @@
 import { defaultArgTypes } from '@resources/utils-storybook';
+import { mapClickActionPindropArgTypes } from '../../../libs/map/src/components/action/click-action/stories/vl-map-click-action-pindrop.stories-arg';
 import { mapClickActionArgTypes } from '../../../libs/map/src/components/action/click-action/stories/vl-map-click-action.stories-arg';
 import { mapDrawActionStyleArgTypes } from '../../../libs/map/src/components/action/draw-action/draw-action-style/stories/vl-map-draw-action-style.stories-arg';
 import { mapDrawActionArgTypes } from '../../../libs/map/src/components/action/draw-action/stories/vl-map-draw-action.stories-arg';
@@ -35,7 +36,7 @@ export const buildWTConfigMap: WTConfigArray = [
         '../../libs/map/src/components/action/click-action/stories/vl-map-click-action.stories-doc.mdx',
         '/docs/map-action-click-action--documentatie'
     ),
-    buildWTConfig('vl-map-click-action-pindrop', null, null, null),
+    buildWTConfig('vl-map-click-action-pindrop', mapClickActionPindropArgTypes, null, null),
     buildWTConfig(
         'vl-map-draw-action-style',
         mapDrawActionStyleArgTypes,

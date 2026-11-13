@@ -23,7 +23,7 @@ export const progressIndicatorArgTypes: ArgTypes<typeof progressIndicatorArgs> =
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: String(progressIndicatorArgs.activeStep) },
+            defaultValue: { summary: String(1) },
         },
     },
     showLabels: {
@@ -73,6 +73,7 @@ export const progressIndicatorArgTypes: ArgTypes<typeof progressIndicatorArgs> =
         },
     },
     steps: {
+        name: 'steps',
         description: 'Lijst met omschrijvingen per stap.',
         control: { type: CONTROLS.OBJECT, required: true },
         table: {

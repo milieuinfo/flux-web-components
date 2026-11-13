@@ -34,7 +34,6 @@ export class VlLinkComponent extends BaseLitElement {
         return {
             href: { type: String },
             label: { type: String },
-            block: { type: Boolean },
             bold: { type: Boolean },
             error: { type: Boolean },
             small: { type: Boolean },

@@ -88,3 +88,13 @@ describe('cypress-e2e - form components - vl-input-field-masked - mobile story',
         cy.get('vl-input-field-masked').shadow().find('input');
     });
 });
+
+describe('cypress-e2e - form components - vl-input-field-masked - input-group control', () => {
+    it('should set the input-group attribute only when the control is on', () => {
+        cy.visit(`${inputFieldMaskedIbanUrl}&args=inputGroup:!true`);
+        cy.get('vl-input-field-masked').should('have.attr', 'input-group');
+
+        cy.visit(`${inputFieldMaskedIbanUrl}&args=inputGroup:!false`);
+        cy.get('vl-input-field-masked').should('not.have.attr', 'input-group');
+    });
+});

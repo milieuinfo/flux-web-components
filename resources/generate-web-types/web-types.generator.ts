@@ -183,10 +183,13 @@ const buildWTElement = (wtComponent: WTConfig): { element: WTElement; errors: st
     const errors: string[] = [];
     if (wtComponent?.argTypes) {
         const argTypes = wtComponent.argTypes;
-        // controleer of elke argType een table.category heeft
+        // controleer of elke argType een table.category en een name heeft
         Object.keys(argTypes).forEach((key) => {
             if (!argTypes[key].table?.category) {
                 errors.push(`${wtComponent.componentName}: argType '${key}' has no table.category`);
+            }
+            if (!argTypes[key].name) {
+                errors.push(`${wtComponent.componentName}: argType '${key}' has no name`);
             }
         });
         // toevoegen van attributes
@@ -238,7 +241,7 @@ const generateWebTypesFile = (artifact: string, wtComponentList: WTConfigArray, 
     const errorFileName = targetFolder + '/' + artifact + '.web-types.errors.log';
     fs.removeSync(errorFileName);
     if (allErrors.length > 0) {
-        console.log(`${artifact}: ${allErrors.length} argType(s) zonder table.category gevonden`);
+        console.log(`${artifact}: ${allErrors.length} fout(en) in de argTypes gevonden`);
         fs.writeFileSync(errorFileName, allErrors.join('\n') + '\n');
     }
     console.log('--------------------------------------------------\n');

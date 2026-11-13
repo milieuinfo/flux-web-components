@@ -4,6 +4,15 @@ import { autocompleteArgTypes } from '../../../libs/components/src/block/autocom
 import { badgeArgTypes } from '../../../libs/components/src/block/badge/stories/vl-badge.stories-arg';
 import { breadcrumbItemArgTypes } from '../../../libs/components/src/block/breadcrumb/stories/vl-breadcrumb-item.stories-arg';
 import { breadcrumbArgTypes } from '../../../libs/components/src/block/breadcrumb/stories/vl-breadcrumb.stories-arg';
+import { tabNextArgTypes } from '../../../libs/components/src/block/next/tabs/stories/vl-tab.stories-arg';
+import { tabLinkNextArgTypes } from '../../../libs/components/src/block/next/tabs/stories/vl-tab-link.stories-arg';
+import { tabPanelNextArgTypes } from '../../../libs/components/src/block/next/tabs/stories/vl-tab-panel.stories-arg';
+import { tabArgTypes } from '../../../libs/components/src/block/tabs/stories/vl-tab.stories-arg';
+import { durationStepArgTypes } from '../../../libs/components/src/block/steps/stories/vl-duration-step.stories-arg';
+import { sideNavigationToggleArgTypes } from '../../../libs/components/src/block/side-navigation/stories/vl-side-navigation-toggle.stories-arg';
+import { popoverActionListArgTypes } from '../../../libs/components/src/block/popover/stories/vl-popover-action-list.stories-arg';
+import { searchResultPropertiesArgTypes } from '../../../libs/components/src/block/search-result/stories/vl-search-result-properties.stories-arg';
+import { sideNavigationSectionArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation-section.stories-arg';
 import { cascaderItemArgTypes } from '../../../libs/components/src/block/cascader/stories/vl-cascader-item.stories-arg';
 import { cascaderArgTypes } from '../../../libs/components/src/block/cascader/stories/vl-cascader.stories-arg';
 import { contentHeaderArgTypes } from '../../../libs/components/src/block/content-header/stories/vl-content-header.stories-arg';
@@ -204,7 +213,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     ),
     buildWTConfig('vl-search-result-title', null, null, '/docs/components-block-search-result--documentatie'),
     buildWTConfig('vl-search-result-text', null, null, '/docs/components-block-search-result--documentatie'),
-    buildWTConfig('vl-search-result-properties', null, null, '/docs/components-block-search-result--documentatie'),
+    buildWTConfig(
+        'vl-search-result-properties',
+        searchResultPropertiesArgTypes,
+        null,
+        '/docs/components-block-search-result--documentatie'
+    ),
     buildWTConfig(
         'vl-side-navigation-next',
         sideNavigationNextArgTypes,
@@ -213,7 +227,7 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     ),
     buildWTConfig(
         'vl-side-navigation-section-next',
-        null,
+        sideNavigationSectionArgTypes,
         null,
         '/docs/components-block-next-side-navigation--documentatie'
     ),
@@ -239,7 +253,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     buildWTConfig('vl-side-navigation-h4', null, null, '/docs/components-block-side-navigation--documentatie'),
     buildWTConfig('vl-side-navigation-h5', null, null, '/docs/components-block-side-navigation--documentatie'),
     buildWTConfig('vl-side-navigation-h6', null, null, '/docs/components-block-side-navigation--documentatie'),
-    buildWTConfig('vl-side-navigation-toggle', null, null, '/docs/components-block-side-navigation--documentatie'),
+    buildWTConfig(
+        'vl-side-navigation-toggle',
+        sideNavigationToggleArgTypes,
+        null,
+        '/docs/components-block-side-navigation--documentatie'
+    ),
     buildWTConfig(
         'vl-search-filter',
         searchFilterArgTypes,
@@ -253,7 +272,7 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         '/docs/components-block-steps-steps--documentatie'
     ),
     buildWTConfig('vl-step', stepArgTypes, null, '/docs/components-block-steps-step--documentatie'),
-    buildWTConfig('vl-duration-step', null, null, '/docs/components-block-steps-steps--documentatie'),
+    buildWTConfig('vl-duration-step', durationStepArgTypes, null, '/docs/components-block-steps-steps--documentatie'),
     buildWTConfig('vl-pager', pagerArgTypes, null, '/docs/components-block-pager--documentatie'),
     buildWTConfig('vl-pill', pillArgTypes, null, '/docs/components-block-pill--documentatie'),
     buildWTConfig(
@@ -263,7 +282,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         '/docs/components-block-popover--documentatie'
     ),
     buildWTConfig('vl-popover-action', popoverActionArgTypes, null, '/docs/components-block-popover--documentatie'),
-    buildWTConfig('vl-popover-action-list', null, null, '/docs/components-block-popover--documentatie'),
+    buildWTConfig(
+        'vl-popover-action-list',
+        popoverActionListArgTypes,
+        null,
+        '/docs/components-block-popover--documentatie'
+    ),
     buildWTConfig(
         'vl-progress-bar',
         progressBarArgTypes,
@@ -343,11 +367,11 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         '../../libs/components/src/block/next/tabs/stories/vl-tabs.stories-doc.mdx',
         '/docs/components-block-next-tabs--documentatie'
     ),
-    buildWTConfig('vl-tab-next', null, null, '/docs/components-block-next-tabs--documentatie'),
-    buildWTConfig('vl-tab-link-next', null, null, '/docs/components-block-next-tabs--documentatie'),
-    buildWTConfig('vl-tab-panel-next', null, null, '/docs/components-block-next-tabs--documentatie'),
+    buildWTConfig('vl-tab-next', tabNextArgTypes, null, '/docs/components-block-next-tabs--documentatie'),
+    buildWTConfig('vl-tab-link-next', tabLinkNextArgTypes, null, '/docs/components-block-next-tabs--documentatie'),
+    buildWTConfig('vl-tab-panel-next', tabPanelNextArgTypes, null, '/docs/components-block-next-tabs--documentatie'),
     buildWTConfig('vl-tabs-pane', tabsPaneArgTypes, null, '/docs/components-block-tabs-tabs-pane--documentatie'),
-    buildWTConfig('vl-tab', null, null, '/docs/components-block-tabs-tabs--documentatie'),
+    buildWTConfig('vl-tab', tabArgTypes, null, '/docs/components-block-tabs-tabs--documentatie'),
     buildWTConfig('vl-tab-section', null, null, '/docs/components-block-tabs-tabs--documentatie'),
     buildWTConfig('vl-template', templateArgTypes, null, '/docs/components-block-template--documentatie'),
     buildWTConfig(

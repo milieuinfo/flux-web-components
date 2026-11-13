@@ -142,7 +142,18 @@ const sampleContent = html`
 
 export const SideNavigationDefault = story(
     sideNavigationArgs,
-    ({ closed, compact, headingRootSelector, maxDepth, navigationTitle, childSpacing, multiActive }) => {
+    ({
+        closed,
+        compact,
+        headingRootSelector,
+        maxDepth,
+        minLevel,
+        maxLevel,
+        excludeSelectors,
+        navigationTitle,
+        childSpacing,
+        multiActive,
+    }) => {
         return html`
             <div class="vl-grid vl-content-block">
                 <vl-side-navigation-next
@@ -152,6 +163,9 @@ export const SideNavigationDefault = story(
                     ?multi-active=${multiActive}
                     child-spacing=${childSpacing}
                     max-depth=${maxDepth}
+                    min-level=${minLevel}
+                    max-level=${maxLevel}
+                    exclude-selectors=${excludeSelectors}
                     heading-root-selector=${headingRootSelector}
                     navigation-title=${navigationTitle}
                 >
@@ -168,7 +182,17 @@ SideNavigationDefault.args = {
 
 export const SideNavigationCompact = story(
     sideNavigationArgs,
-    ({ closed, headingRootSelector, maxDepth, navigationTitle, childSpacing, multiActive }) => {
+    ({
+        closed,
+        headingRootSelector,
+        maxDepth,
+        minLevel,
+        maxLevel,
+        excludeSelectors,
+        navigationTitle,
+        childSpacing,
+        multiActive,
+    }) => {
         return html`
             <div class="vl-grid vl-content-block">
                 <vl-side-navigation-next
@@ -178,6 +202,9 @@ export const SideNavigationCompact = story(
                     ?multi-active=${multiActive}
                     child-spacing=${childSpacing}
                     max-depth=${maxDepth}
+                    min-level=${minLevel}
+                    max-level=${maxLevel}
+                    exclude-selectors=${excludeSelectors}
                     heading-root-selector=${headingRootSelector}
                     navigation-title=${navigationTitle}
                 >
@@ -387,7 +414,18 @@ SideNavigationWithCustomToc.storyName = 'vl-side-navigation-next - custom table 
 
 export const SideNavigationWithSections = story(
     sideNavigationArgs,
-    ({ closed, compact, headingRootSelector, navigationTitle, maxDepth, childSpacing, multiActive }) => {
+    ({
+        closed,
+        compact,
+        headingRootSelector,
+        navigationTitle,
+        maxDepth,
+        minLevel,
+        maxLevel,
+        excludeSelectors,
+        childSpacing,
+        multiActive,
+    }) => {
         return html`
             <div class="vl-grid vl-content-block">
                 <vl-side-navigation-next
@@ -396,6 +434,9 @@ export const SideNavigationWithSections = story(
                     ?compact=${compact}
                     child-spacing=${childSpacing}
                     max-depth=${maxDepth}
+                    min-level=${minLevel}
+                    max-level=${maxLevel}
+                    exclude-selectors=${excludeSelectors}
                     heading-root-selector=${headingRootSelector}
                     navigation-title=${navigationTitle}
                     ?multi-active=${multiActive}
