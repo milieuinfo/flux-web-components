@@ -281,14 +281,21 @@ export const vlButtonStyles = (element: VlButtonElementType = 'button', selector
                 }
 
                 &.ghost {
-                    color: var(--vl-color--action-disabled);
+                    color: var(--vl-color--grey-500);
                     background-color: transparent;
                     border-color: transparent;
+
+                    /* Expliciet per toestand: anders overschrijven .error.ghost:hover en .loading:hover deze kleur. */
+                    &:visited,
+                    &:focus,
+                    &:hover,
+                    &:active {
+                        color: var(--vl-color--grey-500);
+                    }
 
                     &.error {
                         &:focus,
                         &:hover {
-                            color: var(--vl-color--action-disabled);
                             background-color: transparent;
                             border-color: transparent;
                         }
