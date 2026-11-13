@@ -94,7 +94,7 @@ export const popoverArgTypes: ArgTypes<typeof popoverDefaultArgs> = {
     trigger: {
         name: 'trigger',
         description:
-            'Gebruikersacties die de popover triggeren. Je kan verschillende acties combineren met spaties. Bv. met `focus hover` zal de popover zowel verschijnen bij focus als bij hover.<br />Tip: `hover` en `focus` zijn bij de popover meestal te vermijden. Gebruik hiervoor eerder [vl-tooltip](/?path=/docs/components-block-tooltip--documentatie).',
+            'Gebruikersacties die de popover triggeren. Je kan verschillende acties combineren met spaties. Bv. met `click hover` zal de popover zowel verschijnen bij een klik als bij hover.<br />Gebruik `hover` nooit alleen: dan kan je de popover niet openen met het toetsenbord of een schermlezer. Combineer `hover` altijd met `click`.<br />Tip: `hover` en `focus` zijn bij de popover meestal te vermijden. Gebruik voor tekst zonder interactie eerder [vl-tooltip](/?path=/docs/components-block-tooltip--documentatie).',
         table: {
             type: { summary: 'click | focus | hover' },
             category: CATEGORIES.ATTRIBUTES,

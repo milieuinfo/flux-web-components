@@ -10,7 +10,8 @@ export const popoverActionArgTypes: ArgTypes<typeof popoverActionArgs> = {
     ...defaultArgTypes,
     selected: {
         name: 'selected',
-        description: 'Duidt aan dat de actie geselecteerd is.',
+        description:
+            'Duidt de actie aan als het huidige item, bv. de huidige pagina of de laatst gekozen weergave. Een schermlezer leest dit via `aria-current`.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.PROPERTIES,
