@@ -4,6 +4,44 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlButtonElements, vlButtonStyles } from './vl-button-style.css';
 import { buttonVariants, renderAllButtonVariants } from './vl-button-style.util';
 
+const actionColor = 'rgb(0, 85, 204)';
+const disabledColor = 'rgb(104, 116, 131)';
+const disabledBackgroundColor = 'rgb(203, 210, 217)';
+const disabledGhostColor = 'rgb(167, 177, 191)';
+const transparent = 'rgba(0, 0, 0, 0)';
+
+const relativeLuminance = (rgbColor: string) => {
+    const [red, green, blue] = rgbColor
+        .match(/\d+/g)!
+        .map((channel) => Number(channel) / 255)
+        .map((channel) => (channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+};
+
+const contrastRatio = (rgbColor: string, otherRgbColor: string) => {
+    const [darkest, lightest] = [relativeLuminance(rgbColor), relativeLuminance(otherRgbColor)].sort((a, b) => a - b);
+    return (lightest + 0.05) / (darkest + 0.05);
+};
+
+// cy.trigger('mouseover') zet :hover niet; via het Chrome DevTools Protocol beweegt de echte muisaanwijzer.
+const realMouseMove = (x: number, y: number) =>
+    Cypress.automation('remote:debugger:protocol', {
+        command: 'Input.dispatchMouseEvent',
+        params: { type: 'mouseMoved', x, y },
+    });
+
+const realHover = ($element: JQuery<HTMLElement>) => {
+    const element = $element[0];
+    const autWindow = element.ownerDocument.defaultView!;
+    const frameRect = autWindow.frameElement!.getBoundingClientRect();
+    const scale = frameRect.width / autWindow.innerWidth;
+    const elementRect = element.getBoundingClientRect();
+    return realMouseMove(
+        frameRect.left + (elementRect.left + elementRect.width / 2) * scale,
+        frameRect.top + (elementRect.top + elementRect.height / 2) * scale,
+    );
+};
+
 describe('cypress-component - atom components - vl-button-style', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
@@ -21,6 +59,7 @@ describe('cypress-component - atom components - vl-button-style', () => {
         let expectedBorderWidth = 2;
         let expectedMargin = 0;
         let expectedPadding = 10;
+        const isGhost = buttonVariant === 'ghost';
 
         switch (buttonVariant) {
             case 'secondary':
@@ -71,6 +110,83 @@ describe('cypress-component - atom components - vl-button-style', () => {
                     style: 'padding',
                     value: `${expectedPadding}px`,
                 });
+        });
+
+        it(`should have the correct disabled style - variant: ${buttonVariant}`, () => {
+            cy.get(`.cy-button.${buttonVariant}.default.disabled.icon-none`)
+                .shouldHaveComputedStyle({
+                    style: 'color',
+                    value: isGhost ? disabledGhostColor : disabledColor,
+                })
+                .shouldHaveComputedStyle({
+                    style: 'background-color',
+                    value: isGhost ? transparent : disabledBackgroundColor,
+                });
+        });
+    });
+
+    it('should show an icon-only disabled ghost button and its icon in the disabled ghost color', () => {
+        cy.get('.cy-button.ghost.default.disabled.icon-only')
+            .shouldHaveComputedStyle({ style: 'color', value: disabledGhostColor })
+            .find('.vl-icon')
+            .shouldHaveComputedStyle({ style: 'color', value: disabledGhostColor });
+    });
+
+    it('should distinguish a disabled ghost button from an enabled one by lightness, not only by hue', () => {
+        cy.get('.cy-button.ghost.default.idle.icon-none').shouldHaveComputedStyle({
+            style: 'color',
+            value: actionColor,
+        });
+        cy.get('.cy-button.ghost.default.disabled.icon-none').should(($button) => {
+            // WCAG 1.4.1, techniek G183: een toestand die enkel in kleur verschilt, vraagt minstens 3:1 contrast.
+            expect(contrastRatio(getComputedStyle($button[0]).color, actionColor)).to.be.at.least(3);
+        });
+    });
+});
+
+describe('cypress-component - atom components - vl-button-style - disabled ghost', () => {
+    beforeEach(() => {
+        cy.then(() => GlobalStyles.getInstance().register());
+    });
+
+    // Een aanwijzer die blijft staan, geeft de knop van de volgende test opnieuw :hover.
+    afterEach(() => {
+        cy.then(() => realMouseMove(0, 0));
+    });
+
+    ['ghost disabled', 'ghost error disabled', 'ghost loading disabled'].forEach((classes) => {
+        const mountButton = () =>
+            cy.mount(html`
+                <style>
+                    ${unsafeCSS(vlButtonStyles('button', '.cy-button'))}
+                </style>
+                <button class="cy-button ${classes}">Klik hier</button>
+            `);
+
+        it(`should have the disabled ghost color - case: ${classes}`, () => {
+            mountButton();
+
+            cy.get('.cy-button').shouldHaveComputedStyle({ style: 'color', value: disabledGhostColor });
+        });
+
+        it(`should keep the disabled ghost color on hover - case: ${classes}`, () => {
+            mountButton();
+
+            cy.get('.cy-button').then(($button) => realHover($button));
+
+            cy.get('.cy-button')
+                .should(($button) => expect($button[0].matches(':hover')).to.be.true)
+                .shouldHaveComputedStyle({ style: 'color', value: disabledGhostColor });
+        });
+
+        it(`should keep the disabled ghost color on focus - case: ${classes}`, () => {
+            mountButton();
+
+            cy.get('.cy-button').focus();
+
+            cy.get('.cy-button')
+                .should(($button) => expect($button[0].matches(':focus')).to.be.true)
+                .shouldHaveComputedStyle({ style: 'color', value: disabledGhostColor });
         });
     });
 });
