@@ -4,7 +4,7 @@
 // code-only vl-upload: accepted-files, auto-process, blur-validation, chunking, describedby, disallow-duplicates
 // code-only vl-upload: error-message-accepted-files, error-message-filesize, error-message-max-files
 // code-only vl-upload: label, max-files, max-size, multiple, name, parallel-uploads, readonly
-// code-only vl-upload: required, type, url
+// code-only vl-upload: required, url
 import figma from 'figma';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
 

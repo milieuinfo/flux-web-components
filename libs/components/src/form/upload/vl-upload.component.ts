@@ -87,7 +87,6 @@ export class VlUploadComponent extends FormControl {
 
     static get properties(): PropertyDeclarations {
         return {
-            type: { type: String },
             acceptedFiles: { type: String, attribute: 'accepted-files' },
             autoProcess: { type: Boolean, attribute: 'auto-process' },
             disallowDuplicates: { type: Boolean, attribute: 'disallow-duplicates' },

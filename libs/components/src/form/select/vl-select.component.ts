@@ -39,7 +39,6 @@ export class VlSelectComponent extends FormControl {
             },
             initialOptions: { type: Array, attribute: 'initial-options' },
             block: { type: Boolean },
-            readonly: { type: Boolean },
             placeholder: { type: String },
             autocomplete: { type: String },
             notDeletable: { type: Boolean, attribute: 'not-deletable' },
