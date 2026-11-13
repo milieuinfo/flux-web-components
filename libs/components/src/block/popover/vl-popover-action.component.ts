@@ -30,16 +30,6 @@ export class VlPopoverActionComponent extends BaseLitElement {
         };
     }
 
-    updated(changedProperties: Map<string | number | symbol, unknown>) {
-        if (changedProperties.has('selected')) {
-            if (this.selected) {
-                this.setAttribute('aria-selected', 'true');
-            } else {
-                this.removeAttribute('aria-selected');
-            }
-        }
-    }
-
     protected renderIcon(): TemplateResult | typeof nothing {
         return this.icon && this.icon !== '' ? html`<span class="vl-icon vl-icon--${this.icon}"></span>` : nothing;
     }
@@ -50,11 +40,11 @@ export class VlPopoverActionComponent extends BaseLitElement {
                   href="${this.href}"
                   target="${this.target || nothing}"
                   rel="${this.rel || nothing}"
-                  role="menuitem"
+                  aria-current=${this.selected ? 'true' : nothing}
               >
                   ${this.renderIcon()} <span><slot></slot></span>
               </a>`
-            : html` <button type="button" role="menuitem">
+            : html` <button type="button" aria-current=${this.selected ? 'true' : nothing}>
                   ${this.renderIcon()} <span><slot></slot></span>
               </button>`;
     }
