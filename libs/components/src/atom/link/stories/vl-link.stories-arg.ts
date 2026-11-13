@@ -12,11 +12,14 @@ import { ArgTypes } from '@storybook/web-components-vite';
 import { linkDefaults } from '../vl-link.defaults';
 import { action } from 'storybook/actions';
 
-type LinkArgs = typeof defaultArgs & typeof linkDefaults & { defaultSlot: string; onVlClick: () => void; };
+type LinkArgs = typeof defaultArgs &
+    typeof linkDefaults & { ariaCurrent: string; ariaHaspopup: string; defaultSlot: string; onVlClick: () => void };
 
 export const linkArgs: LinkArgs = {
     ...defaultArgs,
     ...linkDefaults,
+    ariaCurrent: '',
+    ariaHaspopup: '',
     defaultSlot: '',
     onVlClick: action('vl-click'),
 };
@@ -137,6 +140,30 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
             type: { summary: `${TYPES.STRING}: 'button' | 'submit' | 'reset'` },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: linkArgs.type },
+        },
+    },
+    ariaCurrent: {
+        name: 'aria-current',
+        description:
+            'Wordt doorgegeven aan de onderliggende link (of button bij `button-as-link`) en duidt de huidige link binnen een reeks aan, bv. de huidige pagina.',
+        control: { type: CONTROLS.SELECT },
+        options: ['', 'page', 'step', 'location', 'date', 'time', 'true', 'false'],
+        table: {
+            type: { summary: getSelectControlOptions(['page', 'step', 'location', 'date', 'time', 'true', 'false']) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: linkArgs.ariaCurrent },
+        },
+    },
+    ariaHaspopup: {
+        name: 'aria-haspopup',
+        description:
+            'Wordt doorgegeven aan de onderliggende link (of button bij `button-as-link`) en duidt aan dat de link een popup opent, bv. een menu of dialog.<br>Dit attribuut is niet reactief.',
+        control: { type: CONTROLS.SELECT },
+        options: ['', 'false', 'true', 'menu', 'listbox', 'tree', 'grid', 'dialog'],
+        table: {
+            type: { summary: getSelectControlOptions(['false', 'true', 'menu', 'listbox', 'tree', 'grid', 'dialog']) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: linkArgs.ariaHaspopup },
         },
     },
     defaultSlot: {

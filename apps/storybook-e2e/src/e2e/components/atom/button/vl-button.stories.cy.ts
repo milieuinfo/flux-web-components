@@ -17,6 +17,8 @@ const buttonIconUrl = 'http://localhost:8080/iframe.html?id=components-atom-butt
 const buttonIconOnlyUrl =
     'http://localhost:8080/iframe.html?id=components-atom-button--button-icon-only&viewMode=story';
 const buttonToggleUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-toggle&viewMode=story';
+const buttonInputGroupUrl =
+    'http://localhost:8080/iframe.html?id=components-atom-button--button-input-group&viewMode=story';
 
 describe('cypress-e2e - atom components - vl-button - default story', () => {
     it('should render', () => {
@@ -119,5 +121,14 @@ describe('cypress-e2e - atom components - vl-button - toggle story', () => {
         cy.visit(buttonToggleUrl);
 
         cy.get('vl-button').shadow().find('button');
+    });
+});
+
+describe('cypress-e2e - atom components - vl-button - input-group story', () => {
+    it('should render as part of an input-group', () => {
+        cy.visit(buttonInputGroupUrl);
+
+        cy.get('vl-button').should('have.attr', 'input-group');
+        cy.get('vl-button').shadow().find('button').should('have.class', 'input-group-right');
     });
 });

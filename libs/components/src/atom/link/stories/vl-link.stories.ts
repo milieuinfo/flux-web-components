@@ -38,7 +38,9 @@ const LinkTemplate = story(
         iconPlacement,
         defaultSlot,
         label,
-        onVlClick
+        ariaCurrent,
+        ariaHaspopup,
+        onVlClick,
     }) => html`
         <vl-link
             href=${href}
@@ -53,6 +55,8 @@ const LinkTemplate = story(
             icon=${icon}
             icon-placement=${iconPlacement}
             label=${label}
+            aria-current=${ariaCurrent}
+            aria-haspopup=${ariaHaspopup}
             @vl-click=${onVlClick}
             >${unsafeHTML(defaultSlot)}</vl-link
         >

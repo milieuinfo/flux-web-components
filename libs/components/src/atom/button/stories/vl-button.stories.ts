@@ -46,6 +46,9 @@ const ButtonTemplate = story(
         external,
         inputGroup,
         label,
+        ariaCurrent,
+        ariaExpanded,
+        ariaHaspopup,
         defaultSlot,
         onVlClick,
         onVlToggle,
@@ -72,7 +75,10 @@ const ButtonTemplate = story(
                 ?on=${on}
                 ?controlled=${controlled}
                 ?external=${external}
-                ?inputGroup=${inputGroup}
+                ?input-group=${inputGroup}
+                aria-current=${ariaCurrent}
+                aria-expanded=${ariaExpanded}
+                aria-haspopup=${ariaHaspopup}
                 @vl-click=${onVlClick}
                 @vl-toggle=${onVlToggle}
             >

@@ -7,7 +7,7 @@ Vanuit de root:
     pnpm run libs:web-types:generate
 
 Dat draait `web-types.generator.ts` (via `resources/bash-scripts/libs-web-types-generate.sh`) en faalt als er ergens onder
-`libs/` een `*.web-types.errors.log` achterblijft.
+`libs/` een `*.web-types.errors.log` achterblijft. Dat gebeurt als een argType geen `table.category` of geen `name` heeft.
 
 
 ## valideren
