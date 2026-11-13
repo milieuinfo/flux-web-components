@@ -61,6 +61,17 @@ describe('cypress-component - atom components - vl-button', () => {
         cy.get('vl-button').shadow().find('button').should('have.attr', 'disabled');
     });
 
+    it('should show a disabled ghost button and its icon in the disabled ghost color', () => {
+        cy.mount(html` <vl-button ghost disabled icon="bin" label="Verwijder"></vl-button>`);
+
+        cy.get('vl-button')
+            .shadow()
+            .find('button')
+            .shouldHaveComputedStyle({ style: 'color', value: 'rgb(167, 177, 191)' })
+            .find('.vl-icon')
+            .shouldHaveComputedStyle({ style: 'color', value: 'rgb(167, 177, 191)' });
+    });
+
     it('should set error', () => {
         cy.mount(html` <vl-button error>Klik op mij</vl-button>`);
 
