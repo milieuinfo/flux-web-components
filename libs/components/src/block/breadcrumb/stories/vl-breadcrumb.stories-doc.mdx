@@ -40,6 +40,16 @@ Vermijd het gebruik van links en buttons binnen dezelfde breadcrumb component.
 Het laatste breadcrumb item is de huidige locatie. Geef dat item geen `href` en geen `type="button"`, dan wordt het
 als tekst weergegeven en is het niet aanklikbaar.
 
+Een submenu maak je met een `vl-popover` waarvan `for` verwijst naar het `id` van een breadcrumb item met
+`type="button"`. Het submenu is een disclosure, geen ARIA-menu: de knop krijgt `aria-expanded`, en de items zijn
+gewone links of knoppen.
+
+- Zet het breadcrumb item en de `vl-popover` samen in één element, bv. een `<div>`, met de popover direct na het item.
+  Zo klopt de volgorde met Tab. Elk kind van `vl-breadcrumb` wordt een apart item met een scheidingsteken; een losse
+  `vl-popover` zou dus een leeg item worden.
+- Enter of Spatie op de knop opent het submenu. Je gaat door de items met Tab, niet met de pijltoetsen.
+- Escape sluit het submenu en zet de focus terug op de knop.
+
 <Canvas of={VlBreadcrumbStories.BreadcrumbButtons} />
 
 ### Lange tekst afkappen
