@@ -5,11 +5,17 @@ import { radioGroupDefaults } from '../vl-radio-group.defaults';
 import { action } from 'storybook/actions';
 
 type RadioGroupArgs = typeof formControlArgs &
-    typeof radioGroupDefaults & { onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
+    typeof radioGroupDefaults & {
+        block: boolean;
+        onVlChange: () => void;
+        onVlInput: () => void;
+        onVlValid: () => void;
+    };
 
 export const radioGroupArgs: RadioGroupArgs = {
     ...formControlArgs,
     ...radioGroupDefaults,
+    block: false,
     onVlChange: action('vl-change'),
     onVlInput: action('vl-input'),
     onVlValid: action('vl-valid'),
@@ -17,6 +23,16 @@ export const radioGroupArgs: RadioGroupArgs = {
 
 export const radioGroupArgTypes: ArgTypes<RadioGroupArgs> = {
     ...formControlArgTypes,
+    block: {
+        name: 'block',
+        description:
+            'Duidt aan dat de radio buttons de volledige breedte van hun parent mogen innemen. Wordt doorgegeven aan elke `vl-radio`.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(radioGroupArgs.block) },
+        },
+    },
     readonly: {
         name: 'readonly',
         description: 'Duidt aan dat het veld enkel leesbaar is.',

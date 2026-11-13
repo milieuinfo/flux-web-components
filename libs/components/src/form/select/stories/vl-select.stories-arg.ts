@@ -5,11 +5,12 @@ import { selectDefaults } from '../vl-select.defaults';
 import { action } from 'storybook/actions';
 
 type SelectArgs = typeof formControlArgs &
-    typeof selectDefaults & { onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
+    typeof selectDefaults & { value: string; onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
 
 export const selectArgs: SelectArgs = {
     ...formControlArgs,
     ...selectDefaults,
+    value: '',
     onVlChange: action('vl-change'),
     onVlInput: action('vl-input'),
     onVlValid: action('vl-valid'),
@@ -71,6 +72,17 @@ export const selectArgTypes: ArgTypes<SelectArgs> = {
             type: { summary: 'SelectOption' },
             category: CATEGORIES.PROPERTIES,
             defaultValue: { summary: String(selectArgs.options) },
+        },
+    },
+    value: {
+        name: 'value',
+        description:
+            'De waarde van de geselecteerde optie. Bij het laden en bij elke wijziging van `options` neemt de component de waarde over van de optie met `selected`, dus stel de beginwaarde daar in.<br>Kan niet aangepast worden in Storybook.',
+        control: false,
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: selectArgs.value },
         },
     },
     onVlChange: {

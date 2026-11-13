@@ -4,12 +4,18 @@ import { sideNavigationDefaults } from '../vl-side-navigation.defaults';
 
 export type SideNavigationArgs = typeof sideNavigationDefaults &
     typeof defaultArgs & {
+        minLevel: number | undefined;
+        maxLevel: number | undefined;
+        excludeSelectors: string;
         defaultSlot: string;
     };
 
 export const sideNavigationArgs: SideNavigationArgs = {
     ...defaultArgs,
     ...sideNavigationDefaults,
+    minLevel: undefined,
+    maxLevel: undefined,
+    excludeSelectors: '',
     defaultSlot: '',
 };
 
@@ -45,6 +51,35 @@ export const sideNavigationArgTypes: ArgTypes<SideNavigationArgs> = {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: sideNavigationArgs.headingRootSelector },
+        },
+    },
+    minLevel: {
+        name: 'min-level',
+        description: 'Het laagste headingniveau (1 tot 6) dat in de inhoudstafel komt, bv. 2 begint bij h2.',
+        table: {
+            type: { summary: TYPES.NUMBER },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(2) },
+        },
+    },
+    maxLevel: {
+        name: 'max-level',
+        description: 'Het hoogste headingniveau (1 tot 6) dat in de inhoudstafel komt, bv. 3 stopt bij h3.',
+        table: {
+            type: { summary: TYPES.NUMBER },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(3) },
+        },
+    },
+    excludeSelectors: {
+        name: 'exclude-selectors',
+        description:
+            'Comma-separated CSS selectors van elementen om uit te sluiten tijdens het scannen van headings. ' +
+            'Voorbeeld: "iframe, table.large-data, .skip-headings".',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: sideNavigationArgs.excludeSelectors },
         },
     },
     maxDepth: {

@@ -109,7 +109,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
         },
     },
     errorMessageMaxFiles: {
-        name: 'error-message-maxfiles',
+        name: 'error-message-max-files',
         description:
             'Attribuut om de boodschap te bepalen wanneer er te veel bestanden zijn toegevoegd. <br> Gebruik' +
             ' {{maxFiles}} om het maximum aantal bestanden weer te geven.',

@@ -4,6 +4,7 @@ import { action } from 'storybook/actions';
 
 export const modalArgs = {
     ...defaultArgs,
+    id: '',
     titleLabel: 'Modal',
     label: '',
     open: false,
@@ -22,6 +23,16 @@ export const modalArgs = {
 
 export const modalArgTypes: ArgTypes<typeof modalArgs> = {
     ...defaultArgTypes,
+    id: {
+        name: 'id',
+        description:
+            'De id van de modal. Een element met `modal-open` (of `data-modal-open`) met dezelfde waarde opent de modal bij een klik.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: modalArgs.id },
+        },
+    },
     titleLabel: {
         name: 'title-label',
         description:

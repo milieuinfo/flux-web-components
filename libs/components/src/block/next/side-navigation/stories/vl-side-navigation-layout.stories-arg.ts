@@ -4,6 +4,8 @@ import { sideNavigationLayoutDefaults } from '../vl-side-navigation-layout.defau
 
 export type SideNavigationLayoutArgs = typeof sideNavigationLayoutDefaults &
     typeof defaultArgs & {
+        minLevel: number | undefined;
+        maxLevel: number | undefined;
         contentSlot: string;
         navigationSlot: string;
     };
@@ -11,6 +13,8 @@ export type SideNavigationLayoutArgs = typeof sideNavigationLayoutDefaults &
 export const sideNavigationLayoutArgs: SideNavigationLayoutArgs = {
     ...defaultArgs,
     ...sideNavigationLayoutDefaults,
+    minLevel: undefined,
+    maxLevel: undefined,
     contentSlot: '',
     navigationSlot: '',
 };
@@ -46,6 +50,26 @@ export const sideNavigationLayoutArgTypes: ArgTypes<SideNavigationLayoutArgs> = 
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(sideNavigationLayoutArgs.contentBlock) },
+        },
+    },
+    minLevel: {
+        name: 'min-level',
+        description:
+            'Het laagste headingniveau (1 tot 6) dat in de inhoudstafel komt, bv. 2 begint bij h2. Wordt doorgegeven aan vl-side-navigation-next. Zonder waarde geldt de waarde van `vl-side-navigation-next`.',
+        table: {
+            type: { summary: TYPES.NUMBER },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: 'undefined' },
+        },
+    },
+    maxLevel: {
+        name: 'max-level',
+        description:
+            'Het hoogste headingniveau (1 tot 6) dat in de inhoudstafel komt, bv. 3 stopt bij h3. Wordt doorgegeven aan vl-side-navigation-next. Zonder waarde geldt de waarde van `vl-side-navigation-next`.',
+        table: {
+            type: { summary: TYPES.NUMBER },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: 'undefined' },
         },
     },
     maxDepth: {

@@ -54,7 +54,7 @@ export const formMessageArgTypes: ArgTypes<FormMessageArgs> = {
         },
     },
     preLine: {
-        name: 'preLine',
+        name: 'pre-line',
         description: 'Duidt aan of de nieuwe lijnen (`\n`) in de message behouden worden.',
         table: {
             category: CATEGORIES.ATTRIBUTES,

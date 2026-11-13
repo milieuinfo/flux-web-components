@@ -13,11 +13,21 @@ import { action } from 'storybook/actions';
 import { buttonDefaults } from '../vl-button.defaults';
 
 type ButtonArgs = typeof defaultArgs &
-    typeof buttonDefaults & { defaultSlot: string; onVlClick: () => void; onVlToggle: () => void };
+    typeof buttonDefaults & {
+        ariaCurrent: string;
+        ariaExpanded: string;
+        ariaHaspopup: string;
+        defaultSlot: string;
+        onVlClick: () => void;
+        onVlToggle: () => void;
+    };
 
 export const buttonArgs: ButtonArgs = {
     ...defaultArgs,
     ...buttonDefaults,
+    ariaCurrent: '',
+    ariaExpanded: '',
+    ariaHaspopup: '',
     defaultSlot: '',
     onVlClick: action('vl-click'),
     onVlToggle: action('vl-toggle'),
@@ -223,6 +233,42 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: buttonArgs.label },
+        },
+    },
+    ariaCurrent: {
+        name: 'aria-current',
+        description:
+            'Wordt doorgegeven aan het onderliggende element en duidt het huidige element binnen een reeks aan, bv. de huidige pagina.',
+        control: { type: CONTROLS.SELECT },
+        options: ['', 'page', 'step', 'location', 'date', 'time', 'true', 'false'],
+        table: {
+            type: { summary: getSelectControlOptions(['page', 'step', 'location', 'date', 'time', 'true', 'false']) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: buttonArgs.ariaCurrent },
+        },
+    },
+    ariaExpanded: {
+        name: 'aria-expanded',
+        description:
+            'Wordt doorgegeven aan de onderliggende button en duidt aan of het element dat de button bedient, open of gesloten is.',
+        control: { type: CONTROLS.SELECT },
+        options: ['', 'true', 'false'],
+        table: {
+            type: { summary: getSelectControlOptions(['true', 'false']) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: buttonArgs.ariaExpanded },
+        },
+    },
+    ariaHaspopup: {
+        name: 'aria-haspopup',
+        description:
+            'Wordt doorgegeven aan het onderliggende element en duidt aan dat de button een popup opent, bv. een menu of dialog.<br>Dit attribuut is niet reactief.',
+        control: { type: CONTROLS.SELECT },
+        options: ['', 'false', 'true', 'menu', 'listbox', 'tree', 'grid', 'dialog'],
+        table: {
+            type: { summary: getSelectControlOptions(['false', 'true', 'menu', 'listbox', 'tree', 'grid', 'dialog']) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: buttonArgs.ariaHaspopup },
         },
     },
     defaultSlot: {
