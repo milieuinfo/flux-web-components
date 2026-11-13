@@ -43,6 +43,9 @@ export default class FloatingController implements ReactiveController {
     private options!: FloatingControllerOptions;
     private hostHover = false;
     private ignoreNextClick = false;
+    private ignoreFocusIn = false;
+    // Met trigger="click hover" opent hover de popover vlak voor de klik; die klik mag hem dan niet meteen sluiten.
+    private openedByHover = false;
 
     constructor(host: FloatingElement, options: FloatingControllerOptions) {
         this.setOptions(options);
@@ -70,8 +73,8 @@ export default class FloatingController implements ReactiveController {
                 this.addAttributeToTrigger('aria-labelledby', this.host.id);
             }
         } else {
+            // Geen aria-haspopup: de popover is een disclosure (knop + aria-expanded), geen ARIA-menu met pijltoetsen.
             this.addAttributeToTrigger('aria-controls', this.host.id);
-            this.addAttributeToTrigger('aria-haspopup', 'true');
         }
     }
 
@@ -239,11 +242,14 @@ export default class FloatingController implements ReactiveController {
     show(): void {
         this.host.show();
         document.addEventListener('click', this.handleClickOutside, true);
+        document.addEventListener('keydown', this.handleDocumentKeyDown);
     }
 
     hide(): void {
+        this.openedByHover = false;
         this.host.hide();
         document.removeEventListener('click', this.handleClickOutside, true);
+        document.removeEventListener('keydown', this.handleDocumentKeyDown);
     }
 
     toggle(): void {
@@ -311,6 +317,7 @@ export default class FloatingController implements ReactiveController {
 
         this.host.removeEventListener('focusout', this.handleHostFocusOut);
         this.host.removeEventListener('keydown', this.handleKeyDown);
+        document.removeEventListener('keydown', this.handleDocumentKeyDown);
 
         window.removeEventListener('resize', this.handleResize);
     }
@@ -324,17 +331,37 @@ export default class FloatingController implements ReactiveController {
             this.ignoreNextClick = false;
             return;
         }
+        if (this.openedByHover && this.host.open) {
+            this.openedByHover = false;
+            return;
+        }
 
         this.host.toggle();
     };
 
     private handleHideOnClick = (): void => {
-        this.hide();
+        this.hideAndRestoreFocus();
     };
+
+    // Sluit de popover; stond de focus erin, dan gaat ze terug naar de trigger (WCAG 2.4.3).
+    // Heeft een handler de focus al elders gezet, dan staat ze niet meer in de popover en blijft ze daar.
+    private hideAndRestoreFocus(): void {
+        const focusWasInside = this.host.matches(':focus-within');
+        this.hide();
+        if (focusWasInside) {
+            // focus() vuurt focusin synchroon; zonder deze vlag opent trigger="focus" de popover meteen opnieuw.
+            this.ignoreFocusIn = true;
+            this.triggerButton.focus();
+            this.ignoreFocusIn = false;
+        }
+    }
 
     private handleMouseOver = (): void => {
         clearTimeout(this.hoverTimeout);
-        this.hoverTimeout = window.setTimeout(() => this.show(), this.options.showDelay);
+        this.hoverTimeout = window.setTimeout(() => {
+            this.openedByHover = !this.host.open;
+            this.show();
+        }, this.options.showDelay);
     };
 
     private handleMouseOut = (): void => {
@@ -358,6 +385,7 @@ export default class FloatingController implements ReactiveController {
     };
 
     private handleFocusIn = (): void => {
+        if (this.ignoreFocusIn) return;
         this.show();
         // Ignore the next click coming from the same event
         this.ignoreNextClick = true;
@@ -396,7 +424,16 @@ export default class FloatingController implements ReactiveController {
     private handleKeyDown = (event: KeyboardEvent): void => {
         if (this.host.open && event.key === 'Escape') {
             event.stopPropagation();
-            this.hide();
+            this.hideAndRestoreFocus();
+        }
+    };
+
+    // WCAG 1.4.13: inhoud die bij hover opent, sluit je met Escape, ook als de focus ergens anders staat. Staat de focus
+    // in de trigger of de popover, dan handelt handleKeyDown het al af en stopt het event. Hier geen stopPropagation:
+    // een ander component dat Escape op document of window opvangt, blijft het krijgen.
+    private handleDocumentKeyDown = (event: KeyboardEvent): void => {
+        if (this.host.open && event.key === 'Escape') {
+            this.hideAndRestoreFocus();
         }
     };
 
