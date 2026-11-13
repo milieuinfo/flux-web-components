@@ -48,7 +48,7 @@ const loremIpsumParagraph = html`
 
 export const SideNavigationLayoutDefault = story(
     sideNavigationLayoutArgs,
-    ({ compact, contentBlock, navigationTitle, excludeSelectors, childSpacing, multiActive }) => {
+    ({ compact, contentBlock, navigationTitle, excludeSelectors, minLevel, maxLevel, childSpacing, multiActive }) => {
         return html`
             <vl-side-navigation-layout-next
                 ?compact=${compact}
@@ -57,6 +57,8 @@ export const SideNavigationLayoutDefault = story(
                 heading-root-selector="#story-default-content"
                 navigation-title=${navigationTitle}
                 exclude-selectors=${excludeSelectors}
+                min-level=${minLevel}
+                max-level=${maxLevel}
                 child-spacing=${childSpacing}
             >
                 <div slot="content">

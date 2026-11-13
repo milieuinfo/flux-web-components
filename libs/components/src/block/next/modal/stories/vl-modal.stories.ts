@@ -25,7 +25,7 @@ export default {
 } as Meta<typeof modalArgs>;
 
 export const modalDefault = story(
-    { ...modalArgs, id: '' },
+    modalArgs,
     ({
         titleLabel,
         label,

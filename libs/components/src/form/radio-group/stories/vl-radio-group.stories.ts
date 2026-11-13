@@ -28,6 +28,7 @@ export const RadioGroupDefault = story(
         id,
         required,
         readonly,
+        block,
         disabled,
         error,
         success,
@@ -47,6 +48,7 @@ export const RadioGroupDefault = story(
             value=${value}
             ?required=${required}
             ?readonly=${readonly}
+            ?block=${block}
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}
@@ -60,7 +62,7 @@ export const RadioGroupDefault = story(
             <vl-radio value="zee">Zee</vl-radio>
             <vl-radio value="lucht">Lucht</vl-radio>
         </vl-radio-group>
-    `
+    `,
 );
 RadioGroupDefault.storyName = 'vl-radio-group - default';
 RadioGroupDefault.args = {

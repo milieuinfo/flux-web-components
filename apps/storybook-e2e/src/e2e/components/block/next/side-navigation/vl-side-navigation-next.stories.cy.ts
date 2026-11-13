@@ -93,3 +93,33 @@ describe('cypress-e2e - block components - vl-side-navigation-next - sections st
         cy.get('vl-side-navigation-next').shadow().find('#show-toc-button').should('have.length', 1);
     });
 });
+
+describe('cypress-e2e - block components - vl-side-navigation-next - level and exclude controls', () => {
+    it('should not set min-level, max-level and exclude-selectors without the controls', () => {
+        cy.visit(sideNavigationNextDefaultUrl);
+
+        cy.get('vl-side-navigation-next').should('not.have.attr', 'min-level');
+        cy.get('vl-side-navigation-next').should('not.have.attr', 'max-level');
+        cy.get('vl-side-navigation-next').should('not.have.attr', 'exclude-selectors');
+        cy.get('vl-side-navigation-next').shadow().find('a').should('have.length', 7);
+    });
+
+    it('should only list the headings between min-level and max-level', () => {
+        cy.visit(`${sideNavigationNextDefaultUrl}&args=minLevel:3;maxLevel:3`);
+
+        cy.get('vl-side-navigation-next').should('have.attr', 'min-level', '3');
+        cy.get('vl-side-navigation-next').should('have.attr', 'max-level', '3');
+        cy.get('vl-side-navigation-next').shadow().find('a').should('have.length', 4);
+    });
+
+    it('should skip the headings inside elements matching exclude-selectors', () => {
+        cy.visit(`${sideNavigationNextDefaultUrl}&args=excludeSelectors:section`);
+
+        cy.get('vl-side-navigation-next').should('have.attr', 'exclude-selectors', 'section');
+        cy.get('vl-side-navigation-next').should(($nav) => {
+            expect(($nav[0] as unknown as { isTableOfContentsInitialized: boolean }).isTableOfContentsInitialized).to.be
+                .true;
+        });
+        cy.get('vl-side-navigation-next').shadow().find('a').should('have.length', 0);
+    });
+});

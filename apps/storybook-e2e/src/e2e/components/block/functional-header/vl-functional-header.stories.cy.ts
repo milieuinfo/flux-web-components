@@ -88,3 +88,12 @@ describe('cypress-e2e - block components - vl-functional-header - hide sub heade
         cy.get('vl-functional-header').shadow().find('header');
     });
 });
+
+describe('cypress-e2e - block components - vl-functional-header - breadcrumb story skip-to-content-id control', () => {
+    it('should render the skip-link when the control has a value', () => {
+        cy.visit(`${functionalHeaderBreadcrumbUrl}&args=skipToContentId:content`);
+
+        cy.get('vl-functional-header').should('have.attr', 'skip-to-content-id', 'content');
+        cy.get('vl-functional-header').shadow().find('a.vl-skip-link').should('have.attr', 'href', '#content');
+    });
+});

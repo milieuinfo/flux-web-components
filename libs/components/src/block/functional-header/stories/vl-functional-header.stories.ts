@@ -152,7 +152,7 @@ export const FunctionalHeaderBreadcrumb = story(
             link=${link}
             margin-bottom=${marginBottom}
             title-label=${titleLabel}
-            skipToContentId=${skipToContentId}
+            skip-to-content-id=${skipToContentId}
             hide-back-link
         >
             <vl-breadcrumb slot="sub-title">

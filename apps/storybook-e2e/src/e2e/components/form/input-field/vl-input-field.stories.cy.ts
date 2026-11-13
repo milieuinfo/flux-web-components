@@ -18,3 +18,13 @@ describe('cypress-e2e - form components - vl-input-field - number story', () => 
         cy.get('vl-input-field').shadow().find('input');
     });
 });
+
+describe('cypress-e2e - form components - vl-input-field - input-group control', () => {
+    it('should set the input-group attribute only when the control is on', () => {
+        cy.visit(`${inputFieldDefaultUrl}&args=inputGroup:!true`);
+        cy.get('vl-input-field').should('have.attr', 'input-group');
+
+        cy.visit(`${inputFieldDefaultUrl}&args=inputGroup:!false`);
+        cy.get('vl-input-field').should('not.have.attr', 'input-group');
+    });
+});
