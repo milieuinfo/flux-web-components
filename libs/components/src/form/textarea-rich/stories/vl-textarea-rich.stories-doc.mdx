@@ -35,6 +35,14 @@ import { VlTextareaRichComponent } from '@domg-wc/components/form';
 <FormControlPublicMethods />
 
 
+## Initialisatie
+
+De editor is niet bewerkbaar zolang TinyMCE initialiseert. Zo kan er geen tekst getypt worden die de component nog niet opvangt.<br/>
+Na de initialisatie wordt de editor bewerkbaar, tenzij `readonly`, `disabled` of `preview` gezet is.
+
+Wacht in een geautomatiseerde test tot de body van de editor `contenteditable="true"` heeft voor je typt.
+
+
 ## Content Security Policy (CSP)
 
 TinyMCE maakt bij bepaalde tools en plugins gebruik van inline styles.<br/>

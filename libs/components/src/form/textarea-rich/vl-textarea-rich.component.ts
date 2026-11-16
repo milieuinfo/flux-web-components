@@ -143,6 +143,10 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
             link_title: false,
             link_target_list: false,
             link_default_target: '_blank',
+            // Geldt enkel tijdens de init: de body is anders al bewerkbaar terwijl de input- en change-listeners nog
+            // niet bestaan, en wat dan getypt wordt gaat verloren. Na de init bepalen readonly, disabled en preview de
+            // mode. Vóór de spread zodat een consumer er via customConfig van kan afwijken.
+            readonly: true,
             // Custom TinyMCE configuratie
             ...this.customConfig,
             // Na de spread zodat een setup uit customConfig deze niet overschrijft. TinyMCE roept setup synchroon aan
