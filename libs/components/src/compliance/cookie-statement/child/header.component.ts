@@ -4,10 +4,7 @@ import { VlFunctionalHeaderComponent } from '../../../block/functional-header';
 export const cookieStatementHeaderElements = () => [VlFunctionalHeaderComponent];
 
 export const header = () => html`
-    <vl-functional-header
-        title-label="Departement Omgeving"
-        sub-title="Cookieverklaring"
-        link="https://omgeving.vlaanderen.be"
-        skip-to-content-id="main-content"
-    ></vl-functional-header>
+    <vl-functional-header sub-title="Cookieverklaring" skip-to-content-id="main-content">
+        <a slot="heading" href="https://omgeving.vlaanderen.be">Departement Omgeving</a>
+    </vl-functional-header>
 `;

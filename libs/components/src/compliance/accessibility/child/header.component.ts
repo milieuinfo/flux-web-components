@@ -8,11 +8,11 @@ export const headerElements = () => [VlFunctionalHeaderComponent];
 
 export const header = ({ disableBackLink, hideBackLink }: HeaderProps) => html`
     <vl-functional-header
-        title-label="Departement Omgeving"
         sub-title="Toegankelijkheid en gebruiksvoorwaarden"
-        link="https://omgeving.vlaanderen.be"
         ?disable-back-link=${disableBackLink}
         ?hide-back-link=${hideBackLink}
         skip-to-content-id="#main-content"
-    ></vl-functional-header>
+    >
+        <a slot="heading" href="https://omgeving.vlaanderen.be">Departement Omgeving</a>
+    </vl-functional-header>
 `;
