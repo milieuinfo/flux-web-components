@@ -1,6 +1,6 @@
 import { BaseLitElement } from '@domg-wc/common';
-import { html, PropertyDeclarations, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
+import { customElement, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { progressBarDefaults } from './vl-progress-bar.defaults';
@@ -14,6 +14,9 @@ export class VlProgressBarComponent extends BaseLitElement {
     private indeterminate = progressBarDefaults.indeterminate;
     private error = progressBarDefaults.error;
     private success = progressBarDefaults.success;
+
+    @query('.vl-progress-bar__progress')
+    private progressElement!: HTMLDivElement;
 
     static get styles() {
         return [vlProgressBarFluxStyles];
@@ -77,6 +80,14 @@ export class VlProgressBarComponent extends BaseLitElement {
         return Math.max(0, Math.min(100, this.value)).toFixed(0);
     }
 
+    protected updated(changedProperties: PropertyValues): void {
+        super.updated(changedProperties);
+
+        // via CSSOM i.p.v. een style-binding: die blokkeert een strikte CSP (style-src-attr);
+        // leegmaken bij indeterminate is nodig zodat de breedte uit de stylesheet weer geldt
+        this.progressElement.style.width = this.indeterminate ? '' : `${this.progressValue}%`;
+    }
+
     render(): TemplateResult {
         return html`
             <div
@@ -87,10 +98,7 @@ export class VlProgressBarComponent extends BaseLitElement {
                 aria-labelledby=${ifDefined(this.labelledby ? this.labelledby : undefined)}
             >
                 <div class="vl-progress-bar__track">
-                    <div
-                        class="vl-progress-bar__progress"
-                        style="${this.indeterminate ? '' : `width: ${this.progressValue}%`}"
-                    ></div>
+                    <div class="vl-progress-bar__progress"></div>
                 </div>
             </div>
         `;

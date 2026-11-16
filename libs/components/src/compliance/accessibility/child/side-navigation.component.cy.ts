@@ -35,7 +35,21 @@ describe('cypress-component - compliance components - accessibility side-navigat
 
         const listItemWithComplianceStyles = cy.get('vl-side-navigation-next').find('ul > li').eq(1);
 
-        listItemWithComplianceStyles.should('have.css', 'display', 'none');
+        listItemWithComplianceStyles.should('have.css', 'display', 'none').should('have.attr', 'hidden');
+    });
+
+    it('should show content for websites that are not FULLY_COMPLIANT', () => {
+        mountDefault(props);
+
+        cy.get('vl-side-navigation-next').find('ul > li').eq(1).should('be.visible').should('not.have.attr', 'hidden');
+    });
+
+    Object.values(COMPLIANCE_STATUS).forEach((compliance) => {
+        it(`should not use a style attribute for ${compliance} websites`, () => {
+            mountDefault({ compliance });
+
+            cy.get('vl-side-navigation-next').find('ul > li').eq(1).should('not.have.attr', 'style');
+        });
     });
 });
 
