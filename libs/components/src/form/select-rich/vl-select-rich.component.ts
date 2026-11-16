@@ -197,6 +197,10 @@ export class VlSelectRichComponent extends FormControl {
             } else {
                 this.choices.enable();
             }
+            // Choices.js hergebruikt de bestaande item-elementen bij disable()/enable().
+            this.getChoicesElement()
+                ?.querySelectorAll<HTMLElement>('[data-item]')
+                .forEach((item) => this.setOptionRole(item));
         }
 
         if (changedProperties.has('error')) {
@@ -444,6 +448,20 @@ export class VlSelectRichComponent extends FormControl {
         render(this.itemTemplate!(original ? { ...original, ...data } : data), contentHost);
     }
 
+    // De verwijderknop is de option zolang ze zichtbaar is. Bij een disabled select en bij de placeholder
+    // is ze display: none en valt ze uit de accessibility tree; dan moet het item zelf de option zijn.
+    private setOptionRole(item: HTMLElement): void {
+        const removeButton = item.querySelector<HTMLElement>('.vl-pill__close');
+        if (!removeButton) {
+            return;
+        }
+
+        const isRemoveButtonHidden = this.disabled || item.classList.contains('vl-select__placeholder');
+        const [option, other] = isRemoveButtonHidden ? [item, removeButton] : [removeButton, item];
+        option.setAttribute('role', 'option');
+        other.removeAttribute('role');
+    }
+
     private getChoicesElement(): HTMLElement | null {
         return this.shadowRoot?.querySelector('.js-vl-select') as HTMLElement | null;
     }
@@ -507,7 +525,6 @@ export class VlSelectRichComponent extends FormControl {
                         ) as HTMLDivElement;
                     },
                     item: (_config: Partial<Options>, data: SelectRichOption) => {
-                        const isPlaceholder = data.placeholder === true;
                         const label = escapeForTemplate(false, data.label ?? '');
                         if (this.notDeletable) {
                             const notDeletableElement = template(`
@@ -538,12 +555,10 @@ export class VlSelectRichComponent extends FormControl {
                                     data-item
                                     data-id="${data.id}"
                                     data-value="${data.value}"
-                                            ${isPlaceholder ? 'role="option"' : ''}
                                     ${data.disabled ? 'aria-disabled="true"' : 'data-deletable'}
                                 >
                                     <span>${label}</span>
                                     <button type="button"
-                                    ${isPlaceholder ? '' : 'role="option"'}
                                      class="vl-pill__close ${
                                          !this.multiple ? 'vl-icon vl-icon--close' : ''
                                      }" data-button aria-label="verwijder ${label}">
@@ -555,6 +570,8 @@ export class VlSelectRichComponent extends FormControl {
                                     </button>
                                 </div>`
                         ) as HTMLDivElement;
+
+                        this.setOptionRole(element);
 
                         return element;
                     },
