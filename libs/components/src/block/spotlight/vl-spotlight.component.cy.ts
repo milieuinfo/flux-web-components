@@ -99,4 +99,62 @@ describe('cypress-component - block components - vl-spotlight', () => {
 
         cy.get(`vl-spotlight`).shadow().find('a').should('have.attr', 'aria-label', 'Ga naar voorbeeld - opent in nieuw venster');
     });
+
+    it('should pass the img-alt to the image', () => {
+        cy.mount(html`
+            <vl-spotlight img-src="dak.jpg" img-alt="Oud pannendak met verweerde dakpannen">
+                <span slot="title">Premies voor renovatie</span>
+            </vl-spotlight>
+        `);
+
+        cy.get('vl-spotlight').shadow().find('img').should('have.attr', 'alt', 'Oud pannendak met verweerde dakpannen');
+    });
+
+    it('should warn when img-src is set without img-alt', () => {
+        cy.window().then((win) => {
+            cy.stub(win.console, 'warn').as('consoleWarn');
+        });
+        cy.mount(html`
+            <vl-spotlight img-src="dak.jpg">
+                <span slot="title">Premies voor renovatie</span>
+            </vl-spotlight>
+        `);
+
+        cy.get('vl-spotlight').shadow().find('img').should('have.attr', 'alt', '');
+        cy.get('@consoleWarn').should('have.been.calledOnce').and('have.been.calledWithMatch', 'img-alt');
+    });
+
+    it('should not warn when img-alt is set, also when it is empty for a decorative image', () => {
+        cy.window().then((win) => {
+            cy.stub(win.console, 'warn').as('consoleWarn');
+        });
+        cy.mount(html`
+            <vl-spotlight id="descriptive" img-src="dak.jpg" img-alt="Oud pannendak met verweerde dakpannen">
+                <span slot="title">Premies voor renovatie</span>
+            </vl-spotlight>
+            <vl-spotlight id="decorative" img-src="dak.jpg" img-alt="">
+                <span slot="title">Premies voor renovatie</span>
+            </vl-spotlight>
+            <vl-spotlight id="no-image">
+                <span slot="title">Premies voor renovatie</span>
+            </vl-spotlight>
+        `);
+
+        cy.get('#decorative').shadow().find('img').should('have.attr', 'alt', '');
+        cy.get('@consoleWarn').should('not.have.been.called');
+    });
+
+    it('should not warn when img-alt is set as a property', () => {
+        cy.window().then((win) => {
+            cy.stub(win.console, 'warn').as('consoleWarn');
+        });
+        cy.mount(html`
+            <vl-spotlight img-src="dak.jpg" .imgAlt=${'Oud pannendak met verweerde dakpannen'}>
+                <span slot="title">Premies voor renovatie</span>
+            </vl-spotlight>
+        `);
+
+        cy.get('vl-spotlight').shadow().find('img').should('have.attr', 'alt', 'Oud pannendak met verweerde dakpannen');
+        cy.get('@consoleWarn').should('not.have.been.called');
+    });
 });
