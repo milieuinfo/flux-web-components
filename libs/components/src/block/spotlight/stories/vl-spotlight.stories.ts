@@ -58,7 +58,7 @@ export const SpotlightWithLink = story(
     ({ external, linkLabel }: typeof spotlightArgs) => html`
         <vl-spotlight
             link="http://www.google.com"
-            link-label=${linkLabel || (external ? 'Premies voor renovatie - opent in nieuw venster' : 'Premies voor renovatie')}
+            link-label=${linkLabel || (external ? 'Premies voor renovatie - opent in nieuw venster' : '')}
             ?external=${external}
         >
             <span slot="title">Premies voor renovatie</span>
@@ -123,7 +123,6 @@ export const SpotlightWithSubtitle = () => html`
             <ul class="vl-icon-list">
                 <li class="vl-icon-list__item">Waterwegen en Zeekanaal NV in Brussel</li>
                 <li class="vl-icon-list__item">Natuur en bos</li>
-                <li class="vl-icon-list__item"></li>
             </ul>
         </span>
     </vl-spotlight>
