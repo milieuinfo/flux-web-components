@@ -16,8 +16,9 @@ export const toasterArgTypes: ArgTypes<typeof toasterArgs> = {
     fadeOut: {
         name: 'fade-out',
         description:
-            'Elke alert verdwijnt automatisch 5 seconden na openen. \n\n Dit kan toegankelijkheidsproblemen' +
-            ' veroorzaken. Meer info ' +
+            'Elke toast verdwijnt automatisch, ongeveer 5 seconden na het tonen. Een toast met het attribuut' +
+            ' `persistent` blijft staan. Zolang de muis op de toaster staat of de focus erin zit, verdwijnt er geen' +
+            ' enkele toast. \n\n Dit kan toegankelijkheidsproblemen veroorzaken. Meer info ' +
             '[hier](?path=/docs/components-block-toaster--documentatie#fade-out).',
         table: {
             type: {

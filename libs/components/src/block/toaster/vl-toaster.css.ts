@@ -65,12 +65,23 @@ export const toasterStyles = css`
         }
     }
 
-    :host output * {
-        animation: fade-in 0.3s ease;
+    /* longhands: de animation shorthand zet animation-play-state terug op running en breekt zo de pauze */
+    :host output > * {
+        animation-name: fade-in;
+        animation-duration: 0.3s;
+        animation-timing-function: ease;
     }
 
-    :host([fade-out]) output * {
-        animation: fade-in 0.3s ease, fade-out 0.3s ease 4.4s;
+    :host([fade-out]) output > :not([persistent]),
+    :host output > [fade-out]:not([persistent]) {
+        animation-name: fade-in, fade-out;
+        animation-delay: 0s, 4.4s;
+    }
+
+    /* enkel de fade-out pauzeren: een gepauzeerde fade-in houdt een nieuwe toast onzichtbaar */
+    :host(:hover) output > *,
+    :host(:focus-within) output > * {
+        animation-play-state: running, paused;
     }
 
     @keyframes fade-in {

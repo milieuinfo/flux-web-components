@@ -53,7 +53,7 @@ export { VlStepsComponent } from './steps';
 export { VlTableComponent } from './table';
 export { VlTabsComponent } from './tabs';
 export { VlTemplate } from './template';
-export { VlToasterComponent } from './toaster';
+export { VlToasterComponent, type VlToastOptions } from './toaster';
 export { VlTooltipComponent } from './tooltip';
 export { VlTypography } from './typography';
 export { VlVideoPlayerComponent } from './video-player';

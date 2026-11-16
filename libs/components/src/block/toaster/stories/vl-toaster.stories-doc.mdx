@@ -90,8 +90,8 @@ Je kan hiervoor de `--vl-toaster-width` custom variabele aanpassen, bv.:
 
 ### Fade out
 
-We bieden de mogelijkheid aan om meldingen automatisch te laten verdwijnen na een bepaalde tijd met
-de `fade-out` property.
+We bieden de mogelijkheid aan om meldingen automatisch te laten verdwijnen met het `fade-out` attribuut op de
+`vl-toaster`. Een melding verdwijnt dan ongeveer 5 seconden na het tonen.
 
 <FluxAlert type="warning">
 {`
@@ -103,15 +103,68 @@ de `fade-out` property.
 
 <Canvas of={VlToasterStories.ToasterFadeOut} />
 
+#### Per melding
+
+Je kan per melding kiezen of ze automatisch verdwijnt, met een attribuut op de melding zelf. De `vl-toaster` leest
+die attributen, de `vl-alert` doet er zelf niets mee.
+
+- `fade-out`: de melding verdwijnt automatisch, ook in een `vl-toaster` zonder `fade-out`.
+- `persistent`: de melding blijft staan, ook in een `vl-toaster` met `fade-out`. Heeft een melding beide attributen,
+  dan blijft ze staan.
+
+Meldingen zonder een van deze attributen volgen het `fade-out` attribuut van de `vl-toaster`.
+
+```html
+<template id="alert-saved-template">
+    <vl-alert fade-out type="success" icon="check" title="Bewaard">
+        <p>Uw wijzigingen zijn bewaard.</p>
+    </vl-alert>
+</template>
+```
+
+Bij `show()` en `showAlert()` regel je hetzelfde met de optionele tweede parameter `{ fadeOut }`: `true` zet het
+`fade-out` attribuut op de melding, `false` zet `persistent`. Die parameter heeft voorrang op de attributen die de
+melding al heeft, bijvoorbeeld uit een `<template>`. Zonder parameter blijven die attributen gelden.
+
+```js
+const toaster = document.querySelector('vl-toaster');
+toaster.show('#alert-saved-template');
+toaster.showAlert(
+  {
+    type: 'error',
+    title: 'Niet bewaard',
+    message: 'Uw wijzigingen zijn niet bewaard. Probeer het later opnieuw.',
+    closable: true,
+  },
+  { fadeOut: false },
+);
+```
+
+Meldingen in het default slot verdwijnen nooit automatisch, ook niet met `fade-out` op de toaster of de melding.
+
+<Canvas of={VlToasterStories.ToasterFadeOutPerToast} />
+
+#### Pauze bij hover en focus
+
+Zolang de muis op de toaster staat of de focus erin zit, verdwijnt er geen enkele melding. Alle meldingen in de
+toaster wachten dan, zodat ze niet verschuiven terwijl de gebruiker ermee bezig is. Daarna loopt de resterende tijd
+van elke melding verder.
+
 
 ## Toegankelijkheid
 
 ### fade-out
 
-De `fade-out` property doet meldingen automatisch verdwijnen na 5 seconden.
+Het `fade-out` attribuut doet meldingen automatisch verdwijnen, ongeveer 5 seconden na het tonen. Dat is een
+tijdslimiet in de zin van
+[WCAG 2.2.1 Timing Adjustable](https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html).
 
 Vermijd het gebruik waar mogelijk gezien dit de toegankelijkheid van de toaster negatief beïnvloedt. Gebruikers kunnen
 de melding mogelijk niet op tijd lezen of begrijpen, dit is problematisch bij het gebruik van schermlezers.
+De pauze bij hover en focus helpt, maar een toetsenbordgebruiker bereikt een melding zelden op tijd.
+
+Laat daarom foutmeldingen en meldingen met interactieve inhoud, zoals een sluitknop (`closable`) of het `actions` slot,
+nooit automatisch verdwijnen. Geef ze het `persistent` attribuut of toon ze met `{ fadeOut: false }`.
 
 
 ## Custom CSS Properties
