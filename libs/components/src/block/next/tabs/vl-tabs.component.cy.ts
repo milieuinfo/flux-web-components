@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { VlTabLinkComponent } from './vl-tab-link.component';
 import { VlTabPanelComponent } from './vl-tab-panel.component';
 import { VlTabComponent } from './vl-tab.component';
-import { VlTabsComponent } from './vl-tabs.component';
+import { TabChangeEventDetail, VlTabsComponent } from './vl-tabs.component';
 
 registerWebComponents([VlTabsComponent, VlTabComponent, VlTabLinkComponent, VlTabPanelComponent]);
 
@@ -19,6 +19,73 @@ const mountTabs = () =>
             <vl-tab-panel-next id="panel-3" slot="panel" hidden>Panel 3</vl-tab-panel-next>
         </vl-tabs-next>
     `);
+
+const mountTabLinks = () =>
+    cy.mount(html`
+        <div id="tab-links-container">
+            <vl-tabs-next horizontal-navigation label="Example navigation">
+                <vl-tab-link-next id="link-1" href="#tab-link-1">Link 1</vl-tab-link-next>
+                <vl-tab-link-next id="link-2" href="#tab-link-2">Link 2</vl-tab-link-next>
+                <vl-tab-link-next id="link-3" href="https://www.vlaanderen.be" external>Link 3</vl-tab-link-next>
+            </vl-tabs-next>
+        </div>
+    `);
+
+const clickTabLink = (selector: string, options: Partial<Cypress.ClickOptions> = {}) =>
+    cy
+        .get(selector)
+        .shadow()
+        .find('a')
+        .click({ force: true, ...options });
+
+const refuseTabChanges = ({ onAncestor = false } = {}) =>
+    cy.get('vl-tabs-next').then(($tabs) => {
+        const refuse = cy
+            .stub()
+            .as('vl-tab-change')
+            .callsFake((event: Event) => event.preventDefault());
+        const target = onAncestor ? $tabs[0].parentElement : $tabs[0];
+        target?.addEventListener('vl-tab-change', refuse);
+    });
+
+const clearLocationHash = () =>
+    cy.window().then((win) => win.history.replaceState(null, '', win.location.pathname + win.location.search));
+
+const shouldHaveChangeDetail = (call: 'firstCall' | 'lastCall', tabId: string, previousTabId: string) =>
+    cy
+        .get<sinon.SinonStub>('@vl-tab-change')
+        .its(`${call}.args.0.detail`)
+        .should((detail: TabChangeEventDetail) => {
+            expect(detail.tab.id).to.equal(tabId);
+            expect(detail.previousTab?.id).to.equal(previousTabId);
+        });
+
+const mobileToggleButton = () =>
+    cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').shadow().find('button');
+
+const shouldHaveOnlyFirstTabSelected = () => {
+    cy.get('vl-tabs-next')
+        .find('#tab-1')
+        .should('have.attr', 'aria-selected', 'true')
+        .and('have.attr', 'tabindex', '0');
+    cy.get('vl-tabs-next')
+        .find('#tab-2')
+        .should('have.attr', 'aria-selected', 'false')
+        .and('have.attr', 'tabindex', '-1');
+    cy.get('vl-tabs-next')
+        .find('#tab-3')
+        .should('have.attr', 'aria-selected', 'false')
+        .and('have.attr', 'tabindex', '-1');
+    cy.get('vl-tabs-next').find('#panel-1').should('not.have.attr', 'hidden');
+    cy.get('vl-tabs-next').find('#panel-2').should('have.attr', 'hidden');
+    cy.get('vl-tabs-next').find('#panel-3').should('have.attr', 'hidden');
+};
+
+const shouldHaveOnlyFirstTabLinkSelected = () => {
+    cy.get('#link-1').shadow().find('a').should('have.attr', 'aria-current', 'page');
+    cy.get('#link-2').shadow().find('a').should('not.have.attr', 'aria-current');
+    cy.get('#link-3').shadow().find('a').should('not.have.attr', 'aria-current');
+};
 
 describe('cypress-component - block components - vl-tabs-next - desktop', () => {
     beforeEach(() => {
@@ -144,6 +211,203 @@ describe('cypress-component - block components - vl-tabs-next - desktop', () => 
         })
     });
 
+    it('should dispatch a cancelable vl-tab-change with the tab and the previous tab before switching', () => {
+        mountTabs();
+        cy.createStubForEvent('vl-tabs-next', 'vl-tab-change');
+
+        cy.get('vl-tabs-next').find('#tab-2').click();
+
+        cy.get('@vl-tab-change').should('have.been.calledOnce');
+        cy.get('@vl-tab-change').its('firstCall.args.0.cancelable').should('equal', true);
+        shouldHaveChangeDetail('firstCall', 'tab-2', 'tab-1');
+        cy.get('vl-tabs-next').find('#tab-2').should('have.attr', 'aria-selected', 'true');
+    });
+
+    it('should dispatch vl-tab-change before the tab is selected', () => {
+        mountTabs();
+        cy.get('vl-tabs-next').then(($tabs) => {
+            const listener = cy.stub().as('selected-during-vl-tab-change');
+            $tabs[0].addEventListener('vl-tab-change', () =>
+                listener($tabs[0].querySelector('vl-tab-next[selected]')?.id),
+            );
+        });
+
+        cy.get('vl-tabs-next').find('#tab-2').click();
+
+        cy.get('@selected-during-vl-tab-change').should('have.been.calledOnceWith', 'tab-1');
+    });
+
+    it('should not dispatch vl-tab-change for the selected tab or a programmatic selection', () => {
+        mountTabs();
+        cy.createStubForEvent('vl-tabs-next', 'vl-tab-change');
+
+        cy.get('vl-tabs-next').find('#tab-1').click();
+        cy.get('vl-tabs-next')
+            .find<VlTabComponent>('#tab-2')
+            .then(($tab) => $tab[0].select());
+
+        cy.get('vl-tabs-next').find('#tab-2').should('have.attr', 'aria-selected', 'true');
+        cy.get('@vl-tab-change').should('not.have.been.called');
+    });
+
+    it('should not dispatch vl-tab-change for the initial selection', () => {
+        const listener = cy.stub().as('vl-tab-change');
+        cy.mount(html`
+            <vl-tabs-next label="Example tabs" @vl-tab-change=${listener}>
+                <vl-tab-next id="tab-1" panel="panel-1">Tab 1</vl-tab-next>
+                <vl-tab-next id="tab-2" panel="panel-2">Tab 2</vl-tab-next>
+                <vl-tab-panel-next id="panel-1" slot="panel">Panel 1</vl-tab-panel-next>
+                <vl-tab-panel-next id="panel-2" slot="panel" hidden>Panel 2</vl-tab-panel-next>
+            </vl-tabs-next>
+        `);
+
+        cy.get('vl-tabs-next').find('#tab-1').should('have.attr', 'aria-selected', 'true');
+        cy.get('@vl-tab-change').should('not.have.been.called');
+    });
+
+    it('should keep the current tab when vl-tab-change is refused on click', () => {
+        mountTabs();
+        refuseTabChanges();
+
+        cy.get('vl-tabs-next').find('#tab-2').click();
+
+        cy.get('@vl-tab-change').should('have.been.calledOnce');
+        shouldHaveOnlyFirstTabSelected();
+    });
+
+    it('should keep the current tab when vl-tab-change is refused by a listener on an ancestor', () => {
+        mountTabs();
+        refuseTabChanges({ onAncestor: true });
+
+        cy.get('vl-tabs-next').find('#tab-2').click();
+
+        cy.get('@vl-tab-change').should('have.been.calledOnce');
+        shouldHaveOnlyFirstTabSelected();
+    });
+
+    it('should keep the current tab when vl-tab-change is refused on Enter and Space', () => {
+        mountTabs();
+        refuseTabChanges();
+
+        cy.get('vl-tabs-next').find('#tab-2').trigger('keydown', { key: 'Enter' });
+        cy.get('vl-tabs-next').find('#tab-3').trigger('keyup', { key: ' ' });
+
+        cy.get('@vl-tab-change').should('have.been.calledTwice');
+        shouldHaveOnlyFirstTabSelected();
+    });
+
+    it('should keep the current tab and focus when vl-tab-change is refused on ArrowRight, ArrowLeft and End', () => {
+        mountTabs();
+        refuseTabChanges();
+
+        cy.get('vl-tabs-next').find('#tab-1').should('have.attr', 'tabindex', '0').focus();
+        cy.get('vl-tabs-next').find('#tab-1').trigger('keydown', { key: 'ArrowRight' });
+        shouldHaveChangeDetail('lastCall', 'tab-2', 'tab-1');
+        cy.get('vl-tabs-next').find('#tab-1').trigger('keydown', { key: 'ArrowLeft' });
+        shouldHaveChangeDetail('lastCall', 'tab-3', 'tab-1');
+        cy.get('vl-tabs-next').find('#tab-1').trigger('keydown', { key: 'End' });
+        shouldHaveChangeDetail('lastCall', 'tab-3', 'tab-1');
+
+        cy.get('@vl-tab-change').should('have.been.calledThrice');
+        shouldHaveOnlyFirstTabSelected();
+        cy.get('vl-tabs-next').find('#tab-1').should('have.focus');
+    });
+
+    it('should not switch tabs on arrow keys from content inside a panel', () => {
+        cy.mount(html`
+            <vl-tabs-next label="Example tabs">
+                <vl-tab-next id="tab-1" panel="panel-1">Tab 1</vl-tab-next>
+                <vl-tab-next id="tab-2" panel="panel-2">Tab 2</vl-tab-next>
+
+                <vl-tab-panel-next id="panel-1" slot="panel">
+                    <input id="panel-input" aria-label="Name" />
+                </vl-tab-panel-next>
+                <vl-tab-panel-next id="panel-2" slot="panel" hidden>Panel 2</vl-tab-panel-next>
+            </vl-tabs-next>
+        `);
+        cy.createStubForEvent('vl-tabs-next', 'vl-tab-change');
+
+        cy.get('#panel-input').should('be.visible').focus();
+        cy.get('#panel-input').trigger('keydown', { key: 'ArrowRight' });
+        cy.get('#panel-input').trigger('keydown', { key: 'End' });
+
+        cy.get('@vl-tab-change').should('not.have.been.called');
+        cy.get('vl-tabs-next').find('#tab-1').should('have.attr', 'aria-selected', 'true');
+        cy.get('vl-tabs-next').find('#panel-1').should('not.have.attr', 'hidden');
+        cy.get('#panel-input').should('have.focus');
+    });
+
+    it('should switch with select() after a refused vl-tab-change', () => {
+        mountTabs();
+        cy.get('vl-tabs-next').find('#tab-3').click();
+        refuseTabChanges();
+
+        cy.get('vl-tabs-next').find('#tab-1').click();
+        cy.get('vl-tabs-next').find('#tab-3').should('have.attr', 'aria-selected', 'true');
+        cy.get('vl-tabs-next')
+            .find<VlTabComponent>('#tab-1')
+            .then(($tab) => $tab[0].select());
+
+        shouldHaveOnlyFirstTabSelected();
+    });
+
+    it('should select a tab link without vl-tab-change being refused', () => {
+        clearLocationHash();
+        mountTabLinks();
+        cy.createStubForEvent('vl-tabs-next', 'vl-tab-change');
+
+        clickTabLink('#link-2');
+
+        shouldHaveChangeDetail('firstCall', 'link-2', 'link-1');
+        cy.get('#link-2').shadow().find('a').should('have.attr', 'aria-current', 'page');
+        cy.get('#link-1').shadow().find('a').should('not.have.attr', 'aria-current');
+        cy.location('hash').should('equal', '#tab-link-2');
+    });
+
+    it('should not select or navigate when vl-tab-change is refused on a tab link click', () => {
+        clearLocationHash();
+        mountTabLinks();
+        cy.createStubForEvent('vl-tabs-next', 'vl-tab-link-click');
+        refuseTabChanges();
+
+        clickTabLink('#link-2');
+
+        cy.get('@vl-tab-change').should('have.been.calledOnce');
+        cy.get('@vl-tab-link-click').should('have.been.calledOnce');
+        shouldHaveOnlyFirstTabLinkSelected();
+        cy.location('hash').should('equal', '');
+    });
+
+    it('should cancel the native click of an external tab link when vl-tab-change is refused', () => {
+        mountTabLinks();
+        cy.get('#tab-links-container').then(($container) => {
+            const nativeClick = cy.stub().as('native-click');
+            $container[0].addEventListener('click', (event) => nativeClick(event.defaultPrevented));
+        });
+        refuseTabChanges();
+
+        clickTabLink('#link-3');
+
+        cy.get('@native-click').should('have.been.calledOnceWith', true);
+        shouldHaveOnlyFirstTabLinkSelected();
+    });
+
+    it('should not dispatch vl-tab-change or select on a modifier click on a tab link', () => {
+        mountTabLinks();
+        cy.createStubForEvent('vl-tabs-next', 'vl-tab-change');
+        cy.get('#link-2').then(($link) => {
+            // Stops the browser from opening a new tab; vl-tabs-next must still ignore the click.
+            $link[0].addEventListener('click', (event) => event.preventDefault());
+        });
+
+        clickTabLink('#link-2', { ctrlKey: true });
+        clickTabLink('#link-2', { metaKey: true });
+        clickTabLink('#link-2', { shiftKey: true });
+
+        cy.get('@vl-tab-change').should('not.have.been.called');
+        shouldHaveOnlyFirstTabLinkSelected();
+    });
+
     it('should be accessible as a complete tablist widget', () => {
         mountTabs();
         cy.injectAxe();
@@ -191,6 +455,135 @@ describe('cypress-component - block components - vl-tabs-next - mobile', () => {
         cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').shadow().find('button').click();
         cy.get('vl-tabs-next').shadow().find('#tab-option-0').focus().trigger('keydown', { key: ' ', bubbles: true, composed: true });
         cy.get('vl-tabs-next').find('#panel-1').should('not.have.attr', 'hidden');
+    });
+
+    it('should keep the current tab and close the dropdown when vl-tab-change is refused on an option click', () => {
+        mountTabs();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
+        refuseTabChanges();
+
+        mobileToggleButton().click();
+        cy.get('vl-tabs-next').shadow().find('#tab-option-1').click();
+
+        shouldHaveChangeDetail('firstCall', 'tab-2', 'tab-1');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('have.attr', 'hidden');
+        mobileToggleButton().should('have.focus');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('contain.text', 'Tab 1');
+        shouldHaveOnlyFirstTabSelected();
+    });
+
+    it('should keep the current tab and close the dropdown when vl-tab-change is refused on Enter and Space', () => {
+        mountTabs();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
+        refuseTabChanges();
+
+        mobileToggleButton().click();
+        cy.get('vl-tabs-next')
+            .shadow()
+            .find('#tab-option-0')
+            .focus()
+            .trigger('keydown', { key: 'ArrowDown', bubbles: true, composed: true });
+        cy.focused().trigger('keydown', { key: 'Enter', bubbles: true, composed: true });
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('have.attr', 'hidden');
+        mobileToggleButton().should('have.focus');
+
+        mobileToggleButton().click();
+        cy.get('vl-tabs-next')
+            .shadow()
+            .find('#tab-option-0')
+            .focus()
+            .trigger('keydown', { key: 'End', bubbles: true, composed: true });
+        cy.focused().trigger('keydown', { key: ' ', bubbles: true, composed: true });
+
+        shouldHaveChangeDetail('firstCall', 'tab-2', 'tab-1');
+        shouldHaveChangeDetail('lastCall', 'tab-3', 'tab-1');
+        cy.get('@vl-tab-change').should('have.been.calledTwice');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('have.attr', 'hidden');
+        mobileToggleButton().should('have.focus');
+        shouldHaveOnlyFirstTabSelected();
+    });
+
+    it('should show the new tab in the dropdown after select() following a refused Enter', () => {
+        mountTabs();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
+        refuseTabChanges();
+
+        mobileToggleButton().click();
+        cy.get('vl-tabs-next')
+            .shadow()
+            .find('#tab-option-0')
+            .focus()
+            .trigger('keydown', { key: 'ArrowDown', bubbles: true, composed: true });
+        cy.focused().trigger('keydown', { key: 'Enter', bubbles: true, composed: true });
+        cy.get('@vl-tab-change').should('have.been.calledOnce');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('contain.text', 'Tab 1');
+        cy.get('vl-tabs-next')
+            .find<VlTabComponent>('#tab-2')
+            .then(($tab) => $tab[0].select());
+
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('contain.text', 'Tab 2');
+        cy.get('vl-tabs-next').shadow().find('#tab-option-1').should('have.attr', 'aria-selected', 'true');
+        cy.get('vl-tabs-next').shadow().find('#tab-option-0').should('have.attr', 'aria-selected', 'false');
+        cy.get('vl-tabs-next').find('#panel-2').should('not.have.attr', 'hidden');
+        cy.get('vl-tabs-next').find('#panel-1').should('have.attr', 'hidden');
+    });
+
+    it('should show the new tab in the dropdown after select() following Escape on its option', () => {
+        mountTabs();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
+
+        mobileToggleButton().click();
+        cy.get('vl-tabs-next')
+            .shadow()
+            .find('#tab-option-0')
+            .focus()
+            .trigger('keydown', { key: 'ArrowDown', bubbles: true, composed: true });
+        cy.focused().trigger('keydown', { key: 'Escape', bubbles: true, composed: true });
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('have.attr', 'hidden');
+        cy.get('vl-tabs-next')
+            .find<VlTabComponent>('#tab-2')
+            .then(($tab) => $tab[0].select());
+
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('contain.text', 'Tab 2');
+        cy.get('vl-tabs-next').shadow().find('#tab-option-1').should('have.attr', 'aria-selected', 'true');
+        cy.get('vl-tabs-next').find('#panel-2').should('not.have.attr', 'hidden');
+    });
+
+    it('should navigate to the tab link href from the dropdown when vl-tab-change is not refused', () => {
+        clearLocationHash();
+        mountTabLinks();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
+        cy.window().then((win) => cy.stub(win, 'open').as('window-open'));
+        cy.createStubForEvent('vl-tabs-next', 'vl-tab-change');
+
+        mobileToggleButton().click();
+        cy.get('vl-tabs-next').shadow().find('#tab-option-1').click();
+        cy.location('hash').should('equal', '#tab-link-2');
+        mobileToggleButton().click();
+        cy.get('vl-tabs-next').shadow().find('#tab-option-2').click();
+
+        shouldHaveChangeDetail('firstCall', 'link-2', 'link-1');
+        shouldHaveChangeDetail('lastCall', 'link-3', 'link-2');
+        cy.get('@window-open').should('have.been.calledOnceWith', 'https://www.vlaanderen.be', '_blank', 'noopener');
+    });
+
+    it('should not navigate from the dropdown when vl-tab-change is refused for a tab link', () => {
+        clearLocationHash();
+        mountTabLinks();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
+        cy.window().then((win) => cy.stub(win, 'open').as('window-open'));
+        refuseTabChanges();
+
+        mobileToggleButton().click();
+        cy.get('vl-tabs-next').shadow().find('#tab-option-1').click();
+        mobileToggleButton().click();
+        cy.get('vl-tabs-next').shadow().find('#tab-option-2').click();
+
+        cy.get('@vl-tab-change').should('have.been.calledTwice');
+        cy.location('hash').should('equal', '');
+        cy.get('@window-open').should('not.have.been.called');
+        shouldHaveOnlyFirstTabLinkSelected();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('contain.text', 'Link 1');
     });
 
     it('should be accessible on mobile', () => {

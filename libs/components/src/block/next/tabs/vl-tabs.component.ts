@@ -21,13 +21,19 @@ export type TabLinkClickEventDetail = {
     tab: VlTabLinkComponent;
 };
 
+export type TabChangeEventDetail = {
+    tab: VlTabComponent | VlTabLinkComponent;
+    previousTab: VlTabComponent | VlTabLinkComponent | undefined;
+};
+
 /**
  * Tabs component voor overzichtelijke navigatie tussen tabbladen.
  * @property {string} label - Beschrijvende label voor de tabs container.
  * @property {boolean} noBorder - Verwijdert de rand onder de tabs.
  * @property {boolean} horizontalNavigation - Schakelt horizontale navigatie in voor <vl-tab-link-next>.
- * @fires vl-tab-click - Vuurt wanneer een <vl-tab-next> geselecteerd wordt.
- * @fires vl-tab-link-click - Vuurt wanneer een <vl-tab-link-next> geselecteerd wordt.
+ * @fires vl-tab-change - Vuurt vóór de gebruiker naar een andere tab wisselt. Roep preventDefault() aan om de wissel te weigeren.
+ * @fires vl-tab-click - Vuurt wanneer een <vl-tab-next> aangeklikt wordt, ook als de wissel daarna geweigerd wordt.
+ * @fires vl-tab-link-click - Vuurt wanneer een <vl-tab-link-next> aangeklikt wordt, ook als de wissel daarna geweigerd wordt.
  */
 @webComponent('vl-tabs-next')
 export class VlTabsComponent extends BaseLitElement {
@@ -115,9 +121,11 @@ export class VlTabsComponent extends BaseLitElement {
         focus: boolean = false,
         navigate: boolean = true,
     ) => {
-        if (this.selectedTab && this.selectedTab !== tab) {
-            this.selectedTab.selected = false;
-        }
+        this.allTabs.forEach((otherTab) => {
+            if (otherTab !== tab && otherTab.selected) {
+                otherTab.selected = false;
+            }
+        });
         if (!tab.selected) {
             tab.selected = true;
         }
@@ -131,6 +139,8 @@ export class VlTabsComponent extends BaseLitElement {
         }
 
         if (this.mobile) {
+            // The toggle label and options are derived from the selected state of the tabs, which Lit doesn't observe.
+            this.requestUpdate();
             const index = this.allTabs.indexOf(tab);
             const optionIndex = this.mobileOptions.findIndex((option) => option.value === String(index));
             if (optionIndex !== -1) {
@@ -149,6 +159,30 @@ export class VlTabsComponent extends BaseLitElement {
         }
     };
 
+    private requestSelectTab(
+        tab: VlTabComponent | VlTabLinkComponent,
+        focus: boolean = false,
+        navigate: boolean = true,
+    ): boolean {
+        // select() on vl-tab-next sets selected before it dispatches vl-tab-click, so a programmatic selection can't be refused.
+        if (!tab.selected && !this.dispatchTabChange(tab)) {
+            return false;
+        }
+        this.selectTab(tab, focus, navigate);
+        return true;
+    }
+
+    private dispatchTabChange(tab: VlTabComponent | VlTabLinkComponent): boolean {
+        return this.dispatchEvent(
+            new CustomEvent<TabChangeEventDetail>('vl-tab-change', {
+                detail: { tab, previousTab: this.selectedTab },
+                bubbles: true,
+                composed: true,
+                cancelable: true,
+            }),
+        );
+    }
+
     private previousTab(): void {
         const { selectedTabIndex } = this;
 
@@ -158,7 +192,7 @@ export class VlTabsComponent extends BaseLitElement {
 
         const previousTabIndex = selectedTabIndex === 0 ? this.allTabs.length - 1 : selectedTabIndex - 1;
 
-        this.selectTab(this.allTabs[previousTabIndex], true);
+        this.requestSelectTab(this.allTabs[previousTabIndex], true);
     }
 
     private nextTab(): void {
@@ -170,18 +204,22 @@ export class VlTabsComponent extends BaseLitElement {
 
         const nextTabIndex = selectedTabIndex === this.allTabs.length - 1 ? 0 : selectedTabIndex + 1;
 
-        this.selectTab(this.allTabs[nextTabIndex], true);
+        this.requestSelectTab(this.allTabs[nextTabIndex], true);
     }
 
     private firstTab(): void {
-        this.selectTab(this.allTabs[0], true);
+        this.requestSelectTab(this.allTabs[0], true);
     }
 
     private lastTab(): void {
-        this.selectTab(this.allTabs[this.allTabs.length - 1], true);
+        this.requestSelectTab(this.allTabs[this.allTabs.length - 1], true);
     }
 
     private onKeyDown = (e: KeyboardEvent) => {
+        // Keydowns from panel content and from the mobile dropdown also bubble through the host.
+        if (!this.allTabs.some((tab) => tab === e.target)) {
+            return;
+        }
         const key = e.key.toLowerCase();
         switch (key) {
             case 'arrowleft':
@@ -203,13 +241,28 @@ export class VlTabsComponent extends BaseLitElement {
 
     private onTabClicked = (e: Event) => {
         const { tab } = (e as CustomEvent<TabClickEventDetail>).detail;
-        this.selectTab(tab, true);
+        this.requestSelectTab(tab, true);
     };
 
-    private onTabLinkClicked = (e: Event) => {
-        const { tab } = (e as CustomEvent<TabLinkClickEventDetail>).detail;
-        this.selectTab(tab);
+    // A tab link is handled on the native click of its <a>: only that event can still stop the browser from navigating.
+    private onTabLinkClicked = (e: MouseEvent) => {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+            return;
+        }
+        const tab = this.findClickedTabLink(e);
+        if (tab && !this.requestSelectTab(tab)) {
+            e.preventDefault();
+        }
     };
+
+    private findClickedTabLink(e: MouseEvent): VlTabLinkComponent | undefined {
+        const path = e.composedPath();
+        return this.allTabs.find(
+            (tab): tab is VlTabLinkComponent =>
+                tab instanceof VlTabLinkComponent &&
+                path.some((target) => target instanceof HTMLAnchorElement && target.getRootNode() === tab.shadowRoot),
+        );
+    }
 
     firstUpdated(): void {
         this.ensureSelectedTab();
@@ -264,7 +317,7 @@ export class VlTabsComponent extends BaseLitElement {
         super.connectedCallback();
 
         this.addEventListener('vl-tab-click', this.onTabClicked);
-        this.addEventListener('vl-tab-link-click', this.onTabLinkClicked);
+        this.addEventListener('click', this.onTabLinkClicked);
         if (!this.horizontalNavigation) {
             this.addEventListener('keydown', this.onKeyDown);
         }
@@ -275,7 +328,7 @@ export class VlTabsComponent extends BaseLitElement {
         super.disconnectedCallback();
 
         this.removeEventListener('vl-tab-click', this.onTabClicked);
-        this.removeEventListener('vl-tab-link-click', this.onTabLinkClicked);
+        this.removeEventListener('click', this.onTabLinkClicked);
         this.removeEventListener('keydown', this.onKeyDown);
         this.removeEventListener('keydown', this.onMobileListboxKeyDown);
 
@@ -359,7 +412,7 @@ export class VlTabsComponent extends BaseLitElement {
             case ' ':
                 e.preventDefault();
                 if (this.mobileDropdownFocusedIndex >= 0) {
-                    this.selectTab(this.allTabs[this.mobileDropdownFocusedIndex], false, true);
+                    this.requestSelectTab(this.allTabs[this.mobileDropdownFocusedIndex], false, true);
                     this.onMobileToggle();
                     this.mobileToggleButton?.focus();
                 }
@@ -408,7 +461,7 @@ export class VlTabsComponent extends BaseLitElement {
                                 aria-selected="${option.selected ? 'true' : 'false'}"
                                 class="vl-tabs__mobile-option"
                                 @click="${() => {
-                                    this.selectTab(this.allTabs[Number(option.value)]);
+                                    this.requestSelectTab(this.allTabs[Number(option.value)]);
                                     this.mobileDropdownFocusedIndex = -1;
                                     this.onMobileToggle();
                                 }}"

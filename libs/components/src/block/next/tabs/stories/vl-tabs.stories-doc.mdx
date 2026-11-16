@@ -55,6 +55,37 @@ import { VlTabsComponent, VlTabComponent, VlTabPanelComponent } from '@domg-wc/c
 
 <ArgTypes of={VlTabsStories.TabsDefault} />
 
+## Een tabwissel weigeren
+
+Voor de gebruiker naar een andere tab wisselt, vuurt `vl-tabs-next` het cancelable event `vl-tab-change`. Dat gebeurt bij een klik, Enter of Spatie, de pijltjestoetsen, Home en End, en bij een keuze in de dropdown op mobiel. Roep `preventDefault()` aan om de wissel te weigeren, bijvoorbeeld als een formulier in de huidige tab niet-bewaarde wijzigingen heeft. De huidige tab blijft dan geselecteerd, het zichtbare tabpaneel verandert niet en een `<vl-tab-link-next>` navigeert niet naar zijn `href`.
+
+- `event.detail.tab` is de tab die de gebruiker wil openen, `event.detail.previousTab` de tab die nu geselecteerd is.
+- Het event vuurt enkel bij een echte wissel: niet bij een klik op de geselecteerde tab en niet bij een programmatische selectie met `select()`. Bij een klik met Ctrl, Cmd, Shift of Alt op een tab link volgt de browser zijn eigen gedrag, zoals openen in een nieuw tabblad: de tab wordt dan niet geselecteerd en het event vuurt niet.
+- Beslis synchroon in de listener. Wil je eerst een bevestiging vragen, weiger de wissel dan en voer hem na de bevestiging zelf uit: met `select()` op de `<vl-tab-next>`, of door naar de `href` van de `<vl-tab-link-next>` te navigeren.
+- `vl-tab-click` en `vl-tab-link-click` vuren vóór die beslissing, dus ook als de wissel daarna geweigerd wordt. `preventDefault()` heeft op die events geen effect. Doe routering in een single-page app daarom in de listener van `vl-tab-change`.
+- Geef de gebruiker zichtbare feedback die ook voorgelezen wordt, bijvoorbeeld met een modal of een alert. Anders lijkt het voor toetsenbord- en screenreadergebruikers alsof de tabs niet reageren. `vl-tabs-next` verplaatst de focus niet bij een weigering, zodat een modal die je in de listener opent de focus kan nemen. Na een muisklik blijft de focus dus op de aangeklikte tab tot jouw app hem verplaatst.
+
+```js
+const tabs = document.querySelector('vl-tabs-next');
+
+tabs.addEventListener('vl-tab-change', (event) => {
+    if (heeftNietBewaardeWijzigingen()) {
+        event.preventDefault();
+        vraagBevestiging().then((bevestigd) => {
+            if (!bevestigd) {
+                return;
+            }
+            const { tab } = event.detail;
+            if (tab.localName === 'vl-tab-link-next') {
+                window.location.href = tab.href;
+            } else {
+                tab.select();
+            }
+        });
+    }
+});
+```
+
 ## Varianten
 
 ### Horizontale navigatie
