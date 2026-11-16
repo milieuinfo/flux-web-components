@@ -162,6 +162,29 @@ Indien de link een dropdown menu of dialog opent, gebruik dan het `aria-haspopup
 schermlezers om de gebruiker correct te informeren over de aanwezigheid van een popup. `aria-haspopup` wordt doorgegeven
 aan de onderliggende link.
 
+Indien de link inhoud in- of uitklapt, bijvoorbeeld een "Lees meer"-knop, gebruik dan `button-as-link` en zet het
+`aria-expanded` attribuut op `false` (ingeklapt) of `true` (uitgeklapt). Zo meldt een schermlezer de toestand van de
+inhoud. `aria-expanded` wordt doorgegeven aan de onderliggende button (of link zonder `button-as-link`), ook als je het
+attribuut na de eerste render zet, wijzigt of verwijdert. Zonder het attribuut krijgt het onderliggende element geen
+`aria-expanded`. De component wisselt de waarde niet zelf: zet ze bij elke klik (`vl-click`) op de nieuwe toestand.
+
+Met `aria-controls` verwijs je naar het id van de inhoud die in- of uitklapt. Een id-verwijzing werkt niet over de
+grens van een shadow root, daarom kopieert `vl-link` het attribuut niet naar de onderliggende button of link. De
+component zoekt het element met dat id op in de omgeving van de `vl-link` zelf (hetzelfde document of dezelfde shadow
+root) en koppelt het via
+[ARIA element reflection](https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaControlsElements)
+(`ariaControlsElements`) aan de onderliggende button of link. Meerdere ids scheid je met een spatie.
+
+- Het element wordt opnieuw opgezocht bij elke update van de `vl-link`, bv. wanneer `aria-expanded` wijzigt. Inhoud
+  die je pas bij het uitklappen rendert, wordt dus gevonden zodra je `aria-expanded` op `true` zet.
+- In browsers zonder `ariaControlsElements` (ouder dan Chrome en Edge 135, Firefox 136 of Safari 16.4) wordt
+  `aria-controls` niet doorgegeven. `aria-expanded` werkt daar wel.
+
+```html
+<vl-link button-as-link aria-expanded="false" aria-controls="opmerking-tekst">Lees meer</vl-link>
+<div id="opmerking-tekst">...</div>
+```
+
 Indien de link naar de huidige pagina of locatie verwijst, bijvoorbeeld in een navigatie of inhoudstafel, gebruik dan
 het `aria-current` attribuut met de juiste waarde (`page`, `step`, `location`, `date`, `time`, `true`). Zo meldt een
 schermlezer welke link de huidige is. `aria-current` wordt doorgegeven aan de onderliggende link, ook als je het
