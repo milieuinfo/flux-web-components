@@ -2379,6 +2379,300 @@ describe('cypress-component - form components - vl-select-rich - search strategi
     });
 });
 
+describe('cypress-component - form components - vl-select-rich - disabled with selected options', () => {
+    const cities: SelectRichOption[] = [
+        { label: 'Hasselt', value: 'hasselt', selected: true },
+        { label: 'Turnhout', value: 'turnhout' },
+        { label: 'Lier', value: 'lier' },
+    ];
+    const hobbies: SelectRichOption[] = [
+        { label: 'Padel', value: 'padel', selected: true },
+        { label: 'Dans', value: 'dans', selected: true },
+        { label: 'Drummen', value: 'drummen' },
+    ];
+
+    const getSelectedItems = () => cy.get('vl-select-rich').shadow().find('.vl-select__inner [data-item]');
+
+    const getRemoveButton = (value: string) =>
+        getSelectedItems().filter(`[data-value="${value}"]`).find('.vl-pill__close');
+
+    const setDisabled = (disabled: boolean) =>
+        cy.get('vl-select-rich').then(($select) => {
+            $select[0].toggleAttribute('disabled', disabled);
+        });
+
+    const getLabels = ($items: JQuery<HTMLElement>) => $items.toArray().map((item) => item.textContent?.trim());
+
+    const shouldHaveOptionRoleOnItems = (labels: string[]) => {
+        getSelectedItems().should(($items) => {
+            expect(getLabels($items)).to.deep.equal(labels);
+            $items.each((_index, item) => {
+                const $removeButton = Cypress.$(item).find('.vl-pill__close');
+                expect(Cypress.$(item)).to.have.attr('role', 'option');
+                expect(Cypress.$(item)).not.to.have.css('display', 'none');
+                expect($removeButton).not.to.have.attr('role');
+                expect($removeButton).to.have.css('display', 'none');
+            });
+        });
+    };
+
+    const shouldHaveOptionRoleOnRemoveButtons = (labels: string[]) => {
+        getSelectedItems().should(($items) => {
+            expect(getLabels($items)).to.deep.equal(labels);
+            $items.each((index, item) => {
+                const $removeButton = Cypress.$(item).find('.vl-pill__close');
+                expect(Cypress.$(item)).not.to.have.attr('role');
+                expect($removeButton).to.have.attr('role', 'option');
+                expect($removeButton).to.have.attr('aria-label', `verwijder ${labels[index]}`);
+                expect($removeButton).not.to.have.css('display', 'none');
+            });
+        });
+    };
+
+    const shouldHaveSelected = (value: string | string[] | null) => {
+        cy.get('vl-select-rich').should(($select) => {
+            expect(($select[0] as VlSelectRichComponent).getSelected()).to.deep.equal(value);
+        });
+    };
+
+    const shouldHaveNoSelection = () => {
+        getSelectedItems().should('not.exist');
+        cy.get('vl-select-rich').shadow().find('select').find('option[selected]').should('not.exist');
+    };
+
+    // cy.press() stuurt een keydown met keyCode 0, terwijl Choices.js toetsen enkel via keyCode herkent.
+    const pressEnterOnRemoveButton = (value: string) => {
+        getRemoveButton(value).focus();
+        getRemoveButton(value).type('{enter}');
+    };
+
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
+    describe('single', () => {
+        it('should keep the selected option in the accessibility tree when disabled', () => {
+            cy.mount(html`<vl-select-rich label="geboorteplaats" disabled .options=${cities}></vl-select-rich>`);
+            cy.injectAxe();
+
+            shouldHaveOptionRoleOnItems(['Hasselt']);
+            cy.checkA11y('vl-select-rich');
+        });
+
+        it('should move the option role when toggling disabled', () => {
+            cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${cities}></vl-select-rich>`);
+            cy.injectAxe();
+
+            shouldHaveOptionRoleOnRemoveButtons(['Hasselt']);
+
+            setDisabled(true);
+            shouldHaveOptionRoleOnItems(['Hasselt']);
+            cy.checkA11y('vl-select-rich');
+
+            setDisabled(false);
+            shouldHaveOptionRoleOnRemoveButtons(['Hasselt']);
+            cy.checkA11y('vl-select-rich');
+
+            getRemoveButton('hasselt').click();
+            shouldHaveSelected(null);
+            shouldHaveNoSelection();
+        });
+
+        it('should delete the option with the keyboard after enabling again', () => {
+            cy.mount(html`<vl-select-rich label="geboorteplaats" disabled .options=${cities}></vl-select-rich>`);
+
+            shouldHaveOptionRoleOnItems(['Hasselt']);
+
+            setDisabled(false);
+            shouldHaveOptionRoleOnRemoveButtons(['Hasselt']);
+
+            pressEnterOnRemoveButton('hasselt');
+            shouldHaveSelected(null);
+            shouldHaveNoSelection();
+        });
+
+        it('should keep the option role on the item after a programmatic update while disabled', () => {
+            cy.mount(html`<vl-select-rich label="geboorteplaats" disabled .options=${cities}></vl-select-rich>`);
+            cy.injectAxe();
+
+            cy.runTestFor<VlSelectRichComponent>('vl-select-rich', (component) => {
+                component.setSelectedValues('turnhout');
+            });
+            shouldHaveSelected('turnhout');
+            shouldHaveOptionRoleOnItems(['Turnhout']);
+            cy.checkA11y('vl-select-rich');
+
+            cy.runTestFor<VlSelectRichComponent>('vl-select-rich', (component) => {
+                component.options = [
+                    { label: 'Waregem', value: 'waregem' },
+                    { label: 'Knokke-Heist', value: 'knokke-heist', selected: true },
+                ];
+            });
+            shouldHaveSelected('knokke-heist');
+            shouldHaveOptionRoleOnItems(['Knokke-Heist']);
+            cy.checkA11y('vl-select-rich');
+
+            setDisabled(false);
+            shouldHaveOptionRoleOnRemoveButtons(['Knokke-Heist']);
+        });
+
+        it('should keep the option role on a selected disabled option when disabled', () => {
+            const options: SelectRichOption[] = [
+                { label: 'Hasselt', value: 'hasselt', selected: true, disabled: true },
+            ];
+
+            cy.mount(html`<vl-select-rich label="geboorteplaats" disabled .options=${options}></vl-select-rich>`);
+            cy.injectAxe();
+
+            shouldHaveOptionRoleOnItems(['Hasselt']);
+            getSelectedItems().should('have.attr', 'aria-disabled', 'true');
+            cy.checkA11y('vl-select-rich');
+        });
+
+        it('should keep the option role on the placeholder when toggling disabled', () => {
+            const shouldHaveOptionRoleOnPlaceholder = () => {
+                getSelectedItems()
+                    .should('have.length', 1)
+                    .and('have.class', 'vl-select__placeholder')
+                    .and('have.attr', 'role', 'option')
+                    .and('contain.text', 'Selecteer je geboorteplaats')
+                    .find('.vl-pill__close')
+                    .should('not.have.attr', 'role');
+            };
+
+            cy.mount(html`
+                <vl-select-rich
+                    label="geboorteplaats"
+                    placeholder="Selecteer je geboorteplaats"
+                    disabled
+                    .options=${cities.map((city) => ({ ...city, selected: false }))}
+                ></vl-select-rich>
+            `);
+            cy.injectAxe();
+
+            shouldHaveOptionRoleOnPlaceholder();
+            cy.checkA11y('vl-select-rich');
+
+            setDisabled(false);
+            cy.get('vl-select-rich').shadow().find('.js-vl-select').should('not.have.class', 'is-disabled');
+            shouldHaveOptionRoleOnPlaceholder();
+            cy.checkA11y('vl-select-rich');
+
+            setDisabled(true);
+            cy.get('vl-select-rich').shadow().find('.js-vl-select').should('have.class', 'is-disabled');
+            shouldHaveOptionRoleOnPlaceholder();
+        });
+
+        it('should keep the option role on a not-deletable item when toggling disabled', () => {
+            const shouldHaveOptionRoleOnNotDeletableItem = () => {
+                getSelectedItems()
+                    .should('have.length', 1)
+                    .and('have.attr', 'role', 'option')
+                    .and('contain.text', 'Hasselt')
+                    .find('.vl-pill__close')
+                    .should('not.exist');
+            };
+
+            cy.mount(html`
+                <vl-select-rich label="geboorteplaats" not-deletable disabled .options=${cities}></vl-select-rich>
+            `);
+            cy.injectAxe();
+
+            shouldHaveOptionRoleOnNotDeletableItem();
+            cy.checkA11y('vl-select-rich');
+
+            setDisabled(false);
+            cy.get('vl-select-rich').shadow().find('.js-vl-select').should('not.have.class', 'is-disabled');
+            shouldHaveOptionRoleOnNotDeletableItem();
+            cy.checkA11y('vl-select-rich');
+        });
+    });
+
+    describe('multiple', () => {
+        it('should keep the selected options in the accessibility tree when disabled', () => {
+            cy.mount(html`<vl-select-rich label="hobby's" multiple disabled .options=${hobbies}></vl-select-rich>`);
+            cy.injectAxe();
+
+            shouldHaveOptionRoleOnItems(['Padel', 'Dans']);
+            cy.checkA11y('vl-select-rich');
+        });
+
+        it('should move the option role when toggling disabled and delete again with mouse and keyboard', () => {
+            cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${hobbies}></vl-select-rich>`);
+            cy.injectAxe();
+
+            shouldHaveOptionRoleOnRemoveButtons(['Padel', 'Dans']);
+
+            setDisabled(true);
+            shouldHaveOptionRoleOnItems(['Padel', 'Dans']);
+            cy.checkA11y('vl-select-rich');
+
+            setDisabled(false);
+            shouldHaveOptionRoleOnRemoveButtons(['Padel', 'Dans']);
+            cy.checkA11y('vl-select-rich');
+
+            getRemoveButton('padel').click();
+            shouldHaveSelected(['dans']);
+            shouldHaveOptionRoleOnRemoveButtons(['Dans']);
+
+            pressEnterOnRemoveButton('dans');
+            shouldHaveSelected([]);
+            shouldHaveNoSelection();
+        });
+
+        it('should keep the option role on the items after a programmatic update while disabled', () => {
+            cy.mount(html`<vl-select-rich label="hobby's" multiple disabled .options=${hobbies}></vl-select-rich>`);
+            cy.injectAxe();
+
+            cy.runTestFor<VlSelectRichComponent>('vl-select-rich', (component) => {
+                component.setSelectedValues(['dans', 'drummen']);
+            });
+            shouldHaveSelected(['dans', 'drummen']);
+            shouldHaveOptionRoleOnItems(['Dans', 'Drummen']);
+            cy.checkA11y('vl-select-rich');
+
+            cy.runTestFor<VlSelectRichComponent>('vl-select-rich', (component) => {
+                component.options = [
+                    { label: 'Zwemmen', value: 'zwemmen', selected: true },
+                    { label: 'Boardgames', value: 'boardgames' },
+                    { label: 'Fietsen', value: 'fietsen', selected: true },
+                ];
+            });
+            shouldHaveSelected(['zwemmen', 'fietsen']);
+            shouldHaveOptionRoleOnItems(['Zwemmen', 'Fietsen']);
+            cy.checkA11y('vl-select-rich');
+
+            setDisabled(false);
+            shouldHaveOptionRoleOnRemoveButtons(['Zwemmen', 'Fietsen']);
+        });
+
+        it('should keep the option role on the items after a form reset while disabled', () => {
+            cy.mount(html`
+                <form id="form" class="vl-form">
+                    <vl-form-label for="hobbys">hobby's</vl-form-label>
+                    <vl-select-rich id="hobbys" name="hobbys" multiple .options=${hobbies}></vl-select-rich>
+                    <button class="vl-button" type="reset">Reset</button>
+                </form>
+            `);
+            cy.injectAxe();
+
+            cy.runTestFor<VlSelectRichComponent>('vl-select-rich', (component) => {
+                component.setSelectedValues(['drummen']);
+            });
+            shouldHaveSelected(['drummen']);
+            shouldHaveOptionRoleOnRemoveButtons(['Drummen']);
+
+            setDisabled(true);
+            shouldHaveOptionRoleOnItems(['Drummen']);
+
+            cy.get('form').find('button[type="reset"]').click();
+            shouldHaveSelected(['padel', 'dans']);
+            shouldHaveOptionRoleOnItems(['Padel', 'Dans']);
+            cy.checkA11y('vl-select-rich');
+        });
+    });
+});
+
 describe('cypress-component - form components - vl-select-rich - blur-validation', () => {
     const mount = () => {
         cy.mount(html`
