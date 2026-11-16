@@ -368,6 +368,21 @@ describe('cypress-component - block components - vl-modal-next', () => {
         });
     });
 
+    it('should wrap a long word in the title instead of scrolling horizontally', () => {
+        cy.viewport(1280, 800);
+        cy.mount(renderModal({ open: true, title: 'een.heel.lange.code.zonder.spaties.die.niet.afbreekt' }));
+
+        isDialogVisible();
+        getDialog()
+            .find('.vl-modal-dialog__wrapper')
+            .should(([wrapper]) => {
+                const title = wrapper.querySelector<HTMLElement>('.vl-modal-dialog__title')!;
+                expect(title.scrollWidth).to.be.at.most(title.clientWidth);
+                expect(wrapper.scrollWidth).to.be.at.most(wrapper.clientWidth);
+                expect(title.getBoundingClientRect().right).to.be.at.most(wrapper.getBoundingClientRect().right);
+            });
+    });
+
     it('should open via a data-modal-open trigger', () => {
         cy.mount(html`<button data-modal-open="modal-vt" data-cy="data-trigger">Open</button> ${renderModal({})}`);
 

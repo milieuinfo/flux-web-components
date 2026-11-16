@@ -412,6 +412,21 @@ describe('cypress-component - block components - vl-modal', () => {
             expect(transform).to.equal('none');
         });
     });
+
+    it('should wrap a long word in the title instead of scrolling horizontally', () => {
+        cy.viewport(1280, 800);
+        cy.mount(renderModal({ open: true, title: 'een.heel.lange.code.zonder.spaties.die.niet.afbreekt' }));
+
+        isDialogVisible();
+        getDialog()
+            .find('.vl-modal-dialog__wrapper')
+            .should(([wrapper]) => {
+                const title = wrapper.querySelector<HTMLElement>('.vl-modal-dialog__title')!;
+                expect(title.scrollWidth).to.be.at.most(title.clientWidth);
+                expect(wrapper.scrollWidth).to.be.at.most(wrapper.clientWidth);
+                expect(title.getBoundingClientRect().right).to.be.at.most(wrapper.getBoundingClientRect().right);
+            });
+    });
 });
 
 describe('cypress-component - block components - vl-modal - reactive open attribuut', () => {
