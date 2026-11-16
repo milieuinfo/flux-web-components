@@ -1,7 +1,7 @@
 import { BaseLitElement } from '@domg-wc/common';
 import { vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
 import { documentStyle, iconListStyle, spotlightStyle } from '@domg/govflanders-style/component';
-import { html, nothing } from 'lit';
+import { html, nothing, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
@@ -70,6 +70,17 @@ export class VlSpotlight extends BaseLitElement {
                 attribute: 'img-alt',
             },
         };
+    }
+
+    protected updated(changedProperties: PropertyValues): void {
+        super.updated(changedProperties);
+        if (changedProperties.has('imgSrc') && this.imgSrc && !this.imgAlt && !this.hasAttribute('img-alt')) {
+            console.warn(
+                'Een `<vl-spotlight>` met `img-src` heeft een `img-alt` attribuut nodig: ' +
+                    'beschrijf de afbeelding als ze informatie toevoegt, of zet `img-alt=""` als ze louter ' +
+                    'decoratief is (https://www.w3.org/TR/WCAG22/#non-text-content).'
+            );
+        }
     }
 
     __getSlot(slotName: string) {
