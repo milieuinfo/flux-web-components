@@ -23,13 +23,13 @@ const createSectionsHtml = (fullWidth = false) => {
 
     return `
         <vl-functional-header
-            title-label="Naam applicatie"
-            link="#"
             sub-title="Paginatitel"
             back="Startpagina"
             back-link="#"
             skip-to-content-id="page-title"${fullWidth ? '\n            full-width' : ''}
-        ></vl-functional-header>
+        >
+            <a slot="heading" href="/">Naam applicatie</a>
+        </vl-functional-header>
         <section class="vl-section">
             <div class="${contentBlockClass}">
                 <div class="vl-stacked vl-stacked-medium">
@@ -63,13 +63,13 @@ export const pageLayoutFullWidthHtml = createPageHtml(createSectionsHtml(true));
 
 export const pageLayoutSideNavigationHtml = createPageHtml(`
         <vl-functional-header
-            title-label="Naam applicatie"
-            link="#"
             sub-title="Paginatitel"
             back="Startpagina"
             back-link="#"
             skip-to-content-id="page-title"
-        ></vl-functional-header>
+        >
+            <a slot="heading" href="/">Naam applicatie</a>
+        </vl-functional-header>
         <section class="vl-section">
             <div class="vl-content-block">
                 <vl-side-navigation-layout-next heading-root-selector="#page-content" min-level="2">

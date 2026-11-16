@@ -6,6 +6,8 @@ const functionalHeaderTabsUrl =
     'http://localhost:8080/iframe.html?id=components-block-functional-header--functional-header-tabs&viewMode=story';
 const functionalHeaderBreadcrumbUrl =
     'http://localhost:8080/iframe.html?id=components-block-functional-header--functional-header-breadcrumb&viewMode=story';
+const functionalHeaderHeadingSlotUrl =
+    'http://localhost:8080/iframe.html?id=components-block-functional-header--functional-header-heading-slot&viewMode=story';
 const functionalHeaderSlotsUrl =
     'http://localhost:8080/iframe.html?id=components-block-functional-header--functional-header-slots&viewMode=story';
 const functionalHeaderFullWidthUrl =
@@ -46,6 +48,16 @@ describe('cypress-e2e - block components - vl-functional-header - breadcrumb sto
         cy.visit(functionalHeaderBreadcrumbUrl);
 
         cy.get('vl-functional-header').shadow().find('header');
+    });
+});
+
+describe('cypress-e2e - block components - vl-functional-header - heading slot story', () => {
+    it('should render the link in the heading slot instead of the default title', () => {
+        cy.visit(functionalHeaderHeadingSlotUrl);
+
+        cy.get('vl-functional-header').shadow().find('header');
+        cy.get('vl-functional-header').find('a[slot="heading"]').should('be.visible');
+        cy.get('vl-functional-header').shadow().find('.vl-functional-header__title').should('not.be.visible');
     });
 });
 

@@ -50,6 +50,7 @@ const Template = story(
         actionsSlot,
         backSlot,
         backLinkSlot,
+        headingSlot,
         subHeaderSlot,
         subTitleSlot,
         titleSlot,
@@ -73,8 +74,9 @@ const Template = story(
             skip-to-content-id=${skipToContentId}
             @vl-click-back=${onClickBack}
         >
-            ${unsafeHTML(actionsSlot)}${unsafeHTML(backSlot)}${unsafeHTML(backLinkSlot)}${unsafeHTML(subHeaderSlot)}
-            ${unsafeHTML(subTitleSlot)}${unsafeHTML(titleSlot)}${unsafeHTML(topLeftSlot)}${unsafeHTML(topRightSlot)}
+            ${unsafeHTML(actionsSlot)}${unsafeHTML(backSlot)}${unsafeHTML(backLinkSlot)}${unsafeHTML(headingSlot)}
+            ${unsafeHTML(subHeaderSlot)}${unsafeHTML(subTitleSlot)}${unsafeHTML(titleSlot)}${unsafeHTML(topLeftSlot)}
+            ${unsafeHTML(topRightSlot)}
         </vl-functional-header>
     `
 );
@@ -88,6 +90,7 @@ const actionsSlotString = `<div slot="actions">
     </div>`;
 const backSlotString = `<span slot="back">${backString}</span>`;
 const backLinkSlotString = `<a slot="back-link" href="#">${backString}</a>`;
+const headingSlotString = `<a slot="heading" href="/">${titleString}</a>`;
 const subHeaderSlotString = '<span slot="sub-header">Sub header content</span>';
 const subTitleSlotString = `<span slot="sub-title">${subTitleString}</span>`;
 const titleSlotString = `<span slot="title">${titleString}</span>`;
@@ -107,6 +110,13 @@ FunctionalHeaderActions.args = {
     subTitle: subTitleString,
     titleLabel: titleString,
     actionsSlot: actionsSlotString,
+};
+
+export const FunctionalHeaderHeadingSlot = Template.bind({});
+FunctionalHeaderHeadingSlot.storyName = 'vl-functional-header - heading slot';
+FunctionalHeaderHeadingSlot.args = {
+    subTitle: subTitleString,
+    headingSlot: headingSlotString,
 };
 
 export const FunctionalHeaderSlots = Template.bind({});

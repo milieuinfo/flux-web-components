@@ -1,4 +1,4 @@
-import { GlobalStyles, registerWebComponents } from '@domg-wc/common';
+import { createSkipToContentLink, GlobalStyles, registerWebComponents } from '@domg-wc/common';
 import { VlHeader } from '@domg-wc/components/compliance';
 import { html } from 'lit';
 import { VlTabsComponent } from '../next/tabs';
@@ -55,6 +55,12 @@ const shouldSetTitleText = () => {
         .find('a')
         .contains('School en studietoelagen');
 };
+
+const expectShadowFocus = (selector: string) =>
+    cy.get('vl-functional-header').should(([functionalHeader]) => {
+        const shadowRoot = functionalHeader.shadowRoot!;
+        expect(shadowRoot.activeElement).to.equal(shadowRoot.querySelector(selector));
+    });
 
 describe('cypress-component - block components - vl-functional-header', () => {
     it('should be accessible', () => {
@@ -739,6 +745,18 @@ describe('cypress-component - block components - vl-functional-header - skip-to-
         cy.get('vl-functional-header').shadow().find(`a[href="#${mockSkipToContentId}"].vl-skip-link`).should('exist');
     });
 
+    it('should create the skip-link right after the title', () => {
+        const mockSkipToContentId = 'test-id';
+        cy.mount(html` <vl-functional-header skip-to-content-id="${mockSkipToContentId}"></vl-functional-header> `);
+
+        cy.get('vl-functional-header')
+            .shadow()
+            .find('.vl-functional-header__heading')
+            .parent()
+            .next()
+            .should('have.class', 'vl-skip-link');
+    });
+
     it('should show the skip-link on focus', () => {
         const mockSkipToContentId = 'test-id';
         cy.mount(html` <vl-functional-header skip-to-content-id="${mockSkipToContentId}"></vl-functional-header> `);
@@ -756,5 +774,273 @@ describe('cypress-component - block components - vl-functional-header - skip-to-
                 expect(skipLink.getBoundingClientRect().width).to.equal(1);
                 expect(skipLink.getBoundingClientRect().height).to.equal(1);
             });
+    });
+});
+
+describe('cypress-component - block components - vl-functional-header - heading', () => {
+    it('should be accessible with a heading slot', () => {
+        cy.mount(html`
+            <vl-functional-header sub-title="Voor lager onderwijs">
+                <a slot="heading" href="/">School en studietoelagen</a>
+            </vl-functional-header>
+        `);
+
+        cy.injectAxe();
+        cy.checkA11y('vl-functional-header');
+    });
+
+    it('should render the title as a h1 by default', () => {
+        cy.mount(html` <vl-functional-header title-label="School en studietoelagen"></vl-functional-header>`);
+
+        cy.get('vl-functional-header').shadow().find('h1.vl-functional-header__title').find('a#title');
+        shouldSetTitleText();
+    });
+
+    it('should replace the default heading with the heading slot', () => {
+        cy.mount(html`
+            <vl-functional-header>
+                <a slot="heading" href="/">School en studietoelagen</a>
+            </vl-functional-header>
+        `);
+
+        cy.get('vl-functional-header').find('a[slot="heading"]').should('be.visible');
+        cy.get('vl-functional-header').shadow().find('h1').should('not.be.visible');
+    });
+
+    it('should style a link in the heading slot as the default title, despite the global link styles', () => {
+        cy.mount(html`
+            <vl-functional-header id="default" title-label="School en studietoelagen" link="/"></vl-functional-header>
+            <vl-functional-header id="slotted">
+                <a slot="heading" href="/">School en studietoelagen</a>
+            </vl-functional-header>
+        `);
+
+        cy.get('#default')
+            .shadow()
+            .find('#title')
+            .then(($title) => {
+                const expected = getComputedStyle($title[0]);
+
+                cy.get('#slotted')
+                    .find('a[slot="heading"]')
+                    .should(($link) => {
+                        const actual = getComputedStyle($link[0]);
+                        ['color', 'font-size', 'font-weight', 'line-height', 'text-decoration-line'].forEach((prop) =>
+                            expect(actual.getPropertyValue(prop), prop).to.equal(expected.getPropertyValue(prop))
+                        );
+                    });
+            });
+    });
+
+    it('should warn when the heading slot is combined with the default title', () => {
+        cy.spy(console, 'warn').as('warn');
+
+        cy.mount(html`
+            <vl-functional-header title-label="School en studietoelagen" link="test" skip-to-content-id="main-content">
+                <a slot="heading" href="/">Eigen kop</a>
+            </vl-functional-header>
+        `);
+
+        cy.get('@warn').should(
+            'have.been.calledWith',
+            'vl-functional-header -',
+            'de heading-slot vervangt de volledige titel, dus title-label, link en de title-slot worden genegeerd.'
+        );
+    });
+
+    it('should not warn when only the heading slot is used', () => {
+        cy.spy(console, 'warn').as('warn');
+
+        cy.mount(html`
+            <vl-functional-header skip-to-content-id="main-content">
+                <a slot="heading" href="/">Eigen kop</a>
+            </vl-functional-header>
+        `);
+
+        cy.get('vl-functional-header').find('a[slot="heading"]').should('be.visible');
+        cy.get('@warn').should('not.have.been.called');
+    });
+});
+
+describe('cypress-component - block components - vl-functional-header - keyboard', () => {
+    it('should make the title a plain text and no tab stop when the link is removed or empty', () => {
+        cy.mount(html`
+            <vl-functional-header title-label="School en studietoelagen" link="/" skip-to-content-id="main-content">
+            </vl-functional-header>
+        `);
+
+        cy.get('vl-functional-header').shadow().find('a#title').should('have.attr', 'href', '/');
+        cy.get('vl-functional-header').shadow().find('a#title').should('not.have.attr', 'tabindex');
+
+        cy.get('vl-functional-header').invoke('removeAttr', 'link');
+        cy.get('vl-functional-header').shadow().find('a#title').should('not.have.attr', 'href');
+        cy.get('vl-functional-header').shadow().find('a#title').should('have.attr', 'tabindex', '-1');
+
+        cy.get('vl-functional-header').invoke('attr', 'link', '/start');
+        cy.get('vl-functional-header').shadow().find('a#title').should('have.attr', 'href', '/start');
+
+        cy.get('vl-functional-header').invoke('attr', 'link', '');
+        cy.get('vl-functional-header').shadow().find('a#title').should('not.have.attr', 'href');
+        cy.get('vl-functional-header').shadow().find('a#title').should('have.attr', 'tabindex', '-1');
+    });
+
+    it('should not make the title a tab stop without a link', () => {
+        cy.mount(html`
+            <button id="before" type="button">Voor</button>
+            <vl-functional-header title-label="School en studietoelagen" skip-to-content-id="main-content">
+            </vl-functional-header>
+        `);
+
+        cy.get('vl-functional-header').shadow().find('a#title').should('have.attr', 'tabindex', '-1');
+
+        cy.get('#before').focus();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+
+        expectShadowFocus('a.vl-skip-link');
+    });
+
+    it('should move through the title, the skip-link, the actions and the back link', () => {
+        cy.mount(html`
+            <button id="before" type="button">Voor</button>
+            <vl-functional-header title-label="School en studietoelagen" link="#" skip-to-content-id="main-content">
+                <div slot="actions">
+                    <a href="#">Actie 1</a>
+                </div>
+            </vl-functional-header>
+        `);
+
+        cy.get('#before').focus();
+
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        expectShadowFocus('a#title');
+
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        expectShadowFocus('a.vl-skip-link');
+
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        expectShadowFocus('#actions a');
+
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        expectShadowFocus('#back-link');
+    });
+});
+
+describe('cypress-component - block components - vl-functional-header - skip-link to the title', () => {
+    // vl-header-next maakt zijn skip link met createSkipToContentLink uit @domg-wc/common
+    const addPageSkipLink = (skipToContentId = 'title') =>
+        cy.document().then((document) => {
+            document.querySelectorAll('[data-cy="page-skip-link"]').forEach((link) => link.remove());
+
+            const skipLink = createSkipToContentLink(skipToContentId);
+            skipLink.dataset.cy = 'page-skip-link';
+            document.body.prepend(skipLink);
+        });
+
+    it('should reach the title without a link and continue to the skip-link of the functional header', () => {
+        cy.mount(html`
+            <vl-functional-header title-label="School en studietoelagen" skip-to-content-id="main-content">
+            </vl-functional-header>
+        `);
+        addPageSkipLink();
+
+        cy.get('[data-cy="page-skip-link"]').focus().click();
+        expectShadowFocus('.vl-functional-header__title > a');
+
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        expectShadowFocus('a.vl-skip-link');
+    });
+
+    it('should reach the title with a link', () => {
+        cy.mount(html`
+            <vl-functional-header title-label="School en studietoelagen" link="#" skip-to-content-id="main-content">
+            </vl-functional-header>
+        `);
+        addPageSkipLink();
+
+        cy.get('[data-cy="page-skip-link"]').focus().click();
+        expectShadowFocus('.vl-functional-header__title > a');
+    });
+
+    it('should reach the link in the heading slot and continue to the skip-link of the functional header', () => {
+        cy.mount(html`
+            <vl-functional-header skip-to-content-id="main-content">
+                <a slot="heading" href="/">School en studietoelagen</a>
+            </vl-functional-header>
+        `);
+        addPageSkipLink();
+
+        cy.get('[data-cy="page-skip-link"]').focus().click();
+        cy.focused().should('have.attr', 'slot', 'heading');
+
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        expectShadowFocus('a.vl-skip-link');
+    });
+
+    it('should reach a link inside an own heading in the heading slot', () => {
+        cy.mount(html`
+            <vl-functional-header skip-to-content-id="main-content">
+                <h2 slot="heading"><a href="/">School en studietoelagen</a></h2>
+            </vl-functional-header>
+        `);
+        addPageSkipLink();
+
+        cy.get('[data-cy="page-skip-link"]').focus().click();
+        cy.focused().should('have.text', 'School en studietoelagen').and('match', 'h2[slot="heading"] > a');
+
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        expectShadowFocus('a.vl-skip-link');
+    });
+
+    it('should keep the focus on the heading block without a link in the heading slot', () => {
+        cy.mount(html`
+            <vl-functional-header skip-to-content-id="main-content">
+                <span slot="heading">School en studietoelagen</span>
+            </vl-functional-header>
+        `);
+        addPageSkipLink();
+
+        cy.get('[data-cy="page-skip-link"]').focus().click();
+        expectShadowFocus('.vl-functional-header__heading');
+
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        expectShadowFocus('a.vl-skip-link');
+    });
+});
+
+describe('cypress-component - block components - vl-functional-header - title id', () => {
+    const shouldHaveTitleIdOn = (selector: string) =>
+        cy.get('vl-functional-header').should(([functionalHeader]) => {
+            const titles = functionalHeader.shadowRoot!.querySelectorAll('#title');
+            expect(titles).to.have.length(1);
+            expect(titles[0]).to.equal(functionalHeader.shadowRoot!.querySelector(selector));
+        });
+
+    it('should keep the id title on the title link without a heading slot', () => {
+        cy.mount(html` <vl-functional-header title-label="School en studietoelagen"></vl-functional-header> `);
+
+        shouldHaveTitleIdOn('h1.vl-functional-header__title > a');
+    });
+
+    it('should move the id title to the visible heading block with a heading slot', () => {
+        cy.mount(html`
+            <vl-functional-header>
+                <a slot="heading" href="/">School en studietoelagen</a>
+            </vl-functional-header>
+        `);
+
+        shouldHaveTitleIdOn('.vl-functional-header__heading');
+        cy.get('vl-functional-header').shadow().find('#title').should('be.visible');
+    });
+
+    it('should move the id title along when the heading slot is added or removed later', () => {
+        cy.mount(html` <vl-functional-header title-label="School en studietoelagen"></vl-functional-header> `);
+
+        cy.get('vl-functional-header').then(([functionalHeader]) => {
+            functionalHeader.insertAdjacentHTML('beforeend', '<a slot="heading" href="/">Eigen kop</a>');
+        });
+        shouldHaveTitleIdOn('.vl-functional-header__heading');
+
+        cy.get('vl-functional-header').find('[slot="heading"]').invoke('remove');
+        shouldHaveTitleIdOn('h1.vl-functional-header__title > a');
     });
 });

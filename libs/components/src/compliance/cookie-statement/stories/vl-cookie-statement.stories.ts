@@ -62,11 +62,11 @@ CookieStatementHeaderSlot.args = {
     headerSlot: `
     <vl-functional-header
         slot="header"
-        title="Departement Omgeving"
         sub-title="Cookieverklaring"
-        link="https://omgeving.vlaanderen.be"
         back="Start"
         skip-to-content-id="#main-content"
-    ></vl-functional-header>
+    >
+        <a slot="heading" href="https://omgeving.vlaanderen.be">Departement Omgeving</a>
+    </vl-functional-header>
 `,
 };
