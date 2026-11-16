@@ -6,6 +6,11 @@ import { VlFormMessageComponent } from '../form-message/vl-form-message.componen
 
 registerWebComponents([VlTextareaRichComponent, VlFormMessageComponent]);
 
+const waitForEditorInit = () =>
+    cy.get('vl-textarea-rich').should(($el) => {
+        expect(tinymce.get($el[0].id)?.initialized).to.equal(true);
+    });
+
 describe('cypress-component - form components - vl-textarea-rich - vl-input event', () => {
     beforeEach(() => {
         cy.viewport(1280, 720);
@@ -232,11 +237,6 @@ describe('cypress-component - form components - vl-textarea-rich - cleanup', () 
         return textareaRich;
     };
 
-    const waitForEditorInit = () =>
-        cy.get('vl-textarea-rich').should(($el) => {
-            expect(tinymce.get($el[0].id)?.initialized).to.equal(true);
-        });
-
     const expectNoErrorsOnWindowResize = () => {
         cy.window().then((win) => {
             cy.spy(win.console, 'error').as('consoleError');
@@ -356,6 +356,95 @@ describe('cypress-component - form components - vl-textarea-rich - cleanup', () 
             editor?.setContent('<p>Hallo</p>');
             editor?.dispatch('change');
         });
+        cy.get('vl-textarea-rich').should('have.attr', 'value', '<p>Hallo</p>');
+    });
+});
+
+describe('cypress-component - form components - vl-textarea-rich - editor mode during init', () => {
+    let editableDuringInit: Record<string, boolean>;
+
+    const recordEditableDuringInit = (editor: Editor) => {
+        editor.on('PreInit init', (event) => {
+            editableDuringInit[event.type] = editor.getBody().isContentEditable;
+        });
+    };
+
+    const expectEditorModeAfterInit = (mode: 'design' | 'readonly') =>
+        waitForEditorInit().should(($el) => {
+            const editor = tinymce.get($el[0].id);
+            expect(editor?.mode.get()).to.equal(mode);
+            expect(editor?.getBody().isContentEditable).to.equal(mode === 'design');
+        });
+
+    beforeEach(() => {
+        cy.viewport(1280, 720);
+        editableDuringInit = {};
+    });
+
+    it('should not be editable during TinyMCE init and switch to design mode afterwards', () => {
+        cy.mount(html`<vl-textarea-rich .customConfig=${{ setup: recordEditableDuringInit }}></vl-textarea-rich>`);
+
+        expectEditorModeAfterInit('design').then(() => {
+            expect(editableDuringInit).to.deep.equal({ preinit: false, init: false });
+        });
+    });
+
+    ['readonly', 'disabled', 'preview'].forEach((attribute) => {
+        it(`should not be editable during TinyMCE init and stay in readonly mode afterwards with ${attribute}`, () => {
+            cy.mount(
+                html`<vl-textarea-rich
+                    ?readonly=${attribute === 'readonly'}
+                    ?disabled=${attribute === 'disabled'}
+                    ?preview=${attribute === 'preview'}
+                    .customConfig=${{ setup: recordEditableDuringInit }}
+                ></vl-textarea-rich>`,
+            );
+
+            expectEditorModeAfterInit('readonly').then(() => {
+                expect(editableDuringInit).to.deep.equal({ preinit: false, init: false });
+            });
+        });
+    });
+
+    it('should switch to design mode after TinyMCE init when customConfig sets readonly to true', () => {
+        cy.mount(
+            html`<vl-textarea-rich
+                .customConfig=${{ readonly: true, setup: recordEditableDuringInit }}
+            ></vl-textarea-rich>`,
+        );
+
+        expectEditorModeAfterInit('design').then(() => {
+            expect(editableDuringInit).to.deep.equal({ preinit: false, init: false });
+        });
+    });
+
+    it('should be editable during TinyMCE init when customConfig sets readonly to false', () => {
+        cy.mount(
+            html`<vl-textarea-rich
+                .customConfig=${{ readonly: false, setup: recordEditableDuringInit }}
+            ></vl-textarea-rich>`,
+        );
+
+        expectEditorModeAfterInit('design').then(() => {
+            expect(editableDuringInit).to.deep.equal({ preinit: true, init: true });
+        });
+    });
+
+    it('should dispatch vl-input and vl-change and update the value when the user types once the editor is editable', () => {
+        cy.mount(html`<vl-textarea-rich label="test"></vl-textarea-rich>`);
+        cy.createStubForEvent('vl-textarea-rich', 'vl-input');
+        cy.createStubForEvent('vl-textarea-rich', 'vl-change');
+
+        cy.get('vl-textarea-rich')
+            .shadow()
+            .find('iframe')
+            .its('0.contentDocument.body')
+            .should('have.attr', 'contenteditable', 'true')
+            .then(cy.wrap)
+            .type('Hallo');
+
+        cy.get('@vl-input').should('have.been.calledWithMatch', { detail: { value: '<p>Hallo</p>' } });
+        cy.get('@vl-change').should('have.been.calledWithMatch', { detail: { value: '<p>Hallo</p>' } });
         cy.get('vl-textarea-rich').should('have.attr', 'value', '<p>Hallo</p>');
     });
 });
