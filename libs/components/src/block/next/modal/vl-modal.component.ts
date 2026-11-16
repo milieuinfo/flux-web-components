@@ -9,7 +9,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { VlButtonComponent } from '../../../atom/button';
 import { vlIconStyles } from '../../../atom/icon-style/vl-icon-style.css';
 import { vlModalStyles } from './vl-modal.css';
-import { focusFirstFocusable } from './vl-modal.focus';
+import { focusFirstFocusable, showModal } from './vl-modal.focus';
 import { CLOSE_ATTRIBUTES, DIALOG_MODIFIERS, FOCUSABLE_SELECTOR } from './vl-modal.model';
 
 @webComponent('vl-modal-next')
@@ -268,7 +268,7 @@ export class VlModalComponent extends BaseLitElement {
             this.lastFocusedInside = null;
             // Vóór de focus, niet pas bij de volgende render: VoiceOver kondigt de dialog anders niet aan.
             dialog.setAttribute('aria-hidden', 'false');
-            dialog.showModal();
+            showModal(dialog);
             this.shown = true;
             VlModalComponent.openModals.push(this);
             // Zonder focus-on-modal kiezen we zelf het focusdoel: Firefox en Safari focussen anders de sluitknop.

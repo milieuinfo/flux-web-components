@@ -153,7 +153,13 @@
                             this.lastClickedToggle?.focus();
                             vl.util.removeClass(document.body, noOverflowClass);
                         } else {
-                            element.showModal();
+                            const host = element.getRootNode().host;
+                            // De component opent de dialog: de lib kent de slots niet, en dus ook geen autofocus erin.
+                            if (host?._showDialog) {
+                                host._showDialog();
+                            } else {
+                                element.showModal();
+                            }
                             this.openModals.push(element);
                             if (element.dataset.focusOnModal === 'true') element.focus();
                             element.setAttribute('aria-hidden', false);
