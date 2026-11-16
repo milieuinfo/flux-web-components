@@ -1,10 +1,11 @@
 import { FluxConfig, registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
+import { VlButtonComponent } from '../../atom/button';
 import { VlAlert } from '../alert/vl-alert.component';
 import { VlProzaMessage } from './vl-proza-message.component';
 import { vlProza } from './vl-proza.directive';
 
-registerWebComponents([VlAlert]);
+registerWebComponents([VlAlert, VlButtonComponent]);
 
 describe('cypress-component - block components - vlProza directive', () => {
     const mockDomain = 'test-domain';
@@ -75,6 +76,17 @@ describe('cypress-component - block components - vlProza directive', () => {
         </vl-alert>`);
 
         cy.get('vl-alert').shadow().find('#title').should('contain.text', 'Dit is een belangrijke melding.');
+    });
+
+    it('should resolve a proza message as the text of a button without nested buttons', () => {
+        stubFetch({
+            [`${mockDomain}/actie.bewaren`]: { code: 'actie.bewaren', tekst: '<b>Bewaren</b>' },
+        });
+
+        cy.mount(html`<vl-button>${vlProza('actie.bewaren')}</vl-button>`);
+
+        cy.get('vl-button').should('have.text', 'Bewaren');
+        cy.get('vl-button').children().should('not.exist');
     });
 
     it('should replace template parameters', () => {
