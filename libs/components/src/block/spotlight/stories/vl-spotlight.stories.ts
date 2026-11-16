@@ -103,7 +103,7 @@ export const SpotlightWithText = () => html`
 SpotlightWithText.storyName = 'vl-spotlight - with text';
 
 export const SpotlightWithImage = () => html`
-    <vl-spotlight img-src="dak.jpg" img-alt="spotlight image">
+    <vl-spotlight img-src="dak.jpg" img-alt="Oud pannendak met verweerde dakpannen">
         <span slot="title"> Premies voor renovatie </span>
         <span slot="subtitle">Er zijn er verschillende...</span>
         <span slot="text"
