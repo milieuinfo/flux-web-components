@@ -4,7 +4,7 @@ import { VlAlert } from '../alert';
 import { VlAlertAttributes } from '../alert/vl-alert.model';
 import { toasterStyles } from './vl-toaster.css';
 import { toasterDefaults } from './vl-toaster.defaults';
-import { Placement } from './vl-toaster.model';
+import { Placement, VlToastOptions } from './vl-toaster.model';
 
 registerWebComponents([VlAlert]);
 
@@ -13,9 +13,6 @@ export class VlToasterComponent extends BaseLitElement {
     // properties
     private fadeOut = toasterDefaults.fadeOut;
     private placement: Placement = toasterDefaults.placement;
-    // state
-    private abortController = new AbortController();
-    private initialized = false;
 
     static get styles(): (CSSResult | CSSResult[])[] {
         return [toasterStyles];
@@ -23,7 +20,7 @@ export class VlToasterComponent extends BaseLitElement {
 
     static get properties(): PropertyDeclarations {
         return {
-            fadeOut: { type: Boolean, attribute: 'fade-out' },
+            fadeOut: { type: Boolean, attribute: 'fade-out', reflect: true },
             placement: { type: String },
         };
     }
@@ -36,16 +33,13 @@ export class VlToasterComponent extends BaseLitElement {
         `;
     }
 
-    disconnectedCallback() {
-        this.abortController.abort('animationend');
-    }
-
     /**
      * Wanneer aangeroepen zonder argument, wordt het eerste element in de toaster getoond.
      * Je kan ook een specifiek element tonen door een selector mee te geven of een HTMLElement.
      * @param target
+     * @param options `fadeOut` kiest voor deze toast of hij vanzelf verdwijnt, los van `fade-out` op de toaster.
      */
-    show(target?: string | HTMLElement): void {
+    show(target?: string | HTMLElement, options?: VlToastOptions): void {
         let toast;
         const firstChild = this.children[0]?.cloneNode(true) as HTMLElement;
         if (!target && firstChild) {
@@ -71,31 +65,36 @@ export class VlToasterComponent extends BaseLitElement {
             return;
         }
 
-        this.showToast(toast);
+        this.showToast(toast, options);
     }
 
     /**
      * Toont een vl-alert in de toaster met de opgegeven attributen.
      * @param alert
+     * @param options `fadeOut` kiest voor deze toast of hij vanzelf verdwijnt, los van `fade-out` op de toaster.
      */
-    showAlert(alert: VlAlertAttributes) {
+    showAlert(alert: VlAlertAttributes, options?: VlToastOptions) {
         const vlAlert = document.createElement('vl-alert');
         Object.entries(alert).forEach(([key, value]) => {
             if (value) {
                 vlAlert.setAttribute(`${key}`, value);
             }
         });
-        this.showToast(vlAlert);
+        this.showToast(vlAlert, options);
     }
 
     private get outputElement(): HTMLElement | null | undefined {
         return this.shadowRoot?.querySelector('output');
     }
 
-    private showToast = async (toast: HTMLElement) => {
-        // wacht tot <output> element is gerenderd
-        if (!this.initialized) {
-            this.initialized = true;
+    private showToast = async (toast: HTMLElement, options?: VlToastOptions) => {
+        if (options?.fadeOut !== undefined) {
+            toast.toggleAttribute('fade-out', options.fadeOut);
+            toast.toggleAttribute('persistent', !options.fadeOut);
+        }
+
+        // elke toast die getoond wordt vóór de eerste render, wacht tot het <output> element bestaat
+        if (!this.hasUpdated) {
             await this.updateComplete;
         }
 
@@ -104,16 +103,13 @@ export class VlToasterComponent extends BaseLitElement {
         } else {
             this.outputElement?.prepend(toast);
         }
-        if (this.fadeOut) {
-            toast.addEventListener(
-                'animationend',
-                (animationEvent) => {
-                    if (animationEvent?.animationName === 'fade-out') {
-                        toast.remove();
-                    }
-                },
-                { signal: this.abortController.signal }
-            );
+        toast.addEventListener('animationend', this.removeFadedOutToast);
+    };
+
+    // animationend bubbelt: enkel het einde van de fade-out van de toast zelf mag hem verwijderen
+    private removeFadedOutToast = (event: AnimationEvent) => {
+        if (event.animationName === 'fade-out' && event.target === event.currentTarget) {
+            (event.currentTarget as HTMLElement).remove();
         }
     };
 }
