@@ -254,7 +254,11 @@ export class VlProzaMessage extends BaseHTMLElement {
 
     __editButtonTemplate() {
         const button = this._template(`
-        <vl-button id="edit-button" icon="pencil" label="edit"></vl-button>
+        <vl-button
+            id="edit-button"
+            icon="pencil"
+            label="Bericht aanpassen in Proza (opent in een nieuw venster)"
+        ></vl-button>
     `);
         button?.firstElementChild?.addEventListener('click', (event: Event) => {
             event.stopPropagation();
@@ -266,7 +270,7 @@ export class VlProzaMessage extends BaseHTMLElement {
 
     __refreshButtonTemplate() {
         const button = this._template(`
-        <vl-button id="refresh-button" icon="text-redo" label="refresh"></vl-button>
+        <vl-button id="refresh-button" icon="text-redo" label="Bericht opnieuw ophalen"></vl-button>
     `);
         button?.firstElementChild?.addEventListener('click', (event: Event) => {
             event.stopPropagation();
