@@ -4,9 +4,17 @@ import { VlButtonComponent } from '../../../atom/button';
 import { VlIconComponent } from '../../../atom/icon';
 import { VlLinkComponent } from '../../../atom/link';
 import { VlDatepickerComponent } from '../../../form/datepicker';
+import { VlInputFieldComponent } from '../../../form/input-field';
 import { VlModalComponent } from './vl-modal.component';
 
-registerWebComponents([VlModalComponent, VlButtonComponent, VlIconComponent, VlLinkComponent, VlDatepickerComponent]);
+registerWebComponents([
+    VlModalComponent,
+    VlButtonComponent,
+    VlIconComponent,
+    VlLinkComponent,
+    VlDatepickerComponent,
+    VlInputFieldComponent,
+]);
 
 const renderOpenButton = () => html`<vl-button modal-open="modal-vt" data-cy="button-modal-toggle"> Open </vl-button>`;
 
@@ -1363,5 +1371,223 @@ describe('cypress-component - block components - vl-modal-next - reflow', () => 
                     expect(buttonRect.right).to.be.at.most(320);
                 });
         });
+    });
+});
+
+describe('cypress-component - block components - vl-modal-next - autofocus', () => {
+    const renderConfirmModal = ({ open = false, focusOnModal = false, disabled = false } = {}) =>
+        html`<vl-modal-next
+            id="modal-vt"
+            title-label="Wijzigingen verwerpen?"
+            not-cancellable
+            ?open=${open}
+            ?focus-on-modal=${focusOnModal}
+            data-cy="modal"
+        >
+            <span slot="content">Je wijzigingen gaan verloren.</span>
+            <vl-button slot="button" error data-cy="discard">Verwerpen</vl-button>
+            <vl-button slot="button" autofocus ?disabled=${disabled} data-cy="keep-editing">Verder bewerken</vl-button>
+        </vl-modal-next>`;
+
+    const shouldFocusButton = (dataCy: string) => {
+        cy.getDataCy(dataCy).shadow().find('button').should('have.focus');
+    };
+
+    it('should focus the slotted element with autofocus when opening via a trigger', () => {
+        cy.mount(html`${renderOpenButton()} ${renderConfirmModal()}`);
+        cy.injectAxe();
+
+        openModal();
+        isDialogVisible();
+        shouldFocusButton('keep-editing');
+        cy.checkA11y('vl-modal-next');
+    });
+
+    it('should not focus the first focusable element before the element with autofocus', () => {
+        cy.mount(html`${renderOpenButton()} ${renderConfirmModal()}`);
+        cy.getDataCy('discard').then(($el) => $el[0].addEventListener('focusin', cy.stub().as('discardFocusin')));
+
+        openModal();
+        isDialogVisible();
+        shouldFocusButton('keep-editing');
+        cy.get('@discardFocusin').should('not.have.been.called');
+    });
+
+    it('should focus the slotted element with autofocus when the open attribute is added', () => {
+        cy.mount(renderConfirmModal());
+
+        isDialogHidden();
+        cy.getDataCy('modal').invoke('attr', 'open', '');
+        isDialogVisible();
+        shouldFocusButton('keep-editing');
+    });
+
+    it('should focus the slotted element with autofocus when opening via open()', () => {
+        cy.mount(renderConfirmModal());
+
+        isDialogHidden();
+        cy.getDataCy('modal').then(($el) => ($el[0] as VlModalComponent).open());
+        isDialogVisible();
+        shouldFocusButton('keep-editing');
+    });
+
+    it('should focus the slotted element with autofocus when the modal is open from the start', () => {
+        cy.mount(renderConfirmModal({ open: true }));
+
+        isDialogVisible();
+        shouldFocusButton('keep-editing');
+    });
+
+    it('should move the focus to the element with autofocus once it is rendered', () => {
+        cy.mount(
+            html`<vl-modal-next id="modal-vt" title-label="Naam wijzigen" open data-cy="modal">
+                <button slot="content" data-cy="first-focusable">Hulp</button>
+                <vl-button slot="button" autofocus data-cy="save">Bewaren</vl-button>
+            </vl-modal-next>`,
+        );
+
+        isDialogVisible();
+        shouldFocusButton('save');
+    });
+
+    it('should focus the first element with autofocus when the modal is open from the start', () => {
+        cy.mount(
+            html`<vl-modal-next id="modal-vt" title-label="Naam wijzigen" open data-cy="modal">
+                <vl-input-field slot="content" id="naam" label="Naam" autofocus data-cy="name"></vl-input-field>
+                <button slot="button" autofocus>Bewaren</button>
+            </vl-modal-next>`,
+        );
+
+        isDialogVisible();
+        cy.getDataCy('name').shadow().find('input').should('have.focus');
+    });
+
+    it('should focus an element with autofocus in the content slot before one in the button slot', () => {
+        cy.mount(
+            html`${renderOpenButton()}
+                <vl-modal-next id="modal-vt" title-label="Naam wijzigen" data-cy="modal">
+                    <div slot="content">
+                        <button data-cy="first-focusable">Hulp</button>
+                        <vl-input-field id="naam" label="Naam" autofocus data-cy="name"></vl-input-field>
+                    </div>
+                    <vl-button slot="button" autofocus>Bewaren</vl-button>
+                </vl-modal-next>`,
+        );
+
+        openModal();
+        isDialogVisible();
+        cy.getDataCy('name').shadow().find('input').should('have.focus');
+    });
+
+    it('should focus the dialog itself when focus-on-modal is set next to an element with autofocus', () => {
+        cy.mount(html`${renderOpenButton()} ${renderConfirmModal({ focusOnModal: true })}`);
+
+        openModal();
+        isDialogVisible();
+        getDialog().should('have.focus');
+    });
+
+    it('should focus the first focusable element when the element with autofocus is disabled', () => {
+        cy.mount(html`${renderOpenButton()} ${renderConfirmModal({ disabled: true })}`);
+
+        openModal();
+        isDialogVisible();
+        shouldFocusButton('discard');
+    });
+
+    it('should skip an element with autofocus that cannot receive focus', () => {
+        cy.mount(
+            html`${renderOpenButton()}
+                <vl-modal-next id="modal-vt" title-label="Modal" data-cy="modal">
+                    <div slot="content" autofocus>
+                        Niet focusbaar
+                        <input autofocus hidden />
+                    </div>
+                    <vl-button slot="button" data-cy="first-focusable">Bewaren</vl-button>
+                </vl-modal-next>`,
+        );
+
+        openModal();
+        isDialogVisible();
+        shouldFocusButton('first-focusable');
+    });
+
+    it('should ignore an element with autofocus in a nested modal', () => {
+        cy.mount(
+            html`<button modal-open="modal-outer" data-cy="outer-trigger">Open buiten</button>
+                <vl-modal-next id="modal-outer" title-label="Buiten" data-cy="modal-outer">
+                    <div slot="content">
+                        <button modal-open="modal-inner" data-cy="inner-trigger">Open binnen</button>
+                        <vl-modal-next id="modal-inner" title-label="Binnen" data-cy="modal-inner">
+                            <vl-button slot="button">Eerste</vl-button>
+                            <vl-button slot="button" autofocus data-cy="inner-autofocus">Tweede</vl-button>
+                        </vl-modal-next>
+                    </div>
+                </vl-modal-next>`,
+        );
+
+        cy.getDataCy('outer-trigger').click();
+        cy.getDataCy('modal-outer').shadow().find('dialog').should('have.attr', 'open');
+        cy.getDataCy('inner-trigger').should('have.focus');
+        cy.getDataCy('inner-trigger').click();
+        cy.getDataCy('modal-inner').shadow().find('dialog').should('have.attr', 'open');
+        shouldFocusButton('inner-autofocus');
+    });
+
+    it('should keep the focus where a vl-open handler moved it', () => {
+        cy.mount(html`${renderOpenButton()} ${renderConfirmModal()}`);
+        cy.getDataCy('modal').then(($el: JQuery<HTMLElement>) => {
+            const discard = $el[0].querySelector<HTMLElement>('[data-cy="discard"]')!;
+            $el[0].addEventListener('vl-open', () => discard.focus());
+        });
+
+        openModal();
+        isDialogVisible();
+        shouldFocusButton('discard');
+    });
+
+    it('should keep the focus where a vl-open handler moved it when the modal is open from the start', () => {
+        const focusHelp = (event: Event) =>
+            (event.currentTarget as HTMLElement).querySelector<HTMLElement>('[data-cy="help"]')!.focus();
+        cy.mount(
+            html`<vl-modal-next id="modal-vt" title-label="Naam wijzigen" open data-cy="modal" @vl-open=${focusHelp}>
+                <div slot="content">
+                    <button data-cy="first-focusable">Eerste knop</button>
+                    <button data-cy="help">Hulp</button>
+                </div>
+                <vl-button slot="button" autofocus data-cy="save">Bewaren</vl-button>
+            </vl-modal-next>`,
+        );
+
+        isDialogVisible();
+        cy.getDataCy('save').shadow().find('button').should('exist');
+        cy.getDataCy('help').should('have.focus');
+    });
+
+    it('should keep the focus on the same element when an open modal with an autofocus element is moved', () => {
+        cy.mount(
+            html`<div data-cy="from">${renderConfirmModal({ open: true })}</div>
+                <div data-cy="to"></div>`,
+        );
+        isDialogVisible();
+        shouldFocusButton('keep-editing');
+        cy.getDataCy('discard').shadow().find('button').focus();
+        cy.getDataCy('modal').then(($el) => {
+            cy.$$('[data-cy="to"]')[0].append($el[0]);
+        });
+
+        isDialogVisible();
+        shouldFocusButton('discard');
+    });
+
+    it('should return focus to the trigger after closing a modal with an autofocus element', () => {
+        cy.mount(html`<button modal-open="modal-vt" data-cy="native-trigger">Open</button> ${renderConfirmModal()}`);
+
+        cy.getDataCy('native-trigger').click();
+        isDialogVisible();
+        shouldFocusButton('keep-editing');
+        cy.getDataCy('keep-editing').click();
+        isDialogHidden();
+        cy.getDataCy('native-trigger').should('have.focus');
     });
 });
