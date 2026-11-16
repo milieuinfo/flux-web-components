@@ -173,3 +173,33 @@ modalWithFocusOnModal.args = {
     label: 'Modal met focus op modal',
     allowOverflow: true,
 };
+
+export const ModalWithAutofocus = ({ onVlOpen, onVlClose }: typeof modalArgs) => html`
+    <div>
+        <vl-button
+            id="button-open-modal-autofocus"
+            modal-open="modal-autofocus"
+            data-cy="button-modal-toggle"
+            aria-controls="modal-autofocus"
+            aria-haspopup="dialog"
+        >
+            Wijzigingen verwerpen
+        </vl-button>
+        <vl-modal-next
+            id="modal-autofocus"
+            title-label="Wijzigingen verwerpen?"
+            not-cancellable
+            data-cy="modal"
+            @vl-open=${onVlOpen}
+            @vl-close=${onVlClose}
+        >
+            <span slot="content">Je niet-bewaarde wijzigingen gaan verloren.</span>
+            <vl-button slot="button" error>Verwerpen</vl-button>
+            <vl-button slot="button" secondary autofocus>Verder bewerken</vl-button>
+        </vl-modal-next>
+    </div>
+`;
+ModalWithAutofocus.storyName = 'vl-modal-next - with autofocus';
+ModalWithAutofocus.parameters = {
+    controls: { disable: true },
+};

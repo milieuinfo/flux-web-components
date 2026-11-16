@@ -153,9 +153,16 @@
                             this.lastClickedToggle?.focus();
                             vl.util.removeClass(document.body, noOverflowClass);
                         } else {
-                            element.showModal();
+                            const focusOnModal = element.dataset.focusOnModal === 'true';
+                            const host = element.getRootNode().host;
+                            // De component kiest het element dat de focus krijgt: de lib kent de slots niet.
+                            if (host?._showDialog) {
+                                host._showDialog(focusOnModal);
+                            } else {
+                                element.showModal();
+                                if (focusOnModal) element.focus();
+                            }
                             this.openModals.push(element);
-                            if (element.dataset.focusOnModal === 'true') element.focus();
                             element.setAttribute('aria-hidden', false);
                             vl.util.addClass(document.body, noOverflowClass);
                         }

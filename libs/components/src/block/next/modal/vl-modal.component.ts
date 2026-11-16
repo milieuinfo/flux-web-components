@@ -10,6 +10,7 @@ import { vlIconStyles } from '../../../atom/icon-style/vl-icon-style.css';
 import { VlLinkComponent } from '../../../atom/link';
 import { vlModalStyles } from './vl-modal.css';
 import { CLOSE_ATTRIBUTES, DIALOG_MODIFIERS, FOCUSABLE_SELECTOR } from './vl-modal.model';
+import { deepActiveElement, showModalWithInitialFocus } from './vl-modal.utils';
 
 @webComponent('vl-modal-next')
 export class VlModalComponent extends BaseLitElement {
@@ -267,15 +268,12 @@ export class VlModalComponent extends BaseLitElement {
                 this.finishClose();
                 this.opened = true;
             }
-            this.lastTrigger = this.pendingTrigger ?? this.deepActiveElement();
+            this.lastTrigger = this.pendingTrigger ?? deepActiveElement();
             this.pendingTrigger = null;
             this.lastFocusedInside = null;
-            dialog.showModal();
+            showModalWithInitialFocus(dialog, this.focusOnModal);
             this.shown = true;
             VlModalComponent.openModals.push(this);
-            if (this.focusOnModal) {
-                dialog.focus();
-            }
             document.body.classList.add('vl-u-no-overflow');
             document.addEventListener('keydown', this.onDocumentKeydown, true);
             this.toggleAttribute('open', true);
@@ -399,14 +397,6 @@ export class VlModalComponent extends BaseLitElement {
     private onDialogFocusin = (event: FocusEvent) => {
         this.lastFocusedInside = event.composedPath()[0] as HTMLElement;
     };
-
-    private deepActiveElement(): HTMLElement | null {
-        let active = document.activeElement;
-        while (active?.shadowRoot?.activeElement) {
-            active = active.shadowRoot.activeElement;
-        }
-        return active instanceof HTMLElement && active !== document.body ? active : null;
-    }
 
     private isTopModal() {
         const openModals = VlModalComponent.openModals.filter((modal) => modal.isOpen());
