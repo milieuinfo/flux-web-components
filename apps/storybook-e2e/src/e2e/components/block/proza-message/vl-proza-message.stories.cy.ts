@@ -11,6 +11,17 @@ describe('cypress-e2e - block components - vl-proza-message - default story', ()
         cy.get('vl-proza-message[code=block]').shadow().contains('Lorem ipsum');
         cy.get('vl-proza-message[code=action]').shadow().contains('Action');
     });
+
+    it('should render the block message as a paragraph', () => {
+        cy.visit(prozaMessageDefaultUrl);
+
+        cy.get('vl-proza-message[code=block]')
+            .shadow()
+            .find('vl-typography')
+            .shadow()
+            .find('p')
+            .should('contain.text', 'Lorem ipsum');
+    });
 });
 
 describe('cypress-e2e - block components - vl-proza-message - editable story', () => {
@@ -20,6 +31,17 @@ describe('cypress-e2e - block components - vl-proza-message - editable story', (
         cy.get('vl-proza-message[code=inline]').shadow().contains('Inline');
         cy.get('vl-proza-message[code=block]').shadow().contains('Lorem ipsum');
         cy.get('vl-proza-message[code=action]').shadow().contains('Action');
+    });
+
+    it('should render the block message as a paragraph', () => {
+        cy.visit(prozaMessageEditableUrl);
+
+        cy.get('vl-proza-message[code=block]')
+            .shadow()
+            .find('vl-typography')
+            .shadow()
+            .find('p')
+            .should('contain.text', 'Lorem ipsum');
     });
 
     it('should display Proza action buttons', () => {

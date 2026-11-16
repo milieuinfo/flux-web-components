@@ -53,3 +53,14 @@ De edit-knop brengt de gebruiker naar het Proza portaal waar het bericht in kwes
 De refresh-knop kan gebruikt worden om na de aanpassing het Proza bericht opnieuw op te halen.
 
 <Canvas of={VlProzaMessageStories.ProzaMessageEditable}/>
+
+
+## Toegankelijkheid
+
+### Zet de semantiek in het Proza bericht zelf
+
+De component plaatst de HTML van het Proza bericht ongewijzigd in een `vl-typography` en voegt zelf geen semantiek toe.
+De juiste elementen moeten dus in het bericht zelf staan: een `<p>` voor een paragraaf, een `<ul>` of `<ol>` voor een
+lijst, een `<h2>` tot `<h6>` voor een tussentitel. Gebruik geen `<div>` of `<br/>` om tekst op te delen: een
+schermlezer herkent dan geen paragrafen of lijsten.<br/>
+Een bericht dat inline in een zin, knop of link staat, bevat enkel tekst en inline elementen zoals `<strong>` of `<em>`.
