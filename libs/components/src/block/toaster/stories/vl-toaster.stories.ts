@@ -142,3 +142,39 @@ ToasterFadeOut.storyName = 'vl-toaster - fade out';
 ToasterFadeOut.args = {
     fadeOut: true,
 };
+
+export const ToasterFadeOutPerToast = story<ToasterArgs>(toasterArgs, ({ placement, fadeOut, defaultSlot }) => {
+    return html`
+        <script>
+            document.querySelector('#button-saved')?.addEventListener('vl-click', () => {
+                const toaster = document.querySelector('vl-toaster#toaster-fade-out-per-toast');
+                // de melding in de template heeft het fade-out attribuut
+                toaster?.show('#alert-saved-template');
+            });
+            document.querySelector('#button-not-saved')?.addEventListener('vl-click', () => {
+                const toaster = document.querySelector('vl-toaster#toaster-fade-out-per-toast');
+                toaster?.showAlert(
+                    {
+                        title: 'Niet bewaard',
+                        icon: 'warning',
+                        type: 'error',
+                        message: 'Uw wijzigingen zijn niet bewaard. Probeer het later opnieuw.',
+                        closable: true,
+                    },
+                    { fadeOut: false },
+                );
+            });
+        </script>
+        <template id="alert-saved-template">
+            <vl-alert fade-out type="success" icon="check" title="Bewaard">
+                <p>Uw wijzigingen zijn bewaard.</p>
+            </vl-alert>
+        </template>
+        <vl-toaster id="toaster-fade-out-per-toast" placement=${placement} ?fade-out=${fadeOut}>
+            ${unsafeHTML(defaultSlot)}
+        </vl-toaster>
+        <vl-button id="button-saved"> Toon succesmelding</vl-button>
+        <vl-button id="button-not-saved"> Toon foutmelding</vl-button>
+    `;
+});
+ToasterFadeOutPerToast.storyName = 'vl-toaster - fade out per toast';
