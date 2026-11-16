@@ -62,7 +62,21 @@ describe('cypress-component - compliance components - accessibility inaccessible
             compliance: COMPLIANCE_STATUS.FULLY_COMPLIANT,
             evaluation: EVALUATION_STATUS.EXPERT_EVALUATED,
         });
-        cy.get('#inaccessible-content').parent().should('have.css', 'display', 'none');
+        cy.get('#inaccessible-content').parent().should('have.css', 'display', 'none').should('have.attr', 'hidden');
+    });
+
+    it('should show content for websites that are not FULLY_COMPLIANT', () => {
+        mountDefault(baseProps);
+
+        cy.get('#inaccessible-content').parent().should('be.visible').should('not.have.attr', 'hidden');
+    });
+
+    Object.values(COMPLIANCE_STATUS).forEach((compliance) => {
+        it(`should not use a style attribute for ${compliance} websites`, () => {
+            mountDefault({ ...baseProps, compliance });
+
+            cy.get('#inaccessible-content').parent().should('not.have.attr', 'style');
+        });
     });
 });
 

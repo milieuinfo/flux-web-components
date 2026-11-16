@@ -17,7 +17,7 @@ export const sideNavigation = ({ compliance }: SideNavigationProps) => {
                 <li>
                     <a href="#compliance-status">Nalevingsstatus</a>
                 </li>
-                <li style=${compliance === 'FULLY_COMPLIANT' ? 'display: none' : ''}>
+                <li ?hidden=${compliance === 'FULLY_COMPLIANT'}>
                     <a href="#inaccessible-content">Niet-toegankelijke inhoud</a>
                 </li>
                 <li>
