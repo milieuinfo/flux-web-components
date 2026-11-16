@@ -59,7 +59,8 @@ export const spotlightArgTypes: ArgTypes<typeof spotlightArgs> = {
     },
     alt: {
         name: 'alt',
-        description: 'Geeft de component een alternatieve stijl. De achtergrond wordt grijs.',
+        description:
+            'Geeft de component een alternatieve stijl. De achtergrond wordt grijs. Dit is geen alternatieve tekst voor de afbeelding: gebruik daarvoor `img-alt`.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: String(spotlightArgs.alt) },
@@ -89,7 +90,8 @@ export const spotlightArgTypes: ArgTypes<typeof spotlightArgs> = {
     },
     imgSrc: {
         name: 'img-src',
-        description: 'Het path van de image dat getoond moet worden in de spotlight.',
+        description:
+            'Het pad van de afbeelding die getoond wordt in de spotlight. Zet er altijd het attribuut `img-alt` bij.',
         table: {
             type: { summary: TYPES.STRING },
             defaultValue: { summary: String(spotlightArgs.imgSrc) },
@@ -98,7 +100,8 @@ export const spotlightArgTypes: ArgTypes<typeof spotlightArgs> = {
     },
     imgAlt: {
         name: 'img-alt',
-        description: 'De alternatieve tekst van de image dat getoond moet worden in de spotlight.',
+        description:
+            'De alternatieve tekst van de afbeelding. Beschrijf wat er te zien is als de afbeelding informatie toevoegt, bv. "Oud pannendak met verweerde dakpannen". Is de afbeelding louter decoratief, zet dan een leeg `img-alt=""` zodat schermlezers ze overslaan. Ontbreekt het attribuut bij een `img-src`, dan geeft de component een waarschuwing in de console. Let op: het attribuut `alt` is de grijze stijlvariant en geen alternatieve tekst.',
         table: {
             type: { summary: TYPES.STRING },
             defaultValue: { summary: String(spotlightArgs.imgAlt) },
