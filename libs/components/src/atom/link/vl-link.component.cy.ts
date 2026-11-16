@@ -6,6 +6,14 @@ registerWebComponents([VlLinkComponent]);
 
 const ariaCurrentValues = ['page', 'step', 'location', 'date', 'time', 'true', 'false'];
 
+// lib.dom van TypeScript 5.4 kent ARIA element reflection nog niet
+type WithAriaControlsElements = HTMLElement & { ariaControlsElements: Element[] | null };
+
+const controlledElementsOf = ($inner: JQuery<HTMLElement>): Element[] =>
+    ($inner[0] as WithAriaControlsElements).ariaControlsElements ?? [];
+
+const controlledIdsOf = ($inner: JQuery<HTMLElement>): string[] => controlledElementsOf($inner).map(({ id }) => id);
+
 // Roept focus() aan op de vl-link zelf, zoals een consumer dat doet, niet op de interne link of knop. Wacht eerst op de
 // eerste render: daarvoor is er nog geen intern element om de focus aan door te geven.
 const callFocusOnHost = (innerElement: 'a' | 'button') => {
@@ -205,6 +213,52 @@ describe('cypress-component - atom components - vl-link', () => {
         cy.checkA11y('vl-link');
     });
 
+    it('should forward aria-expanded to the link and follow changes', () => {
+        cy.mount(html`<vl-link href="#details" aria-expanded="false">Details</vl-link>`);
+        cy.get('vl-link').shadow().find('a').should('have.attr', 'aria-expanded', 'false');
+
+        cy.get('vl-link').invoke('attr', 'aria-expanded', 'true');
+        cy.get('vl-link').shadow().find('a').should('have.attr', 'aria-expanded', 'true');
+
+        cy.get('vl-link').invoke('removeAttr', 'aria-expanded');
+        cy.get('vl-link').shadow().find('a').should('not.have.attr', 'aria-expanded');
+    });
+
+    it('should not set aria-expanded on the link when absent', () => {
+        cy.mount(html`<vl-link href="#details">Details</vl-link>`);
+
+        cy.get('vl-link').shadow().find('a').should('not.have.attr', 'aria-expanded');
+    });
+
+    it('should not set an empty aria-expanded on the link', () => {
+        cy.mount(html`<vl-link href="#details" aria-expanded="">Details</vl-link>`);
+
+        cy.get('vl-link').shadow().find('a').should('not.have.attr', 'aria-expanded');
+    });
+
+    it('should reflect the ariaExpanded property to the host and the link', () => {
+        cy.mount(html`<vl-link href="#details">Details</vl-link>`);
+
+        cy.get('vl-link').then(($link) => {
+            $link[0].ariaExpanded = 'true';
+        });
+        cy.get('vl-link').should('have.attr', 'aria-expanded', 'true');
+        cy.get('vl-link').shadow().find('a').should('have.attr', 'aria-expanded', 'true');
+
+        cy.get('vl-link').then(($link) => {
+            $link[0].ariaExpanded = null;
+        });
+        cy.get('vl-link').should('not.have.attr', 'aria-expanded');
+        cy.get('vl-link').shadow().find('a').should('not.have.attr', 'aria-expanded');
+    });
+
+    it('should be accessible with aria-expanded', () => {
+        cy.mount(html`<vl-link href="#details" aria-expanded="false">Details</vl-link>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-link');
+    });
+
     it('should set icon', () => {
         cy.mount(html`<vl-link icon="pin">Vlaanderen</vl-link>`);
 
@@ -330,6 +384,51 @@ describe('cypress-component - atom components - vl-link - button as link', () =>
 
         cy.get('vl-link').invoke('removeAttr', 'aria-current');
         cy.get('vl-link').shadow().find('button').should('not.have.attr', 'aria-current');
+    });
+
+    it('should forward aria-expanded to the button and follow changes', () => {
+        cy.mount(html`<vl-link button-as-link aria-expanded="false">Lees meer</vl-link>`);
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'aria-expanded', 'false');
+
+        cy.get('vl-link').invoke('attr', 'aria-expanded', 'true');
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'aria-expanded', 'true');
+
+        cy.get('vl-link').invoke('removeAttr', 'aria-expanded');
+        cy.get('vl-link').shadow().find('button').should('not.have.attr', 'aria-expanded');
+    });
+
+    it('should not set aria-expanded on the button when absent', () => {
+        cy.mount(html`<vl-link button-as-link>Lees meer</vl-link>`);
+
+        cy.get('vl-link').shadow().find('button').should('not.have.attr', 'aria-expanded');
+    });
+
+    it('should reflect the ariaExpanded property to the host and the button', () => {
+        cy.mount(html`<vl-link button-as-link aria-expanded="false">Lees meer</vl-link>`);
+
+        cy.get('vl-link').then(($link) => {
+            $link[0].ariaExpanded = 'true';
+        });
+        cy.get('vl-link').should('have.attr', 'aria-expanded', 'true');
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'aria-expanded', 'true');
+
+        cy.get('vl-link').then(($link) => {
+            $link[0].ariaExpanded = null;
+        });
+        cy.get('vl-link').should('not.have.attr', 'aria-expanded');
+        cy.get('vl-link').shadow().find('button').should('not.have.attr', 'aria-expanded');
+    });
+
+    it('should be accessible with aria-expanded', () => {
+        cy.mount(html`<vl-link button-as-link aria-expanded="false">Lees meer</vl-link>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-link');
+
+        cy.get('vl-link').invoke('attr', 'aria-expanded', 'true');
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'aria-expanded', 'true');
+
+        cy.checkA11y('vl-link');
     });
 
     it('should set href', () => {
@@ -481,5 +580,220 @@ describe('cypress-component - atom components - vl-link - button as link', () =>
         cy.get('#dialog').then(($dialog) => $dialog[0].dispatchEvent(new CustomEvent('vl-close')));
 
         cy.get('vl-link').shadow().find('button').should('have.focus').and('have.css', 'outline-style', 'solid');
+    });
+});
+
+describe('cypress-component - atom components - vl-link - aria-controls', () => {
+    it('should point the button to the element referenced by aria-controls', () => {
+        cy.mount(html`
+            <vl-link button-as-link aria-expanded="false" aria-controls="opmerking-tekst">Lees meer</vl-link>
+            <div id="opmerking-tekst">Tekst van de opmerking</div>
+        `);
+
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal(['opmerking-tekst']);
+            });
+    });
+
+    it('should point the link to the element referenced by aria-controls', () => {
+        cy.mount(html`
+            <vl-link href="#details" aria-expanded="false" aria-controls="details">Details</vl-link>
+            <div id="details">Details van de aanvraag</div>
+        `);
+
+        cy.get('vl-link')
+            .shadow()
+            .find('a')
+            .should(($link) => {
+                expect(controlledIdsOf($link)).to.deep.equal(['details']);
+            });
+    });
+
+    it('should not copy the id reference to the inner element', () => {
+        cy.mount(html`
+            <vl-link button-as-link aria-expanded="false" aria-controls="opmerking-tekst">Lees meer</vl-link>
+            <div id="opmerking-tekst">Tekst van de opmerking</div>
+        `);
+
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal(['opmerking-tekst']);
+                expect($button).to.have.attr('aria-controls', '');
+            });
+    });
+
+    it('should point to every element referenced by aria-controls', () => {
+        cy.mount(html`
+            <vl-link button-as-link aria-expanded="false" aria-controls="samenvatting  toelichting">Lees meer</vl-link>
+            <div id="samenvatting">Samenvatting</div>
+            <div id="toelichting">Toelichting</div>
+        `);
+
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal(['samenvatting', 'toelichting']);
+            });
+    });
+
+    it('should follow aria-controls changes after the first render', () => {
+        cy.mount(html`
+            <vl-link button-as-link aria-expanded="false">Lees meer</vl-link>
+            <div id="samenvatting">Samenvatting</div>
+            <div id="toelichting">Toelichting</div>
+        `);
+        cy.get('vl-link').shadow().find('button').should('not.have.attr', 'aria-controls');
+
+        cy.get('vl-link').invoke('attr', 'aria-controls', 'samenvatting');
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal(['samenvatting']);
+            });
+
+        cy.get('vl-link').invoke('attr', 'aria-controls', 'toelichting');
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal(['toelichting']);
+            });
+
+        cy.get('vl-link').invoke('removeAttr', 'aria-controls');
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal([]);
+                expect($button).not.to.have.attr('aria-controls');
+            });
+    });
+
+    it('should reflect the ariaControls property to the host and the button', () => {
+        cy.mount(html`
+            <vl-link button-as-link aria-expanded="false">Lees meer</vl-link>
+            <div id="opmerking-tekst">Tekst van de opmerking</div>
+        `);
+        cy.get('vl-link').shadow().find('button').should('exist');
+
+        cy.get('vl-link').then(($link) => {
+            $link[0].ariaControls = 'opmerking-tekst';
+        });
+        cy.get('vl-link').should('have.attr', 'aria-controls', 'opmerking-tekst');
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal(['opmerking-tekst']);
+            });
+
+        cy.get('vl-link').then(($link) => {
+            $link[0].ariaControls = null;
+        });
+        cy.get('vl-link').should('not.have.attr', 'aria-controls');
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal([]);
+            });
+    });
+
+    it('should not point to anything when the referenced id does not exist', () => {
+        cy.mount(html`<vl-link button-as-link aria-expanded="false" aria-controls="onbestaand">Lees meer</vl-link>`);
+
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'aria-expanded', 'false');
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal([]);
+                expect($button).not.to.have.attr('aria-controls');
+            });
+    });
+
+    it('should find the referenced element in the shadow root of the parent component', () => {
+        cy.mount(html`
+            <div id="opmerking"></div>
+            <div id="opmerking-tekst">Element met hetzelfde id buiten de scope van de link</div>
+        `);
+        cy.get('#opmerking').then(($opmerking) => {
+            $opmerking[0].attachShadow({ mode: 'open' }).innerHTML = `
+                <div id="opmerking-tekst">Tekst van de opmerking</div>
+                <vl-link button-as-link aria-expanded="false" aria-controls="opmerking-tekst">Lees meer</vl-link>
+            `;
+        });
+
+        cy.get('#opmerking')
+            .shadow()
+            .find('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                const parentShadowRoot = document.querySelector('#opmerking')!.shadowRoot!;
+                const controlledElements = controlledElementsOf($button);
+                expect(controlledElements).to.have.length(1);
+                expect(controlledElements[0]).to.equal(parentShadowRoot.getElementById('opmerking-tekst'));
+            });
+    });
+
+    it('should keep pointing to the referenced element when button-as-link changes', () => {
+        cy.mount(html`
+            <vl-link href="#details" aria-expanded="false" aria-controls="details">Details</vl-link>
+            <div id="details">Details van de aanvraag</div>
+        `);
+        cy.get('vl-link').shadow().find('a').should('exist');
+
+        cy.get('vl-link').invoke('attr', 'button-as-link', '');
+
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal(['details']);
+            });
+    });
+
+    it('should find an element that is rendered together with an aria-expanded change', () => {
+        cy.mount(html`
+            <vl-link button-as-link aria-expanded="false" aria-controls="opmerking-tekst">Lees meer</vl-link>
+            <div id="container"></div>
+        `);
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'aria-expanded', 'false');
+
+        cy.get('vl-link').then(($link) => {
+            $link[0].setAttribute('aria-expanded', 'true');
+            document.querySelector('#container')!.innerHTML = '<div id="opmerking-tekst">Tekst van de opmerking</div>';
+        });
+
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal(['opmerking-tekst']);
+            });
+    });
+
+    it('should be accessible with aria-expanded and aria-controls', () => {
+        cy.mount(html`
+            <vl-link button-as-link aria-expanded="true" aria-controls="opmerking-tekst">Lees minder</vl-link>
+            <div id="opmerking-tekst">Tekst van de opmerking</div>
+        `);
+        cy.injectAxe();
+        cy.get('vl-link')
+            .shadow()
+            .find('button')
+            .should(($button) => {
+                expect(controlledIdsOf($button)).to.deep.equal(['opmerking-tekst']);
+            });
+
+        cy.checkA11y('vl-link');
     });
 });
