@@ -70,7 +70,7 @@ export const textareaRichArgTypes: ArgTypes<TextareaRichArgs> = {
     customConfig: {
         name: 'customConfig',
         description:
-            'TinyMCE custom configuratie.<br/>Deze property kan gebruikt worden om custom configuratie mee te geven voor TinyMCE, als ook om configuratie mee te geven voor plugins.<br/>Deze property is niet reactief.',
+            'TinyMCE custom configuratie.<br/>Deze property kan gebruikt worden om custom configuratie mee te geven voor TinyMCE, als ook om configuratie mee te geven voor plugins.<br/>Deze property is niet reactief.<br/>De TinyMCE-optie `readonly` geldt enkel tijdens de initialisatie: daarna bepalen de attributen `readonly`, `disabled` en `preview` of de editor bewerkbaar is.',
         table: {
             type: { summary: '{ key: value }' },
             category: CATEGORIES.PROPERTIES,
