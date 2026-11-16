@@ -17,13 +17,13 @@ export const prozaMessageMockDomainData = [
         return HttpResponse.json({
             code: 'block',
             tekst: `
-                    <div>
+                    <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                         laboris nisi ut aliquip ex ea commodo consequat. <b>Duis aute irure dolor</b> in reprehenderit in
                         voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
                         non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </div>
+                    </p>
                 `,
         }); // status=200 is default
     }),
@@ -48,13 +48,13 @@ export const prozaMessageMockDomainData = [
             {
                 code: 'block',
                 tekst: `
-                <div>
+                <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                     ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                     laboris nisi ut aliquip ex ea commodo consequat. <b>Duis aute irure dolor</b> in reprehenderit in
                     voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
                     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </div>
+                </p>
                 `,
             },
         ]); // status=200 is default
@@ -112,13 +112,13 @@ export const prozaMessageMockDomainEditableData = [
     http.get('proza/domein/mockdomaineditable/block', async () => {
         return HttpResponse.json({
             code: 'block',
-            tekst: `<div>
+            tekst: `<p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                         laboris nisi ut aliquip ex ea commodo consequat. <b>Duis aute irure dolor</b> in reprehenderit in
                         voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
                         non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </div>`,
+                    </p>`,
         }); // status=200 is default
     }),
     http.get('proza/domein/mockdomaineditable/toegelatenoperaties', async () => {
