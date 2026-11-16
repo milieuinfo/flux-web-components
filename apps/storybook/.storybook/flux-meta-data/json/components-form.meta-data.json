@@ -147,7 +147,7 @@
             "documentation": "uitgebreid",
             "wcag": "FLUX-188",
             "jiraMeta": "FLUX-86",
-            "dv": { "idea": "DS-146", "name": "Dynamic Select", "status": "Discovery" }
+            "dv": { "idea": "DS-146", "name": "Dynamic Select", "status": "Gepubliceerd" }
         }
     },
     "components-form-textarea": {
@@ -188,7 +188,7 @@
             "documentation": "uitgebreid",
             "wcag": "FLUX-196",
             "jiraMeta": "FLUX-193",
-            "dv": { "idea": "DS-112", "name": "Upload", "status": "Ontwerpen" }
+            "dv": { "idea": "DS-112", "name": "Upload", "status": "Gepubliceerd" }
         }
     }
 }
