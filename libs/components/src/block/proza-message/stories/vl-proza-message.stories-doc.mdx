@@ -54,6 +54,28 @@ De refresh-knop kan gebruikt worden om na de aanpassing het Proza bericht opnieu
 
 <Canvas of={VlProzaMessageStories.ProzaMessageEditable}/>
 
+#### Gekende beperking: geneste knoppen in een knop of link
+
+Staat een editeerbaar Proza bericht in een `vl-button` of `vl-link`, dan komen de edit-knop en de refresh-knop binnen
+die knop of link te staan. Interactieve elementen horen niet in elkaar te zitten (WCAG 1.3.1): een schermlezer leest de
+omringende knop voor als "Action edit refresh" en kondigt de twee knoppen daarbinnen niet altijd als aparte knoppen aan.
+
+Enkel gebruikers met update-rechten op het Proza domein krijgen dit te zien, in de praktijk beheerders, business en
+analisten. Voor alle andere gebruikers bevat de knop of link alleen de tekst van het bericht.
+
+Wil je de nesting vermijden, haal de tekst van een knop of link dan op zonder `vl-proza-message`:
+
+- in een Lit template met de [vlProza directive](/docs/components-block-proza-message-proza-directive--documentatie),
+  die het bericht als platte tekst invult;
+- daarbuiten met `VlProzaMessage.getMessage()`, dat een `Promise` met de HTML van het bericht teruggeeft.
+
+```html
+<vl-button>${vlProza('actie.bewaren')}</vl-button>
+```
+
+De edit-knop en de refresh-knop zijn er voor dat bericht dan niet: aanpassen gebeurt rechtstreeks in het Proza portaal
+en de nieuwe tekst verschijnt pas na het herladen van de pagina.
+
 
 ## Toegankelijkheid
 
