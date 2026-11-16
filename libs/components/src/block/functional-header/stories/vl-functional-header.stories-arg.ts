@@ -27,6 +27,7 @@ export const functionalHeaderArgs = {
     actionsSlot: '',
     backSlot: '',
     backLinkSlot: '',
+    headingSlot: '',
     sticky: false,
     subHeaderSlot: '',
     subTitleSlot: '',
@@ -194,6 +195,22 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
             '<br>• disable-back-link ' +
             '<br>• back slot' +
             '<br>• sub-header slot',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+        },
+    },
+    headingSlot: {
+        name: 'heading',
+        description:
+            'Wordt afgebeeld ipv de standaard kop, dus inclusief het `h1`-element. Gebruik dit om de' +
+            ' applicatietitel geen kop-rol te geven - best een `a`-element dat doorlinkt naar de startpagina' +
+            ' of een andere logische plaats.' +
+            '<br>Kan niet in combinatie gebruikt worden met:' +
+            '<br>• title attribuut' +
+            '<br>• title-label attribuut' +
+            '<br>• link attribuut' +
+            '<br>• title slot',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,

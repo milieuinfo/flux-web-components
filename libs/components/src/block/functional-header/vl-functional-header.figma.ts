@@ -3,6 +3,7 @@
 // component=VlFunctionalHeaderComponent
 // unmapped: size
 // code-only vl-functional-header: back-link, disable-back-link, link, margin-bottom, skip-to-content-id, sticky
+// code-only vl-functional-header: title-label
 import figma from 'figma';
 import { booleanProperty } from '../../../../../resources/code-connect/boolean-property';
 import { escapeHtml } from '../../../../../resources/code-connect/escape-html';
@@ -86,10 +87,15 @@ const tabsSlot =
             '\n    <vl-tabs-next slot="sub-title" horizontal-navigation></vl-tabs-next>'
           : '\n    <vl-tabs-next slot="sub-header" horizontal-navigation></vl-tabs-next>';
 
+// De naam van de applicatie komt standaard als link in de `heading`-slot, niet als `title-label`: die laatste maakt
+// er een h1 van, en een pagina heeft maar één h1, meestal de paginatitel in de content. Is de naam van de applicatie
+// toch de h1 (een pagina zonder eigen kop), dan wordt het `title-label`; de component description zegt wanneer.
+const headingSlot = `\n    <a slot="heading" href="/">${titleLabel}</a>`;
+
 export default {
-    example: figma.code`<vl-functional-header title-label="${titleLabel}"${subTitleAttribute}${backAttribute}${
+    example: figma.code`<vl-functional-header${subTitleAttribute}${backAttribute}${
         variant.fullWidth ? ' full-width' : ''
-    }${hideSubHeader ? ' hide-sub-header' : ''}${hideBackLink ? ' hide-back-link' : ''}${searchCustomCss}>${actionsSlot}${breadcrumbSlot}${tabsSlot}
+    }${hideSubHeader ? ' hide-sub-header' : ''}${hideBackLink ? ' hide-back-link' : ''}${searchCustomCss}>${headingSlot}${actionsSlot}${breadcrumbSlot}${tabsSlot}
 </vl-functional-header>`,
     id: 'vl-functional-header',
     metadata: { nestable: false },

@@ -36,15 +36,12 @@ Dit is de standaard layout voor applicaties. Gebruik de alternatieve "Volledige 
 </details>
 
 De skip link van `vl-header-next` verwijst naar de titel van de functional header: `title` is de id van die titel
-binnen `vl-functional-header`. De skip link van de functional header verwijst naar de titel van de pagina.
+binnen `vl-functional-header`, ook met een eigen kop in het `heading`-slot. De skip link van de functional header
+verwijst naar de titel van de pagina.
 
-<FluxAlert type="warning">
-{`
-    De skip link gaat naar het eerste element met de id <code>title</code> op de pagina. Componenten zoals
-    <code>vl-alert</code> en <code>vl-content-header</code> gebruiken die id ook voor hun eigen titel. Staat zo'n
-    component boven de functional header, dan landt de skip link van <code>vl-header-next</code> daar.
-`}
-</FluxAlert>
+De naam van de applicatie staat hier in een `<a slot="heading">` in plaats van in het `title-label`-attribuut: de
+standaardtitel is een `<h1>`, en die rol is voorbehouden voor de paginatitel in de content. Zo heeft de pagina
+exact één h1.
 
 ## Volledige breedte
 

@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common';
+import { createSkipToContentLink, registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlPrivacy } from './vl-privacy.component';
@@ -205,5 +205,30 @@ describe('cypress-component - compliance components - vl-privacy - skip-link', (
             .then(([heading]) => {
                 expect(heading.getRootNode()).to.have.property('activeElement', heading);
             });
+    });
+
+    // Afnemers met skip-to-content-id="title" in vl-header-next sprongen vroeger naar de applicatienaam.
+    it('should reach the application title with the id title of vl-header-next', () => {
+        mountDefault(defaultProps);
+
+        cy.get('vl-privacy').shadow().find('vl-functional-header').shadow().find('#title').should('be.visible');
+        cy.document().then((document) => {
+            const skipLink = createSkipToContentLink('title');
+            skipLink.dataset.cy = 'page-skip-link';
+            document.body.prepend(skipLink);
+            skipLink.click();
+        });
+
+        cy.get('vl-privacy')
+            .shadow()
+            .find('vl-functional-header')
+            .should(([functionalHeader]) => {
+                // De link in de heading-slot krijgt de focus van het kopblok met de id title
+                const heading = functionalHeader.querySelector('a[slot="heading"]')!;
+                expect(heading.getRootNode()).to.have.property('activeElement', heading);
+            });
+
+        // De skip link staat buiten de mount in document.body; ruim hem op voor de volgende test
+        cy.get('[data-cy="page-skip-link"]').then(([skipLink]) => skipLink.remove());
     });
 });

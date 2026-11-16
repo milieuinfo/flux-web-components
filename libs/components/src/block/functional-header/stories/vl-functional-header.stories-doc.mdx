@@ -59,7 +59,8 @@ demo van deze opzet vind je hier: [Voorbeeld Met Sticky En Side Navigation](/doc
 
 ## Titel
 
-Zet de titel met het `title-label`-attribuut.
+Zet de titel met het `title-label`-attribuut. De titel is de naam van de applicatie; de paginatitel hoort in het
+`sub-title`-attribuut of het `sub-title`-slot. De sub-titel is nooit de `h1` van de pagina.
 
 <FluxAlert type="warning">
 {`
@@ -68,6 +69,24 @@ Zet de titel met het `title-label`-attribuut.
     weggenomen - migreer naar \`title-label\`.
 `}
 </FluxAlert>
+
+### Kopniveau van de titel
+
+De titel is standaard een `h1`. Een pagina heeft maar een `h1`, dus staat die al in de content - bijvoorbeeld de
+paginatitel - dan mag de applicatietitel geen kop zijn. Vervang de kop in dat geval via het `heading`-slot, best
+door een `a`-element dat doorlinkt naar de startpagina of een andere logische plaats:
+
+```html
+<vl-functional-header sub-title="Paginatitel" skip-to-content-id="page-title">
+    <a slot="heading" href="/">Naam applicatie</a>
+</vl-functional-header>
+```
+
+Het `heading`-slot vervangt de volledige kop, dus ook de titel-link: `title-label`, `link` en het `title`-slot
+worden dan genegeerd. De component styleert het element in het slot als titel: kleur, grootte en gewicht liggen
+vast, en een link krijgt enkel bij hover een onderlijning, zoals de titel met `link`. Een eigen stijl daarvoor wordt
+genegeerd. Geneste markup bereikt de component niet - een link binnen een eigen kop (bv. `<h2 slot="heading"><a ...>`)
+brengt dus zijn eigen styling mee.
 
 ## Configuratie
 
@@ -79,6 +98,10 @@ Zet de titel met het `title-label`-attribuut.
 ### Met acties
 
 <Canvas of={VlFunctionalHeaderStories.FunctionalHeaderActions} />
+
+### Met heading slot
+
+<Canvas of={VlFunctionalHeaderStories.FunctionalHeaderHeadingSlot} />
 
 ### Met slots
 
@@ -120,6 +143,13 @@ tijdswinst bij het navigeren. Ook voor andere gebruikers kan dit interessant zij
 bij focus.
 
 Meer info vind je in de [documentatie over toegankelijke navigatie: "Blokken omzeilen"](/docs/richtlijnen-toegankelijkheid-aanpak-2-bedienbaar-2-4-navigeerbaar--documentatie#blokken-omzeilen).
+
+De skip link van [vl-header-next](/docs/components-compliance-next-header--documentatie) springt op zijn beurt naar
+deze component. Gebruik daarvoor `skip-to-content-id="title"`: zonder eigen kop staat die id op de titel, met een
+eigen kop in het `heading`-slot op het blok met die kop.
+
+De tabvolgorde binnen de component is: `top-left`-slot, titel, skip link, `top-right`-slot, acties, terug-link. De
+titel is enkel een tabstop wanneer er met `link` een URL ingesteld is.
 
 <FluxAlert type="info">
 {`

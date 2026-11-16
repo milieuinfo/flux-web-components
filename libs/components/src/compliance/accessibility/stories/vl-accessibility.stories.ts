@@ -109,10 +109,10 @@ AccessibilityHeaderSlot.args = {
     headerSlot: `
     <vl-functional-header
         slot="header"
-        title="Departement Omgeving & Andere"
         sub-title="Toegankelijkheid en gebruiksvoorwaarden "
-        link="https://omgeving.vlaanderen.be"
         back="Start"
         skip-to-content-id="#main-content"
-    ></vl-functional-header>`,
+    >
+        <a slot="heading" href="https://omgeving.vlaanderen.be">Departement Omgeving & Andere</a>
+    </vl-functional-header>`,
 };

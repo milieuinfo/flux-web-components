@@ -34,19 +34,19 @@ describe('cypress-component - compliance components - privacy header', () => {
             .should('have.css', 'padding', '0px');
     });
 
-    it('should render the correct title', () => {
-        cy.get('vl-functional-header').should('have.attr', 'title-label', 'Departement Omgeving');
-        cy.get('vl-functional-header').should('not.have.attr', 'title-label', 'Test');
+    it('should render the application title as a link instead of a heading', () => {
+        cy.get('vl-functional-header')
+            .find('a[slot="heading"]')
+            .should('have.attr', 'href', 'https://omgeving.vlaanderen.be')
+            .and('have.text', 'Departement Omgeving');
+
+        cy.get('vl-functional-header').shadow().find('h1').should('not.be.visible');
     });
 
     it('should render the correct sub-title', () => {
         cy.get('vl-functional-header').should('have.attr', 'sub-title', 'Privacy');
 
         cy.get('vl-functional-header').should('not.have.attr', 'sub-title', 'ToegankelijkheidEngebruiksvoorwaarden');
-    });
-
-    it('should render the correct link', () => {
-        cy.get('vl-functional-header').should('have.attr', 'link', 'https://omgeving.vlaanderen.be');
     });
 
     it('should not disable the back link when disableBackLink is false', () => {
