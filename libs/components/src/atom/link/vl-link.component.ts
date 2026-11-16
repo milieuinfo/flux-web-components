@@ -1,5 +1,5 @@
 import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common';
-import { CSSResult, html, LitElement, nothing, PropertyDeclarations, TemplateResult } from 'lit';
+import { CSSResult, html, LitElement, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
@@ -8,6 +8,12 @@ import { vlLinkStyles } from '../link-style/vl-link-style.css';
 import { buttonAsLinkStyles } from './vl-button-as-link.css';
 import { linkDefaults } from './vl-link.defaults';
 import { vlLinkFluxStyles } from './vl-link.flux-css';
+
+// lib.dom van TypeScript 5.4 kent ARIA element reflection nog niet
+type AriaControlsElementsHost = Element & { ariaControlsElements: Element[] | null };
+
+const supportsAriaControlsElements = (element: Element): element is AriaControlsElementsHost =>
+    'ariaControlsElements' in element;
 
 @webComponent('vl-link')
 export class VlLinkComponent extends BaseLitElement {
@@ -23,6 +29,9 @@ export class VlLinkComponent extends BaseLitElement {
     private iconPlacement = linkDefaults.iconPlacement;
     private buttonAsLink = linkDefaults.buttonAsLink;
     private type = linkDefaults.type;
+
+    /** Ids, gescheiden door spaties, van de inhoud die de link in- of uitklapt. */
+    ariaControls: string | null = null;
 
     static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
@@ -44,8 +53,10 @@ export class VlLinkComponent extends BaseLitElement {
             iconPlacement: { type: String, attribute: 'icon-placement' },
             buttonAsLink: { type: Boolean, attribute: 'button-as-link' },
             type: { type: String },
-            // overschaduwt de native ARIAMixin-accessor zodat een gewijzigd aria-current een render triggert
+            // overschaduwen de native ARIAMixin-accessors zodat een gewijzigde waarde een render triggert
             ariaCurrent: { type: String, attribute: 'aria-current', reflect: true },
+            ariaExpanded: { type: String, attribute: 'aria-expanded', reflect: true },
+            ariaControls: { type: String, attribute: 'aria-controls', reflect: true },
         };
     }
 
@@ -69,6 +80,7 @@ export class VlLinkComponent extends BaseLitElement {
                       part="link"
                       aria-label=${this.label || nothing}
                       aria-current=${this.ariaCurrent || nothing}
+                      aria-expanded=${this.ariaExpanded || nothing}
                       aria-haspopup=${ifDefined(
                           this.hasAttribute('aria-haspopup')
                               ? (this.getAttribute('aria-haspopup') as
@@ -93,6 +105,7 @@ export class VlLinkComponent extends BaseLitElement {
                       part="button"
                       aria-label=${this.label || nothing}
                       aria-current=${this.ariaCurrent || nothing}
+                      aria-expanded=${this.ariaExpanded || nothing}
                       aria-haspopup=${ifDefined(
                           this.hasAttribute('aria-haspopup')
                               ? (this.getAttribute('aria-haspopup') as
@@ -110,6 +123,32 @@ export class VlLinkComponent extends BaseLitElement {
                       ${this.renderContent()}
                   </button>
               `;
+    }
+
+    protected updated(changedProperties: PropertyValues): void {
+        super.updated(changedProperties);
+
+        // bij elke update, niet enkel als aria-controls wijzigt: het interne element kan vervangen zijn
+        // (button-as-link) en het doel wordt vaak pas samen met een aria-expanded wijziging gerenderd
+        this.syncAriaControlsElements();
+    }
+
+    // De ids uit aria-controls kopiëren naar het interne element werkt niet: een id wordt enkel in de eigen shadow
+    // root gezocht. Element reflection mag wel verwijzen naar een element in de scope van de host.
+    private syncAriaControlsElements(): void {
+        const innerElement = this.renderRoot.querySelector('a, button');
+        if (!innerElement || !supportsAriaControlsElements(innerElement)) {
+            return;
+        }
+
+        const hostScope = this.getRootNode();
+        const controlledElements = (this.ariaControls ?? '')
+            .split(/\s+/)
+            .filter(Boolean)
+            .map((id) => hostScope.querySelector(`#${CSS.escape(id)}`))
+            .filter((element): element is Element => element !== null);
+
+        innerElement.ariaControlsElements = controlledElements.length ? controlledElements : null;
     }
 
     private handleClick(): void {
