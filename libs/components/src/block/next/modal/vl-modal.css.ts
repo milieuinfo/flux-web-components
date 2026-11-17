@@ -18,6 +18,10 @@ export const vlModalStyles: CSSResult = css`
         height: 100%;
     }
 
+    .vl-modal-dialog__title {
+        overflow-wrap: anywhere;
+    }
+
     .vl-modal-dialog__close {
         cursor: pointer;
     }

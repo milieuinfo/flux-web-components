@@ -148,4 +148,47 @@ describe('cypress-component - atom components - vl-title', () => {
                 expect(heading.getBoundingClientRect().height).to.be.lessThan(lineHeight * 1.5);
             });
     });
+
+    it('should wrap a word that does not fit on a line instead of overflowing on a desktop screen', () => {
+        cy.viewport(1280, 800);
+        cy.mount(html`
+            <div id="container" style="width: 300px">
+                ${headingTypes.map((type) => html`<vl-title type=${type}>${longWord}</vl-title>`)}
+            </div>
+        `);
+
+        headingTypes.forEach((type) => {
+            cy.get(`vl-title[type="${type}"]`)
+                .shadow()
+                .find(type)
+                .should('not.have.css', 'hyphens', 'auto')
+                .should(([heading]) => {
+                    expect(heading.scrollWidth).to.be.at.most(heading.clientWidth);
+                    expect(heading.getBoundingClientRect().right).to.be.at.most(getContainerRight());
+                });
+        });
+    });
+
+    it('should wrap a word that does not fit on a line in a flex row when the title may shrink', () => {
+        cy.viewport(1280, 800);
+        cy.mount(html`
+            <div id="container" style="display: flex; width: 300px">
+                <vl-title type="h2" style="min-width: 0">${longWord}</vl-title>
+            </div>
+        `);
+
+        cy.get('vl-title')
+            .shadow()
+            .find('h2')
+            .should(([heading]) => {
+                expect(heading.scrollWidth).to.be.at.most(heading.clientWidth);
+                expect(heading.getBoundingClientRect().right).to.be.at.most(getContainerRight());
+            });
+    });
 });
+
+const headingTypes = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+
+const longWord = 'een.heel.lange.code.zonder.spaties.die.niet.afbreekt';
+
+const getContainerRight = () => cy.$$('#container')[0].getBoundingClientRect().right;

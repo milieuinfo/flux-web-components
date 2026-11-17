@@ -5,6 +5,8 @@ import { classMap } from 'lit/directives/class-map.js';
 import { vlTitleStyles } from './vl-title.css';
 import { titleDefaults } from './vl-title.defaults';
 
+const titleText = html`<span class="vl-title__text"><slot></slot></span>`;
+
 @webComponent('vl-title')
 export class VlTitleComponent extends BaseLitElement {
     private type = titleDefaults.type;
@@ -38,46 +40,14 @@ export class VlTitleComponent extends BaseLitElement {
             ${choose(
                 this.type,
                 [
-                    [
-                        'h1',
-                        () => html` <h1 class=${classMap(classes)} part="h1">
-                            <slot></slot>
-                        </h1>`,
-                    ],
-                    [
-                        'h2',
-                        () => html` <h2 class=${classMap(classes)} part="h2">
-                            <slot></slot>
-                        </h2>`,
-                    ],
-                    [
-                        'h3',
-                        () => html` <h3 class=${classMap(classes)} part="h3">
-                            <slot></slot>
-                        </h3>`,
-                    ],
-                    [
-                        'h4',
-                        () => html` <h4 class=${classMap(classes)} part="h4">
-                            <slot></slot>
-                        </h4>`,
-                    ],
-                    [
-                        'h5',
-                        () => html` <h5 class=${classMap(classes)} part="h5">
-                            <slot></slot>
-                        </h5>`,
-                    ],
-                    [
-                        'h6',
-                        () => html` <h6 class=${classMap(classes)} part="h6">
-                            <slot></slot>
-                        </h6>`,
-                    ],
+                    ['h1', () => html` <h1 class=${classMap(classes)} part="h1">${titleText}</h1>`],
+                    ['h2', () => html` <h2 class=${classMap(classes)} part="h2">${titleText}</h2>`],
+                    ['h3', () => html` <h3 class=${classMap(classes)} part="h3">${titleText}</h3>`],
+                    ['h4', () => html` <h4 class=${classMap(classes)} part="h4">${titleText}</h4>`],
+                    ['h5', () => html` <h5 class=${classMap(classes)} part="h5">${titleText}</h5>`],
+                    ['h6', () => html` <h6 class=${classMap(classes)} part="h6">${titleText}</h6>`],
                 ],
-                () => html` <h1 class=${classMap(classes)} part="h1">
-                    <slot></slot>
-                </h1>`
+                () => html` <h1 class=${classMap(classes)} part="h1">${titleText}</h1>`,
             )}
         `;
     }

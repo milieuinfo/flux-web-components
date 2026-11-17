@@ -44,6 +44,7 @@ export const vlCheckboxComponentStyles: CSSResult = css`
         flex: 0 0 auto;
         font-size: var(--vl-font-size--small);
         line-height: 2.4rem;
+        overflow-wrap: anywhere;
     }
 
     @media screen and (max-width: 767px) {
