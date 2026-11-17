@@ -144,7 +144,21 @@ describe('cypress-component - atom components - vl-button-style', () => {
     });
 });
 
+const emulateReducedMotion = (reduce: boolean) =>
+    Cypress.automation('remote:debugger:protocol', {
+        command: 'Emulation.setEmulatedMedia',
+        params: { features: reduce ? [{ name: 'prefers-reduced-motion', value: 'reduce' }] : [] },
+    });
+
 describe('cypress-component - atom components - vl-button-style - disabled ghost', () => {
+    const mountButton = (classes: string) =>
+        cy.mount(html`
+            <style>
+                ${unsafeCSS(vlButtonStyles('button', '.cy-button'))}
+            </style>
+            <button class="cy-button ${classes}">Klik hier</button>
+        `);
+
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
     });
@@ -152,25 +166,18 @@ describe('cypress-component - atom components - vl-button-style - disabled ghost
     // Een aanwijzer die blijft staan, geeft de knop van de volgende test opnieuw :hover.
     afterEach(() => {
         cy.then(() => realMouseMove(0, 0));
+        cy.then(() => emulateReducedMotion(false));
     });
 
     ['ghost disabled', 'ghost error disabled', 'ghost loading disabled'].forEach((classes) => {
-        const mountButton = () =>
-            cy.mount(html`
-                <style>
-                    ${unsafeCSS(vlButtonStyles('button', '.cy-button'))}
-                </style>
-                <button class="cy-button ${classes}">Klik hier</button>
-            `);
-
         it(`should have the disabled ghost color - case: ${classes}`, () => {
-            mountButton();
+            mountButton(classes);
 
             cy.get('.cy-button').shouldHaveComputedStyle({ style: 'color', value: disabledGhostColor });
         });
 
         it(`should keep the disabled ghost color on hover - case: ${classes}`, () => {
-            mountButton();
+            mountButton(classes);
 
             cy.get('.cy-button').then(($button) => realHover($button));
 
@@ -180,7 +187,7 @@ describe('cypress-component - atom components - vl-button-style - disabled ghost
         });
 
         it(`should keep the disabled ghost color on focus - case: ${classes}`, () => {
-            mountButton();
+            mountButton(classes);
 
             cy.get('.cy-button').focus();
 
@@ -188,6 +195,41 @@ describe('cypress-component - atom components - vl-button-style - disabled ghost
                 .should(($button) => expect($button[0].matches(':focus')).to.be.true)
                 .shouldHaveComputedStyle({ style: 'color', value: disabledGhostColor });
         });
+    });
+
+    ['ghost loading disabled', 'ghost error loading disabled'].forEach((classes) => {
+        it(`should show the loading dots in the disabled ghost color - case: ${classes}`, () => {
+            mountButton(classes);
+
+            cy.get('.cy-button').should(($button) => {
+                const dots = getComputedStyle($button[0], '::after').boxShadow;
+                expect(dots).to.contain(disabledGhostColor);
+                expect(dots).not.to.contain(disabledColor);
+            });
+        });
+
+        it(`should show the loading dots in the disabled ghost color with reduced motion - case: ${classes}`, () => {
+            cy.then(() => emulateReducedMotion(true));
+            mountButton(classes);
+
+            cy.get('.cy-button').should(($button) => {
+                const autWindow = $button[0].ownerDocument.defaultView!;
+                expect(autWindow.matchMedia('(prefers-reduced-motion: reduce)').matches).to.equal(true);
+                const dots = getComputedStyle($button[0], '::after').boxShadow;
+                expect(dots).to.contain(disabledGhostColor);
+                expect(dots).not.to.contain(disabledColor);
+            });
+        });
+    });
+
+    it('should not show a border on hover - case: ghost loading disabled', () => {
+        mountButton('ghost loading disabled');
+
+        cy.get('.cy-button').then(($button) => realHover($button));
+
+        cy.get('.cy-button')
+            .should(($button) => expect($button[0].matches(':hover')).to.be.true)
+            .shouldHaveComputedStyle({ style: 'border-color', value: transparent });
     });
 });
 
