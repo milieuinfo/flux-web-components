@@ -17,6 +17,7 @@ export const vlButtonStyles = (element: VlButtonElementType = 'button', selector
 
         ${vlWaveAnimationMixin(loadingAnimationName, 'var(--vl-color--action-disabled)')}
         ${vlWaveAnimationMixin(`${loadingAnimationName}-error`, 'var(--vl-color--error)')}
+        ${vlWaveAnimationMixin(`${loadingAnimationName}-ghost-disabled`, 'var(--vl-color--grey-500)')}
         ${unsafeCSS(vlIconStyles)}
         ${unsafeCSS(`${element}${selector}`)} {
             /* Reset styles - gebaseerd op DV mixin > _buttons.scss */
@@ -371,6 +372,27 @@ export const vlButtonStyles = (element: VlButtonElementType = 'button', selector
 
                         &.narrow::after {
                             right: 0.9rem;
+                        }
+                    }
+                }
+
+                /* Laadbolletjes en rand volgen de lichtere tekstkleur van een disabled ghost button. */
+                &.disabled.ghost {
+                    &::after {
+                        animation-name: ${unsafeCSS(loadingAnimationName)}-ghost-disabled;
+                    }
+
+                    &:hover,
+                    &:active {
+                        border-color: transparent;
+                    }
+
+                    @media (prefers-reduced-motion: reduce) {
+                        &::after {
+                            box-shadow:
+                                1rem 0 var(--vl-color--grey-500),
+                                2rem 0 var(--vl-color--grey-500),
+                                3rem 0 var(--vl-color--grey-500);
                         }
                     }
                 }
