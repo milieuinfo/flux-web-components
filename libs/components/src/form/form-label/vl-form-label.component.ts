@@ -34,17 +34,19 @@ export class VlFormLabelComponent extends BaseLitElement {
         };
     }
 
+    private slotObserver = new MutationObserver(() => this.setLabelOnFormControl());
+
     connectedCallback() {
         super.connectedCallback();
 
         this.addEventListener('click', this.focusFormControl);
+        this.slotObserver.observe(this, { childList: true, characterData: true, subtree: true });
     }
 
     updated(changedProperties: Map<string, unknown>) {
         super.updated(changedProperties);
 
-        const formControl = this.getFormControl();
-        formControl?.setAttribute('label', this.label);
+        this.setLabelOnFormControl();
     }
 
     disconnectedCallback() {
@@ -53,6 +55,31 @@ export class VlFormLabelComponent extends BaseLitElement {
         const formControl = this.getFormControl();
         formControl?.removeAttribute('label');
         this.removeEventListener('click', this.focusFormControl);
+        this.slotObserver.disconnect();
+    }
+
+    // De <label for> in de shadow DOM bereikt de form control niet, dus de form control krijgt de labeltekst als
+    // attribuut. Labeltekst in de default slot kan HTML bevatten, daarom enkel de tekstwaarde.
+    private setLabelOnFormControl() {
+        const label = this.label || this.getSlotText();
+        this.getFormControl()?.setAttribute('label', label);
+    }
+
+    // Verborgen tekst en de tekst van een tooltip horen niet in de toegankelijke naam.
+    private getSlotText(): string {
+        const walker = document.createTreeWalker(this, NodeFilter.SHOW_TEXT, {
+            acceptNode: (node) => {
+                const excluded = node.parentElement?.closest('[aria-hidden="true"], [hidden], vl-tooltip');
+                return excluded && excluded !== this && this.contains(excluded)
+                    ? NodeFilter.FILTER_REJECT
+                    : NodeFilter.FILTER_ACCEPT;
+            },
+        });
+        let text = '';
+        while (walker.nextNode()) {
+            text += walker.currentNode.textContent;
+        }
+        return text.replace(/\s+/g, ' ').trim();
     }
 
     render(): TemplateResult {
@@ -65,7 +92,10 @@ export class VlFormLabelComponent extends BaseLitElement {
         return html`
             <label for=${this.for} class=${classMap(classList)} part="label">
                 ${this.label ? this.label : html` <slot></slot>`}
-                ${when(this.annotation, () => html`<vl-text annotation small part="annotation">${this.annotation}</vl-text>`)}
+                ${when(
+                    this.annotation,
+                    () => html`<vl-text annotation small part="annotation">${this.annotation}</vl-text>`,
+                )}
             </label>
         `;
     }
