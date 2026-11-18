@@ -66,8 +66,11 @@ export class VlFormCrossValidationMatchComponent extends LitElement {
         return html`
             <form class="vl-form" @submit=${this.onSubmit}>
                 <div class="vl-grid">
+                    <div class="vl-column vl-column--12">
+                        <vl-form-message variant="annotation">Alle velden zijn verplicht.</vl-form-message>
+                    </div>
                     <div class="vl-column vl-column--4">
-                        <vl-form-label for="email" label="E-mailadres *" block></vl-form-label>
+                        <vl-form-label for="email" label="E-mailadres" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8">
                         <vl-input-field id="email" name="email" block required></vl-input-field>
@@ -76,7 +79,7 @@ export class VlFormCrossValidationMatchComponent extends LitElement {
                         >
                     </div>
                     <div class="vl-column vl-column--4">
-                        <vl-form-label for="bevestig-email" label="Bevestig e-mailadres *" block></vl-form-label>
+                        <vl-form-label for="bevestig-email" label="Bevestig e-mailadres" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8">
                         <vl-input-field-with-match-validator

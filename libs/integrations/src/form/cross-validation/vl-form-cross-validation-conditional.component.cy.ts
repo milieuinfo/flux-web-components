@@ -36,13 +36,14 @@ describe('cypress-component - integrations - vl-form-cross-validation-conditiona
             .should('not.have.attr', 'show', '');
     });
 
-    it('should mark verduidelijking as required when reden is "andere"', () => {
+    it('should annotate verduidelijking as optional until reden is "andere"', () => {
         cy.mount(html` <vl-form-cross-validation-conditional></vl-form-cross-validation-conditional>`);
 
         cy.get('vl-form-cross-validation-conditional')
             .shadow()
             .find('vl-form-label[for="verduidelijking"]')
-            .should('have.attr', 'label', 'Verduidelijking');
+            .should('have.attr', 'label', 'Verduidelijking')
+            .and('have.attr', 'annotation', '(optioneel)');
         cy.get('vl-form-cross-validation-conditional')
             .shadow()
             .find('vl-select#reden')
@@ -52,7 +53,19 @@ describe('cypress-component - integrations - vl-form-cross-validation-conditiona
         cy.get('vl-form-cross-validation-conditional')
             .shadow()
             .find('vl-form-label[for="verduidelijking"]')
-            .should('have.attr', 'label', 'Verduidelijking *');
+            .should('have.attr', 'label', 'Verduidelijking')
+            .and('not.have.attr', 'annotation');
+
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-select#reden')
+            .shadow()
+            .find('select')
+            .select('verlenging');
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-form-label[for="verduidelijking"]')
+            .should('have.attr', 'annotation', '(optioneel)');
     });
 
     it('should set required on verduidelijking only when reden is "andere"', () => {

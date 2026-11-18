@@ -11,7 +11,8 @@ export default {
 
 export const FormulierBlurValidatiePerVeld: StoryFn = () => html`
     <form onsubmit="return false;">
-        <vl-form-label for="voornaam" label="Voornaam *"></vl-form-label>
+        <vl-form-message variant="annotation">Alle velden zijn verplicht.</vl-form-message>
+        <vl-form-label for="voornaam" label="Voornaam"></vl-form-label>
         <vl-input-field
             id="voornaam"
             name="voornaam"
@@ -32,13 +33,14 @@ FormulierBlurValidatiePerVeld.storyName = 'formulier - blur-validatie per veld';
 
 export const FormulierBlurValidatieForm: StoryFn = () => html`
     <form onsubmit="return false;" blur-validation>
-        <vl-form-label for="voornaam" label="Voornaam *"></vl-form-label>
+        <vl-form-message variant="annotation">Alle velden zijn verplicht.</vl-form-message>
+        <vl-form-label for="voornaam" label="Voornaam"></vl-form-label>
         <vl-input-field id="voornaam" name="voornaam" autocomplete="given-name" required min-length="3">
         </vl-input-field>
         <vl-form-message for="voornaam" state="valueMissing">Gelieve een voornaam in te vullen.</vl-form-message>
         <vl-form-message for="voornaam" state="tooShort">Gelieve minimum 3 karakters te gebruiken.</vl-form-message>
 
-        <vl-form-label for="familienaam" label="Familienaam *"></vl-form-label>
+        <vl-form-label for="familienaam" label="Familienaam"></vl-form-label>
         <vl-input-field id="familienaam" name="familienaam" autocomplete="family-name" required min-length="2">
         </vl-input-field>
         <vl-form-message for="familienaam" state="valueMissing">Gelieve een familienaam in te vullen.</vl-form-message>

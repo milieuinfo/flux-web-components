@@ -11,7 +11,8 @@ export default {
 
 export const FormulierValidatieVerplicht: StoryFn = () => html`
     <form onsubmit="return false;">
-        <vl-form-label for="voornaam" label="Voornaam *"></vl-form-label>
+        <vl-form-message variant="annotation">Alle velden zijn verplicht.</vl-form-message>
+        <vl-form-label for="voornaam" label="Voornaam"></vl-form-label>
         <vl-input-field id="voornaam" name="voornaam" autocomplete="given-name" required></vl-input-field>
         <vl-form-message for="voornaam" state="valueMissing"> Gelieve een voornaam in te vullen. </vl-form-message>
     </form>
@@ -20,7 +21,7 @@ FormulierValidatieVerplicht.storyName = 'formulier - validatie verplicht';
 
 export const FormulierValidatiePatroon: StoryFn = () => html`
     <form onsubmit="return false;">
-        <vl-form-label for="familienaam" label="Familienaam"></vl-form-label>
+        <vl-form-label for="familienaam" label="Familienaam" annotation="(optioneel)"></vl-form-label>
         <vl-input-field
             id="familienaam"
             name="familienaam"
