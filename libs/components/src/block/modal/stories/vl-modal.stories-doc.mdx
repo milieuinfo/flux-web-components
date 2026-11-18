@@ -97,6 +97,9 @@ document.querySelector('vl-modal').addEventListener('vl-close', () => {
 
 <Canvas of={VlModalStories.modalLarge} />
 
+Op een smal scherm (tot 767px) zijn een medium en een large modal, net als de andere varianten, even breed als het
+scherm.
+
 ### Full Screen
 
 <Canvas of={VlModalStories.modalFullScreen} />
@@ -128,11 +131,19 @@ natuurlijke en voorspelbare manier. Het [reactief openen via het `open` attribuu
 kiest in plaats van een trigger, moet het terugplaatsen van de focus bij het sluiten zelf afhandelen. De
 `vl-close`-event is hiervoor een geschikt aangrijpingspunt.
 
-De vl-modal zal standaard de focus leggen op het eerste focusbare element binnenin de modal wanneer deze geopend wordt.
+De vl-modal zal standaard de focus leggen op het eerste focusbare element binnenin de modal wanneer deze geopend wordt,
+in elke browser en ook wanneer dat element in de inhoud van een slot staat. Een element met het `autofocus` attribuut
+krijgt voorrang. Bevat de modal geen focusbaar element, dan krijgt de modal zelf de focus.
 Dit kan aangepast worden door het `focus-on-modal` attribuut toe te voegen aan de modal,
-in dat geval zal de focus op de modal zelf gelegd worden bij het openen. Gebruik dit enkel indien
-het automatisch focussen op het eerste focusbare element problemen veroorzaakt, bijvoorbeeld wanneer dit meteen een
-popover triggert.
+in dat geval zal de focus op de modal zelf gelegd worden bij het openen. Gebruik dit wanneer de modal begint met tekst
+die de gebruiker eerst moet lezen: een schermlezer slaat die anders over en leest meteen het eerste focusbare element
+voor. Gebruik het ook wanneer het automatisch focussen op het eerste focusbare element problemen veroorzaakt,
+bijvoorbeeld wanneer dit meteen een popover triggert.
+
+Uitzondering: bevat de inhoud een formulierveld, dan zet VoiceOver de cursor bij het openen meteen op dat veld en wordt
+de tekst ervoor niet voorgelezen, ook met `focus-on-modal`. VoiceOver meldt dan dat je op het veld staat, terwijl de
+focus nog op de modal ligt: pas na een Tab kan de gebruiker typen. Om tekst eerst te laten voorlezen, helpt
+`focus-on-modal` dus enkel bij modals zonder formuliervelden.
 
 Het is essentieel dat de modal goed gelabeld is voor gebruikers van schermlezers.
 Dit kan op twee manieren bereikt worden:

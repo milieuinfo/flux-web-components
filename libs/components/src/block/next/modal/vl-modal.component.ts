@@ -9,6 +9,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlIconStyles } from '../../../atom/icon-style/vl-icon-style.css';
 import { VlLinkComponent } from '../../../atom/link';
 import { vlModalStyles } from './vl-modal.css';
+import { focusFirstFocusable } from './vl-modal.focus';
 import { CLOSE_ATTRIBUTES, DIALOG_MODIFIERS, FOCUSABLE_SELECTOR } from './vl-modal.model';
 
 @webComponent('vl-modal-next')
@@ -125,7 +126,7 @@ export class VlModalComponent extends BaseLitElement {
                     id=${this.modalId || 'modal-dialog'}
                     tabindex="-1"
                     aria-modal="true"
-                    aria-hidden=${this.opened ? 'false' : 'true'}
+                    aria-hidden="true"
                     aria-labelledby=${ifDefined(this.titleLabel ? 'modal-toggle-title' : undefined)}
                     aria-label=${ifDefined(!this.titleLabel && this.label ? this.label : undefined)}
                     @pointerdown=${this.onDialogPointerdown}
@@ -270,10 +271,13 @@ export class VlModalComponent extends BaseLitElement {
             this.lastTrigger = this.pendingTrigger ?? this.deepActiveElement();
             this.pendingTrigger = null;
             this.lastFocusedInside = null;
+            // Vóór de focus, niet pas bij de volgende render: VoiceOver kondigt de dialog anders niet aan.
+            dialog.setAttribute('aria-hidden', 'false');
             dialog.showModal();
             this.shown = true;
             VlModalComponent.openModals.push(this);
-            if (this.focusOnModal) {
+            // Zonder focus-on-modal kiezen we zelf het focusdoel: Firefox en Safari focussen anders de sluitknop.
+            if (this.focusOnModal || !focusFirstFocusable(dialog)) {
                 dialog.focus();
             }
             document.body.classList.add('vl-u-no-overflow');
@@ -430,6 +434,7 @@ export class VlModalComponent extends BaseLitElement {
             return;
         }
         this.shown = false;
+        this.dialogElement?.setAttribute('aria-hidden', 'true');
         VlModalComponent.openModals = VlModalComponent.openModals.filter((modal) => modal !== this);
         document.removeEventListener('keydown', this.onDocumentKeydown, true);
         this.restoreFocus(this.lastTrigger);
