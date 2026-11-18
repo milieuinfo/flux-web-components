@@ -150,12 +150,8 @@ export const vlSelectRichComponentStyles: CSSResult = css`
         cursor: default;
     }
 
-    .js-vl-select.is-disabled .vl-select__list--multiple .vl-select__item {
-        padding-right: 1.4rem;
-
-        .vl-pill__close {
-            display: none;
-        }
+    .js-vl-select.is-disabled .vl-select__list--multiple .vl-select__item .vl-pill__close {
+        display: none;
     }
 
     /* ===================================================================
@@ -324,7 +320,7 @@ export const vlSelectRichComponentStyles: CSSResult = css`
         min-height: 0;
     }
 
-    .js-vl-select .vl-select__list--multiple .vl-select__item[data-deletable] {
+    .js-vl-select:not(.is-disabled) .vl-select__list--multiple .vl-select__item[data-deletable] {
         padding-right: 0;
     }
 
