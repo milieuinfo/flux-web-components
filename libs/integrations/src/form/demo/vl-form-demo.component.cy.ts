@@ -25,7 +25,63 @@ describe('cypress-component - integrations - vl-form-demo', () => {
         getLeeftijdInput();
         getContactMethodeRadioGroup();
         getFotosUpload();
+        getTelefoonInput();
         getWaarheidsGetrouwCheckbox();
+    });
+
+    it('should state that all fields are required unless stated otherwise before the first field', () => {
+        cy.mount(html`<vl-form-demo></vl-form-demo>`);
+
+        cy.get('vl-form-demo')
+            .shadow()
+            .find('form vl-form-message[variant="annotation"]')
+            .first()
+            .should('have.text', 'Alle velden zijn verplicht, tenzij anders vermeld.');
+        cy.get('vl-form-demo')
+            .shadow()
+            .find('form vl-form-message[variant="annotation"]')
+            .first()
+            .shadow()
+            .find('p')
+            .should('not.have.attr', 'hidden');
+        cy.get('vl-form-demo')
+            .shadow()
+            .find('form *')
+            .then(($elements) => {
+                const tagNames = [...$elements].map((element) => element.tagName.toLowerCase());
+
+                expect(tagNames.indexOf('vl-form-message')).to.be.lessThan(tagNames.indexOf('vl-form-label'));
+            });
+    });
+
+    it('should mark the optional field with an annotation in its label', () => {
+        cy.mount(html`<vl-form-demo></vl-form-demo>`);
+
+        cy.get('vl-form-demo')
+            .shadow()
+            .find('vl-form-label[for="telefoon"]')
+            .shadow()
+            .find('vl-text[annotation]')
+            .should('have.text', '(optioneel)');
+        getTelefoonInput({ shadow: false }).should('not.have.attr', 'required');
+    });
+
+    it('should describe the naam field with its instruction', () => {
+        cy.mount(html`<vl-form-demo></vl-form-demo>`);
+
+        cy.get('vl-form-demo')
+            .shadow()
+            .find('vl-form-message#naam-annotation')
+            .should('contain.text', 'Vul enkel je achternaam in.');
+        getNaamInput({ shadow: false }).should('have.attr', 'describedby', 'naam-annotation');
+        getNaamInput().find('input').should('have.attr', 'autocomplete', 'family-name');
+    });
+
+    it('should keep the asterisk out of the accessible name of the related fields', () => {
+        cy.mount(html`<vl-form-demo></vl-form-demo>`);
+
+        getGerelateerdeVeldenInput1().find('input').should('have.attr', 'aria-label', 'Gerelateerd veld 1');
+        getGerelateerdeVeldenInput2().find('input').should('have.attr', 'aria-label', 'Gerelateerd veld 2');
     });
 
     it('should show and hide error messages', () => {
@@ -215,6 +271,7 @@ describe('cypress-component - integrations - vl-form-demo', () => {
             interesses: 'Vanalles en nog wat',
             leeftijd: '32',
             contactmethode: 'telefoon',
+            telefoon: '0470123456',
             foto: null,
             waarheidsgetrouw: 'on',
             'gerelateerd-1': 'Gerelateerd veld 1 waarde',
@@ -248,6 +305,7 @@ describe('cypress-component - integrations - vl-form-demo', () => {
             interesses: 'Vanalles en nog wat',
             leeftijd: '32',
             contactmethode: 'telefoon',
+            telefoon: '0470123456',
             foto: null as File[] | null,
             waarheidsgetrouw: 'on',
             'gerelateerd-1': 'Gerelateerd veld 1 waarde',
@@ -279,6 +337,7 @@ describe('cypress-component - integrations - vl-form-demo', () => {
             leeftijd: '',
             geboortedatum: '',
             kinderen: '',
+            telefoon: '',
             'gerelateerd-1': '',
             'gerelateerd-2': '',
         };
@@ -356,6 +415,10 @@ const getContactMethodeRadioGroup = ({ shadow = true } = {}) => {
     return getFormControl({ selector: 'vl-radio-group#contactmethode', shadow });
 };
 
+const getTelefoonInput = ({ shadow = true } = {}) => {
+    return getFormControl({ selector: 'vl-input-field#telefoon', shadow });
+};
+
 const getFotosUpload = ({ shadow = true } = {}) => {
     return getFormControl({ selector: 'vl-upload#foto', shadow });
 };
@@ -415,6 +478,7 @@ const fillInForm = () => {
         // Force true omdat anders Cypress klaagt dat de radio gecovered is door zijn parent tag, wat een zeer vreemde error is.
         // Zoek een andere manier moest deze test flaky zijn hierdoor.
         .check({ force: true });
+    getTelefoonInput().find('input').type('0470123456');
     getFotosUpload().find('input[type="file"]').selectFile('fixtures/upload/cat.jpeg', { force: true });
     // Force true omdat anders Cypress klaagt dat de radio gecovered is door zijn parent tag, wat een zeer vreemde error is.
     // Zoek een andere manier moest deze test flaky zijn hierdoor.

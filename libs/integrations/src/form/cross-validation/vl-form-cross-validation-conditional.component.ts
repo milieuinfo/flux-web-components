@@ -8,7 +8,7 @@ import {
     VlSelectComponent,
     type SelectOption,
 } from '@domg-wc/components/form';
-import { css, CSSResult, html, LitElement, PropertyDeclarations } from 'lit';
+import { css, CSSResult, html, LitElement, nothing, PropertyDeclarations } from 'lit';
 
 @webComponent('vl-form-cross-validation-conditional')
 export class VlFormCrossValidationConditionalComponent extends LitElement {
@@ -62,8 +62,13 @@ export class VlFormCrossValidationConditionalComponent extends LitElement {
         return html`
             <form class="vl-form" @submit=${this.onSubmit} @reset=${this.onReset} @vl-change=${this.onChange}>
                 <div class="vl-grid">
+                    <div class="vl-column vl-column--12">
+                        <vl-form-message variant="annotation"
+                            >Alle velden zijn verplicht, tenzij anders vermeld.</vl-form-message
+                        >
+                    </div>
                     <div class="vl-column vl-column--4">
-                        <vl-form-label for="reden" label="Reden aanvraag *" block></vl-form-label>
+                        <vl-form-label for="reden" label="Reden aanvraag" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8">
                         <vl-select
@@ -79,7 +84,8 @@ export class VlFormCrossValidationConditionalComponent extends LitElement {
                     <div class="vl-column vl-column--4">
                         <vl-form-label
                             for="verduidelijking"
-                            label=${this.verduidelijkingVerplicht ? 'Verduidelijking *' : 'Verduidelijking'}
+                            label="Verduidelijking"
+                            annotation=${this.verduidelijkingVerplicht ? nothing : '(optioneel)'}
                             block
                         ></vl-form-label>
                     </div>

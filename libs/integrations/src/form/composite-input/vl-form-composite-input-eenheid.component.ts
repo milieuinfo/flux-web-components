@@ -92,8 +92,11 @@ export class VlFormCompositeInputEenheidComponent extends LitElement {
         return html`
             <form class="vl-form" @submit=${this.onSubmit} @reset=${this.onReset}>
                 <div class="vl-grid">
+                    <div class="vl-column vl-column--12">
+                        <vl-form-message variant="annotation">Alle velden zijn verplicht.</vl-form-message>
+                    </div>
                     <div class="vl-column vl-column--4">
-                        <vl-form-label for="lengte" label="Lengte *" block></vl-form-label>
+                        <vl-form-label for="lengte" label="Lengte" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8">
                         <vl-composite-input id="lengte" label="Lengte" required .customValidator=${binnenBereik}>

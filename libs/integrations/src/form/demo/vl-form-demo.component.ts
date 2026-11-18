@@ -1,5 +1,5 @@
 import { registerWebComponents, webComponent } from '@domg-wc/common';
-import { VlButtonComponent, VlTextComponent } from '@domg-wc/components/atom';
+import { VlButtonComponent } from '@domg-wc/components/atom';
 import {
     parseFormData,
     SelectOption,
@@ -74,7 +74,6 @@ export class VlFormDemoComponent extends LitElement {
             VlCheckboxComponent,
             VlFormMessageComponent,
             VlButtonComponent,
-            VlTextComponent,
         ]);
     }
 
@@ -99,296 +98,279 @@ export class VlFormDemoComponent extends LitElement {
 
     override render() {
         return html`
-            <form id="form" class="vl-form" blur-validation @submit=${this.onSubmit}>
-                <div class="vl-grid vl-stacked-small">
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="naam" label="Naam *"></vl-form-label>
-                        <vl-text annotation small>(enkel achternaam)</vl-text>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
+            <form id="form" class="vl-form vl-stacked vl-stacked-small" blur-validation @submit=${this.onSubmit}>
+                <vl-form-message variant="annotation"
+                    >Alle velden zijn verplicht, tenzij anders vermeld.</vl-form-message
+                >
+                <div>
+                    <vl-form-label for="naam" label="Naam" block></vl-form-label>
+                    <vl-input-field
+                        id="naam"
+                        name="naam"
+                        autocomplete="family-name"
+                        block
+                        required
+                        pattern="^[a-zA-Z ]*$"
+                        min-length=${2}
+                        max-length=${20}
+                        placeholder="bv. Peeters"
+                        describedby="naam-annotation"
+                    ></vl-input-field>
+                    <vl-form-message variant="annotation" id="naam-annotation">
+                        Vul enkel je achternaam in.
+                    </vl-form-message>
+                    <vl-form-message for="naam" state="valueMissing">Gelieve een naam in te vullen. </vl-form-message>
+                    <vl-form-message for="naam" state="valid"> Deze naam is geldig. </vl-form-message>
+                    <vl-form-message for="naam" state="tooShort"
+                        >Gelieve minimum 2 karakters te gebruiken.
+                    </vl-form-message>
+                    <vl-form-message for="naam" state="tooLong"
+                        >Gelieve maximum 20 karakters te gebruiken.
+                    </vl-form-message>
+                    <vl-form-message for="naam" state="patternMismatch"
+                        >Gelieve geen nummers of speciale tekens in te vullen.
+                    </vl-form-message>
+                </div>
+                <div>
+                    <vl-form-label for="rrn" label="Rijksregisternummer" block></vl-form-label>
+                    <vl-input-field-masked
+                        id="rrn"
+                        name="rrn"
+                        block
+                        required
+                        mask="rrn"
+                        placeholder="bv. 86-12-31-123-45"
+                        describedby="rrn-annotation"
+                    ></vl-input-field-masked>
+                    <vl-form-message variant="annotation" id="rrn-annotation">
+                        Een rijksregisternummer heeft het formaat yy-dd-mm-xyz-cn
+                    </vl-form-message>
+                    <vl-form-message for="rrn" state="valueMissing"
+                        >Gelieve een rijksregisternummer in te vullen.</vl-form-message
+                    >
+                    <vl-form-message for="rrn" state="patternMismatch"
+                        >Gelieve een geldig rijksregisternummer in te vullen.</vl-form-message
+                    >
+                    <vl-form-message for="rrn" state="valid">Dit rijksregisternummer is geldig. </vl-form-message>
+                </div>
+                <div>
+                    <vl-form-label for="geboortedatum" label="Geboortedatum" block></vl-form-label>
+                    <vl-datepicker
+                        id="geboortedatum"
+                        name="geboortedatum"
+                        autocomplete="bday"
+                        placeholder="bv. 31.12.1992"
+                        block
+                        required
+                        describedby="geboortedatum-annotation"
+                    >
+                    </vl-datepicker>
+                    <vl-form-message variant="annotation" id="geboortedatum-annotation">
+                        Een geboortedatum heeft het formaat dd.mm.jjjj
+                    </vl-form-message>
+                    <vl-form-message for="geboortedatum" state="valueMissing">
+                        Gelieve een geboortedatum in te vullen.
+                    </vl-form-message>
+                    <vl-form-message for="geboortedatum" state="valid"> Deze geboortedatum is geldig. </vl-form-message>
+                    <vl-form-message for="geboortedatum" state="patternMismatch">
+                        Gelieve het volgende datum formaat te gebruiken: "dd.mm.YYYY", bv. 01.12.1976 of 1.2.1993
+                    </vl-form-message>
+                </div>
+                <div>
+                    <vl-form-label for="geboorteplaats" label="Geboorteplaats" block></vl-form-label>
+                    <vl-select-rich
+                        id="geboorteplaats"
+                        name="geboorteplaats"
+                        required
+                        search
+                        .options=${this.geboorteplaatsen}
+                        result-limit="2"
+                        placeholder="bv. Smeerebbe-Vloerzegem"
+                        no-results-text="Geen geboorteplaatsen gevonden"
+                        search-placeholder="Zoek geboorteplaats"
+                    >
+                    </vl-select-rich>
+                    <vl-form-message for="geboorteplaats" state="valueMissing"
+                        >Gelieve een geboorteplaats te selecteren.
+                    </vl-form-message>
+                    <vl-form-message for="geboorteplaats" state="valid"
+                        >Deze geboorteplaats is geldig.
+                    </vl-form-message>
+                </div>
+                <div>
+                    <vl-form-label for="hobbies" label="Hobbies" block></vl-form-label>
+                    <vl-select-rich
+                        id="hobbies"
+                        name="hobbies"
+                        required
+                        multiple
+                        .options=${this.hobbies}
+                        placeholder="bv. Boardgames"
+                        no-results-text="Geen hobbies gevonden"
+                        no-choices-text="Geen resterende hobbies gevonden"
+                        describedby="hobbies-annotation"
+                    >
+                    </vl-select-rich>
+                    <vl-form-message variant="annotation" id="hobbies-annotation">
+                        Je kan meerdere hobbies selecteren.
+                    </vl-form-message>
+                    <vl-form-message for="hobbies" state="valueMissing"
+                        >Gelieve een hobby te selecteren.
+                    </vl-form-message>
+                    <vl-form-message for="hobbies" state="valid">Deze hobbyselectie is geldig. </vl-form-message>
+                </div>
+                <div>
+                    <vl-form-label for="kinderen" label="Aantal kinderen" block></vl-form-label>
+                    <vl-select
+                        id="kinderen"
+                        name="kinderen"
+                        block
+                        placeholder="bv. 1"
+                        required
+                        .options=${this.kinderenOpties}
+                    ></vl-select>
+                    <vl-form-message for="kinderen" state="valueMissing"
+                        >Gelieve een aantal kinderen te kiezen.
+                    </vl-form-message>
+                    <vl-form-message for="kinderen" state="valid">Dit aantal kinderen is geldig. </vl-form-message>
+                </div>
+                <div>
+                    <vl-form-label for="interesses" label="Interesses" block></vl-form-label>
+                    <vl-textarea
+                        id="interesses"
+                        name="interesses"
+                        block
+                        required
+                        min-length=${5}
+                        max-length=${100}
+                        rows=${10}
+                        placeholder="bv. Ik ben geïnteresseerd in..."
+                        describedby="interesses-annotation"
+                    ></vl-textarea>
+                    <vl-form-message variant="annotation" id="interesses-annotation">
+                        Beschrijf je interesses in minimum 5 en maximum 100 karakters.
+                    </vl-form-message>
+                    <vl-form-message for="interesses" state="valueMissing"
+                        >Gelieve je interesses in te vullen.
+                    </vl-form-message>
+                    <vl-form-message for="interesses" state="valid">Deze interesses zijn geldig. </vl-form-message>
+                    <vl-form-message for="interesses" state="tooShort"
+                        >Gelieve minimum 5 karakters te gebruiken.
+                    </vl-form-message>
+                    <vl-form-message for="interesses" state="tooLong"
+                        >Gelieve maximum 100 karakters te gebruiken.
+                    </vl-form-message>
+                </div>
+                <div>
+                    <vl-form-label for="leeftijd" label="Leeftijd" block></vl-form-label>
+                    <vl-input-field
+                        id="leeftijd"
+                        name="leeftijd"
+                        type="number"
+                        block
+                        required
+                        placeholder="bv. 35"
+                        min=${0}
+                        max=${99}
+                        describedby="leeftijd-annotation"
+                    ></vl-input-field>
+                    <vl-form-message variant="annotation" id="leeftijd-annotation">
+                        Vul je leeftijd in jaren in, van 0 tot en met 99.
+                    </vl-form-message>
+                    <vl-form-message for="leeftijd" state="valueMissing"
+                        >Gelieve een leeftijd in te vullen.
+                    </vl-form-message>
+                    <vl-form-message for="leeftijd" state="valid">Deze leeftijd is geldig. </vl-form-message>
+                    <vl-form-message for="leeftijd" state="rangeUnderflow"
+                        >De minimum leeftijd is 0 jaar.
+                    </vl-form-message>
+                    <vl-form-message for="leeftijd" state="rangeOverflow"
+                        >De maximum leeftijd is 99 jaar.
+                    </vl-form-message>
+                </div>
+                <div>
+                    <vl-form-label for="contactmethode" label="Contactmethode" block></vl-form-label>
+                    <vl-radio-group id="contactmethode" name="contactmethode" required>
+                        <vl-radio value="e-mail">e-mail</vl-radio>
+                        <vl-radio value="telefoon">telefoon</vl-radio>
+                        <vl-radio value="post">post</vl-radio>
+                    </vl-radio-group>
+                    <vl-form-message for="contactmethode" state="valueMissing">
+                        Gelieve een contactmethode te selecteren.
+                    </vl-form-message>
+                    <vl-form-message for="contactmethode" state="valid">
+                        Deze contactmethode is geldig.
+                    </vl-form-message>
+                </div>
+                <div>
+                    <vl-form-label for="telefoon" label="Telefoonnummer" annotation="(optioneel)" block></vl-form-label>
+                    <vl-input-field
+                        id="telefoon"
+                        name="telefoon"
+                        type="tel"
+                        autocomplete="tel"
+                        block
+                        placeholder="bv. 0470 12 34 56"
+                    ></vl-input-field>
+                </div>
+                <div>
+                    <vl-form-label for="foto" label="Pasfoto" block></vl-form-label>
+                    <vl-upload
+                        id="foto"
+                        name="foto"
+                        accepted-files="image/*"
+                        required
+                        url="http://httpbin.org/post"
+                    ></vl-upload>
+                    <vl-form-message for="foto" state="valueMissing"> Gelieve een foto te selecteren. </vl-form-message>
+                    <vl-form-message for="foto" state="valid"> Deze foto is geldig. </vl-form-message>
+                </div>
+                <div>
+                    <vl-form-label for="waarheidsgetrouw" label="Waarheidsgetrouw" block></vl-form-label>
+                    <vl-checkbox id="waarheidsgetrouw" name="waarheidsgetrouw" block required>
+                        Naar waarheid ingevuld
+                    </vl-checkbox>
+                    <vl-form-message for="waarheidsgetrouw" state="valueMissing">
+                        Gelieve te bevestigen dat bovenstaande gegevens naar waarheid zijn ingevuld.
+                    </vl-form-message>
+                    <vl-form-message for="waarheidsgetrouw" state="valid">
+                        Bedankt voor het bevestigen.
+                    </vl-form-message>
+                </div>
+                <vl-fieldset>
+                    <span slot="legend">Gerelateerde velden</span>
+                    <div class="vl-group vl-group--collapse-xs">
                         <vl-input-field
-                            id="naam"
-                            name="naam"
-                            autocomplete="given-name"
-                            block
+                            id="gerelateerd-1"
+                            name="gerelateerd-1"
+                            label="Gerelateerd veld 1"
+                            placeholder="Voorbeeld eerste veld"
                             required
-                            pattern="^[a-zA-Z ]*$"
-                            min-length=${2}
-                            max-length=${20}
-                            placeholder="bv. Jo"
                         ></vl-input-field>
-                        <vl-form-message for="naam" state="valueMissing"
-                            >Gelieve een naam in te vullen.
-                        </vl-form-message>
-                        <vl-form-message for="naam" state="valid"> Deze naam is geldig. </vl-form-message>
-                        <vl-form-message for="naam" state="tooShort"
-                            >Gelieve minimum 2 karakters te gebruiken.
-                        </vl-form-message>
-                        <vl-form-message for="naam" state="tooLong"
-                            >Gelieve maximum 20 karakters te gebruiken.
-                        </vl-form-message>
-                        <vl-form-message for="naam" state="patternMismatch"
-                            >Gelieve geen nummers of speciale tekens in te vullen.
-                        </vl-form-message>
-                    </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="rrn" label="Rijksregisternummer *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-input-field-masked
-                            id="rrn"
-                            name="rrn"
-                            block
-                            required
-                            mask="rrn"
-                            placeholder="bv. 86-12-31-123-45"
-                            describedby="rrn-annotation"
-                        ></vl-input-field-masked>
-                        <vl-form-message variant="annotation" id="rrn-annotation">
-                            Een rijksregisternummer heeft het formaat yy-dd-mm-xyz-cn
-                        </vl-form-message>
-                        <vl-form-message for="rrn" state="valueMissing"
-                            >Gelieve een rijksregisternummer in te vullen.</vl-form-message
-                        >
-                        <vl-form-message for="rrn" state="patternMismatch"
-                            >Gelieve een geldig rijksregisternummer in te vullen.</vl-form-message
-                        >
-                        <vl-form-message for="rrn" state="valid">Dit rijksregisternummer is geldig. </vl-form-message>
-                    </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="geboortedatum" label="Geboortedatum *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-datepicker
-                            id="geboortedatum"
-                            name="geboortedatum"
-                            autocomplete="bday"
-                            placeholder="bv. 31.12.1992"
-                            block
-                            required
-                            describedby="geboortedatum-annotation"
-                        >
-                        </vl-datepicker>
-                        <vl-form-message variant="annotation" id="geboortedatum-annotation">
-                            Een geboortedatum heeft het formaat dd.mm.jjjj
-                        </vl-form-message>
-                        <vl-form-message for="geboortedatum" state="valueMissing">
-                            Gelieve een geboortedatum in te vullen.
-                        </vl-form-message>
-                        <vl-form-message for="geboortedatum" state="valid">
-                            Deze geboortedatum is geldig.
-                        </vl-form-message>
-                        <vl-form-message for="geboortedatum" state="patternMismatch">
-                            Gelieve het volgende datum formaat te gebruiken: "dd.mm.YYYY", bv. 01.12.1976 of 1.2.1993
-                        </vl-form-message>
-                    </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="geboorteplaats" label="Geboorteplaats *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-select-rich
-                            id="geboorteplaats"
-                            name="geboorteplaats"
-                            required
-                            search
-                            .options=${this.geboorteplaatsen}
-                            result-limit="2"
-                            placeholder="bv. Smeerebbe-Vloerzegem"
-                            no-results-text="Geen geboorteplaatsen gevonden"
-                            search-placeholder="Zoek geboorteplaats"
-                        >
-                        </vl-select-rich>
-                        <vl-form-message for="geboorteplaats" state="valueMissing"
-                            >Gelieve een geboorteplaats te selecteren.
-                        </vl-form-message>
-                        <vl-form-message for="geboorteplaats" state="valid"
-                            >Deze geboorteplaats is geldig.
-                        </vl-form-message>
-                    </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="hobbies" label="Hobbies *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-select-rich
-                            id="hobbies"
-                            name="hobbies"
-                            required
-                            multiple
-                            .options=${this.hobbies}
-                            placeholder="bv. Boardgames"
-                            no-results-text="Geen hobbies gevonden"
-                            no-choices-text="Geen resterende hobbies gevonden"
-                            describedby="hobbies-annotation"
-                        >
-                        </vl-select-rich>
-                        <vl-form-message variant="annotation" id="hobbies-annotation">
-                            Je kan meerdere hobbies selecteren.
-                        </vl-form-message>
-                        <vl-form-message for="hobbies" state="valueMissing"
-                            >Gelieve een hobby te selecteren.
-                        </vl-form-message>
-                        <vl-form-message for="hobbies" state="valid">Deze hobbyselectie is geldig. </vl-form-message>
-                    </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="kinderen" label="Aantal kinderen *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-select
-                            id="kinderen"
-                            name="kinderen"
-                            block
-                            placeholder="bv. 1"
-                            required
-                            .options=${this.kinderenOpties}
-                        ></vl-select>
-                        <vl-form-message for="kinderen" state="valueMissing"
-                            >Gelieve een aantal kinderen te kiezen.
-                        </vl-form-message>
-                        <vl-form-message for="kinderen" state="valid">Dit aantal kinderen is geldig. </vl-form-message>
-                    </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="interesses" label="Interesses *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-textarea
-                            id="interesses"
-                            name="interesses"
-                            block
-                            required
-                            min-length=${5}
-                            max-length=${100}
-                            rows=${10}
-                            placeholder="bv. Ik ben geïnteresseerd in..."
-                            describedby="interesses-annotation"
-                        ></vl-textarea>
-                        <vl-form-message variant="annotation" id="interesses-annotation">
-                            Beschrijf je interesses in minimum 5 en maximum 100 karakters.
-                        </vl-form-message>
-                        <vl-form-message for="interesses" state="valueMissing"
-                            >Gelieve je interesses in te vullen.
-                        </vl-form-message>
-                        <vl-form-message for="interesses" state="valid">Deze interesses zijn geldig. </vl-form-message>
-                        <vl-form-message for="interesses" state="tooShort"
-                            >Gelieve minimum 5 karakters te gebruiken.
-                        </vl-form-message>
-                        <vl-form-message for="interesses" state="tooLong"
-                            >Gelieve maximum 100 karakters te gebruiken.
-                        </vl-form-message>
-                    </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="leeftijd" label="Leeftijd *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
                         <vl-input-field
-                            id="leeftijd"
-                            name="leeftijd"
-                            type="number"
-                            block
+                            id="gerelateerd-2"
+                            name="gerelateerd-2"
+                            label="Gerelateerd veld 2"
+                            placeholder="Voorbeeld tweede veld"
                             required
-                            placeholder="bv. 35"
-                            min=${0}
-                            max=${99}
-                            describedby="leeftijd-annotation"
                         ></vl-input-field>
-                        <vl-form-message variant="annotation" id="leeftijd-annotation">
-                            Vul je leeftijd in jaren in, van 0 tot en met 99.
-                        </vl-form-message>
-                        <vl-form-message for="leeftijd" state="valueMissing"
-                            >Gelieve een leeftijd in te vullen.
-                        </vl-form-message>
-                        <vl-form-message for="leeftijd" state="valid">Deze leeftijd is geldig. </vl-form-message>
-                        <vl-form-message for="leeftijd" state="rangeUnderflow"
-                            >De minimum leeftijd is 0 jaar.
-                        </vl-form-message>
-                        <vl-form-message for="leeftijd" state="rangeOverflow"
-                            >De maximum leeftijd is 99 jaar.
-                        </vl-form-message>
                     </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="contactmethode" label="Contactmethode *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-radio-group id="contactmethode" name="contactmethode" required>
-                            <vl-radio value="e-mail">e-mail</vl-radio>
-                            <vl-radio value="telefoon">telefoon</vl-radio>
-                            <vl-radio value="post">post</vl-radio>
-                        </vl-radio-group>
-                        <vl-form-message for="contactmethode" state="valueMissing">
-                            Gelieve een contactmethode te selecteren.
-                        </vl-form-message>
-                        <vl-form-message for="contactmethode" state="valid">
-                            Deze contactmethode is geldig.
-                        </vl-form-message>
-                    </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="foto" label="Pasfoto *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-upload
-                            id="foto"
-                            name="foto"
-                            accepted-files="image/*"
-                            required
-                            url="http://httpbin.org/post"
-                        ></vl-upload>
-                        <vl-form-message for="foto" state="valueMissing">
-                            Gelieve een foto te selecteren.
-                        </vl-form-message>
-                        <vl-form-message for="foto" state="valid"> Deze foto is geldig. </vl-form-message>
-                    </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="waarheidsgetrouw" label="Waarheidsgetrouw *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-checkbox id="waarheidsgetrouw" name="waarheidsgetrouw" block required>
-                            Naar waarheid ingevuld
-                        </vl-checkbox>
-                        <vl-form-message for="waarheidsgetrouw" state="valueMissing">
-                            Gelieve te bevestigen dat bovenstaande gegevens naar waarheid zijn ingevuld.
-                        </vl-form-message>
-                        <vl-form-message for="waarheidsgetrouw" state="valid">
-                            Bedankt voor het bevestigen.
-                        </vl-form-message>
-                    </div>
-                    <vl-fieldset horizontal class="vl-column vl-column--12">
-                        <span slot="legend">Gerelateerde velden *</span>
-                        <div class="vl-column vl-column--8 vl-column--s-12">
-                            <div class="vl-group vl-group--collapse-xs">
-                                <vl-input-field
-                                    id="gerelateerd-1"
-                                    name="gerelateerd-1"
-                                    label="Gerelateerd veld 1 *"
-                                    placeholder="Voorbeeld eerste veld"
-                                    required
-                                ></vl-input-field>
-                                <vl-input-field
-                                    id="gerelateerd-2"
-                                    name="gerelateerd-2"
-                                    label="Gerelateerd veld 2 *"
-                                    placeholder="Voorbeeld tweede veld"
-                                    required
-                                ></vl-input-field>
-                            </div>
-                            <vl-form-message for="gerelateerd-1" state="valueMissing"
-                                >Gelieve een waarde in te vullen voor "Gerelateerd veld 1".
-                            </vl-form-message>
-                            <vl-form-message for="gerelateerd-1" state="valid"
-                                >"Gerelateerd veld 1" is geldig.
-                            </vl-form-message>
-                            <vl-form-message for="gerelateerd-2" state="valueMissing"
-                                >Gelieve een waarde in te vullen voor "Gerelateerd veld 2".
-                            </vl-form-message>
-                            <vl-form-message for="gerelateerd-2" state="valid"
-                                >"Gerelateerd veld 2" is geldig.
-                            </vl-form-message>
-                        </div>
-                    </vl-fieldset>
-                    <div class="vl-column vl-column--8 vl-column--s-12 vl-column--start-5 vl-column--s-start-1">
-                        <div class="form-buttons">
-                            <vl-button type="submit">Verstuur</vl-button>
-                            <vl-button type="reset" secondary>Reset</vl-button>
-                        </div>
-                    </div>
+                    <vl-form-message for="gerelateerd-1" state="valueMissing"
+                        >Gelieve een waarde in te vullen voor "Gerelateerd veld 1".
+                    </vl-form-message>
+                    <vl-form-message for="gerelateerd-1" state="valid"
+                        >"Gerelateerd veld 1" is geldig.
+                    </vl-form-message>
+                    <vl-form-message for="gerelateerd-2" state="valueMissing"
+                        >Gelieve een waarde in te vullen voor "Gerelateerd veld 2".
+                    </vl-form-message>
+                    <vl-form-message for="gerelateerd-2" state="valid"
+                        >"Gerelateerd veld 2" is geldig.
+                    </vl-form-message>
+                </vl-fieldset>
+                <div class="form-buttons">
+                    <vl-button type="submit">Verstuur</vl-button>
+                    <vl-button type="reset" secondary>Reset</vl-button>
                 </div>
             </form>
         `;

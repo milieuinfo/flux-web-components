@@ -91,8 +91,11 @@ export class VlFormCrossValidationComponent extends LitElement {
         return html`
             <form class="vl-form" @submit=${this.onSubmit} @reset=${this.onReset}>
                 <div class="vl-grid">
+                    <div class="vl-column vl-column--12">
+                        <vl-form-message variant="annotation">Alle velden zijn verplicht.</vl-form-message>
+                    </div>
                     <div class="vl-column vl-column--4">
-                        <vl-form-label for="procedure" label="Procedure *" block></vl-form-label>
+                        <vl-form-label for="procedure" label="Procedure" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8">
                         <vl-select
@@ -108,7 +111,7 @@ export class VlFormCrossValidationComponent extends LitElement {
                         >
                     </div>
                     <div class="vl-column vl-column--4">
-                        <vl-form-label for="code" label="Code *" block></vl-form-label>
+                        <vl-form-label for="code" label="Code" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8">
                         <vl-input-field-with-cross-validator

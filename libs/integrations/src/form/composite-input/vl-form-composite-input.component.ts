@@ -71,8 +71,11 @@ export class VlFormCompositeInputComponent extends LitElement {
         return html`
             <form class="vl-form" @submit=${this.onSubmit} @reset=${this.onReset}>
                 <div class="vl-grid">
+                    <div class="vl-column vl-column--12">
+                        <vl-form-message variant="annotation">Alle velden zijn verplicht.</vl-form-message>
+                    </div>
                     <div class="vl-column vl-column--4">
-                        <vl-form-label for="coordinaten" label="Coördinaten (lon, lat) *" block></vl-form-label>
+                        <vl-form-label for="coordinaten" label="Coördinaten (lon, lat)" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8">
                         <!-- De composite heeft geen name: ze dient zelf geen waarde in, ze valideert de velden samen.
