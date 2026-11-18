@@ -1,3 +1,4 @@
+import { vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 export const vlModalStyles: CSSResult = css`
@@ -39,6 +40,15 @@ export const vlModalStyles: CSSResult = css`
         bottom: 0;
         margin: auto;
         max-height: 85vh;
+    }
+
+    /* govflanders-style zet medium en large ná de mobiele regel (width: 100vw), waardoor ze op een smal scherm 800px
+       of 1000px breed blijven en buiten beeld lopen. Op mobiel vullen ze de viewport, zoals de andere varianten. */
+    @media screen and (max-width: ${vlMediaScreenSmall}px) {
+        .vl-modal-dialog--medium,
+        .vl-modal-dialog--large {
+            width: 100vw;
+        }
     }
 
     .vl-modal-dialog--full-screen {

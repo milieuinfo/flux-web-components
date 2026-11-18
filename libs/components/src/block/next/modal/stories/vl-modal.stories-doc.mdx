@@ -119,6 +119,9 @@ document.querySelector('vl-modal-next').addEventListener('vl-close', () => {
 
 <Canvas of={VlModalStories.modalLarge} />
 
+Op een smal scherm (tot 767px) zijn een medium en een large modal, net als de andere varianten, even breed als het
+scherm.
+
 ### Full Screen
 
 <Canvas of={VlModalStories.modalFullScreen} />
@@ -150,11 +153,15 @@ sluiten terug op het element dat de focus had vóór het openen. Had geen enkel 
 modal die al open is bij het laden van de pagina, dan moet de afnemer zelf bepalen waar de focus na het sluiten heen
 gaat. Het `vl-close` event is hiervoor een geschikt aangrijpingspunt.
 
-De vl-modal-next zal standaard de focus leggen op het eerste focusbare element binnenin de modal wanneer deze geopend wordt.
+De vl-modal-next zal standaard de focus leggen op het eerste focusbare element binnenin de modal wanneer deze geopend
+wordt, in elke browser en ook wanneer dat element in de inhoud van een slot staat. Een element met het `autofocus`
+attribuut krijgt voorrang. Bevat de modal geen focusbaar element, of staat het eerste focusbare element pas na
+scrollen in beeld, dan krijgt de modal zelf de focus, zodat het begin van de inhoud zichtbaar blijft.
 Dit kan aangepast worden door het `focus-on-modal` attribuut toe te voegen aan de modal,
-in dat geval zal de focus op de modal zelf gelegd worden bij het openen. Gebruik dit enkel indien
-het automatisch focussen op het eerste focusbare element problemen veroorzaakt, bijvoorbeeld wanneer dit meteen een
-popover triggert.
+in dat geval zal de focus op de modal zelf gelegd worden bij het openen. Gebruik dit wanneer de modal begint met tekst
+die de gebruiker eerst moet lezen: een schermlezer slaat die anders over en leest meteen het eerste focusbare element
+voor. Gebruik het ook wanneer het automatisch focussen op het eerste focusbare element problemen veroorzaakt,
+bijvoorbeeld wanneer dit meteen een popover triggert.
 
 Het is essentieel dat de modal goed gelabeld is voor gebruikers van schermlezers.
 Dit kan op twee manieren bereikt worden:
