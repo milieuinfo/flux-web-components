@@ -147,8 +147,21 @@ heeft `CrossValidationMixin` niet nodig. Het veld bindt het native `required` at
 
 Wijzigt `reden`, dan rendert de parent opnieuw en wijzigt het attribuut. De form control hervalideert daarop vanzelf,
 want `required` hoort bij de ingebouwde `valueMissing` validatie, en daar hangt ook de melding aan. Bij **Andere**
-markeert het label het veld als verplicht en kondigt de screenreader het als verplicht aan, omdat het native attribuut
-er dan staat.
+kondigt de screenreader het veld als verplicht aan, omdat het native attribuut er dan staat.
+
+Het label volgt diezelfde voorwaarde: zolang het veld optioneel is draagt het de annotatie `(optioneel)`, bij **Andere**
+valt die weg. Zie
+[Verplichte en optionele velden](/docs/richtlijnen-toegankelijkheid-praktijk-richtlijnen--documentatie#verplichte-en-optionele-velden)
+voor de richtlijn achter die markering.
+
+```ts
+<vl-form-label
+    for="verduidelijking"
+    label="Verduidelijking"
+    annotation=${this.verduidelijkingVerplicht ? nothing : '(optioneel)'}
+    block
+></vl-form-label>
+```
 
 <Canvas of={formCrossValidationStories.FormulierCrossValidatieConditional} sourceState='none' />
 

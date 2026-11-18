@@ -23,7 +23,8 @@ export const formLabelArgTypes: ArgTypes<FormLabelArgs> = {
     },
     label: {
         name: 'label',
-        description: 'De tekst van het label. Overschrijft de waarde van het default slot.',
+        description:
+            'De tekst van het label. Overschrijft de waarde van het default slot. Wordt doorgegeven aan de form control als toegankelijke naam.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.STRING },
@@ -59,7 +60,8 @@ export const formLabelArgTypes: ArgTypes<FormLabelArgs> = {
     },
     defaultSlot: {
         name: '[default]',
-        description: 'De content van het label. Wordt overschreven door de waarde van het label attribuut.',
+        description:
+            'De content van het label. Wordt overschreven door de waarde van het label attribuut. Enkel de tekst, zonder HTML, wordt doorgegeven aan de form control als toegankelijke naam.',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,

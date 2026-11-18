@@ -30,6 +30,21 @@ import { VlFormLabelComponent } from '@domg-wc/components/form';
 <ArgTypes of={VlFormLabelStories.FormLabelDefault} />
 
 
+## Koppeling met de form control
+
+`vl-form-label` geeft zijn labeltekst door aan de form control met hetzelfde `id` als het `for` attribuut. Die tekst
+wordt de toegankelijke naam van het onderliggende veld. Dat is de waarde van het `label` attribuut, of anders de tekst
+uit de default slot. Van HTML in de slot gaat enkel de tekst mee, zonder opmaak. Tekst binnen een element met
+`aria-hidden="true"` of `hidden` gaat niet mee, net als de tekst van een `vl-tooltip`, zodat bv. een decoratief teken
+of een uitleg buiten de toegankelijke naam blijft.
+
+```html
+<vl-form-label for="naam">Naam <strong>van de aanvrager</strong></vl-form-label>
+<vl-input-field id="naam" name="naam"></vl-input-field>
+<!-- toegankelijke naam van het veld: "Naam van de aanvrager" -->
+```
+
+
 ## Annotatie
 
 Gebruik het `annotation` attribuut om extra uitleg of een voorbeeld inline naast de label tekst weer te geven.

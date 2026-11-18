@@ -1,9 +1,9 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
 
-<Meta title="Richtlijnen/Toegankelijkheid - Praktijk/Richtlijnen [WIP]"/>
+<Meta title="Richtlijnen/Toegankelijkheid - Praktijk/Richtlijnen"/>
 
-# Richtlijnen [WIP]
+# Richtlijnen
 
 ## Form
 
@@ -11,9 +11,13 @@ import { Meta } from '@storybook/addon-docs/blocks';
   [`<vl-form-label>` component](/docs/components-form-form-label--documentatie) gelinkt aan de form control met het
   `for` attribuut. Dat is een vereiste van
   [3.3.2 Labels of instructies](/docs/richtlijnen-toegankelijkheid-aanpak-3-begrijpelijk-3-3-assistentie-bij-invoer--documentatie).
-    - Het `label` attribuut van de form control vult enkel het `aria-label` van het onderliggende veld in en toont
-      niets op het scherm. Gebruik het alleen als er al een zichtbaar label of een zichtbare instructie bij het veld
-      staat, bijvoorbeeld een kolomtitel boven een veld in een tabel of de knop "Zoeken" naast een zoekveld.
+    - `vl-form-label` geeft zijn labeltekst door aan de form control, waar ze de `aria-label` van het onderliggende
+      veld wordt. Dat is de waarde van het `label` attribuut, of anders de tekst uit de default slot. Van HTML in de
+      slot gaat enkel de tekst mee, zonder opmaak.
+    - Uitzonderlijk heeft een veld geen `vl-form-label`. Dan vul je het `label` attribuut van de form control zelf in.
+      Dat vult enkel het `aria-label` van het onderliggende veld in en toont niets op het scherm. Gebruik het alleen
+      als er al een zichtbaar label of een zichtbare instructie bij het veld staat, bijvoorbeeld een kolomtitel boven
+      een veld in een tabel of de knop "Zoeken" naast een zoekveld.
     - Laat het `label` attribuut dan de zichtbare tekst bevatten, zodat spraakbesturing het veld vindt met de woorden
       die de gebruiker ziet
       ([2.5.3 Label in naam](/docs/richtlijnen-toegankelijkheid-aanpak-2-bedienbaar-2-5-input-modaliteiten--documentatie)).
@@ -22,8 +26,65 @@ import { Meta } from '@storybook/addon-docs/blocks';
     - **WEL**: "Vul een geldig e-mailadres in. Bijvoorbeeld: omgeving@vlaanderen.be"
 - Stel het `placeholder` attribuut correct in. Gebruik het `placeholder` attribuut enkel als het een voorbeeldwaarde
   is. Gebruik het niet als label.
-- Stel het `autocomplete` attribuut correct in. Gebruik waarde `off` als er geen relevante autocomplete suggesties
-  zijn. Meer info op [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete).
+- Stel het `autocomplete` attribuut correct in, zie [Autocomplete bij persoonlijke gegevens](#autocomplete-bij-persoonlijke-gegevens).
+
+### Verplichte en optionele velden
+
+Markeer **enkel de optionele velden**, met de tekst `(optioneel)` achter het label. Een veld zonder markering is
+verplicht. Dit volgt de richtlijn
+<a href="https://www.vlaanderen.be/vlaanderen-design-system/richtlijnen/formulieren/verplichte-versus-optionele-velden" target="_blank" rel="noopener noreferrer nofollow">Verplichte versus optionele velden van het Vlaanderen Design System (opent in nieuw venster)</a>.
+
+Gebruik **geen** `*` om een verplicht veld te markeren. Een sterretje heeft geen betekenis voor wie het symbool niet
+kent. In de labeltekst wordt het bovendien deel van de `aria-label`, en afhankelijk van de screenreader en de
+instellingen voor leestekens klinkt het label dan als "Naam ster", "Naam sterretje" of gewoon "Naam".
+
+Zet de markering in het `annotation` attribuut van
+[`<vl-form-label>`](/docs/components-form-form-label--documentatie), nooit in de labeltekst. De annotatie staat
+visueel achter het label, maar `vl-form-label` geeft enkel zijn labeltekst door aan de form control, niet zijn
+annotatie. De toegankelijke naam van het veld is dus de labeltekst, en spraakbesturing vindt het veld met de woorden
+van het label
+([2.5.3 Label in naam](/docs/richtlijnen-toegankelijkheid-aanpak-2-bedienbaar-2-5-input-modaliteiten--documentatie)).
+Een screenreader haalt verplicht of optioneel niet uit de annotatie, maar uit `required`. Zet `required` dus op elke
+verplichte form control.
+
+```html
+<form class="vl-form vl-stacked vl-stacked-small">
+    <vl-form-message variant="annotation">Alle velden zijn verplicht, tenzij anders vermeld.</vl-form-message>
+
+    <div>
+        <vl-form-label for="naam" label="Naam" block></vl-form-label>
+        <vl-input-field id="naam" name="naam" autocomplete="name" required></vl-input-field>
+    </div>
+
+    <div>
+        <vl-form-label for="telefoon" label="Telefoonnummer" annotation="(optioneel)" block></vl-form-label>
+        <vl-input-field id="telefoon" name="telefoon" type="tel" autocomplete="tel"></vl-input-field>
+    </div>
+</form>
+```
+
+Zijn **alle** velden verplicht, dan markeer je niets per veld en volstaat de helptekst `Alle velden zijn verplicht.`
+Zijn de meeste velden optioneel, dan draai je de regel om en markeer je de verplichte velden met `(verplicht)`.
+
+De helptekst moet vóór het eerste veld in de **DOM** staan, niet enkel visueel bovenaan. Staat ze erna, dan komt een
+screenreadergebruiker ze pas tegen wanneer de velden al ingevuld zijn
+([3.3.2 Labels of instructies](/docs/richtlijnen-toegankelijkheid-aanpak-3-begrijpelijk-3-3-assistentie-bij-invoer--documentatie)).
+
+Laat in alle gevallen het `required` attribuut op de form control staan. Dat blijft de bron van de `valueMissing`
+validatie en van de aankondiging "verplicht" door een screenreader; de markering is enkel toelichting en
+vervangt `required` niet. Is een veld maar in
+bepaalde gevallen verplicht, bind dan beide aan diezelfde voorwaarde, zodat de markering en de validatie niet uiteen
+kunnen lopen:
+
+```ts
+<vl-form-label
+    for="verduidelijking"
+    label="Verduidelijking"
+    annotation=${this.isVerplicht ? nothing : '(optioneel)'}
+    block
+></vl-form-label>
+<vl-input-field id="verduidelijking" name="verduidelijking" ?required=${this.isVerplicht}></vl-input-field>
+```
 
 ### Autocomplete bij persoonlijke gegevens
 
@@ -105,17 +166,27 @@ onderliggende veld:
 - [`vl-datepicker`](/docs/components-form-datepicker--documentatie)
 
 ```html
-<form>
-    <vl-form-label for="voornaam" label="Voornaam" block></vl-form-label>
-    <vl-input-field id="voornaam" name="voornaam" autocomplete="given-name"></vl-input-field>
+<form class="vl-form vl-stacked vl-stacked-small">
+    <vl-form-message variant="annotation">Alle velden zijn verplicht.</vl-form-message>
 
-    <vl-form-label for="email" label="E-mailadres" block></vl-form-label>
-    <vl-input-field id="email" name="email" type="email" autocomplete="email"></vl-input-field>
+    <div>
+        <vl-form-label for="voornaam" label="Voornaam" block></vl-form-label>
+        <vl-input-field id="voornaam" name="voornaam" autocomplete="given-name" required></vl-input-field>
+    </div>
 
-    <vl-form-label for="geboortedatum" label="Geboortedatum" block></vl-form-label>
-    <vl-datepicker id="geboortedatum" name="geboortedatum" autocomplete="bday"></vl-datepicker>
+    <div>
+        <vl-form-label for="email" label="E-mailadres" block></vl-form-label>
+        <vl-input-field id="email" name="email" type="email" autocomplete="email" required></vl-input-field>
+    </div>
+
+    <div>
+        <vl-form-label for="geboortedatum" label="Geboortedatum" block></vl-form-label>
+        <vl-datepicker id="geboortedatum" name="geboortedatum" autocomplete="bday" required></vl-datepicker>
+    </div>
 </form>
 ```
 
-De volledige lijst tokens staat in de
-[HTML-specificatie](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill).
+Gaat een veld niet over de gebruiker en zijn er geen relevante suggesties, zet dan `autocomplete="off"`.
+
+Alle tokens vind je in
+<a href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill" target="_blank" rel="noopener noreferrer nofollow">Autofill in de HTML-specificatie (opent in nieuw venster)</a>.
