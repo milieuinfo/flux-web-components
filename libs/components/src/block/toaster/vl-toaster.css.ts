@@ -65,6 +65,26 @@ export const toasterStyles = css`
         }
     }
 
+    /*
+     * De output staat in de top layer zolang er een modal open staat. De positie en breedte komen van de host, zodat
+     * placement, --vl-toaster-width en overrides op vl-toaster blijven gelden; de rest zet de UA-stijl van [popover]
+     * terug. display: block houdt de output gerenderd terwijl hij opnieuw naar boven gehaald wordt: met de
+     * display: none van een gesloten popover zouden de animaties van zichtbare toasts herstarten.
+     */
+    output[popover] {
+        display: block;
+        position: fixed;
+        inset: inherit;
+        width: inherit;
+        height: auto;
+        margin: 0;
+        border: 0;
+        padding: 0;
+        overflow: visible;
+        color: inherit;
+        background: none;
+    }
+
     :host output * {
         animation: fade-in 0.3s ease;
     }
