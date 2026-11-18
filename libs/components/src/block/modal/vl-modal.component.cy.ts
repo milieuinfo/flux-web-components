@@ -2,9 +2,10 @@ import { registerWebComponents } from '@domg-wc/common';
 import { html, TemplateResult } from 'lit';
 import { VlButtonComponent } from '../../atom/button';
 import { VlIconComponent } from '../../atom/icon';
+import { VlDatepickerComponent } from '../../form/datepicker';
 import { VlModalComponent } from './vl-modal.component';
 
-registerWebComponents([VlModalComponent, VlButtonComponent, VlIconComponent]);
+registerWebComponents([VlModalComponent, VlButtonComponent, VlIconComponent, VlDatepickerComponent]);
 
 const renderOpenButton = () => html`<vl-button modal-open="modal-vt" data-cy="button-modal-toggle"> Open </vl-button>`;
 
@@ -847,5 +848,179 @@ describe('cypress-component - block components - vl-modal - reactive close trigg
         cy.getDataCy('modal').invoke('attr', 'not-auto-closable', '');
         clickActionButton();
         isDialogVisible();
+    });
+});
+
+// Firefox en Safari zoeken bij showModal() het eerste focusbare element enkel in de shadow tree van de modal, niet in
+// de inhoud van de slots, en focussen zo de sluitknop. Cypress draait in Chromium; deze stub bootst dat gedrag na.
+const emulateShowModalFocusingCloseButton = () => {
+    cy.window().then((autWindow) => {
+        const showModal = autWindow.HTMLDialogElement.prototype.showModal;
+        cy.stub(autWindow.HTMLDialogElement.prototype, 'showModal').callsFake(function (this: HTMLDialogElement) {
+            showModal.call(this);
+            this.querySelector<HTMLElement>('#close')?.focus();
+        });
+    });
+};
+
+describe('cypress-component - block components - vl-modal - initial focus', () => {
+    beforeEach(() => {
+        // desktop viewport omdat de sluitknop verborgen wordt op mobiel
+        cy.viewport(1024, 768);
+    });
+
+    it('should focus the first focusable element in the content when the browser focuses the close button', () => {
+        emulateShowModalFocusingCloseButton();
+        cy.mount(
+            html`${renderOpenButton()}
+            ${renderModal({ closable: true, content: html`<input data-cy="first-focusable" />` })}`,
+        );
+
+        openModal();
+        isDialogVisible();
+        cy.getDataCy('first-focusable').should('have.focus');
+    });
+
+    it('should focus the first focusable element in a slotted datepicker when the browser focuses the close button', () => {
+        emulateShowModalFocusingCloseButton();
+        cy.mount(
+            html`${renderOpenButton()}
+            ${renderModal({
+                closable: true,
+                content: html`<vl-datepicker block label="Kies een datum" data-cy="datepicker"></vl-datepicker>`,
+            })}`,
+        );
+
+        openModal();
+        isDialogVisible();
+        cy.getDataCy('datepicker').should(($datepicker) => {
+            const activeElement = $datepicker[0].shadowRoot!.activeElement;
+            expect(activeElement?.tagName).to.equal('INPUT');
+            expect(activeElement!.getBoundingClientRect().width).to.be.greaterThan(0);
+        });
+    });
+
+    it('should focus the first focusable element in the content when the modal opens with the open attribute', () => {
+        emulateShowModalFocusingCloseButton();
+        cy.mount(renderModal({ open: true, closable: true, content: html`<input data-cy="first-focusable" />` }));
+
+        isDialogVisible();
+        cy.getDataCy('first-focusable').should('have.focus');
+    });
+
+    it('should focus the element with autofocus in the content', () => {
+        emulateShowModalFocusingCloseButton();
+        cy.mount(
+            html`${renderOpenButton()}
+            ${renderModal({
+                closable: true,
+                content: html`<input /> <input autofocus data-cy="autofocus" />`,
+            })}`,
+        );
+
+        openModal();
+        isDialogVisible();
+        cy.getDataCy('autofocus').should('have.focus');
+    });
+
+    it('should focus an element with autofocus and tabindex -1 in the content', () => {
+        emulateShowModalFocusingCloseButton();
+        cy.mount(
+            html`${renderOpenButton()}
+            ${renderModal({
+                closable: true,
+                content: html`<h3 tabindex="-1" autofocus data-cy="autofocus">Titel</h3>
+                    <input />`,
+            })}`,
+        );
+
+        openModal();
+        isDialogVisible();
+        cy.getDataCy('autofocus').should('have.focus');
+    });
+
+    it('should focus the dialog itself when focus-on-modal is set', () => {
+        emulateShowModalFocusingCloseButton();
+        cy.mount(
+            html`${renderOpenButton()}
+                <vl-modal id="modal-vt" title="Modal" closable focus-on-modal data-cy="modal">
+                    <span slot="content"><input /></span>
+                </vl-modal>`,
+        );
+
+        openModal();
+        isDialogVisible();
+        getDialog().should('have.focus');
+    });
+
+    it('should keep the start of long content in view instead of focusing a focusable element further down', () => {
+        cy.viewport(1024, 400);
+        cy.mount(
+            html`${renderOpenButton()}
+            ${renderModal({
+                closable: true,
+                content: html`<p data-cy="first-paragraph">Begin van de inhoud</p>
+                    ${Array.from({ length: 20 }, () => html`<p>Lorem ipsum dolor sit amet.</p>`)}
+                    <input data-cy="last-input" />`,
+            })}`,
+        );
+
+        openModal();
+        isDialogVisible();
+        getDialog().should('have.focus');
+        getDialog().then(($dialog) => {
+            const dialogTop = $dialog[0].getBoundingClientRect().top;
+            cy.getDataCy('first-paragraph').should(($paragraph) => {
+                expect($paragraph[0].getBoundingClientRect().top).to.be.at.least(dialogTop);
+            });
+        });
+    });
+
+    it('should focus the dialog itself when it contains no focusable element', () => {
+        cy.mount(
+            html`${renderOpenButton()}
+                <vl-modal id="modal-vt" title="Modal" not-cancellable data-cy="modal">
+                    <span slot="content"><p>Enkel tekst</p></span>
+                </vl-modal>`,
+        );
+
+        openModal();
+        isDialogVisible();
+        getDialog().should('have.focus');
+    });
+});
+
+const shouldFitWithinViewport = (viewportWidth: number) => {
+    getDialog().then(($dialog) => {
+        const dialogRect = $dialog[0].getBoundingClientRect();
+        expect(dialogRect.left).to.be.at.least(0);
+        expect(dialogRect.right).to.be.at.most(viewportWidth);
+    });
+    cy.getDataCy('datepicker')
+        .shadow()
+        .find('#toggle-calendar')
+        .then(($button) => {
+            const buttonRect = $button[0].getBoundingClientRect();
+            expect(buttonRect.left).to.be.at.least(0);
+            expect(buttonRect.right).to.be.at.most(viewportWidth);
+        });
+};
+
+describe('cypress-component - block components - vl-modal - reflow', () => {
+    (['medium', 'large'] as const).forEach((size) => {
+        it(`should fit a ${size} modal with a datepicker within a narrow viewport`, () => {
+            cy.viewport(320, 640);
+            cy.mount(
+                html`${renderOpenButton()}
+                ${renderModal({
+                    size,
+                    content: html`<vl-datepicker block label="Kies een datum" data-cy="datepicker"></vl-datepicker>`,
+                })}`,
+            );
+
+            openModal();
+            isDialogVisible();
+            shouldFitWithinViewport(320);
+        });
     });
 });
