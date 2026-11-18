@@ -11,6 +11,7 @@ import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { modalStyle } from '@domg/govflanders-style/component';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { VlLinkComponent } from '../../atom/link';
+import { focusFirstFocusable } from '../next/modal/vl-modal.focus';
 import { vlModalFluxStyles } from './vl-modal.flux-css';
 import './vl-modal.lib.js';
 
@@ -186,6 +187,10 @@ export class VlModalComponent extends BaseHTMLElement {
             this.setAttribute('open', '');
         } else if (!isOpen && this.hasAttribute('open')) {
             this.removeAttribute('open');
+        }
+        // Zonder focus-on-modal kiezen we zelf het focusdoel: Firefox en Safari focussen anders de sluitknop.
+        if (isOpen && !this.hasAttribute('focus-on-modal') && !focusFirstFocusable(this._dialogElement)) {
+            this._dialogElement.focus();
         }
         this.dispatchEvent(new CustomEvent(isOpen ? 'vl-open' : 'vl-close', { bubbles: true, composed: true }));
     }
