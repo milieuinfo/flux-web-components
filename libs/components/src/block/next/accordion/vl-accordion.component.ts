@@ -26,7 +26,7 @@ import { accordionDefaults } from './vl-accordion.defaults';
  * @property {string} openToggleText - Tekst van de toggle-knop als de accordion gesloten is.
  * @property {string} closeToggleText - Tekst van de toggle-knop als de accordion open is.
  * @property {string} contentPadding - Padding van de inhoud: none, small, medium of large.
- * @property {string} headingLevel - Zet de toggle-knop in een heading van niveau 1 tot 6.
+ * @property {string} headingLevel - Niveau van de heading rond de toggle-knop, 1 tot 6. Standaard 3.
  * @property {string} icon - Icoon voor de tekst van de toggle-knop.
  * @property {boolean} altBackground - Alternatieve achtergrondkleur.
  * @property {boolean} bold - Vetgedrukte tekst in de toggle-knop.
@@ -68,7 +68,7 @@ export class VlAccordionComponent extends BaseLitElement {
     disabled = accordionDefaults.disabled;
 
     private accordion = new AccordionController(this, { isDisabled: () => this.disabled });
-    private heading = new HeadingLevelController(this);
+    private heading = new HeadingLevelController(this, '3');
 
     static {
         registerWebComponents([VlIconComponent]);
@@ -166,7 +166,7 @@ export class VlAccordionComponent extends BaseLitElement {
 
     private renderHeading(content: TemplateResult): TemplateResult {
         const tag = this.heading.tag;
-        return tag ? staticHtml`<${tag} class="accordion__heading">${content}</${tag}>` : content;
+        return staticHtml`<${tag} class="accordion__heading">${content}</${tag}>`;
     }
 
     private getTriggerText(expanded: boolean): string {

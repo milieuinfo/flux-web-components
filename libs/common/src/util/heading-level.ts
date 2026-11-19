@@ -20,10 +20,8 @@ const toHeadingLevel = (level: unknown): HeadingLevel | undefined => {
 
 export const isValidHeadingLevel = (level: unknown): boolean => toHeadingLevel(level) !== undefined;
 
-export const headingTag = (level: unknown, fallback?: HeadingLevel): StaticValue | undefined => {
-    const headingLevel = toHeadingLevel(level) ?? fallback;
-    return headingLevel ? HEADING_TAGS[headingLevel] : undefined;
-};
+export const headingTag = (level: unknown, fallback: HeadingLevel): StaticValue =>
+    HEADING_TAGS[toHeadingLevel(level) ?? fallback];
 
 export const invalidHeadingLevelWarning = (element: Element, level: unknown): string =>
     `${element.localName}: de waarde "${level}" van het attribuut "heading-level" is ongeldig. Gebruik een waarde tussen 1 en 6.`;

@@ -11,23 +11,22 @@ export type HeadingLevelHost = ReactiveControllerHost & HTMLElement & { headingL
 export const headingLevelProperty: PropertyDeclaration = { type: String, reflect: true, attribute: 'heading-level' };
 
 /**
- * Bepaalt de heading-tag (h1 tot h6) op basis van `headingLevel` van de host, met een optionele fallback bij een lege of ongeldige waarde.
- * Zonder fallback is `tag` dan `undefined` en rendert de component geen heading.
+ * Bepaalt de heading-tag (h1 tot h6) op basis van `headingLevel` van de host, met een fallback bij een lege of ongeldige waarde.
  * Waarschuwt in de console bij een ongeldige waarde, één keer per nieuwe waarde.
  * Gebruik `tag` met `html` uit `lit/static-html.js`, niet met de gewone `html` van `lit`.
  */
 export class HeadingLevelController implements ReactiveController {
     private host: HeadingLevelHost;
-    private fallback?: HeadingLevel;
+    private fallback: HeadingLevel;
     private checkedLevel: unknown;
 
-    constructor(host: HeadingLevelHost, fallback?: HeadingLevel) {
+    constructor(host: HeadingLevelHost, fallback: HeadingLevel) {
         this.host = host;
         this.fallback = fallback;
         this.host.addController(this);
     }
 
-    get tag(): StaticValue | undefined {
+    get tag(): StaticValue {
         return headingTag(this.host.headingLevel, this.fallback);
     }
 

@@ -147,12 +147,11 @@ describe('cypress-component - block components - vl-accordion-next', () => {
         cy.get('vl-accordion-next').shadow().find('h2 > button#trigger').should('exist');
     });
 
-    it('should not render a heading without heading level', () => {
+    it('should wrap the trigger in an h3 by default', () => {
         cy.window().then((win) => cy.spy(win.console, 'warn').as('warn'));
         mountAccordion();
 
-        cy.get('vl-accordion-next').shadow().find('h1, h2, h3, h4, h5, h6').should('not.exist');
-        cy.get('vl-accordion-next').shadow().find('button#trigger').should('exist');
+        cy.get('vl-accordion-next').shadow().find('h3.accordion__heading > button#trigger').should('exist');
         cy.get('@warn').should('not.have.been.calledWithMatch', /heading-level/);
     });
 
@@ -168,11 +167,11 @@ describe('cypress-component - block components - vl-accordion-next', () => {
         cy.get('@warn').should('not.have.been.calledWithMatch', /heading-level/);
     });
 
-    it('should not render a heading and warn for an invalid heading level', () => {
+    it('should fall back to h3 and warn for an invalid heading level', () => {
         cy.window().then((win) => cy.spy(win.console, 'warn').as('warn'));
         mountAccordion('heading-level="7"');
 
-        cy.get('vl-accordion-next').shadow().find('h1, h2, h3, h4, h5, h6').should('not.exist');
+        cy.get('vl-accordion-next').shadow().find('h3.accordion__heading > button#trigger').should('exist');
         cy.get('@warn').should(
             'have.been.calledWithMatch',
             /^vl-accordion-next: de waarde "7" van het attribuut "heading-level"/,
