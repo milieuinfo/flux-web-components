@@ -79,7 +79,7 @@ export const AccordionHeading = Template.bind({});
 AccordionHeading.storyName = 'vl-accordion-next - heading';
 AccordionHeading.args = {
     toggleText: 'Dit is een heading van ingevouwen inhoud',
-    headingLevel: '3',
+    headingLevel: '2',
     contentSlot: content,
 };
 

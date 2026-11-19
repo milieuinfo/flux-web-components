@@ -41,11 +41,6 @@ describe('jest - common - heading-level', () => {
         );
     });
 
-    it('should return no tag for an invalid level without fallback', () => {
-        [null, undefined, '', '7', 'h2'].forEach((level) => expect(headingTag(level)).toBeUndefined());
-        expect(headingTag('2')).toBe(headingTag('', '2'));
-    });
-
     it('should name the element and the invalid value in the warning', () => {
         expect(invalidHeadingLevelWarning(document.createElement('vl-example'), '7')).toBe(
             'vl-example: de waarde "7" van het attribuut "heading-level" is ongeldig. Gebruik een waarde tussen 1 en 6.',

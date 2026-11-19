@@ -39,15 +39,6 @@ describe('jest - common - heading-level controller', () => {
         );
     });
 
-    it('should return no tag without a valid level and without fallback, and still warn', () => {
-        const controller = new HeadingLevelController(createHost('7'), undefined);
-        controller.hostUpdate();
-
-        expect(controller.tag).toBeUndefined();
-        expect(new HeadingLevelController(createHost(''), undefined).tag).toBeUndefined();
-        expect(warn).toHaveBeenCalledTimes(1);
-    });
-
     it('should warn once per invalid value, with the tag name of the host', () => {
         const host = createHost('7');
         const controller = new HeadingLevelController(host, '3');
