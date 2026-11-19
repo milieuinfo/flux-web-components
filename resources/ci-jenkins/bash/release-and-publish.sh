@@ -26,6 +26,15 @@ else
 fi
 echo using $GIT_REF_NAME as GIT_REF_NAME
 
+# de v3-integratiebranch wordt gebouwd en getest, maar publiceert nog niets: er is nog geen
+# releaserc voor v3. Hier stoppen vóór elke git- of pnpm-actie, zodat een v3-build niet afhangt
+# van semantic-release die een onbekende branch stilletjes overslaat.
+if [[ ${GIT_REF_NAME} == "develop-v3" ]] || [[ ${GIT_REF_NAME} == "develop-v3-"* ]];
+  then
+    echo "v3 branch detected (${GIT_REF_NAME}) - nog geen release voor v3, niets te publiceren"
+    exit 0
+fi
+
 # determine the branch type
 DEVELOP_BRANCH=false
 RELEASE_BRANCH=false
