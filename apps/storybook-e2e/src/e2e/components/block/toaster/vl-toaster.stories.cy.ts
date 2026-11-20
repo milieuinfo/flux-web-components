@@ -58,8 +58,8 @@ describe('cypress-e2e - block components - vl-toaster - fade out per toast story
         cy.get('vl-button#button-saved').shadow().find('button').click({ force: true });
         cy.get('vl-button#button-not-saved').shadow().find('button').click({ force: true });
 
-        cy.get('vl-toaster').shadow().find('vl-alert[title="Bewaard"]').should('have.attr', 'fade-out');
-        cy.get('vl-toaster').shadow().find('vl-alert[title="Niet bewaard"]').should('have.attr', 'persistent');
+        cy.get('vl-toaster').shadow().find('vl-alert[title-label="Bewaard"]').should('have.attr', 'fade-out');
+        cy.get('vl-toaster').shadow().find('vl-alert[title-label="Niet bewaard"]').should('have.attr', 'persistent');
     });
 });
 
@@ -71,7 +71,7 @@ describe('cypress-e2e - block components - vl-toaster - modal story', () => {
         cy.get('vl-modal-next').should('have.attr', 'open');
         cy.get('vl-button#button-modal-save').shadow().find('button').click({ force: true });
 
-        cy.get('vl-toaster').shadow().find('output').find('vl-alert').should('have.attr', 'title', 'Bewaard');
+        cy.get('vl-toaster').shadow().find('output').find('vl-alert').should('have.attr', 'title-label', 'Bewaard');
         cy.get('vl-toaster')
             .shadow()
             .find('output')

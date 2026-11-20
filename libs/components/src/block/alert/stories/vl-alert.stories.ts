@@ -30,6 +30,7 @@ const AlertTemplate = story(
         closable,
         icon,
         title,
+        titleLabel,
         size,
         type,
         naked,
@@ -49,6 +50,7 @@ const AlertTemplate = story(
             ?multiline=${multiline}
             icon=${icon}
             title=${title}
+            title-label=${titleLabel}
             size=${size}
             type=${type}
             message=${message}
@@ -71,7 +73,7 @@ AlertDefault.args = {
 export const AlertError = AlertTemplate.bind({});
 AlertError.storyName = 'vl-alert - error';
 AlertError.args = {
-    title: 'Opgelet!',
+    titleLabel: 'Opgelet!',
     type: ALERT_TYPE.ERROR,
     icon: ALERT_ICON.WARNING,
     defaultSlot: '<span>U heeft geen rechten om deze actie uit te voeren.</span>',
@@ -80,7 +82,7 @@ AlertError.args = {
 export const AlertInfo = AlertTemplate.bind({});
 AlertInfo.storyName = 'vl-alert - info';
 AlertInfo.args = {
-    title: 'Info',
+    titleLabel: 'Info',
     type: ALERT_TYPE.INFO,
     icon: ALERT_ICON.INFO_CIRCLE,
     defaultSlot:
@@ -90,7 +92,7 @@ AlertInfo.args = {
 export const AlertSuccess = AlertTemplate.bind({});
 AlertSuccess.storyName = 'vl-alert - success';
 AlertSuccess.args = {
-    title: 'Gelukt!',
+    titleLabel: 'Gelukt!',
     type: ALERT_TYPE.SUCCESS,
     icon: ALERT_ICON.CHECK,
     defaultSlot: '<span>We hebben uw melding goed ontvangen en nemen deze spoedig in behandeling.</span>',
@@ -99,7 +101,7 @@ AlertSuccess.args = {
 export const AlertWarning = AlertTemplate.bind({});
 AlertWarning.storyName = 'vl-alert - warning';
 AlertWarning.args = {
-    title: 'Technische storing',
+    titleLabel: 'Technische storing',
     type: ALERT_TYPE.WARNING,
     icon: ALERT_ICON.WARNING,
     defaultSlot: '<span>Door een technische storing is dit loket tijdelijk niet beschikbaar.</span>',
@@ -133,7 +135,7 @@ AlertCloseable.args = {
 export const AlertNakedError = AlertTemplate.bind({});
 AlertNakedError.storyName = 'vl-alert - naked error';
 AlertNakedError.args = {
-    title: 'Opgelet!',
+    titleLabel: 'Opgelet!',
     type: ALERT_TYPE.ERROR,
     icon: ALERT_ICON.WARNING,
     naked: true,
@@ -143,7 +145,7 @@ AlertNakedError.args = {
 export const AlertNakedWarning = AlertTemplate.bind({});
 AlertNakedWarning.storyName = 'vl-alert - naked warning';
 AlertNakedWarning.args = {
-    title: 'Opgelet!',
+    titleLabel: 'Opgelet!',
     type: ALERT_TYPE.WARNING,
     icon: ALERT_ICON.WARNING,
     naked: true,
@@ -153,7 +155,7 @@ AlertNakedWarning.args = {
 export const AlertNakedSuccess = AlertTemplate.bind({});
 AlertNakedSuccess.storyName = 'vl-alert - naked success';
 AlertNakedSuccess.args = {
-    title: 'Opgelet!',
+    titleLabel: 'Opgelet!',
     type: ALERT_TYPE.SUCCESS,
     icon: ALERT_ICON.CHECK,
     naked: true,
@@ -163,7 +165,7 @@ AlertNakedSuccess.args = {
 export const AlertBanner = AlertTemplate.bind({});
 AlertBanner.storyName = 'vl-alert - banner';
 AlertBanner.args = {
-    title: 'Juridische waarde',
+    titleLabel: 'Juridische waarde',
     type: ALERT_TYPE.WARNING,
     icon: ALERT_ICON.WARNING,
     banner: true,
@@ -177,7 +179,7 @@ AlertBanner.args = {
 export const AlertMultiline = AlertTemplate.bind({});
 AlertMultiline.storyName = 'vl-alert - multiline';
 AlertMultiline.args = {
-    title: 'Info',
+    titleLabel: 'Info',
     type: ALERT_TYPE.INFO,
     icon: ALERT_ICON.INFO_CIRCLE,
     multiline: true,
@@ -186,7 +188,7 @@ AlertMultiline.args = {
 export const AlertAlertDialog = AlertTemplate.bind({});
 AlertAlertDialog.storyName = 'vl-alert - alertdialog';
 AlertAlertDialog.args = {
-    title: 'Uw sessie verloopt',
+    titleLabel: 'Uw sessie verloopt',
     type: ALERT_TYPE.WARNING,
     icon: ALERT_ICON.WARNING,
     alertRole: ALERT_ROLE.ALERT_DIALOG,

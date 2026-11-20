@@ -46,7 +46,7 @@ import { vlProza } from '@domg-wc/components/block';
 const template = html`
     <vl-alert
         icon="warning"
-        title=${vlProza('disclaimer.titel')}
+        title-label=${vlProza('disclaimer.titel')}
         type="warning"
         closable
     ></vl-alert>
@@ -59,7 +59,7 @@ const template = html`
 const template = html`
     <vl-alert
         icon="user"
-        title=${vlProza('welkom.titel', { parameters: { naam: gebruiker.naam } })}
+        title-label=${vlProza('welkom.titel', { parameters: { naam: gebruiker.naam } })}
         type="success"
     ></vl-alert>
 `;
@@ -71,7 +71,7 @@ const template = html`
 const template = html`
     <vl-alert
         icon="info-circle"
-        title=${vlProza('melding.titel', { domain: 'ander-domein' })}
+        title-label=${vlProza('melding.titel', { domain: 'ander-domein' })}
         type="info"
     ></vl-alert>
 `;
@@ -85,7 +85,7 @@ Standaard wordt de `code` getoond als fallback tijdens het laden. Je kan een eig
 const template = html`
     <vl-alert
         icon="warning"
-        title=${vlProza('disclaimer.titel', { fallback: 'Even geduld...' })}
+        title-label=${vlProza('disclaimer.titel', { fallback: 'Even geduld...' })}
         type="warning"
     ></vl-alert>
 `;
@@ -103,7 +103,7 @@ const template = html`
 
     <vl-alert
         icon="warning"
-        title=${vlProza('disclaimer.titel')}
+        title-label=${vlProza('disclaimer.titel')}
         type="warning"
     ></vl-alert>
 `;
@@ -157,7 +157,7 @@ FluxConfig.setPreferences({ prozaDomain: 'mijn-domein' });
 
 // gebruik in templates
 import { vlProza } from '@domg-wc/components/block';
-html`<vl-alert title=${vlProza('disclaimer.titel')} type="warning"></vl-alert>`
+html`<vl-alert title-label=${vlProza('disclaimer.titel')} type="warning"></vl-alert>`
 
 // vl-proza-message zonder expliciet domein
 html`<vl-proza-message code="mijn-code"></vl-proza-message>`

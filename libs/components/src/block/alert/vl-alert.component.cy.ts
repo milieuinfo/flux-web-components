@@ -243,7 +243,7 @@ describe('cypress-component - block components - vl-alert - banner', () => {
                 alert-role="no-role"
                 type="warning"
                 icon="warning"
-                title=${titleText}
+                title-label=${titleText}
             >
                 <span>${messageText}</span>
             </vl-alert>
@@ -296,7 +296,7 @@ describe('cypress-component - block components - vl-alert - banner', () => {
     });
 
     it('should not render a separator without a title', () => {
-        cy.get('vl-alert').invoke('removeAttr', 'title');
+        cy.get('vl-alert').invoke('removeAttr', 'title-label');
         cy.waitForLitUpdate('vl-alert');
 
         expectSeparator('none');
@@ -384,7 +384,7 @@ describe('cypress-component - block components - vl-alert - banner small', () =>
                 alert-role="no-role"
                 type="warning"
                 icon="warning"
-                title="Juridische waarde"
+                title-label="Juridische waarde"
             >
                 <span>De door deze toepassing gegenereerde informatie heeft geen juridische waarde.</span>
             </vl-alert>
@@ -450,6 +450,21 @@ describe('cypress-component - block components - vl-alert - alert-role', () => {
         cy.get('vl-alert').shadow().find('#alert').should('have.attr', 'role', 'alertdialog');
         cy.get('vl-alert').shadow().find('#alert').should('have.attr', 'aria-labelledby', 'title');
         cy.get('vl-alert').shadow().find('#alert').should('have.attr', 'aria-describedby', 'message');
+    });
+
+    it('should name an alertdialog with title-label', () => {
+        cy.mount(html`
+            <vl-alert alert-role="alertdialog" title-label="Lorem ipsum">
+                <p>Ipsum dolor sit amet.</p>
+                <button slot="actions">Bevestigen</button>
+            </vl-alert>
+        `);
+
+        cy.get('vl-alert').shadow().find('#alert').should('have.attr', 'aria-labelledby', 'title');
+
+        cy.injectAxe();
+
+        cy.checkA11y('vl-alert');
     });
 
     it('should not reference the title when there is no title', () => {
@@ -552,6 +567,114 @@ describe('cypress-component - block components - vl-alert - alert-role', () => {
         cy.injectAxe();
 
         cy.checkA11y('vl-alert');
+    });
+});
+
+describe('cypress-component - block components - vl-alert - title', () => {
+    const titleText = 'Lorem ipsum';
+
+    const shouldShowTitle = () => {
+        cy.get('vl-alert').shadow().find('#title').should('contain.text', titleText);
+    };
+
+    it('should show the title from title-label', () => {
+        cy.mount(html`<vl-alert title-label=${titleText}><p>Ipsum dolor sit amet.</p></vl-alert>`);
+
+        shouldShowTitle();
+    });
+
+    it('should show a marked title from title-label in the naked variant', () => {
+        cy.mount(html`<vl-alert naked type="error" title-label=${titleText} message="Ipsum dolor."></vl-alert>`);
+
+        cy.get('vl-alert').shadow().find('#title slot').should('have.class', 'vl-u-mark--error');
+        shouldShowTitle();
+    });
+
+    it('should show the title from the deprecated title attribute', () => {
+        cy.mount(html`<vl-alert title=${titleText}><p>Ipsum dolor sit amet.</p></vl-alert>`);
+
+        shouldShowTitle();
+    });
+
+    it('should neutralize the native tooltip of the deprecated title attribute', () => {
+        cy.mount(html`<vl-alert title=${titleText}><p>Ipsum dolor sit amet.</p></vl-alert>`);
+
+        shouldShowTitle();
+        cy.get('vl-alert').should('have.attr', 'title', titleText);
+        cy.get('vl-alert').shadow().find('#alert').should('have.attr', 'title', '');
+    });
+
+    it('should prefer title-label over the deprecated title when both are set', () => {
+        cy.mount(html` <vl-alert title="Oude titel" title-label=${titleText}><p>Ipsum dolor sit amet.</p></vl-alert> `);
+
+        shouldShowTitle();
+        cy.get('vl-alert').shadow().find('#title').should('not.contain.text', 'Oude titel');
+    });
+
+    it('should follow every change of the deprecated title attribute', () => {
+        cy.mount(html`<vl-alert title="Oude titel"><p>Ipsum dolor sit amet.</p></vl-alert>`);
+
+        cy.get('vl-alert').invoke('attr', 'title', titleText);
+        cy.waitForLitUpdate('vl-alert');
+
+        cy.get('vl-alert').shadow().find('#title').should('contain.text', titleText).and('not.contain.text', 'Oude titel');
+    });
+
+    it('should keep title-label when the deprecated title changes afterwards', () => {
+        cy.mount(html`<vl-alert title="Oude titel"><p>Ipsum dolor sit amet.</p></vl-alert>`);
+
+        cy.get('vl-alert').invoke('attr', 'title-label', titleText);
+        cy.get('vl-alert').invoke('attr', 'title', 'Nieuwe oude titel');
+        cy.waitForLitUpdate('vl-alert');
+
+        shouldShowTitle();
+    });
+
+    it('should clear the title when the deprecated title attribute is removed', () => {
+        cy.mount(html`<vl-alert title=${titleText}><p>Ipsum dolor sit amet.</p></vl-alert>`);
+
+        cy.get('vl-alert').invoke('removeAttr', 'title');
+        cy.waitForLitUpdate('vl-alert');
+
+        cy.get('vl-alert').shadow().find('#title').should('not.contain.text', titleText);
+    });
+
+    it('should keep the title of a clone of an alert with the deprecated title attribute', () => {
+        cy.mount(html`<div><vl-alert title=${titleText}><p>Ipsum dolor sit amet.</p></vl-alert></div>`);
+
+        cy.get('vl-alert').then(($alert) => {
+            $alert[0].parentElement?.append($alert[0].cloneNode(true));
+        });
+        cy.get('vl-alert').eq(1).shadow().find('#title').should('contain.text', titleText);
+    });
+
+    it('should show the title from title-label set after the first render', () => {
+        cy.mount(html`<vl-alert><p>Ipsum dolor sit amet.</p></vl-alert>`);
+
+        cy.get('vl-alert').invoke('attr', 'title-label', titleText);
+        cy.waitForLitUpdate('vl-alert');
+
+        shouldShowTitle();
+    });
+
+    it('should show the title from the deprecated title attribute set after the first render', () => {
+        cy.mount(html`<vl-alert><p>Ipsum dolor sit amet.</p></vl-alert>`);
+
+        cy.get('vl-alert').invoke('attr', 'title', titleText);
+        cy.waitForLitUpdate('vl-alert');
+
+        shouldShowTitle();
+    });
+
+    it('should show the title set through the title property', () => {
+        cy.mount(html`<vl-alert><p>Ipsum dolor sit amet.</p></vl-alert>`);
+
+        cy.get('vl-alert').then(($alert) => {
+            $alert[0].title = titleText;
+        });
+        cy.waitForLitUpdate('vl-alert');
+
+        shouldShowTitle();
     });
 });
 

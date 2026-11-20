@@ -12,7 +12,9 @@ import { vlAlertFluxStyles } from './vl-alert.flux-css';
 @customElement('vl-alert')
 export class VlAlert extends BaseLitElement implements VlAlertModel {
     icon = '';
+    /** @deprecated Gebruik `title-label`: het standaard HTML `title`-attribuut toont een native browser-tooltip. */
     title = '';
+    titleLabel = '';
     type?: 'info' | 'success' | 'warning' | 'error';
     size = '';
     message = '';
@@ -30,6 +32,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
         return {
             icon: { type: String, attribute: 'icon' },
             title: { type: String, attribute: 'title' },
+            titleLabel: { type: String, attribute: 'title-label' },
             closable: { type: Boolean, attribute: 'closable' },
             type: { type: String, attribute: 'type' },
             size: { type: String, attribute: 'size' },
@@ -56,7 +59,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
         const role = this.getEffectiveRole();
         const isAlertDialog = role === ALERT_ROLE.ALERT_DIALOG;
         // we verwijzen enkel naar een element dat effectief inhoud heeft: de titel benoemt, de boodschap beschrijft
-        const hasTitle = Boolean(this.title) || Boolean(findNodesForSlot(this, 'title')?.length);
+        const hasTitle = Boolean(this.titleLabel || this.title) || Boolean(findNodesForSlot(this, 'title')?.length);
         const hasMessage = Boolean(this.message) || this.hasDefaultSlotContent();
         // in de banner variant lopen titel en boodschap door op dezelfde regel: het scheidingsteken ertussen hoort
         // bij de component, niet bij de aangeleverde boodschap
@@ -65,9 +68,11 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
         const labelledBy = isAlertDialog && hasTitle ? 'title' : undefined;
         const describedBy = isAlertDialog && hasMessage ? 'message' : undefined;
 
+        // de lege title neemt de native tooltip van een deprecated `title`-attribuut op de host weg
         return html`
             <div
                 id="alert"
+                title=""
                 class=${classMap(classes)}
                 role=${ifDefined(role)}
                 tabindex=${ifDefined(isAlertDialog ? '-1' : undefined)}
@@ -80,7 +85,9 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
                 </div>`}
                 <div id="content" class="vl-alert__content">
                     <p id="title" class="vl-alert__title">
-                        <slot class=${markClass} @slotchange=${this.handleSlotChange} name="title">${this.title}</slot>
+                        <slot class=${markClass} @slotchange=${this.handleSlotChange} name="title"
+                            >${this.titleLabel || this.title}</slot
+                        >
                     </p>
                     <div id="message" class="vl-alert__message">
                         <p class=${markClass}>${this.message}</p>

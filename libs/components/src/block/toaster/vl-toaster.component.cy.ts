@@ -84,13 +84,13 @@ const mountFadeOutToasterBetweenActions = () => {
 const tabToCloseButtonOfFirstToast = () => {
     cy.get('#preceding-action').focus();
     cy.press(Cypress.Keyboard.Keys.TAB);
-    getToast('vl-alert[title="Eerste"]').should(($toast) =>
+    getToast('vl-alert[title-label="Eerste"]').should(($toast) =>
         expect($toast[0].shadowRoot?.activeElement?.id).to.equal('close'),
     );
 };
 
-const shouldHaveToastAttributes = (title: string, expected: { fadeOut: boolean; persistent: boolean }) => {
-    getToast(`vl-alert[title="${title}"]`).should(($toast) => {
+const shouldHaveToastAttributes = (titleLabel: string, expected: { fadeOut: boolean; persistent: boolean }) => {
+    getToast(`vl-alert[title-label="${titleLabel}"]`).should(($toast) => {
         expect($toast[0].hasAttribute('fade-out'), 'fade-out').to.equal(expected.fadeOut);
         expect($toast[0].hasAttribute('persistent'), 'persistent').to.equal(expected.persistent);
     });
@@ -214,6 +214,27 @@ describe('cypress-component - block components - vl-toaster', () => {
         cy.get('vl-toaster').find('vl-alert').should('be.visible');
     });
 
+    it('should keep the deprecated title when showing the alert in the default slot', () => {
+        cy.mount(html`
+            <vl-toaster>
+                <vl-alert title="Oude titel">
+                    <p>message</p>
+                </vl-alert>
+            </vl-toaster>
+        `);
+        cy.get('vl-toaster').then(($toaster) => $toaster[0].show());
+        cy.get('vl-toaster').shadow().find('vl-alert').shadow().find('#title').should('contain.text', 'Oude titel');
+    });
+
+    it('should keep the deprecated title when showing a live alert by selector', () => {
+        cy.mount(html`
+            <vl-alert id="live" title="Oude titel"><p>message</p></vl-alert>
+            <vl-toaster></vl-toaster>
+        `);
+        cy.get('vl-toaster').then(($toaster) => $toaster[0].show('#live'));
+        cy.get('vl-toaster').shadow().find('vl-alert').shadow().find('#title').should('contain.text', 'Oude titel');
+    });
+
     it('should show a dynamically created alert', () => {
         cy.mount(html` <vl-toaster></vl-toaster> `);
         cy.get('vl-toaster').then(($toaster) => {
@@ -224,6 +245,66 @@ describe('cypress-component - block components - vl-toaster', () => {
                 type: 'success',
             });
             cy.get('vl-toaster').shadow().find('vl-alert').should('be.visible');
+        });
+    });
+
+    it('should show a dynamically created alert with a title-label', () => {
+        cy.mount(html` <vl-toaster></vl-toaster> `);
+        cy.get('vl-toaster').then(($toaster) => {
+            $toaster[0].showAlert({
+                'title-label': 'Gelukt',
+                message: 'Wij hebben uw melding goed ontvangen en nemen deze spoedig in behandeling.',
+                type: 'success',
+            });
+            cy.get('vl-toaster').shadow().find('vl-alert').shadow().find('#title').should('contain.text', 'Gelukt');
+        });
+    });
+
+    it('should set the title of a dynamically created alert as title-label', () => {
+        cy.mount(html` <vl-toaster></vl-toaster> `);
+        cy.get('vl-toaster').then(($toaster) => {
+            $toaster[0].showAlert({ title: 'Gelukt', type: 'success' });
+            cy.get('vl-toaster')
+                .shadow()
+                .find('vl-alert')
+                .should('have.attr', 'title-label', 'Gelukt')
+                .and('not.have.attr', 'title');
+            cy.get('vl-toaster').shadow().find('vl-alert').shadow().find('#title').should('contain.text', 'Gelukt');
+        });
+    });
+
+    it('should set camelCase keys of a dynamically created alert as attributes', () => {
+        cy.mount(html` <vl-toaster></vl-toaster> `);
+        cy.get('vl-toaster').then(($toaster) => {
+            $toaster[0].showAlert({ titleLabel: 'Gelukt', type: 'success', alertRole: ALERT_ROLE.ALERT_DIALOG });
+            cy.get('vl-toaster').shadow().find('vl-alert').should('have.attr', 'title-label', 'Gelukt');
+            cy.get('vl-toaster').shadow().find('vl-alert').should('have.attr', 'alert-role', 'alertdialog');
+            cy.get('vl-toaster').shadow().find('vl-alert').shadow().find('#title').should('contain.text', 'Gelukt');
+            cy.get('vl-toaster')
+                .shadow()
+                .find('vl-alert')
+                .shadow()
+                .find('#alert')
+                .should('have.attr', 'role', 'alertdialog');
+        });
+    });
+
+    it('should prefer titleLabel over title of a dynamically created alert', () => {
+        cy.mount(html` <vl-toaster></vl-toaster> `);
+        cy.get('vl-toaster').then(($toaster) => {
+            $toaster[0].showAlert({ title: 'Oud', titleLabel: 'Nieuw', type: 'success' });
+            cy.get('vl-toaster').shadow().find('vl-alert').should('have.attr', 'title-label', 'Nieuw');
+        });
+    });
+
+    it('should prefer title-label over title of a dynamically created alert', () => {
+        cy.mount(html` <vl-toaster></vl-toaster> `);
+        cy.get('vl-toaster').then(($toaster) => {
+            $toaster[0].showAlert({ title: 'Oud', 'title-label': 'Nieuw', type: 'success' });
+            cy.get('vl-toaster').shadow().find('vl-alert').should('have.attr', 'title-label', 'Nieuw');
+            cy.get('vl-toaster').shadow().find('vl-alert').shadow().find('#title')
+                .should('contain.text', 'Nieuw')
+                .and('not.contain.text', 'Oud');
         });
     });
 
@@ -433,14 +514,14 @@ describe('cypress-component - block components - vl-toaster - fade out', () => {
     it('should set the fade-out or persistent attribute on the toast with the fadeOut option', () => {
         cy.mount(html`
             <template id="toast-persistent">
-                <vl-alert persistent type="warning" title="Template"></vl-alert>
+                <vl-alert persistent type="warning" title-label="Template"></vl-alert>
             </template>
             <vl-toaster></vl-toaster>
         `);
         cy.get('vl-toaster').then(($toaster) => {
-            $toaster[0].showAlert({ type: 'success', title: 'Verdwijnt' }, { fadeOut: true });
-            $toaster[0].showAlert({ type: 'error', title: 'Blijft' }, { fadeOut: false });
-            $toaster[0].showAlert({ type: 'info', title: 'Standaard' });
+            $toaster[0].showAlert({ type: 'success', 'title-label': 'Verdwijnt' }, { fadeOut: true });
+            $toaster[0].showAlert({ type: 'error', 'title-label': 'Blijft' }, { fadeOut: false });
+            $toaster[0].showAlert({ type: 'info', 'title-label': 'Standaard' });
             $toaster[0].show('#toast-persistent', { fadeOut: true });
         });
 
@@ -453,14 +534,14 @@ describe('cypress-component - block components - vl-toaster - fade out', () => {
     it('should pause fading out all toasts while the focus is within the toaster', () => {
         mountFadeOutToasterBetweenActions();
         cy.get('vl-toaster').then(($toaster) => {
-            $toaster[0].showAlert({ type: 'info', title: 'Eerste', closable: true });
-            $toaster[0].showAlert({ type: 'success', title: 'Tweede' });
+            $toaster[0].showAlert({ type: 'info', 'title-label': 'Eerste', closable: true });
+            $toaster[0].showAlert({ type: 'success', 'title-label': 'Tweede' });
         });
 
         tabToCloseButtonOfFirstToast();
 
         shouldHaveFadeOutPlayState('paused');
-        getToast('vl-alert[title="Tweede"]').then(($toast) => {
+        getToast('vl-alert[title-label="Tweede"]').then(($toast) => {
             const animation = fadeOutAnimation($toast[0])!;
             const pausedTime = animation.currentTime as number;
             cy.wait(1000).then(() => expect(animation.currentTime as number).to.be.closeTo(pausedTime, 50));
@@ -476,11 +557,11 @@ describe('cypress-component - block components - vl-toaster - fade out', () => {
     it('should pause fading out all toasts while hovering the toaster', () => {
         cy.mount(html` <vl-toaster fade-out></vl-toaster> `);
         cy.get('vl-toaster').then(($toaster) => {
-            $toaster[0].showAlert({ type: 'info', title: 'Eerste' });
-            $toaster[0].showAlert({ type: 'success', title: 'Tweede' });
+            $toaster[0].showAlert({ type: 'info', 'title-label': 'Eerste' });
+            $toaster[0].showAlert({ type: 'success', 'title-label': 'Tweede' });
         });
 
-        getToast('vl-alert[title="Eerste"]').then(realHover);
+        getToast('vl-alert[title-label="Eerste"]').then(realHover);
 
         shouldHaveFadeOutPlayState('paused');
 
@@ -493,16 +574,16 @@ describe('cypress-component - block components - vl-toaster - fade out', () => {
     it('should fade in a new toast while fading out is paused', () => {
         mountFadeOutToasterBetweenActions();
         cy.get('vl-toaster').then(($toaster) => {
-            $toaster[0].showAlert({ type: 'info', title: 'Eerste', closable: true });
+            $toaster[0].showAlert({ type: 'info', 'title-label': 'Eerste', closable: true });
         });
         tabToCloseButtonOfFirstToast();
         shouldHaveFadeOutPlayState('paused');
 
         cy.get('vl-toaster').then(($toaster) => {
-            $toaster[0].showAlert({ type: 'success', title: 'Tweede' });
+            $toaster[0].showAlert({ type: 'success', 'title-label': 'Tweede' });
         });
 
-        getToast('vl-alert[title="Tweede"]')
+        getToast('vl-alert[title-label="Tweede"]')
             .should('have.css', 'opacity', '1')
             .and(($toast) => expect(fadeOutAnimation($toast[0])?.playState).to.equal('paused'));
     });
@@ -876,7 +957,7 @@ describe('cypress-component - block components - vl-toaster - open modal', () =>
         `);
         const entries = trackTopLayerEntries();
 
-        const getSavedToast = () => getOutput().find('vl-alert[title="Bewaard"]').shadow();
+        const getSavedToast = () => getOutput().find('vl-alert[title-label="Bewaard"]').shadow();
 
         openModal();
         showAlert({ ...savedAlert, closable: true, 'alert-role': ALERT_ROLE.ALERT_DIALOG });
@@ -887,7 +968,7 @@ describe('cypress-component - block components - vl-toaster - open modal', () =>
         shouldBeAboveModals(entries, 1);
         getSavedToast().find('#alert').should('have.focus');
         getSavedToast().find('button#close').click();
-        getOutput().find('vl-alert[title="Bewaard"]').should('not.exist');
+        getOutput().find('vl-alert[title-label="Bewaard"]').should('not.exist');
     });
 
     it('should pause fading out while the focus is within a toaster inside the modal', () => {
