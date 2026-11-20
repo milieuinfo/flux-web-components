@@ -1,0 +1,50 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDataFigureStories from './vl-data-figure.stories';
+
+# Data figure
+
+<FluxComponentMetaData id="data-visualisation-data-figure" />
+
+## Doel
+
+`vl-data-figure` zet rond één grafiek een kop, controls, een tabel en uitleg, altijd in dezelfde volgorde.
+
+## Voorbeeld
+
+```js
+import { VlChartLine, VlDataFigure, VlDataReadingGuide } from '@domg-wc/widgets/datavis';
+```
+
+```html
+<vl-data-figure
+    headline="Sinds 2019 daalt de concentratie in Gent elk jaar"
+    subtitle="Jaargemiddelde per meetpunt, 2018-2024"
+>
+    <vl-chart-line></vl-chart-line>
+    <vl-data-reading-guide>
+        <p>Elke lijn is een meetpunt. Hoe hoger de lijn, hoe meer stof er in de lucht zat.</p>
+    </vl-data-reading-guide>
+</vl-data-figure>
+```
+
+<Canvas of={VlDataFigureStories.DataFigureDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlDataFigureStories.DataFigureDefault} />
+
+## Gedrag
+
+Van boven naar onder:
+
+1. **Kop en controls.** `headline` en `subtitle`, met rechts de knoppen PNG en schermvullend.
+2. **Filters**, bv. `vl-data-period`.
+3. **Grafiek.**
+4. **Uitleg.** Altijd "Bekijk de cijfers" (de tabel), dan je eigen uitleg, dan "Over deze data" als `meta` meer
+   vertelt dan de bronregel.
+
+- De onderdelen zetten zich zelf in hun slot; je hoeft geen `slot` te schrijven.
+- Een eigen `vl-data-controls`, `vl-data-table` of `vl-data-about` vervangt het standaardonderdeel.
+- De figuur is een `<figure>`, met kop en ondertitel als `<figcaption>`. Kies met `headline-level` het niveau dat past
+  in de koppenstructuur van je pagina (standaard `h3`); het uitzicht blijft dat van een `h3`.
+- De knoppen tonen enkel een icoon; hun naam staat in een tooltip en wordt door een schermlezer voorgelezen.
