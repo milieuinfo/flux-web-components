@@ -1,4 +1,8 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import codeConnectOntwerp from '../../../resources/richtlijnen/figma-code-connect-ontwerp.png';
+import codeConnectSnippet from '../../../resources/richtlijnen/figma-code-connect-snippet.png';
+import codeConnectVideo from '../../../resources/richtlijnen/figma-code-connect-video.mp4';
+import codeConnectVideoOndertitels from '../../../resources/richtlijnen/figma-code-connect-video.vtt?url';
 
 <Meta title="Richtlijnen/Figma/Figma Code Connect"/>
 
@@ -18,7 +22,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 ## Wat is het
 
-Code Connect koppelt de componenten uit de Figma-bibliotheek __FLUX Web Componenten__ aan de web-componenten uit
+Code Connect koppelt de componenten uit de <a href="https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten" target="_blank" rel="noopener noreferrer">Figma-bibliotheek: FLUX Web Componenten (opent in een nieuw venster)</a> aan de web-componenten uit
 deze bibliotheek. In Dev Mode toont Figma daardoor geen gegenereerde CSS, maar de HTML van het echte component,
 met de varianten van de geselecteerde instance al ingevuld:
 
@@ -28,11 +32,37 @@ met de varianten van de geselecteerde instance al ingevuld:
 
 Een ontwerper kiest in Figma een variant; jij ziet meteen welk attribuut daarbij hoort.
 
+Zo ziet dat eruit voor een `vl-info-tile`: links de instance in het ontwerp, rechts het snippet in Dev Mode.
+
+<div style={{display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'flex-start'}}>
+    <img
+        src={codeConnectOntwerp}
+        alt="Een vl-info-tile in Figma met titel, subtitel, inhoud en een leeg slot"
+        width="387"
+    />
+    <img
+        src={codeConnectSnippet}
+        alt="Het Code Connect-paneel in Dev Mode met de status Connected en de HTML van vl-info-tile: size medium en de slots title, subtitle en content met de tekst uit de instance"
+        width="287"
+    />
+</div>
+
+Hoe dat in de praktijk loopt, zie je in deze korte video.
+
+<video controls preload="metadata" width="640" style={{maxWidth: '100%', height: 'auto'}}>
+    <source src={codeConnectVideo} type="video/mp4" />
+    <track kind="captions" src={codeConnectVideoOndertitels} srcLang="nl" label="Nederlands" default />
+</video>
+
+Welke bibliotheek je gebruikt, hoe ze in sync blijft met de code en wat de Figma MCP-server daarmee doet, vind je op de 
+pagina [Figma-bibliotheek](?path=/docs/richtlijnen-figma-figma-bibliotheek--documentatie).
+
 
 ## Wat je nodig hebt
 
-Toegang tot de Figma-bibliotheek en tot Dev Mode. Aan jouw kant hoef je niets te installeren of te configureren:
-de koppeling is gepubliceerd bij Figma en geldt voor iedereen die het bestand kan openen.
+Toegang tot de Figma-bibliotheek en tot Dev Mode. Dev Mode vergt een Figma Full Seat; heb je die niet, vraag ze dan
+aan bij je team. Aan jouw kant hoef je niets te installeren of te configureren: de koppeling is gepubliceerd bij
+Figma en geldt voor iedereen die het bestand kan openen.
 
 
 ## Een snippet opvragen
@@ -101,8 +131,7 @@ Het snippet is dus een correct startpunt, geen volledige implementatie.
 
 ## Dekking en versies
 
-Alle gepubliceerde FLUX-componenten met een code-equivalent zijn gekoppeld, samen met de iconen uit
-__[VL] Icons (team D)__.
+Alle gepubliceerde FLUX-componenten met een code-equivalent zijn gekoppeld.
 
 Van de snippets bestaat altijd maar één versie: die van de laatst gepubliceerde release. Wijzigt een component,
 dan volgt de koppeling bij de eerstvolgende release. Dat geldt overal tegelijk:

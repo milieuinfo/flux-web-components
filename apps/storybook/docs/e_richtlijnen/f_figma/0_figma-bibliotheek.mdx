@@ -1,0 +1,66 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Richtlijnen/Figma/Figma-bibliotheek"/>
+
+# Figma-bibliotheek
+
+## Inhoudstafel
+
+- [Welke bibliotheek](#welke-bibliotheek)
+- [In sync met de codebase](#in-sync-met-de-codebase)
+- [Code Connect in Dev Mode](#code-connect-in-dev-mode)
+- [De Figma MCP-server](#de-figma-mcp-server)
+
+
+## Welke bibliotheek
+
+Ontwerpen voor een Flux-toepassing maak je met de
+<a href="https://www.figma.com/design/XgxaEcbNFkGbWW5FkCnEQo/FLUX-Web-Componenten" target="_blank" rel="noopener noreferrer">Figma-bibliotheek: FLUX Web Componenten (opent in een nieuw venster)</a>. Dat is de enige
+Figma-bibliotheek die aan de web-componenten van Flux gekoppeld is.
+
+Bij een nieuw Figma-bestand in de Departement Omgeving organisatie is __FLUX Web Componenten__ standaard geïmporteerd. 
+Staat ze er niet, dan zet je ze zelf aan via het paneel __Assets__ in Figma.
+
+
+## In sync met de codebase
+
+Alle componenten in de bibliotheek worden in sync gehouden met de codebase. De code is daarbij het uitgangspunt:
+varianten, properties en hun defaults volgen wat het web-component doet. Wijkt Figma daarvan af, dan is dat een fout
+in de bibliotheek - meld ze aan het Flux-team.
+
+De bibliotheek volgt de releases van `@domg-wc`: wijzigt een component, dan volgt de bibliotheek bij de eerstvolgende
+release. Wat dat betekent als je toepassing met een oudere versie werkt, staat bij
+[Dekking en versies](?path=/docs/richtlijnen-figma-figma-code-connect--documentatie#dekking-en-versies).
+
+
+## Code Connect in Dev Mode
+
+Elk component met een code-equivalent is via Code Connect aan zijn web-component gekoppeld. In Dev Mode toont Figma
+daardoor de HTML van het echte component in plaats van gegenereerde CSS. Hoe je dat gebruikt, wat een snippet bevat en
+waar je op moet letten, staat op [Figma Code Connect](?path=/docs/richtlijnen-figma-figma-code-connect--documentatie).
+
+
+## De Figma MCP-server
+
+Figma biedt een eigen MCP-server aan. Die ontsluit het ontwerp voor een AI-client zoals Claude Code, Codex, Copilot of
+Cursor: welke Figma-component en -variant overeenkomt met welke `vl`-component, en welke attributen daarbij horen.
+Omdat de bibliotheek verrijkt is met Code Connect, met een beschrijving per component en met links naar deze
+documentatie, werkt die AI-client met de echte FLUX-API in plaats van met een gok.
+Drie use-cases:
+
+1. __Van ontwerp naar code__ - een scherm uit Figma omzetten naar FLUX-markup. De AI-client haalt per instance de
+   tagname en de attributen op, zodat de markup met componenten uit de bibliotheek vertrekt.
+2. __Van prompt naar ontwerp__ - vanuit een beschrijving een ontwerp bouwen in Figma, met instances uit de
+   bibliotheek in plaats van losse frames.
+3. __Van code naar ontwerp__ - een bestaand scherm uit code terug in Figma zetten, bijvoorbeeld om een toepassing die
+   zonder ontwerp gegroeid is te documenteren. Deze use-case is in onderzoek.
+
+<vl-alert icon="alert-circle" title="Belangrijk" type="warning" size="small">
+    Geen van de drie levert een eindresultaat. Wat een AI-client oplevert is een voorstel: het vertrekt van de juiste
+    componenten, maar keuzes rond semantiek, toegankelijkheid, gedrag en data blijven menselijk werk. Lees
+    elke gegenereerde wijziging kritisch na voor je ze overneemt.
+</vl-alert>
+
+Het volledige verhaal over Flux en AI, met de 2 MCP-servers en de recepten die erop draaien, staat op
+[Flux-AI - Frontendstroomlijning](?path=/docs/afnemen-flux-ai-frontendstroomlijning--documentatie).
+
