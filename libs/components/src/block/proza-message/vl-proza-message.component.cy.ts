@@ -6,6 +6,7 @@ registerWebComponents([VlProzaMessage]);
 
 describe('cypress-component - block components - vl-proza-message', () => {
     const mockDomain = 'mock-domain';
+    const editableMockDomain = 'editable-domain';
     const mockCode = 'test.bericht';
     const mockTekst = 'Dit is een test bericht';
 
@@ -19,7 +20,12 @@ describe('cypress-component - block components - vl-proza-message', () => {
                 if (uri.includes('toegelatenoperaties')) {
                     return Promise.resolve(
                         new win.Response(
-                            JSON.stringify({ create: false, read: true, update: false, delete: false }),
+                            JSON.stringify({
+                                create: false,
+                                read: true,
+                                update: uri.includes(editableMockDomain),
+                                delete: false,
+                            }),
                             { status: 200, headers: { 'Content-Type': 'application/json' } }
                         )
                     );
@@ -68,5 +74,24 @@ describe('cypress-component - block components - vl-proza-message', () => {
         `);
 
         cy.get('vl-proza-message').shadow().find('vl-typography').should('contain.text', mockTekst);
+    });
+
+    it('should show a white inner ring next to the focus outline on the refresh button inside a primary button', () => {
+        cy.mount(html`
+            <vl-button>
+                <vl-proza-message domain="${editableMockDomain}" code="${mockCode}"></vl-proza-message>
+            </vl-button>
+        `);
+
+        cy.get('vl-proza-message')
+            .shadow()
+            .find('#refresh-button')
+            .shadow()
+            .find('button')
+            .focus()
+            .should('have.focus')
+            .and('have.css', 'outline-style', 'solid')
+            .and('have.css', 'box-shadow')
+            .and('contain', 'rgb(255, 255, 255) 0px 0px 0px 2px');
     });
 });

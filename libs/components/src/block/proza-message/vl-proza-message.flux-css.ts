@@ -44,6 +44,11 @@ export const vlProzaMessageFluxStyles: CSSResult = css`
         background-color: #cbd2da !important;
     }
 
+    /* De focus-outline van vl-button is blauw en valt weg in een primaire knop: de witte binnenring houdt ze zichtbaar. */
+    vl-button::part(button):focus {
+        box-shadow: var(--vl-focus--shadow);
+    }
+
     vl-button::part(icon) {
         color: #000;
     }
