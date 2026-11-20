@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00.500 --> 00:05.200
+In dit filmpje zie je hoe je in Figma de HTML van een Flux component ophaalt, met Code Connect.
+
+00:05.900 --> 00:08.100
+We starten in de Flux bibliotheek in Figma.
+
+00:09.500 --> 00:11.800
+Eerst zet je Dev Mode aan, hier onderaan.
+
+00:14.300 --> 00:17.600
+Dan selecteer je een component. Hier is dat vl-steps.
+
+00:18.500 --> 00:21.900
+In het Code Connect paneel krijg je de HTML, met de echte Flux web componenten.
+
+00:21.900 --> 00:25.400
+Je kan dit kopiëren en het is beschikbaar voor je LLM.
+
+00:27.300 --> 00:30.100
+En in de omschrijving zit extra context voor je LLM.
