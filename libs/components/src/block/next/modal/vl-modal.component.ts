@@ -6,8 +6,8 @@ import { CSSResult, html, nothing, PropertyValues, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { VlButtonComponent } from '../../../atom/button';
 import { vlIconStyles } from '../../../atom/icon-style/vl-icon-style.css';
-import { VlLinkComponent } from '../../../atom/link';
 import { vlModalStyles } from './vl-modal.css';
 import { CLOSE_ATTRIBUTES, DIALOG_MODIFIERS, FOCUSABLE_SELECTOR } from './vl-modal.model';
 
@@ -56,7 +56,7 @@ export class VlModalComponent extends BaseLitElement {
     private dialogListeners: [string, EventListenerOrEventListenerObject][] = [];
 
     static {
-        registerWebComponents([VlLinkComponent]);
+        registerWebComponents([VlButtonComponent]);
     }
 
     static get styles(): CSSResult[] {
@@ -147,13 +147,8 @@ export class VlModalComponent extends BaseLitElement {
                                     <slot name="button" ?data-modal-close=${!this.notAutoClosable}></slot>
                                     ${this.notCancellable
                                         ? nothing
-                                        : html`<vl-link
-                                              id="modal-toggle-cancellable"
-                                              button-as-link
-                                              icon="cross"
-                                              icon-placement="before"
-                                              modal-close
-                                              >Annuleer</vl-link
+                                        : html`<vl-button id="modal-toggle-cancellable" secondary modal-close
+                                              >Annuleren</vl-button
                                           >`}
                                 </div>
                             </div>

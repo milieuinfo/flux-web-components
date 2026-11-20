@@ -26,7 +26,7 @@ const positionValue = instance.getEnum('position', {
 });
 const position = typeof positionValue === 'string' ? positionValue : '';
 // `cancellable` staat standaard aan, zoals in code; uitgezet wordt het `not-cancellable`. Ontbreekt de property
-// (oudere library), dan toont het ontwerp geen annuleerlink: die laag was toen nog verborgen.
+// (oudere library), dan toont het ontwerp geen annuleerknop: die laag was toen nog verborgen.
 const cancellable = booleanProperty(instance, 'cancellable', false);
 
 // De Figma-as `variant` (desktop/mobile) is een responsive weergave zonder code-attribuut en wordt niet gemapt.
