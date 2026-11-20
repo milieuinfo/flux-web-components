@@ -1,0 +1,48 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDataTableStories from './vl-data-table.stories';
+
+# Data table
+
+<FluxComponentMetaData id="data-visualisation-data-table" />
+
+## Doel
+
+`vl-data-table` toont de cijfers van de grafiek als tabel, onder "Bekijk de cijfers", met een CSV-download. De tabel is
+het tekstalternatief van de grafiek: elke [vl-data-figure](/docs/data-visualisation-data-figure--documentatie) voegt er standaard een toe.
+
+## Voorbeeld
+
+Voeg zelf een `vl-data-table` toe om de plaats of het aantal rijen per pagina te kiezen.
+
+```js
+import { VlDataTable } from '@domg-wc/widgets/datavis';
+```
+
+```html
+<vl-data-figure headline="In Gent en Antwerpen daalt de concentratie sinds 2020">
+    <vl-chart-line></vl-chart-line>
+    <vl-data-table rows-per-page="10"></vl-data-table>
+</vl-data-figure>
+```
+
+<Canvas of={VlDataTableStories.DataTableDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlDataTableStories.DataTableDefault} />
+
+## Varianten
+
+### Met pager
+
+Heeft de tabel meer rijen dan `rows-per-page` (standaard 25), dan verschijnt er een `vl-pager` onder. De CSV bevat
+altijd alle rijen.
+
+<Canvas of={VlDataTableStories.DataTableWithPager} />
+
+## Gedrag
+
+- Een kolom per reeks, een rij per x-waarde. Een schermlezer leest bij elke cel de reeks en de x-waarde voor.
+- Een ontbrekende meting is een lege cel, nooit 0. Boven de tabel staat wat een lege cel betekent.
+- Andere data zet de tabel terug op de eerste pagina.
+- De tabel kan niet weggelaten worden ([WCAG 1.1.1](https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html)).

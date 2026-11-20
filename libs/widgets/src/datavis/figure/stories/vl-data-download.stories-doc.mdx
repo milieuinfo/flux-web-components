@@ -1,0 +1,53 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDataDownloadStories from './vl-data-download.stories';
+
+# Data download
+
+<FluxComponentMetaData id="data-visualisation-data-download" />
+
+## Doel
+
+`vl-data-download` bewaart een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie) als bestand: `png` (de grafiek met kop, eenheid en bron, om te delen) of `csv`
+(de cijfers zonder afronding, om mee te rekenen). Elke figuur toont standaard een PNG-knop naast de kop en een CSV-knop
+bij de tabel.
+
+## Voorbeeld
+
+Zet de knop in een [vl-data-controls](/docs/data-visualisation-data-controls--documentatie).
+
+```js
+import { VlDataControls, VlDataDownload } from '@domg-wc/widgets/datavis';
+```
+
+```html
+<vl-data-figure headline="In Gent en Antwerpen daalt de concentratie sinds 2020">
+    <vl-data-controls>
+        <vl-data-download format="png"></vl-data-download>
+    </vl-data-controls>
+    <vl-chart-line></vl-chart-line>
+</vl-data-figure>
+```
+
+<Canvas of={VlDataDownloadStories.DataDownloadDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlDataDownloadStories.DataDownloadDefault} />
+
+## Varianten
+
+### CSV
+
+<Canvas of={VlDataDownloadStories.DataDownloadCsv} />
+
+### Met tekst
+
+`show-label` toont de naam naast het icoon.
+
+<Canvas of={VlDataDownloadStories.DataDownloadShowLabel} />
+
+## Gedrag
+
+- Het bestand krijgt de `headline` van de figuur als naam, zonder `headline` heet het `grafiek`.
+- De naam van de knop noemt het formaat, bv. "Download cijfers (CSV)", en staat in een tooltip.
+- Tijdens het laden is de knop onzichtbaar, maar houdt hij zijn plaats.

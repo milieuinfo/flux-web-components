@@ -18,6 +18,7 @@ import { buildWTConfigComponentsCompliance } from './wt-config-build/components-
 import { buildWTConfigComponentsForm } from './wt-config-build/components-form.wt-config';
 import { buildWTConfigMap } from './wt-config-build/map.wt-config';
 import { buildWTConfigStructures } from './wt-config-build/structures.wt-config';
+import { buildWTConfigWidgetsDatavis } from './wt-config-build/widgets-datavis.wt-config';
 import { fluxAllMetaData } from '../../apps/storybook/.storybook/flux-meta-data/flux-meta-data.data';
 
 const templateFileLocation: string = './wt-template/web-types.template';
@@ -253,3 +254,4 @@ generateWebTypesFile('compliance', buildWTConfigComponentsCompliance, '../../lib
 generateWebTypesFile('form', buildWTConfigComponentsForm, '../../libs/components/src/form');
 generateWebTypesFile('map', buildWTConfigMap, '../../libs/map');
 generateWebTypesFile('structures', buildWTConfigStructures, '../../libs/structures');
+generateWebTypesFile('datavis', buildWTConfigWidgetsDatavis, '../../libs/widgets/src/datavis');

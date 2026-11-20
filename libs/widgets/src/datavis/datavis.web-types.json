@@ -1,0 +1,295 @@
+{
+    "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
+    "name": "flux-web-components",
+    "version": "DOMG-WC-VERSION",
+    "js-types-syntax": "typescript",
+    "description-markup": "markdown",
+    "contributions": {
+        "html": {
+            "elements": [
+                {
+                    "name": "vl-data-source",
+                    "description": "`vl-data-source` haalt de data op voor de figuren en grafieken erin, zodat ze dezelfde periode tonen. De component zelf\nis onzichtbaar. Met een [vl-data-period](/docs/data-visualisation-data-period--documentatie) kiest de gebruiker een\nandere periode.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/data-visualisation-data-source--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "src",
+                            "description": "De URL waar de data opgehaald wordt.<br>Bij `sensorthings` is dit een meetpunt of een meetreeks.",
+                            "default": ""
+                        },
+                        {
+                            "name": "period",
+                            "description": "De periode die standaard getoond wordt bij het laden van de pagina.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'24h' | '7d' | '30d' | '1y'"
+                            },
+                            "default": "24h"
+                        },
+                        {
+                            "name": "end",
+                            "description": "De laatste dag van de getoonde periode, bv. \"2026-08-28\".<br>Standaard is dit vandaag.",
+                            "default": ""
+                        },
+                        {
+                            "name": "format",
+                            "description": "Het formaat van de data.<br>Zie de docs pagina voor meer informatie over de formaten.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'sample-data' | 'sensorthings'"
+                            },
+                            "default": "sensorthings"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-data-period",
+                    "description": "`vl-data-period` laat de gebruiker de periode kiezen van de omliggende\n[vl-data-source](/docs/data-visualisation-data-source--documentatie): 24 uur, 7 dagen, 30 dagen of 1 jaar, met vorige,\nvolgende en vandaag.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/data-visualisation-data-period--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-period-change",
+                                "description": "Afgevuurd als de gebruiker een andere periode kiest. De `data-source` haalt dan de nieuwe data op.<br>Je kan ook zelf naar dit event luisteren, bv. om de periode in de URL te bewaren.",
+                                "type": "{ duration: '24h' | '7d' | '30d' | '1y', end: Date }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-data-figure",
+                    "description": "`vl-data-figure` zet rond één grafiek een kop, controls, een tabel en uitleg, altijd in dezelfde volgorde.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/data-visualisation-data-figure--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "headline",
+                            "description": "De kop van de figuur: wat de lezer in de grafiek moet zien.<br>Ook de bestandsnaam van de PNG en CSV, en de titel op de PNG.",
+                            "default": ""
+                        },
+                        {
+                            "name": "headline-level",
+                            "description": "Het niveau van de kop in de pagina. Het uitzicht is altijd dat van een `h3`.",
+                            "default": "h3"
+                        },
+                        {
+                            "name": "subtitle",
+                            "description": "De ondertitel: wat, waar en wanneer, bv. \"Jaargemiddelde, 2018-2024\".",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "controls",
+                            "description": "Extra controls naast de kop. Ze worden vóór de standaardknoppen getoond.",
+                            "default": ""
+                        },
+                        {
+                            "name": "filters",
+                            "description": "De componenten die bepalen welke data de grafiek toont, bv. `vl-data-period`.<br>Ze worden onder de kop getoond.",
+                            "default": ""
+                        },
+                        {
+                            "name": "[default]",
+                            "description": "De grafiek.",
+                            "default": ""
+                        },
+                        {
+                            "name": "explanations",
+                            "description": "De uitleg onder de grafiek, bv. `vl-data-reading-guide`, `vl-data-about` of een eigen `vl-data-table`.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-data-table",
+                    "description": "`vl-data-table` toont de cijfers van de grafiek als tabel, onder \"Bekijk de cijfers\", met een CSV-download. De tabel is\nhet tekstalternatief van de grafiek: elke [vl-data-figure](/docs/data-visualisation-data-figure--documentatie) voegt er standaard een toe.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/data-visualisation-data-table--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "rows-per-page",
+                            "description": "Het aantal rijen per pagina. Heeft de tabel meer rijen, dan verschijnt er een pager onder.",
+                            "default": "25"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-data-controls",
+                    "description": "`vl-data-controls` vervangt de standaardknoppen naast de kop van een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie): bewaren als PNG en schermvullend. Gebruik\nhet enkel voor andere knoppen of een andere volgorde.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/data-visualisation-data-controls--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "De knoppen, bv. `vl-data-download` en `vl-data-fullscreen`.<br>Ze worden getoond in de volgorde van de HTML.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-data-download",
+                    "description": "`vl-data-download` bewaart een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie) als bestand: `png` (de grafiek met kop, eenheid en bron, om te delen) of `csv`\n(de cijfers zonder afronding, om mee te rekenen). Elke figuur toont standaard een PNG-knop naast de kop en een CSV-knop\nbij de tabel.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/data-visualisation-data-download--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "format",
+                            "description": "Het formaat van het bestand.<br>`png`: de grafiek met de kop, de eenheid en de bron.<br>`csv`: de cijfers zonder afronding.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'png' | 'csv'"
+                            },
+                            "default": "png"
+                        },
+                        {
+                            "name": "show-label",
+                            "description": "Toont de naam van de knop naast het icoon.",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-data-fullscreen",
+                    "description": "`vl-data-fullscreen` toont een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie) schermvullend, handig bij veel meetpunten of op een klein scherm. Elke figuur\ntoont deze knop standaard.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/data-visualisation-data-fullscreen--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "show-label",
+                            "description": "Toont de naam van de knop naast het icoon.",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-data-reading-guide",
+                    "description": "`vl-data-reading-guide` toont \"Hoe lees je deze grafiek?\" onder de grafiek van een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie). Leg uit wat niet\nvanzelfsprekend is, bv. wat een lijn voorstelt of wat een hoge waarde betekent.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/data-visualisation-data-reading-guide--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "De uitleg bij de grafiek, in HTML.<br>Zonder tekst wordt de component niet getoond.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-data-about",
+                    "description": "`vl-data-about` toont \"Over deze data\" onder de grafiek van een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie): de bron, de eenheid en open data, uit `meta`.\nEigen tekst in de component staat eronder.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/data-visualisation-data-about--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "Eigen uitleg over de data, bv. hoe of waar er gemeten werd.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-chart-line",
+                    "description": "`vl-chart-line` toont hoe een waarde verandert, bv. de concentratie per jaar op een aantal meetpunten: één lijn per\nreeks, met de naam en de laatste waarde aan het einde van de lijn. Zet de grafiek in een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie) voor een kop, tabel en\nuitleg.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/data-visualisation-chart-line--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "data",
+                                "description": "De data die de grafiek toont. Een object met `meta` (de bronnen, de assen en de eenheid) en `series` (per reeks een naam en de x- en y-waarden).<br>Deze property kan je enkel via JavaScript instellen, niet als attribuut.",
+                                "type": "ChartModel"
+                            }
+                        ],
+                        "events": [
+                            {
+                                "name": "vl-data-change",
+                                "description": "Afgevuurd als de toestand van de grafiek verandert: bij het laden, bij nieuwe data, als er geen data is of bij een fout.",
+                                "type": "{ status: 'loading' | 'data' | 'partial' | 'empty' | 'error' }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-chart-reference",
+                    "description": "`vl-chart-reference` tekent een referentielijn in de grafiek, bv. een norm of streefwaarde, zodat de lezer ziet of de\nmetingen erboven of eronder liggen.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/data-visualisation-chart-reference--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "value",
+                            "description": "De waarde op de waarde-as, in de eenheid van de data, bv. `0.4` voor 0,4 µT.<br>Zonder geldige waarde wordt er geen lijn getekend en verschijnt er een waarschuwing in de console.",
+                            "default": ""
+                        },
+                        {
+                            "name": "label",
+                            "description": "Beschrijft wat de waarde betekent, bv. \"Vlaamse streefwaarde\".<br>Het label wordt linksboven de lijn getoond, samen met de waarde.",
+                            "default": ""
+                        },
+                        {
+                            "name": "in-view",
+                            "description": "Verlengt de waarde-as tot de referentielijn zichtbaar is.<br>Indien niet aanwezig en de lijn ligt buiten de data, wordt ze als notitie boven de grafiek getoond, bv. \"↑ EU-referentieniveau: 100 µT\".",
+                            "default": "false"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

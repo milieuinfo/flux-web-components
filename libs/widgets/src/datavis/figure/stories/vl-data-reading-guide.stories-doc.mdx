@@ -1,0 +1,37 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDataReadingGuideStories from './vl-data-reading-guide.stories';
+
+# Data reading guide
+
+<FluxComponentMetaData id="data-visualisation-data-reading-guide" />
+
+## Doel
+
+`vl-data-reading-guide` toont "Hoe lees je deze grafiek?" onder de grafiek van een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie). Leg uit wat niet
+vanzelfsprekend is, bv. wat een lijn voorstelt of wat een hoge waarde betekent.
+
+## Voorbeeld
+
+```js
+import { VlDataReadingGuide } from '@domg-wc/widgets/datavis';
+```
+
+```html
+<vl-data-figure headline="In Gent en Antwerpen daalt de concentratie sinds 2020">
+    <vl-chart-line></vl-chart-line>
+    <vl-data-reading-guide>
+        <p>Elke lijn is een meetpunt. Hoe hoger de lijn, hoe meer stof er in de lucht zat.</p>
+    </vl-data-reading-guide>
+</vl-data-figure>
+```
+
+<Canvas of={VlDataReadingGuideStories.DataReadingGuideDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlDataReadingGuideStories.DataReadingGuideDefault} />
+
+## Gedrag
+
+- Zonder tekst wordt de component niet getoond.
+- Schrijf korte zinnen. Noem een reeks bij haar naam, niet bij haar kleur, en leg uit wat een onderbroken lijn betekent.

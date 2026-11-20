@@ -4,6 +4,7 @@ import componentsComplianceWebTypes from '../../../libs/components/src/complianc
 import componentsFormWebTypes from '../../../libs/components/src/form/form.web-types.json';
 import mapWebTypes from '../../../libs/map/map.web-types.json';
 import structuresWebTypes from '../../../libs/structures/structures.web-types.json';
+import widgetsDatavisWebTypes from '../../../libs/widgets/src/datavis/datavis.web-types.json';
 
 const extractWTNames = (webTypes: { contributions: any }): string[] =>
     webTypes.contributions.html.elements.map((element: any) => element.name);
@@ -19,3 +20,5 @@ export const extractComponentsFormWTNames = () => extractWTNames(componentsFormW
 export const extractMapWTNames = () => extractWTNames(mapWebTypes);
 
 export const extractStructuresWTNames = () => extractWTNames(structuresWebTypes);
+
+export const extractWidgetsDatavisWTNames = () => extractWTNames(widgetsDatavisWebTypes);

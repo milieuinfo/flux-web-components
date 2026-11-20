@@ -1,0 +1,94 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDataAboutStories from './vl-data-about.stories';
+
+# Data about
+
+<FluxComponentMetaData id="data-visualisation-data-about" />
+
+## Doel
+
+`vl-data-about` toont "Over deze data" onder de grafiek van een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie): de bron, de eenheid en open data, uit `meta`.
+Eigen tekst in de component staat eronder.
+
+## Voorbeeld
+
+```js
+import { VlDataAbout } from '@domg-wc/widgets/datavis';
+```
+
+```html
+<vl-data-figure headline="In Gent en Antwerpen daalt de concentratie sinds 2020">
+    <vl-chart-line></vl-chart-line>
+    <vl-data-about>
+        <p>De meetpunten staan langs drukke wegen. Ze tonen de hoogste concentraties in de stad.</p>
+    </vl-data-about>
+</vl-data-figure>
+```
+
+<Canvas of={VlDataAboutStories.DataAboutDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlDataAboutStories.DataAboutDefault} />
+
+## Varianten
+
+### Twee bronnen
+
+Met enkel een `metadataId` per bron haalt de component de titel, eigenaar en licentie uit de
+[metadatacatalogus](https://metadata.omgeving.vlaanderen.be). De bronnen zijn echte records, de cijfers fictief.
+
+<Canvas of={VlDataAboutStories.DataAboutCatalogue} />
+
+## Gedrag
+
+<table>
+    <caption>Wat "Over deze data" uit meta haalt</caption>
+    <thead>
+        <tr>
+            <th scope="col">Term</th>
+            <th scope="col">
+                Uit <code>meta</code>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Bron</td>
+            <td>
+                per bron in <code>sources</code>: de titel uit de record, met link en <code>metadataId</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Eigenaar</td>
+            <td>de eigenaar uit de record, ook onder de grafiek</td>
+        </tr>
+        <tr>
+            <td>Licentie</td>
+            <td>de licentie uit de record, met link</td>
+        </tr>
+        <tr>
+            <td>Data</td>
+            <td>
+                <code>dataHref</code>: waar de cijfers zelf staan
+            </td>
+        </tr>
+        <tr>
+            <td>Eenheid</td>
+            <td>
+                <code>y.unit</code>; de uitleg <code>y.unitInfo</code> staat naast de as
+            </td>
+        </tr>
+        <tr>
+            <td>Open data</td>
+            <td>
+                vrij toegankelijk met een open licentie; zonder record <code>isOpenData</code>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+- Bij meer bronnen krijgt elke bron een genummerde lijst. Eenheid en open data gelden voor de hele figuur; de figuur
+  is enkel open data als alle bronnen het zijn.
+- Zonder eigen `vl-data-about` voegt de figuur er een toe als een bron een `metadataId`, `license` of `dataHref` heeft.
+- De gegevens staan in een `<dl>`, zodat een schermlezer bij elke waarde de term voorleest.

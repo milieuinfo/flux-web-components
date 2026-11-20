@@ -19,6 +19,12 @@ if grep -rl --include='*.ts' --include='*.js' '@domg-wc/map' ./libs/structures; 
     exit 1
 fi
 
+# widgets mag van common, components en styles afhangen, maar geen andere library van widgets - om dezelfde reden
+if grep -rl --include='*.ts' --include='*.js' '@domg-wc/widgets' ./libs/common ./libs/components ./libs/styles ./libs/map ./libs/structures; then
+    echo "[FOUT] - build-libs - bovenstaande bestanden importeren @domg-wc/widgets; die afhankelijkheidsrichting mag niet" >&2
+    exit 1
+fi
+
 # clear build folders
 rm -rf ./build/tsc
 rm -rf ./build/dist
@@ -47,6 +53,11 @@ echo '[done] - build-libs - map'
 tsc -p ./libs/structures/tsconfig.lib.json
 node ./resources/utils-build/copy-structures-js.mjs
 echo '[done] - build-libs - structures'
+
+# widgets
+tsc -p ./libs/widgets/tsconfig.lib.json
+node ./resources/utils-build/copy-widgets-js.mjs
+echo '[done] - build-libs - widgets'
 
 # integrations
 tsc -p ./libs/integrations/tsconfig.lib.json

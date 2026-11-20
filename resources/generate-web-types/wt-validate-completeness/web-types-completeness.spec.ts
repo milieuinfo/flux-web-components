@@ -29,6 +29,12 @@ import {
     structuresWTNameCount,
     structuresWTWithoutWC,
 } from './compare-wc-wt-structures';
+import {
+    widgetsDatavisWCNameCount,
+    widgetsDatavisWCWithoutWT,
+    widgetsDatavisWTNameCount,
+    widgetsDatavisWTWithoutWC,
+} from './compare-wc-wt-widgets-datavis';
 
 describe('jest - generate-web-types - web-types-completeness', () => {
     // beforeAll(() => {
@@ -69,5 +75,11 @@ describe('jest - generate-web-types - web-types-completeness', () => {
         expect(structuresWTNameCount).toEqual(5);
         expect(structuresWCWithoutWT).toStrictEqual([]);
         expect(structuresWTWithoutWC).toStrictEqual([]);
+    });
+    it('widgets-datavis - valideer de volledigheid van de web-types', () => {
+        expect(widgetsDatavisWCNameCount).toEqual(11);
+        expect(widgetsDatavisWTNameCount).toEqual(11);
+        expect(widgetsDatavisWCWithoutWT).toStrictEqual([]);
+        expect(widgetsDatavisWTWithoutWC).toStrictEqual([]);
     });
 });

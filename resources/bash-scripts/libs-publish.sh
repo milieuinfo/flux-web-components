@@ -33,3 +33,7 @@ echo "[done] - publish - @domg-wc/map-${RELEASE_VERSION}"
 cd ../structures
 pnpm publish domg-wc-structures-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/structures-${RELEASE_VERSION}"
+
+cd ../widgets
+pnpm publish domg-wc-widgets-${RELEASE_VERSION}.tgz --no-git-checks
+echo "[done] - publish - @domg-wc/widgets-${RELEASE_VERSION}"

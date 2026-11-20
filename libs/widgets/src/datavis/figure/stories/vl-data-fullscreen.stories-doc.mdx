@@ -1,0 +1,39 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDataFullscreenStories from './vl-data-fullscreen.stories';
+
+# Data fullscreen
+
+<FluxComponentMetaData id="data-visualisation-data-fullscreen" />
+
+## Doel
+
+`vl-data-fullscreen` toont een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie) schermvullend, handig bij veel meetpunten of op een klein scherm. Elke figuur
+toont deze knop standaard.
+
+## Voorbeeld
+
+Zet de knop in een [vl-data-controls](/docs/data-visualisation-data-controls--documentatie).
+
+```js
+import { VlDataControls, VlDataFullscreen } from '@domg-wc/widgets/datavis';
+```
+
+```html
+<vl-data-figure headline="In Gent en Antwerpen daalt de concentratie sinds 2020">
+    <vl-data-controls>
+        <vl-data-fullscreen></vl-data-fullscreen>
+    </vl-data-controls>
+    <vl-chart-line></vl-chart-line>
+</vl-data-figure>
+```
+
+<Canvas of={VlDataFullscreenStories.DataFullscreenDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlDataFullscreenStories.DataFullscreenDefault} />
+
+## Gedrag
+
+- De knop heet "Grafiek vergroten", schermvullend "Grafiek verkleinen". `Escape` sluit de schermvullende weergave.
+- Werkt het niet in Storybook, open de story dan in een apart tabblad.
