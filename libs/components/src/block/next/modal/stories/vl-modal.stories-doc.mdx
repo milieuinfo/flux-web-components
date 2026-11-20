@@ -135,6 +135,13 @@ document.querySelector('vl-modal-next').addEventListener('vl-close', () => {
 
 <Canvas of={VlModalStories.modalWithFocusOnModal} />
 
+### Bevestiging met autofocus
+
+Het `autofocus` attribuut op "Verder bewerken" zorgt ervoor dat die knop de focus krijgt bij het openen, en niet de
+destructieve actie "Verwerpen". Zie [Toegankelijkheid](#toegankelijkheid).
+
+<Canvas of={VlModalStories.ModalWithAutofocus} />
+
 ## Toegankelijkheid
 
 Het triggeren van de modal moet altijd gebeuren via een knop of link. Voor screen readers is het belangrijk dat deze
@@ -155,6 +162,30 @@ Dit kan aangepast worden door het `focus-on-modal` attribuut toe te voegen aan d
 in dat geval zal de focus op de modal zelf gelegd worden bij het openen. Gebruik dit enkel indien
 het automatisch focussen op het eerste focusbare element problemen veroorzaakt, bijvoorbeeld wanneer dit meteen een
 popover triggert.
+
+Wil je dat een ander element de focus krijgt bij het openen, zet dan het native `autofocus` attribuut op dat element in
+het `content`- of `button`-slot. Gebruik dit voor de minst destructieve actie in een bevestiging, of voor het eerste
+invoerveld in een formulier. Zo voert een onbedoelde Enter geen destructieve actie uit.
+
+```html
+<vl-modal-next id="bevestiging" title-label="Wijzigingen verwerpen?" not-cancellable>
+    <span slot="content">Je niet-bewaarde wijzigingen gaan verloren.</span>
+    <vl-button slot="button" error>Verwerpen</vl-button>
+    <vl-button slot="button" secondary autofocus>Verder bewerken</vl-button>
+</vl-modal-next>
+```
+
+- Staan er meerdere elementen met `autofocus` in de modal, dan krijgt het eerste de focus. Het `content`-slot gaat voor
+  op het `button`-slot.
+- `focus-on-modal` heeft voorrang: dan krijgt de modal zelf de focus. Bij lange inhoud blijft `focus-on-modal` de betere
+  keuze, anders scrolt de modal meteen weg van de titel.
+- Een element met `disabled` wordt overgeslagen, net als een element in een geneste modal.
+- Kan het element geen focus krijgen, bijvoorbeeld omdat het verborgen is, dan krijgt de modal zelf de focus.
+- De interne "Annuleer"-link en het sluitkruis kan je niet aanduiden.
+- Een native element met `autofocus`, zoals een `<input>` of `<button>`, kan bij het laden van de pagina al de focus
+  krijgen zolang de vl-modal-next component nog niet geladen is. Laad de component dus vóór de pagina getoond wordt.
+- In React schrijf je het attribuut in kleine letters (`autofocus`). De prop `autoFocus` handelt React zelf af, en die
+  komt niet als attribuut op het element.
 
 Het is essentieel dat de modal goed gelabeld is voor gebruikers van schermlezers.
 Dit kan op twee manieren bereikt worden:

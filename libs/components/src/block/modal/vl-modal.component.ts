@@ -11,6 +11,7 @@ import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { modalStyle } from '@domg/govflanders-style/component';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { VlLinkComponent } from '../../atom/link';
+import { showModalWithInitialFocus } from '../next/modal/vl-modal.utils';
 import { vlModalFluxStyles } from './vl-modal.flux-css';
 import './vl-modal.lib.js';
 
@@ -198,6 +199,11 @@ export class VlModalComponent extends BaseHTMLElement {
             vl.modal.dress(this._dialogElement);
         }
         this._dialogElement.dataset.focusOnModal = this.hasAttribute('focus-on-modal') ? 'true' : 'false';
+    }
+
+    // Aangeroepen door vl-modal.lib.js bij elke opening, ook via een trigger.
+    _showDialog(focusOnModal: boolean) {
+        showModalWithInitialFocus(this._dialogElement, focusOnModal);
     }
 
     /**
