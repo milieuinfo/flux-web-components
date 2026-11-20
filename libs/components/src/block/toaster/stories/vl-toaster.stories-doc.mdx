@@ -166,6 +166,13 @@ De pauze bij hover en focus helpt, maar een toetsenbordgebruiker bereikt een mel
 Laat daarom foutmeldingen en meldingen met interactieve inhoud, zoals een sluitknop (`closable`) of het `actions` slot,
 nooit automatisch verdwijnen. Geef ze het `persistent` attribuut of toon ze met `{ fadeOut: false }`.
 
+### Testen met axe
+
+Een toast fadet in, en met `fade-out` ook weer uit. Scan je met axe terwijl die animatie loopt, dan meet de tool
+half doorzichtige tekst en rapporteert ze een `color-contrast`-violation die bij volle dekking niet bestaat. Wacht
+in je test tot de animatie uitgespeeld is in plaats van de regel uit te zetten, zie
+[Testen](/docs/richtlijnen-toegankelijkheid-praktijk-testen--documentatie#niet-scannen-tijdens-een-animatie).
+
 
 ## Custom CSS Properties
 

@@ -58,6 +58,26 @@ it('should be accessible', () => {
 Zonder argument scant `checkA11y()` de hele pagina; met een selector, bv. `cy.checkA11y('vl-side-sheet')`, beperk je
 de controle tot één onderdeel. Roep `checkA11y()` opnieuw aan na een interactie om ook die toestand te controleren.
 
+#### Niet scannen tijdens een animatie
+
+axe berekent contrast op de kleuren zoals ze op dat moment op het scherm staan, inclusief de `opacity` van elk
+element erboven. Scan je terwijl een component in- of uitfadet - bijvoorbeeld een melding in `vl-toaster` - dan meet
+axe half doorzichtige tekst en krijg je een `color-contrast`-violation die bij volle dekking niet bestaat. Wacht
+daarom tot de animatie uitgespeeld is:
+
+```ts
+cy.get('vl-toaster').shadow().find('vl-alert').should('have.css', 'opacity', '1');
+
+cy.checkA11y('vl-toaster');
+```
+
+Moet je een regel toch uitzetten, doe dat dan bij die ene `checkA11y()` en niet in de configuratie van de hele
+test - anders verberg je ook de contrastfouten die je wél wil zien:
+
+```ts
+cy.checkA11y('vl-toaster', { rules: { 'color-contrast': { enabled: false } } });
+```
+
 ## Keyboard-only
 
 Leg de muis weg en doorloop de volledige flow met enkel het toetsenbord.
