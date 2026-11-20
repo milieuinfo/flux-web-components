@@ -105,4 +105,8 @@ export const extractMapWCNames = () =>
 export const extractStructuresWCNames = () =>
     extractWCNames(path.resolve('../../../libs/structures/src'), ['.component.ts'], null, null);
 
+// vl-chart is de abstracte basisklasse van de grafiektypes, geen tag
+export const extractWidgetsDatavisWCNames = () =>
+    extractWCNames(path.resolve('../../../libs/widgets/src/datavis'), ['.component.ts'], null, ['vl-chart.component.ts']);
+
 // console.log('ComponentWCNames', extractComponentWCNames());
