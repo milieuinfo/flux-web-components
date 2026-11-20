@@ -32,8 +32,7 @@ export class VlTabLinkComponent extends BaseLitElement {
     selected = false;
 
     private onClick = () => {
-        // We only dispatch the click event here
-        // The navigation is handled by the browser via the anchor element, we don't want to interfere with that
+        // Navigation is left to the anchor; vl-tabs-next cancels this native click when the app refuses the tab change.
         this.dispatchEvent(
             new CustomEvent<TabLinkClickEventDetail>('vl-tab-link-click', {
                 detail: {

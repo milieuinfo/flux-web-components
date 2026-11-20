@@ -8,7 +8,7 @@ import type { TabClickEventDetail } from './vl-tabs.component';
  * Tab item dat gekoppeld kan worden aan een <vl-tab-panel-next>.
  * @property {string} panel - ID van het gekoppelde panel.
  * @property {boolean} selected - Of deze tab geselecteerd is.
- * @fires vl-tab-click - Vuurt wanneer de tab geselecteerd wordt.
+ * @fires vl-tab-click - Vuurt wanneer de tab aangeklikt wordt, ook als de wissel daarna geweigerd wordt.
  */
 @webComponent('vl-tab-next')
 export class VlTabComponent extends BaseLitElement {
@@ -57,6 +57,7 @@ export class VlTabComponent extends BaseLitElement {
     };
 
     public select() {
+        // Set selected before dispatching: vl-tabs-next then skips vl-tab-change, so a programmatic selection can't be refused.
         this.selected = true;
         this.setAttribute('aria-selected', 'true');
         this.setAttribute('tabindex', '0');
