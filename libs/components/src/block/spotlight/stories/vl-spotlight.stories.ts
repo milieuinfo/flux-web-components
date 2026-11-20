@@ -58,7 +58,7 @@ export const SpotlightWithLink = story(
     ({ external, linkLabel }: typeof spotlightArgs) => html`
         <vl-spotlight
             link="http://www.google.com"
-            link-label=${linkLabel || (external ? 'Premies voor renovatie - opent in nieuw venster' : 'Premies voor renovatie')}
+            link-label=${linkLabel || (external ? 'Premies voor renovatie - opent in nieuw venster' : '')}
             ?external=${external}
         >
             <span slot="title">Premies voor renovatie</span>
@@ -103,7 +103,7 @@ export const SpotlightWithText = () => html`
 SpotlightWithText.storyName = 'vl-spotlight - with text';
 
 export const SpotlightWithImage = () => html`
-    <vl-spotlight img-src="dak.jpg" img-alt="spotlight image">
+    <vl-spotlight img-src="dak.jpg" img-alt="Oud pannendak met verweerde dakpannen">
         <span slot="title"> Premies voor renovatie </span>
         <span slot="subtitle">Er zijn er verschillende...</span>
         <span slot="text"
@@ -123,7 +123,6 @@ export const SpotlightWithSubtitle = () => html`
             <ul class="vl-icon-list">
                 <li class="vl-icon-list__item">Waterwegen en Zeekanaal NV in Brussel</li>
                 <li class="vl-icon-list__item">Natuur en bos</li>
-                <li class="vl-icon-list__item"></li>
             </ul>
         </span>
     </vl-spotlight>
