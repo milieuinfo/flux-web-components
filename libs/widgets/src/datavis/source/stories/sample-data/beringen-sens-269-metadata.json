@@ -1,0 +1,125 @@
+{
+    "value": [
+        {
+            "@iot.id": 1,
+            "@iot.selfLink": "https://example.org/FROST-Server/v1.1/Things(1)",
+            "name": "Meetpunt Beringen",
+            "description": "Meetpunt voor ELF-metingen bij een hoogspanningsmast in Beringen.",
+            "properties": {
+                "isSampleData": true,
+                "assumed": ["name", "description"]
+            },
+            "Locations@iot.navigationLink": "https://example.org/FROST-Server/v1.1/Things(1)/Locations",
+            "Locations": [
+                {
+                    "@iot.id": 1,
+                    "@iot.selfLink": "https://example.org/FROST-Server/v1.1/Locations(1)",
+                    "name": "Beringen",
+                    "description": "Punt in de gemeente Beringen, niet de plaats van de mast.",
+                    "encodingType": "application/geo+json",
+                    "location": {
+                        "type": "Point",
+                        "coordinates": [5.2264, 51.0493]
+                    },
+                    "properties": {
+                        "assumed": ["name", "description", "location"]
+                    }
+                }
+            ],
+            "Datastreams@iot.navigationLink": "https://example.org/FROST-Server/v1.1/Things(1)/Datastreams",
+            "Datastreams": [
+                {
+                    "@iot.id": 1,
+                    "@iot.selfLink": "https://example.org/FROST-Server/v1.1/Datastreams(1)",
+                    "name": "Magnetische fluxdichtheid — SENS-269",
+                    "description": "Totale magnetische fluxdichtheid (RMS over de drie assen) van het ELF-veld.",
+                    "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Measurement",
+                    "unitOfMeasurement": {
+                        "name": "microtesla",
+                        "symbol": "µT",
+                        "definition": "http://qudt.org/vocab/unit/MicroT"
+                    },
+                    "phenomenonTime": "2025-11-26T09:00:00Z/2026-01-26T09:00:00Z",
+                    "properties": {
+                        "unitDefinition": "Een microtesla (µT) is een miljoenste tesla, de eenheid van magnetische fluxdichtheid.",
+                        "source": { "metadataId": "1fe4dff9-87b4-5646-b29a-a026025f520e" },
+                        "isOpenData": false,
+                        "license": "https://example.org/licentie",
+                        "gapThreshold": "PT5M",
+                        "assumed": [
+                            "unitOfMeasurement",
+                            "unitDefinition",
+                            "source",
+                            "isOpenData",
+                            "license",
+                            "gapThreshold"
+                        ]
+                    },
+                    "Sensor": {
+                        "@iot.id": 1,
+                        "@iot.selfLink": "https://example.org/FROST-Server/v1.1/Sensors(1)",
+                        "name": "ELF_C_0020",
+                        "description": "Sensorbox van het type elf-node.",
+                        "encodingType": "text/plain",
+                        "metadata": "elf-node",
+                        "properties": {
+                            "assumed": ["description", "encodingType"]
+                        }
+                    },
+                    "ObservedProperty": {
+                        "@iot.id": 1,
+                        "@iot.selfLink": "https://example.org/FROST-Server/v1.1/ObservedProperties(1)",
+                        "name": "Magnetische fluxdichtheid",
+                        "definition": "http://qudt.org/vocab/quantitykind/MagneticFluxDensity",
+                        "description": "Sterkte van het magnetische veld, in microtesla.",
+                        "properties": {
+                            "assumed": ["description"]
+                        }
+                    }
+                },
+                {
+                    "@iot.id": 2,
+                    "@iot.selfLink": "https://example.org/FROST-Server/v1.1/Datastreams(2)",
+                    "name": "Sensorbox actief — SENS-269",
+                    "description": "Of de sensorbox verbonden is met het platform.",
+                    "observationType": "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_TruthObservation",
+                    "unitOfMeasurement": {
+                        "name": null,
+                        "symbol": null,
+                        "definition": null
+                    },
+                    "phenomenonTime": "2025-11-26T09:00:00Z/2026-01-26T09:00:00Z",
+                    "properties": {
+                        "unitDefinition": "Waar als de sensorbox verbonden is, onwaar als de verbinding wegvalt.",
+                        "source": { "metadataId": "1fe4dff9-87b4-5646-b29a-a026025f520e" },
+                        "isOpenData": false,
+                        "license": "https://example.org/licentie",
+                        "gapThreshold": null,
+                        "assumed": ["description", "unitDefinition", "source", "isOpenData", "license"]
+                    },
+                    "Sensor": {
+                        "@iot.id": 1,
+                        "@iot.selfLink": "https://example.org/FROST-Server/v1.1/Sensors(1)",
+                        "name": "ELF_C_0020",
+                        "description": "Sensorbox van het type elf-node.",
+                        "encodingType": "text/plain",
+                        "metadata": "elf-node",
+                        "properties": {
+                            "assumed": ["description", "encodingType"]
+                        }
+                    },
+                    "ObservedProperty": {
+                        "@iot.id": 2,
+                        "@iot.selfLink": "https://example.org/FROST-Server/v1.1/ObservedProperties(2)",
+                        "name": "Sensorbox actief",
+                        "definition": "https://example.org/def/sensorbox-actief",
+                        "description": "Verbindingsstatus van de sensorbox.",
+                        "properties": {
+                            "assumed": ["name", "definition", "description"]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
