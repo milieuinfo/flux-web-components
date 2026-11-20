@@ -192,7 +192,7 @@ pipeline {
                                 }
                             }
                         }
-                        stage('component tests: common, integrations, map, structures, styles + jest + integrator-e2e') {
+                        stage('component tests: common, integrations, map, structures, styles, widgets + jest + integrator-e2e') {
                             // beforeAgent: anders wordt de pod toch opgestart voor een stage die niets doet.
                             when {
                                 beforeAgent true
@@ -247,7 +247,7 @@ pipeline {
                                 }
                             }
                         }
-                        stage('storybook-e2e tests: atom, compliance, form, map, patronen, storybook, structures, styles') {
+                        stage('storybook-e2e tests: atom, compliance, form, map, patronen, storybook, structures, styles, widgets') {
                             // beforeAgent: anders wordt de pod toch opgestart voor een stage die niets doet.
                             when {
                                 beforeAgent true
