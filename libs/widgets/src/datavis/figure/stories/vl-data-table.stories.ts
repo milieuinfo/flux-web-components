@@ -13,7 +13,7 @@ registerWebComponents([VlDataFigure, VlDataTable, VlChartLine]);
 
 export default {
     id: 'data-visualisation-data-table',
-    title: 'Data visualisation/figure/data-table',
+    title: 'Widgets - Datavis/figure/data-table',
     tags: ['autodocs'],
     args: dataTableArgs,
     argTypes: dataTableArgTypes,

@@ -16,7 +16,7 @@ registerWebComponents([VlDataFigure, VlDataControls, VlDataDownload, VlDataFulls
 
 export default {
     id: 'data-visualisation-data-controls',
-    title: 'Data visualisation/figure/data-controls',
+    title: 'Widgets - Datavis/figure/data-controls',
     tags: ['autodocs'],
     args: dataControlsArgs,
     argTypes: dataControlsArgTypes,

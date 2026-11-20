@@ -14,7 +14,7 @@ registerWebComponents([VlDataFigure, VlDataControls, VlDataFullscreen, VlChartLi
 
 export default {
     id: 'data-visualisation-data-fullscreen',
-    title: 'Data visualisation/figure/data-fullscreen',
+    title: 'Widgets - Datavis/figure/data-fullscreen',
     tags: ['autodocs'],
     args: dataFullscreenArgs,
     argTypes: dataFullscreenArgTypes,

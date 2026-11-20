@@ -13,7 +13,7 @@ registerWebComponents([VlChartLine, VlChartReference]);
 
 export default {
     id: 'data-visualisation-chart-reference',
-    title: 'Data visualisation/charts/chart-reference',
+    title: 'Widgets - Datavis/charts/chart-reference',
     tags: ['autodocs'],
     args: chartReferenceArgs,
     argTypes: chartReferenceArgTypes,

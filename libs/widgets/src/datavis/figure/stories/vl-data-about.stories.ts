@@ -14,7 +14,7 @@ registerWebComponents([VlDataFigure, VlDataAbout, VlChartLine]);
 
 export default {
     id: 'data-visualisation-data-about',
-    title: 'Data visualisation/figure/data-about',
+    title: 'Widgets - Datavis/figure/data-about',
     tags: ['autodocs'],
     args: dataAboutArgs,
     argTypes: dataAboutArgTypes,

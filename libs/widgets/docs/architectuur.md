@@ -17,7 +17,7 @@ De grafieken tekenen we met [Plotly](https://plotly.com/javascript/): hover, ass
 Plotly niet goed doet (tooltip, labels, kleuren), doen we zelf.
 
 Dit document is voor wie aan de bibliotheek werkt. Hoe je ze gebruikt, lees je in Storybook onder
-_Data visualisation/Overzicht_.
+_Widgets - Datavis/Overzicht_.
 
 ```html
 <vl-data-source src="/api/elf/sensors/ELF_L_0004" period="24h">

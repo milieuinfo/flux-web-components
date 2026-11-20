@@ -31,7 +31,7 @@ const antwerpen = buildSeries('Meetpunt Antwerpen', [15.2, 14.7, 14.9, 13.8, 13.
 
 export default {
     id: 'data-visualisation-chart-line',
-    title: 'Data visualisation/charts/chart-line',
+    title: 'Widgets - Datavis/charts/chart-line',
     tags: ['autodocs'],
     args: chartLineArgs,
     argTypes: chartLineArgTypes,

@@ -14,7 +14,7 @@ registerWebComponents([VlDataSource, VlDataPeriod, VlDataFigure, VlChartLine]);
 
 export default {
     id: 'data-visualisation-data-source',
-    title: 'Data visualisation/source/data-source',
+    title: 'Widgets - Datavis/source/data-source',
     tags: ['autodocs'],
     args: dataSourceArgs,
     argTypes: dataSourceArgTypes,

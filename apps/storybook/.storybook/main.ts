@@ -20,7 +20,7 @@ const config: StorybookConfig = {
         '../../../libs/components/src/block/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/compliance/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/form/**/*.stories.@(js|jsx|ts|tsx)',
-        // Data visualisation volgt de nesting van de tags: overzicht, source, figure, charts. Per groep staat het
+        // Widgets - Datavis volgt de nesting van de tags: overzicht, source, figure, charts. Per groep staat het
         // hoofdelement eerst.
         '../../../libs/widgets/src/datavis/*.mdx',
         '../../../libs/widgets/src/datavis/source/stories/vl-data-source.stories.@(js|jsx|ts|tsx)',

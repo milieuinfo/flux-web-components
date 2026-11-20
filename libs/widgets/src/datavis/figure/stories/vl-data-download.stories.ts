@@ -14,7 +14,7 @@ registerWebComponents([VlDataFigure, VlDataControls, VlDataDownload, VlChartLine
 
 export default {
     id: 'data-visualisation-data-download',
-    title: 'Data visualisation/figure/data-download',
+    title: 'Widgets - Datavis/figure/data-download',
     tags: ['autodocs'],
     args: dataDownloadArgs,
     argTypes: dataDownloadArgTypes,

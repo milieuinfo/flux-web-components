@@ -14,7 +14,7 @@ registerWebComponents([VlDataFigure, VlDataReadingGuide, VlChartLine]);
 
 export default {
     id: 'data-visualisation-data-reading-guide',
-    title: 'Data visualisation/figure/data-reading-guide',
+    title: 'Widgets - Datavis/figure/data-reading-guide',
     tags: ['autodocs'],
     args: dataReadingGuideArgs,
     argTypes: dataReadingGuideArgTypes,
