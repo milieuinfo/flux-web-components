@@ -29,6 +29,22 @@ import { VlAlert } from '@domg-wc/components/block';
 <ArgTypes of={VlAlertStories.AlertDefault}/>
 
 
+## Titel
+
+Zet de titel met het `title-label`-attribuut. Bij de `naked` variant kan de titel enkel via dat attribuut.
+
+<FluxAlert type="warning">
+{`
+Het standaard HTML \`title\`-attribuut wordt afgeraden: de browser toont het als native tooltip. Gebruik in plaats
+daarvan \`title-label\`. Bestaande \`title\`-waarden blijven werken - de tooltip wordt automatisch weggenomen -
+migreer naar \`title-label\`.
+`}
+</FluxAlert>
+
+Staat er een element in het `title` slot, dan krijgt dat voorrang op beide attributen. De rangorde is dus: `title`
+slot, daarna `title-label`, daarna `title`.
+
+
 ## Varianten
 
 ### Error
@@ -86,7 +102,7 @@ Een banner staat meestal al op de pagina bij het laden. Zet in dat geval `alert-
 de gebruiker niet onderbreekt met een melding die geen reactie op een actie is.
 
 ```html
-<vl-alert banner closable alert-role="no-role" size="small" type="warning" icon="warning" title="Juridische waarde">
+<vl-alert banner closable alert-role="no-role" size="small" type="warning" icon="warning" title-label="Juridische waarde">
     <span>De door deze toepassing gegenereerde informatie heeft geen juridische waarde.</span>
 </vl-alert>
 ```
@@ -164,7 +180,7 @@ onderbreekt daarmee waar de gebruiker mee bezig was.
 
 ```html
 <!-- melding die al bij het laden van de pagina zichtbaar is -->
-<vl-alert alert-role="no-role" type="info" icon="info-circle" title="Onderhoud">
+<vl-alert alert-role="no-role" type="info" icon="info-circle" title-label="Onderhoud">
     <span>Op zaterdag is dit loket beperkt beschikbaar.</span>
 </vl-alert>
 ```
@@ -197,8 +213,8 @@ alert.querySelector('vl-button')?.focus();
 
 Bij deze rol koppelt de component de titel als naam (`aria-labelledby`) en de boodschap als beschrijving
 (`aria-describedby`) aan de melding, maar enkel wanneer die effectief inhoud hebben: een verwijzing naar een leeg
-element levert immers geen naam of beschrijving op. Voorzie daarom altijd een titel via het `title` attribuut of het
-`title` slot, want zonder titel heeft de `alertdialog` geen toegankelijke naam. Een controle met axe meldt dat als
+element levert immers geen naam of beschrijving op. Voorzie daarom altijd een titel via het `title-label` attribuut of
+het `title` slot, want zonder titel heeft de `alertdialog` geen toegankelijke naam. Een controle met axe meldt dat als
 `aria-dialog-name`.
 
 <Canvas of={VlAlertStories.AlertAlertDialog}/>

@@ -54,7 +54,7 @@ describe('cypress-e2e - block components - vl-toaster - fade out per toast story
         cy.get('vl-button#button-saved').shadow().find('button').click({ force: true });
         cy.get('vl-button#button-not-saved').shadow().find('button').click({ force: true });
 
-        cy.get('vl-toaster').shadow().find('vl-alert[title="Bewaard"]').should('have.attr', 'fade-out');
-        cy.get('vl-toaster').shadow().find('vl-alert[title="Niet bewaard"]').should('have.attr', 'persistent');
+        cy.get('vl-toaster').shadow().find('vl-alert[title-label="Bewaard"]').should('have.attr', 'fade-out');
+        cy.get('vl-toaster').shadow().find('vl-alert[title-label="Niet bewaard"]').should('have.attr', 'persistent');
     });
 });

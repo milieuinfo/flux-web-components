@@ -1,7 +1,7 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { CSSResult, html, HTMLTemplateResult, PropertyDeclarations } from 'lit';
 import { VlAlert } from '../alert';
-import { VlAlertAttributes } from '../alert/vl-alert.model';
+import { VlAlertAttributes, VlAlertModel } from '../alert/vl-alert.model';
 import { toasterStyles } from './vl-toaster.css';
 import { toasterDefaults } from './vl-toaster.defaults';
 import { Placement, VlToastOptions } from './vl-toaster.model';
@@ -70,14 +70,21 @@ export class VlToasterComponent extends BaseLitElement {
 
     /**
      * Toont een vl-alert in de toaster met de opgegeven attributen.
-     * @param alert
+     * @param alert de attributen van de alert in camelCase (`titleLabel`) of met de attribuutnaam (`'title-label'`).
      * @param options `fadeOut` kiest voor deze toast of hij vanzelf verdwijnt, los van `fade-out` op de toaster.
      */
-    showAlert(alert: VlAlertAttributes, options?: VlToastOptions) {
+    showAlert(alert: VlAlertModel & VlAlertAttributes, options?: VlToastOptions) {
         const vlAlert = document.createElement('vl-alert');
-        Object.entries(alert).forEach(([key, value]) => {
+        const { title, ...settings } = alert;
+        // een key in camelCase wordt de attribuutnaam: `titleLabel` wordt `title-label`
+        const attributes: Record<string, string | boolean | undefined> = Object.fromEntries(
+            Object.entries(settings).map(([key, value]) => [key.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`), value])
+        );
+        // `title` belandt als `title-label` op de alert; staan beide er, dan wint `title-label`
+        attributes['title-label'] ||= title;
+        Object.entries(attributes).forEach(([key, value]) => {
             if (value) {
-                vlAlert.setAttribute(`${key}`, value);
+                vlAlert.setAttribute(key, `${value}`);
             }
         });
         this.showToast(vlAlert, options);

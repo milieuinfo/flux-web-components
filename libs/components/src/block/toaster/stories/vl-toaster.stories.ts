@@ -49,7 +49,7 @@ export const ToasterDefault = story<ToasterArgs>(toasterArgs, ({ placement, fade
             });
         </script>
         <template id="alert-success-template">
-            <vl-alert id="alert-success" type="success" icon="check" title="Gelukt" closable>
+            <vl-alert id="alert-success" type="success" icon="check" title-label="Gelukt" closable>
                 <p>Wij hebben uw melding goed ontvangen en nemen deze spoedig in behandeling.</p>
             </vl-alert>
         </template>
@@ -75,7 +75,7 @@ ToasterDefaultSlot.args = {
                     id="alert-default"
                     type="error"
                     icon="warning"
-                    title="Foutmelding"
+                    title-label="Foutmelding"
                     small
                 >
                     <p>Voorwaarden niet voldaan.</p>
@@ -88,7 +88,7 @@ export const ToasterShowAlert = story<ToasterArgs>(toasterArgs, ({ placement, fa
             document.querySelector('#button-technical-error')?.addEventListener('vl-click', () => {
                 const toaster = document.querySelector('#toaster-show-alert');
                 toaster.showAlert({
-                    title: 'Technische storing',
+                    titleLabel: 'Technische storing',
                     icon: 'warning',
                     type: 'warning',
                     message: 'Uw aanvraag is niet verwerkt.\\nFout code: 36981',
@@ -122,12 +122,12 @@ export const ToasterFadeOut = story<ToasterArgs>(toasterArgs, ({ placement, fade
             });
         </script>
         <template id="alert-error-template">
-            <vl-alert type="error" icon="warning" title="Error">
+            <vl-alert type="error" icon="warning" title-label="Error">
                 <p>Er is een fout opgetreden.</p>
             </vl-alert>
         </template>
         <template id="alert-loader-template">
-            <vl-alert title="Melding">
+            <vl-alert title-label="Melding">
                 <vl-loader></vl-loader>
             </vl-alert>
         </template>
@@ -155,7 +155,7 @@ export const ToasterFadeOutPerToast = story<ToasterArgs>(toasterArgs, ({ placeme
                 const toaster = document.querySelector('vl-toaster#toaster-fade-out-per-toast');
                 toaster?.showAlert(
                     {
-                        title: 'Niet bewaard',
+                        titleLabel: 'Niet bewaard',
                         icon: 'warning',
                         type: 'error',
                         message: 'Uw wijzigingen zijn niet bewaard. Probeer het later opnieuw.',
@@ -166,7 +166,7 @@ export const ToasterFadeOutPerToast = story<ToasterArgs>(toasterArgs, ({ placeme
             });
         </script>
         <template id="alert-saved-template">
-            <vl-alert fade-out type="success" icon="check" title="Bewaard">
+            <vl-alert fade-out type="success" icon="check" title-label="Bewaard">
                 <p>Uw wijzigingen zijn bewaard.</p>
             </vl-alert>
         </template>

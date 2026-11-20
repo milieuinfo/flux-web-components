@@ -71,7 +71,7 @@ const actions = !naked && hasActionsSlot ? '<div slot="actions"></div>' : '';
 export default {
     example: figma.code`<vl-alert type="${type}"${size ? ` size="${size}"` : ''}${naked ? ' naked' : ''}${
         banner ? ' banner' : ''
-    }${closable ? ' closable' : ''}${icon ? ` icon="${icon}"` : ''} title="${title}"${messageAttribute}>${content}${actions}</vl-alert>`,
+    }${closable ? ' closable' : ''}${icon ? ` icon="${icon}"` : ''} title-label="${title}"${messageAttribute}>${content}${actions}</vl-alert>`,
     id: 'vl-alert',
     metadata: { nestable: true },
 };

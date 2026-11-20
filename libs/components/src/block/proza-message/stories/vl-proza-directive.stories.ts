@@ -40,7 +40,7 @@ export const ProzaDirectiveDefault = story(prozaDirectiveArgs, () => {
                 <vl-title type="h6">Alert met proza titel (via attribuut):</vl-title>
                 <vl-alert
                     icon="warning"
-                    title=${vlProza('alert.titel')}
+                    title-label=${vlProza('alert.titel')}
                     type="warning"
                     closable
                 ></vl-alert>
@@ -49,7 +49,7 @@ export const ProzaDirectiveDefault = story(prozaDirectiveArgs, () => {
                 <vl-title type="h6">Alert met proza titel en bericht:</vl-title>
                 <vl-alert
                     icon="info-circle"
-                    title=${vlProza('alert.bericht')}
+                    title-label=${vlProza('alert.bericht')}
                     type="info"
                 ></vl-alert>
             </div>
@@ -65,14 +65,14 @@ ProzaDirectiveDefault.parameters = {
 html\`
     <vl-alert
         icon="warning"
-        title=\${vlProza('alert.titel')}
+        title-label=\${vlProza('alert.titel')}
         type="warning"
         closable
     ></vl-alert>
 
     <vl-alert
         icon="info-circle"
-        title=\${vlProza('alert.bericht')}
+        title-label=\${vlProza('alert.bericht')}
         type="info"
     ></vl-alert>
 \``,
@@ -89,7 +89,7 @@ export const ProzaDirectiveMetParameters = story(prozaDirectiveArgs, () => {
                 <vl-title type="h6">Alert met parameters:</vl-title>
                 <vl-alert
                     icon="user"
-                    title=${vlProza('welkom.titel', { parameters: { naam: 'Jan' } })}
+                    title-label=${vlProza('welkom.titel', { parameters: { naam: 'Jan' } })}
                     type="success"
                 ></vl-alert>
             </div>
@@ -103,7 +103,7 @@ ProzaDirectiveMetParameters.parameters = {
             code: `html\`
     <vl-alert
         icon="user"
-        title=\${vlProza('welkom.titel', { parameters: { naam: 'Jan' } })}
+        title-label=\${vlProza('welkom.titel', { parameters: { naam: 'Jan' } })}
         type="success"
     ></vl-alert>
 \``,
@@ -120,7 +120,7 @@ export const ProzaDirectiveDomainOverride = story(prozaDirectiveArgs, () => {
                 <vl-title type="h6">Alert met default domein:</vl-title>
                 <vl-alert
                     icon="warning"
-                    title=${vlProza('alert.titel')}
+                    title-label=${vlProza('alert.titel')}
                     type="warning"
                 ></vl-alert>
             </div>
@@ -128,7 +128,7 @@ export const ProzaDirectiveDomainOverride = story(prozaDirectiveArgs, () => {
                 <vl-title type="h6">Alert met ander domein (override):</vl-title>
                 <vl-alert
                     icon="info-circle"
-                    title=${vlProza('alert.titel', { domain: 'otherdomain' })}
+                    title-label=${vlProza('alert.titel', { domain: 'otherdomain' })}
                     type="info"
                 ></vl-alert>
             </div>
@@ -143,14 +143,14 @@ ProzaDirectiveDomainOverride.parameters = {
     <!-- Met default domein -->
     <vl-alert
         icon="warning"
-        title=\${vlProza('alert.titel')}
+        title-label=\${vlProza('alert.titel')}
         type="warning"
     ></vl-alert>
 
     <!-- Met ander domein (override) -->
     <vl-alert
         icon="info-circle"
-        title=\${vlProza('alert.titel', { domain: 'otherdomain' })}
+        title-label=\${vlProza('alert.titel', { domain: 'otherdomain' })}
         type="info"
     ></vl-alert>
 \``,
