@@ -1,0 +1,145 @@
+{
+    "data-visualisation-chart-line": {
+        "name": "chart-line",
+        "docs": "data-visualisation-chart-line--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Jest", "Component"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "data-visualisation-chart-reference": {
+        "name": "chart-reference",
+        "docs": "data-visualisation-chart-reference--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Jest", "Component"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "data-visualisation-data-figure": {
+        "name": "data-figure",
+        "docs": "data-visualisation-data-figure--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "data-visualisation-data-table": {
+        "name": "data-table",
+        "docs": "data-visualisation-data-table--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Jest", "Component"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "data-visualisation-data-controls": {
+        "name": "data-controls",
+        "docs": "data-visualisation-data-controls--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Jest", "Component"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "data-visualisation-data-download": {
+        "name": "data-download",
+        "docs": "data-visualisation-data-download--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Jest", "Component"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "data-visualisation-data-fullscreen": {
+        "name": "data-fullscreen",
+        "docs": "data-visualisation-data-fullscreen--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "data-visualisation-data-about": {
+        "name": "data-about",
+        "docs": "data-visualisation-data-about--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Jest", "Component"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "data-visualisation-data-reading-guide": {
+        "name": "data-reading-guide",
+        "docs": "data-visualisation-data-reading-guide--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "data-visualisation-data-source": {
+        "name": "data-source",
+        "docs": "data-visualisation-data-source--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Jest", "Component"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "data-visualisation-data-period": {
+        "name": "data-period",
+        "docs": "data-visualisation-data-period--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Jest", "Component"],
+            "documentation": "uitgebreid",
+            "wcag": "TODO",
+            "jiraMeta": "geen"
+        }
+    }
+}
