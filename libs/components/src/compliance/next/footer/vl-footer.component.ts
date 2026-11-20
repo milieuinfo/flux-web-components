@@ -50,10 +50,16 @@ export class VlFooter extends BaseLitElement {
 
         if (this.footerContainer) return;
 
-        (vlBody || document.body).insertAdjacentHTML(
-            'beforeend',
-            '<footer id="footer__container" style="min-height: var(--vl-footer--bar-reserved-height, 48px)"><div id="footer"></div></footer>'
-        );
+        const footerContainer = document.createElement('footer');
+        footerContainer.id = 'footer__container';
+        // via CSSOM i.p.v. een style-attribuut: dat laatste blokkeert een strikte CSP (style-src-attr)
+        footerContainer.style.minHeight = 'var(--vl-footer--bar-reserved-height, 48px)';
+
+        const footer = document.createElement('div');
+        footer.id = 'footer';
+
+        footerContainer.append(footer);
+        (vlBody || document.body).append(footerContainer);
     }
 
     // class field met pijlfunctie, geen methode !
