@@ -46,6 +46,12 @@ describe('cypress-component - compliance components - vl-cookie-consent - conten
         cy.get('vl-cookie-consent').should('have.attr', 'link', 'test-link');
     });
 
+    it('should focus the dialog itself so the text is read before the first link', () => {
+        mountDefault();
+
+        cy.get('vl-cookie-consent').shadow().find('vl-modal').shadow().find('dialog').should('have.focus');
+    });
+
     it('should emit event on close', () => {
         mountDefault();
 
