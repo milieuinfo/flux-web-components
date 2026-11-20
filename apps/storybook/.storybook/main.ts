@@ -20,6 +20,15 @@ const config: StorybookConfig = {
         '../../../libs/components/src/block/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/compliance/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/form/**/*.stories.@(js|jsx|ts|tsx)',
+        // Data visualisation volgt de nesting van de tags: overzicht, source, figure, charts. Per groep staat het
+        // hoofdelement eerst.
+        '../../../libs/widgets/src/datavis/*.mdx',
+        '../../../libs/widgets/src/datavis/source/stories/vl-data-source.stories.@(js|jsx|ts|tsx)',
+        '../../../libs/widgets/src/datavis/source/stories/!(vl-data-source).stories.@(js|jsx|ts|tsx)',
+        '../../../libs/widgets/src/datavis/figure/stories/vl-data-figure.stories.@(js|jsx|ts|tsx)',
+        '../../../libs/widgets/src/datavis/figure/stories/!(vl-data-figure).stories.@(js|jsx|ts|tsx)',
+        '../../../libs/widgets/src/datavis/chart/stories/vl-chart-line.stories.@(js|jsx|ts|tsx)',
+        '../../../libs/widgets/src/datavis/chart/stories/!(vl-chart-line).stories.@(js|jsx|ts|tsx)',
         '../../../libs/map/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/styles/src/**/*.stories.@(js|jsx|ts|tsx)',
     ],

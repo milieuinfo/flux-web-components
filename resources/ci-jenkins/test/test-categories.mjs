@@ -24,6 +24,7 @@ export const TEST_CATEGORIES = [
     'cypress-component - layout styles',
     'cypress-component - map',
     'cypress-component - structures',
+    'cypress-component - widgets',
     'cypress-e2e - atom components',
     'cypress-e2e - block components',
     'cypress-e2e - compliance components',
@@ -36,10 +37,12 @@ export const TEST_CATEGORIES = [
     'cypress-e2e - storybook',
     'cypress-e2e - structures',
     'cypress-e2e - styles',
+    'cypress-e2e - widgets',
     'jest - common',
     'jest - components',
     'jest - map',
     'jest - structures',
+    'jest - widgets',
 ];
 
 // Langste match wint: zo blijft de lijst uitbreidbaar met een categorie die met een bestaande begint.

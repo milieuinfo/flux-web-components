@@ -57,6 +57,23 @@ fi
 set -e
 cd ../..
 
+cd ./libs/widgets
+echo "run jest tests widgets"
+set +e
+jest 2> buffer-stderr.txt 1> buffer-stdout.txt
+if [[ $? -eq 0 ]]
+  then
+    echo "run jest tests widgets - success"
+  else
+    echo "run jest tests widgets - error - buffer-stderr.txt" >&2
+    cat buffer-stderr.txt >&2
+    cat buffer-stdout.txt >&2
+    set -e
+    exit 1
+fi
+set -e
+cd ../..
+
 # Er zijn geen Jest testen onder libs/integrations !
 #cd ./libs/integrations
 #echo "run jest tests integrations"

@@ -60,6 +60,12 @@
             ],
             "@domg-wc/styles": [
                 "libs/styles/src/index.ts"
+            ],
+            "@domg-wc/widgets": [
+                "libs/widgets/src/index.ts"
+            ],
+            "@domg-wc/widgets/datavis": [
+                "libs/widgets/src/datavis/index.ts"
             ]
         },
         "target": "es2021",
