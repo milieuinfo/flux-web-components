@@ -46,17 +46,76 @@ kaartlaag de projectie code van de kaart overnemen.
 </vl-map>
 ```
 
-<FluxAlert type="warning">
-{`
-    De client-side transformatie van Lambert 72 naar Lambert 2008 heeft een begrensde nauwkeurigheid van ~1m. Is cm
-    nauwkeurigheid vereist, dan is het belangrijk dat de kaart en de kaartlagen hetzelfde coördinatenstelsel gebruiken.
-`}
-</FluxAlert>
+Standaard zet de kaart Lambert 72 om naar Lambert 2008 met een 7-parameter Helmert-transformatie. Die wijkt tot
+± 33 cm af van de officiële waarde (mediaan 13 cm). Is cm nauwkeurigheid vereist, gebruik dan het attribuut `ntv2-grid`
+of zorg dat de kaart en de kaartlagen hetzelfde coördinatenstelsel gebruiken.
+
+### Nauwkeuriger omzetten met het NTv2-grid
+
+Met het opt-in attribuut `ntv2-grid` zetten de features- en WFS-kaartlagen Lambert 72 (EPSG:31370) en Lambert 2008
+(EPSG:3812) om met het officiële NTv2-correctiegrid van het NGI. De afwijking daalt dan tot ± 1 cm. Zonder het attribuut
+verandert er niets.
+
+```html
+<vl-map lambert2008 ntv2-grid>
+    <vl-map-features-layer projection-code="EPSG:31370" ...></vl-map-features-layer>
+    <vl-map-wfs-layer projection-code="EPSG:31370" ...></vl-map-wfs-layer>
+</vl-map>
+```
+
+- **Lazy laden:** het grid wordt pas opgehaald als een kaartlaag effectief tussen Lambert 72 en Lambert 2008 moet
+  omzetten, en maar één keer per pagina. Het is een download van 5,6 MB (2,3 MB gecomprimeerd) en neemt ongeveer 24 MB
+  geheugen in.
+- **Asynchroon:** zolang het grid laadt, wachten de kaartlagen die het nodig hebben. Hun features (ook die van
+  `features`, `addFeature`, `addFeatureCollection`, `addFeatures`, `setFeatures` en `clearFeatures`) verschijnen pas
+  nadat het grid geladen is of het laden mislukt is, in de volgorde waarin ze aangeleverd werden. Zo zet een kaartlaag
+  alles met dezelfde methode om. Tot dan werken `features`, `getFeature`, `boundingBox` en `zoomToExtent()` nog op de
+  vorige features. Code die de nieuwe features nodig heeft, registreert vóór het zetten een listener op het
+  `change`-event van `layer.source` (OpenLayers), zie het voorbeeld hieronder. `auto-extent` wacht vanzelf. Een
+  `vl-map-wfs-layer` maakt zijn `source` pas aan nadat het grid geladen of mislukt is. Zonder `ntv2-grid` blijft alles
+  synchroon.
+- **CDN:** het grid komt van
+  `https://cdn.omgeving.vlaanderen.be/domg/lambert-ntv2-grid/1.0.0/bd72lb72_etrs89lb08.gsb`. Gebruikt je applicatie een
+  Content Security Policy, laat dan `https://cdn.omgeving.vlaanderen.be` toe in `connect-src`.
+- **Terugval:** mislukt de download (netwerkfout, HTTP-fout, CORS, CSP, een ongeldig bestand of geen volledig antwoord
+  binnen 60 seconden), dan blijft de kaart werken met de Helmert-transformatie en verschijnt er één `console.error` met
+  de URL en de oorzaak. Er volgt geen nieuwe poging.
+  Punten buiten het gebied van het grid (2,46° tot 6,54° O en 49,45° tot 51,57° N) worden per punt met Helmert omgezet.
+- **Page-globaal:** OpenLayers houdt de transformaties bij voor de hele pagina. Zodra één kaart met `ntv2-grid` het grid
+  geladen heeft, zetten alle kaarten op de pagina Lambert 72 en Lambert 2008 via het grid om, ook kaarten zonder het
+  attribuut.
+- **Controle:** de property `lambertTransformation` van `vl-map` geeft `ntv2` zodra het grid geladen is, anders
+  `helmert`.
+
+```typescript
+const map = document.querySelector<VlMap>('#my-map');
+console.log(map.lambertTransformation); // 'ntv2' of 'helmert'
+```
+
+Code die een feature nodig heeft nadat je de features gezet hebt, registreert vóór het zetten een listener op het
+`change`-event van de source en meldt die af zodra de feature er is. Zo werkt ze, of het grid nu nog laadt of niet:
+
+```typescript
+const layer = document.querySelector<VlMapFeaturesLayer>('#my-layer');
+const onChange = () => {
+    const feature = layer.getFeature(42);
+    if (feature) {
+        layer.source.un('change', onChange);
+        // de feature staat op de kaart
+    }
+};
+layer.source.on('change', onChange);
+layer.features = featureCollection;
+```
+
+Het grid (`bd72lb72_etrs89lb08.gsb`) valt onder de licentie
+[Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/): (c)2014-2016 Grid created by Nicolas
+SIMON.
 
 ### Intekenen op een Lambert 2008 kaart
 
 Om in te tekenen op een Lambert 2008 kaart moet een Lambert 2008 kaartlaag gebruikt worden, omwille van de
-beschikbare nauwkeurigheid van ~1m van de Lambert 72 naar Lambert 2008 transformatie.
+nauwkeurigheid van de Lambert 72 naar Lambert 2008 transformatie (tot ± 33 cm met Helmert, ± 1 cm met `ntv2-grid`).
 
 Vereist je project Lambert 72 coördinaten bij het intekenen, dan wordt het upgraden naar de Lambert 2008 kaart
 beter uitgesteld tot wanneer het project ook Lambert 2008 data ondersteunt. De regel hierbij is dat het
