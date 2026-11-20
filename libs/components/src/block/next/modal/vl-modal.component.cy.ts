@@ -2,9 +2,10 @@ import { registerWebComponents } from '@domg-wc/common';
 import { html, TemplateResult } from 'lit';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlIconComponent } from '../../../atom/icon';
+import { VlLinkComponent } from '../../../atom/link';
 import { VlModalComponent } from './vl-modal.component';
 
-registerWebComponents([VlModalComponent, VlButtonComponent, VlIconComponent]);
+registerWebComponents([VlModalComponent, VlButtonComponent, VlIconComponent, VlLinkComponent]);
 
 const renderOpenButton = () => html`<vl-button modal-open="modal-vt" data-cy="button-modal-toggle"> Open </vl-button>`;
 
@@ -72,8 +73,12 @@ const checkDialogClass = (className: string) => {
     getDialog().should('have.class', className);
 };
 
+const getCancelButton = () => {
+    return cy.getDataCy('modal').shadow().find('#modal-toggle-cancellable');
+};
+
 const closeWithCancelButton = () => {
-    cy.getDataCy('modal').shadow().find('#modal-toggle-cancellable').click();
+    getCancelButton().click();
 };
 
 const closeWithCloseButton = () => {
@@ -172,6 +177,16 @@ describe('cypress-component - block components - vl-modal-next', () => {
         cy.injectAxe();
 
         isDialogVisible();
+    });
+
+    it('should render the cancel action as a secondary button without an icon', () => {
+        cy.mount(renderModal({ open: true }));
+        cy.injectAxe();
+
+        getCancelButton().should('match', 'vl-button[secondary][modal-close]').and('have.text', 'Annuleren');
+        getCancelButton().shadow().find('button').should('have.class', 'secondary');
+        getCancelButton().shadow().find('.vl-icon').should('not.exist');
+        cy.checkA11y('vl-modal-next');
     });
 
     it('should be able to close the modal by using the cancel button', () => {
@@ -985,15 +1000,15 @@ describe('cypress-component - block components - vl-modal-next - api', () => {
         cy.getDataCy('modal').shadow().find('#close').should('not.exist');
     });
 
-    it('should add and remove the cancel link when not-cancellable changes after the first render', () => {
+    it('should add and remove the cancel button when not-cancellable changes after the first render', () => {
         cy.mount(renderModal({ open: true }));
         isDialogVisible();
 
-        cy.getDataCy('modal').shadow().find('#modal-toggle-cancellable').should('exist');
+        getCancelButton().should('exist');
         cy.getDataCy('modal').invoke('attr', 'not-cancellable', '');
-        cy.getDataCy('modal').shadow().find('#modal-toggle-cancellable').should('not.exist');
+        getCancelButton().should('not.exist');
         cy.getDataCy('modal').invoke('removeAttr', 'not-cancellable');
-        cy.getDataCy('modal').shadow().find('#modal-toggle-cancellable').should('exist');
+        getCancelButton().should('exist');
     });
 
     it('should switch between aria-labelledby and aria-label when title and label change after the first render', () => {
