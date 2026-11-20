@@ -17,6 +17,7 @@ export const alertArgs = {
     banner: false,
     multiline: false,
     title: '',
+    titleLabel: '',
     icon: '',
     size: '',
     type: '',
@@ -69,10 +70,22 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
             defaultValue: { summary: String(alertArgs.multiline) },
         },
     },
+    titleLabel: {
+        name: 'title-label',
+        description:
+            'Titel van de waarschuwing.<br>Bij de naked variant mag de titel alleen met dit attribuut meegegeven worden.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: alertArgs.titleLabel },
+        },
+    },
     title: {
         name: 'title',
         description:
-            'Titel van de waarschuwing.<br>Bij de naked variant mag de titel alleen met dit attribuut meegegeven worden.',
+            '**Deprecated** - gebruik `title-label`. Het standaard HTML `title`-attribuut toont een ongewenste' +
+            ' native browser-tooltip. Bestaande `title`-waarden blijven werken (de tooltip wordt weggenomen), maar' +
+            ' migreer best naar `title-label`.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -142,7 +155,8 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
     },
     titleSlot: {
         name: 'title',
-        description: 'Element dat als titel van het alert getoond wordt.',
+        description:
+            'Element dat als titel van het alert getoond wordt.<br>Krijgt voorrang op het `title-label` attribuut.',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,

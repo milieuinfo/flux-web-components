@@ -39,7 +39,9 @@ export class VlAlertClosedEvent extends Event {
 
 export interface VlAlertModel {
     icon?: string;
+    /** @deprecated Gebruik `titleLabel`: het standaard HTML `title`-attribuut toont een native browser-tooltip. */
     title?: string;
+    titleLabel?: string;
     type?: 'info' | 'success' | 'warning' | 'error';
     size?: string;
     message?: string;
@@ -53,6 +55,7 @@ export interface VlAlertModel {
 /**
  * De instellingen van een alert met de attribuutnaam als key, zoals de documentatie ze noemt.
  */
-export interface VlAlertAttributes extends Omit<VlAlertModel, 'alertRole'> {
+export interface VlAlertAttributes extends Omit<VlAlertModel, 'alertRole' | 'titleLabel'> {
     'alert-role'?: ALERT_ROLE;
+    'title-label'?: string;
 }
