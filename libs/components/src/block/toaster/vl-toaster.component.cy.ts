@@ -1,10 +1,35 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlButtonComponent } from '@domg-wc/components/atom';
+import { VlButtonComponent, VlLinkComponent } from '@domg-wc/components/atom';
 import { html } from 'lit';
 import { ALERT_ROLE, VlAlert } from '../alert';
 import { VlToasterComponent } from './vl-toaster.component';
 
-registerWebComponents([VlToasterComponent, VlButtonComponent, VlAlert]);
+registerWebComponents([VlToasterComponent, VlButtonComponent, VlAlert, VlLinkComponent]);
+
+const alertTypes = ['info', 'success', 'warning', 'error'] as const;
+
+const emulateReducedMotion = (reduce: boolean) =>
+    Cypress.automation('remote:debugger:protocol', {
+        command: 'Emulation.setEmulatedMedia',
+        params: { features: reduce ? [{ name: 'prefers-reduced-motion', value: 'reduce' }] : [] },
+    });
+
+const mountToastWithLinks = (type: string) =>
+    cy.mount(html`
+        <main>
+            <vl-alert type=${type} title="Melding verstuurd">
+                <p>
+                    Ga naar <a href="/loket/indienen">indienen</a> of volg uw dossier op via
+                    <vl-link href="/loket/opvolgen">mijn dossiers</vl-link>.
+                </p>
+            </vl-alert>
+            <vl-toaster></vl-toaster>
+        </main>
+    `);
+
+// show() met een element verplaatst de melding naar de toaster, zodat ze niet twee keer in de DOM staat
+const showToastWithLinks = () =>
+    cy.get('vl-alert').then(($alert) => cy.get('vl-toaster').then(($toaster) => $toaster[0].show($alert[0])));
 
 // :hover reageert enkel op echte browser-input; via het Chrome DevTools Protocol beweegt de muis echt.
 const realMouseMove = (x: number, y: number) => {
@@ -79,6 +104,21 @@ describe('cypress-component - block components - vl-toaster', () => {
         cy.injectAxe();
 
         cy.checkA11y('vl-toaster');
+    });
+
+    alertTypes.forEach((type) => {
+        it(`should be accessible with links in the message - case: ${type}`, () => {
+            mountToastWithLinks(type);
+            cy.injectAxe();
+
+            showToastWithLinks();
+
+            // axe meet de kleuren zoals ze op dat moment op het scherm staan: tijdens de fade is de toast half
+            // doorzichtig en haalt geen enkele tekst de contrastdrempel, dus pas scannen na de animatie
+            cy.get('vl-toaster').shadow().find('vl-alert').should('have.css', 'opacity', '1');
+
+            cy.checkA11y('vl-toaster');
+        });
     });
 
     it('should set top right by default', () => {
@@ -505,5 +545,36 @@ describe('cypress-component - block components - vl-toaster - fade out', () => {
         });
 
         getToast('vl-alert', { timeout: 6000 }).should('not.exist');
+    });
+});
+
+describe('cypress-component - block components - vl-toaster - reduced motion', () => {
+    // hover pauzeert het verdwijnen: de muis mag niet van een vorige test boven de toaster blijven staan
+    beforeEach(() => realMouseLeave());
+
+    afterEach(() => {
+        cy.then(() => emulateReducedMotion(false));
+    });
+
+    it('should show the toast without fading in and still remove it afterwards', () => {
+        cy.then(() => emulateReducedMotion(true));
+        cy.mount(html` <vl-toaster fade-out></vl-toaster> `);
+
+        cy.get('vl-toaster').then(($toaster) =>
+            $toaster[0].showAlert({
+                title: 'Gelukt',
+                message: 'Wij hebben uw melding goed ontvangen en nemen deze spoedig in behandeling.',
+                type: 'success',
+            })
+        );
+
+        // enkel de fade-out blijft over: zonder die animatie zou de toast nooit meer verwijderd worden
+        cy.get('vl-toaster')
+            .shadow()
+            .find('vl-alert')
+            .shouldHaveComputedStyle({ style: 'animation-name', value: 'none, fade-out' });
+
+        cy.wait(5000);
+        cy.get('vl-toaster').shadow().find('vl-alert').should('not.exist');
     });
 });

@@ -84,6 +84,18 @@ export const toasterStyles = css`
         animation-play-state: running, paused;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+        :host output > * {
+            animation-name: none;
+        }
+
+        /* de fade-out blijft wel staan: de toast verwijdert zichzelf op het animationend-event van die animatie */
+        :host([fade-out]) output > :not([persistent]),
+        :host output > [fade-out]:not([persistent]) {
+            animation-name: none, fade-out;
+        }
+    }
+
     @keyframes fade-in {
         from {
             opacity: 0;
