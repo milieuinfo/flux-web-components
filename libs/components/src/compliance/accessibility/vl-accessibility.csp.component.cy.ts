@@ -11,18 +11,19 @@ describe('cypress-component - compliance components - vl-accessibility - strict 
         Object.values(EVALUATION_STATUS).forEach((evaluation) => {
             const fullyCompliant = compliance === COMPLIANCE_STATUS.FULLY_COMPLIANT;
             const title =
-                `should ${fullyCompliant ? 'hide' : 'show'} the inaccessible content without CSP violations ` +
+                `should ${fullyCompliant ? 'not render' : 'show'} the inaccessible content without CSP violations ` +
                 `for ${compliance} and ${evaluation}`;
 
             it(title, () => {
                 const cspWatcher = watchStyleAttributeCspViolations();
                 cy.mount(html`<vl-accessibility compliance=${compliance} evaluation=${evaluation}></vl-accessibility>`);
 
+                // eerst een kop die er altijd is: anders slaagt 'not.exist' ook vóór de eerste render
+                cy.get('vl-accessibility').shadow().find('vl-title#compliance-status').should('be.visible');
                 cy.get('vl-accessibility')
                     .shadow()
                     .find('vl-title#inaccessible-content')
-                    .parent()
-                    .should(fullyCompliant ? 'not.be.visible' : 'be.visible');
+                    .should(fullyCompliant ? 'not.exist' : 'be.visible');
 
                 cy.then(() => cspWatcher.stop()).should('deep.equal', []);
             });

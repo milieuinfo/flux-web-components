@@ -1,5 +1,5 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
-import { vlGroupStyles, vlLayoutStyles, vlLegacyStyles, vlMarginStyles, vlResetStyles } from '@domg-wc/styles';
+import { vlLayoutStyles, vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, type PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlTitleComponent } from '../../atom';
@@ -8,7 +8,6 @@ import { VlFunctionalHeaderComponent } from '../../block/functional-header';
 import { VlSideNavigationLayoutComponent } from '../../block/next/side-navigation';
 import { content, contentElements } from './child/content.component';
 import { header, headerElements } from './child/header.component';
-import { sideNavigation } from './child/side-navigation.component';
 import { title, titleElements } from './child/title.component';
 import { AccessibilityProperties, COMPLIANCE_STATUS, EVALUATION_STATUS, Limitations } from './vl-accessibility.model';
 
