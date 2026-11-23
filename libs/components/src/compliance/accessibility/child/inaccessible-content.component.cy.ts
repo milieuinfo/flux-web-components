@@ -1,4 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { COMPLIANCE_STATUS, EVALUATION_STATUS } from '../vl-accessibility.model';
 import {
     type InaccessibleContentProps,
@@ -6,7 +7,7 @@ import {
     inaccessibleContentElements,
 } from './inaccessible-content.component';
 
-const mountDefault = (props: InaccessibleContentProps) => cy.mount(inaccessibleContent(props));
+const mountDefault = (props: InaccessibleContentProps) => cy.mount(html`${inaccessibleContent(props)}`);
 
 registerWebComponents(inaccessibleContentElements());
 const baseProps: InaccessibleContentProps = {
@@ -50,34 +51,25 @@ describe('cypress-component - compliance components - accessibility inaccessible
         cy.contains('De niet-toegankelijke inhoud is onbekend omdat de website niet is getest.');
     });
 
-    it('should render the FULLY_COMPLIANT message when compliance == FULLY_COMPLIANT', () => {
-        mountDefault({ ...baseProps, compliance: COMPLIANCE_STATUS.FULLY_COMPLIANT });
+    it('should not render content for FULLY_COMPLIANT websites', () => {
+        cy.mount(
+            html`<div id="mounted">
+                ${inaccessibleContent({ ...baseProps, compliance: COMPLIANCE_STATUS.FULLY_COMPLIANT })}
+            </div>`
+        );
 
-        cy.contains('Er is geen niet-toegankelijke inhoud omdat de website volledig toegankelijk is.');
+        cy.get('#mounted').should('exist').children().should('have.length', 0);
     });
 
-    it('should hide content for FULLY_COMPLIANT websites', () => {
-        mountDefault({
-            ...baseProps,
-            compliance: COMPLIANCE_STATUS.FULLY_COMPLIANT,
-            evaluation: EVALUATION_STATUS.EXPERT_EVALUATED,
+    Object.values(COMPLIANCE_STATUS)
+        .filter((compliance) => compliance !== COMPLIANCE_STATUS.FULLY_COMPLIANT)
+        .forEach((compliance) => {
+            it(`should show content without a style attribute for ${compliance} websites`, () => {
+                mountDefault({ ...baseProps, compliance });
+
+                cy.get('#inaccessible-content').parent().should('be.visible').should('not.have.attr', 'style');
+            });
         });
-        cy.get('#inaccessible-content').parent().should('have.css', 'display', 'none').should('have.attr', 'hidden');
-    });
-
-    it('should show content for websites that are not FULLY_COMPLIANT', () => {
-        mountDefault(baseProps);
-
-        cy.get('#inaccessible-content').parent().should('be.visible').should('not.have.attr', 'hidden');
-    });
-
-    Object.values(COMPLIANCE_STATUS).forEach((compliance) => {
-        it(`should not use a style attribute for ${compliance} websites`, () => {
-            mountDefault({ ...baseProps, compliance });
-
-            cy.get('#inaccessible-content').parent().should('not.have.attr', 'style');
-        });
-    });
 });
 
 describe('cypress-component - compliance components - accessibility inaccessible-content - LIMITATIONS messages', () => {
