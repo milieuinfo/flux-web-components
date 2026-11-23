@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { VlTitleComponent } from '../../../atom';
 import { VlTypography } from '../../../block/typography';
 import { AccessibilityProperties } from '../vl-accessibility.model';
@@ -8,12 +8,12 @@ export type InaccessibleContentProps = Pick<AccessibilityProperties, 'compliance
 export const inaccessibleContentElements = () => [VlTypography, VlTitleComponent];
 
 export const inaccessibleContent = ({ compliance, evaluation, limitations }: InaccessibleContentProps) => {
+    // niet renderen i.p.v. verbergen: de inhoudstafel van vl-accessibility linkt ook naar een verborgen kop
+    if (compliance === 'FULLY_COMPLIANT') return nothing;
+
     const inaccessibleContentTemplate = () => {
         if (evaluation === 'NOT_EVALUATED') {
             return html`De niet-toegankelijke inhoud is onbekend omdat de website niet is getest.`;
-        }
-        if (compliance === 'FULLY_COMPLIANT') {
-            return html`Er is geen niet-toegankelijke inhoud omdat de website volledig toegankelijk is.`;
         }
         return html`
             <vl-typography>
@@ -41,7 +41,7 @@ export const inaccessibleContent = ({ compliance, evaluation, limitations }: Ina
             </vl-typography>
         `;
     };
-    return html` <div ?hidden=${compliance === 'FULLY_COMPLIANT'} class="vl-column vl-column--12 vl-column--m-12">
+    return html` <div class="vl-column vl-column--12 vl-column--m-12">
         <vl-title type="h2" id="inaccessible-content">Niet-toegankelijke inhoud</vl-title>
         ${inaccessibleContentTemplate()}
     </div>`;

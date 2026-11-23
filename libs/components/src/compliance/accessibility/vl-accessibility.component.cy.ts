@@ -173,6 +173,28 @@ describe('cypress-component - compliance components - vl-accessibility - header 
     });
 });
 
+describe('cypress-component - compliance components - vl-accessibility - table of contents', () => {
+    const getTableOfContents = () =>
+        cy.get('vl-accessibility').shadow().find('vl-side-navigation-next').shadow().find('nav');
+
+    it('should link to the inaccessible content when the website is not FULLY_COMPLIANT', () => {
+        mountDefault(defaultProps);
+
+        getTableOfContents().find('a[href="#compliance-status"]').should('exist');
+        getTableOfContents().find('a[href="#inaccessible-content"]').should('exist');
+        cy.get('vl-accessibility').shadow().find('vl-title#inaccessible-content').should('be.visible');
+    });
+
+    it('should not link to the inaccessible content when the website is FULLY_COMPLIANT', () => {
+        mountDefault({ ...defaultProps, compliance: 'FULLY_COMPLIANT' });
+
+        // eerst een link die er altijd is: anders slaagt 'not.exist' ook vóór de inhoudstafel opgebouwd is
+        getTableOfContents().find('a[href="#compliance-status"]').should('exist');
+        getTableOfContents().find('a[href="#inaccessible-content"]').should('not.exist');
+        cy.get('vl-accessibility').shadow().find('vl-title#inaccessible-content').should('not.exist');
+    });
+});
+
 describe('cypress-component - compliance components - vl-accessibility - skip-link', () => {
     it('should move focus to the main heading inside vl-title when the skip-link is activated', () => {
         mountDefault(defaultProps);
