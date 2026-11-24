@@ -1,7 +1,7 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlIconComponent } from '@domg-wc/components/atom';
 import { CSSResult, html, TemplateResult } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { when } from 'lit/directives/when.js';
 import { vlTabFluxStyles } from './vl-tab.flux-css';
@@ -14,7 +14,7 @@ registerWebComponents([VlIconComponent]);
  * @property {string} href - Doel-URL van de link.
  * @property {boolean} external - Open de link in een nieuw venster.
  * @property {boolean} selected - Of deze tab link geselecteerd is.
- * @fires vl-tab-link-click - Vuurt wanneer de link aangeklikt wordt.
+ * @fires vl-tab-link-click - Vuurt bij een klik of Enter op de link en bij select(), ook als de wissel geweigerd wordt.
  */
 @webComponent('vl-tab-link-next')
 export class VlTabLinkComponent extends BaseLitElement {
@@ -31,9 +31,24 @@ export class VlTabLinkComponent extends BaseLitElement {
     @property({ type: Boolean, reflect: true, attribute: 'selected' })
     selected = false;
 
+    @query('a')
+    private anchor?: HTMLAnchorElement;
+
+    /**
+     * Selecteert de tab link en volgt de link zoals bij een klik van de gebruiker.
+     * Vuurt geen `vl-tab-change`, en is zo de manier om een geweigerde wissel na een bevestiging uit te voeren.
+     */
+    public select(): void {
+        // Selected before the click, as in VlTabComponent.select(): vl-tabs-next then dispatches no vl-tab-change.
+        this.selected = true;
+        // A link that was just added has no <a> yet, and a new href is only on the <a> after the render.
+        this.updateComplete.then(() => this.anchor?.click());
+    }
+
     private onClick = () => {
         // We only dispatch the click event here
-        // The navigation is handled by the browser via the anchor element, we don't want to interfere with that
+        // The navigation is handled by the browser via the anchor element,
+        // unless vl-tabs-next cancels this native click because vl-tab-change is refused
         this.dispatchEvent(
             new CustomEvent<TabLinkClickEventDetail>('vl-tab-link-click', {
                 detail: {
