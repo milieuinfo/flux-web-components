@@ -42,12 +42,20 @@ export const vlTitleStyles: CSSResult[] = [
         .h6 {
             ${vlHeading6}
         }
+
+        /* als anoniem flex item zou de tekst nooit smaller worden dan zijn langste woord */
+        .vl-title__text {
+            min-width: 0;
+        }
     `,
+    // overflow-wrap: break-word en niet anywhere: dat laat de min-content ongemoeid, zodat de titel in een krappe
+    // flex-rij op desktop minstens zo breed blijft als zijn langste woord.
     ...headingList.map(
         (heading) => css`
             h${heading}, .h${heading} {
                 display: flex;
                 align-items: center;
+                overflow-wrap: break-word;
             }
 
             h${heading}.alt, .h${heading}.alt {

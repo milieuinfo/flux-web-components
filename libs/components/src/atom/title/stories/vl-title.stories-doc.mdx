@@ -69,8 +69,40 @@ Op een klein scherm loopt een titel nooit over de rand (WCAG 1.4.10). Heeft de p
 `<html lang="nl">`) en kent de browser die, dan kan een lang woord aan het einde van een regel met een koppelteken
 afgebroken worden, bv. "Toegankelijkheids-verklaring". In Chrome, Edge en Firefox komen daarvoor enkel woorden van
 minstens 12 letters in aanmerking, zodat gewone woorden heel blijven; Safari ondersteunt die grens (nog) niet en
-gebruikt zijn eigen. Een woord dat nergens op een regel past, breekt altijd af, desnoods zonder koppelteken. Op
-grotere schermen blijft een woord heel.
+gebruikt zijn eigen. Een woord dat nergens op een regel past, breekt altijd af, desnoods zonder koppelteken.
+
+Op grotere schermen blijft een gewoon woord heel. Enkel een woord dat op geen enkele regel past, zoals een lange code of
+bestandsnaam zonder spaties, breekt af zonder koppelteken. Staat de titel zelf in een flex-rij, bv. naast een knop, dan
+blijft hij minstens zo breed als zijn langste woord. Mag de titel in die rij toch krimpen en een te lang woord afbreken,
+zet dan `min-width: 0` op `vl-title`.
+
+```css
+vl-title {
+    min-width: 0;
+}
+```
+
+Zet je naast de tekst nog een element in de titel, zoals een icoon, een pill of een link, dan staat het mee in de
+tekstregel, zoals in een gewone zin. Een spatie tussen de tekst en het element blijft dus zichtbaar, en een icoon lijnt
+uit op het midden van de kleine letters, wat enkele pixels lager is dan het midden van de regel. Wil je een icoon los
+van de tekstregel uitlijnen, zet het dan niet in de titel maar ernaast, samen met de titel in een `vl-group`. Met de
+modifiers van `vl-group` kies je de witruimte en de uitlijning, bv. `vl-group--baseline` om het icoon op de eerste regel
+van de titel te zetten. Het icoon neemt dan niet meer de tekstgrootte van de titel over, maar die van zijn omgeving. De
+titel staat in die `vl-group` in een flex-rij: zet er ook hier `min-width: 0` op, zodat een woord zonder spaties
+afbreekt.
+
+```html
+<div class="vl-group vl-group--baseline">
+    <vl-icon icon="calendar"></vl-icon>
+    <vl-title type="h2">Dossier</vl-title>
+</div>
+```
+
+```css
+vl-title {
+    min-width: 0;
+}
+```
 
 
 ## Referenties
