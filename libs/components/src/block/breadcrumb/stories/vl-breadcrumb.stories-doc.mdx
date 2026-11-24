@@ -57,7 +57,8 @@ gewone links of knoppen.
 Houd de tekst van een breadcrumb item kort. Komt de tekst uit data, en heb je de lengte dus niet in de hand, dan kan
 het `ellipsis` attribuut helpen.
 
-Standaard loopt een lang breadcrumb item door over meerdere regels. Is de ruimte beperkt, bijvoorbeeld in een
+Standaard loopt een lang breadcrumb item door over meerdere regels. Een woord zonder spaties dat op geen enkele regel
+past, bijvoorbeeld een code of een bestandsnaam, breekt daarbij af. Is de ruimte beperkt, bijvoorbeeld in een
 `side-sheet`, dan houdt `ellipsis` elk breadcrumb item op één regel: een breadcrumb item dat niet past, begint op een
 nieuwe regel en wordt pas afgekapt met een ellipsis (…) als het ook daar te breed is.
 
@@ -72,3 +73,8 @@ De afgekapte tekst blijft volledig beschikbaar voor schermlezers, maar is visuee
 ```
 
 <Canvas of={VlBreadcrumbStories.BreadcrumbEllipsis} />
+
+Staat de breadcrumb zonder `ellipsis` naast inhoud die de ruimte vult, bv. naast een lange tekst in een `vl-group`, dan
+kan een breadcrumb item smaller worden dan zijn langste woord en breekt ook een gewoon woord af. Wil je dat elk
+breadcrumb item op één regel blijft zonder af te kappen, zet dan `white-space: nowrap` op `vl-breadcrumb`. Doe dat enkel
+bij een korte breadcrumb: een breadcrumb item dat breder is dan de beschikbare ruimte, loopt dan over de rand.

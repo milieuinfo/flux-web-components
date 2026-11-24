@@ -846,3 +846,44 @@ describe('cypress-component - form components - vl-checkbox - blur-validation', 
         cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
     });
 });
+
+describe('cypress-component - form components - vl-checkbox - long word without spaces', () => {
+    const longWord = 'een.heel.lange.code.zonder.spaties.die.niet.afbreekt';
+
+    const shouldWrapLabelWithinContainer = () => {
+        cy.get('vl-checkbox')
+            .shadow()
+            .find('.vl-checkbox__label')
+            .should(([label]) => {
+                const containerRight = cy.$$('#container')[0].getBoundingClientRect().right;
+                const text = label.querySelector<HTMLElement>(':scope > span:last-of-type')!;
+                expect(label.scrollWidth).to.be.at.most(label.clientWidth);
+                expect(label.getBoundingClientRect().right).to.be.at.most(containerRight);
+                expect(text.getBoundingClientRect().right).to.be.at.most(containerRight);
+            });
+    };
+
+    beforeEach(() => {
+        cy.viewport(1280, 800);
+    });
+
+    it('should wrap a long word in the label instead of overflowing', () => {
+        cy.mount(html`
+            <div id="container" style="width: 300px">
+                <vl-checkbox value=${value}>${longWord}</vl-checkbox>
+            </div>
+        `);
+
+        shouldWrapLabelWithinContainer();
+    });
+
+    it('should wrap a long word in the label of a switch instead of overflowing', () => {
+        cy.mount(html`
+            <div id="container" style="width: 300px">
+                <vl-checkbox value=${value} switch>${longWord}</vl-checkbox>
+            </div>
+        `);
+
+        shouldWrapLabelWithinContainer();
+    });
+});

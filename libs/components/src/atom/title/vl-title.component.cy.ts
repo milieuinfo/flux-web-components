@@ -148,4 +148,69 @@ describe('cypress-component - atom components - vl-title', () => {
                 expect(heading.getBoundingClientRect().height).to.be.lessThan(lineHeight * 1.5);
             });
     });
+
+    it('should wrap a word that does not fit on a line instead of overflowing on a desktop screen', () => {
+        cy.viewport(1280, 800);
+        cy.mount(html`
+            <div id="container" style="width: 300px">
+                ${headingTypes.map((type) => html`<vl-title type=${type}>${longWord}</vl-title>`)}
+            </div>
+        `);
+
+        headingTypes.forEach((type) => {
+            cy.get(`vl-title[type="${type}"]`)
+                .shadow()
+                .find(type)
+                .should('not.have.css', 'hyphens', 'auto')
+                .should(([heading]) => {
+                    expect(heading.scrollWidth).to.be.at.most(heading.clientWidth);
+                    expect(heading.getBoundingClientRect().right).to.be.at.most(getContainerRight());
+                });
+        });
+    });
+
+    it('should wrap a word that does not fit on a line in a flex row when the title may shrink', () => {
+        cy.viewport(1280, 800);
+        cy.mount(html`
+            <div id="container" style="display: flex; width: 300px">
+                <vl-title type="h2" style="min-width: 0">${longWord}</vl-title>
+            </div>
+        `);
+
+        cy.get('vl-title')
+            .shadow()
+            .find('h2')
+            .should(([heading]) => {
+                expect(heading.scrollWidth).to.be.at.most(heading.clientWidth);
+                expect(heading.getBoundingClientRect().right).to.be.at.most(getContainerRight());
+            });
+    });
+
+    it('should lay out elements next to the text in the text line', () => {
+        cy.viewport(1280, 800);
+        cy.mount(html`
+            <vl-title type="h2">
+                <span id="low" style=${boxStyle(10)}></span> <span id="high" style=${boxStyle(30)}></span>
+            </vl-title>
+        `);
+
+        // Twee blokjes van verschillende hoogte staan op dezelfde basislijn, met de spatie ertussen.
+        cy.get('vl-title').should(() => {
+            const low = getRect('#low');
+            const high = getRect('#high');
+
+            expect(high.bottom).to.be.closeTo(low.bottom, 0.5);
+            expect(high.left - low.right).to.be.greaterThan(1);
+        });
+    });
 });
+
+const headingTypes = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+
+const longWord = 'een.heel.lange.code.zonder.spaties.die.niet.afbreekt';
+
+const getContainerRight = () => cy.$$('#container')[0].getBoundingClientRect().right;
+
+const getRect = (selector: string) => cy.$$(selector)[0].getBoundingClientRect();
+
+const boxStyle = (height: number) => `display: inline-block; width: 10px; height: ${height}px`;

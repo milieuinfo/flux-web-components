@@ -27,6 +27,12 @@ import { VlCheckboxComponent } from '@domg-wc/components/form';
 
 <Canvas of={VlCheckboxStories.CheckboxDefault} />
 
+Een woord in het label dat niet op een regel past, zoals een code of een bestandsnaam zonder spaties, breekt af zonder
+koppelteken, ook bij een `switch`. Staat de checkbox naast inhoud die de ruimte vult, bv. naast een lange tekst in een
+`vl-group` of in een tabelrij, dan kan het label smaller worden dan zijn langste woord, tot één letter per regel. Wil je
+dat het label op één regel blijft, zet dan `white-space: nowrap` op `vl-checkbox`. Doe dat enkel bij een kort label: een
+label dat breder is dan de beschikbare ruimte, loopt dan over de rand.
+
 
 ## Configuratie
 

@@ -108,6 +108,58 @@ describe('cypress-component - block components - vl-breadcrumb - long text', () 
     });
 });
 
+describe('cypress-component - block components - vl-breadcrumb - long word without spaces', () => {
+    beforeEach(() => {
+        cy.viewport(1280, 800);
+    });
+
+    it('should wrap a long word in a link, button or text item instead of overflowing by default', () => {
+        mountWithLongWord({ ellipsis: false });
+
+        cy.get('vl-breadcrumb-item').should(($items) => {
+            expect($items).to.have.length(4);
+            $items.slice(1).each((_, item) => {
+                const cta = getCta(Cypress.$(item));
+                expect(cta.scrollWidth).to.be.at.most(cta.clientWidth);
+                expect(cta.getBoundingClientRect().right).to.be.at.most(getContainerRight());
+            });
+        });
+    });
+
+    it('should still truncate a long word on one line when the ellipsis attribute is set', () => {
+        mountWithLongWord({ ellipsis: true });
+
+        cy.get('vl-breadcrumb-item').should(($items) => {
+            expect($items).to.have.length(4);
+            $items.slice(1).each((_, item) => {
+                const cta = getCta(Cypress.$(item));
+                expect(cta.scrollWidth).to.be.greaterThan(cta.clientWidth);
+                expect(getComputedStyle(cta).textOverflow).to.equal('ellipsis');
+                expect(getCtaHeight(Cypress.$(item))).to.equal(getCtaHeight($items.first()));
+                expect(cta.getBoundingClientRect().right).to.be.at.most(getContainerRight());
+            });
+        });
+    });
+
+    it('should move a breadcrumb item with ordinary words to a new line instead of breaking a word', () => {
+        cy.mount(html`
+            <div id="container" style="width: 300px">
+                <vl-breadcrumb>
+                    <vl-breadcrumb-item href="#">Vlaanderen Intern</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="#">Regelgeving</vl-breadcrumb-item>
+                    <vl-breadcrumb-item>Verordening toegankelijkheid</vl-breadcrumb-item>
+                </vl-breadcrumb>
+            </div>
+        `);
+
+        cy.get('vl-breadcrumb-item').should(($items) => {
+            const lastItem = $items.last();
+            expect(lastItem[0].getBoundingClientRect().top).to.be.greaterThan($items[1].getBoundingClientRect().top);
+            expect(getCtaHeight(lastItem)).to.equal(getCtaHeight($items.first()));
+        });
+    });
+});
+
 describe('cypress-component - block components - vl-breadcrumb - submenu', () => {
     // De knop zit in de shadow DOM van vl-breadcrumb-item; de popover zet daar aria-expanded en aria-controls.
     const triggerButton = () => cy.get('#submenu-fauna-flora').shadow().find('button');
@@ -194,6 +246,21 @@ const realPress = (key: 'Enter' | ' ') => {
     });
 };
 
+const longWord = 'een.heel.lange.code.zonder.spaties.die.niet.afbreekt';
+
+const mountWithLongWord = ({ ellipsis }: { ellipsis: boolean }) => {
+    cy.mount(html`
+        <div id="container" style="width: 300px">
+            <vl-breadcrumb ?ellipsis=${ellipsis}>
+                <vl-breadcrumb-item href="#">Vlaanderen Intern</vl-breadcrumb-item>
+                <vl-breadcrumb-item href="#">${longWord}</vl-breadcrumb-item>
+                <vl-breadcrumb-item type="button">${longWord}</vl-breadcrumb-item>
+                <vl-breadcrumb-item>${longWord}</vl-breadcrumb-item>
+            </vl-breadcrumb>
+        </div>
+    `);
+};
+
 const longText =
     'Besluit van de Vlaamse Regering tot vaststelling van een gewestelijke stedenbouwkundige verordening voor publiciteitsinrichtingen';
 
@@ -212,6 +279,8 @@ const getLastBreadcrumbItem = () => cy.get('vl-breadcrumb-item').last();
 
 const getCta = ($item: JQuery<HTMLElement>) =>
     $item[0].shadowRoot!.querySelector<HTMLElement>('.vl-breadcrumb__list__item__cta')!;
+
+const getCtaHeight = ($item: JQuery<HTMLElement>) => getCta($item).getBoundingClientRect().height;
 
 const getContainerRight = () => cy.$$('#container')[0].getBoundingClientRect().right;
 
