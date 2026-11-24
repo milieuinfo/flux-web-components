@@ -65,6 +65,25 @@ export const toasterStyles = css`
         }
     }
 
+    /*
+     * In de top layer (open modal): positie en breedte erven van de host, zodat placement, --vl-toaster-width en
+     * overrides op vl-toaster blijven gelden. De rest zet de UA-stijl van [popover] terug.
+     */
+    output[popover] {
+        /* niet de display: none van een gesloten popover: die herstart de animaties bij het opnieuw naar boven halen */
+        display: block;
+        position: fixed;
+        inset: inherit;
+        width: inherit;
+        height: auto;
+        margin: 0;
+        border: 0;
+        padding: 0;
+        overflow: visible;
+        color: inherit;
+        background: none;
+    }
+
     /* longhands: de animation shorthand zet animation-play-state terug op running en breekt zo de pauze */
     :host output > * {
         animation-name: fade-in;
@@ -78,9 +97,12 @@ export const toasterStyles = css`
         animation-delay: 0s, 4.4s;
     }
 
-    /* enkel de fade-out pauzeren: een gepauzeerde fade-in houdt een nieuwe toast onzichtbaar */
-    :host(:hover) output > *,
-    :host(:focus-within) output > * {
+    /*
+     * Enkel de fade-out pauzeren (een gepauzeerde fade-in houdt een nieuwe toast onzichtbaar); op de output, want in
+     * de top layer matcht de host in recente browsers geen :hover of :focus-within meer.
+     */
+    :host output:hover > *,
+    :host output:focus-within > * {
         animation-play-state: running, paused;
     }
 
