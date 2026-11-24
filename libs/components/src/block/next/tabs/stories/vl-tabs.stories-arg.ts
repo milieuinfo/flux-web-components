@@ -5,6 +5,7 @@ import { tabsDefaults } from '../vl-tabs.defaults';
 
 export type TabsArgs = typeof tabsDefaults &
     typeof defaultArgs & {
+        onVlTabChange: () => void;
         onVlTabClick: () => void;
         onVlTabLinkClick: () => void;
     };
@@ -12,6 +13,7 @@ export type TabsArgs = typeof tabsDefaults &
 export const tabsArgs: TabsArgs = {
     ...defaultArgs,
     ...tabsDefaults,
+    onVlTabChange: action('vl-tab-change'),
     onVlTabClick: action('vl-tab-click'),
     onVlTabLinkClick: action('vl-tab-link-click'),
 };
@@ -65,9 +67,29 @@ export const tabsArgTypes: ArgTypes<TabsArgs> = {
             defaultValue: { summary: String(tabsArgs.noBorder) },
         },
     },
+    onVlTabChange: {
+        name: 'vl-tab-change',
+        description:
+            'Cancelable event dat afgevuurd wordt vóór de gebruiker naar een andere tab wisselt, met de muis, ' +
+            'het toetsenbord of de dropdown op mobiel.' +
+            ' Roep `preventDefault()` aan om de wissel te weigeren: de huidige tab blijft dan geselecteerd ' +
+            'en een tab link navigeert niet.' +
+            ' Vuurt niet bij een klik op de geselecteerde tab of bij een programmatische selectie.',
+        table: {
+            type: {
+                summary:
+                    '{ tab: VlTabComponent | VlTabLinkComponent, ' +
+                    'previousTab: VlTabComponent | VlTabLinkComponent | undefined }',
+            },
+            category: CATEGORIES.EVENTS,
+        },
+    },
     onVlTabClick: {
         name: 'vl-tab-click',
-        description: 'Event dat afgevuurd wordt wanneer een tab wordt aangeklikt.',
+        description:
+            'Event dat afgevuurd wordt bij een klik, Enter of Spatie op een tab en bij `select()`, ' +
+            'ook als de wissel geweigerd wordt.' +
+            ' Gebruik `vl-tab-change` om een wissel te weigeren.',
         table: {
             type: { summary: '{ tab: VlTabComponent }' },
             category: CATEGORIES.EVENTS,
@@ -75,7 +97,10 @@ export const tabsArgTypes: ArgTypes<TabsArgs> = {
     },
     onVlTabLinkClick: {
         name: 'vl-tab-link-click',
-        description: 'Event dat afgevuurd wordt wanneer een tab link wordt aangeklikt.',
+        description:
+            'Event dat afgevuurd wordt bij een klik of Enter op een tab link en bij `select()`, ' +
+            'ook als de wissel geweigerd wordt.' +
+            ' Gebruik `vl-tab-change` om een wissel te weigeren.',
         table: {
             type: { summary: '{ tab: VlTabLinkComponent }' },
             category: CATEGORIES.EVENTS,
