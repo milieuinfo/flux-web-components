@@ -48,6 +48,6 @@ Daarbuiten, en dit wordt het vaakst vergeten:
 ## Verifiëren
 
 - Component test groen (commando in `CLAUDE.md`)
-- E2E: start Storybook in de achtergrond (`pnpm run apps:storybook:dev`, wacht op http://localhost:8080), dan `cd apps/storybook-e2e && ../../node_modules/.bin/cypress run --e2e --spec "src/e2e/components/{type}/{naam}/vl-{naam}.stories.cy.ts"`
+- E2E groen: start Storybook in de achtergrond (`pnpm run apps:storybook:dev`, wacht op http://localhost:8080), dan het E2E-commando uit `CLAUDE.md`
 - Web-types-validatie groen
 - Vraag de gebruiker de stories visueel te checken (docs-pagina, controls, console zonder errors)

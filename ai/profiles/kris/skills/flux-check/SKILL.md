@@ -10,14 +10,14 @@ context: fork
 Base: `$ARGUMENTS`. Leeg: `develop-v2` voor `feature-v2/*` en `develop-v1` voor `feature-v1/*`.
 
 - Branch: !`git branch --show-current`
-- Gewijzigde bestanden (branch): !`git diff --name-status develop-v2...HEAD 2>/dev/null || echo "(develop-v2 niet gevonden)"`
 - Niet gecommit: !`git status --short`
+- Gewijzigde bestanden (branch): bepaal ze zelf met `git diff --name-status {base}...HEAD`
 
 ## Wat controleren
 
 De regels staan in `CLAUDE.md` (profiel `ai/profiles/kris/CLAUDE.md`). Lees dat bestand en toets de diff (`git diff {base}...HEAD` en `git diff HEAD`) aan elke sectie:
 - Component Patterns en Naming
-- Testing
+- Testing. Raakt de diff attributen of argTypes, draai dan `pnpm run figma:code-connect:check-attributes`; een fout is blokkerend
 - Accessibility
 - Form Validation
 - Storybook Stories
@@ -27,8 +27,6 @@ Controleer **enkel wat de diff raakt**. Bestaande afwijkingen elders zijn geen b
 
 Daarnaast, want dit staat niet in `CLAUDE.md`:
 - Geen `it.only`, `describe.only`, `cy.pause()`, `console.log` of `debugger` in toegevoegde regels
-- `.vl-icon` nooit op een container (de class zet `font-family`, `font-size` en `display`, en lekt naar kinderen)
-- Geen `vl-grid` in een `vl-grid` (dat geeft een 144-koloms layout). Binnen een grid-kolom gebruik je een gewone CSS-grid met eigen classes
 - Nieuw component: metadata-entry, wt-config-entry, tellingen in `web-types-completeness.spec.ts`, exports in de component-`index.ts` én de type-`index.ts`, Storybook E2E test (zie `/new-component`)
 - Geen `*.web-types.json` in de diff
 
