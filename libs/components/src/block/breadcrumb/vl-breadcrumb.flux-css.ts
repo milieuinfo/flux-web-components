@@ -35,6 +35,7 @@ export const vlBreadcrumbFluxStyles: CSSResult = css`
         max-width: var(--vl-breadcrumb-item-cta-max-width, none);
         overflow: var(--vl-breadcrumb-item-cta-overflow, visible);
         text-overflow: var(--vl-breadcrumb-item-cta-text-overflow, clip);
+        overflow-wrap: anywhere;
         position: relative;
         top: -1px;
     }
