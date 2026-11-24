@@ -39,6 +39,8 @@
     ],
     "ask": [
       "Bash(git reset --hard*)",
+      "Bash(git reset * --hard*)",
+      "Bash(git restore*)",
       "Bash(git branch -D*)",
       "Bash(git stash drop*)",
       "Bash(git stash clear*)",

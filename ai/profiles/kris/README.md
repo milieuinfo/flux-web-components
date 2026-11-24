@@ -36,8 +36,8 @@ Houd de `description` kort (maximaal ~160 tekens). Bij langere beschrijvingen vi
 Gemerged in `.claude/settings.local.json` door `set-ai-profile.sh`.
 
 - **allow**: lees-git, lokale git-bewerkingen (add, commit, rebase, reset, …), `pnpm run *`, read-only `gh pr`-commando's en read-only Jira-tools
-- **ask** (wint van allow): varianten die werk of stashes weggooien (`git reset --hard`, `git branch -D`, `git stash drop/clear`) en de publish/release-scripts, die door `pnpm run *` anders zonder vraag zouden draaien
-- Niet toegelaten, dus altijd een vraag: `git push`, `git restore` (gooit wijzigingen weg), `gh pr create`, Jira-tools die schrijven
+- **ask** (wint van allow en blijft gelden in bypass-modus, waar `allow` geen effect heeft): varianten die werk of stashes weggooien (`git reset --hard`, `git restore`, `git branch -D`, `git stash drop/clear`) en de publish/release-scripts, die door `pnpm run *` anders zonder vraag zouden draaien
+- `git push`, `gh` en de Jira-tools die schrijven staan bewust niet in `ask`: een `ask`-regel vraagt altijd, ook na een expliciete opdracht, en een expliciete opdracht is al de bevestiging. In de standaardmodus geven ze een vraag omdat ze niet in `allow` staan; in bypass-modus draaien ze zonder vraag
 
 ## Bestanden
 
