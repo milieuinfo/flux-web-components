@@ -150,8 +150,71 @@ Zolang de muis op de toaster staat of de focus erin zit, verdwijnt er geen enkel
 toaster wachten dan, zodat ze niet verschuiven terwijl de gebruiker ermee bezig is. Daarna loopt de resterende tijd
 van elke melding verder.
 
+### Toaster en modal
+
+Wil je een melding tonen terwijl een [vl-modal](/docs/components-block-modal--documentatie) of
+[vl-modal-next](/docs/components-block-next-modal--documentatie) open staat? Plaats dan een `vl-toaster` in het
+`content` slot van de modal en toon de melding via die toaster. De gebruiker kan de melding dan sluiten en een
+schermlezer kondigt ze aan.
+
+```html
+<vl-modal-next id="modal" title-label="Gegevens wijzigen" not-auto-closable>
+    <div slot="content">
+        ...
+        <vl-toaster id="toaster-in-modal"></vl-toaster>
+    </div>
+    <vl-button slot="button">Bewaar</vl-button>
+</vl-modal-next>
+```
+
+```js
+document.querySelector('#toaster-in-modal').showAlert({
+    type: 'success',
+    title: 'Bewaard',
+    message: 'Uw wijzigingen zijn bewaard.',
+    closable: true,
+});
+```
+
+<Canvas of={VlToasterStories.ToasterInModal} />
+
+#### Toaster buiten de modal
+
+Ook een toaster op de pagina, buiten de modal, toont zijn meldingen boven een open `vl-modal`, `vl-modal-next` of
+eigen `<dialog>` (geopend met `showModal()`) en haar achtergrond. Dat geldt ook voor meldingen die al zichtbaar waren
+toen de modal openging. Sluit de laatste modal, dan staat de toaster weer op zijn gewone plaats in de pagina, met de
+`z-index` van `--vl-z-layer--toaster`.
+
+<FluxAlert type="warning">
+{`
+   Een melding van een toaster buiten de modal is zichtbaar, maar niet bedienbaar: de browser blokkeert alles buiten
+   een open modal. Het sluitkruis van een closable melding werkt niet, schermlezers kondigen de melding niet aan en
+   een klik op de melding komt terecht op wat eronder ligt. Boven de achtergrond van een closable modal sluit zo'n
+   klik dus de modal. Ook de pauze bij hover en focus werkt niet: een melding die automatisch verdwijnt, verdwijnt
+   ook terwijl de muis erop staat.
+`}
+</FluxAlert>
+
+<Canvas of={VlToasterStories.ToasterModal} sourceState="none" />
+
+Hou rekening met het volgende:
+
+- Een `<dialog>` in een shadow root, van een eigen component of van een andere library, herkent de toaster niet.
+- In Safari ouder dan versie 26, Chrome ouder dan 132 en Firefox ouder dan 133 komt de toaster pas boven een eigen
+  `<dialog>` bij de eerstvolgende melding die je toont.
+- Boven een modal staat de toaster los van zijn omgeving in de pagina: een voorouder met `transform` of `overflow`
+  bepaalt de positie dan niet meer.
+- In een browser zonder [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) blijft een
+  melding van een toaster buiten de modal achter de modal staan.
+
 
 ## Toegankelijkheid
+
+### Meldingen bij een open modal
+
+Een melding van een toaster buiten een open modal is niet bedienbaar en wordt niet aangekondigd door schermlezers.
+Plaats de toaster in de modal als de melding de gebruiker moet bereiken terwijl de modal open staat. Meer info
+[hier](#toaster-en-modal).
 
 ### fade-out
 

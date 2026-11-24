@@ -4,12 +4,13 @@ import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlLoaderComponent } from '../../loader';
+import { VlModalComponent } from '../../next/modal';
 import { VlButtonComponent } from '../../..//atom/button';
 import { VlToasterComponent } from '../vl-toaster.component';
 import { ToasterArgs, toasterArgs, toasterArgTypes } from './vl-toaster.stories-arg';
 import toasterDoc from './vl-toaster.stories-doc.mdx';
 
-registerWebComponents([VlButtonComponent, VlToasterComponent, VlLoaderComponent]);
+registerWebComponents([VlButtonComponent, VlToasterComponent, VlLoaderComponent, VlModalComponent]);
 
 export default {
     id: 'components-block-toaster',
@@ -178,3 +179,72 @@ export const ToasterFadeOutPerToast = story<ToasterArgs>(toasterArgs, ({ placeme
     `;
 });
 ToasterFadeOutPerToast.storyName = 'vl-toaster - fade out per toast';
+
+const modalStoryParameters = {
+    controls: {
+        exclude: ['defaultSlot'],
+    },
+    // eigen iframe: een open modal haalt anders ook de andere toasters van de docs-pagina naar de top layer
+    docs: { story: { inline: false, height: '400px' } },
+};
+
+export const ToasterModal = story<ToasterArgs>(toasterArgs, ({ placement, fadeOut }) => {
+    const showSavedAlert = () => {
+        document.querySelector<VlToasterComponent>('#toaster-modal')?.showAlert({
+            title: 'Bewaard',
+            icon: 'check',
+            type: 'success',
+            message: 'Uw wijzigingen zijn bewaard.',
+        });
+    };
+
+    return html`
+        <vl-toaster id="toaster-modal" ?fade-out=${fadeOut} placement=${placement}></vl-toaster>
+        <vl-button
+            id="button-modal-open"
+            modal-open="modal-toaster"
+            aria-controls="modal-toaster"
+            aria-haspopup="dialog"
+        >
+            Open modal
+        </vl-button>
+        <vl-modal-next id="modal-toaster" title-label="Gegevens wijzigen" not-auto-closable>
+            <p slot="content">De melding van de toaster op de pagina verschijnt boven deze modal.</p>
+            <vl-button id="button-modal-save" slot="button" @vl-click=${showSavedAlert}>Bewaar</vl-button>
+        </vl-modal-next>
+    `;
+});
+ToasterModal.storyName = 'vl-toaster - modal';
+ToasterModal.parameters = modalStoryParameters;
+
+export const ToasterInModal = story<ToasterArgs>(toasterArgs, ({ placement, fadeOut }) => {
+    const showSavedAlert = () => {
+        document.querySelector<VlToasterComponent>('#toaster-in-modal')?.showAlert({
+            title: 'Bewaard',
+            icon: 'check',
+            type: 'success',
+            message: 'Uw wijzigingen zijn bewaard.',
+            closable: true,
+        });
+    };
+
+    return html`
+        <vl-button
+            id="button-in-modal-open"
+            modal-open="modal-with-toaster"
+            aria-controls="modal-with-toaster"
+            aria-haspopup="dialog"
+        >
+            Open modal
+        </vl-button>
+        <vl-modal-next id="modal-with-toaster" title-label="Gegevens wijzigen" not-auto-closable>
+            <div slot="content">
+                <p>De toaster staat in deze modal: je kan de melding sluiten.</p>
+                <vl-toaster id="toaster-in-modal" ?fade-out=${fadeOut} placement=${placement}></vl-toaster>
+            </div>
+            <vl-button id="button-in-modal-save" slot="button" @vl-click=${showSavedAlert}>Bewaar</vl-button>
+        </vl-modal-next>
+    `;
+});
+ToasterInModal.storyName = 'vl-toaster - in modal';
+ToasterInModal.parameters = modalStoryParameters;
