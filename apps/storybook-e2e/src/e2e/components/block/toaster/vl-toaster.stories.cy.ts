@@ -71,7 +71,7 @@ describe('cypress-e2e - block components - vl-toaster - modal story', () => {
         cy.get('vl-modal-next').should('have.attr', 'open');
         cy.get('vl-button#button-modal-save').shadow().find('button').click({ force: true });
 
-        cy.get('vl-toaster').shadow().find('output').find('vl-alert').should('have.attr', 'title', 'Bewaard');
+        cy.get('vl-toaster').shadow().find('output').find('vl-alert').should('have.attr', 'title-label', 'Bewaard');
         cy.get('vl-toaster')
             .shadow()
             .find('output')
