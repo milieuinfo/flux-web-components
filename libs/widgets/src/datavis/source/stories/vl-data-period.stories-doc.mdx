@@ -1,0 +1,43 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDataPeriodStories from './vl-data-period.stories';
+
+# Data period
+
+<FluxComponentMetaData id="data-visualisation-data-period" />
+
+## Doel
+
+`vl-data-period` laat de gebruiker de periode kiezen van de omliggende
+[vl-data-source](/docs/data-visualisation-data-source--documentatie): 24 uur, 7 dagen, 30 dagen of 1 jaar, met vorige,
+volgende en vandaag.
+
+## Voorbeeld
+
+```js
+import { VlDataPeriod } from '@domg-wc/widgets/datavis';
+```
+
+```html
+<vl-data-source src="https://example.org/FROST-Server/v1.1/Things(1)" period="24h">
+    <vl-data-figure headline="Magnetische veldsterkte">
+        <vl-data-period></vl-data-period>
+        <vl-chart-line></vl-chart-line>
+    </vl-data-figure>
+</vl-data-source>
+```
+
+<Canvas of={VlDataPeriodStories.DataPeriodDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlDataPeriodStories.DataPeriodDefault} />
+
+## Gedrag
+
+- De startperiode zet je op `vl-data-source`, met `period` en `end`.
+- In een `vl-data-figure` staat de component onder de kop.
+- "24 uur" is één kalenderdag, van middernacht tot middernacht. Vorige en volgende verschuiven een hele periode, nooit
+  voorbij vandaag.
+- De periodes zijn een radiogroep met de legende "Periode", te doorlopen met de pijltjestoetsen.
+- Na vorige of volgende leest een schermlezer de nieuwe periode voor, bv. "4 nov 2026".
+- Loopt de periode tot vandaag, dan is volgende uitgeschakeld en verdwijnt "Vandaag". De focus gaat dan naar vorige.

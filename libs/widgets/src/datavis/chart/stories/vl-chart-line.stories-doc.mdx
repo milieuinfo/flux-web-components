@@ -1,0 +1,82 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlChartLineStories from './vl-chart-line.stories';
+
+# Chart line
+
+<FluxComponentMetaData id="data-visualisation-chart-line" />
+
+## Doel
+
+`vl-chart-line` toont hoe een waarde verandert, bv. de concentratie per jaar op een aantal meetpunten: één lijn per
+reeks, met de naam en de laatste waarde aan het einde van de lijn. Zet de grafiek in een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie) voor een kop, tabel en
+uitleg.
+
+## Voorbeeld
+
+Geef de data mee met de `data` property, of zet de grafiek in een
+[vl-data-source](/docs/data-visualisation-data-source--documentatie).
+
+```js
+import { VlChartLine } from '@domg-wc/widgets/datavis';
+
+document.querySelector('vl-chart-line').data = {
+    meta: {
+        sources: [{ metadataId: '2bee1b5e-c3c4-59bb-8d9a-742d3002d34e' }],
+        x: { type: 'number', title: 'Jaar' },
+        y: { type: 'number', title: 'Concentratie', unit: 'µg/m³' },
+    },
+    series: [
+        { name: 'Meetpunt Gent', x: Float64Array.from([2022, 2023, 2024]), y: Float64Array.from([11.2, 10.8, 10.1]) },
+    ],
+};
+```
+
+```html
+<vl-chart-line></vl-chart-line>
+```
+
+<Canvas of={VlChartLineStories.ChartLineDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlChartLineStories.ChartLineDefault} />
+
+De data volgt deze regels:
+
+- `meta.sources` heeft minstens één bron. Met enkel een `metadataId` haalt de grafiek titel, eigenaar en licentie uit de
+  [metadatacatalogus](https://metadata.omgeving.vlaanderen.be). Zonder record geef je zelf een `title` mee.
+- `meta.x.type` is `number`, `time` (milliseconden) of `category`. `meta.y.unit` is verplicht.
+- Maximaal zes reeksen. `NaN` in `y` is een ontbrekende meting.
+
+## Varianten
+
+### Laden
+
+Zonder data een grijs vlak; bij nieuwe data blijft de vorige grafiek gedimd staan.
+
+<Canvas of={VlChartLineStories.ChartLineLoading} />
+
+### Met een onderbreking
+
+`NaN` onderbreekt de lijn; de lijn wordt nooit doorgetrokken.
+
+<Canvas of={VlChartLineStories.ChartLineGap} />
+
+### Geen gegevens
+
+<Canvas of={VlChartLineStories.ChartLineEmpty} />
+
+### Fout
+
+Ongeldige data, bv. zonder bron of eenheid, toont een melding. De details staan in de console.
+
+<Canvas of={VlChartLineStories.ChartLineError} />
+
+## Gedrag
+
+- Bij elke nieuwe toestand vuurt de grafiek `vl-data-change`. In een figuur blijven kop, controls en uitleg staan.
+- Passen de namen niet aan het einde van de lijnen, dan staan ze in een legende boven de grafiek.
+- Pijltjestoetsen lopen door de waarden, `Home` en `End` springen naar begin en einde, `Escape` sluit de tooltip. Een
+  schermlezer leest elke waarde voor, bv. "2021: Meetpunt Gent 11,9 µg/m³".
+- Op een touchscreen toont een tik de dichtstbijzijnde waarde.
+- Bij `prefers-reduced-motion` zijn er geen animaties.

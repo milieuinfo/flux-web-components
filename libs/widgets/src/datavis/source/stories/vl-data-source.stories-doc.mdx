@@ -1,0 +1,129 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDataSourceStories from './vl-data-source.stories';
+
+# Data source
+
+<FluxComponentMetaData id="data-visualisation-data-source" />
+
+## Doel
+
+`vl-data-source` haalt de data op voor de figuren en grafieken erin, zodat ze dezelfde periode tonen. De component zelf
+is onzichtbaar. Met een [vl-data-period](/docs/data-visualisation-data-period--documentatie) kiest de gebruiker een
+andere periode.
+
+## Voorbeeld
+
+```js
+import { VlChartLine, VlDataFigure, VlDataPeriod, VlDataSource } from '@domg-wc/widgets/datavis';
+```
+
+```html
+<vl-data-source src="https://example.org/FROST-Server/v1.1/Things(1)" period="24h">
+    <vl-data-figure headline="Magnetische veldsterkte">
+        <vl-data-period></vl-data-period>
+        <vl-chart-line></vl-chart-line>
+    </vl-data-figure>
+</vl-data-source>
+```
+
+<Canvas of={VlDataSourceStories.DataSourceDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlDataSourceStories.DataSourceDefault} />
+
+## Varianten
+
+### SensorThings (standaard)
+
+`format="sensorthings"` leest een [SensorThings API](https://docs.ogc.org/is/18-088/18-088.html), zoals FROST. `src`
+is één meetpunt (`…/Things(1)`) of één meetreeks (`…/Datastreams(1)`). Elke meetreeks met getallen wordt een lijn.
+
+<table>
+    <caption>Wat de grafiek uit het sensorplatform haalt</caption>
+    <thead>
+        <tr>
+            <th scope="col">In de grafiek</th>
+            <th scope="col">Uit het platform</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Naam van de lijn</td>
+            <td>
+                <code>name</code> van de Thing; bij meer meetreeksen die van de Datastream
+            </td>
+        </tr>
+        <tr>
+            <td>Titel van de waarde-as</td>
+            <td>
+                <code>name</code> van de ObservedProperty
+            </td>
+        </tr>
+        <tr>
+            <td>Eenheid</td>
+            <td>
+                <code>unitOfMeasurement.symbol</code>, gelijk voor alle meetreeksen
+            </td>
+        </tr>
+        <tr>
+            <td>Uitleg bij de eenheid</td>
+            <td>
+                <code>properties.unitDefinition</code> van de ObservedProperty, anders van de Datastream
+            </td>
+        </tr>
+        <tr>
+            <td>Bron</td>
+            <td>
+                <code>properties.source</code> van de Datastream, met een <code>metadataId</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Open data</td>
+            <td>
+                <code>properties.isOpenData</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Onderbreking</td>
+            <td>
+                geen meting langer dan <code>properties.gapThreshold</code>, bv. <code>PT5M</code>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+De `metadataId` is de UUID van de record in de [metadatacatalogus](https://metadata.omgeving.vlaanderen.be), niet die
+van de dataset. De grafiek haalt er de titel, de eigenaar en de licentie uit.
+
+### Voorbeelddata
+
+`format="sample-data"` leest een ChartModel in JSON, voor een webapp zonder echte data, stories en tests. De component
+vraagt `src?from=…&to=…`; een statisch bestand toont dus elke periode dezelfde data.
+
+```json
+{
+    "meta": {
+        "sources": [{ "metadataId": "1fe4dff9-87b4-5646-b29a-a026025f520e" }],
+        "x": { "type": "time" },
+        "y": { "type": "number", "title": "Magnetische veldsterkte", "unit": "µT" }
+    },
+    "series": [
+        {
+            "name": "Temse",
+            "x": ["2026-11-04T09:00:00+01:00", "2026-11-04T09:10:00+01:00", "2026-11-04T09:20:00+01:00"],
+            "y": [0.331, null, 0.298]
+        }
+    ]
+}
+```
+
+`x` is een ISO 8601-tijdstip of een aantal milliseconden. `null` onderbreekt de lijn.
+
+<Canvas of={VlDataSourceStories.DataSourceSampleData} />
+
+## Gedrag
+
+- De component haalt het meetpunt één keer op, en per periode de metingen van elke meetreeks.
+- Tijdens het laden houden de grafiek en de controls hun plaats, zodat de pagina niet verspringt.
+- Is de bron niet bereikbaar, of hebben de meetreeksen een andere eenheid, dan toont de grafiek een melding.

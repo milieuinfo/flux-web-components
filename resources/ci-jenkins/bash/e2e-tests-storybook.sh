@@ -13,7 +13,7 @@ source "${SCRIPT_DIR}/lib/install-pnpm.sh"
 # ze exact dezelfde specs als voorheen. Dezelfde regel als de unit-shards in unit-component-integrator-tests.sh:
 #
 #   shard 1  de grootste categorie   components/block
-#   shard 2  al de rest              components/{atom,compliance,form}, map, patronen, storybook, structures, styles
+#   shard 2  al de rest              components/{atom,compliance,form}, map, patronen, storybook, structures, styles, widgets
 #
 # Elke shard bouwt storybook opnieuw voor hij serveert. Die builds draaien parallel en kosten dus geen extra
 # doorlooptijd, maar ze worden ook niet korter: splitsen halveert alleen het e2e-deel. De al gebouwde storybook uit
@@ -31,7 +31,8 @@ SHARD_2_DIRS=("${E2E_ROOT}/src/e2e/components/atom"
               "${E2E_ROOT}/src/e2e/patronen"
               "${E2E_ROOT}/src/e2e/storybook"
               "${E2E_ROOT}/src/e2e/structures"
-              "${E2E_ROOT}/src/e2e/styles")
+              "${E2E_ROOT}/src/e2e/styles"
+              "${E2E_ROOT}/src/e2e/widgets")
 
 case "${SHARD}" in
     1) SHARD_DIRS=("${SHARD_1_DIRS[@]}") ;;

@@ -4,6 +4,7 @@ import componentsBlockMetaDataJson from './json/components-block.meta-data.json'
 import componentsComplianceMetaDataJson from './json/components-compliance.meta-data.json';
 import componentsFormMetaDataJson from './json/components-form.meta-data.json';
 import componentsStructuresMetaDataJson from './json/components-structures.meta-data.json';
+import dataVisualisationMetaDataJson from './json/data-visualisation.meta-data.json';
 import dvComponentsWithoutFluxJson from './json/dv-components-without-flux.meta-data.json';
 import mapActionsMetaDataJson from './json/map-actions.meta-data.json';
 import mapComponentsMetaDataJson from './json/map-components.meta-data.json';
@@ -15,6 +16,7 @@ export const fluxAllMetaData = () => ({
     ...componentsComplianceMetaDataJson,
     ...componentsFormMetaDataJson,
     ...componentsStructuresMetaDataJson,
+    ...dataVisualisationMetaDataJson,
     ...mapActionsMetaDataJson,
     ...mapComponentsMetaDataJson,
     ...stylesMetaDataJson,

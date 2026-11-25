@@ -52,6 +52,7 @@ const cypressConfig: any = {
                         '@domg-wc/map': path.resolve('../../libs/map/src/'),
                         '@domg-wc/structures': path.resolve('../../libs/structures/src/'),
                         '@domg-wc/styles': path.resolve('../../libs/styles/src/'),
+                        '@domg-wc/widgets': path.resolve('../../libs/widgets/src/'),
                     },
                 },
             },

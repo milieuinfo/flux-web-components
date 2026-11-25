@@ -1,0 +1,40 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDataControlsStories from './vl-data-controls.stories';
+
+# Data controls
+
+<FluxComponentMetaData id="data-visualisation-data-controls" />
+
+## Doel
+
+`vl-data-controls` vervangt de standaardknoppen naast de kop van een [vl-data-figure](/docs/data-visualisation-data-figure--documentatie): bewaren als PNG en schermvullend. Gebruik
+het enkel voor andere knoppen of een andere volgorde.
+
+## Voorbeeld
+
+```js
+import { VlDataControls, VlDataDownload, VlDataFullscreen } from '@domg-wc/widgets/datavis';
+```
+
+```html
+<vl-data-figure headline="In Gent en Antwerpen daalt de concentratie sinds 2020">
+    <vl-data-controls>
+        <vl-data-fullscreen></vl-data-fullscreen>
+        <vl-data-download format="png"></vl-data-download>
+        <vl-data-download format="csv"></vl-data-download>
+    </vl-data-controls>
+    <vl-chart-line></vl-chart-line>
+</vl-data-figure>
+```
+
+<Canvas of={VlDataControlsStories.DataControlsDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlDataControlsStories.DataControlsDefault} />
+
+## Gedrag
+
+- De volgorde in de HTML is de volgorde voor het toetsenbord.
+- Een lege `vl-data-controls` verbergt de standaardknoppen.
+- Op een smal scherm lopen de knoppen door over meer regels, rechts naast de kop.

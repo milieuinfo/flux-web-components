@@ -87,4 +87,16 @@ fi
 pnpm pack &> /dev/null
 echo '[done] - pack - structures'
 
+cd ../widgets
+# ./*/*/** zoals components, zodat de barrel datavis/index.js zonder side effects blijft; context-root.js wordt enkel
+# voor zijn side effect geïmporteerd en moet er dus expliciet bij
+pnpm pkg set sideEffects='["./*/*/**", "./*/context-root.js"]' --json >/dev/null
+echo '[done] - set sideEffects - widgets'
+if [[ $1 == "develop" ]]; then
+    pnpm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
+    echo '[done] - set publishConfig to snapshot-npm - widgets'
+fi
+pnpm pack &> /dev/null
+echo '[done] - pack - widgets'
+
 cd ..

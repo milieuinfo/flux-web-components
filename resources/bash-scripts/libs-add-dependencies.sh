@@ -12,7 +12,7 @@ rm -rf ./build/dep-to-add
 # creëer een folder voor de json bestanden met de dependencies
 mkdir -p ./build/dep-to-add
 
-for LIB in common styles components map structures; do
+for LIB in common styles components map structures widgets; do
     # depcheck schrijft per library een json bestand weg dat blijft staan, net als het dta bestand hieronder. Daarin is
     # 'missing' de lijst van packages die de gebouwde library importeert maar die nog niet in zijn package.json staan, en
     # 'using' de lijst van alle packages die ze importeert. Door self-imports (styles, components) staat ook de eigen

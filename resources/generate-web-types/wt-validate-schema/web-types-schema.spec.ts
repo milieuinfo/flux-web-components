@@ -4,6 +4,7 @@ import componentsComplianceWebTypes from '../../../libs/components/src/complianc
 import componentsFormWebTypes from '../../../libs/components/src/form/form.web-types.json';
 import mapWebTypes from '../../../libs/map/map.web-types.json';
 import structuresWebTypes from '../../../libs/structures/structures.web-types.json';
+import widgetsDatavisWebTypes from '../../../libs/widgets/src/datavis/datavis.web-types.json';
 import webTypesSchema from './web-types.schema.json';
 
 const zSchema = require('z-schema');
@@ -32,6 +33,10 @@ describe('jest - generate-web-types - web-types-schema', () => {
     });
     it('structures - valideer de web-types tov het schema', () => {
         expect(schemaValidator.validate(structuresWebTypes, webTypesSchema)).toEqual(true);
+        expect(schemaValidator.getLastErrors()).toBeNull();
+    });
+    it('widgets-datavis - valideer de web-types tov het schema', () => {
+        expect(schemaValidator.validate(widgetsDatavisWebTypes, webTypesSchema)).toEqual(true);
         expect(schemaValidator.getLastErrors()).toBeNull();
     });
 });

@@ -4,6 +4,7 @@ import componentsComplianceWebTypes from '../../../libs/components/src/complianc
 import componentsFormWebTypes from '../../../libs/components/src/form/form.web-types.json';
 import mapWebTypes from '../../../libs/map/map.web-types.json';
 import structuresWebTypes from '../../../libs/structures/structures.web-types.json';
+import widgetsDatavisWebTypes from '../../../libs/widgets/src/datavis/datavis.web-types.json';
 import webTypesSchema from './web-types.schema.json';
 
 const zSchema = require('z-schema');
@@ -29,3 +30,5 @@ console.log('map - schema errors', schemaValidator.getLastErrors());
 
 console.log('structures - schema valid:', schemaValidator.validate(structuresWebTypes, webTypesSchema));
 console.log('structures - schema errors', schemaValidator.getLastErrors());
+console.log('widgets-datavis - schema valid:', schemaValidator.validate(widgetsDatavisWebTypes, webTypesSchema));
+console.log('widgets-datavis - schema errors', schemaValidator.getLastErrors());

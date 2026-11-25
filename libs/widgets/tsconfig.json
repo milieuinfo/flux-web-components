@@ -1,0 +1,23 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "include": [
+        "./src/**/*.ts",
+        "../components/src/**/declare-module.d.ts",
+        "../styles/src/declare-module.d.ts",
+        "../../resources/cypress-commands/*.d.ts",
+        "../../resources/cypress-component/support/*.d.ts"
+    ],
+    "exclude": ["./src/**/*.spec.ts"],
+    "references": [
+        {
+            "path": "./tsconfig.lib.json"
+        },
+        {
+            "path": "./tsconfig.spec.json"
+        }
+    ],
+    "compilerOptions": {
+        "outDir": "../../build/tsc/lib-widgets",
+        "strict": true
+    }
+}

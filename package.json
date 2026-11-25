@@ -75,6 +75,8 @@
         "@types/fs-extra": "11.0.4",
         "@types/jest": "29.5.12",
         "@types/node": "22.18.9",
+        "@types/plotly.js": "3.0.14",
+        "@types/plotly.js-basic-dist-min": "2.12.4",
         "@types/proj4": "2.5.6",
         "@types/react": "18.2.65",
         "@types/react-dom": "18.2.21",
@@ -129,6 +131,7 @@
         "@floating-ui/dom": "1.7.6",
         "@govflanders/vl-widget-global-footer-types": "1.0.28",
         "@govflanders/vl-widget-global-header-types": "2.0.39",
+        "@lit/context": "1.1.6",
         "@lit/react": "1.0.8",
         "@oddbird/popover-polyfill": "0.6.1",
         "@open-wc/form-control": "1.0.0",
@@ -142,6 +145,7 @@
         "flatpickr": "4.6.13",
         "jsts": "2.11.0",
         "lit": "3.3.3",
+        "plotly.js-basic-dist-min": "4.1.1",
         "prettier": "3.8.1",
         "proj4": "2.10.0",
         "reflect-metadata": "0.2.2",
@@ -156,7 +160,8 @@
         "./libs/components/src/compliance/compliance.web-types.json",
         "./libs/components/src/form/form.web-types.json",
         "./libs/map/map.web-types.json",
-        "./libs/structures/structures.web-types.json"
+        "./libs/structures/structures.web-types.json",
+        "./libs/widgets/src/datavis/datavis.web-types.json"
     ],
     "volta": {
         "node": "22.20.0",

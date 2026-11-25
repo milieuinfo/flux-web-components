@@ -1,0 +1,45 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlChartReferenceStories from './vl-chart-reference.stories';
+
+# Chart reference
+
+<FluxComponentMetaData id="data-visualisation-chart-reference" />
+
+## Doel
+
+`vl-chart-reference` tekent een referentielijn in de grafiek, bv. een norm of streefwaarde, zodat de lezer ziet of de
+metingen erboven of eronder liggen.
+
+## Voorbeeld
+
+```js
+import { VlChartLine, VlChartReference } from '@domg-wc/widgets/datavis';
+```
+
+```html
+<vl-chart-line>
+    <vl-chart-reference value="0.4" label="Vlaamse streefwaarde" in-view></vl-chart-reference>
+</vl-chart-line>
+```
+
+<Canvas of={VlChartReferenceStories.ChartReferenceDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlChartReferenceStories.ChartReferenceDefault} />
+
+## Varianten
+
+### Ver van de data
+
+Zonder `in-view` staat een lijn buiten het bereik van de data als notitie boven de grafiek, met een pijl naar haar kant.
+Gebruik `in-view` enkel als de lijn dicht bij de data ligt: een as tot 100 µT voor metingen rond 0,3 µT maakt de data
+onleesbaar.
+
+<Canvas of={VlChartReferenceStories.ChartReferenceFarAway} />
+
+## Gedrag
+
+- Een dunne gestreepte lijn over de hele breedte, met links het label en de waarde, bv. "Vlaamse streefwaarde: 0,4 µT".
+- Meer referentielijnen kan, elk met een eigen label. Kies een label dat de betekenis zegt, niet "Norm".
+- Een schermlezer leest alle referentielijnen voor als beschrijving van de grafiek, ook de notities.

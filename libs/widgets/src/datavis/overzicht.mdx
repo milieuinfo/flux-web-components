@@ -1,0 +1,69 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as DataSourceStories from './source/stories/vl-data-source.stories';
+
+<Meta title="Widgets - Datavis/Overzicht" />
+
+# Data visualisation
+
+Bouwstenen om meetdata als grafiek te tonen, op een consistente en toegankelijke manier en op basis van de
+Flux-componenten. Je nest drie lagen: **source → figure → chart**.
+
+## Voorbeeld
+
+```js
+import { VlChartLine, VlDataFigure, VlDataPeriod, VlDataSource } from '@domg-wc/widgets/datavis';
+```
+
+```html
+<vl-data-source src="https://example.org/FROST-Server/v1.1/Things(1)" period="24h">
+    <vl-data-figure headline="Magnetische veldsterkte" subtitle="Temse, sensor ELF_L_0004, 380 kV">
+        <vl-data-period></vl-data-period>
+        <vl-chart-line></vl-chart-line>
+    </vl-data-figure>
+</vl-data-source>
+```
+
+<Canvas of={DataSourceStories.DataSourceDefault} />
+
+## Bouwstenen
+
+<table>
+    <caption>De drie lagen van een grafiek</caption>
+    <thead>
+        <tr>
+            <th scope="col">Laag</th>
+            <th scope="col">Componenten</th>
+            <th scope="col">Rol</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Source</td>
+            <td>
+                <code>vl-data-source</code>, <code>vl-data-period</code>
+            </td>
+            <td>Haalt de data op voor één periode.</td>
+        </tr>
+        <tr>
+            <td>Figure</td>
+            <td>
+                <code>vl-data-figure</code> en de <code>vl-data-*</code> onderdelen
+            </td>
+            <td>Kop, controls, tabel en uitleg.</td>
+        </tr>
+        <tr>
+            <td>Chart</td>
+            <td>
+                <code>vl-chart-line</code>, <code>vl-chart-reference</code>
+            </td>
+            <td>Tekent de data.</td>
+        </tr>
+    </tbody>
+</table>
+
+## Afspraken
+
+- **Jij schrijft de tekst**: de `headline`, de ondertitel en de uitleg. De figuur zorgt voor de Flux-opmaak.
+- **De tabel is verplicht.** Ze is het tekstalternatief van de grafiek.
+- **De opbouw ligt vast**: kop met controls, filters, grafiek, tabel en uitleg.
+- **De waarde-as bevat altijd 0.**
