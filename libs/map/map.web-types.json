@@ -30,7 +30,14 @@
                 },
                 {
                     "name": "vl-map-click-action-pindrop",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=null"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=null",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        }
+                    ]
                 },
                 {
                     "name": "vl-map-draw-action-style",

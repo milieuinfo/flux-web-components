@@ -370,7 +370,7 @@
                             "default": "false"
                         },
                         {
-                            "name": "preLine",
+                            "name": "pre-line",
                             "description": "Duidt aan of de nieuwe lijnen (`\n`) in de message behouden worden.",
                             "default": "false"
                         }
@@ -400,7 +400,7 @@
                         },
                         {
                             "name": "label",
-                            "description": "De tekst van het label. Overschrijft de waarde van het default slot.",
+                            "description": "De tekst van het label. Overschrijft de waarde van het default slot. Wordt doorgegeven aan de form control als toegankelijke naam.",
                             "default": ""
                         },
                         {
@@ -422,7 +422,7 @@
                     "slots": [
                         {
                             "name": "[default]",
-                            "description": "De content van het label. Wordt overschreven door de waarde van het label attribuut.",
+                            "description": "De content van het label. Wordt overschreven door de waarde van het label attribuut. Enkel de tekst, zonder HTML, wordt doorgegeven aan de form control als toegankelijke naam.",
                             "default": ""
                         }
                     ]
@@ -910,6 +910,11 @@
                             "default": ""
                         },
                         {
+                            "name": "block",
+                            "description": "Duidt aan dat de radio buttons de volledige breedte van hun parent mogen innemen. Wordt doorgegeven aan elke `vl-radio`.",
+                            "default": "false"
+                        },
+                        {
                             "name": "readonly",
                             "description": "Duidt aan dat het veld enkel leesbaar is.",
                             "default": "false"
@@ -1018,6 +1023,11 @@
                             "name": "not-deletable",
                             "description": "Duidt aan dat de selectie niet verwijderbaar is.",
                             "default": "false"
+                        },
+                        {
+                            "name": "value",
+                            "description": "De waarde van de geselecteerde optie. Bij het laden en bij elke wijziging van `options` neemt de component de waarde over van de optie met `selected`, dus stel de beginwaarde daar in.<br>Kan niet aangepast worden in Storybook.",
+                            "default": ""
                         }
                     ],
                     "js": {
@@ -1480,7 +1490,7 @@
                         "properties": [
                             {
                                 "name": "customConfig",
-                                "description": "TinyMCE custom configuratie.<br/>Deze property kan gebruikt worden om custom configuratie mee te geven voor TinyMCE, als ook om configuratie mee te geven voor plugins.<br/>Deze property is niet reactief.",
+                                "description": "TinyMCE custom configuratie.<br/>Deze property kan gebruikt worden om custom configuratie mee te geven voor TinyMCE, als ook om configuratie mee te geven voor plugins.<br/>Deze property is niet reactief.<br/>De TinyMCE-optie `readonly` geldt enkel tijdens de initialisatie: daarna bepalen de attributen `readonly`, `disabled` en `preview` of de editor bewerkbaar is.",
                                 "type": "{ key: value }",
                                 "default": "null"
                             }
@@ -1594,7 +1604,7 @@
                             "default": "Dit bestand is niet toegevoegd. Het bestand mag maximaal {{maxFilesize}} MB zijn."
                         },
                         {
-                            "name": "error-message-maxfiles",
+                            "name": "error-message-max-files",
                             "description": "Attribuut om de boodschap te bepalen wanneer er te veel bestanden zijn toegevoegd. <br> Gebruik {{maxFiles}} om het maximum aantal bestanden weer te geven.",
                             "default": "Dit bestand is niet toegevoegd. Je kan maximaal {{maxFiles}} bestand(en) uploaden."
                         },

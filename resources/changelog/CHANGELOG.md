@@ -1,3 +1,52 @@
+# [2.23.0](https://github.com/milieuinfo/flux-web-components/compare/v2.22.0...v2.23.0) (2026-11-25)
+
+### Bug Fixes
+
+* FLUX-267 - vl-proza-message - zichtbare focus op blauwe achtergrond en Nederlandse knoplabels ([9e35993](https://github.com/milieuinfo/flux-web-components/commit/9e359933935264227111c4457593b6ccc1fd947e))
+* FLUX-283 - vl-spotlight - alt-tekst afbeelding gedocumenteerd en bewaakt ([583fe69](https://github.com/milieuinfo/flux-web-components/commit/583fe691b6962c485623d6f5aeaa8d7c80c77905))
+* FLUX-283 - vl-spotlight - link enkel op titel, kaart blijft klikbaar ([76a4ba8](https://github.com/milieuinfo/flux-web-components/commit/76a4ba8e3c9ca1a7487856908439ac4756e1e576))
+* FLUX-732 - vl-breadcrumb - WCAG verbeteringen - submenu getest als disclosure en toetsenbord gedocumenteerd ([a94910b](https://github.com/milieuinfo/flux-web-components/commit/a94910b15351b8f8a92e3b938be09ff9d26fe1d1))
+* FLUX-735 - vl-modal, vl-modal-next, vl-cookie-consent - WCAG verbeteringen - initiële focus op de inhoud en medium/large passend op mobiel ([9583e1a](https://github.com/milieuinfo/flux-web-components/commit/9583e1a378086433b9cc55894bfb2e9cae1a2e8d))
+* FLUX-744 - vl-popover - WCAG verbeteringen - focus terug naar de trigger en geen menu-semantiek meer ([3208c09](https://github.com/milieuinfo/flux-web-components/commit/3208c09ca8a0c0b11bbac692877414285165157d))
+* FLUX-749 - vl-rich-data-table, vl-table - WCAG verbeteringen - sortering, focus, tab-stop en data als Array ([847a6c3](https://github.com/milieuinfo/flux-web-components/commit/847a6c386a0d8384896be6b66c0b624cb11e2a1a))
+* FLUX-750 - vl-rich-data, vl-search-filter - WCAG verbeteringen - mobiele filter als modale dialoog met sluitknop ([243acc6](https://github.com/milieuinfo/flux-web-components/commit/243acc62273bd970d80749cabd68deeebb695b32))
+* FLUX-768 - vl-toaster - WCAG verbeteringen - prefers-reduced-motion gerespecteerd en contrast met links getest ([85cdf66](https://github.com/milieuinfo/flux-web-components/commit/85cdf6622a07e539aee2c9744bff39cbc38e945b))
+* FLUX-849 - vl-form-label - WCAG verbeteringen: tekst uit de default slot als label doorgegeven aan de form control ([084204d](https://github.com/milieuinfo/flux-web-components/commit/084204d6c3618e725626b5a8df489faf8d57c8a7))
+* FLUX-853 - vl-textarea-rich - editor niet bewerkbaar tijdens de initialisatie ([0320966](https://github.com/milieuinfo/flux-web-components/commit/0320966eb47bad72d8b93a26f54d06bce95c9000))
+* FLUX-857 - vl-toaster - toast zichtbaar boven een open modal ([462f048](https://github.com/milieuinfo/flux-web-components/commit/462f048facbedc7cd1bcc6278957b6bc5c9fc1de))
+* FLUX-863 - vl-title, vl-breadcrumb, vl-checkbox, vl-modal, vl-modal-next - lange woorden lopen niet meer buiten hun container ([24c3dd5](https://github.com/milieuinfo/flux-web-components/commit/24c3dd57c112eb92f76a98ca4bde377d64a18653))
+* FLUX-864 - vl-select-rich - WCAG verbeteringen: gekozen waarden toegankelijk bij disabled ([3bace9d](https://github.com/milieuinfo/flux-web-components/commit/3bace9dd89b1f2e6f658de03ed10f05ec739b1de))
+* FLUX-866 - vl-button - WCAG verbeteringen - disabled ghost button lichter grijs ([f6b7c4b](https://github.com/milieuinfo/flux-web-components/commit/f6b7c4bc60aca1f1369ba850839801f027a62f42))
+* FLUX-867 - vl-link - aria-expanded en aria-controls doorgegeven ([e4c5b01](https://github.com/milieuinfo/flux-web-components/commit/e4c5b0191863aad4ecca0d7ceb0c102ca1586462))
+* FLUX-872 - vl-footer-next, vl-accessibility, vl-progress-bar - CSP-schendingen door inline style-attributen opgelost ([9f920e0](https://github.com/milieuinfo/flux-web-components/commit/9f920e0ae9edeeb57e3a597ba4a151ed86f839c9))
+* FLUX-873 - web-types, vl-select, vl-upload, vl-link, vl-side-navigation-item - argTypes rechtgezet en ongebruikte properties verwijderd ([f3875bb](https://github.com/milieuinfo/flux-web-components/commit/f3875bb356b49fe07d2acc523bb71b0a888d789f))
+* FLUX-875 - vl-select-rich, vl-upload, vl-map - types via de publieke package-entries geïmporteerd ([96b7820](https://github.com/milieuinfo/flux-web-components/commit/96b7820364f28551fb0dd74ae89121309be5fb97))
+* FLUX-885 - vl-modal-next - WCAG verbeteringen - annuleeractie als secundaire knop ([3576f20](https://github.com/milieuinfo/flux-web-components/commit/3576f2097a9f7cb8698df988d04f73d45c5933ba))
+* FLUX-899 - vl-upload - dropzone-types mee in de gepubliceerde package ([8ba2cbd](https://github.com/milieuinfo/flux-web-components/commit/8ba2cbd6d528e7e79385eb63e865349b8c0536be))
+* FLUX-901 - storybook - TypeScript-fout in flux-sidebar-label opgelost ([df9b18b](https://github.com/milieuinfo/flux-web-components/commit/df9b18bfe015da3905fad0e70ad5ef664fd14b72))
+* FLUX-921 - vl-accessibility - inhoudstafel linkt bij FULLY_COMPLIANT niet meer naar een verborgen sectie ([06e1070](https://github.com/milieuinfo/flux-web-components/commit/06e1070c95f06d6b9a5e49067e661a6ffeed62e2))
+
+### Features
+
+* FLUX-834 - vl-alert, vl-toaster - titel via title-label, geen native tooltip meer ([9fdbbee](https://github.com/milieuinfo/flux-web-components/commit/9fdbbee4dda09cf1702ee68bd3846f4601974ecf))
+* FLUX-844 - vl-functional-header - WCAG verbeteringen - eigen kop via heading-slot en skip link na de titel ([fd7647f](https://github.com/milieuinfo/flux-web-components/commit/fd7647fe1a71ed48447e9db775321c8eec3d4c50))
+* FLUX-849 - WCAG verbeteringen - richtlijn verplichte en optionele velden in formulieren ([250979b](https://github.com/milieuinfo/flux-web-components/commit/250979b378b82bc604997c7da5aa497f0cd8deb8))
+* FLUX-858 - vl-toaster - fade-out per toast en pauze bij hover en focus, WCAG verbeteringen ([fce298e](https://github.com/milieuinfo/flux-web-components/commit/fce298e7a73c82ce0bb9d6544eca1cdb12c8b0ba))
+* FLUX-860 - vl-tabs-next - tabwissel weigerbaar via het vl-tab-change event ([b09b144](https://github.com/milieuinfo/flux-web-components/commit/b09b1446c66fd59297641054e9e8ef08837183e1))
+* FLUX-861 - vl-modal, vl-modal-next - autofocus bepaalt de eerste focus bij het openen ([1be4ae0](https://github.com/milieuinfo/flux-web-components/commit/1be4ae078e68dc344218b665a932e18cb70dc64c))
+* FLUX-884 - vl-badge, vl-dashboard, vl-accordion-next, vl-info-tile-next, vl-modal-next - code connect templates ([d46bac7](https://github.com/milieuinfo/flux-web-components/commit/d46bac78fdac9a73c762df9631a9a8d6d40b76bd))
+* FLUX-890 - @domg-wc/common - gedeelde heading-level helper en HeadingLevelController toegevoegd ([b2f0abb](https://github.com/milieuinfo/flux-web-components/commit/b2f0abbf68c805eb3a8b69816ea0b0091e19c911))
+* FLUX-890 - vl-accordion-next - heading via de HeadingLevelController, standaard h3 ([9cf0e13](https://github.com/milieuinfo/flux-web-components/commit/9cf0e1396a7c10e4e4f81c81e79c0f4d9ef19853))
+* FLUX-890 - vl-info-tile-next - heading via de HeadingLevelController ([e49b7a7](https://github.com/milieuinfo/flux-web-components/commit/e49b7a7b6c49b80983eaeee9f4f81f30ef60daa1))
+* FLUX-890 - vl-step - heading via de HeadingLevelController ([cc959cc](https://github.com/milieuinfo/flux-web-components/commit/cc959ccb11711b3d8035428fe0c3ea3a59b97ef7))
+
+### Documentation
+
+* FLUX-267 - vl-proza-message - block-voorbeeld als paragraaf ([47c2fbc](https://github.com/milieuinfo/flux-web-components/commit/47c2fbc8ce6535ee76143d9036893828a898510b))
+* FLUX-267 - vl-proza-message - geneste knoppen als gekende beperking ([113f677](https://github.com/milieuinfo/flux-web-components/commit/113f67794127a675cdf9954c497e26ebf5f7d4c4))
+* FLUX-824 - componenten overzicht - DV status bijgewerkt ([1d20410](https://github.com/milieuinfo/flux-web-components/commit/1d204102d5b3757acc65455dab3a6b665deb3d0d))
+* FLUX-847 - richtlijnen Figma - documentatie Figma Code Connect ([64fa530](https://github.com/milieuinfo/flux-web-components/commit/64fa530c70ac50edc096fdd4412fff07431d3311))
+
 # [2.22.0](https://github.com/milieuinfo/flux-web-components/compare/v2.21.0...v2.22.0) (2026-10-30)
 
 ### Bug Fixes

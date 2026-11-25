@@ -149,12 +149,12 @@
                         },
                         {
                             "name": "heading-level",
-                            "description": "Zet de toggle-knop in een heading van niveau 1 tot 6.<br>Zonder of met een ongeldige waarde staat de knop niet in een heading.",
+                            "description": "Het niveau van de heading rond de toggle-knop, 1 tot 6.<br>Zonder of met een ongeldige waarde: 3.",
                             "value": {
                                 "kind": "plain",
                                 "type": "'1' | '2' | '3' | '4' | '5' | '6'"
                             },
-                            "default": ""
+                            "default": "3"
                         },
                         {
                             "name": "icon",
@@ -248,8 +248,13 @@
                             "default": "false"
                         },
                         {
-                            "name": "title",
+                            "name": "title-label",
                             "description": "Titel van de waarschuwing.<br>Bij de naked variant mag de titel alleen met dit attribuut meegegeven worden.",
+                            "default": ""
+                        },
+                        {
+                            "name": "title",
+                            "description": "**Deprecated** - gebruik `title-label`. Het standaard HTML `title`-attribuut toont een ongewenste native browser-tooltip. Bestaande `title`-waarden blijven werken (de tooltip wordt weggenomen), maar migreer best naar `title-label`.",
                             "default": ""
                         },
                         {
@@ -293,7 +298,7 @@
                     "slots": [
                         {
                             "name": "title",
-                            "description": "Element dat als titel van het alert getoond wordt.",
+                            "description": "Element dat als titel van het alert getoond wordt.<br>Krijgt voorrang op het `title-label` attribuut.",
                             "default": ""
                         },
                         {
@@ -763,6 +768,10 @@
                             "description": "Wordt afgebeeld ipv de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link <br>• back slot<br>• sub-header slot"
                         },
                         {
+                            "name": "heading",
+                            "description": "Wordt afgebeeld ipv de standaard kop, dus inclusief het `h1`-element. Gebruik dit om de applicatietitel geen kop-rol te geven - best een `a`-element dat doorlinkt naar de startpagina of een andere logische plaats.<br>Kan niet in combinatie gebruikt worden met:<br>• title attribuut<br>• title-label attribuut<br>• link attribuut<br>• title slot"
+                        },
+                        {
                             "name": "sub-header",
                             "description": "Wordt afgebeeld onder de horizontale lijn.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link attribuut<br>• sub-title attribuut<br>• back slot<br>• back-link slot<br>• sub-title slot"
                         },
@@ -1041,7 +1050,7 @@
                                 "kind": "plain",
                                 "type": "'1' | '2' | '3' | '4' | '5' | '6'"
                             },
-                            "default": ""
+                            "default": "3"
                         },
                         {
                             "name": "highlight",
@@ -1393,6 +1402,11 @@
                             "default": ""
                         },
                         {
+                            "name": "template-type",
+                            "description": "De key in de `templates` Map van `vl-cascader` die bepaalt met welke template dit item gerenderd wordt.<br>Kan niet aangepast worden in Storybook.",
+                            "default": ""
+                        },
+                        {
                             "name": "label",
                             "description": "Dit bepaalt het label in de breadcrumb navigatie.",
                             "default": "geen label"
@@ -1409,7 +1423,16 @@
                             "description": "Een klik op deze inhoud zal de kind elementen weergeven. Geef een eigen vl-link in dit slot de class vl-cascader-link om het pijltje rechts uit te lijnen.",
                             "default": ""
                         }
-                    ]
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "item",
+                                "description": "Het data-object van het item. Bij het koppelen aan de DOM overschrijft de component hierin `label`, `annotation` en `templateType` met zijn attributen.<br>Kan niet aangepast worden in Storybook.",
+                                "type": "CascaderItem"
+                            }
+                        ]
+                    }
                 },
                 {
                     "name": "vl-table",
@@ -1642,7 +1665,24 @@
                 },
                 {
                     "name": "vl-search-result-properties",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "props",
+                                "description": "De props in JSON formaat.",
+                                "type": "array",
+                                "default": ""
+                            }
+                        ]
+                    }
                 },
                 {
                     "name": "vl-side-navigation-next",
@@ -1667,6 +1707,21 @@
                         {
                             "name": "heading-root-selector",
                             "description": "CSS selector om het root container element te vinden waarbinnen naar headings gezocht wordt. Indien niet opgegeven, wordt het volledige document/shadow root doorzocht. Voorbeeld: \"#section-1\" om enkel headings binnen die sectie te scannen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "min-level",
+                            "description": "Het laagste headingniveau (1 tot 6) dat in de inhoudstafel komt, bv. 2 begint bij h2.",
+                            "default": "2"
+                        },
+                        {
+                            "name": "max-level",
+                            "description": "Het hoogste headingniveau (1 tot 6) dat in de inhoudstafel komt, bv. 3 stopt bij h3.",
+                            "default": "3"
+                        },
+                        {
+                            "name": "exclude-selectors",
+                            "description": "Comma-separated CSS selectors van elementen om uit te sluiten tijdens het scannen van headings. Voorbeeld: \"iframe, table.large-data, .skip-headings\".",
                             "default": ""
                         },
                         {
@@ -1700,7 +1755,48 @@
                 },
                 {
                     "name": "vl-side-navigation-section-next",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-side-navigation--documentatie",
+                    "attributes": [
+                        {
+                            "name": "type",
+                            "description": "Met `auto` bouwt de sectie haar inhoudstafel op uit de headings binnen `heading-root-selector`. Met `custom` lever je zelf een `<ul>` met `vl-link`s.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'custom' | 'auto'"
+                            },
+                            "default": "custom"
+                        },
+                        {
+                            "name": "section-title",
+                            "description": "De titel van de sectie, getoond als label boven haar links.",
+                            "default": ""
+                        },
+                        {
+                            "name": "heading-root-selector",
+                            "description": "CSS selector van de container waarin een `auto`-sectie naar headings zoekt. Zonder waarde geldt de waarde van `vl-side-navigation-next`.",
+                            "default": ""
+                        },
+                        {
+                            "name": "min-level",
+                            "description": "Het laagste headingniveau (1 tot 6) voor een `auto`-sectie. Zonder waarde geldt de waarde van `vl-side-navigation-next`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "max-level",
+                            "description": "Het hoogste headingniveau (1 tot 6) voor een `auto`-sectie. Zonder waarde geldt de waarde van `vl-side-navigation-next`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "max-depth",
+                            "description": "Maximum diepte voor shadow DOM traversal bij het scannen van een `auto`-sectie. Zonder waarde geldt de waarde van `vl-side-navigation-next`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "exclude-selectors",
+                            "description": "Comma-separated CSS selectors van elementen die een `auto`-sectie overslaat bij het scannen. Zonder waarde geldt de waarde van `vl-side-navigation-next`.",
+                            "default": ""
+                        }
+                    ]
                 },
                 {
                     "name": "vl-side-navigation-layout-next",
@@ -1726,6 +1822,16 @@
                             "name": "content-block",
                             "description": "Past de vl-content-block class toe op de layout container voor correcte spacing.",
                             "default": "false"
+                        },
+                        {
+                            "name": "min-level",
+                            "description": "Het laagste headingniveau (1 tot 6) dat in de inhoudstafel komt, bv. 2 begint bij h2. Wordt doorgegeven aan vl-side-navigation-next. Zonder waarde geldt de waarde van `vl-side-navigation-next`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "max-level",
+                            "description": "Het hoogste headingniveau (1 tot 6) dat in de inhoudstafel komt, bv. 3 stopt bij h3. Wordt doorgegeven aan vl-side-navigation-next. Zonder waarde geldt de waarde van `vl-side-navigation-next`.",
+                            "default": "undefined"
                         },
                         {
                             "name": "max-depth",
@@ -1825,7 +1931,19 @@
                 },
                 {
                     "name": "vl-side-navigation-toggle",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie",
+                    "attributes": [
+                        {
+                            "name": "href",
+                            "description": "Het anker (`#id`) van de sectie waar de toggle naartoe scrollt.",
+                            "default": ""
+                        },
+                        {
+                            "name": "child",
+                            "description": "Koppelt de toggle aan de child links met dezelfde waarde in `parent`, bv. `content-1`. Bij het scrollen naar een child link klapt de toggle open.",
+                            "default": ""
+                        }
+                    ]
                 },
                 {
                     "name": "vl-search-filter",
@@ -1856,8 +1974,21 @@
                             "name": "mobile-modal-title",
                             "description": "Stelt de titel in van deze zoekfilter op mobiele apparaten.<br> Als die niet gedeclareerd is, wordt de waarde van filter-title gebruikt.",
                             "default": ""
+                        },
+                        {
+                            "name": "mobile-modal-closable",
+                            "description": "Toont in de mobiele weergave een knop \"Filter sluiten\" naast de titel. Die verbergt de zoekfilter en vuurt `vl-close` af.<br>vl-rich-data zet dit attribuut zelf.",
+                            "default": "false"
                         }
-                    ]
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-close",
+                                "description": "Event dat afgevuurd wordt wanneer de sluitknop van de mobiele weergave de zoekfilter verbergt.<br>Zet bij `vl-close` de focus terug op de knop die de filter opende. vl-rich-data doet dit zelf."
+                            }
+                        ]
+                    }
                 },
                 {
                     "name": "vl-steps",
@@ -1916,7 +2047,7 @@
                         },
                         {
                             "name": "heading-level",
-                            "description": "Het heading niveau voor de step titel.",
+                            "description": "Het niveau van de heading van de titel, 1 tot 6.<br>Zonder of met een ongeldige waarde: 3.",
                             "value": {
                                 "kind": "plain",
                                 "type": "'1' | '2' | '3' | '4' | '5' | '6'"
@@ -2011,7 +2142,24 @@
                 },
                 {
                     "name": "vl-duration-step",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-steps-steps--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-steps-steps--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "interactive",
+                            "description": "Geeft de indicator van de duurstap de actiekleur. Enkel visueel: de component wordt er niet klikbaar of focusbaar door.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "selected",
+                            "description": "Duidt de huidige duurstap aan en zet `aria-current=\"true\"` op de component.",
+                            "default": "false"
+                        }
+                    ]
                 },
                 {
                     "name": "vl-pager",
@@ -2171,7 +2319,7 @@
                         },
                         {
                             "name": "trigger",
-                            "description": "Gebruikersacties die de popover triggeren. Je kan verschillende acties combineren met spaties. Bv. met `focus hover` zal de popover zowel verschijnen bij focus als bij hover.<br />Tip: `hover` en `focus` zijn bij de popover meestal te vermijden. Gebruik hiervoor eerder [vl-tooltip](/?path=/docs/components-block-tooltip--documentatie).",
+                            "description": "Gebruikersacties die de popover triggeren. Je kan verschillende acties combineren met spaties. Bv. met `click hover` zal de popover zowel verschijnen bij een klik als bij hover.<br />Gebruik `hover` nooit alleen: dan kan je de popover niet openen met het toetsenbord of een schermlezer. Combineer `hover` altijd met `click`.<br />Tip: `hover` en `focus` zijn bij de popover meestal te vermijden. Gebruik voor tekst zonder interactie eerder [vl-tooltip](/?path=/docs/components-block-tooltip--documentatie).",
                             "value": {
                                 "kind": "plain",
                                 "type": "'click' | 'focus' | 'hover'"
@@ -2218,22 +2366,49 @@
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": ""
+                        },
+                        {
+                            "name": "selected",
+                            "description": "Duidt de actie aan als het huidige item, bv. de huidige pagina of de laatst gekozen weergave. Een schermlezer leest dit via `aria-current`.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "action",
+                            "description": "Vrije waarde om de actie te herkennen, bv. in een click-handler. De component doet er zelf niets mee.",
+                            "default": ""
+                        },
+                        {
+                            "name": "href",
+                            "description": "Maakt van de actie een link naar deze URL. Zonder `href` is de actie een button.",
+                            "default": ""
+                        },
+                        {
+                            "name": "icon",
+                            "description": "De naam van het icoon dat voor de tekst getoond wordt.",
+                            "default": ""
+                        },
+                        {
+                            "name": "rel",
+                            "description": "De `rel` van de link. Enkel van toepassing met `href`.",
+                            "default": ""
+                        },
+                        {
+                            "name": "target",
+                            "description": "De `target` van de link, bv. `_blank`. Enkel van toepassing met `href`.",
+                            "default": ""
                         }
-                    ],
-                    "js": {
-                        "properties": [
-                            {
-                                "name": "selected",
-                                "description": "Duidt aan dat de actie geselecteerd is.",
-                                "type": "boolean",
-                                "default": "false"
-                            }
-                        ]
-                    }
+                    ]
                 },
                 {
                     "name": "vl-popover-action-list",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        }
+                    ]
                 },
                 {
                     "name": "vl-progress-bar",
@@ -2290,7 +2465,7 @@
                         {
                             "name": "active-step",
                             "description": "Markeert een stap als de actieve.",
-                            "default": "0"
+                            "default": "1"
                         },
                         {
                             "name": "show-labels",
@@ -2321,6 +2496,7 @@
                     "js": {
                         "properties": [
                             {
+                                "name": "steps",
                                 "description": "Lijst met omschrijvingen per stap.",
                                 "type": "array",
                                 "default": ""
@@ -2635,12 +2811,12 @@
                         },
                         {
                             "name": "link",
-                            "description": "De component wordt een link. Door te klikken op de component wordt de gebruiker doorgestuurd naar de link die gezet is in dit attribuut.",
+                            "description": "De titel wordt een link naar de url in dit attribuut, en de hele spotlight blijft klikbaar. De titel is de naam van de link: geef een spotlight met `link` dus altijd een titel. Ontbreken zowel de titel als `link-label`, dan geeft de component een waarschuwing in de console. Subtitel, tekst en content worden los van de link voorgelezen.<br/>Zet een link of knop in de spotlight enkel in het slot `content`. In de slots `subtitle` en `text` ligt die onder het klikvlak van de spotlight en is ze niet bereikbaar met de muis; dat wordt niet ondersteund.",
                             "default": ""
                         },
                         {
                             "name": "link-label",
-                            "description": "Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. \"Premies voor renovatie - opent in nieuw venster\" bij external links.",
+                            "description": "Vult het aria-label attribuut van de link op de titel in en vervangt zo de titel als voorgelezen linktekst. Gebruik het enkel als de titel niet volstaat, bv. om bij `external` te melden dat de link in een nieuw venster opent.<br/>Het label moet de zichtbare titel bevatten, bij voorkeur vooraan (WCAG 2.5.3 Label in Name), bv. \"Premies voor renovatie - opent in nieuw venster\".",
                             "default": ""
                         },
                         {
@@ -2650,7 +2826,7 @@
                         },
                         {
                             "name": "alt",
-                            "description": "Geeft de component een alternatieve stijl. De achtergrond wordt grijs.",
+                            "description": "Geeft de component een alternatieve stijl. De achtergrond wordt grijs. Dit is geen alternatieve tekst voor de afbeelding: gebruik daarvoor `img-alt`.",
                             "default": "false"
                         },
                         {
@@ -2669,34 +2845,34 @@
                         },
                         {
                             "name": "img-src",
-                            "description": "Het path van de image dat getoond moet worden in de spotlight.",
+                            "description": "Het pad van de afbeelding die getoond wordt in de spotlight. Zet er altijd het attribuut `img-alt` bij.",
                             "default": ""
                         },
                         {
                             "name": "img-alt",
-                            "description": "De alternatieve tekst van de image dat getoond moet worden in de spotlight.",
+                            "description": "De alternatieve tekst van de afbeelding. Beschrijf wat er te zien is als de afbeelding informatie toevoegt, bv. \"Oud pannendak met verweerde dakpannen\". Is de afbeelding louter decoratief, zet dan een leeg `img-alt=\"\"` zodat schermlezers ze overslaan. Ontbreekt het attribuut bij een `img-src`, dan geeft de component een waarschuwing in de console. Let op: het attribuut `alt` is de grijze stijlvariant en geen alternatieve tekst.",
                             "default": ""
                         }
                     ],
                     "slots": [
                         {
                             "name": "title",
-                            "description": "Titel van de spotlight.",
+                            "description": "Titel van de spotlight. Met het attribuut `link` is de titel de link.",
                             "default": ""
                         },
                         {
                             "name": "subtitle",
-                            "description": "Subtitle van de spotlight.",
+                            "description": "Subtitel van de spotlight. Zet hier geen link of knop in als het attribuut `link` gezet is.",
                             "default": ""
                         },
                         {
                             "name": "text",
-                            "description": "Text van de spotlight.",
+                            "description": "Tekst van de spotlight. Zet hier geen link of knop in als het attribuut `link` gezet is.",
                             "default": ""
                         },
                         {
                             "name": "content",
-                            "description": "Content van de spotlight.",
+                            "description": "Content van de spotlight. Een link of knop in dit slot, bv. een `vl-document`, blijft apart bereikbaar naast de link op de titel. Een klik op de content volgt de link van de spotlight niet.",
                             "default": ""
                         }
                     ]
@@ -2769,6 +2945,11 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "id",
+                            "description": "De id van de modal. Een element met `modal-open` (of `data-modal-open`) met dezelfde waarde opent de modal bij een klik.",
                             "default": ""
                         },
                         {
@@ -2886,13 +3067,18 @@
                     "js": {
                         "events": [
                             {
+                                "name": "vl-tab-change",
+                                "description": "Cancelable event dat afgevuurd wordt vóór de gebruiker naar een andere tab wisselt, met de muis, het toetsenbord of de dropdown op mobiel. Roep `preventDefault()` aan om de wissel te weigeren: de huidige tab blijft dan geselecteerd en een tab link navigeert niet. Vuurt niet bij een klik op de geselecteerde tab of bij een programmatische selectie.",
+                                "type": "{ tab: VlTabComponent | VlTabLinkComponent, previousTab: VlTabComponent | VlTabLinkComponent | undefined }"
+                            },
+                            {
                                 "name": "vl-tab-click",
-                                "description": "Event dat afgevuurd wordt wanneer een tab wordt aangeklikt.",
+                                "description": "Event dat afgevuurd wordt bij een klik, Enter of Spatie op een tab en bij `select()`, ook als de wissel geweigerd wordt. Gebruik `vl-tab-change` om een wissel te weigeren.",
                                 "type": "{ tab: VlTabComponent }"
                             },
                             {
                                 "name": "vl-tab-link-click",
-                                "description": "Event dat afgevuurd wordt wanneer een tab link wordt aangeklikt.",
+                                "description": "Event dat afgevuurd wordt bij een klik of Enter op een tab link en bij `select()`, ook als de wissel geweigerd wordt. Gebruik `vl-tab-change` om een wissel te weigeren.",
                                 "type": "{ tab: VlTabLinkComponent }"
                             }
                         ]
@@ -2900,15 +3086,66 @@
                 },
                 {
                     "name": "vl-tab-next",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "panel",
+                            "description": "De id van de `vl-tab-panel-next` die bij deze tab hoort.",
+                            "default": ""
+                        },
+                        {
+                            "name": "selected",
+                            "description": "Duidt aan dat deze tab geselecteerd is. `vl-tabs-next` zet dit attribuut zelf bij een klik of bij navigatie met het toetsenbord.",
+                            "default": "false"
+                        }
+                    ]
                 },
                 {
                     "name": "vl-tab-link-next",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "href",
+                            "description": "De URL waar de tab link naartoe navigeert.",
+                            "default": ""
+                        },
+                        {
+                            "name": "external",
+                            "description": "Opent de link in een nieuw venster.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "selected",
+                            "description": "Duidt aan dat deze tab link de huidige pagina is.",
+                            "default": "false"
+                        }
+                    ]
                 },
                 {
                     "name": "vl-tab-panel-next",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "hidden",
+                            "description": "Verbergt het panel. `vl-tabs-next` beheert dit attribuut: enkel het panel van de geselecteerde tab is zichtbaar.",
+                            "default": "true"
+                        }
+                    ]
                 },
                 {
                     "name": "vl-tabs-pane",
@@ -2936,7 +3173,24 @@
                 },
                 {
                     "name": "vl-tab",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs-tabs--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs-tabs--documentatie",
+                    "attributes": [
+                        {
+                            "name": "href",
+                            "description": "De URL van de tab-link. `vl-tabs` vult `<pagina-url>#<tab-id>` in. Wordt ook, met de suffix `-pane`, in `aria-controls` gezet.",
+                            "default": ""
+                        },
+                        {
+                            "name": "disable-link",
+                            "description": "Zet geen `href` op de link van de tab.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "within-functional-header",
+                            "description": "Duidt aan dat de tab in een functional header staat. Wordt gezet door `vl-tabs` met `within-functional-header`.",
+                            "default": "false"
+                        }
+                    ]
                 },
                 {
                     "name": "vl-tab-section",
@@ -2975,7 +3229,7 @@
                         },
                         {
                             "name": "fade-out",
-                            "description": "Elke alert verdwijnt automatisch 5 seconden na openen. \n\n Dit kan toegankelijkheidsproblemen veroorzaken. Meer info [hier](?path=/docs/components-block-toaster--documentatie#fade-out).",
+                            "description": "Elke toast verdwijnt automatisch, ongeveer 5 seconden na het tonen. Een toast met het attribuut `persistent` blijft staan. Zolang de muis op de toaster staat of de focus erin zit, verdwijnt er geen enkele toast. \n\n Dit kan toegankelijkheidsproblemen veroorzaken. Meer info [hier](?path=/docs/components-block-toaster--documentatie#fade-out).",
                             "default": "false"
                         },
                         {
@@ -3205,7 +3459,7 @@
                         {
                             "name": "active-step",
                             "description": "Zet de actieve stap.",
-                            "default": "0"
+                            "default": "1"
                         },
                         {
                             "name": "hide-labels",
@@ -3220,10 +3474,12 @@
                     ],
                     "slots": [
                         {
+                            "name": "title",
                             "description": "Slot voor de titel.",
                             "default": ""
                         },
                         {
+                            "name": "header",
                             "description": "Slot voor de header.",
                             "default": ""
                         }

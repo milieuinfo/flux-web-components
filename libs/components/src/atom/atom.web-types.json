@@ -125,6 +125,33 @@
                             "name": "label",
                             "description": "Stelt het aria-label attribuut van de button in en vervangt zo de volledige voorgelezen tekst. Gebruik het enkel als de zichtbare tekst niet volstaat of als er geen zichtbare tekst is, bv. bij een button met enkel een icoon.<br/>Het label moet de zichtbare tekst bevatten, bij voorkeur vooraan (WCAG 2.5.3 Label in Name). Gebruik je een `cta-link` met `external`, voeg dan de vermelding toe na de zichtbare tekst, bv. \"Vlaanderen.be (opent in een nieuw venster)\" bij de zichtbare tekst \"Vlaanderen.be\".",
                             "default": ""
+                        },
+                        {
+                            "name": "aria-current",
+                            "description": "Wordt doorgegeven aan het onderliggende element en duidt het huidige element binnen een reeks aan, bv. de huidige pagina.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false'"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "name": "aria-expanded",
+                            "description": "Wordt doorgegeven aan de onderliggende button en duidt aan of het element dat de button bedient, open of gesloten is.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'true' | 'false'"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "name": "aria-haspopup",
+                            "description": "Wordt doorgegeven aan het onderliggende element en duidt aan dat de button een popup opent, bv. een menu of dialog.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog'"
+                            },
+                            "default": ""
                         }
                     ],
                     "slots": [
@@ -280,6 +307,24 @@
                                 "type": "'string: 'button'' | ''submit'' | ''reset''"
                             },
                             "default": "button"
+                        },
+                        {
+                            "name": "aria-current",
+                            "description": "Wordt doorgegeven aan de onderliggende link (of button bij `button-as-link`) en duidt de huidige link binnen een reeks aan, bv. de huidige pagina.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false'"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "name": "aria-haspopup",
+                            "description": "Wordt doorgegeven aan de onderliggende link (of button bij `button-as-link`) en duidt aan dat de link een popup opent, bv. een menu of dialog.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog'"
+                            },
+                            "default": ""
                         }
                     ],
                     "slots": [
