@@ -957,7 +957,7 @@ describe('cypress-component - block components - vl-toaster - open modal', () =>
         `);
         const entries = trackTopLayerEntries();
 
-        const getSavedToast = () => getOutput().find('vl-alert[title="Bewaard"]').shadow();
+        const getSavedToast = () => getOutput().find('vl-alert[title-label="Bewaard"]').shadow();
 
         openModal();
         showAlert({ ...savedAlert, closable: true, 'alert-role': ALERT_ROLE.ALERT_DIALOG });
@@ -968,7 +968,7 @@ describe('cypress-component - block components - vl-toaster - open modal', () =>
         shouldBeAboveModals(entries, 1);
         getSavedToast().find('#alert').should('have.focus');
         getSavedToast().find('button#close').click();
-        getOutput().find('vl-alert[title="Bewaard"]').should('not.exist');
+        getOutput().find('vl-alert[title-label="Bewaard"]').should('not.exist');
     });
 
     it('should pause fading out while the focus is within a toaster inside the modal', () => {
