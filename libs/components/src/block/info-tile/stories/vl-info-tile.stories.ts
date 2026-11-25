@@ -117,7 +117,7 @@ InfoTileError.storyName = 'vl-info-tile - error';
 InfoTileError.args = {
     titleSlot: `<span slot="title">Broos Deprez</span>`,
     subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
-    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd geweigerd.</div>`,
     type: 'error',
 };
 
@@ -135,7 +135,7 @@ InfoTileWarning.storyName = 'vl-info-tile - warning';
 InfoTileWarning.args = {
     titleSlot: `<span slot="title">Broos Deprez</span>`,
     subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
-    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    contentSlot: `<div slot="content">Voor de studietoelage van Broos Deprez ontbreekt nog een document.</div>`,
     type: 'warning',
 };
 
@@ -198,8 +198,8 @@ InfoTileMenuSlot.args = {
     subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
     contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
     menuSlot: `<span slot="menu">
-        <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
-        <vl-popover for="btn-acties" placement="bottom-end">
+        <vl-button ghost icon="nav-show-more-vertical" id="btn-acties-menu" label="Acties"></vl-button>
+        <vl-popover for="btn-acties-menu" placement="bottom-end">
             <vl-popover-action-list>
                 <vl-popover-action icon="search">Zoeken</vl-popover-action>
                 <vl-popover-action icon="edit">Aanpassen</vl-popover-action>
@@ -225,7 +225,7 @@ InfoTileBadgeSlot.args = {
     titleSlot: `<span slot="title">Broos Deprez</span>`,
     subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
     contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
-    badgeSlot: `<div slot="badge" style="
+    badgeSlot: `<div slot="badge" aria-hidden="true" style="
             width: 45px;
             height: 45px;
             background: var(--vl-color--background-alt);
@@ -276,10 +276,13 @@ InfoTileClickable.storyName = 'vl-info-tile - clickable';
 InfoTileClickable.args = {
     titleSlot: `<span slot="title">Broos Deprez</span>`,
     subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
-    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    contentSlot: `<div slot="content">
+        <p>De studietoelage voor Broos Deprez werd toegekend.</p>
+        <p><strong>Details bekijken</strong></p>
+    </div>`,
     menuSlot: `<span slot="menu">
-        <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
-        <vl-popover for="btn-acties" placement="bottom-end">
+        <vl-button ghost icon="nav-show-more-vertical" id="btn-acties-clickable" label="Acties"></vl-button>
+        <vl-popover for="btn-acties-clickable" placement="bottom-end">
             <vl-popover-action-list>
                 <vl-popover-action icon="search">Zoeken</vl-popover-action>
                 <vl-popover-action icon="edit">Aanpassen</vl-popover-action>
@@ -288,7 +291,7 @@ InfoTileClickable.args = {
         </vl-popover>
     </span>`,
     clickable: true,
-    clickableLabel: 'detail pagina Broos Deprez openen',
+    clickableLabel: 'Broos Deprez, detailpagina openen',
 };
 
 export const InfoTileHighlight = Template.bind({});

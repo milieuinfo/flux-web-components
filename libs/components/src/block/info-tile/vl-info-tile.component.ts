@@ -63,9 +63,9 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
                     <slot name="content"></slot>
                 </div>
 
-                <footer class="vl-info-tile__footer">
+                <div class="vl-info-tile__footer">
                     <slot name="footer"></slot>
-                </footer>
+                </div>
             </div>
         `;
         const styleSheets = [
@@ -208,7 +208,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
     }
 
     get _footerElement(): HTMLElement | null {
-        return this._element.querySelector<HTMLElement>('footer');
+        return this._element.querySelector<HTMLElement>('.vl-info-tile__footer');
     }
 
     get _footerSlotElement(): HTMLSlotElement | null {

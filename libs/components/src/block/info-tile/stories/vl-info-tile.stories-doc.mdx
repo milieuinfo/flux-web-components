@@ -59,6 +59,10 @@ import { VlInfoTile } from '@domg-wc/components/block';
 
 <Canvas of={VlInfoTileStories.InfoTileError} />
 
+> **Let op:** De kleur van `success`, `warning` of `error` mag niet de enige aanduiding van de status zijn (WCAG 1.4.1).
+Een schermlezer leest de kleur niet voor, en niet iedereen ziet het verschil tussen de kleuren. Zeg de status ook in de
+titel of de inhoud, bv. "toegekend", "er ontbreekt nog een document" of "geweigerd".
+
 ### Gecentreerd
 
 <Canvas of={VlInfoTileStories.InfoTileCentered} />
@@ -84,7 +88,20 @@ Je kan een heading (h1-h6) laten renderen in de info-tile door gebruik te maken 
 > **Let op:** Gebruik het `subtitle` slot niet wanneer de info tile `toggleable` is. De subtitle hoort bij de content,
 maar is geen onderdeel van het getogglede gedeelte.
 
+### Met icoon
+
+Het icoon van het `icon`-attribuut is decoratief: een schermlezer leest het niet voor. Draagt het icoon een betekenis,
+zoals een status, een bevestiging of een waarschuwing, zeg die dan ook in de titel of de inhoud. Of gebruik de
+`badge`-slot, met een tekst voor schermlezers bij het icoon.
+
+<Canvas of={VlInfoTileStories.InfoTileIcon} />
+
 ### Met menu
+
+Het menu is een `vl-popover`: een disclosure, geen ARIA-menu. Enter of Spatie op de knop opent het, met Tab ga je door
+de acties, en Escape sluit het en zet de focus terug op de knop. Zie de documentatie van
+[vl-popover](/docs/components-block-popover--documentatie). Geef elke knop een eigen `id`, ook als er meerdere info
+tiles op een pagina staan: `for` van de popover verwijst naar dat `id`.
 
 <Canvas of={VlInfoTileStories.InfoTileMenuSlot} />
 
@@ -92,6 +109,11 @@ maar is geen onderdeel van het getogglede gedeelte.
 
 Maakt de info-tile aanklikbaar. Dit is niet combineerbaar met het `data-vl-toggleable`-attribuut.
 In dit voorbeeld wordt dit gebruikt in combinatie met een menu-slot.
+
+Een aanklikbare info-tile ziet er hetzelfde uit als een gewone. Maak daarom zichtbaar dat de tile een actie heeft, bv.
+met een tekst als "Details bekijken" of een pijl-icoon bij de titel. Laat `clickable-label` beginnen met de zichtbare
+titel, bv. "Broos Deprez, detailpagina openen": wie met spraak bedient, noemt de tile bij de tekst die hij ziet
+(WCAG 2.5.3). Het voorbeeld toont daarvoor "Details bekijken" in de inhoud, als tekst: de hele tile is al de knop.
 
 <Canvas of={VlInfoTileStories.InfoTileClickable} />
 
