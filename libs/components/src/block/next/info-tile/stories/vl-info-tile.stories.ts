@@ -82,9 +82,11 @@ const Template = story(
 const title = `<span slot="trigger">Broos Deprez</span>`;
 const subtitle = `<span slot="subtitle">Uw zoon (19.05.2005)</span>`;
 const content = `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`;
-const actions = `<span slot="actions">
-        <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
-        <vl-popover for="btn-acties" placement="bottom-end">
+// Een eigen id per story: op de docs-pagina staan alle stories samen, en `for` koppelt de popover aan de eerste knop
+// met dat id.
+const actions = (id: string) => `<span slot="actions">
+        <vl-button ghost icon="nav-show-more-vertical" id="${id}" label="Acties"></vl-button>
+        <vl-popover for="${id}" placement="bottom-end">
             <vl-popover-action-list>
                 <vl-popover-action icon="search">Zoeken</vl-popover-action>
                 <vl-popover-action icon="edit">Aanpassen</vl-popover-action>
@@ -115,7 +117,12 @@ InfoTileAlt.args = { triggerSlot: title, subtitleSlot: subtitle, contentSlot: co
 
 export const InfoTileError = Template.bind({});
 InfoTileError.storyName = 'vl-info-tile-next - error';
-InfoTileError.args = { triggerSlot: title, subtitleSlot: subtitle, contentSlot: content, type: 'error' };
+InfoTileError.args = {
+    triggerSlot: title,
+    subtitleSlot: subtitle,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd geweigerd.</div>`,
+    type: 'error',
+};
 
 export const InfoTileSuccess = Template.bind({});
 InfoTileSuccess.storyName = 'vl-info-tile-next - success';
@@ -123,7 +130,12 @@ InfoTileSuccess.args = { triggerSlot: title, subtitleSlot: subtitle, contentSlot
 
 export const InfoTileWarning = Template.bind({});
 InfoTileWarning.storyName = 'vl-info-tile-next - warning';
-InfoTileWarning.args = { triggerSlot: title, subtitleSlot: subtitle, contentSlot: content, type: 'warning' };
+InfoTileWarning.args = {
+    triggerSlot: title,
+    subtitleSlot: subtitle,
+    contentSlot: `<div slot="content">Voor de studietoelage van Broos Deprez ontbreekt nog een document.</div>`,
+    type: 'warning',
+};
 
 export const InfoTileFullHeight = Template.bind({});
 InfoTileFullHeight.storyName = 'vl-info-tile-next - full height';
@@ -164,7 +176,12 @@ InfoTileToggleable.args = { triggerSlot: title, contentSlot: content, toggleable
 
 export const InfoTileActionsSlot = Template.bind({});
 InfoTileActionsSlot.storyName = 'vl-info-tile-next - actions slot';
-InfoTileActionsSlot.args = { triggerSlot: title, subtitleSlot: subtitle, contentSlot: content, actionsSlot: actions };
+InfoTileActionsSlot.args = {
+    triggerSlot: title,
+    subtitleSlot: subtitle,
+    contentSlot: content,
+    actionsSlot: actions('btn-acties-actions'),
+};
 
 export const InfoTileIcon = Template.bind({});
 InfoTileIcon.storyName = 'vl-info-tile-next - icon';
@@ -182,7 +199,7 @@ InfoTileBadgeSlot.args = {
     triggerSlot: title,
     subtitleSlot: subtitle,
     contentSlot: content,
-    badgeSlot: `<div slot="badge" style="
+    badgeSlot: `<div slot="badge" aria-hidden="true" style="
             width: 45px;
             height: 45px;
             background: var(--vl-color--background-alt);
@@ -231,10 +248,13 @@ InfoTileClickable.storyName = 'vl-info-tile-next - clickable';
 InfoTileClickable.args = {
     triggerSlot: title,
     subtitleSlot: subtitle,
-    contentSlot: content,
-    actionsSlot: actions,
+    contentSlot: `<div slot="content">
+        <p>De studietoelage voor Broos Deprez werd toegekend.</p>
+        <p><strong>Details bekijken</strong></p>
+    </div>`,
+    actionsSlot: actions('btn-acties-clickable'),
     clickable: true,
-    clickableLabel: 'detail pagina Broos Deprez openen',
+    clickableLabel: 'Broos Deprez, detailpagina openen',
 };
 
 export const InfoTileHighlight = Template.bind({});
