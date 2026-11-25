@@ -14,13 +14,30 @@ Dit component heeft twee varianten:
 
 - **Standaard tabs patroon**:
     - Deze variant wordt best gebruikt als **widget op een pagina** en niet als navigatie element.
-    - Deze implementatie volgt de [ARIA tab patroon richtlijnen](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) voor `role="tablist"`.
+    - Deze implementatie volgt de <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" target="_blank" rel="noopener noreferrer nofollow">ARIA tab patroon richtlijnen (opent in nieuw venster)</a> voor `role="tablist"`.
     - De tabs zijn bedienbaar met de pijltjestoetsen.
     - De tabpanelen worden allemaal gerenderd, maar enkel het selecteerde tabpaneel wordt getoond.
     - Bij deze variant gebruik je de `<vl-tab-next>` als tab elementen en de `<vl-tab-panel-next>` als tabpanelen.
+    - Op mobiel worden de tabs een keuzelijst: de knop toont de geselecteerde tab en opent een lijst
+      (`role="listbox"`). Bij het openen krijgt de geselecteerde optie de focus; met de pijltjestoetsen kies je een
+      andere optie, met Enter of spatie toon je het paneel en met Escape sluit je de lijst.
 - **Horizontale navigatie**:
     - Deze variant implementeert geen `role="tablist"` maar doet dienst als **navigatie element**.
     - Bij deze variant gebruik je de `<vl-tab-link-next>` als tab elementen.
+    - De links staan in een `<nav>` met als naam het `label`. Geef daarom altijd een `label` mee.
+    - Op mobiel klappen de links weg achter een knop met de naam van de huidige pagina
+      (<a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/" target="_blank" rel="noopener noreferrer nofollow">disclosure-navigatie (opent in nieuw venster)</a>).
+      De knop staat in de `<nav>` en geeft met `aria-expanded` aan of de lijst open is. De links blijven links: met
+      Tab ga je erdoor, de huidige pagina heeft `aria-current="page"` en een externe link houdt zijn icoon en de
+      aanduiding "(opent in een nieuw venster)". Met pijltje omlaag en omhoog, Home en End ga je naar de volgende,
+      vorige, eerste of laatste link; Enter volgt de link en Escape sluit de lijst en zet de focus terug op de knop.
+    - **Waarom geen keuzelijst (listbox of combobox) op mobiel?** De onderdelen zijn links naar een andere pagina.
+      Als opties van een keuzelijst verliezen ze hun rol van link (WCAG 4.1.2), en een keuze die meteen naar een
+      andere pagina of een nieuw venster gaat, is een onverwachte contextwijziging (WCAG 3.2.2). Daarom een
+      uitklapbare lijst met de echte links (FLUX-739). De pijltjestoetsen zijn er omdat de lijst eruitziet als een
+      dropdown en het
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/" target="_blank" rel="noopener noreferrer nofollow">APG-voorbeeld (opent in nieuw venster)</a>
+      ze toelaat: ze verplaatsen enkel de focus, ze kiezen of navigeren niet.
 
 ## Voorbeeld
 
@@ -57,7 +74,7 @@ import { VlTabsComponent, VlTabComponent, VlTabPanelComponent } from '@domg-wc/c
 
 ## Een tabwissel weigeren
 
-Voor de gebruiker naar een andere tab wisselt, vuurt `vl-tabs-next` het cancelable event `vl-tab-change`. Dat gebeurt bij een klik, Enter of Spatie, de pijltjestoetsen, Home en End, en bij een keuze in de dropdown op mobiel. Roep `preventDefault()` aan om de wissel te weigeren, bijvoorbeeld als een formulier in de huidige tab niet-bewaarde wijzigingen heeft. De huidige tab blijft dan geselecteerd, het zichtbare tabpaneel verandert niet en een `<vl-tab-link-next>` navigeert niet naar zijn `href`.
+Voor de gebruiker naar een andere tab wisselt, vuurt `vl-tabs-next` het cancelable event `vl-tab-change`. Dat gebeurt bij een klik, Enter of Spatie, de pijltjestoetsen, Home en End, en bij een keuze in de keuzelijst van de tabs op mobiel. Een `<vl-tab-link-next>` blijft op mobiel een echte link in de uitklapbare lijst: het event vuurt er bij een klik of Enter op de link, zoals op desktop. Roep `preventDefault()` aan om de wissel te weigeren, bijvoorbeeld als een formulier in de huidige tab niet-bewaarde wijzigingen heeft. De huidige tab blijft dan geselecteerd, het zichtbare tabpaneel verandert niet en een `<vl-tab-link-next>` navigeert niet naar zijn `href`.
 
 - `event.detail.tab` is de tab die de gebruiker wil openen, `event.detail.previousTab` de tab die nu geselecteerd is.
 - Het event vuurt enkel bij een echte wissel: niet bij een klik op de geselecteerde tab en niet bij een programmatische selectie met `select()`. Bij een klik met Ctrl, Cmd, Shift of Alt op een tab link volgt de browser zijn eigen gedrag, zoals openen in een nieuw tabblad: de tab wordt dan niet geselecteerd en het event vuurt niet.
@@ -89,7 +106,7 @@ import { VlTabsComponent, VlTabLinkComponent } from '@domg-wc/components/block/n
 ```
 
 ```html
-<vl-tabs-next label="Mijn navigatie">
+<vl-tabs-next horizontal-navigation label="Mijn navigatie">
     <vl-tab-link-next href="#tab1">Trein</vl-tab-link-next>
     <vl-tab-link-next href="#tab2">Metro, tram en bus</vl-tab-link-next>
     <vl-tab-link-next

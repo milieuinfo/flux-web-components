@@ -119,11 +119,7 @@ export class VlTabsComponent extends BaseLitElement {
         panelElement.removeAttribute('hidden');
     };
 
-    private selectTab = (
-        tab: VlTabComponent | VlTabLinkComponent,
-        focus: boolean = false,
-        navigate: boolean = true,
-    ) => {
+    private selectTab = (tab: VlTabComponent | VlTabLinkComponent, focus: boolean = false) => {
         this.allTabs.forEach((otherTab) => {
             if (otherTab !== tab && otherTab.selected) {
                 otherTab.selected = false;
@@ -149,24 +145,10 @@ export class VlTabsComponent extends BaseLitElement {
             if (optionIndex !== -1) {
                 this.mobileDropdownFocusedIndex = index;
             }
-            if (navigate && this.horizontalNavigation) {
-                const href = (tab as VlTabLinkComponent).href;
-                if (href) {
-                    if ((tab as VlTabLinkComponent).external) {
-                        window.open(href, '_blank', 'noopener');
-                    } else {
-                        window.location.href = href;
-                    }
-                }
-            }
         }
     };
 
-    private requestSelectTab(
-        tab: VlTabComponent | VlTabLinkComponent,
-        focus: boolean = false,
-        navigate: boolean = true,
-    ): boolean {
+    private requestSelectTab(tab: VlTabComponent | VlTabLinkComponent, focus: boolean = false): boolean {
         // Focus before the dispatch: after a refusal it stays on the requested tab,
         // and a modal opened in a vl-tab-change listener keeps the focus.
         if (focus) {
@@ -175,7 +157,7 @@ export class VlTabsComponent extends BaseLitElement {
         if (!tab.selected && !this.dispatchTabChange(tab)) {
             return false;
         }
-        this.selectTab(tab, focus, navigate);
+        this.selectTab(tab, focus);
         return true;
     }
 
@@ -242,14 +224,22 @@ export class VlTabsComponent extends BaseLitElement {
     };
 
     // A tab link is handled on the native click of its <a>: only that event can still stop the browser from navigating.
-    // The browser then follows the <a> itself, so selectTab() must not navigate too (mobile, select()).
+    // The browser then follows the <a> itself, also in the mobile list (FLUX-739) and for select().
     private onTabLinkClicked = (e: MouseEvent) => {
         if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
             return;
         }
         const tab = this.findClickedTabLink(e);
-        if (tab && !this.requestSelectTab(tab, false, false)) {
+        if (!tab) {
+            return;
+        }
+        if (!this.requestSelectTab(tab)) {
             e.preventDefault();
+            return;
+        }
+        // The browser follows the link; on mobile the list closes and the focus returns to the toggle
+        if (this.mobile && this.mobileDropdownOpen) {
+            this.onMobileToggle();
         }
     };
 
@@ -270,29 +260,27 @@ export class VlTabsComponent extends BaseLitElement {
         this.mobileMediaQuery.addEventListener('change', this.handleMobileMediaQueryChange);
     }
 
+    // The label of the mobile toggle comes from the slotted tabs: render again when they change
+    private onMobileSlotChange = () => {
+        this.requestUpdate();
+    };
+
     updated(): void {
         this.ensureSelectedTab();
     }
 
     private setMobileState(isMobile: boolean): void {
         this.mobile = isMobile;
-        if (this.mobile) {
-            // Remove listitem role from tab links in mobile
-            this.allTabs.forEach((tab) => {
-                if (tab instanceof VlTabLinkComponent) {
-                    tab.removeAttribute('role');
-                }
-            });
-        } else {
+        if (!this.mobile) {
             this.mobileDropdownFocusedIndex = -1;
             this.mobileDropdownOpen = false;
-            // Set listitem role on tab links in desktop
-            this.allTabs.forEach((tab) => {
-                if (tab instanceof VlTabLinkComponent) {
-                    tab.setAttribute('role', 'listitem');
-                }
-            });
         }
+        // Tab links are list items in a <ul>, on desktop as well as on mobile
+        this.allTabs.forEach((tab) => {
+            if (tab instanceof VlTabLinkComponent) {
+                tab.setAttribute('role', 'listitem');
+            }
+        });
     }
 
     private handleMobileMediaQueryChange = (event: MediaQueryListEvent): void => {
@@ -306,7 +294,7 @@ export class VlTabsComponent extends BaseLitElement {
 
         const selectedTab = this.allTabs.find((tab) => tab.selected === true);
         if (!selectedTab) {
-            this.selectTab(this.allTabs[0], false, false);
+            this.selectTab(this.allTabs[0], false);
             return;
         }
     }
@@ -368,7 +356,11 @@ export class VlTabsComponent extends BaseLitElement {
     private onMobileToggle = () => {
         this.mobileDropdownOpen = !this.mobileDropdownOpen;
         if (this.mobileDropdownOpen) {
-            this.mobileDropdownFocusedIndex = 0;
+            if (this.horizontalNavigation) {
+                // Disclosure navigation: the focus stays on the toggle, Tab moves through the links
+                return;
+            }
+            this.mobileDropdownFocusedIndex = Math.max(this.selectedTabIndex, 0);
             requestAnimationFrame(() => {
                 this.focusMobileOption(this.mobileDropdownFocusedIndex);
             });
@@ -381,6 +373,10 @@ export class VlTabsComponent extends BaseLitElement {
         if (!this.mobileDropdownOpen) return;
 
         const key = e.key.toLowerCase();
+        if (this.horizontalNavigation) {
+            this.onMobileNavigationKeyDown(e, key);
+            return;
+        }
         const optionsCount = this.mobileOptions.length;
 
         switch (key) {
@@ -410,7 +406,7 @@ export class VlTabsComponent extends BaseLitElement {
             case ' ':
                 e.preventDefault();
                 if (this.mobileDropdownFocusedIndex >= 0) {
-                    this.requestSelectTab(this.allTabs[this.mobileDropdownFocusedIndex], false, true);
+                    this.requestSelectTab(this.allTabs[this.mobileDropdownFocusedIndex], false);
                     this.onMobileToggle();
                     this.mobileToggleButton?.focus();
                 }
@@ -425,8 +421,72 @@ export class VlTabsComponent extends BaseLitElement {
         }
     };
 
+    // Keyboard of the mobile horizontal navigation (FLUX-739). The items are links, not listbox options: a choice
+    // must not navigate by itself (WCAG 3.2.2) and a link must stay a link (WCAG 4.1.2), so no listbox or combobox
+    // here. Because the list looks like a dropdown, the arrow keys, Home and End move the focus between the links, as
+    // in the APG example "Disclosure Navigation Menu"; they never select or navigate. Tab keeps working, Enter follows
+    // the link (browser), Escape closes the list and puts the focus back on the toggle.
+    private onMobileNavigationKeyDown(e: KeyboardEvent, key: string): void {
+        const links = this.allTabs;
+        const current = links.indexOf(e.target as VlTabLinkComponent);
+        let next: number;
+        switch (key) {
+            case 'arrowdown':
+                next = current === -1 ? 0 : Math.min(current + 1, links.length - 1);
+                break;
+            case 'arrowup':
+                if (current === -1) return;
+                next = Math.max(current - 1, 0);
+                break;
+            case 'home':
+                if (current === -1) return;
+                next = 0;
+                break;
+            case 'end':
+                if (current === -1) return;
+                next = links.length - 1;
+                break;
+            case 'escape':
+                e.preventDefault();
+                this.onMobileToggle();
+                this.mobileToggleButton?.focus();
+                return;
+            default:
+                return;
+        }
+        e.preventDefault();
+        links[next]?.shadowRoot?.querySelector<HTMLAnchorElement>('a')?.focus();
+    }
+
+    private renderMobileNavigation(selectedTabLabel: string): TemplateResult {
+        // Disclosure navigation (APG), no listbox or combobox: the links stay links in the navigation landmark.
+        // See onMobileNavigationKeyDown and the documentation (FLUX-739) before changing this.
+        return html`
+            <div class="vl-tabs vl-tabs--mobile ${this.noBorder ? 'vl-tabs--no-border' : ''}">
+                <nav aria-label="${ifDefined(this.label || undefined)}">
+                    <vl-button
+                        icon="arrow-down-fat"
+                        icon-placement="after"
+                        tertiary
+                        block
+                        aria-expanded="${this.mobileDropdownOpen ? 'true' : 'false'}"
+                        class="vl-tabs__mobile-toggle"
+                        @click="${this.onMobileToggle}"
+                        >${selectedTabLabel}</vl-button
+                    >
+                    <ul class="vl-tabs__mobile-dropdown" ?hidden="${!this.mobileDropdownOpen}">
+                        <slot @slotchange="${this.onMobileSlotChange}"></slot>
+                    </ul>
+                </nav>
+            </div>
+        `;
+    }
+
     private renderMobile(): TemplateResult {
         const selectedTabLabel = this.selectedTab?.textContent || '';
+        if (this.horizontalNavigation) {
+            return this.renderMobileNavigation(selectedTabLabel);
+        }
         return html`
             <div class="vl-tabs vl-tabs--mobile ${this.noBorder ? 'vl-tabs--no-border' : ''}">
                 <vl-button
@@ -458,6 +518,7 @@ export class VlTabsComponent extends BaseLitElement {
                                 role="option"
                                 aria-selected="${option.selected ? 'true' : 'false'}"
                                 class="vl-tabs__mobile-option"
+                                @focus="${() => (this.mobileDropdownFocusedIndex = index)}"
                                 @click="${() => {
                                     this.requestSelectTab(this.allTabs[Number(option.value)]);
                                     this.mobileDropdownFocusedIndex = -1;
@@ -471,7 +532,7 @@ export class VlTabsComponent extends BaseLitElement {
                 </div>
 
                 <nav hidden>
-                    <slot></slot>
+                    <slot @slotchange="${this.onMobileSlotChange}"></slot>
                 </nav>
                 ${when(!this.horizontalNavigation, () => html` <slot name="panel"></slot> `)}
             </div>

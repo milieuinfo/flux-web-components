@@ -63,6 +63,12 @@ export const vlTabsFluxStyles: CSSResult = css`
             overflow-y: auto;
         }
 
+        /* Horizontal navigation: the toggle over the full width, the links in a list that opens below it; the links
+           style themselves as dropdown options on mobile (vl-tab.flux-css.ts) */
+        nav {
+            display: block;
+        }
+
         .vl-tabs__mobile-option {
             padding: 0.75rem 1rem;
             cursor: pointer;

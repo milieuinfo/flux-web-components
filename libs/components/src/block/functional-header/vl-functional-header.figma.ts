@@ -79,13 +79,14 @@ const breadcrumbSlot =
             '\n        </form>' +
             '\n    </div>'
           : '\n    <vl-breadcrumb slot="sub-title"></vl-breadcrumb>';
+// `label` geeft de <nav> van de tabs een naam, ook op mobiel; "Onderwerpen" is een voorbeeld, zoals in het patroon.
 const tabsSlot =
     subHeader !== 'tabs'
         ? ''
         : backWithTabs
           ? '\n    <!-- Patroon "met back en tabs": vraagt custom CSS, zie Storybook. -->' +
-            '\n    <vl-tabs-next slot="sub-title" horizontal-navigation></vl-tabs-next>'
-          : '\n    <vl-tabs-next slot="sub-header" horizontal-navigation></vl-tabs-next>';
+            '\n    <vl-tabs-next slot="sub-title" horizontal-navigation label="Onderwerpen"></vl-tabs-next>'
+          : '\n    <vl-tabs-next slot="sub-header" horizontal-navigation label="Onderwerpen"></vl-tabs-next>';
 
 // De naam van de applicatie komt standaard als link in de `heading`-slot, niet als `title-label`: die laatste maakt
 // er een h1 van, en een pagina heeft maar één h1, meestal de paginatitel in de content. Is de naam van de applicatie

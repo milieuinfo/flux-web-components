@@ -71,7 +71,8 @@ export const tabsArgTypes: ArgTypes<TabsArgs> = {
         name: 'vl-tab-change',
         description:
             'Cancelable event dat afgevuurd wordt vóór de gebruiker naar een andere tab wisselt, met de muis, ' +
-            'het toetsenbord of de dropdown op mobiel.' +
+            'het toetsenbord of de keuzelijst van de tabs op mobiel.' +
+            ' Voor een tab link vuurt het bij een klik of Enter op de link, ook in de uitklapbare lijst op mobiel.' +
             ' Roep `preventDefault()` aan om de wissel te weigeren: de huidige tab blijft dan geselecteerd ' +
             'en een tab link navigeert niet.' +
             ' Vuurt niet bij een klik op de geselecteerde tab of bij een programmatische selectie.',

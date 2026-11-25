@@ -1,4 +1,4 @@
-import { vlFocusOutlineMixin } from '@domg-wc/styles';
+import { vlFocusOutlineMixin, vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 export const vlTabFluxStyles = (tabLink: boolean = false): CSSResult => css`
@@ -96,6 +96,40 @@ export const vlTabFluxStyles = (tabLink: boolean = false): CSSResult => css`
 
               :host(:focus):has(a) {
                   outline: none;
+              }
+
+              /* Mobile: vl-tabs-next shows the links in a list below a toggle; they look like the options of a
+                 dropdown, not like tabs (FLUX-739) */
+              @media screen and (max-width: ${vlMediaScreenSmall}px) {
+                  :host > a,
+                  :host > a:visited {
+                      color: var(--vl-color--text-default);
+                      font-size: inherit;
+                      font-weight: 400;
+                      padding: 0.75rem 1rem;
+
+                      &::after {
+                          display: none;
+                      }
+                  }
+
+                  :host([selected]) > a {
+                      font-weight: 500;
+                  }
+
+                  :host(:hover) > a,
+                  :host(:focus) > a {
+                      color: var(--vl-color--text-default);
+                      text-decoration: underline;
+                  }
+
+                  :host(:hover) > a {
+                      background-color: var(--vl-color--background-subtle);
+                  }
+
+                  :host(:focus) > a {
+                      outline-offset: -2px;
+                  }
               }
           `
         : css``}

@@ -58,6 +58,12 @@ const stubNativeClicks = () =>
         });
     });
 
+const recordPreventedNativeClicks = () =>
+    cy.get('#tab-links-container').then(($container) => {
+        const nativeClick = cy.stub().as('native-click');
+        $container[0].addEventListener('click', (event) => nativeClick(event.defaultPrevented));
+    });
+
 const clearLocationHash = () =>
     cy.window().then((win) => win.history.replaceState(null, '', win.location.pathname + win.location.search));
 
@@ -633,7 +639,9 @@ describe('cypress-component - block components - vl-tabs-next - mobile', () => {
         cy.get('vl-tabs-next').find('#panel-2').should('not.have.attr', 'hidden');
     });
 
-    it('should navigate to the tab link href from the dropdown when vl-tab-change is not refused', () => {
+    // On mobile the tab links stay real links in a disclosure (FLUX-739): the browser follows them, unless
+    // vl-tab-change is refused
+    it('should follow a tab link in the mobile list and close the list when vl-tab-change is not refused', () => {
         clearLocationHash();
         mountTabLinks();
         cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
@@ -641,68 +649,63 @@ describe('cypress-component - block components - vl-tabs-next - mobile', () => {
         cy.createStubForEvent('vl-tabs-next', 'vl-tab-change');
 
         mobileToggleButton().click();
-        cy.get('vl-tabs-next').shadow().find('#tab-option-1').click();
+        clickTabLink('#link-2');
         cy.location('hash').should('equal', '#tab-link-2');
+        mobileToggleButton().should('have.attr', 'aria-expanded', 'false');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('contain.text', 'Link 2');
         mobileToggleButton().click();
-        cy.get('vl-tabs-next').shadow().find('#tab-option-2').click();
+        stubNativeClicks();
+        clickTabLink('#link-3');
 
         shouldHaveChangeDetail('firstCall', 'link-2', 'link-1');
         shouldHaveChangeDetail('lastCall', 'link-3', 'link-2');
-        cy.get('@window-open').should('have.been.calledOnceWith', 'https://www.vlaanderen.be', '_blank', 'noopener');
+        cy.get('@native-click').should('have.been.calledOnceWith', '_blank');
+        cy.get('@window-open').should('not.have.been.called');
+        mobileToggleButton().should('have.attr', 'aria-expanded', 'false');
+        cy.get('#link-3').shadow().find('a').should('have.attr', 'aria-current', 'page');
     });
 
-    it('should not navigate from the dropdown when vl-tab-change is refused for a tab link', () => {
+    it('should not follow a tab link in the mobile list when vl-tab-change is refused on a click', () => {
         clearLocationHash();
         mountTabLinks();
         cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
-        cy.window().then((win) => cy.stub(win, 'open').as('window-open'));
         refuseTabChanges();
 
         mobileToggleButton().click();
-        cy.get('vl-tabs-next').shadow().find('#tab-option-1').click();
-        mobileToggleButton().click();
-        cy.get('vl-tabs-next').shadow().find('#tab-option-2').click();
+        recordPreventedNativeClicks();
+        clickTabLink('#link-2');
+        clickTabLink('#link-3');
 
         cy.get('@vl-tab-change').should('have.been.calledTwice');
+        cy.get('@native-click').should('have.been.calledTwice').and('always.have.been.calledWith', true);
         cy.location('hash').should('equal', '');
-        cy.get('@window-open').should('not.have.been.called');
         shouldHaveOnlyFirstTabLinkSelected();
+        mobileToggleButton().should('have.attr', 'aria-expanded', 'true');
         cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('contain.text', 'Link 1');
     });
 
-    it('should not navigate from the dropdown when vl-tab-change is refused on Enter and Space for a tab link', () => {
+    it('should not follow a tab link in the mobile list when vl-tab-change is refused on Enter', () => {
         clearLocationHash();
         mountTabLinks();
         cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
-        cy.window().then((win) => cy.stub(win, 'open').as('window-open'));
         refuseTabChanges();
 
-        mobileToggleButton().click();
-        cy.get('vl-tabs-next')
-            .shadow()
-            .find('#tab-option-0')
-            .focus()
-            .trigger('keydown', { key: 'ArrowDown', bubbles: true, composed: true });
-        cy.focused().trigger('keydown', { key: 'Enter', bubbles: true, composed: true });
-        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('have.attr', 'hidden');
-        mobileToggleButton().should('have.focus');
-
-        mobileToggleButton().click();
-        cy.get('vl-tabs-next')
-            .shadow()
-            .find('#tab-option-0')
-            .focus()
-            .trigger('keydown', { key: 'End', bubbles: true, composed: true });
-        cy.focused().trigger('keydown', { key: ' ', bubbles: true, composed: true });
+        mobileToggleButton().focus();
+        cy.press(Cypress.Keyboard.Keys.SPACE);
+        mobileToggleButton().should('have.attr', 'aria-expanded', 'true');
+        recordPreventedNativeClicks();
+        cy.press(Cypress.Keyboard.Keys.DOWN);
+        cy.press(Cypress.Keyboard.Keys.DOWN);
+        cy.press(Cypress.Keyboard.Keys.ENTER);
+        cy.press(Cypress.Keyboard.Keys.END);
+        cy.press(Cypress.Keyboard.Keys.ENTER);
 
         shouldHaveChangeDetail('firstCall', 'link-2', 'link-1');
         shouldHaveChangeDetail('lastCall', 'link-3', 'link-1');
         cy.get('@vl-tab-change').should('have.been.calledTwice');
+        cy.get('@native-click').should('have.been.calledTwice').and('always.have.been.calledWith', true);
         cy.location('hash').should('equal', '');
-        cy.get('@window-open').should('not.have.been.called');
         shouldHaveOnlyFirstTabLinkSelected();
-        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('have.attr', 'hidden');
-        mobileToggleButton().should('have.focus');
         cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('contain.text', 'Link 1');
     });
 
@@ -721,6 +724,57 @@ describe('cypress-component - block components - vl-tabs-next - mobile', () => {
         cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('contain.text', 'Link 3');
     });
 
+    it('should select and follow a tab link with select() on mobile and keep the list closed', () => {
+        clearLocationHash();
+        mountTabLinks();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
+        cy.createStubForEvent('vl-tabs-next', 'vl-tab-change');
+
+        cy.get('vl-tabs-next')
+            .find<VlTabLinkComponent>('#link-2')
+            .then(($link) => $link[0].select());
+
+        cy.location('hash').should('equal', '#tab-link-2');
+        cy.get('#link-2').should('have.attr', 'selected');
+        cy.get('#link-2').shadow().find('a').should('have.attr', 'aria-current', 'page');
+        cy.get('#link-1').shadow().find('a').should('not.have.attr', 'aria-current');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('contain.text', 'Link 2');
+        cy.get('@vl-tab-change').should('not.have.been.called');
+        mobileToggleButton().should('have.attr', 'aria-expanded', 'false');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('have.attr', 'hidden');
+    });
+
+    it('should close the mobile list and move the focus to the toggle on select() of a tab link', () => {
+        clearLocationHash();
+        mountTabLinks();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
+        cy.createStubForEvent('vl-tabs-next', 'vl-tab-change');
+
+        mobileToggleButton().click();
+        mobileToggleButton().should('have.attr', 'aria-expanded', 'true');
+        // The focus leaves the toggle first, so that the focus check below proves the move back
+        cy.get('#link-1').shadow().find('a').focus();
+        cy.get('vl-tabs-next')
+            .find<VlTabLinkComponent>('#link-2')
+            .then(($link) => $link[0].select());
+
+        mobileToggleButton().should('have.attr', 'aria-expanded', 'false').and('have.focus');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('have.attr', 'hidden');
+        cy.get('#link-2').shadow().find('a').should('have.attr', 'aria-current', 'page');
+        cy.get('#link-1').shadow().find('a').should('not.have.attr', 'aria-current');
+        cy.location('hash').should('equal', '#tab-link-2');
+        cy.get('@vl-tab-change').should('not.have.been.called');
+    });
+
+    it('should move the focus to the selected option when the listbox opens', () => {
+        mountTabs();
+
+        cy.get('vl-tabs-next').find('#tab-2').then(([tab]) => (tab as VlTabComponent).select());
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').shadow().find('button').click();
+
+        cy.focused().should('have.id', 'tab-option-1').and('have.attr', 'aria-selected', 'true');
+    });
+
     it('should be accessible on mobile', () => {
         mountTabs();
         cy.injectAxe();
@@ -733,5 +787,188 @@ describe('cypress-component - block components - vl-tabs-next - mobile', () => {
         cy.get('vl-tabs-next').shadow().find('nav ul').should('not.exist');
         // should render a listbox
         cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile div[role="listbox"]').should('exist');
+    });
+});
+
+describe('cypress-component - block components - vl-tabs-next - horizontal navigation - mobile', () => {
+    const mountHorizontalNavigation = () =>
+        cy.mount(html`
+            <vl-tabs-next horizontal-navigation label="Transportmiddelen">
+                <vl-tab-link-next href="#trein">Trein</vl-tab-link-next>
+                <vl-tab-link-next href="#metro" selected>Metro, tram en bus</vl-tab-link-next>
+                <vl-tab-link-next href="https://www.example.com" external>Fiets</vl-tab-link-next>
+            </vl-tabs-next>
+        `);
+
+    const toggle = () => cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle');
+    const toggleButton = () => toggle().shadow().find('button');
+
+    const shouldFocusLink = (index: number) =>
+        cy
+            .get('vl-tab-link-next')
+            .eq(index)
+            .should(([link]) => {
+                expect(link.shadowRoot!.activeElement).to.equal(link.shadowRoot!.querySelector('a'));
+            });
+
+    const openWithKeyboard = () => {
+        toggleButton().focus();
+        cy.press(Cypress.Keyboard.Keys.SPACE);
+        toggleButton().should('have.attr', 'aria-expanded', 'true');
+    };
+
+    beforeEach(() => {
+        cy.viewport(480, 800);
+    });
+
+    // Disclosure navigation (FLUX-739): links are not options of a listbox or combobox (WCAG 4.1.2), and choosing
+    // an option must not navigate (WCAG 3.2.2)
+    it('should keep the links as links instead of listbox options on mobile', () => {
+        mountHorizontalNavigation();
+
+        cy.get('vl-tabs-next').shadow().find('[role="listbox"], [role="option"]').should('not.exist');
+        cy.get('vl-tabs-next')
+            .shadow()
+            .find('nav[aria-label="Transportmiddelen"] .vl-tabs__mobile-toggle')
+            .should('have.text', 'Metro, tram en bus');
+        toggleButton().should('not.have.attr', 'aria-haspopup');
+        toggleButton().should('have.attr', 'aria-expanded', 'false');
+        cy.get('vl-tab-link-next').first().should('not.be.visible');
+
+        toggleButton().click();
+
+        toggleButton().should('have.attr', 'aria-expanded', 'true');
+        cy.get('vl-tab-link-next').each(([link]) => {
+            expect(link.getAttribute('role')).to.equal('listitem');
+            cy.wrap(link).shadow().find('a').should('be.visible').and('have.attr', 'href');
+        });
+        cy.get('vl-tab-link-next[selected]').shadow().find('a').should('have.attr', 'aria-current', 'page');
+    });
+
+    it('should render the toggle over the full width', () => {
+        mountHorizontalNavigation();
+
+        cy.get('vl-tabs-next').should(([tabs]) => {
+            const toggleElement = tabs.shadowRoot!.querySelector('.vl-tabs__mobile-toggle')!;
+            expect(toggleElement.getBoundingClientRect().width).to.be.closeTo(tabs.getBoundingClientRect().width, 1);
+        });
+    });
+
+    it('should name the toggle after the selected link when the links are added later', () => {
+        cy.mount(html`<vl-tabs-next horizontal-navigation label="Transportmiddelen"></vl-tabs-next>`);
+        toggle().should('have.text', '');
+        cy.get('vl-tabs-next').should(([tabs]) => expect((tabs as VlTabsComponent).hasUpdated).to.be.true);
+
+        cy.get('vl-tabs-next').then(([tabs]) => {
+            const link = document.createElement('vl-tab-link-next');
+            link.setAttribute('href', '#fiets');
+            link.setAttribute('selected', '');
+            link.textContent = 'Fiets';
+            tabs.appendChild(link);
+        });
+
+        toggle().should('have.text', 'Fiets');
+    });
+
+    it('should show the external link with its indication on mobile', () => {
+        mountHorizontalNavigation();
+
+        toggleButton().click();
+
+        cy.get('vl-tab-link-next[external]').shadow().find('a').should('have.attr', 'target', '_blank');
+        cy.get('vl-tab-link-next[external]')
+            .shadow()
+            .find('vl-icon[icon="external"]')
+            .should('be.visible')
+            .and('have.attr', 'label', '(opent in een nieuw venster)');
+    });
+
+    it('should keep the focus on the toggle, move to the links with Tab and close with Escape', () => {
+        mountHorizontalNavigation();
+
+        openWithKeyboard();
+        toggleButton().should('have.focus');
+
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        shouldFocusLink(0);
+
+        cy.press(Cypress.Keyboard.Keys.ESC);
+        toggleButton().should('have.attr', 'aria-expanded', 'false').and('have.focus');
+        cy.get('vl-tab-link-next').first().should('not.be.visible');
+    });
+
+    // The list looks like a dropdown: the arrow keys, Home and End move the focus between the links, as in the APG
+    // example "Disclosure Navigation Menu", but they never navigate or select
+    it('should move the focus between the links with the arrow keys, Home and End without navigating', () => {
+        mountHorizontalNavigation();
+        cy.createStubForEvent('vl-tabs-next', 'vl-tab-link-click');
+
+        openWithKeyboard();
+        cy.press(Cypress.Keyboard.Keys.DOWN);
+        shouldFocusLink(0);
+        cy.press(Cypress.Keyboard.Keys.DOWN);
+        shouldFocusLink(1);
+        cy.press(Cypress.Keyboard.Keys.DOWN);
+        shouldFocusLink(2);
+        cy.press(Cypress.Keyboard.Keys.DOWN);
+        shouldFocusLink(2);
+        cy.press(Cypress.Keyboard.Keys.UP);
+        shouldFocusLink(1);
+        cy.press(Cypress.Keyboard.Keys.HOME);
+        shouldFocusLink(0);
+        cy.press(Cypress.Keyboard.Keys.END);
+        shouldFocusLink(2);
+
+        toggleButton().should('have.attr', 'aria-expanded', 'true');
+        cy.get('vl-tab-link-next[selected]').should('have.text', 'Metro, tram en bus');
+        cy.get('@vl-tab-link-click').should('not.have.been.called');
+
+        cy.press(Cypress.Keyboard.Keys.ESC);
+        toggleButton().should('have.attr', 'aria-expanded', 'false').and('have.focus');
+    });
+
+    it('should show the links as dropdown options on mobile, without the bar of a tab', () => {
+        mountHorizontalNavigation();
+
+        toggleButton().click();
+
+        cy.get('vl-tab-link-next[selected]')
+            .shadow()
+            .find('a')
+            .should(([link]) => {
+                expect(getComputedStyle(link, '::after').display).to.equal('none');
+                expect(getComputedStyle(link).fontWeight).to.equal('500');
+            });
+        cy.get('vl-tab-link-next')
+            .first()
+            .shadow()
+            .find('a')
+            .should(([link]) => {
+                expect(getComputedStyle(link).fontWeight).to.equal('400');
+            });
+    });
+
+    it('should let the browser follow the link instead of navigating on a selection, and close the disclosure', () => {
+        mountHorizontalNavigation();
+        cy.window().then((win) => cy.stub(win, 'open').as('windowOpen'));
+        cy.document().then((doc) => doc.addEventListener('click', (event) => event.preventDefault()));
+        cy.createStubForEvent('vl-tabs-next', 'vl-tab-link-click');
+
+        toggleButton().click();
+        cy.get('vl-tab-link-next[external]').shadow().find('a').click();
+
+        cy.get('@vl-tab-link-click').should('have.been.calledOnce');
+        cy.get('@windowOpen').should('not.have.been.called');
+        toggleButton().should('have.attr', 'aria-expanded', 'false');
+        cy.get('vl-tab-link-next[external]').should('have.attr', 'selected');
+    });
+
+    it('should be accessible on mobile, closed and open', () => {
+        mountHorizontalNavigation();
+        cy.injectAxe();
+
+        cy.checkA11y('vl-tabs-next');
+        toggleButton().click();
+        cy.checkA11y('vl-tabs-next');
     });
 });
