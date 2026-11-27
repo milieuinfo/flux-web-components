@@ -106,6 +106,32 @@ const horizontalCenterOf = (element: Element) => {
     return (left + right) / 2;
 };
 
+// De knop van het menu zit in de shadow DOM van vl-button; de popover zet daar aria-expanded en aria-controls.
+const menuTriggerButton = () => cy.get('#btn-acties').shadow().find('button');
+const menuActionButton = (index: number) => cy.get('vl-popover-action').eq(index).shadow().find('button');
+
+// cy.press(ENTER) vuurt in Electron geen click op een knop; een toetsaanslag via het Chrome DevTools Protocol wel.
+// Zoals in de specs van vl-breadcrumb en vl-popover.
+const realPress = (key: 'Enter' | ' ') => {
+    const code = key === 'Enter' ? 'Enter' : 'Space';
+    const keyCode = key === 'Enter' ? 13 : 32;
+    (['keyDown', 'keyUp'] as const).forEach((type) => {
+        cy.then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Input.dispatchKeyEvent',
+                params: { type, key, code, windowsVirtualKeyCode: keyCode, text: key === 'Enter' ? '\r' : ' ' },
+            }),
+        );
+    });
+};
+
+const openMenuWithKeyboard = () => {
+    menuTriggerButton().focus();
+    menuTriggerButton().should('have.focus');
+    realPress('Enter');
+    cy.get('vl-popover').should('have.attr', 'open');
+};
+
 describe('cypress-component - block components - vl-info-tile - default', () => {
     beforeEach(() => {
         mountDefault({
@@ -521,6 +547,38 @@ describe('cypress-component - block components - vl-info-tile - menu', () => {
         cy.get('#btn-acties').click();
         cy.get('vl-popover').should('not.have.attr', 'open');
     });
+
+    it('should expose the menu as a disclosure and not as a menu', () => {
+        menuTriggerButton().should('have.attr', 'aria-expanded', 'false').and('not.have.attr', 'aria-haspopup');
+
+        openMenuWithKeyboard();
+
+        menuTriggerButton().should('have.attr', 'aria-expanded', 'true');
+        cy.get('vl-popover-action-list').should('not.have.attr', 'role', 'menu');
+        menuActionButton(0).should('not.have.attr', 'role');
+        menuActionButton(1).should('not.have.attr', 'role');
+        menuActionButton(2).should('not.have.attr', 'role');
+    });
+
+    it('should have an accessible menu when it is open', () => {
+        cy.injectAxe();
+        openMenuWithKeyboard();
+
+        // Enkel de popover: aria-controls op de knop in de shadow DOM van vl-button verwijst naar een id buiten die
+        // shadow root, wat axe als ongeldig meldt (aria-valid-attr-value). Zo ook in de spec van vl-breadcrumb.
+        cy.checkA11y('vl-popover');
+    });
+
+    it('should return focus to the menu button when closing the menu with Escape from an action', () => {
+        openMenuWithKeyboard();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        menuActionButton(0).should('have.focus');
+
+        cy.press(Cypress.Keyboard.Keys.ESC);
+
+        cy.get('vl-popover').should('not.have.attr', 'open');
+        menuTriggerButton().should('have.focus').and('have.attr', 'aria-expanded', 'false');
+    });
 });
 
 describe('cypress-component - block components - vl-info-tile - menu and toggleable', () => {
@@ -582,6 +640,10 @@ describe('cypress-component - block components - vl-info-tile - icon', () => {
 
     it('should have an icon', () => {
         cy.get('vl-info-tile').shadow().find(`#icon .vl-vi-${icon}`).should('exist');
+    });
+
+    it('should hide the icon from assistive technologies because it is decorative', () => {
+        cy.get('vl-info-tile').shadow().find(`#icon .vl-vi-${icon}`).should('have.attr', 'aria-hidden', 'true');
     });
 });
 
@@ -669,6 +731,21 @@ describe('cypress-component - block components - vl-info-tile - footer', () => {
         cy.get('vl-info-tile').shadow().find('slot[name="footer"]').should('exist');
         cy.get('vl-info-tile').find('div[slot="footer"]').contains('Download');
     });
+
+    it('should not render the footer as a footer element, which would be a contentinfo landmark', () => {
+        cy.get('vl-info-tile').shadow().find('footer').should('not.exist');
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile__footer').should('have.prop', 'tagName', 'DIV');
+    });
+});
+
+describe('cypress-component - block components - vl-info-tile - without footer', () => {
+    it('should not render the footer wrapper when the footer slot is empty', () => {
+        mountDefault({
+            titleSlot,
+            contentSlot,
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile__footer').should('not.exist');
+    });
 });
 
 describe('cypress-component - block components - vl-info-tile - menu and clickable', () => {
@@ -714,6 +791,20 @@ describe('cypress-component - block components - vl-info-tile - menu and clickab
         cy.get('vl-info-tile').shadow().find('button.info-tile-clickable').click('bottomLeft');
         cy.get('@vl-click-info-tile').should('have.been.calledOnce');
         cy.checkA11y('vl-info-tile');
+    });
+
+    it('should return focus to the menu button and not to the clickable tile when closing the menu with Escape', () => {
+        cy.createStubForEvent('vl-info-tile', 'vl-click-info-tile');
+        openMenuWithKeyboard();
+        cy.press(Cypress.Keyboard.Keys.TAB);
+        menuActionButton(0).should('have.focus');
+
+        cy.press(Cypress.Keyboard.Keys.ESC);
+
+        cy.get('vl-popover').should('not.have.attr', 'open');
+        menuTriggerButton().should('have.focus');
+        cy.get('vl-info-tile').shadow().find('button.info-tile-clickable').should('not.have.focus');
+        cy.get('@vl-click-info-tile').should('not.have.been.called');
     });
 
     it('should set clickable label', () => {

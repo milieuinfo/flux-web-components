@@ -64,6 +64,10 @@ import { VlInfoTileComponent } from '@domg-wc/components/block/next';
 
 <Canvas of={VlInfoTileStories.InfoTileError} />
 
+> **Let op:** De kleur van `success`, `warning` of `error` mag niet de enige aanduiding van de status zijn (WCAG 1.4.1).
+Een schermlezer leest de kleur niet voor, en niet iedereen ziet het verschil tussen de kleuren. Zeg de status ook in de
+titel of de inhoud, bv. "toegekend", "er ontbreekt nog een document" of "geweigerd".
+
 ### Gecentreerd
 
 <Canvas of={VlInfoTileStories.InfoTileCentered} />
@@ -90,13 +94,24 @@ open en dicht moet klappen in de `content` slot.
 
 ### Met acties
 
+Een menu in de `actions` slot is een `vl-popover`: een disclosure, geen ARIA-menu. Enter of Spatie op de knop opent het,
+met Tab ga je door de acties, en Escape sluit het en zet de focus terug op de knop. Zie de documentatie van
+[vl-popover](/docs/components-block-popover--documentatie). Geef elke knop een eigen `id`, ook als er meerdere info
+tiles op een pagina staan: `for` van de popover verwijst naar dat `id`.
+
 <Canvas of={VlInfoTileStories.InfoTileActionsSlot} />
 
 ### Icoon
 
+Het icoon van het `icon`-attribuut is decoratief, ook met `icon-as-badge`: een schermlezer leest het niet voor. Draagt
+het icoon een betekenis, zoals een status, een bevestiging of een waarschuwing, zeg die dan ook in de titel of de inhoud.
+
 <Canvas of={VlInfoTileStories.InfoTileIcon} />
 
 ### Badge slot
+
+De inhoud van de `badge` slot is van jou en wordt wel voorgelezen. Gebruik hem voor een icoon met een betekenis, met een
+tekst voor schermlezers erbij. Is de badge enkel decoratief, verberg hem dan met `aria-hidden="true"`.
 
 <Canvas of={VlInfoTileStories.InfoTileBadgeSlot} />
 
@@ -107,6 +122,11 @@ open en dicht moet klappen in de `content` slot.
 ### Clickable
 
 Maakt de hele info tile aanklikbaar. Niet combineren met `toggleable`. Geef met `clickable-label` een toegankelijke naam.
+
+Een aanklikbare info tile ziet er hetzelfde uit als een gewone. Maak daarom zichtbaar dat de tile een actie heeft, bv.
+met een tekst als "Details bekijken" of een pijl-icoon bij de titel. Laat `clickable-label` beginnen met de zichtbare
+titel, bv. "Broos Deprez, detailpagina openen": wie met spraak bedient, noemt de tile bij de tekst die hij ziet
+(WCAG 2.5.3). Het voorbeeld toont daarvoor "Details bekijken" in de inhoud, als tekst: de hele tile is al de knop.
 
 <Canvas of={VlInfoTileStories.InfoTileClickable} />
 

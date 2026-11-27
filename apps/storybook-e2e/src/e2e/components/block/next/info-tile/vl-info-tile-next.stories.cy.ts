@@ -42,6 +42,6 @@ describe('cypress-e2e - block components - vl-info-tile-next - clickable story',
         cy.get('vl-info-tile-next')
             .shadow()
             .find('button.info-tile__clickable')
-            .should('have.attr', 'aria-label', 'detail pagina Broos Deprez openen');
+            .should('have.attr', 'aria-label', 'Broos Deprez, detailpagina openen');
     });
 });

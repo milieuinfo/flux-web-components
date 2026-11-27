@@ -91,7 +91,8 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
         name: 'clickable-label',
         description:
             'Stelt de aria-label in van de button die de info-tile aanklikbaar maakt. ' +
-            '<br>Van belang voor WCAG wanneer het `clickable`-attribuut aanstaat.',
+            '<br>Van belang voor WCAG wanneer het `clickable`-attribuut aanstaat.' +
+            '<br>Begin met de zichtbare titel, bv. "Broos Deprez, detailpagina openen".',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.STRING },
@@ -194,7 +195,8 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
     type: {
         name: 'type',
         description:
-            'Type van de info tile. Dit bepaalt de stijl en het uiterlijk van de tile. Standaard is dit "default". De andere opties zijn "alt", "error", "success", en "warning".',
+            'Type van de info tile. Dit bepaalt de stijl en het uiterlijk van de tile. Standaard is dit "default". De andere opties zijn "alt", "error", "success", en "warning".' +
+            '<br>De kleur alleen zegt de status niet: zeg ze ook in de titel of de inhoud.',
         control: { type: CONTROLS.SELECT },
         options: Object.values(INFO_TILE_TYPE),
         table: {
@@ -205,7 +207,9 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
     },
     icon: {
         name: 'icon',
-        description: 'Beeldt een icoon af in de info tile. Dit werkt niet in combinatie met het "badge" slot.',
+        description:
+            'Beeldt een icoon af in de info tile. Dit werkt niet in combinatie met het "badge" slot.' +
+            '<br>Het icoon is decoratief en wordt niet voorgelezen: zeg de betekenis in de titel of de inhoud.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.STRING },

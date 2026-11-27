@@ -74,7 +74,9 @@ export const infoTileArgTypes: ArgTypes<InfoTileArgs> = {
     },
     clickableLabel: {
         name: 'clickable-label',
-        description: 'Toegankelijke naam van een `clickable` info tile. Verplicht samen met `clickable`.',
+        description:
+            'Toegankelijke naam van een `clickable` info tile. Verplicht samen met `clickable`.' +
+            '<br>Begin met de zichtbare titel, bv. "Broos Deprez, detailpagina openen".',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -112,7 +114,8 @@ export const infoTileArgTypes: ArgTypes<InfoTileArgs> = {
     },
     type: {
         name: 'type',
-        description: 'Het type van de info tile.',
+        description:
+            'Het type van de info tile.<br>De kleur alleen zegt de status niet: zeg ze ook in de titel of de inhoud.',
         control: { type: CONTROLS.SELECT },
         options: ['', ...Object.values(INFO_TILE_TYPE)],
         table: {
@@ -123,7 +126,9 @@ export const infoTileArgTypes: ArgTypes<InfoTileArgs> = {
     },
     icon: {
         name: 'icon',
-        description: 'Icoon naast de titel.<br>Niet combineren met de `badge` slot.',
+        description:
+            'Icoon naast de titel.<br>Niet combineren met de `badge` slot.' +
+            '<br>Het icoon is decoratief en wordt niet voorgelezen: zeg de betekenis in de titel of de inhoud.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -132,7 +137,7 @@ export const infoTileArgTypes: ArgTypes<InfoTileArgs> = {
     },
     iconAsBadge: {
         name: 'icon-as-badge',
-        description: 'Toont het icoon in een ronde badge.',
+        description: 'Toont het icoon in een ronde badge. Ook dan is het icoon decoratief.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -198,7 +203,10 @@ export const infoTileArgTypes: ArgTypes<InfoTileArgs> = {
     },
     badgeSlot: {
         name: 'badge',
-        description: 'Een eigen badge naast de titel.<br>Niet combineren met `icon`.',
+        description:
+            'Een eigen badge naast de titel.<br>Niet combineren met `icon`.' +
+            '<br>Wordt voorgelezen: geef een icoon met betekenis een tekst,' +
+            ' verberg een decoratieve badge met `aria-hidden`.',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
