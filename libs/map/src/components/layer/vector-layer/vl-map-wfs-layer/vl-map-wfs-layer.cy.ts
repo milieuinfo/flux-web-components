@@ -98,19 +98,27 @@ describe('cypress-component - map - vl-map-wfs-layer', () => {
         });
     });
 
-    it('met cql-filter zonder geometry-name wordt de geometry-property via DescribeFeatureType auto-gedetecteerd, en pas daarna de source aangemaakt', () => {
-        cy.intercept({ url: 'http://localhost/wfs*', query: { request: 'DescribeFeatureType' } }, describeFeatureTypeResponse).as(
-            'describeFeatureType'
-        );
+    it('met cql-filter zonder geometry-name bestaat de laag meteen en wacht GetFeature op DescribeFeatureType', () => {
+        // Zonder vertraging hangt de uitkomst af van wie eerst is: het antwoord of de eerste render van de kaart.
+        cy.intercept(
+            { url: 'http://localhost/wfs*', query: { request: 'DescribeFeatureType' } },
+            { body: describeFeatureTypeResponse, delay: 500 }
+        ).as('describeFeatureType');
         cy.intercept({ url: 'http://localhost/wfs*', query: { request: 'GetFeature' } }, {}).as('getWfsLayer');
         cy.mount(wfsLayerWithCqlFilterFixture);
-        cy.wait('@describeFeatureType');
+        cy.get<VlMapWfsLayer>('vl-map-wfs-layer').then(([vlMapWfsLayer]) => {
+            expect(vlMapWfsLayer.getAttribute('is-layer')).to.equal('true');
+            expect(vlMapWfsLayer.layer.getSource()).to.equal(vlMapWfsLayer.source);
+        });
+        // Race-condition-garantie: ook het eerste GetFeature-request bevat de opgeloste geometry-property.
+        cy.wait('@getWfsLayer')
+            .its('request.url')
+            .then((url: string) => {
+                const cqlFilter = new URL(url).searchParams.get('cql_filter');
+                expect(cqlFilter).to.match(/^BBOX\(the_geom,.+\) AND \(WTRLICHC = 'Kanaal'\)$/);
+            });
         cy.runTestFor<VlMapWfsLayer>('vl-map-wfs-layer', (vlMapWfsLayer) => {
             const projection = new OlProjection({ code: 'EPSG:31370' });
-            // Race-condition-garantie: de source/layer bestaat pas nadat de geometry-property opgelost is.
-            cy.wrap(null).should(() => {
-                expect(vlMapWfsLayer.layer, 'layer is pas aangemaakt na geometry-detectie').to.exist;
-            });
             cy.then(() => {
                 const url = vlMapWfsLayer.layer.getSource().getUrl()([1.2, 3.4, 5.6, 7.8], 123, projection);
                 expect(url.searchParams.has('bbox')).to.be.false;
@@ -132,9 +140,6 @@ describe('cypress-component - map - vl-map-wfs-layer', () => {
         cy.get('@consoleWarn').should('have.been.calledWithMatch', /geometry-property niet automatisch bepalen/);
         cy.runTestFor<VlMapWfsLayer>('vl-map-wfs-layer', (vlMapWfsLayer) => {
             const projection = new OlProjection({ code: 'EPSG:31370' });
-            cy.wrap(null).should(() => {
-                expect(vlMapWfsLayer.layer, 'layer is pas aangemaakt na geometry-detectie').to.exist;
-            });
             cy.then(() => {
                 const url = vlMapWfsLayer.layer.getSource().getUrl()([1.2, 3.4, 5.6, 7.8], 123, projection);
                 // Veilige terugval: geen ongelimiteerde, filter-loze cql_filter, maar een bbox-begrensd request.

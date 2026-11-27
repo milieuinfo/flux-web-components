@@ -35,11 +35,20 @@ parameter naar de WFS server gestuurd, gecombineerd met een ruimtelijke `BBOX`-c
 De `BBOX`-clausule heeft de naam van de geometry-property nodig. Geef die expliciet mee via `geometry-name`, of laat ze
 weg: dan wordt ze best-effort gedetecteerd via een `DescribeFeatureType` call. Faalt die detectie (bv. een
 niet-standaard WFS-server), dan valt de laag veilig terug op een gewone `bbox`-request en verschijnt er een
-`console.warn` - geef in dat geval `geometry-name` expliciet mee.
+`console.warn` - geef in dat geval `geometry-name` expliciet mee. De laag vraagt haar features pas op nadat die
+detectie afgerond is.
 
 > **Let op:** `cql_filter` is een GeoServer-specifieke extensie en wordt niet door elke WFS-implementatie ondersteund.
 
 <Canvas of={VlMapWfsLayerStories.MapWfsLayerCqlFilter} />
+
+
+## Lambert 72 en Lambert 2008 met het NTv2-grid
+
+Zet de kaartlaag om tussen Lambert 72 en Lambert 2008 op een kaart met het attribuut `ntv2-grid`, dan vraagt ze haar
+features pas op nadat het NTv2-grid geladen of mislukt is. De kaartlaag en haar `source` bestaan wel meteen. Zie
+[Nauwkeuriger omzetten met het NTv2-grid](?path=/docs/map-map--documentatie#nauwkeuriger-omzetten-met-het-ntv2-grid)
+bij `vl-map`.
 
 
 ## Configuratie

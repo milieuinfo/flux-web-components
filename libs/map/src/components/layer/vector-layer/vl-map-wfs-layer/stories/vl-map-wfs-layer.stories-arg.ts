@@ -57,7 +57,10 @@ export const mapWfsLayerArgTypes: ArgTypes<typeof mapWfsLayerArgs> = {
         name: 'projection-code',
         description: 'Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie' +
             ' code EPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie' +
-            ' code van de kaart overnemen.<br>Dit attribuut is niet reactief.',
+            ' code van de kaart overnemen.' +
+            '<br>Heeft de kaart <code>ntv2-grid</code>, dan vraagt de kaartlaag haar features pas op nadat het' +
+            ' NTv2-grid geladen of mislukt is (zie de docs pagina van vl-map).' +
+            '<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,

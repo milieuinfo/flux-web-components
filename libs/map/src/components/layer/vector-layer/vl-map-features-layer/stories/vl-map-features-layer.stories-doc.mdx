@@ -48,6 +48,15 @@ layer.setFeatures([feature]);
 ```
 
 
+## Lambert 72 en Lambert 2008 met het NTv2-grid
+
+Zet de kaartlaag om tussen Lambert 72 en Lambert 2008 op een kaart met het attribuut `ntv2-grid`, dan voert ze
+`features`, `addFeature`, `addFeatureCollection`, `addFeatures`, `setFeatures` en `clearFeatures` pas uit nadat het
+NTv2-grid geladen of mislukt is. Zie
+[Nauwkeuriger omzetten met het NTv2-grid](?path=/docs/map-map--documentatie#nauwkeuriger-omzetten-met-het-ntv2-grid)
+bij `vl-map`, ook voor hoe je op de features wacht.
+
+
 ## Configuratie
 
 <ArgTypes of={VlMapFeaturesLayerStories.MapFeaturesLayerDefault} />
