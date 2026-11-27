@@ -63,6 +63,28 @@ describe('cypress-component - block components - vlProza directive', () => {
             });
     };
 
+    // Per verzoek en niet per code zoals stubDeferredFetch: bij een wijziging van domain, parameters of baseUrl
+    // blijft de code gelijk.
+    const stubFetchHoldingFirstResponse = (responses: Record<string, { code: string; tekst: string }>) => {
+        let release: () => void = () => undefined;
+        cy.window().then((win) => {
+            const responseFor = (uri: string) => {
+                const matchingKey = Object.keys(responses).find((key) => uri.includes(key));
+                if (!matchingKey) throw new Error(`Geen antwoord voorzien voor ${uri}`);
+                return new win.Response(JSON.stringify(responses[matchingKey]), {
+                    status: 200,
+                    headers: { 'Content-Type': 'application/json' },
+                });
+            };
+            const fetchStub = cy.stub(win, 'fetch').as('fetch');
+            fetchStub.callsFake((uri: string) => Promise.resolve(responseFor(uri)));
+            fetchStub
+                .onFirstCall()
+                .callsFake((uri: string) => new Promise((resolve) => (release = () => resolve(responseFor(uri)))));
+        });
+        return () => release();
+    };
+
     // Eén html-literal per binding: twee aparte literals geven Lit een ander template, dus een nieuwe
     // directive-instantie, en dan test een tweede render() geen re-render van de host.
     const bindings: {
@@ -320,6 +342,7 @@ describe('cypress-component - block components - vlProza directive', () => {
             second: [string, VlProzaOptions?];
             secondFallback: string;
             secondMessage: string;
+            secondMessageAfterClearCache?: string;
         }[] = [
             {
                 argument: 'code',
@@ -353,6 +376,7 @@ describe('cypress-component - block components - vlProza directive', () => {
                 second: [code, { parameters: { naam: 'An' } }],
                 secondFallback: code,
                 secondMessage: 'Welkom, An!',
+                secondMessageAfterClearCache: 'Welkom, An!',
             },
             {
                 // de cache van VlProzaMessage is per domein en code, niet per baseUrl: het bericht van de
@@ -367,6 +391,7 @@ describe('cypress-component - block components - vlProza directive', () => {
                 second: [code, { baseUrl: otherBaseUrl }],
                 secondFallback: code,
                 secondMessage: tekst,
+                secondMessageAfterClearCache: 'Andere baseUrl',
             },
         ];
 
@@ -392,6 +417,61 @@ describe('cypress-component - block components - vlProza directive', () => {
                     expect(read($element[0])).to.equal(`${prefix}${secondMessage}`);
                 });
                 cy.get('@getMessage').should('have.been.calledTwice');
+            });
+        });
+
+        changes.forEach(({ argument, responses, first, firstMessage, second, secondFallback, ...change }) => {
+            const sharesRequest = change.secondMessageAfterClearCache !== undefined;
+            const secondMessage = change.secondMessageAfterClearCache ?? change.secondMessage;
+            const cacheNote = sharesRequest ? ' after VlProzaMessage.clearCache()' : '';
+            const title =
+                `should keep the message of the new ${argument} in ${name} ` +
+                `when the previous response arrives last${cacheNote}`;
+
+            it(title, () => {
+                const releaseFirstResponse = stubFetchHoldingFirstResponse(responses);
+                const getMessage = cy.spy(VlProzaMessage, 'getMessage');
+
+                cy.mount(template(...first));
+                cy.get('@fetch').should('have.been.calledOnce');
+                cy.get(selector).then(($element) => {
+                    // zonder clearCache() deelt de tweede aanroep het vastgehouden verzoek: er komt geen laat antwoord
+                    if (sharesRequest) VlProzaMessage.clearCache();
+                    rerender($element[0], template(...second));
+                    expect(read($element[0])).to.equal(`${prefix}${secondFallback}`);
+                });
+                shouldShow(secondMessage);
+
+                cy.then(() => {
+                    releaseFirstResponse();
+                    return getMessage.firstCall.returnValue;
+                }).should('equal', firstMessage);
+                cy.get(selector).then(($element) => {
+                    expect(read($element[0])).to.equal(`${prefix}${secondMessage}`);
+                    rerender($element[0], template(...second));
+                    expect(read($element[0])).to.equal(`${prefix}${secondMessage}`);
+                });
+            });
+        });
+
+        it(`should show the message of the first code in ${name} after switching back while both are loading`, () => {
+            const respond = stubDeferredFetch();
+
+            cy.mount(template('actie.bewerken'));
+            cy.get(selector).then(($element) => {
+                rerender($element[0], template('actie.bewaren'));
+                rerender($element[0], template('actie.bewerken'));
+                expect(read($element[0])).to.equal(`${prefix}actie.bewerken`);
+            });
+
+            respond('actie.bewerken', 'Bewerken');
+            cy.get(selector).then(($element) => expect(read($element[0])).to.equal(`${prefix}Bewerken`));
+
+            respond('actie.bewaren', 'Bewaren');
+            cy.get(selector).then(($element) => {
+                expect(read($element[0])).to.equal(`${prefix}Bewerken`);
+                rerender($element[0], template('actie.bewerken'));
+                expect(read($element[0])).to.equal(`${prefix}Bewerken`);
             });
         });
     });

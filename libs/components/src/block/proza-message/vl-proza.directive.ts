@@ -15,6 +15,7 @@ class VlProzaDirective extends AsyncDirective {
     private previousParameters?: Record<string, string>;
     private previousBaseUrl?: string;
     private resolvedValue?: string;
+    private requestId = 0;
 
     constructor(partInfo: PartInfo) {
         super(partInfo);
@@ -51,12 +52,17 @@ class VlProzaDirective extends AsyncDirective {
         this.previousBaseUrl = options?.baseUrl;
         this.resolvedValue = undefined;
 
-        this.fetchMessage(domain, code, options);
+        this.fetchMessage(++this.requestId, domain, code, options);
 
         return fallback;
     }
 
-    private async fetchMessage(domain: string, code: string, options?: VlProzaOptions): Promise<void> {
+    private async fetchMessage(
+        requestId: number,
+        domain: string,
+        code: string,
+        options?: VlProzaOptions
+    ): Promise<void> {
         try {
             const message = await VlProzaMessage.getMessage(
                 domain,
@@ -64,6 +70,8 @@ class VlProzaDirective extends AsyncDirective {
                 options?.parameters ?? null,
                 options?.baseUrl
             );
+            // een antwoord voor intussen gewijzigde argumenten mag de tekst van de laatste aanroep niet overschrijven
+            if (requestId !== this.requestId) return;
             this.resolvedValue = stripHtml(message);
             this.setValue(this.resolvedValue);
         } catch (error) {

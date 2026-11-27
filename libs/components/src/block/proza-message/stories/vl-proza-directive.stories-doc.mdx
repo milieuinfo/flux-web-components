@@ -12,7 +12,8 @@ gebruiken op plaatsen waar enkel strings geaccepteerd worden, zoals het `title` 
 De directive haalt het bericht asynchroon op via `VlProzaMessage.getMessage()`, strip HTML-tags (retourneert plain
 text), en toont een fallback waarde tijdens het laden. De fallback staat er alleen tot het bericht binnen is: het
 bericht blijft staan als je component opnieuw rendert, en de fallback komt terug zolang een nieuw bericht laadt na een
-wijziging van `code`, `domain` of `parameters`.
+wijziging van `code`, `domain` of `parameters`. Wijzigt een van die drie terwijl het vorige bericht nog laadt, dan
+verschijnt enkel het bericht van de laatste aanroep, ook als het vorige antwoord later binnenkomt.
 
 
 ## Import
