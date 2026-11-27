@@ -10,7 +10,9 @@ component, of als **tekst van een element**, zoals een knop of link. Dit is hand
 gebruiken op plaatsen waar enkel strings geaccepteerd worden, zoals het `title` attribuut van `vl-alert`.
 
 De directive haalt het bericht asynchroon op via `VlProzaMessage.getMessage()`, strip HTML-tags (retourneert plain
-text), en toont een fallback waarde tijdens het laden.
+text), en toont een fallback waarde tijdens het laden. De fallback staat er alleen tot het bericht binnen is: het
+bericht blijft staan als je component opnieuw rendert, en de fallback komt terug zolang een nieuw bericht laadt na een
+wijziging van `code`, `domain` of `parameters`.
 
 
 ## Import
@@ -99,19 +101,19 @@ vlProza('alert.titel', { domain: 'ander-domein' })
             <td><code>options.parameters</code></td>
             <td><code>Record&lt;string, string&gt;</code></td>
             <td>nee</td>
-            <td>Key/value parameters voor template vervanging.</td>
+            <td>Key/value parameters voor template vervanging. Wijzigt een waarde, ook in hetzelfde object, dan haalt de directive bij de volgende render het bericht met de nieuwe waarden op.</td>
         </tr>
         <tr>
             <td><code>options.fallback</code></td>
             <td><code>string</code></td>
             <td>nee</td>
-            <td>Tekst die getoond wordt tijdens het laden. Default: <code>code</code>.</td>
+            <td>Tekst die getoond wordt tot het bericht binnen is, ook opnieuw na een wijziging van <code>code</code>, <code>domain</code> of <code>parameters</code>. Default: <code>code</code>.</td>
         </tr>
         <tr>
             <td><code>options.baseUrl</code></td>
             <td><code>string</code></td>
             <td>nee</td>
-            <td>Optionele base URL voor de Proza API.</td>
+            <td>Optionele base URL voor de Proza API. Berichten worden per <code>domain</code> en <code>code</code> gecachet, los van de <code>baseUrl</code>: na een wijziging van enkel <code>baseUrl</code> verschijnt na de fallback opnieuw het eerder opgehaalde bericht.</td>
         </tr>
     </tbody>
 </table>

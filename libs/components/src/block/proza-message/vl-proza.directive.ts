@@ -14,6 +14,7 @@ class VlProzaDirective extends AsyncDirective {
     private previousDomain?: string;
     private previousParameters?: Record<string, string>;
     private previousBaseUrl?: string;
+    private resolvedValue?: string;
 
     constructor(partInfo: PartInfo) {
         super(partInfo);
@@ -38,13 +39,17 @@ class VlProzaDirective extends AsyncDirective {
             this.parametersEqual(options?.parameters, this.previousParameters) &&
             options?.baseUrl === this.previousBaseUrl
         ) {
-            return fallback;
+            // Lit vergelijkt deze waarde met de tekst die setValue zette: de fallback zou die tekst overschrijven.
+            // ?? en niet ||: een leeg bericht is ook een antwoord.
+            return this.resolvedValue ?? fallback;
         }
 
         this.previousCode = code;
         this.previousDomain = domain;
-        this.previousParameters = options?.parameters;
+        // een kopie: een wijziging in hetzelfde object is anders bij de volgende render niet te zien
+        this.previousParameters = options?.parameters && { ...options.parameters };
         this.previousBaseUrl = options?.baseUrl;
+        this.resolvedValue = undefined;
 
         this.fetchMessage(domain, code, options);
 
@@ -59,7 +64,8 @@ class VlProzaDirective extends AsyncDirective {
                 options?.parameters ?? null,
                 options?.baseUrl
             );
-            this.setValue(stripHtml(message));
+            this.resolvedValue = stripHtml(message);
+            this.setValue(this.resolvedValue);
         } catch (error) {
             console.error(`[vlProza] Fout bij ophalen van bericht voor {domein: ${domain}, code: ${code}}`, error);
         }

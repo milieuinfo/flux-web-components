@@ -79,7 +79,9 @@ const template = html`
 
 ### Fallback tekst tijdens laden
 
-Standaard wordt de `code` getoond als fallback tijdens het laden. Je kan een eigen fallback opgeven:
+Standaard wordt de `code` getoond als fallback tijdens het laden. De fallback staat er alleen tot het bericht binnen
+is, ook opnieuw na een wijziging van `code`, `domain` of `parameters`: rendert je component daarna opnieuw, dan blijft
+het bericht staan. Je kan een eigen fallback opgeven:
 
 ```ts
 const template = html`
