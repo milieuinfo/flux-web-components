@@ -1,8 +1,10 @@
 import { webComponent } from '@domg-wc/common';
+import { type FeatureLoader, xhr } from 'ol/featureloader';
 import OlGML2 from 'ol/format/GML2';
 import * as OlLoadingstrategy from 'ol/loadingstrategy';
 import { transformExtent } from 'ol/proj';
 import OlVectorSource from 'ol/source/Vector';
+import { ensureLambertGrid } from '../../../../utils/lambert-transformation';
 import { VlMapVectorLayer } from '../vl-map-vector-layer';
 
 // De geometry-property in een DescribeFeatureType-schema herken je aan het feit dat zijn type tot de GML-namespace
@@ -10,6 +12,13 @@ import { VlMapVectorLayer } from '../vl-map-vector-layer';
 // robuuster: het werkt voor elk geometrie-type, ook voor minder courante of niet-GeoServer schema's, zolang ze GML
 // gebruiken. WFS 2.0 gebruikt http://www.opengis.net/gml/3.2; het gemeenschappelijke voorvoegsel dekt beide versies.
 const GML_NAMESPACE = 'http://www.opengis.net/gml';
+
+// Enkel de requests wachten, niet de source: actions nemen bij hun creatie layer.getSource() over.
+const loadAfter =
+    (preparation: Promise<void>, load: FeatureLoader): FeatureLoader =>
+    function (extent, resolution, projection, success, failure) {
+        preparation.then(() => load.call(this, extent, resolution, projection, success, failure));
+    };
 
 @webComponent('vl-map-wfs-layer')
 export class VlMapWfsLayer extends VlMapVectorLayer {
@@ -20,10 +29,9 @@ export class VlMapWfsLayer extends VlMapVectorLayer {
     private __resolvedGeometryName?: string;
 
     connectedCallback() {
-        if (this.__shouldDetectGeometryName) {
-            return this.__connectAfterGeometryDetection();
-        }
-        this._source = this.__createSource();
+        const preparation =
+            this.__shouldDetectGeometryName || this.__waitsForLambertGrid ? this.__prepare() : undefined;
+        this._source = this.__createSource(preparation);
         this._layer = this._createLayer();
         return super.connectedCallback();
     }
@@ -44,11 +52,14 @@ export class VlMapWfsLayer extends VlMapVectorLayer {
         return layers;
     }
 
-    __createSource() {
+    __createSource(preparation?: Promise<void>) {
+        const format = this.__sourceFormat;
+        const url = this.__getWfsUrl.bind(this);
         const vectorSource = new OlVectorSource({
-            format: this.__sourceFormat,
+            format,
             strategy: this.__loadingStrategy,
-            url: this.__getWfsUrl.bind(this),
+            url,
+            loader: preparation ? loadAfter(preparation, xhr(url, format)) : undefined,
         });
 
         vectorSource.on('featuresloadend', (evt) => {
@@ -113,11 +124,14 @@ export class VlMapWfsLayer extends VlMapVectorLayer {
         return !!this.__cqlFilter && !this.getAttribute('geometry-name');
     }
 
-    private async __connectAfterGeometryDetection(): Promise<void> {
-        this.__resolvedGeometryName = await this.__describeGeometryName();
-        this._source = this.__createSource();
-        this._layer = this._createLayer();
-        return super.connectedCallback();
+    // Zonder te wachten op het grid zet de bbox-strategie de eerste extents met Helmert om en latere met het grid.
+    private async __prepare(): Promise<void> {
+        await Promise.all([
+            this.__shouldDetectGeometryName
+                ? this.__describeGeometryName().then((geometryName) => (this.__resolvedGeometryName = geometryName))
+                : undefined,
+            this.__waitsForLambertGrid ? ensureLambertGrid() : undefined,
+        ]);
     }
 
     _cqlFilterChangedCallback(_oldValue: string, newValue: string): void {

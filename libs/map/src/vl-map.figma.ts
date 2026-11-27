@@ -2,7 +2,7 @@
 // source=libs/map/src/vl-map.ts
 // component=VlMap
 // code-only vl-map: allow-fullscreen, allow-invalid-geometry, auto-shift-controls, disable-escape-key, disable-keyboard
-// code-only vl-map: disable-mouse-wheel-zoom, disable-rotation, full-height, lambert2008, scale-position
+// code-only vl-map: disable-mouse-wheel-zoom, disable-rotation, full-height, lambert2008, ntv2-grid, scale-position
 // code-only vl-map-baselayer-grb-gray: background-layer, background-options, background-type, layer, type, url
 // code-only vl-map-legend: bottom, hide-title, layout-vertical, left, right, top, version
 // code-only vl-map-search: placeholder, search-empty-text, search-no-results-text, search-placeholder, with-offset
@@ -22,7 +22,7 @@ const instance = figma.selectedInstance;
 const border = booleanProperty(instance, 'border', true);
 // De boolean `scale` toont de schaallijn in de infobalk; uit is `hide-scale`. Een oudere library toonde ze altijd.
 const scale = booleanProperty(instance, 'scale', true);
-// De andere attributen van vl-map zelf (`full-height`, `lambert2008`, `allow-fullscreen`,
+// De andere attributen van vl-map zelf (`full-height`, `lambert2008`, `ntv2-grid`, `allow-fullscreen`,
 // `disable-*`, `allow-invalid-geometry`) bestaan enkel in code.
 const layerSwitcher = booleanProperty(instance, 'layer-switcher', false);
 const tools = booleanProperty(instance, 'tools', false);

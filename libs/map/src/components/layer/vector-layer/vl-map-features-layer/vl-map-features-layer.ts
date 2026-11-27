@@ -5,6 +5,7 @@ import OlGeoJSON from 'ol/format/GeoJSON';
 import OlPoint from 'ol/geom/Point';
 import OlClusterSource from 'ol/source/Cluster';
 import OlVectorSource from 'ol/source/Vector';
+import { ensureLambertGrid } from '../../../../utils/lambert-transformation';
 import { VlMapVectorLayer } from '../vl-map-vector-layer';
 
 @webComponent('vl-map-features-layer')
@@ -23,6 +24,9 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
         this._geoJSON = new OlGeoJSON();
         this._source = this.__createSource();
         this._layer = this._createLayer();
+        if (this.__waitsForLambertGrid) {
+            this._featuresChangedCallback(undefined, this.getAttribute('features'));
+        }
     }
 
     async connectedCallback() {
@@ -42,7 +46,7 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
 
     get _featuresFromAttribute() {
         const features = this.getAttribute('features');
-        return features ? this.__readGeoJsonFeatures(features) : [];
+        return features && !this.__waitsForLambertGrid ? this.__readGeoJsonFeatures(features) : [];
     }
 
     /**
@@ -130,10 +134,12 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
      * (GeoJSON of rechtstreekse OpenLayers Feature-objecten).
      */
     clearFeatures () {
-        if (this.__featuresSource) {
-            this.__featuresSource.clear();
-            this._featuresChanged();
-        }
+        this.__whenLambertGridReady(() => {
+            if (this.__featuresSource) {
+                this.__featuresSource.clear();
+                this._featuresChanged();
+            }
+        });
     }
 
     /**
@@ -144,10 +150,12 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
      * @param {string} feature - GeoJSON van één feature.
      */
     addFeature(feature) {
-        if (this.__featuresSource) {
-            this.__featuresSource.addFeatures([this._geoJSON.readFeature(feature, this.__readOptions)]);
-            this._featuresChanged();
-        }
+        this.__whenLambertGridReady(() => {
+            if (this.__featuresSource) {
+                this.__featuresSource.addFeatures([this._geoJSON.readFeature(feature, this.__readOptions)]);
+                this._featuresChanged();
+            }
+        });
     }
 
     /**
@@ -158,10 +166,12 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
      * @param {string} featureCollection - GeoJSON FeatureCollection.
      */
     addFeatureCollection(featureCollection) {
-        if (this.__featuresSource) {
-            this.__featuresSource.addFeatures(this._geoJSON.readFeatures(featureCollection, this.__readOptions));
-            this._featuresChanged();
-        }
+        this.__whenLambertGridReady(() => {
+            if (this.__featuresSource) {
+                this.__featuresSource.addFeatures(this._geoJSON.readFeatures(featureCollection, this.__readOptions));
+                this._featuresChanged();
+            }
+        });
     }
 
     /**
@@ -172,10 +182,12 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
      * @param {OlFeature[]} features
      */
     addFeatures(features: OlFeature[]) {
-        if (this.__featuresSource) {
-            this.__featuresSource.addFeatures(features);
-            this._featuresChanged();
-        }
+        this.__whenLambertGridReady(() => {
+            if (this.__featuresSource) {
+                this.__featuresSource.addFeatures(features);
+                this._featuresChanged();
+            }
+        });
     }
 
     /**
@@ -186,11 +198,13 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
      * @param {OlFeature[]} features
      */
     setFeatures(features: OlFeature[]) {
-        if (this.__featuresSource) {
-            this.__featuresSource.clear();
-            this.__featuresSource.addFeatures(features);
-            this._featuresChanged();
-        }
+        this.__whenLambertGridReady(() => {
+            if (this.__featuresSource) {
+                this.__featuresSource.clear();
+                this.__featuresSource.addFeatures(features);
+                this._featuresChanged();
+            }
+        });
     }
 
     _autoExtentChangedCallback() {
@@ -199,9 +213,11 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
 
     _featuresChangedCallback(oldValue, newValue) {
         if (newValue && this._layer) {
-            this.__featuresSource.clear();
-            this.__featuresSource.addFeatures(this.__readGeoJsonFeatures(newValue));
-            this._featuresChanged();
+            this.__whenLambertGridReady(() => {
+                this.__featuresSource.clear();
+                this.__featuresSource.addFeatures(this.__readGeoJsonFeatures(newValue));
+                this._featuresChanged();
+            });
         }
     }
 
@@ -259,6 +275,15 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
 
     __readGeoJsonFeatures(value) {
         return this._geoJSON.readFeatures(value, this.__readOptions);
+    }
+
+    // Alle wijzigingen gaan via dezelfde wachtrij, zodat hun volgorde behouden blijft terwijl het grid laadt.
+    private __whenLambertGridReady(update: () => void): void {
+        if (this.__waitsForLambertGrid) {
+            ensureLambertGrid().then(update);
+        } else {
+            update();
+        }
     }
 
     get __readOptions() {
