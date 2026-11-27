@@ -33,7 +33,9 @@ export const formLabelArgTypes: ArgTypes<FormLabelArgs> = {
     },
     annotation: {
         name: 'annotation',
-        description: 'De annotatie tekst die naast het label getoond wordt (bv. een voorbeeld of extra uitleg).',
+        description:
+            'Een korte toevoeging die naast het label getoond wordt, bv. "(optioneel)". Ze hoort niet bij de ' +
+            'toegankelijke naam van de form control: een screenreader leest ze niet voor bij focus op het veld.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.STRING },
