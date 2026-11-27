@@ -6,6 +6,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlButtonStyles } from '../button-style/vl-button-style.css';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
 import { buttonDefaults } from './vl-button.defaults';
+import { isButtonBlocked } from './vl-button.utils';
 
 const loadingText = '(Wordt geladen...)';
 
@@ -123,7 +124,7 @@ export class VlButtonComponent extends BaseLitElement {
     }
 
     protected handleClick(e: MouseEvent) {
-        if (this.disabled || this.loading) {
+        if (isButtonBlocked(this.disabled, this.loading)) {
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
@@ -146,7 +147,7 @@ export class VlButtonComponent extends BaseLitElement {
     }
 
     protected handleLinkClick(e: MouseEvent) {
-        if (this.disabled || this.loading) {
+        if (isButtonBlocked(this.disabled, this.loading)) {
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
@@ -191,7 +192,7 @@ export class VlButtonComponent extends BaseLitElement {
                 @click=${this.handleClick}
                 aria-label=${ifDefined(this.ariaLabel || undefined)}
                 aria-pressed=${ifDefined(this.toggle ? (this.on ? 'true' : 'false') : undefined)}
-                aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
+                aria-disabled=${isButtonBlocked(this.disabled, this.loading) ? 'true' : 'false'}
                 aria-busy=${this.loading ? 'true' : 'false'}
                 aria-haspopup=${ifDefined(
                     this.hasAttribute('aria-haspopup')
@@ -237,7 +238,7 @@ export class VlButtonComponent extends BaseLitElement {
                 @click=${this.handleLinkClick}
                 aria-label=${ifDefined(this.ariaLabel || undefined)}
                 aria-pressed=${ifDefined(this.toggle ? (this.on ? 'true' : 'false') : undefined)}
-                aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
+                aria-disabled=${isButtonBlocked(this.disabled, this.loading) ? 'true' : 'false'}
                 aria-busy=${this.loading ? 'true' : 'false'}
                 aria-haspopup=${ifDefined(
                     this.hasAttribute('aria-haspopup')

@@ -1,0 +1,8 @@
+Drukt de gebruiker op Enter terwijl de focus in deze component staat, dan wordt het formulier verstuurd, ook als het
+formulier geen submitknop heeft. Dat gebeurt niet als de eerste submitknop van het formulier `disabled` of `loading` is,
+net zoals in een gewoon HTML-formulier: Enter doet dan niets, ook als een latere submitknop wel actief is. Als submitknop
+telt een `vl-button` met `type="submit"` (zonder `cta-link`) en een native submitknop.
+
+Wil je dat Enter toch verstuurt terwijl de eerste submitknop uitgeschakeld is, zet dan een actieve submitknop eerst, of
+geef een uitgeschakelde knop die het formulier niet hoeft te versturen (bv. Vorige) `type="button"`. Doe dat niet met de
+knop die het formulier moet versturen: met `type="button"` verstuurt ook een klik erop het formulier niet meer.

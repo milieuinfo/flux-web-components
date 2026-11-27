@@ -56,7 +56,12 @@ een tabel met icon-only knoppen.
 
 ### Disabled
 
-Gebruik een disabled button om aan te tonen dat een actie niet uitgevoerd kan worden.
+Gebruik een disabled button om aan te tonen dat een actie niet uitgevoerd kan worden.<br/>
+Is een disabled button de eerste submitknop (`type="submit"`) van een formulier, dan verstuurt ook Enter in een form
+control van de library (bv. een [vl-input-field](/docs/components-form-input-field--documentatie)) het formulier
+niet.<br/>
+Voor een native `<input>` in dat formulier geldt dat niet: de browser kent `vl-button` niet als submitknop en kan het
+formulier bij Enter toch versturen. Controleer daar in je submit-handler zelf of er verstuurd mag worden.
 
 <Canvas of={VlButtonStories.ButtonDisabled}/>
 
@@ -89,6 +94,14 @@ Gedurende het uitvoeren van de actie kan je de button als een loading button afb
 We raden aan een loading button enkel te gebruiken voor primary buttons.<br/>
 Indien je wil dat de loading button ook disabled is, kan je het `disabled` attribuut in combinatie met het `loading`
 attribuut gebruiken.
+
+Zolang een button loading is, doet een klik erop niets. Is hij de eerste submitknop (`type="submit"`) van een formulier,
+dan verstuurt ook Enter in een form control van de library (bv. een
+[vl-input-field](/docs/components-form-input-field--documentatie)) het formulier niet. Zo wordt een formulier met enkel
+form controls van de library niet opnieuw verstuurd terwijl het bewaard wordt.<br/>
+Voor een native `<input>` in dat formulier geldt dat niet: de browser kent `vl-button` niet als submitknop en kan het
+formulier bij Enter toch versturen. Heeft je formulier native velden, controleer dan in je submit-handler zelf of er al
+een verzending loopt.
 
 <Canvas of={VlButtonStories.ButtonLoading}/>
 

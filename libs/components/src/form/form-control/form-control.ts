@@ -3,6 +3,7 @@ import { FormControlMixin, programmaticValidator, requiredValidator } from '@ope
 import { html, LitElement, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { submit } from '@open-wc/form-helpers';
 import { FORM_MESSAGE_CUSTOM_TAG } from '../form-message/vl-form-message.component';
+import { isDefaultButtonBlocked } from '../utils/default-button';
 import { BaseLitElement, findDeepestElementThroughShadowRoot } from '@domg-wc/common';
 import 'reflect-metadata';
 
@@ -215,7 +216,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
     protected onKeydown(event: KeyboardEvent) {
         if (event.key === 'Enter') {
-            if (this.form && this.submitFormOnEnter) {
+            if (this.form && this.submitFormOnEnter && !isDefaultButtonBlocked(this.form)) {
                 submit(this.form);
             }
         }
