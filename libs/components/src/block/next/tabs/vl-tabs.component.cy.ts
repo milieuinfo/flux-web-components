@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { html } from 'lit';
+import { html, render } from 'lit';
 import { VlTabLinkComponent } from './vl-tab-link.component';
 import { VlTabPanelComponent } from './vl-tab-panel.component';
 import { VlTabComponent } from './vl-tab.component';
@@ -7,29 +7,74 @@ import { TabChangeEventDetail, VlTabsComponent } from './vl-tabs.component';
 
 registerWebComponents([VlTabsComponent, VlTabComponent, VlTabLinkComponent, VlTabPanelComponent]);
 
-const mountTabs = () =>
-    cy.mount(html`
-        <vl-tabs-next label="Example tabs">
-            <vl-tab-next id="tab-1" panel="panel-1">Tab 1</vl-tab-next>
-            <vl-tab-next id="tab-2" panel="panel-2">Tab 2</vl-tab-next>
-            <vl-tab-next id="tab-3" panel="panel-3">Tab 3</vl-tab-next>
+type Selection = { selected?: number };
 
-            <vl-tab-panel-next id="panel-1" slot="panel">Panel 1</vl-tab-panel-next>
-            <vl-tab-panel-next id="panel-2" slot="panel" hidden>Panel 2</vl-tab-panel-next>
-            <vl-tab-panel-next id="panel-3" slot="panel" hidden>Panel 3</vl-tab-panel-next>
-        </vl-tabs-next>
-    `);
+const tabItems = ({ selected }: Selection = {}) => html`
+    <vl-tab-next id="tab-1" panel="panel-1" ?selected=${selected === 1}>Tab 1</vl-tab-next>
+    <vl-tab-next id="tab-2" panel="panel-2" ?selected=${selected === 2}>Tab 2</vl-tab-next>
+    <vl-tab-next id="tab-3" panel="panel-3" ?selected=${selected === 3}>Tab 3</vl-tab-next>
 
-const mountTabLinks = () =>
+    <vl-tab-panel-next id="panel-1" slot="panel">Panel 1</vl-tab-panel-next>
+    <vl-tab-panel-next id="panel-2" slot="panel" hidden>Panel 2</vl-tab-panel-next>
+    <vl-tab-panel-next id="panel-3" slot="panel" hidden>Panel 3</vl-tab-panel-next>
+`;
+
+const tabLinkItems = ({ selected }: Selection = {}) => html`
+    <vl-tab-link-next id="link-1" href="#tab-link-1" ?selected=${selected === 1}>Link 1</vl-tab-link-next>
+    <vl-tab-link-next id="link-2" href="#tab-link-2" ?selected=${selected === 2}>Link 2</vl-tab-link-next>
+    <vl-tab-link-next id="link-3" href="https://www.vlaanderen.be" external ?selected=${selected === 3}
+        >Link 3</vl-tab-link-next
+    >
+`;
+
+const mountTabs = (selection: Selection = {}) =>
+    cy.mount(html`<vl-tabs-next label="Example tabs">${tabItems(selection)}</vl-tabs-next>`);
+
+const mountTabLinks = (selection: Selection = {}) =>
     cy.mount(html`
         <div id="tab-links-container">
-            <vl-tabs-next horizontal-navigation label="Example navigation">
-                <vl-tab-link-next id="link-1" href="#tab-link-1">Link 1</vl-tab-link-next>
-                <vl-tab-link-next id="link-2" href="#tab-link-2">Link 2</vl-tab-link-next>
-                <vl-tab-link-next id="link-3" href="https://www.vlaanderen.be" external>Link 3</vl-tab-link-next>
-            </vl-tabs-next>
+            <vl-tabs-next horizontal-navigation label="Example navigation">${tabLinkItems(selection)}</vl-tabs-next>
         </div>
     `);
+
+const mountEmptyTabs = (horizontalNavigation: boolean) =>
+    cy.mount(html`<vl-tabs-next label="Example" ?horizontal-navigation=${horizontalNavigation}></vl-tabs-next>`);
+
+const shouldHaveOnlyTabSelected = (selected: number) =>
+    [1, 2, 3].forEach((index) => {
+        cy.get(`#tab-${index}`).should('have.attr', 'aria-selected', String(index === selected));
+        cy.get(`#panel-${index}`).should(index === selected ? 'not.have.attr' : 'have.attr', 'hidden');
+    });
+
+const shouldHaveOnlyTabLinkSelected = (selected: number) =>
+    [1, 2, 3].forEach((index) =>
+        cy
+            .get(`#link-${index}`)
+            .shadow()
+            .find('a')
+            .should(index === selected ? 'have.attr' : 'not.have.attr', 'aria-current', 'page'),
+    );
+
+const variants = [
+    {
+        tag: 'vl-tab-next',
+        itemId: 'tab',
+        label: 'Tab',
+        horizontalNavigation: false,
+        items: tabItems,
+        mount: mountTabs,
+        shouldHaveOnlySelected: shouldHaveOnlyTabSelected,
+    },
+    {
+        tag: 'vl-tab-link-next',
+        itemId: 'link',
+        label: 'Link',
+        horizontalNavigation: true,
+        items: tabLinkItems,
+        mount: mountTabLinks,
+        shouldHaveOnlySelected: shouldHaveOnlyTabLinkSelected,
+    },
+];
 
 const clickTabLink = (selector: string, options: Partial<Cypress.ClickOptions> = {}) =>
     cy
@@ -72,6 +117,36 @@ const shouldHaveChangeDetail = (call: 'firstCall' | 'lastCall', tabId: string, p
 
 const mobileToggleButton = () =>
     cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').shadow().find('button');
+
+const mobileToggle = () => cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle');
+
+const mobileListbox = () => cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown');
+
+const mobileOptions = () => mobileListbox().find('[role="option"]');
+
+// cy.press(Enter) sends no keypress, so a focused button is not activated; a key event through CDP is.
+const realPressEnter = () => {
+    (['keyDown', 'keyUp'] as const).forEach((type) => {
+        cy.then(() =>
+            Cypress.automation('remote:debugger:protocol', {
+                command: 'Input.dispatchKeyEvent',
+                params: { type, key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r' },
+            }),
+        );
+    });
+};
+
+const accessibleNames = (role: string) =>
+    cy.then(async () => {
+        const cdp = (command: string, params = {}) =>
+            Cypress.automation('remote:debugger:protocol', { command, params }) as Promise<any>;
+        const { frameTree } = await cdp('Page.getFrameTree');
+        const testFrame = frameTree.childFrames.find(({ frame }: any) => frame.url.includes('/__cypress/iframes/'));
+        const { nodes } = await cdp('Accessibility.getFullAXTree', { frameId: testFrame.frame.id });
+        return nodes
+            .filter((node: any) => !node.ignored && node.role?.value === role)
+            .map((node: any) => node.name?.value);
+    });
 
 const shouldHaveOnlyFirstTabSelected = () => {
     cy.get('vl-tabs-next')
@@ -498,6 +573,38 @@ describe('cypress-component - block components - vl-tabs-next - desktop', () => 
 
         cy.checkA11y('vl-tabs-next');
     });
+
+    it('should give a tab link added after the first render the listitem role without selecting it', () => {
+        mountTabLinks({ selected: 2 });
+        cy.get('#link-1').should('have.attr', 'role', 'listitem');
+
+        cy.get('vl-tabs-next').then(($tabs) => {
+            const link = document.createElement('vl-tab-link-next');
+            link.id = 'link-4';
+            link.setAttribute('href', '#tab-link-4');
+            link.textContent = 'Link 4';
+            $tabs[0].append(link);
+        });
+
+        cy.get('#link-4').should('have.attr', 'role', 'listitem');
+        cy.get('#link-4').shadow().find('a').should('not.have.attr', 'aria-current');
+        shouldHaveOnlyTabLinkSelected(2);
+        cy.injectAxe();
+        cy.checkA11y('vl-tabs-next');
+    });
+
+    it('should leave the selection of tab links added after the first render to the consumer', () => {
+        mountEmptyTabs(true);
+        cy.get('vl-tabs-next').shadow().find('nav ul').should('exist');
+
+        cy.get('vl-tabs-next').then(($tabs) => render(tabLinkItems(), $tabs[0]));
+        cy.get('#link-3').should('have.attr', 'role', 'listitem');
+        cy.get('vl-tabs-next').find('vl-tab-link-next[selected]').should('have.length', 0);
+        cy.get('#link-2').invoke('attr', 'selected', '');
+
+        shouldHaveOnlyTabLinkSelected(2);
+        cy.get('vl-tabs-next').find('vl-tab-link-next[selected]').should('have.length', 1);
+    });
 });
 
 describe('cypress-component - block components - vl-tabs-next - mobile', () => {
@@ -511,6 +618,83 @@ describe('cypress-component - block components - vl-tabs-next - mobile', () => {
         cy.get('vl-tabs-next').should('exist');
         cy.get('vl-tabs-next').find('vl-tab-next').should('have.length', 3);
         cy.get('vl-tabs-next').find('#panel-1').should('not.have.attr', 'hidden');
+    });
+
+    variants.forEach(({ tag, itemId, label, horizontalNavigation, items, mount, shouldHaveOnlySelected }) => {
+        it(`should show a preselected ${tag} in the toggle and the listbox`, () => {
+            mount({ selected: 2 });
+
+            mobileToggle().should('contain.text', `${label} 2`);
+            mobileOptions().should('have.length', 3);
+            mobileOptions().filter('[aria-selected="true"]').should('have.length', 1).and('have.id', 'tab-option-1');
+            mobileOptions().eq(1).should('contain.text', `${label} 2`);
+            cy.injectAxe();
+            cy.checkA11y('vl-tabs-next');
+        });
+
+        it(`should follow ${tag} elements added and removed after the first render`, () => {
+            mountEmptyTabs(horizontalNavigation);
+            cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
+
+            cy.get('vl-tabs-next').then(($tabs) => render(items({ selected: 2 }), $tabs[0]));
+
+            mobileToggle().should('contain.text', `${label} 2`);
+            mobileOptions().should('have.length', 3);
+            mobileOptions().eq(1).should('have.attr', 'aria-selected', 'true');
+            cy.get(`#${itemId}-3`).then(($item) => $item[0].remove());
+            mobileOptions().should('have.length', 2);
+            mobileOptions().eq(1).should('have.attr', 'aria-selected', 'true');
+            mobileToggle().should('contain.text', `${label} 2`);
+        });
+
+        it(`should select the first of the ${tag} elements added after the first render without a selection`, () => {
+            mountEmptyTabs(horizontalNavigation);
+            cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
+
+            cy.get('vl-tabs-next').then(($tabs) => render(items(), $tabs[0]));
+
+            mobileToggle().should('contain.text', `${label} 1`);
+            mobileOptions().should('have.length', 3);
+            mobileOptions().filter('[aria-selected="true"]').should('have.length', 1).and('have.id', 'tab-option-0');
+            shouldHaveOnlySelected(1);
+        });
+
+        it(`should operate the listbox with the keyboard with a preselected ${tag}`, () => {
+            clearLocationHash();
+            mount({ selected: 2 });
+            mobileToggle().should('contain.text', `${label} 2`);
+
+            mobileToggleButton().focus();
+            realPressEnter();
+            mobileListbox().should('not.have.attr', 'hidden');
+            cy.focused().should('have.attr', 'role', 'option');
+            [
+                { key: Cypress.Keyboard.Keys.END, option: 2 },
+                { key: Cypress.Keyboard.Keys.HOME, option: 0 },
+                { key: Cypress.Keyboard.Keys.UP, option: 2 },
+                { key: Cypress.Keyboard.Keys.DOWN, option: 0 },
+                { key: Cypress.Keyboard.Keys.DOWN, option: 1 },
+                { key: Cypress.Keyboard.Keys.UP, option: 0 },
+            ].forEach(({ key, option }) => {
+                cy.press(key);
+                cy.focused().should('have.id', `tab-option-${option}`);
+            });
+            realPressEnter();
+
+            shouldHaveOnlySelected(1);
+            if (horizontalNavigation) {
+                cy.location('hash').should('equal', '#tab-link-1');
+            }
+            mobileListbox().should('have.attr', 'hidden');
+            mobileToggleButton().should('have.focus');
+            mobileToggle().should('contain.text', `${label} 1`);
+
+            realPressEnter();
+            cy.focused().should('have.attr', 'role', 'option');
+            cy.press(Cypress.Keyboard.Keys.ESC);
+            mobileListbox().should('have.attr', 'hidden');
+            mobileToggleButton().should('have.focus');
+        });
     });
 
     it('should close the listbox with Escape and return focus to the toggle', () => {
@@ -719,6 +903,28 @@ describe('cypress-component - block components - vl-tabs-next - mobile', () => {
         cy.get('@native-click').should('have.been.calledOnceWith', '_blank');
         cy.get('@window-open').should('not.have.been.called');
         cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('contain.text', 'Link 3');
+    });
+
+    it('should name the option of an external tab link as opening a new window and open it on Enter', () => {
+        clearLocationHash();
+        mountTabLinks({ selected: 2 });
+        cy.window().then((win) => cy.stub(win, 'open').as('window-open'));
+        mobileToggle().should('contain.text', 'Link 2');
+
+        mobileToggleButton().click();
+        cy.focused().should('have.attr', 'role', 'option');
+        accessibleNames('option').should('deep.equal', ['Link 1', 'Link 2', 'Link 3 (opent in een nieuw venster)']);
+        cy.injectAxe();
+        cy.checkA11y('vl-tabs-next');
+
+        cy.press(Cypress.Keyboard.Keys.END);
+        cy.focused().should('have.id', 'tab-option-2');
+        realPressEnter();
+
+        cy.get('@window-open').should('have.been.calledOnceWith', 'https://www.vlaanderen.be', '_blank', 'noopener');
+        shouldHaveOnlyTabLinkSelected(3);
+        mobileToggle().should('contain.text', 'Link 3');
+        cy.location('hash').should('equal', '');
     });
 
     it('should be accessible on mobile', () => {

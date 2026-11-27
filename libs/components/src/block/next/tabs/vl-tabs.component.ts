@@ -1,5 +1,5 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
-import { VlButtonComponent } from '@domg-wc/components/atom';
+import { VlButtonComponent, VlIconComponent } from '@domg-wc/components/atom';
 import { SelectOption, VlSelectComponent } from '@domg-wc/components/form';
 import { vlMediaScreenSmall, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, TemplateResult } from 'lit';
@@ -11,7 +11,7 @@ import { VlTabPanelComponent } from './vl-tab-panel.component';
 import { VlTabComponent } from './vl-tab.component';
 import { vlTabsFluxStyles } from './vl-tabs.flux-css';
 
-registerWebComponents([VlTabComponent, VlTabLinkComponent, VlTabPanelComponent, VlSelectComponent]);
+registerWebComponents([VlTabComponent, VlTabLinkComponent, VlTabPanelComponent, VlSelectComponent, VlIconComponent]);
 
 export type TabClickEventDetail = {
     tab: VlTabComponent;
@@ -64,11 +64,12 @@ export class VlTabsComponent extends BaseLitElement {
 
     private mobileMediaQuery?: MediaQueryList;
     
-    private get mobileOptions(): SelectOption[] { 
+    private get mobileOptions(): (SelectOption & { external: boolean })[] {
         return this.allTabs.map((tab, index) => ({
             label: tab.textContent || '',
             value: String(index),
             selected: index === this.selectedTabIndex,
+            external: tab instanceof VlTabLinkComponent && tab.external,
         })) || [];
     }
 
@@ -276,27 +277,37 @@ export class VlTabsComponent extends BaseLitElement {
 
     private setMobileState(isMobile: boolean): void {
         this.mobile = isMobile;
-        if (this.mobile) {
-            // Remove listitem role from tab links in mobile
-            this.allTabs.forEach((tab) => {
-                if (tab instanceof VlTabLinkComponent) {
-                    tab.removeAttribute('role');
-                }
-            });
-        } else {
+        if (!this.mobile) {
             this.mobileDropdownFocusedIndex = -1;
             this.mobileDropdownOpen = false;
-            // Set listitem role on tab links in desktop
-            this.allTabs.forEach((tab) => {
-                if (tab instanceof VlTabLinkComponent) {
-                    tab.setAttribute('role', 'listitem');
-                }
-            });
         }
+        this.syncTabLinkRoles();
+    }
+
+    private syncTabLinkRoles(): void {
+        this.allTabs.forEach((tab) => {
+            if (!(tab instanceof VlTabLinkComponent)) {
+                return;
+            }
+            if (this.mobile) {
+                tab.removeAttribute('role');
+            } else {
+                tab.setAttribute('role', 'listitem');
+            }
+        });
     }
 
     private handleMobileMediaQueryChange = (event: MediaQueryListEvent): void => {
         this.setMobileState(event.matches);
+    };
+
+    private onDefaultSlotChange = (): void => {
+        this.syncTabLinkRoles();
+        // renderMobile() reads the tabs from the slot of the previous render. No update on desktop on purpose:
+        // updated() would then select a tab added later through ensureSelectedTab().
+        if (this.mobile) {
+            this.requestUpdate();
+        }
     };
 
     private ensureSelectedTab(): void {
@@ -347,12 +358,15 @@ export class VlTabsComponent extends BaseLitElement {
                     aria-label="${ifDefined(this.label ? this.label : undefined)}"
                     role="${ifDefined(!this.horizontalNavigation ? 'tablist' : undefined)}"
                 >
-                    ${when(!this.horizontalNavigation, () => html` <slot></slot> `)}
+                    ${when(
+                        !this.horizontalNavigation,
+                        () => html` <slot @slotchange=${this.onDefaultSlotChange}></slot> `,
+                    )}
                     ${when(
                         this.horizontalNavigation,
                         () =>
                             html`<ul>
-                                <slot></slot>
+                                <slot @slotchange=${this.onDefaultSlotChange}></slot>
                             </ul>`,
                     )}
                 </nav>
@@ -465,13 +479,19 @@ export class VlTabsComponent extends BaseLitElement {
                                 }}"
                             >
                                 ${option.label}
+                                ${when(
+                                    option.external,
+                                    () => html`
+                                        <vl-icon icon="external" label="(opent in een nieuw venster)"></vl-icon>
+                                    `,
+                                )}
                             </div>
                         `,
                     )}
                 </div>
 
                 <nav hidden>
-                    <slot></slot>
+                    <slot @slotchange=${this.onDefaultSlotChange}></slot>
                 </nav>
                 ${when(!this.horizontalNavigation, () => html` <slot name="panel"></slot> `)}
             </div>
