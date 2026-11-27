@@ -68,7 +68,7 @@ export const TabsHorizontalNavigation = TabsDefault.bind({});
 TabsHorizontalNavigation.storyName = 'vl-tabs-next - horizontal-navigation';
 TabsHorizontalNavigation.args = {
     defaultSlot: `
-        <vl-tab-link-next href="#tab1">Trein</vl-tab-link-next>
+        <vl-tab-link-next href="#tab1" selected>Trein</vl-tab-link-next>
         <vl-tab-link-next href="#tab2">Metro, tram en bus</vl-tab-link-next>
         <vl-tab-link-next href="https://www.vlaanderen.be/intern/werkplek/dienstreizen-en-woon-werkverkeer/vervoersmiddelen/fietsen" external>Fiets</vl-tab-link-next>
     `,
