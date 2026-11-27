@@ -145,11 +145,6 @@ export class VlTabsComponent extends BaseLitElement {
         if (this.mobile) {
             // The toggle label and options are derived from the selected state of the tabs, which Lit doesn't observe.
             this.requestUpdate();
-            const index = this.allTabs.indexOf(tab);
-            const optionIndex = this.mobileOptions.findIndex((option) => option.value === String(index));
-            if (optionIndex !== -1) {
-                this.mobileDropdownFocusedIndex = index;
-            }
             if (navigate && this.horizontalNavigation) {
                 const href = (tab as VlTabLinkComponent).href;
                 if (href) {
@@ -382,51 +377,53 @@ export class VlTabsComponent extends BaseLitElement {
     private onMobileToggle = () => {
         this.mobileDropdownOpen = !this.mobileDropdownOpen;
         if (this.mobileDropdownOpen) {
-            this.mobileDropdownFocusedIndex = 0;
             requestAnimationFrame(() => {
-                this.focusMobileOption(this.mobileDropdownFocusedIndex);
+                this.focusMobileOption(Math.max(this.selectedTabIndex, 0));
             });
         } else {
             this.mobileToggleButton?.focus();
         }
     };
 
+    private chooseMobileOption(index: number): void {
+        // Focus on the toggle before the dispatch, as in requestSelectTab(): a modal opened in a vl-tab-change listener
+        // then keeps the focus, and returns it to the toggle when it closes.
+        this.mobileDropdownOpen = false;
+        this.mobileToggleButton?.focus();
+        this.requestSelectTab(this.allTabs[index], false, true);
+    }
+
     private onMobileListboxKeyDown = (e: KeyboardEvent) => {
         if (!this.mobileDropdownOpen) return;
 
+        // The index follows the real focus of an option (@focus, @blur) and is -1 elsewhere, e.g. on the toggle:
+        // the arrow keys then enter the listbox, and Enter and Space keep their own behavior there.
         const key = e.key.toLowerCase();
         const optionsCount = this.mobileOptions.length;
+        const focusedIndex = this.mobileDropdownFocusedIndex;
 
         switch (key) {
             case 'arrowdown':
                 e.preventDefault();
-                this.mobileDropdownFocusedIndex =
-                    this.mobileDropdownFocusedIndex === optionsCount - 1 ? 0 : this.mobileDropdownFocusedIndex + 1;
-                this.focusMobileOption(this.mobileDropdownFocusedIndex);
+                this.focusMobileOption(focusedIndex === optionsCount - 1 ? 0 : focusedIndex + 1);
                 break;
             case 'arrowup':
                 e.preventDefault();
-                this.mobileDropdownFocusedIndex =
-                    this.mobileDropdownFocusedIndex === 0 ? optionsCount - 1 : this.mobileDropdownFocusedIndex - 1;
-                this.focusMobileOption(this.mobileDropdownFocusedIndex);
+                this.focusMobileOption(focusedIndex <= 0 ? optionsCount - 1 : focusedIndex - 1);
                 break;
             case 'home':
                 e.preventDefault();
-                this.mobileDropdownFocusedIndex = 0;
-                this.focusMobileOption(this.mobileDropdownFocusedIndex);
+                this.focusMobileOption(0);
                 break;
             case 'end':
                 e.preventDefault();
-                this.mobileDropdownFocusedIndex = optionsCount - 1;
-                this.focusMobileOption(this.mobileDropdownFocusedIndex);
+                this.focusMobileOption(optionsCount - 1);
                 break;
             case 'enter':
             case ' ':
-                e.preventDefault();
-                if (this.mobileDropdownFocusedIndex >= 0) {
-                    this.requestSelectTab(this.allTabs[this.mobileDropdownFocusedIndex], false, true);
-                    this.onMobileToggle();
-                    this.mobileToggleButton?.focus();
+                if (this.allTabs[focusedIndex]) {
+                    e.preventDefault();
+                    this.chooseMobileOption(focusedIndex);
                 }
                 break;
             case 'escape':
@@ -472,11 +469,13 @@ export class VlTabsComponent extends BaseLitElement {
                                 role="option"
                                 aria-selected="${option.selected ? 'true' : 'false'}"
                                 class="vl-tabs__mobile-option"
-                                @click="${() => {
-                                    this.requestSelectTab(this.allTabs[Number(option.value)]);
-                                    this.mobileDropdownFocusedIndex = -1;
-                                    this.onMobileToggle();
+                                @focus="${() => {
+                                    this.mobileDropdownFocusedIndex = index;
                                 }}"
+                                @blur="${() => {
+                                    this.mobileDropdownFocusedIndex = -1;
+                                }}"
+                                @click="${() => this.chooseMobileOption(index)}"
                             >
                                 ${option.label}
                                 ${when(

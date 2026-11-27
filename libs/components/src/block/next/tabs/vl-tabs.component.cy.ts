@@ -93,6 +93,24 @@ const refuseTabChanges = ({ onAncestor = false } = {}) =>
         target?.addEventListener('vl-tab-change', refuse);
     });
 
+const refuseTabChangesWithModal = () =>
+    cy.get('vl-tabs-next').then(($tabs) => {
+        const modal = document.createElement('dialog');
+        modal.id = 'refusal-modal';
+        modal.setAttribute('aria-label', 'Niet-bewaarde wijzigingen');
+        modal.innerHTML = '<button id="refusal-modal-close" type="button">Sluiten</button>';
+        modal.querySelector('button')?.addEventListener('click', () => modal.close());
+        $tabs[0].after(modal);
+        const refuse = cy
+            .stub()
+            .as('vl-tab-change')
+            .callsFake((event: Event) => {
+                event.preventDefault();
+                modal.showModal();
+            });
+        $tabs[0].addEventListener('vl-tab-change', refuse);
+    });
+
 const stubNativeClicks = () =>
     cy.get('#tab-links-container').then(($container) => {
         const nativeClick = cy.stub().as('native-click');
@@ -697,6 +715,164 @@ describe('cypress-component - block components - vl-tabs-next - mobile', () => {
         });
     });
 
+    const chooseKeys = [
+        { name: 'Enter', press: realPressEnter },
+        { name: 'Space', press: () => cy.press(Cypress.Keyboard.Keys.SPACE) },
+    ];
+
+    const refusals = [
+        { inputPath: 'click', refuse: () => mobileOptions().eq(2).click() },
+        ...chooseKeys.map(({ name, press }) => ({
+            inputPath: name,
+            refuse: () => {
+                cy.press(Cypress.Keyboard.Keys.DOWN);
+                cy.focused().should('have.id', 'tab-option-2');
+                press();
+            },
+        })),
+    ];
+
+    variants.forEach(({ tag, label, horizontalNavigation, mount, shouldHaveOnlySelected }) => {
+        [
+            { start: 'the selected option', selection: { selected: 2 }, option: 1 },
+            { start: 'the first option without a preselected tab', selection: {}, option: 0 },
+        ].forEach(({ start, selection, option }) => {
+            it(`should focus ${start} when the listbox opens (${tag})`, () => {
+                mount(selection);
+                mobileToggle().should('contain.text', `${label} ${option + 1}`);
+
+                mobileToggleButton().click();
+
+                cy.focused().should('have.id', `tab-option-${option}`);
+            });
+        });
+
+        chooseKeys.forEach(({ name, press }) => {
+            it(`should choose the option reached with Tab on ${name} (${tag})`, () => {
+                clearLocationHash();
+                mount({ selected: 1 });
+                mobileToggleButton().click();
+                cy.focused().should('have.id', 'tab-option-0');
+
+                cy.press(Cypress.Keyboard.Keys.TAB);
+                cy.focused().should('have.id', 'tab-option-1');
+                press();
+
+                shouldHaveOnlySelected(2);
+                if (horizontalNavigation) {
+                    cy.location('hash').should('equal', '#tab-link-2');
+                }
+                mobileListbox().should('have.attr', 'hidden');
+                mobileToggle().should('contain.text', `${label} 2`);
+            });
+
+            it(`should close the listbox without choosing an option on ${name} on the toggle (${tag})`, () => {
+                clearLocationHash();
+                mount({ selected: 2 });
+                cy.createStubForEvent('vl-tabs-next', 'vl-tab-change');
+                mobileToggleButton().click();
+                cy.focused().should('have.attr', 'role', 'option');
+
+                mobileToggleButton().focus();
+                press();
+
+                mobileListbox().should('have.attr', 'hidden');
+                mobileToggleButton().should('have.focus');
+                cy.get('@vl-tab-change').should('not.have.been.called');
+                cy.location('hash').should('equal', '');
+                mobileToggle().should('contain.text', `${label} 2`);
+            });
+        });
+
+        it(`should close the listbox without an error on Enter on the toggle without any ${tag}`, () => {
+            mountEmptyTabs(horizontalNavigation);
+            cy.get('vl-tabs-next').shadow().find('.vl-tabs--mobile').should('exist');
+            cy.createStubForEvent('vl-tabs-next', 'vl-tab-change');
+            mobileToggleButton().click();
+            mobileToggle().should('have.attr', 'aria-expanded', 'true');
+
+            mobileToggleButton().focus();
+            cy.press(Cypress.Keyboard.Keys.DOWN);
+            realPressEnter();
+
+            mobileListbox().should('have.attr', 'hidden');
+            mobileToggle().should('have.attr', 'aria-expanded', 'false');
+            mobileToggleButton().should('have.focus');
+            cy.get('@vl-tab-change').should('not.have.been.called');
+        });
+
+        it(`should move the focus from the toggle into the open listbox with the arrow keys (${tag})`, () => {
+            mount({ selected: 2 });
+            mobileToggleButton().click();
+            cy.focused().should('have.id', 'tab-option-1');
+
+            [
+                { key: Cypress.Keyboard.Keys.DOWN, option: 0 },
+                { key: Cypress.Keyboard.Keys.UP, option: 2 },
+            ].forEach(({ key, option }) => {
+                mobileToggleButton().focus();
+                cy.press(key);
+                cy.focused().should('have.id', `tab-option-${option}`);
+            });
+            mobileListbox().should('not.have.attr', 'hidden');
+        });
+
+        refusals.forEach(({ inputPath, refuse }) => {
+            it(`should reach every option from the selected one after a refused ${inputPath} (${tag})`, () => {
+                clearLocationHash();
+                mount({ selected: 2 });
+                refuseTabChanges();
+                mobileToggleButton().click();
+                cy.focused().should('have.id', 'tab-option-1');
+
+                refuse();
+                cy.get('@vl-tab-change').should('have.been.calledOnce');
+                mobileListbox().should('have.attr', 'hidden');
+                mobileToggleButton().should('have.focus');
+
+                realPressEnter();
+                cy.focused().should('have.id', 'tab-option-1');
+                [
+                    { key: Cypress.Keyboard.Keys.DOWN, option: 2 },
+                    { key: Cypress.Keyboard.Keys.DOWN, option: 0 },
+                    { key: Cypress.Keyboard.Keys.UP, option: 2 },
+                    { key: Cypress.Keyboard.Keys.HOME, option: 0 },
+                    { key: Cypress.Keyboard.Keys.END, option: 2 },
+                    { key: Cypress.Keyboard.Keys.UP, option: 1 },
+                ].forEach(({ key, option }) => {
+                    cy.press(key);
+                    cy.focused().should('have.id', `tab-option-${option}`);
+                });
+                mobileOptions().eq(1).should('have.attr', 'aria-selected', 'true');
+                mobileToggle().should('contain.text', `${label} 2`);
+                cy.location('hash').should('equal', '');
+            });
+
+            it(`should leave the focus in a modal opened on a refused ${inputPath} and get it back (${tag})`, () => {
+                clearLocationHash();
+                mount({ selected: 2 });
+                refuseTabChangesWithModal();
+                mobileToggleButton().click();
+                cy.focused().should('have.id', 'tab-option-1');
+
+                refuse();
+                cy.get('@vl-tab-change').should('have.been.calledOnce');
+                cy.get('#refusal-modal').should('have.attr', 'open');
+                cy.focused().should('have.id', 'refusal-modal-close');
+                mobileListbox().should('have.attr', 'hidden');
+
+                realPressEnter();
+                cy.get('#refusal-modal').should('not.have.attr', 'open');
+                mobileToggleButton().should('have.focus');
+                realPressEnter();
+                cy.focused().should('have.id', 'tab-option-1');
+                mobileOptions().eq(1).should('have.attr', 'aria-selected', 'true');
+                mobileToggle().should('contain.text', `${label} 2`);
+                cy.location('hash').should('equal', '');
+            });
+        });
+    });
+
     it('should close the listbox with Escape and return focus to the toggle', () => {
         mountTabs();
 
@@ -721,6 +897,7 @@ describe('cypress-component - block components - vl-tabs-next - mobile', () => {
         cy.get('vl-tabs-next').find('#panel-2').should('not.have.attr', 'hidden');
 
         cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').shadow().find('button').click();
+        cy.focused().should('have.id', 'tab-option-1');
         cy.get('vl-tabs-next').shadow().find('#tab-option-0').focus().trigger('keydown', { key: ' ', bubbles: true, composed: true });
         cy.get('vl-tabs-next').find('#panel-1').should('not.have.attr', 'hidden');
     });
