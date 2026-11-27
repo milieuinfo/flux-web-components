@@ -1340,6 +1340,63 @@ describe('cypress-component - form components - vl-select-rich - multiple', () =
         cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-multiple-mount');
     });
 
+    describe('pill padding', () => {
+        const selectedOptions: SelectRichOption[] = options.map((option, index) => ({
+            ...option,
+            selected: index < 2,
+        }));
+
+        const shouldShowDisabledPills = () => {
+            cy.get('vl-select-rich').shadow().find('.js-vl-select').should('have.class', 'is-disabled');
+            cy.get('vl-select-rich')
+                .shadow()
+                .find('.vl-select__list--multiple .vl-select__item')
+                .should('have.length', 2)
+                .each(($pill) => {
+                    const style = getComputedStyle($pill[0]);
+                    expect(style.paddingRight).to.not.equal('0px');
+                    expect(style.paddingRight).to.equal(style.paddingLeft);
+                    cy.wrap($pill).find('.vl-pill__close').should('not.be.visible');
+                });
+        };
+
+        const shouldShowDeletablePills = () => {
+            cy.get('vl-select-rich').shadow().find('.js-vl-select').should('not.have.class', 'is-disabled');
+            cy.get('vl-select-rich')
+                .shadow()
+                .find('.vl-select__list--multiple .vl-select__item[data-deletable]')
+                .should('have.length', 2)
+                .each(($pill) => {
+                    expect(getComputedStyle($pill[0]).paddingRight).to.equal('0px');
+                    cy.wrap($pill).find('.vl-pill__close').should('be.visible');
+                });
+        };
+
+        it('should give a disabled pill equal padding on both sides and hide its remove button', () => {
+            cy.mount(html`
+                <vl-select-rich label="hobby's" multiple disabled .options=${selectedOptions}></vl-select-rich>
+            `);
+
+            shouldShowDisabledPills();
+        });
+
+        it('should keep no right padding on an enabled deletable pill', () => {
+            cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${selectedOptions}></vl-select-rich>`);
+
+            shouldShowDeletablePills();
+        });
+
+        it('should update the pills when disabled is toggled', () => {
+            cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${selectedOptions}></vl-select-rich>`);
+
+            shouldShowDeletablePills();
+            cy.get('vl-select-rich').invoke('attr', 'disabled', '');
+            shouldShowDisabledPills();
+            cy.get('vl-select-rich').invoke('removeAttr', 'disabled');
+            shouldShowDeletablePills();
+        });
+    });
+
     it('should search', () => {
         cy.mount(html`
             <div class="snapshot-wrapper" style="width: 400px; min-height: 300px; padding: 20px; background: white;">
