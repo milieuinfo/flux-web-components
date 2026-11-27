@@ -1,9 +1,10 @@
-import { html, nothing } from 'lit';
+import { html, nothing, TemplateResult } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { VlButtonComponent } from '../../atom/button/vl-button.component';
 import { VlInputFieldComponent } from './vl-input-field.component';
 import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
-registerWebComponents([VlInputFieldComponent, VlFormMessageComponent]);
+registerWebComponents([VlButtonComponent, VlInputFieldComponent, VlFormMessageComponent]);
 
 describe('cypress-component - form components - vl-input-field', () => {
     it('should mount', () => {
@@ -230,6 +231,76 @@ describe('cypress-component - form components - vl-input-field', () => {
         cy.get('vl-input-field').then(($el) => {
             $el[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'NumpadEnter', bubbles: true }));
         });
+        cy.get('@onSubmit').should('have.been.calledOnce');
+    });
+
+    const mountInFormWithButtons = (buttons: TemplateResult) => {
+        const onSubmit = cy.stub().as('onSubmit');
+        cy.mount(html`
+            <form
+                id="enter-form"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    onSubmit();
+                }}
+            >
+                <vl-input-field id="enter-field" name="enter-field"></vl-input-field>
+                ${buttons}
+            </form>
+        `);
+        cy.get('vl-input-field').shadow().find('input').type('waarde');
+    };
+
+    const pressEnter = () => cy.press(Cypress.Keyboard.Keys.ENTER);
+
+    it('should not submit the form on Enter while the submit vl-button is disabled', () => {
+        mountInFormWithButtons(html`<vl-button type="submit" disabled>Verstuur</vl-button>`);
+
+        pressEnter();
+        cy.get('@onSubmit').should('not.have.been.called');
+
+        cy.get('vl-button').invoke('removeAttr', 'disabled');
+        pressEnter();
+        cy.get('@onSubmit').should('have.been.calledOnce');
+    });
+
+    it('should not submit the form on Enter while the submit vl-button is loading, set as a property', () => {
+        mountInFormWithButtons(html`<vl-button type="submit" .loading=${true}>Verstuur</vl-button>`);
+        cy.get('vl-button').should('not.have.attr', 'loading');
+
+        pressEnter();
+        cy.get('@onSubmit').should('not.have.been.called');
+
+        cy.get('vl-button').invoke('prop', 'loading', false);
+        pressEnter();
+        cy.get('@onSubmit').should('have.been.calledOnce');
+    });
+
+    it('should not submit the form on Enter while the native submit button is disabled', () => {
+        mountInFormWithButtons(html`<button type="submit" disabled>Verstuur</button>`);
+
+        pressEnter();
+        cy.get('@onSubmit').should('not.have.been.called');
+
+        cy.get('#enter-form > button').invoke('prop', 'disabled', false);
+        pressEnter();
+        cy.get('@onSubmit').should('have.been.calledOnce');
+    });
+
+    it('should not submit the form on Enter while the first of two submit buttons is disabled', () => {
+        mountInFormWithButtons(html`
+            <vl-button type="submit" disabled>Bewaar</vl-button>
+            <vl-button type="submit">Verstuur</vl-button>
+        `);
+
+        pressEnter();
+        cy.get('@onSubmit').should('not.have.been.called');
+    });
+
+    it('should submit the form on Enter when a disabled vl-button has type="button"', () => {
+        mountInFormWithButtons(html`<vl-button type="button" disabled>Annuleer</vl-button>`);
+
+        pressEnter();
         cy.get('@onSubmit').should('have.been.calledOnce');
     });
 });

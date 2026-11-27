@@ -134,6 +134,17 @@ describe('cypress-component - atom components - vl-button', () => {
         cy.get('vl-button').shadow().find('button').should('have.class', 'loading');
     });
 
+    it('should set aria-disabled only when disabled or loading', () => {
+        cy.mount(html` <vl-button>Klik op mij</vl-button>`);
+        cy.get('vl-button').shadow().find('button').should('have.attr', 'aria-disabled', 'false');
+
+        cy.get('vl-button').invoke('attr', 'loading', '');
+        cy.get('vl-button').shadow().find('button').should('have.attr', 'aria-disabled', 'true');
+
+        cy.get('vl-button').invoke('removeAttr', 'loading').invoke('attr', 'disabled', '');
+        cy.get('vl-button').shadow().find('button').should('have.attr', 'aria-disabled', 'true');
+    });
+
     it('should keep the slot text in the accessible name when loading', () => {
         cy.mount(html` <vl-button loading>Bewaren</vl-button>`);
 
@@ -634,6 +645,17 @@ describe('cypress-component - atom components - vl-button - cta-link', () => {
 
         cy.get('vl-button').should('have.attr', 'loading');
         cy.get('vl-button').shadow().find('a').should('have.class', 'loading');
+    });
+
+    it('should set aria-disabled only when disabled or loading', () => {
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+        cy.get('vl-button').shadow().find('a').should('have.attr', 'aria-disabled', 'false');
+
+        cy.get('vl-button').invoke('attr', 'loading', '');
+        cy.get('vl-button').shadow().find('a').should('have.attr', 'aria-disabled', 'true');
+
+        cy.get('vl-button').invoke('removeAttr', 'loading').invoke('attr', 'disabled', '');
+        cy.get('vl-button').shadow().find('a').should('have.attr', 'aria-disabled', 'true');
     });
 
     it('should keep the slot text in the accessible name when loading', () => {

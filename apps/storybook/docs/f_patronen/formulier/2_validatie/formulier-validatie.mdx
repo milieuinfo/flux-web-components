@@ -64,6 +64,14 @@ Standaard gebeurt dit wanneer de form gesubmit wordt door bv.:
 - op de submit knop te klikken
 - de enter toets in te drukken terwijl een form control focus heeft
 
+Is de eerste submitknop van de form `disabled` of `loading`, dan verstuurt de enter toets in een form control van de
+library de form niet en wordt er dus ook niet gevalideerd. Wil je dat de enter toets dan toch valideert, zet dan een
+actieve submitknop eerst, of geef een uitgeschakelde knop die de form niet hoeft te versturen (bv. Vorige)
+`type="button"`. Doe dat niet met een submitknop die uitgeschakeld blijft tot alles geldig is: met `type="button"`
+verstuurt ook een klik erop de form niet meer. Met
+[blur-validatie](/docs/patronen-formulier-blur-validatie--documentatie) verschijnen de foutmeldingen in zo'n form al bij
+het verlaten van een veld.
+
 Je kan ook de [`checkValidity` methode](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/checkValidity) van de form control aanroepen om de validatiestatus van de form control te
 controleren.
 
