@@ -412,12 +412,7 @@ describe('cypress-component - block components - vl-functional-header - tabs', (
         cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('not.be.visible');
         cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').click();
         cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('be.visible');
-        cy.get('vl-tabs-next')
-            .shadow()
-            .find('.vl-tabs__mobile-dropdown')
-            .find('.vl-tabs__mobile-option')
-            .first()
-            .click();
+        cy.get('vl-tabs-next').find('vl-tab-link-next').first().shadow().find('a').click();
         cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('not.be.visible');
     });
 });
