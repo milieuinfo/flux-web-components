@@ -52,6 +52,6 @@ export const FormLabelWithAnnotation = story(
 );
 FormLabelWithAnnotation.storyName = 'vl-form-label - annotation';
 FormLabelWithAnnotation.args = {
-    label: 'Naam',
-    annotation: '(enkel achternaam)',
+    label: 'Telefoonnummer',
+    annotation: '(optioneel)',
 };

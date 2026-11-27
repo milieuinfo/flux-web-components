@@ -473,7 +473,12 @@ nieuw in v2:
 
 ### Form Annotation
 
-Wordt niet meer voorzien in v2, voor een foutboodschap dien je nu `<vl-form-message>` te gebruiken.
+`Form Annotation [legacy]` wordt in v2 vervangen door `<vl-form-message variant="annotation">`, voor een toelichting of
+een voorbeeld bij een veld, zie [Form Message](#form-validation-message--form-message). Koppel de message aan het veld
+met het `describedby` attribuut, zie
+[Voorbeeld bij een veld](/docs/components-form-form-label--documentatie#voorbeeld-bij-een-veld). Dat attribuut bestaat
+vanaf v2.17.0 op `vl-input-field` en vanaf v2.21.0 op alle form controls.<br/>
+Voor een foutboodschap gebruik je `<vl-form-message>` zonder `variant`.
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -494,6 +499,14 @@ Wordt niet meer voorzien in v2, voor een foutboodschap dien je nu `<vl-form-mess
         <td><code>{`<label is="vl-form-annotation">`}</code></td>
         <td>-</td>
         <td>-</td>
+    </tr>
+    <tr>
+        <td>[Form Message](/docs/components-form-form-message--documentatie)</td>
+        <td>release v2.15.0</td>
+        <td>-</td>
+        <td>-</td>
+        <td>components/form</td>
+        <td><code>{`<vl-form-message variant="annotation">`}</code></td>
     </tr>
 </table>
 

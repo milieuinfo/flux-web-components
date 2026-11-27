@@ -47,25 +47,77 @@ of een uitleg buiten de toegankelijke naam blijft.
 
 ## Annotatie
 
-Gebruik het `annotation` attribuut om extra uitleg of een voorbeeld inline naast de label tekst weer te geven.
+Gebruik het `annotation` attribuut voor een korte toevoeging inline naast de label tekst, zoals `(optioneel)`.
 De annotatie wordt kleiner en in een subtielere kleur weergegeven.
+
+De annotatie hoort niet bij de toegankelijke naam van het veld: een screenreader leest ze niet voor wanneer het veld de
+focus krijgt. Zet er dus geen voorbeeld of invulinstructie in, zie [Voorbeeld bij een veld](#voorbeeld-bij-een-veld).
+Hoe je een veld als optioneel markeert, lees je in
+[Verplichte en optionele velden](/docs/richtlijnen-toegankelijkheid-praktijk-richtlijnen--documentatie#verplichte-en-optionele-velden).
 
 <Canvas of={VlFormLabelStories.FormLabelWithAnnotation} />
 
 
+## Voorbeeld bij een veld
+
+Een voorbeeld of een formaat zet je niet tussen het label en het veld, maar in of onder het veld:
+
+- Een **voorbeeldwaarde** komt in het `placeholder` attribuut van het veld. Een placeholder is enkel te zien zolang het
+  veld leeg is: hij verdwijnt zodra de gebruiker typt, en in een veld dat al een waarde heeft, bijvoorbeeld in een
+  wijzigformulier, ziet de gebruiker hem niet. Een voorbeeld dat de gebruiker ook dan nodig heeft, komt onder het veld.
+- Een voorbeeld of formaat dat **zichtbaar moet blijven**, komt in een
+  [`vl-form-message`](/docs/components-form-form-message--documentatie) met `variant="annotation"` onder het veld. Geef
+  de message een `id` en verwijs ernaar met het `describedby` attribuut van het veld. Een screenreader leest de tekst
+  dan voor wanneer het veld de focus krijgt.
+
+```html
+<form class="vl-form vl-stacked vl-stacked-small">
+    <div>
+        <vl-form-label for="naam" label="Naam" block></vl-form-label>
+        <vl-input-field id="naam" name="naam" block placeholder="bv. Peeters"></vl-input-field>
+    </div>
+
+    <div>
+        <vl-form-label for="capakey" label="Capakey" block></vl-form-label>
+        <vl-input-field id="capakey" name="capakey" block describedby="capakey-annotation"></vl-input-field>
+        <vl-form-message variant="annotation" id="capakey-annotation">
+            Bijvoorbeeld: 12345A6789/12B345
+        </vl-form-message>
+    </div>
+</form>
+```
+
+Het label staat zo even ver van zijn veld als bij een veld zonder voorbeeld. Je mag beide combineren, zoals in het
+[form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld: een voorbeeldwaarde als placeholder en een
+instructie of formaat onder het veld.
+
+### Waarom niet tussen het label en het veld?
+
+Een `<p>` of een `vl-text` met het voorbeeld tussen het label en het veld geeft te veel witruimte boven het voorbeeld.
+`vl-form-label` houdt onder zijn tekst altijd de afstand tot het veld vrij, en het voorbeeld komt daaronder op een
+eigen regel met de regelhoogte van de pagina. Het voorbeeld staat daardoor verder van zijn label dan van het veld, en
+het label staat verder van zijn veld dan bij een veld zonder voorbeeld. `vl-form-label` past die afstand niet aan op
+wat er na het label volgt.
+
+Zo een losse tekst is bovendien niet aan het veld gekoppeld: een screenreader leest ze niet voor wanneer het veld de
+focus krijgt.
+
+
 ## Witruimte naast annotatie corrigeren
 
-Wanneer een `vl-form-label` met een `annotation` onmiddellijk gevolgd wordt door een `vl-text[annotation]`-sibling in de light DOM,
+Wanneer een `vl-form-label` onmiddellijk gevolgd wordt door een `vl-text[annotation]`-sibling in de light DOM,
 kan er een ongewenste witruimte verschijnen tussen de twee elementen.
-Dit is een light-DOM compositieprobleem: de marge van het label kan niet via de shadow DOM worden aangepast op basis van een sibling-relatie.
+Dit is een light-DOM compositieprobleem: `vl-form-label` past de marge van het label niet aan op het element dat erop volgt.
 
-Voeg deze CSS-regel toe in de styles van de host component:
+Met het `annotation` attribuut staat de annotatie in het label zelf en is er geen correctie nodig.
+Zet je de annotatie toch in een losse `vl-text[annotation]` naast het label, voeg dan deze CSS-regel toe in de styles van de host component:
 
 ```css
 vl-form-label:has(+ vl-text[annotation])::part(label) {
     margin-right: 0;
 }
 ```
+
 
 ## Referenties
 

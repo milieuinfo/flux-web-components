@@ -77,6 +77,33 @@ describe('cypress-component - integrations - vl-form-demo', () => {
         getNaamInput().find('input').should('have.attr', 'autocomplete', 'family-name');
     });
 
+    it('should keep the label of a field with an example as close to its field as a label without one', () => {
+        cy.viewport(1200, 800);
+        cy.mount(html`<vl-form-demo></vl-form-demo>`);
+
+        getGeboortePlaatsSelectRich().find('.vl-select__inner');
+        cy.get('vl-form-demo')
+            .shadow()
+            .should(($shadowRoot) => {
+                // De hosts zijn inline: in WebKit telt de rect van vl-select-rich de marge van het label mee.
+                // Meet daarom op het label en op het zichtbare veld in hun shadow root.
+                const distanceToField = (id: string, fieldSelector: string) => {
+                    const formLabel = $shadowRoot[0].querySelector(`vl-form-label[for="${id}"]`);
+                    const formControl = $shadowRoot[0].querySelector(`[id="${id}"]`);
+                    const label = formLabel?.shadowRoot?.querySelector('label');
+                    const field = formControl?.shadowRoot?.querySelector(fieldSelector);
+                    if (!label || !field) {
+                        throw new Error(`label or field of ${id} not found`);
+                    }
+                    return Math.round(field.getBoundingClientRect().top - label.getBoundingClientRect().bottom);
+                };
+                const distanceWithExample = distanceToField('naam', 'input');
+
+                expect(distanceWithExample).to.be.greaterThan(0);
+                expect(distanceWithExample).to.equal(distanceToField('geboorteplaats', '.vl-select__inner'));
+            });
+    });
+
     it('should keep the asterisk out of the accessible name of the related fields', () => {
         cy.mount(html`<vl-form-demo></vl-form-demo>`);
 
