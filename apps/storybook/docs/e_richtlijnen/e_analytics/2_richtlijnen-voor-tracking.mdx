@@ -1,0 +1,247 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Richtlijnen/Analytics/Richtlijnen voor tracking"/>
+
+# Richtlijnen voor tracking
+
+Matomo tracking levert pas bruikbare inzichten op als je vooraf weet welke vragen je ermee wil beantwoorden. Deze
+richtlijnen helpen om dat per toepassing gericht en op een consistente manier te doen. Wat Matomo is en welke
+Matomo-omgevingen er zijn, lees je in [Matomo Analytics](/docs/richtlijnen-analytics-matomo-analytics--documentatie).
+
+## Inhoudstafel
+
+- [Vertrek van de belangrijkste user flows](#vertrek-van-de-belangrijkste-user-flows)
+- [Wat Matomo al logt](#wat-matomo-al-logt)
+- [Events](#events)
+- [Events vanuit Flux-componenten](#events-vanuit-flux-componenten)
+- [Links en downloads in Flux-componenten](#links-en-downloads-in-flux-componenten)
+- [Privacy](#privacy)
+- [Omgevingen en controle](#omgevingen-en-controle)
+- [Opvolgen](#opvolgen)
+- [Meer info](#meer-info)
+
+
+## Vertrek van de belangrijkste user flows
+
+- Breng per toepassing de belangrijkste user flows in kaart, bv. een aanvraag indienen of een document opzoeken en
+  downloaden. Beperk je tot een handvol flows.
+- Bepaal per flow welke vragen je wil beantwoorden: hoeveel gebruikers starten de flow, hoeveel ronden hem af en bij
+  welke stap haken ze af?
+- Track enkel wat bijdraagt aan die vragen. Meer data maakt de analyse niet beter, wel moeilijker.
+- Leg de flows en hun metingen vast in een tracking plan in de documentatie van de toepassing, met een rij per stap.
+  Zo zie je achteraf bij welke stap gebruikers afhaken. Een voorbeeld voor de flow "Aanvraag indienen":
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Stap</th>
+            <th scope="col">Meting in Matomo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>De gebruiker opent de startpagina van de aanvraag</td>
+            <td>pageview</td>
+        </tr>
+        <tr>
+            <td>De gebruiker start een aanvraag</td>
+            <td>event <code>Aanvraag</code> / <code>Aanvraag gestart</code> / type aanvraag</td>
+        </tr>
+        <tr>
+            <td>De bijlagen zijn toegevoegd</td>
+            <td>event <code>Aanvraag</code> / <code>Bijlagen toegevoegd</code> / type aanvraag</td>
+        </tr>
+        <tr>
+            <td>De aanvraag is ingediend</td>
+            <td>event <code>Aanvraag</code> / <code>Aanvraag ingediend</code> / type aanvraag</td>
+        </tr>
+    </tbody>
+</table>
+
+
+## Wat Matomo al logt
+
+Met `matomo-id` en `matomo-url` op
+[`vl-cookie-consent`](/docs/components-compliance-cookie-consent--documentatie) laadt de toepassing Matomo. De
+component stuurt een pageview bij het laden en activeert `enableLinkTracking`. Kijk eerst wat Matomo zo zonder extra
+code al logt, voor je eigen events toevoegt:
+
+- **Pageviews** bij het laden van een pagina. In een single page application stuurt de toepassing zelf een pageview
+  bij elke navigatie, met `setCustomUrl`, `setDocumentTitle` en `trackPageView`. De URL van `setCustomUrl` geldt ook
+  voor de events die daarna volgen: zonder blijven ze op de URL van de eerste pagina staan. Een custom dimension van
+  de vorige pagina blijft meegaan tot je ze wist met `deleteCustomDimension`. Na het laden stuurt `vl-cookie-consent`
+  zelf een pageview bij elk `hashchange` event: bij een klik op een link of een anker dat de browser zelf volgt, bij
+  een wijziging van `location.hash`, en bij terug of vooruit in de browser. Wijzigt de toepassing de hash zo, stuur er
+  dan geen tweede. Een router die de URL met de History API wijzigt, ook in hash-modus (zoals Vue Router, React Router
+  en Angular), geeft bij navigatie geen `hashchange`: stuur de pageview daar zelf.
+- **Uitgaande links en downloads**. Matomo logt een klik op een link naar een ander domein als uitgaande link. Als
+  download logt het een klik op een link met een bestandsextensie zoals `.pdf` of `.zip`, met een `download` attribuut
+  of met de class `matomo_download`, ook als de link naar een ander domein gaat. Een andere link binnen het eigen
+  domein, bv. een download-URL zonder extensie, logt Matomo niet vanzelf. Een link in de shadow DOM van een
+  Flux-component, bv. `vl-link`, logt Matomo niet zonder de optie uit
+  [Links en downloads in Flux-componenten](#links-en-downloads-in-flux-componenten).
+- **Zoekopdrachten**. Staat de zoekterm in de URL van een pageview, in een van de parameters `q`, `query`, `s`,
+  `search`, `searchword`, `k`, `keyword` of `keywords`, dan herkent Matomo die pageview standaard zelf als
+  zoekopdracht. Of dat aan staat en welke parameters gelden, is in Matomo per website instelbaar. Staat de zoekterm
+  niet in de URL, stuur dan `trackSiteSearch` met de zoekterm, een categorie (of `false`) en het aantal resultaten.
+  Matomo raadt aan om voor die resultaten dan geen `trackPageView` meer te sturen. Staat de zoekterm wel in de URL,
+  stuur dan niet ook nog `trackSiteSearch`: de zoekopdracht wordt dan 2 keer gelogd. Zoektermen kunnen
+  persoonsgegevens bevatten, zie [Privacy](#privacy).
+
+
+## Events
+
+Een Matomo event bestaat uit een category, een action, een optionele name en een optionele value:
+
+- **category**: het functionele domein of onderdeel, bv. `Documenten` of `Aanvraag`
+- **action**: wat de gebruiker deed, als voltooid deelwoord, bv. `Document gedownload` of `Filter toegepast`
+- **name**: waarop de actie betrekking heeft, bv. het type document of de naam van de filter
+- **value**: enkel een getal dat je wil optellen of uitmiddelen, bv. het aantal bijlagen bij een aanvraag
+
+Afspraken:
+
+- Gebruik leesbare Nederlandstalige namen die met een hoofdletter beginnen, zonder technische termen of id's. Hou de
+  schrijfwijze overal dezelfde: voor Matomo zijn `Aanvraag` en `aanvraag` 2 verschillende waarden.
+- Hou de lijst van categories en actions kort en vast. Definieer ze op 1 plek in de toepassing, bv. in een
+  `analytics.js` module, in plaats van losse strings in de templates.
+- Een event beschrijft wat er gebeurd is, niet waar er geklikt werd: `Aanvraag ingediend` is beter dan
+  `Klik op indienen`. Stuur het event pas als de actie gelukt is.
+
+```js
+// analytics.js
+export const trackEvent = (category, action, name, value) => {
+    window._paq = window._paq || [];
+    window._paq.push(['trackEvent', category, action, name, value]);
+};
+```
+
+```js
+import { trackEvent } from './analytics.js';
+
+const dienAanvraagIn = async () => {
+    await verstuurAanvraag();
+    trackEvent('Aanvraag', 'Aanvraag ingediend', aanvraagType);
+};
+```
+
+De helper zet het event in `window._paq`, ook als Matomo nog niet geladen is: Matomo verstuurt het dan zodra het
+geladen is.
+
+
+## Events vanuit Flux-componenten
+
+Flux-componenten sturen zelf geen Matomo events: de category, de action en de name horen bij het tracking plan van de
+toepassing, en enkel de toepassing weet of een actie gelukt is. De toepassing koppelt de events dus zelf aan de
+componenten. Lees ook het recept [Events](/docs/recepten-events--documentatie).
+
+- Heeft de component een eigen event voor de actie, luister daarnaar: `vl-click` bij `vl-button` en `vl-link`. Je
+  vindt de events bij de configuratie van elke component.
+- Een component zonder eigen event voor de klik, zoals `vl-spotlight`, laat het `click` event van zijn link door: daar
+  werkt een `@click` listener op de component. Die vuurt bij elke klik binnen de component, ook op inhoud in een
+  slot die de link niet volgt, en niet bij een klik met de middelste muisknop. Gebruik `@click` niet op `vl-checkbox`,
+  `vl-radio` of `vl-tabs`: daar komt het event meerdere keren per klik binnen, of zonder klik.
+- Kijk na wanneer een event vuurt voor je er een meting aan hangt. `vl-change` van `vl-checkbox` en `vl-input-field`
+  vuurt ook bij de eerste render en als de toepassing de waarde zelf zet, en bij `vl-input-field` bij elke
+  toetsaanslag. `vl-close` van `vl-modal` en `vl-modal-next` vuurt bij elke sluiting, ook via `close()`, en zegt niet
+  hoe de modal gesloten werd. Log daarom de afgeronde actie (de knop, of het geslaagde verzoek), niet het veld of het
+  sluiten.
+
+```js
+html`
+    <vl-button @vl-click=${() => trackEvent('Aanvraag', 'Aanvraag gestart', aanvraagType)}>
+        Start aanvraag
+    </vl-button>
+`;
+```
+
+
+## Links en downloads in Flux-componenten
+
+Voor uitgaande links en downloads in de shadow DOM van Flux-componenten heeft `vl-cookie-consent` de optie
+`matomo-shadow-dom-link-tracking`, of de functie `enableMatomoShadowDomLinkTracking` als de toepassing Matomo zelf
+laadt. De optie is opt-in. Wat ze logt, wat niet en welke beperkingen ze heeft, lees je in
+[Matomo link tracking in web-componenten](/docs/components-compliance-cookie-consent--documentatie#matomo-link-tracking-in-web-componenten).
+Stuurt de toepassing vandaag zelf `trackLink` bij een klik op een component, lees dat dan eerst na: met de optie
+erbij kan dezelfde klik 2 keer gelogd worden.
+
+Een eigen event naast de download, bv. `Documenten` / `Document gedownload` met het type document, is een aparte
+meting. Hangt het aan een `@click` op een component zoals `vl-spotlight`, dan telt het de klikken op de component en
+niet de downloads zelf: de aantallen kunnen afwijken van de downloads in Matomo.
+
+
+## Privacy
+
+- Stuur nooit persoonsgegevens naar Matomo: geen namen, e-mailadressen, rijksregisternummers, dossiernummers of andere
+  gegevens die naar een persoon leiden. Dat geldt voor alles wat Matomo meekrijgt: de name van een event, een custom
+  dimension, de URL (ook het pad en de hash), de paginatitel, de referrer, zoektermen en de URL van een uitgaande link
+  of download waarop geklikt wordt.
+- Bevat de URL query parameters met zulke gegevens, sluit die dan uit met `setExcludedQueryParams`. Doe dat voor
+  `vl-cookie-consent` in de pagina komt, anders gaat de eerste pageview nog met de parameter weg:
+
+```js
+window._paq = window._paq || [];
+window._paq.push(['setExcludedQueryParams', ['token']]);
+```
+
+- `setExcludedQueryParams` haalt enkel query parameters weg. Staat er een id of een naam in het pad van de URL, geef
+  dan op dezelfde manier een neutrale URL door met `setCustomUrl`. Dat houdt enkel stand zolang de hash van de URL
+  niet wijzigt. Bij elk `hashchange` event (zie Pageviews onder [Wat Matomo al logt](#wat-matomo-al-logt)), ook bij
+  een klik op een anker in de pagina dat de browser zelf volgt, stuurt `vl-cookie-consent` zelf een pageview en
+  vervangt het een eigen `setCustomUrl`. In de URL van die pageview staat wat na de `#` staat, bij een hash die niet
+  met een `/` begint (zoals een anker) na het pad van de pagina zonder het laatste deel. Bij het eerste `hashchange`
+  event gaat ook het adres waarop de pagina geladen werd mee, als referrer. Hou het pad en de hash dan zelf vrij van
+  zulke gegevens. Hou ook de paginatitel vrij van zulke gegevens: Matomo stuurt de titel met elke pageview mee.
+- Gebruik `setUserId` enkel na afstemming met de functionaris voor gegevensbescherming (DPO).
+- `vl-cookie-consent` rekent Matomo bij de noodzakelijke cookies. Met `matomo-id` en `matomo-url` start Matomo zodra
+  de component in de pagina staat, zonder op een keuze van de bezoeker te wachten, en de bezoeker kan dat in de cookie
+  consent niet uitzetten: de opt-in voor noodzakelijke cookies is verplicht, en een opt-in die de toepassing toevoegt,
+  schakelt Matomo niet vanzelf in of uit. Schakelt de toepassing de verplichte opt-in zelf uit, dan start Matomo niet.
+  Matomo zet standaard cookies: `_pk_id` en `_pk_ses`, en bij een bezoek via een andere website of een campagne ook
+  `_pk_ref`. Stem met de DPO af of dat voor de toepassing volstaat.
+- Moet Matomo zonder cookies meten of op toestemming wachten, dan stelt de toepassing dat zelf in. Zet `disableCookies`
+  of `requireConsent` in `window._paq` voor `vl-cookie-consent` in de pagina komt, op dezelfde manier als
+  `setExcludedQueryParams` hierboven. Met `disableCookies` meet Matomo zonder cookies. Met `requireConsent` laadt
+  Matomo wel, maar verstuurt het geen metingen en zet het geen cookies tot de toepassing zelf `setConsentGiven`
+  aanroept: `vl-cookie-consent` geeft de keuze van de bezoeker niet aan Matomo door.
+
+
+## Omgevingen en controle
+
+- Laat elke omgeving van de toepassing naar de bijhorende Matomo-omgeving loggen, zodat testverkeer de cijfers van
+  productie niet vervuilt. Geef `matomo-url` (de URL van de Matomo-omgeving, met een `/` op het einde) en `matomo-id`
+  daarom per omgeving mee: een site-ID geldt binnen 1 Matomo-omgeving. Zie
+  [Omgevingen](/docs/richtlijnen-analytics-matomo-analytics--documentatie#omgevingen).
+- Onder een strikte Content Security Policy laat je de host van Matomo toe in `script-src` (de tracker) en
+  `connect-src` (de requests). Matomo raadt aan hem ook in `img-src` te zetten, voor als de tracker een request als
+  afbeelding verstuurt. Zie
+  [Hoe CSP Activeren](/docs/richtlijnen-content-security-policy-hoe-csp-activeren--documentatie).
+- Controleer nieuwe events eerst op de ontwikkelomgeving:
+    - in de browser: in de netwerk-tab van de developer tools zie je per event een request naar `piwik.php` of
+      `matomo.php`, met in de URL de parameters `e_c` (category), `e_a` (action), `e_n` (name) en `e_v` (value), bij
+      een uitgaande link of download de parameter `link` of `download`. Het is een POST-request, in Chrome van het
+      type ping: onder de filter Fetch/XHR staat hij daar niet.
+    - in Matomo: in het bezoekerslog (Visitors > Visits Log, in het Nederlands Bezoekers > Bezoekerslogboek) of in de
+      realtime weergave
+
+
+## Opvolgen
+
+- Maak in Matomo een doel (goal) voor het einde van elke belangrijke flow, bv. op het event met de action
+  `Aanvraag ingediend`. Een doel op een event kijkt naar 1 kenmerk (de category, de action of de name): geef het einde
+  van een flow dus een action die nergens anders voorkomt. Een doel telt standaard 1 keer per bezoek: je ziet in
+  hoeveel bezoeken de flow afgerond werd.
+- Vergelijk de aantallen van de events per stap om te zien bij welke stap gebruikers afhaken.
+- Bekijk de cijfers op regelmatige basis en stuur bij: verwijder events die niemand gebruikt en vul aan waar een vraag
+  onbeantwoord blijft.
+
+
+## Meer info
+
+- [Matomo JavaScript tracking guide](https://developer.matomo.org/guides/tracking-javascript-guide)
+- [Matomo JavaScript tracking API](https://developer.matomo.org/api-reference/tracking-javascript)
+- [Matomo event tracking](https://matomo.org/guide/reports/event-tracking/)
+- [Matomo tracking in een single page application](https://developer.matomo.org/guides/spa-tracking)
+- [Matomo site search](https://matomo.org/faq/reports/tracking-site-search-keywords/)
+- [Matomo en persoonsgegevens](https://matomo.org/faq/general/faq_18254/)
+- [Matomo en toestemming](https://developer.matomo.org/guides/tracking-consent)
+- [Matomo en Content Security Policy](https://matomo.org/faq/general/faq_20904/)

@@ -15,17 +15,23 @@ toe om via *custom dimensions* en *events* extra context mee te sturen.
 
 Meer info op de [Matomo website](https://matomo.org/).
 
+Hoe je tracking in een toepassing aanpakt, lees je in de
+[richtlijnen voor tracking](/docs/richtlijnen-analytics-richtlijnen-voor-tracking--documentatie).
+
 
 ## Omgevingen
 
-Voor de Storybook-logging maken we gebruik van drie Matomo-omgevingen van Departement Omgeving:
+Departement Omgeving heeft drie Matomo-omgevingen:
 
-- [https://stats-ontwikkel.omgeving.vlaanderen.be](https://stats-ontwikkel.omgeving.vlaanderen.be) - ontwikkelomgeving,
-  ook gebruikt vanaf lokale hosts (`localhost`, `127.0.0.1`, `192.168.*`)
+- [https://stats-ontwikkel.omgeving.vlaanderen.be](https://stats-ontwikkel.omgeving.vlaanderen.be) - ontwikkelomgeving
 - [https://stats-oefen.omgeving.vlaanderen.be](https://stats-oefen.omgeving.vlaanderen.be) - oefenomgeving
 - [https://stats.omgeving.vlaanderen.be](https://stats.omgeving.vlaanderen.be) - productieomgeving
 
-De productieomgeving is degene die je best raadpleegt.
+Een toepassing logt vanuit elke omgeving naar de bijhorende Matomo-omgeving, zie
+[Omgevingen en controle](/docs/richtlijnen-analytics-richtlijnen-voor-tracking--documentatie#omgevingen-en-controle).
+
+Ook de Storybook-logging maakt gebruik van deze drie omgevingen; vanaf lokale hosts (`localhost`, `127.0.0.1`,
+`192.168.*`) logt Storybook altijd naar de ontwikkelomgeving. De productieomgeving is degene die je best raadpleegt.
 
 
 ## Matomo logging in Storybook

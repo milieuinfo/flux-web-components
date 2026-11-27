@@ -117,8 +117,15 @@ export class VlCookieConsent extends BaseHTMLElement {
             this.initialized = true;
             const matomoId = this.getAttribute('matomo-id');
             const matomoUrl = this.getAttribute('matomo-url');
+            const shadowDomLinkTracking = this.hasAttribute('matomo-shadow-dom-link-tracking');
             if (matomoId && matomoUrl) {
-                analytics.setMatomoConfig(parseInt(matomoId), matomoUrl);
+                analytics.setMatomoConfig(parseInt(matomoId), matomoUrl, shadowDomLinkTracking);
+            } else if (shadowDomLinkTracking) {
+                console.warn(
+                    'Het attribuut `matomo-shadow-dom-link-tracking` van `<vl-cookie-consent>` werkt enkel samen ' +
+                        'met `matomo-id` en `matomo-url`. Laadt de toepassing Matomo zelf, gebruik dan ' +
+                        '`enableMatomoShadowDomLinkTracking()`.'
+                );
             }
             this.__addAnalyticsIfOptedIn();
         }

@@ -21,7 +21,16 @@ export default {
 
 export const CookieConsentDefault = story(
     cookieConsentArgs,
-    ({ analytics, autoOptInFunctionalDisabled, owner, link, matomoId, matomoUrl, onClose }) => {
+    ({
+        analytics,
+        autoOptInFunctionalDisabled,
+        owner,
+        link,
+        matomoId,
+        matomoUrl,
+        matomoShadowDomLinkTracking,
+        onClose,
+    }) => {
         const handleOpenClick = () => {
             document.querySelector<any>('#cookie-consent')?.open();
         };
@@ -33,6 +42,7 @@ export const CookieConsentDefault = story(
                     analytics=${analytics}
                     matomo-id=${matomoId}
                     matomo-url=${matomoUrl}
+                    ?matomo-shadow-dom-link-tracking=${matomoShadowDomLinkTracking}
                     auto-open-disabled=""
                     ?auto-opt-in-functional-disabled=${autoOptInFunctionalDisabled}
                     owner=${owner}
