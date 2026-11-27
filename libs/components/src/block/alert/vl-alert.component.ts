@@ -157,8 +157,8 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
     }
 
     private removeAlert() {
-        this.remove();
         this.dispatchEvent(new VlAlertClosedEvent());
+        this.remove();
     }
 }
 

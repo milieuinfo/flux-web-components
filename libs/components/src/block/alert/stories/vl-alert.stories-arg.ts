@@ -183,7 +183,8 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
     },
     alertClosed: {
         name: VlAlertClosedEvent.eventType,
-        description: 'Afgevuurd wanneer de alert wordt gesloten.',
+        description:
+            'Afgevuurd wanneer de gebruiker de alert sluit met de sluitknop, net voor hij uit de DOM verdwijnt. Het event bubbelt, ook over shadow roots heen, zodat je er op een parent naar kan luisteren.<br/>Luister je buiten de shadow root waarin de alert staat (bv. bij `vl-toaster`), dan is `event.target` de host van die shadow root. De alert zelf vind je via `event.composedPath()[0]`.',
         table: {
             type: { summary: '-' },
             category: CATEGORIES.EVENTS,
