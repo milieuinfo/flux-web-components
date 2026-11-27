@@ -27,6 +27,7 @@ export class VlPillComponent extends BaseLitElement {
         this.clickable = false;
         this.checked = false;
         this.checkboxRef = createRef();
+        this.addEventListener('click', this.toggleOnClickFromCode);
     }
 
     static get styles() {
@@ -77,6 +78,20 @@ export class VlPillComponent extends BaseLitElement {
             'vl-pill--error': this.type === TYPE.ERROR,
         };
     }
+
+    // Een echte klik of de spatiebalk loopt via het label of de checkbox en wisselt daar. Een klik vanuit code
+    // (pill.click(), een testtool) landt op de host zelf en bereikt het label niet: enkel die wisselt hier.
+    private toggleOnClickFromCode = (event: MouseEvent) => {
+        const isClickFromCode = !event.isTrusted && event.composedPath()[0] === this;
+        if (!this.checkable || this.closable || this.disabled || !isClickFromCode || event.defaultPrevented) {
+            return;
+        }
+        // Meteen na het toevoegen van de pill of na een property-wijziging is de checkbox nog niet bijgewerkt.
+        if (this.isUpdatePending) {
+            this.performUpdate();
+        }
+        this.checkboxRef.value?.click();
+    };
 
     updated(changedProperties: any) {
         changedProperties.forEach((oldValue: any, propName: any) => {

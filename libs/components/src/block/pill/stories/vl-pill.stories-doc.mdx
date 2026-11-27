@@ -34,6 +34,10 @@ import { VlPillComponent } from '@domg-wc/components/block';
 
 <Canvas of={VlPillStories.PillAllVariants} />
 
+### Checkable
+
+Een klik op de pill of de spatiebalk vinkt een `checkable` pill aan of uit en geeft het `check` event, met de nieuwe toestand in `detail.checked`. Dat geldt ook voor een klik vanuit code (`pill.click()`) en voor `cy.get('vl-pill').click()` in een Cypress-test: `force: true` is daar niet nodig. Een `disabled` pill wisselt niet. In een Cypress-test faalt `cy.get('vl-pill').click()` op een `disabled` pill: Cypress klikt zelf niet op een element dat `disabled` is.
+
 ### Aangepaste kleuren
 
 De kleuren van vl-pill zijn aanpasbaar met de volgende CSS variabelen:
